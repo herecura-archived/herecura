@@ -88,6 +88,8 @@ build() {
 	# Now (finally) build
 	msg2 "Running make" 
 	make || return 1
+	make -C lib/addons/script.module.pil || return 1
+	make -C lib/addons/script.module.pysqlite || return 1
 }
 
 package() {
