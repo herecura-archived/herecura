@@ -94,6 +94,7 @@ ncurses
 neon
 net-tools
 ntp
+openssh
 openssl
 pacman
 pacman-mirrorlist
