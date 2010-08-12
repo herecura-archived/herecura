@@ -1,0 +1,4 @@
+#!/bin/bash
+repo=herecura-testing/$(arch)
+repository=herecura-testing
+keepsource=1

@@ -1,0 +1,59 @@
+#!/bin/bash
+archb=$(arch)
+bsfile=~/herecura/basesystemlist
+dest=/mnt/packages/repo
+thisfolder=`pwd`
+source ../repository
+
+packagesdir=${dest}/${repo}
+if [ -d ${packagesdir} ]; then
+  echo "packagesdir exists"
+else
+  mkdir -p $packagesdir
+  if [ $? -eq 0 ]; then
+    echo "packagesdir created"
+  else
+    echo "failed to create packagesdir EXIT"
+    exit
+  fi
+fi
+
+echo "------------------------------------------------------------"
+echo "Update System"
+echo "------------------------------------------------------------"
+sudo pacman -Syu --noconfirm
+
+source PKGBUILD
+echo "run makepkg for ${thisfolder##*/}"
+mkres=9
+if [ $keepsource -eq 1 ]; then
+  #echo "PKGDEST=${packagesdir} makepkg -s --noconfirm $@ &> ${logdir}/${pkgname}.log"
+  PKGDEST=${packagesdir} makepkg -s --log --noconfirm $@
+  mkres=$?
+else
+  #echo "PKGDEST=${packagesdir} makepkg -s -c --noconfirm $@ &> ${logdir}/${pkgname}.log"
+  PKGDEST=${packagesdir} makepkg -s -c --log --noconfirm $@
+  mkres=$?
+fi
+if [ $mkres -eq 0 ]
+then
+  echo "package ${thisfolder##*/}-${pkgver} .pkg successfully built"
+  rm -f *.log*
+  curdir=$(pwd)
+  cd ${packagesdir}
+  find -name "${thisfolder##*/}*" -mmin +80 | xargs rm
+  repo-add ${repository}.db.tar.gz ${thisfolder##*/}*.pkg.*
+  cd ${curdir}
+elif [ $mkres -eq 1 ]
+then
+  echo "package ${thisfolder##*/}-${pkgver} .pkg already exists"
+elif [ $mkres -eq 2 ]
+then
+  echo "package ${thisfolder##*/}-${pkgver} .pkg failed"
+else
+  echo "package ${thisfolder##*/}-${pkgver} .pkg something very strange happend"
+fi
+rm -f *.pkg.*
+cleansystem
+
+# vim:set ts=2 sw=2 et:

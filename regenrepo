@@ -1,0 +1,13 @@
+#!/bin/bash
+dest=/mnt/packages/repo
+source repository
+
+packagesdir=${dest}/${repo}
+
+cd ${packagesdir}
+if [ "$1" = "clean" ]
+then
+  rm -f ${repository}.db.tar.*
+fi
+repo-add ${repository}.db.tar.gz *.pkg.tar.*
+

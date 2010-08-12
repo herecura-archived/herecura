@@ -1,0 +1,24 @@
+# Maintainer: Jeremy Sands cto@jeremysands.com
+
+pkgname=opera-adblock-complete
+pkgver=2010.08.08
+pkgrel=1
+pkgdesc="Fanboy's AdBlock Filterset for Opera including Stat/Tracking Filters"
+arch=('i686' 'x86_64')
+url="http://www.fanboy.co.nz/adblock/opera/"
+license=('cc-by-3.0')
+depends=('opera')
+source=('urlfilter.ini'
+    'fanboy-adblocklist-elements-v3.css')
+sha256sums=('eac2bbc5f73e791fc18b6ef0be41172d3c00e6be2a0f446550ede92a4ffd558f'
+            '0d97315627a3ec78bb494441d27fa3bf0d73c86e4b82ed423cb7b52eb954dd0f')
+
+build() {
+  cd "$startdir"/src/
+  mkdir -p "$startdir"/pkg/usr/share/"$pkgname"/
+  install -m644 urlfilter.ini "$startdir"/pkg/usr/share/"$pkgname"/urlfilter.ini
+  install -m644 fanboy-adblocklist-elements-v3.css "$startdir"/pkg/usr/share/"$pkgname"/adblock-elements.css
+}
+install=${pkgname}.install
+
+# vim:set ts=2 sw=2 et:

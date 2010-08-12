@@ -1,0 +1,39 @@
+# $Id$
+# Maintainer: Dino Krtanjek <krtanjekdino@gmail.com>
+# Maintainer: Richard Rowe <arch.richard@gmail.com>
+pkgname=php-mongo-git
+pkgver=20100812
+pkgrel=1
+pkgdesc="Officially supported PHP driver for MongoDB"
+arch=("i686" "x86_64")
+url="http://www.mongodb.org/display/DOCS/PHP+Language+Center"
+license=("APACHE")
+depends=("php" "mongodb-git")
+makedepends=( 'git' )
+backup=("etc/php/conf.d/mongo.ini")
+source=("mongo.ini")
+md5sums=('6a34ebbedfbeb7b2462fbba936afea04')
+
+_gitroot="http://github.com/mongodb/mongo-php-driver.git"
+_gitname="mongo-php-driver"
+
+build() {
+	if [ -d ${srcdir}/${_gitname} ] ; then
+		cd ${srcdir}/${_gitname} && git pull origin
+		msg "The local files are updated."
+	else
+		git clone ${_gitroot} || return 1
+		cd ${srcdir}/${_gitname}
+	fi
+	msg "Git checkout done or server timeout"
+	cd ${srcdir}
+	if [ -d ${_gitname}-build ]; then
+		rm -rf ${_gitname}-build
+	fi
+	git clone ${_gitname} ${_gitname}-build
+	cd ${srcdir}/${_gitname}-build
+	phpize || return 1
+	./configure --prefix=/usr --enable-mongo || return 1
+	make INSTALL_ROOT=$pkgdir install || return 1
+	install -Dm644 $srcdir/mongo.ini "$pkgdir/etc/php/conf.d/mongo.ini"
+}

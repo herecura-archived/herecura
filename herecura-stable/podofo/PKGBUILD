@@ -1,0 +1,43 @@
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: Preecha Patumchareonpol <yumyai at gmail.com> 
+
+pkgname=podofo
+pkgver=0.8.1
+pkgrel=6
+pkgdesc="PoDoFo is a library to work with the PDF file format."
+arch=('i686' 'x86_64')
+url="http://podofo.sourceforge.net"
+license=('GPL')
+depends=( 'gcc-libs' 'fontconfig' 'libpng' 'libtiff' 'zlib')
+makedepends=( 'cmake' )
+optdepends=( 'cppunit' 'lua')
+install=
+source=(
+	"http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
+	'podofo-0.8.1-casts.patch'
+)
+md5sums=(
+	'1d5cc8c03e2942266f96a7e8bf09dd0e'
+	'49e4af041434435ff4b9b9c879ce6ab3'
+)
+
+build() {
+	cd ${pkgname}-${pkgver}
+	patch -Np1 -i ${startdir}/podofo-0.8.1-casts.patch || return 1
+	if [ -d build ]; then
+		rm -Rf build
+	fi
+	mkdir build
+	cd build
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .. \
+	-DPODOFO_BUILD_SHARED=1 \
+	-DPODOFO_HAVE_JPEG_LIB=1 \
+	-DPODOFO_HAVE_PNG_LIB=1 \
+	-DPODOFO_HAVE_TIFF_LIB=1 || return 1
+	make || return 1
+}
+
+package() {
+	cd ${pkgname}-${pkgver}/build
+	make DESTDIR=$pkgdir install || return 1
+}

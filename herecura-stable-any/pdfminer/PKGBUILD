@@ -1,0 +1,25 @@
+# Contributor BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: James Feng Cao
+
+pkgname=pdfminer
+pkgver=20100619p1
+pkgrel=1
+pkgdesc="python utils to extract, analyze text data of PDF files."
+arch=('any')
+url="http://www.unixuser.org/~euske/python/pdfminer/"
+license=('MIT/X')
+groups=()
+depends=('python')
+backup=()
+options=()
+install=
+source=("http://pypi.python.org/packages/source/p/pdfminer/${pkgname}-${pkgver}.tar.gz")
+md5sums=('337f335e7d38feec82830af35cd5b0ca')
+
+build() {
+  cd $srcdir/$pkgname-$pkgver
+  cp Makefile Makefile.bak
+  sed 's/PREFIX=\/usr\/local//' Makefile.bak > Makefile
+  make PREFIX=$pkgdir/usr install || return 1
+  rm Makefile.bak
+}

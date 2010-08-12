@@ -1,0 +1,30 @@
+# Maintainer: Dany Martineau <dany.luc.martineau@gmail.com>
+
+pkgname=clementine
+pkgver=0.4.2
+pkgrel=1
+pkgdesc="A modern music player and library organiser and a port of Amarok 1.4, with some features rewritten to take advantage of Qt4. "
+url="http://code.google.com/p/clementine-player/"
+license="GPL"
+arch=('i686' 'x86_64')
+depends=('glew' 'liblastfm' 'taglib'  'gstreamer0.10')
+makedepends=('mesa' 'cmake' 'boost')
+optdepends=(
+	'gstreamer0.10-base-plugins: for more open formats'
+	'gstreamer0.10-good-plugins: still free'
+	'gstreamer0.10-ugly-plugins: damn if you really need those'
+)
+source=(http://clementine-player.googlecode.com/files/${pkgname}-${pkgver}.tar.gz)
+md5sums=('c6819b0d2a8324f1d686fb5a3b1d287b')
+install=(clementine.install)
+
+build() {
+	cd ${srcdir}/$pkgname-$pkgver
+	cmake . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+	make || return 1
+}
+
+package() {
+	cd ${srcdir}/$pkgname-$pkgver
+	make DESTDIR=${pkgdir} install || return 1
+}

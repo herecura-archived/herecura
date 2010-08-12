@@ -1,0 +1,2 @@
+#!/bin/sh
+sudo date +%H%M -s "$1"

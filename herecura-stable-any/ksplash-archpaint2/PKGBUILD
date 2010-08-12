@@ -1,0 +1,18 @@
+# Contributor : BlackEagle < ike DOT devolder AT herecura DOT be >
+
+pkgname=ksplash-archpaint2
+pkgver=0.1
+pkgrel=2
+pkgdesc="KSplash theme based on archpaint2 wallpaper"
+arch=('any')
+url="http://www.archlinux.org"
+license=('CCPL')
+depends=('wallpaper-archpaint2')
+source=("http://www.herecura.be/archlinux/ksplash-archpaint2/${pkgname}-${pkgver}.tar.gz")
+
+build() {
+  cd ${srcdir}/archpaint2-${pkgver}
+  mkdir -p ${pkgdir}/usr/share/apps/ksplash/Themes
+  cp -r archpaint2 ${pkgdir}/usr/share/apps/ksplash/Themes
+}
+md5sums=('1bc099c5846f90835dbb3fb7be142f52')

@@ -1,0 +1,29 @@
+# Contributor: Andrea Scarpino <andrea@archlinux.org>
+# Contributor: ice-man <icemanf@gmail.com>
+
+pkgname=libssh2
+pkgver=1.2.6
+pkgrel=1
+pkgdesc="A library implementing the SSH2 protocol as defined by Internet Drafts"
+url="http://www.libssh2.org/"
+arch=('i686' 'x86_64')
+license=('BSD')
+depends=('openssl')
+makedepends=('zlib')
+options=('!libtool')
+source=("http://www.libssh2.org/download/$pkgname-$pkgver.tar.gz")
+md5sums=('7887bd95f1d5fc69780bfc5784410574')
+
+build() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  ./configure --prefix=/usr || return 1
+  make || return 1
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install || return 1
+  
+  install -Dm644 COPYING \
+    ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE || return 1
+}

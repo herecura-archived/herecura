@@ -1,0 +1,23 @@
+#!/bin/bash
+dest=/mnt/packages/repo
+source repository
+
+packtemp=$(ls -1)
+
+rm -f ${dest}/${repository}.txt
+
+for package in ${packtemp}
+do
+	if [ -d ${package} ]
+	then
+		echo ${package}.* >> ${dest}/${repository}.txt
+	fi
+done
+
+packagesdir=${dest}/${repo}
+
+cd ${packagesdir}
+
+ls -1 *.pkg.tar.* | grep -xv "$(cat ${dest}/${repository}.txt)"
+rm -f $(ls -1 *.pkg.tar.* | grep -xv "$(cat ${dest}/${repository}.txt)")
+

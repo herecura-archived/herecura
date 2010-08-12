@@ -1,0 +1,41 @@
+# Contributor: DsTr <kostindima@gmail.com>
+
+pkgname=krusader-svn
+pkgver=1160042
+pkgrel=1
+pkgdesc="The Krusader svn branch"
+arch=('i686' 'x86_64')
+url="http://www.krusader.org/"
+license=('GPL')
+depends=('kdelibs')
+makedepends=('subversion' 'cmake' 'automoc4')
+provides=('krusader')
+conflicts=('krusader')
+replaces=('krusader')
+source=()
+md5sums=()
+
+_svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/utils/krusader
+_svnmod=krusader
+
+build() {
+  cd $startdir/src
+
+  if [ -d $_svnmod/.svn ]; then
+    (cd $_svnmod && svn up -r $pkgver)
+  else
+    svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
+  fi
+
+  msg "SVN checkout done or server timeout"
+  msg "Starting make..."
+
+  cd $_svnmod
+
+  mkdir build
+  cd build
+  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+  make  || return 1
+  make DESTDIR=$startdir/pkg/ install
+  cd .. && rm -rf build
+}

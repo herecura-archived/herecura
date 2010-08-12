@@ -1,0 +1,51 @@
+# Contributer: Tom Billiet (mouse256@ulyssis.org)
+# Contributer: Ike Devolder (ike.devolder@herecura.be)
+
+pkgname=jalbum
+pkgver=8.9.2
+pkgrel=1
+pkgdesc="free web photo album software and photo gallery software"
+url="http://jalbum.net/"
+license=('custom' 'lgpl')
+depends=('java-runtime')
+arch=('any')
+source=("http://jalbum.net/download/Jalbum$pkgver.zip" "froghead32x32.png")
+md5sums=('90853eb245e1abc89e5cc01a47f1d843'
+         '555c5fb3bc34a4c0d2a6d9dc6160f8b9')
+build() {
+	#remove batfiles and java sourcefiles
+	cd Jalbum
+	find \( -name "*.bat" -o -name "*.java" \) -delete
+
+	#remove lib/sunos/windows
+	rm -rf lib/{sunos,windows}
+
+	#remove startupscript, we install one in usr/bin
+	rm -f startjalbum.sh
+
+	cd $startdir
+	#generate startup script
+	echo "#!/bin/sh" > $srcdir/jalbum.sh
+	echo "java -Xmx400M -jar /usr/share/java/Jalbum/JAlbum.jar" >> $srcdir/jalbum.sh
+
+	mkdir -p $pkgdir/usr/share/java
+	#install -D -m644 JAlbum $startdir/pkg/usr/share/$pkgname
+	cp -r $srcdir/Jalbum $pkgdir/usr/share/java
+
+	#icon
+	install -D -m644 $srcdir/froghead32x32.png $pkgdir/usr/share/pixmaps/$pkgname.png
+
+	#desktop entry
+	cd $srcdir
+	echo "[Desktop Entry]" > $pkgname.desktop
+	echo "Name=$pkgname" >> $pkgname.desktop
+	echo "Comment=$pkgdesc" >> $pkgname.desktop
+	echo "Exec=$pkgname" >> $pkgname.desktop
+	echo "Icon=$pkgname.png" >> $pkgname.desktop
+	echo "Terminal=false" >> $pkgname.desktop
+	echo "Type=Application" >> $pkgname.desktop
+	echo "Categories=Application;Graphics;" >> $pkgname.desktop
+
+	install -D -m644 $srcdir/jalbum.desktop $pkgdir/usr/share/applications/$pkgname.desktop
+	install -D -m755 $srcdir/jalbum.sh $pkgdir/usr/bin/jalbum
+}

@@ -1,0 +1,29 @@
+From 713ce16bc78e7d744c0a490eb10148ea7c6939a1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Dan=20Hor=C3=A1k?= <dan@danny.cz>
+Date: Tue, 8 Jun 2010 11:57:15 +0200
+Subject: [PATCH] add missing casts to pdf_int64
+
+---
+ test/unit/EncryptTest.cpp |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/test/unit/EncryptTest.cpp b/test/unit/EncryptTest.cpp
+index e0b4801..3355175 100644
+--- a/test/unit/EncryptTest.cpp
++++ b/test/unit/EncryptTest.cpp
+@@ -326,9 +326,9 @@ void EncryptTest::testEnableAlgorithms()
+ 
+     PdfObject object;
+     object.GetDictionary().AddKey(PdfName("Filter"), PdfName("Standard"));
+-    object.GetDictionary().AddKey(PdfName("V"), 4L);
+-    object.GetDictionary().AddKey(PdfName("R"), 4L);
+-    object.GetDictionary().AddKey(PdfName("P"), 1L);
++    object.GetDictionary().AddKey(PdfName("V"), static_cast<pdf_int64>(4L));
++    object.GetDictionary().AddKey(PdfName("R"), static_cast<pdf_int64>(4L));
++    object.GetDictionary().AddKey(PdfName("P"), static_cast<pdf_int64>(1L));
+     object.GetDictionary().AddKey(PdfName("O"), PdfString(""));
+     object.GetDictionary().AddKey(PdfName("U"), PdfString(""));
+ 
+-- 
+1.6.6.1
+

@@ -1,0 +1,44 @@
+# $Id: PKGBUILD 86677 2010-08-03 08:13:37Z tpowa $
+# Maintainer : Thomas Baechler <thomas@archlinux.org>
+
+pkgname=nvidia-slk
+pkgver=256.44
+_kernver='2.6.35-SLK'
+pkgrel=1
+pkgdesc="NVIDIA drivers for kernel26-slk"
+arch=('i686' 'x86_64')
+url="http://www.nvidia.com/"
+depends=('kernel26-slk>=2.6.35' 'kernel26-slk<2.6.36' "nvidia-utils=${pkgver}")
+makedepends=('kernel26-slk-headers>=2.6.35' 'kernel26-slk-headers<2.6.36')
+license=('custom')
+install=nvidia.install
+source=("ftp://download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run"
+"ftp://download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
+)
+
+if [ "$CARCH" = "i686" ]; then
+	_arch='x86'
+	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
+	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+	sha256sums=('b1de58b4bc9546aa010c078444a358ee7b398cf89d86b95867314fa357c839ce')
+elif [ "$CARCH" = "x86_64" ]; then
+	_arch='x86_64'
+	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
+	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+	sha256sums=('74ad43fa1e69c1948ff39e69ae2fea59a82bda9c483693d6f4572f71f9499500')
+fi
+
+build() {
+	cd $srcdir
+	sh ${_pkg}.run --extract-only
+	cd ${_pkg}/kernel
+ 	make SYSSRC=/lib/modules/${_kernver}/build module
+}
+
+package() {
+	install -D -m644 $srcdir/${_pkg}/kernel/nvidia.ko \
+		$pkgdir/lib/modules/${_kernver}/kernel/drivers/video/nvidia.ko
+        install -d -m755 $pkgdir/etc/modprobe.d
+        echo "blacklist nouveau" >> $pkgdir/etc/modprobe.d/nouveau_blacklist.conf
+	sed -i -e "s/KERNEL_VERSION='.*'/KERNEL_VERSION='${_kernver}'/" $startdir/nvidia.install
+}

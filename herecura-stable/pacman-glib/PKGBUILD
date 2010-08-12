@@ -1,0 +1,26 @@
+# Maintainer: PirateJonno <j@skurvy.no-ip.org>
+
+pkgname=pacman-glib
+pkgver=3.4.0
+pkgrel=3
+_githash='5ba04c369c4e414fd95e4b88f4b55ae2ad6eabb5'
+_hash='5ba04c3'
+pkgdesc='GLib library for Arch Linux package management'
+arch=('i686' 'x86_64')
+url="http://github.com/PirateJonno/pacman-glib"
+license=('GPL')
+depends=('pacman>=3.4.0' 'pacman<3.5.0' 'glib2')
+makedepends=('gnome-common' 'gtk-doc' 'intltool')
+source=("http://github.com/PirateJonno/pacman-glib/tarball/${_githash}")
+sha256sums=('5df8f0ef99e67532a080ad8eaf3780ca7bb629f2e4063f7ea160a1ce332f6b69')
+
+build() {
+	cd PirateJonno-${pkgname}-${_hash}
+	./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+	make
+}
+
+package() {
+	cd PirateJonno-${pkgname}-${_hash}
+	make DESTDIR="$pkgdir" install
+}

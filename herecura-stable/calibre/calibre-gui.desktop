@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Calibre - Ebook library management
+Comment=E-book library management
+TryExec=calibre
+Exec=calibre
+Icon=calibre-gui
+Categories=Office;

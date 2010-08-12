@@ -1,0 +1,4 @@
+#!/bin/bash
+repo=herecura-stable/$(arch)
+repository=herecura-stable
+keepsource=0

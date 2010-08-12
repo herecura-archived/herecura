@@ -1,0 +1,6 @@
+#!/bin/bash
+bsfile=~/herecura/basesystemlist
+
+sudo pacman -R --noconfirm $(pacman -Qq | grep -xv "$(cat ${bsfile})")
+
+# vim:set ts=2 sw=2 et:

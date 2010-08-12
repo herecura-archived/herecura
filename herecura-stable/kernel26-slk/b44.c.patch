@@ -1,0 +1,104 @@
+--- linux-2.6.34/drivers/net/b44.c	2010-05-16 23:17:36.000000000 +0200
++++ linux-2.6.34/drivers/net/b44.c.new	2010-05-17 20:43:51.932892290 +0200
+@@ -130,8 +130,6 @@
+ #define B44_FULL_RESET		1
+ #define B44_FULL_RESET_SKIP_PHY	2
+ #define B44_PARTIAL_RESET	3
+-#define B44_CHIP_RESET_FULL	4
+-#define B44_CHIP_RESET_PARTIAL	5
+ 
+ static void b44_init_hw(struct b44 *, int);
+ 
+@@ -1251,7 +1249,7 @@
+ }
+ 
+ /* bp->lock is held. */
+-static void b44_chip_reset(struct b44 *bp, int reset_kind)
++static void b44_chip_reset(struct b44 *bp)
+ {
+ 	struct ssb_device *sdev = bp->sdev;
+ 	bool was_enabled;
+@@ -1277,13 +1275,6 @@
+ 
+ 	b44_clear_stats(bp);
+ 
+-	/*
+-	 * Don't enable PHY if we are doing a partial reset
+-	 * we are probably going to power down
+-	 */
+-	if (reset_kind == B44_CHIP_RESET_PARTIAL)
+-		return;
+-
+ 	switch (sdev->bus->bustype) {
+ 	case SSB_BUSTYPE_SSB:
+ 		bw32(bp, B44_MDIO_CTRL, (MDIO_CTRL_PREAMBLE |
+@@ -1323,14 +1314,7 @@
+ static void b44_halt(struct b44 *bp)
+ {
+ 	b44_disable_ints(bp);
+-	/* reset PHY */
+-	b44_phy_reset(bp);
+-	/* power down PHY */
+-	netdev_info(bp->dev, "powering down PHY\n");
+-	bw32(bp, B44_MAC_CTRL, MAC_CTRL_PHY_PDOWN);
+-	/* now reset the chip, but without enabling the MAC&PHY
+-	 * part of it. This has to be done _after_ we shut down the PHY */
+-	b44_chip_reset(bp, B44_CHIP_RESET_PARTIAL);
++	b44_chip_reset(bp);
+ }
+ 
+ /* bp->lock is held. */
+@@ -1379,7 +1363,7 @@
+ {
+ 	u32 val;
+ 
+-	b44_chip_reset(bp, B44_CHIP_RESET_FULL);
++	b44_chip_reset(bp);
+ 	if (reset_kind == B44_FULL_RESET) {
+ 		b44_phy_reset(bp);
+ 		b44_setup_phy(bp);
+@@ -1436,7 +1420,7 @@
+ 	err = request_irq(dev->irq, b44_interrupt, IRQF_SHARED, dev->name, dev);
+ 	if (unlikely(err < 0)) {
+ 		napi_disable(&bp->napi);
+-		b44_chip_reset(bp, B44_CHIP_RESET_PARTIAL);
++		b44_chip_reset(bp);
+ 		b44_free_rings(bp);
+ 		b44_free_consistent(bp);
+ 		goto out;
+@@ -2084,10 +2068,6 @@
+ 		addr = sdev->bus->sprom.et0mac;
+ 		bp->phy_addr = sdev->bus->sprom.et0phyaddr;
+ 	}
+-	/* Some ROMs have buggy PHY addresses with the high
+-	 * bits set (sign extension?). Truncate them to a
+-	 * valid PHY address. */
+-	bp->phy_addr &= 0x1F;
+ 
+ 	memcpy(bp->dev->dev_addr, addr, 6);
+ 
+@@ -2216,7 +2196,7 @@
+ 	/* Chip reset provides power to the b44 MAC & PCI cores, which
+ 	 * is necessary for MAC register access.
+ 	 */
+-	b44_chip_reset(bp, B44_CHIP_RESET_FULL);
++	b44_chip_reset(bp);
+ 
+ 	/* do a phy reset to test if there is an active phy */
+ 	if (b44_phy_reset(bp) < 0)
+@@ -2245,7 +2225,6 @@
+ 	ssb_device_disable(sdev, 0);
+ 	ssb_bus_may_powerdown(sdev->bus);
+ 	free_netdev(dev);
+-	ssb_pcihost_set_power_state(sdev, PCI_D3hot);
+ 	ssb_set_drvdata(sdev, NULL);
+ }
+ 
+@@ -2274,7 +2253,6 @@
+ 		b44_setup_wol(bp);
+ 	}
+ 
+-	ssb_pcihost_set_power_state(sdev, PCI_D3hot);
+ 	return 0;
+ }
+ 

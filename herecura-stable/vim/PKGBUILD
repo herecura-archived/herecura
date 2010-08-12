@@ -1,0 +1,704 @@
+# vim:set sw=2 sts=2 et:
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
+# Maintainer: tobias [ tobias at archlinux org ]
+# Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
+
+pkgbase=vim
+pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
+_basever=7.2
+_patchlevel=446
+pkgver=${_basever}.${_patchlevel}
+pkgrel=1
+arch=('i686' 'x86_64')
+license=('custom:vim')
+url="http://www.vim.org"
+makedepends=('gpm' 'perl' 'python' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2'
+             'gettext' 'pkgconfig' 'sed')
+options=()
+source=(
+  'vimrc'
+  'archlinux.vim'
+  'gvim.desktop'
+  "ftp://ftp.nluug.nl/pub/vim/unix/${pkgbase}-${_basever}.tar.bz2"
+  "ftp://ftp.nluug.nl/pub/vim/extra/${pkgbase}-${_basever}-extra.tar.gz"
+  "ftp://ftp.nluug.nl/pub/vim/extra/${pkgbase}-${_basever}-lang.tar.gz"
+)
+if [ ${_patchlevel} -gt 000 ]; then
+  for p in $(seq -w 001 ${_patchlevel}); do
+    source=( ${source[@]} "ftp://ftp.nluug.nl/pub/${pkgbase}/patches/${_basever}/${_basever}.${p}")
+  done
+fi
+
+##### Build #####
+
+build() {
+  cd vim72
+
+  msg2 'Patching...'
+
+  if [ ${_patchlevel} -gt 000 ]; then
+    for p in ${srcdir}/${_basever}.*; do
+      msg "apply patch ${p}"
+      patch -p0 -i ${p} || return 1
+    done
+  fi
+
+  cd ${srcdir}
+  cp -a vim72 vim-build || return 1
+
+  # define the place for the global (g)vimrc file (set to /etc/vimrc)
+  sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
+    vim-build/src/feature.h || return 1
+  sed -i 's|^.*\(#define VIMRC_FILE.*"\) .*$|\1|' \
+    vim-build/src/feature.h || return 1
+
+  msg2 'Building...'
+
+  cp -a vim-build gvim-build || return 1
+  cp -a vim-build vim-sl-build || return 1
+
+  msg2 'Building vim-slim'
+  cd ${srcdir}/vim-sl-build
+  ./configure --prefix=/usr --localstatedir=/var/lib/vim \
+    --mandir=/usr/share/man --with-compiledby=ArchLinux \
+    --with-features=tiny --disable-gpm --enable-acl --with-x=no \
+    --disable-gui --enable-multibyte --disable-cscope \
+    --disable-netbeans --disable-perlinterp --disable-pythoninterp \
+    --disable-rubyinterp || return 1
+  make || return 1
+
+  msg2 'Building vim-cli'
+  cd ${srcdir}/vim-build
+  ./configure --prefix=/usr --localstatedir=/var/lib/vim \
+    --mandir=/usr/share/man --with-compiledby=ArchLinux \
+    --with-features=big --enable-gpm --enable-acl --with-x=no \
+    --disable-gui --enable-multibyte --enable-cscope \
+    --disable-netbeans --enable-perlinterp --enable-pythoninterp \
+    --enable-rubyinterp || return 1
+  make || return 1
+
+  msg2 'Building vim-gvim'
+  cd ${srcdir}/gvim-build
+  ./configure --prefix=/usr --localstatedir=/var/lib/vim \
+    --mandir=/usr/share/man --with-compiledby=ArchLinux \
+    --with-features=big --enable-gpm --enable-acl --with-x=yes \
+    --enable-gui=gtk2 --enable-multibyte --enable-cscope \
+    --enable-netbeans --enable-perlinterp --enable-pythoninterp \
+    --enable-rubyinterp || return 1
+  make || return 1
+}
+
+##### Packaging #####
+
+package_vim-slim() {
+  pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, slim edition'
+  depends=()
+  conflicts=('vim' 'vim-cli')
+  provides=('vim')
+
+  cd ${srcdir}/vim-sl-build
+  make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install || return 1
+
+  # provided by (n)vi in core
+  rm ${pkgdir}/usr/bin/{ex,view}
+
+  # delete some manpages
+  find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+    while read _mandir; do
+    cd ${_mandir}
+    rm -f ex.1 view.1 # provided by (n)vi
+    rm -f evim.1    # this does not make sense if we have no GUI
+  done
+
+  # Runtime provided by runtime package
+  rm -r ${pkgdir}/usr/share/vim
+
+  # license
+  install -dm755 ${pkgdir}/usr/share/licenses/vim
+  ln -s /usr/share/vim/${_versiondir}/doc/uganda.txt \
+    ${pkgdir}/usr/share/licenses/vim/license.txt
+
+  # debug stuff
+  #cp -a ${pkgdir} ${srcdir}/vim-slim || return 1
+}
+
+package_vim-cli() {
+  pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, cli only'
+  depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python' 'ruby')
+  conflicts=('vim' 'vim-slim')
+  provides=('vim')
+
+  cd ${srcdir}/vim-build
+  make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install || return 1
+
+  # provided by (n)vi in core
+  rm ${pkgdir}/usr/bin/{ex,view}
+
+  # delete some manpages
+  find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+    while read _mandir; do
+    cd ${_mandir}
+    rm -f ex.1 view.1 # provided by (n)vi
+    rm -f evim.1    # this does not make sense if we have no GUI
+  done
+
+  # Runtime provided by runtime package
+  rm -r ${pkgdir}/usr/share/vim
+
+  # license
+  install -dm755 ${pkgdir}/usr/share/licenses/vim
+  ln -s /usr/share/vim/${_versiondir}/doc/uganda.txt \
+    ${pkgdir}/usr/share/licenses/vim/license.txt
+
+  # debug stuff
+  #cp -a ${pkgdir} ${srcdir}/vim-cli || return 1
+}
+
+package_vim-gvim() {
+  pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
+  depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
+  provides=("vim=${pkgver}-${pkgrel}")
+  conflicts=('gvim')
+  provides=('gvim')
+  install=gvim.install
+
+  cd ${srcdir}/gvim-build
+  make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install || return 1
+
+  # provided by (n)vi in core
+  rm ${pkgdir}/usr/bin/{ex,view}
+
+  # cleanup so there is no more conflict with vim-bin
+  cd ${pkgdir}/usr/bin/
+  mv vim gvim
+  rm -f rview rvim vimdiff vimtutor xxd # all available in vim-bin
+  rm -f eview evim gview gvimdiff rgview rgvim # symlinking to vim, has to be gvim
+  ln -s gvim eview
+  ln -s gvim evim
+  ln -s gvim gview
+  ln -s gvim gvimdiff
+  ln -s gvim rgview
+  ln -s gvim rgvim
+
+  cd ${srcdir}/gvim-build
+
+  # delete some manpages
+  find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+    while read _mandir; do
+    cd ${_mandir}
+    rm -f ex.1 view.1 # provided by (n)vi
+    rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
+  done
+
+  # Move the runtime for later packaging
+  mv ${pkgdir}/usr/share/vim ${srcdir}/runtime-install
+
+  # freedesktop links
+  install -Dm644 ${srcdir}/gvim.desktop \
+    ${pkgdir}/usr/share/applications/gvim.desktop
+  install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
+
+  # license
+  install -dm755 ${pkgdir}/usr/share/licenses/gvim
+  ln -s /usr/share/vim/${_versiondir}/doc/uganda.txt \
+    ${pkgdir}/usr/share/licenses/gvim/license.txt
+
+  # debug stuff
+  #cp -a ${pkgdir} ${srcdir}/vim-gvim || return 1
+}
+
+package_vim-rt() {
+  pkgdesc='Runtime for vim and gvim'
+  conflicts=('vim-runtime')
+  provides=('vim-runtime')
+  backup=(etc/vimrc)
+
+  # Install the runtime split from gvim
+  install -dm755 ${pkgdir}/usr/share
+  mv ${srcdir}/runtime-install ${pkgdir}/usr/share/vim
+
+  # Don't forget logtalk.dict
+  install -Dm644 ${srcdir}/gvim-build/runtime/ftplugin/logtalk.dict \
+    ${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/logtalk.dict || return 1
+
+  # fix FS#17216
+  sed -i 's|messages,/var|messages,/var/log/messages.log,/var|' \
+    ${pkgdir}/usr/share/vim/vim72/filetype.vim
+
+  # patch filetype.vim for better handling of pacman related files
+  sed -i "s/rpmsave/pacsave/;s/rpmnew/pacnew/;s/,\*\.ebuild/\0,PKGBUILD*,*.install/" \
+    ${pkgdir}/usr/share/vim/vim72/filetype.vim
+  sed -i "/find the end/,+3{s/changelog_date_entry_search/changelog_date_end_entry_search/}" \
+    ${pkgdir}/usr/share/vim/vim72/ftplugin/changelog.vim
+
+  # patch runtime for better support of .*.xz files
+  #cd ${pkgdir}/usr/share/vim
+  #patch -p0 < ${srcdir}/xz.patch || return 1
+
+  # make Aaron happy
+  #install -Dm644 ${srcdir}/pythoncomplete.vim \
+    #${pkgdir}/usr/share/vim/vim72/autoload/pythoncomplete.vim
+  
+  # rc files
+  install -Dm644 ${srcdir}/vimrc ${pkgdir}/etc/vimrc
+  install -Dm644 ${srcdir}/archlinux.vim \
+    ${pkgdir}/usr/share/vim/vimfiles/archlinux.vim
+
+  # license
+  install -dm755 ${pkgdir}/usr/share/licenses/vim-runtime
+  ln -s /usr/share/vim/${_versiondir}/doc/uganda.txt \
+    ${pkgdir}/usr/share/licenses/vim-runtime/license.txt
+}
+md5sums=('e57777374891063b9ca48a1fe392ac05'
+         '10353a61aadc3f276692d0e17db1478e'
+         '2be104c0372dd6dae19cb7968c03cd4f'
+         'f0901284b338e448bfd79ccca0041254'
+         '35e04482f07c57221c9a751aaa3b8dac'
+         'd8884786979e0e520c112faf2e176f05'
+         '7c2dc4a956cf315e546e347bc349968c'
+         '7f16f80814f1e071a689806c2056b39d'
+         '0de916fdfd450a4a0d95bed44ae2c398'
+         '25cc99ad42b25b16a4610e2fad9cdab4'
+         'a5b7b1c7c5b75aa7d730b0b9aa491558'
+         'a93a72cd40c37da91dc634dc8dddefec'
+         'c2b2b63dea27ddad92668e63797406c5'
+         'e65c8c2223eea5289d8cbef2e867a5de'
+         'ab1566b69bd0e0c82a866f00675ffe0e'
+         'd69f559bfb5436c157e8069a829ca50d'
+         '05334a6bb31402bfd49d82ea6f59a57b'
+         'a11dcd5552f36544a9e27978b5359935'
+         '8bc70978291aadea9c82072b623c955d'
+         'a87826187cb77ad2e567a40c1609eea4'
+         '47a466fbfdbca616f519fc4afa0432df'
+         'fd08bac73d7ffcabf53bd25a63dff893'
+         '0f0284d87f6f52101802dbe1a45d54c3'
+         '38d06ba325b716c1177c1012d781bada'
+         '661ca021fb70c24ef4df229512cfb14b'
+         'cb2c5ca0f9a9718fb635874925432dd8'
+         '9073d2311ae7101c143237a45afb4efa'
+         '48ccb0deec77a3bb91bf967dacb43492'
+         'd77ed8aa4de30d4dbd17a7998ae8f269'
+         'cf983237e5e866ef459870fee2754bac'
+         'ab32defa4b2cfb509ccb34d4858b1223'
+         '5e96c227c7765b1e0f03f44cb5b750f6'
+         'f26b7ee0f271eacbb3652dbdf92dd860'
+         'fc54a3d35bdc7b7a7660c6d2274f7b74'
+         'd53630dc8f3a823f54dfba73dcd47b36'
+         '208f8ed2db2665ebfc17674f78d47c6d'
+         '3387583af86faa78e10be979214071f3'
+         'eca017686205ec8658bf9fa8c73f7af6'
+         '88c91b84ffc772fd57f86475f7ba90f1'
+         'c3d6eaaa0b74df423f90afaaafa3a0de'
+         'f4c35dae581d671dc271407d377f7199'
+         '0ae8b6ed636fc013e2fa6bdabc182041'
+         '1c6501c366cc8df205955f3e4d3ebba9'
+         'ed3479ddb4ded7b74c82af5e50b0e4a6'
+         '2a61f28f6f793c5a43abded6e59b6506'
+         '4c493255ae227498016f30a0002ec1cc'
+         '66bde35426c09d9c666e23215f9a19c9'
+         '99baedef8a9c908774b7ed74deacf184'
+         '87035b208c9377c28d796b1e48ab8aac'
+         'b127def242996b4e7d7e870cab3e4b45'
+         '5233327e4c97d310e3793b223892ea8d'
+         '9ecfa0454f5a329996b273cb12369962'
+         '35e16f4e7198e861a71322fee2cb7909'
+         '84ef9658181f49bfbd7a61ec87dd0b8d'
+         'fc9b65eef81954f6006c307ff11be925'
+         '27a9700e39e266a31df702677acea52c'
+         '89ce3f5b513510fb288a4a301e7494c7'
+         '5992bb56b07a9b9b4e3504f1f2f2c79c'
+         '3fe570c1317fee8a71ede17197358e02'
+         '5b047e8e8413c4807d74a6d9716474a2'
+         'c276080d95de2fafa9706f247c35ff74'
+         '5b65e2654a78dcc4c15dc49dbce5418e'
+         'cab5a9ddf0ab180089d84bf9ec685574'
+         '80991ff846f88222e3266dab6b07e2b8'
+         '89cede639caf8beed5ea071790445e26'
+         '9781d833263060308a9622dd097ad378'
+         '71b4bc625bc1cdd68747262d329db551'
+         '9243a773d19966dbfd98b7aff3fe3ab7'
+         '08155711f8db2dfce217ec5a34253a76'
+         'fd692f9624ec0170800b3d9a2a9a53cb'
+         'ee1a8dc311c7580608e3bd2196a7d042'
+         '8d1d5f8aefabf0abcb54de5247893246'
+         'fa0ccca2decdd2db64947658b04b8c99'
+         'ca5ab057205023613020ca920d903028'
+         'f3e6f3dd76278a9f7e396955faa4ca31'
+         '805cdc76da46e73ae908038e09efae16'
+         '9224b5e9c85fa4d47d418c248aff542e'
+         'ab9250d36651dde9267d1241cac9fb74'
+         '0d77ee653eabe4b7fdb640d768d7c1be'
+         '5b0a423e9f3ca07e5c62d4f0f5803a5c'
+         'd7eccf57f8fc04cf0385f85eff3d989a'
+         '99750c988d0c48f56cb12a04b78aebc2'
+         '1967f5e7fa4cec07bd67cc47925ec3c8'
+         '7b285d2ba24fdd2390b4aaba08fcf5f6'
+         'a3385578174d3867f17ab287276db49b'
+         'ea45aa4d1a74989d361b2a29c1e9ff9b'
+         '3bdf4ec7db7976876a827f2dfa269e89'
+         '590c9aa51fcb808ece4b6b4bfaaaaf30'
+         '2a10abc536f7a69ff3ef353b55b6cb65'
+         '78defaaa03e61955f6624b796efb8655'
+         '869116b3e92e944d40a3e03f9a99816f'
+         '5af26f073ebeba60af90525d68a61725'
+         '639d7a80864afe68132725e377f52f19'
+         '44b152484534fa23c4ff531316a0e518'
+         '990e6a23c4061df0dcc0ab84528a2e1a'
+         '8985dcfe7df6b439e88554e22cf34919'
+         '137faec139470453ca446c015c226e47'
+         'e15782bf5892ad787d149491bfe013e7'
+         '2198caf9e5f422eacde337e9c27677ab'
+         '49ab5014904d459e54a667e1433b4bee'
+         'ba21ee323426561e75ebff23090e4bdb'
+         '7ffef4a30cdcd6d8426e44d3a25df991'
+         'c7264031ad24af960d717189b344e244'
+         'dc7b06bb5c5b11a3d487614287d99a6b'
+         '656c12368934868f35747f3955366142'
+         '15dacd715d6f8c655265bbf77ebaddd4'
+         '65e59923311b136306284319521d70d7'
+         '42e2274c6a3152279720d8623f7916ad'
+         '654ba716e77d092c1c314fed18c7486d'
+         'b839c2c957eb3bb7511ace0b61d5d5fe'
+         '7f37ad0b1573be8bc39a817a21422a4e'
+         '4801df8c2833a683cd1b2a5870565e41'
+         'e6801b619d40efe81428399e26e0486f'
+         '76f17428d216ec6b29036e22397c2765'
+         'db97daa4f1e56440a988e7f5272997c7'
+         'b8752c88429f869dec05232db89018e2'
+         'e8cdc1e862b60215c12265e44b38239d'
+         'e933dd778c6f8687cf1f9f3e550e6cc0'
+         '861729d9d4dc422e45c22bd8e006fc32'
+         '5da3a29b3184af1780a82499343e7587'
+         'b35c7b1cfa2a5f7b45829cd09ac27b7a'
+         '1355cc34fbc7be7eb48fa777e8f49dfb'
+         '8b9c839ec7448691b0a88475f0d0d4f9'
+         '74d97a563ec1b1f1606705097396c391'
+         '2ddd84423b902a2b3594c64c567be0b4'
+         '5394e442f011d47b6d69a7b03984cdf4'
+         '6bdb5e63ca3d79d3dcb7127e14ae3949'
+         '36554c0103cafc8759f3e71ccd56c56f'
+         '841c74d1f3cb8380fa5713d5b9ca2c98'
+         '2489ebcb72280dd50b8756e4ab7d36ed'
+         '10b15d637133b73d825650363d863b58'
+         'b31534667bb741e21479b1e3757c9e21'
+         '71e87e78bea69d8876ff7f6d824c8986'
+         '21da01d371757282bfd402ddd91005ba'
+         'e890b630efa3847c8cdee2f197145b6c'
+         'd3fe3bf37d5c0940f3e751f41d92e817'
+         '3c2aaa22914d06a65bf0f212e43c3ace'
+         '379aa718df5dbcde8215fc4d94062d9f'
+         '6d51f9deb4c2604692f532c118b73ef8'
+         '4acae77b2a217e1cb47040c08e28180d'
+         '4d30bf2c9d2973f5dd1c12468123dc41'
+         'f2ae8cc595933938ee608e040d1256a5'
+         'c613c1e0fac319f05ffe1fa7e27d6600'
+         'e7d02c3dea47fa579366bb1cd025ce5e'
+         '04f7131164b3f46d6365a8faea0e32c6'
+         'e1c0e4fbd985f5a2e5a24a4cfab1112c'
+         'e5a9c7ef44a38057c0c5c1191d9cdf77'
+         'f08f7f966749c2ef20ff87dfeb9bef62'
+         '6b132dad3ad947662d1c370193a14218'
+         '4e2a1d1cb12198a783759f88e6c64fc4'
+         '38877e2ac720e45e5d62cd1089167db3'
+         'cb97aca73a1f4fdd2fac894bba7e43ae'
+         '4219afedebf0172118f2d078d9012995'
+         '49ca89a47315f512c7ee06f5b2617a90'
+         '9197a669e4ee024c1a9218e861e21c7e'
+         'cbdf7ce960ad4646a8884e51bc7e037e'
+         '56b24ce6e78e71c64d05fda51748b01c'
+         '7c088583f063cd09d26f7291d9f5817b'
+         'e966483b6755f4e7b2cd92708a8ff656'
+         '27bcb5f1d5932ee7eaae40ba0a4eb968'
+         '611ab5b97cd9d87a1be0a84e3006b17a'
+         '27fb40dbdb85052a598be88f205484c6'
+         '93a85a3606193b8875f0eba05dba3be3'
+         '808ba7888bdfdf559366dfdf1446dab5'
+         '08bd6d6db2e029beab84b32bf36494e0'
+         'c07df493053267849115b579928a4dae'
+         'e44297c9ed5928e55ca43b4e2b3509ce'
+         '0d4768bd2395f3ebf3ebd7fa4979288c'
+         '032f90bcee8f36ad7b77a17bb76719f0'
+         '21341ed82eb080e590d15dd6368e8d78'
+         '51de241d7d03200a7b3490f40256c633'
+         '9c645166c92865d644fd232760b56494'
+         'a29266c1573ff106366ebdbd460b17ce'
+         '09105d79266562b6afe0179c07149738'
+         '36d18f0e42f0c24722116cb823b52c8a'
+         'a00979f910f29d5062faf15e8670735b'
+         '439a415dab8a77790c7da1526da083f9'
+         '3defcc24541cd3d62fda6cfb4af6ba4b'
+         '5f16d8af9b11f44c8e104abc942152c2'
+         '4949fe9f14ac4f7b2717ddb05968285c'
+         '7462cd9ba69a7eb674aa8e5653fdad63'
+         '4b5c77673b5d62f1a94e4d605e92d81e'
+         'cde1647ab09a432c134d6fbae5ca15dc'
+         '5a126dd404945088b61aaf9d8c2effaa'
+         'a15fe587377fac500d0fae2b1c3adbbf'
+         'd4db5a69da98dbda41429d66e339e515'
+         '8b9dee3c4aeeb563cbff6f3cf0357675'
+         'd5d50f1da385bee588348aaaa5bb2dd7'
+         '77e46725488937910d1cf051760ad11d'
+         '3bdbab52e0ac635962ce9983ef1d9f01'
+         'fa88ae980d6e68f9aa9f9b257f1f3e71'
+         '2262a6034d4cf01859a1d36982f38505'
+         'c98b89c2594d7127574d0bd9838f241a'
+         '8efff5f82388c43183739c280249b643'
+         'bab560f5a4b1809c2859ab632f037135'
+         '63098e6cdb253d83c30f42d3d4469900'
+         '87a02a6db9029357d7e248bcf4923330'
+         '88102a28fb2139fe14a66b2970958166'
+         '66a202b39e36ac062db1432896d8d988'
+         '3ba1ab13de695c1422e0cda65c03503d'
+         'a42b79c5328c30b0951ce67da505a3f4'
+         'f1ece679735785c46b58ed4d791b3880'
+         '352908f71b12a7a30aafd985c338d247'
+         '2a4764a5df5c1d18e4c7fee81074f55c'
+         '61a30d8c51533f08a94ba23025a12f11'
+         '1a21534f09d529a9096c5e9b978187e9'
+         '61e01d2aef1d5c1c3b40d5e927bd83c9'
+         '30df1365ef27c34558d4322cb71c5d83'
+         '24ae52da6519c8f8fbd08676c64eac75'
+         'e75f99a06eb7a03a5cf854505b1d795d'
+         '3e2da4100f83cf2d308545d0c822a196'
+         '4895874100f932e15a8c661fb40a19b1'
+         'e3345b11c12eedd8871b2eeb811c9234'
+         'a7f6deca2df02cc4d23274f3104b94d1'
+         '62e83a3e30fe5b6f96ba276a342faf1c'
+         '296e40f03bf6243583541ca440af802c'
+         '3714237966fa05c9cae8fd4518a42ac4'
+         '3537ef914ffbe5acbdede8d3581ecf41'
+         '9f4b0f8a1dc9c3720eca6028c987fa01'
+         'fb46e419802a06e26d8531628f50aca9'
+         '388c0884878256fca9db1fb1fe9df98e'
+         'cd568cf0b9b751b9ff1151fa6f5f0ae0'
+         '288d5ee4b5ff25caa79446a95cb3ee98'
+         'd86a84a239c25dda5101aac8c365154c'
+         '9c0f11d3c52d1756381231e1c0a6156d'
+         'bfed5d4e0bcae8eb7a7e0806d4367e0a'
+         '3b169a3f976cf1808b12230dd24c0ff5'
+         'a3f9c7d976ad8a49250d0ff3130b6390'
+         '3ca61604214ef919b7bfe4b24eb69518'
+         '5c550bd6e2111c10407b7aca009b1242'
+         'b3ae8fa424e01a0fc67c9ed7393b422e'
+         '6057e1247bd3b1538eef15c532caf881'
+         '932e2a5394788124cbda950bfff327ff'
+         'b97e5d33fa4fb8a1ea1308558bb33d41'
+         '2107c7d981ca14d8e795ae744a903106'
+         '7e98ae111e74676ef88c5e3edce785ed'
+         '2abbb80186d28da703eb329d4247dd41'
+         '5e5cfa4e5ee34cbbdd01c27ece1b7398'
+         '9fa12db95776e9174ca7c95172a48838'
+         'a46776a6914ec2972ada91b33b0cfb39'
+         '4121105bf052ebac02bd9891c232137a'
+         'e9ca47c42d7de7b27910e3b35e533ecd'
+         'f48f3e3f58a7a82a1c14fd61072c69f0'
+         '5b9cc79b5448fb71ac1b2870a861119d'
+         '28a8a33a3e2ceef51f838c2dc9fceac2'
+         '212989ec4f90d697183c7cfb363cd453'
+         '45f0effee324a20881e254c1b59dd5f8'
+         '464fc788e592b19cd4d8a21d3d8b789e'
+         'eb8132b8f89393e7f39734e607fc3925'
+         '15c654c51220c2ad94b47d6013626aef'
+         'd5ecb198dfea237e96b5ae12b9381383'
+         'd91e62d4152877db281fdaa797cfe0c3'
+         'a4dbbffc8ec2b377e1a1eb8279ff611c'
+         '9d97db1b426ab2c56a8e4281233c7d5f'
+         '947568ba23d4560e6292f6f1846120c4'
+         '73948226c417143bce66ba6244443aed'
+         '2e351cf03bbcb927d93bafd8166dd82d'
+         '11cef6808a278694c61ba2c74f3911b0'
+         'ed1731b8c74ee27d129bbc78e178da2f'
+         '1703bec4ee7a155037d3373d23bc7ca1'
+         '57f31a4f4afc9a0ea60829bf9d36b380'
+         '19df6e42d09a76e7c219b172204bf66a'
+         'c4775d1a1c37f288803f5d11d8d94865'
+         'a62aae9b8281bd7e1d144c6534a27b68'
+         '91d775ed9329eec16882eeca04708dec'
+         'd6bcf89bb0a04ce25d94f8bc0b3ba747'
+         '7313b1644f7184ea116a0e7cccc42124'
+         '75b2f61f81ff9af8e7f83d1885e9487f'
+         'e98be83507f72cff814aa89456fb38ee'
+         '352951ed477e83d3527c2ff95a7c2484'
+         '4b12ddc88794c20ad3dbe238ccf91807'
+         '9bfd540da3982b9841421cabc564f958'
+         'ff87b49c02d7c7f3a084a1b594ae88ac'
+         '333855dceb650a83a3a2c0bc39e59883'
+         'b668c729a8116bd73296a93807234d86'
+         '08dcef5d1f22d8667454b0ab487e533c'
+         'e7982aaa6e1582e8313b07ad92f7cbec'
+         '42af89bdd081e67af66ab7ac896ec82f'
+         'db4a84251344f9be6bc466f0e93b56c2'
+         '8375467c6e837d41ffca1044264f07d7'
+         '7b01fe74c4b97ca52674c7b48917c8f8'
+         '18d2eded81ed3743fb33886856dcaaca'
+         '2fab085fbd95c7f1ccd5432b42ac171e'
+         '650cfd7a47be176206e32adb2eb2fbd6'
+         '91bd881902deb859eb88a9661a818a06'
+         '6718336ff2eda0aebe0ad2f79a87bb72'
+         '9021fcb03db3247f052bc2bc8c101554'
+         'fd8c5680ec0a72516205f36068987b0f'
+         '630bfb6d7eb4fe4a365facaf60943151'
+         '49f8814cd8e54bc21fe8dffc917b51c3'
+         '371d70c8fd279238037d3b8c28a69479'
+         '6074a34e9de9ea214aaa9059415ecff7'
+         '30399617fc60ba7c6721aba1aa4cb4fe'
+         'e4af9091b9bd725a03d6f59f24a05d8f'
+         'b644db8f7cc6fb0dfd72578659d4dd5b'
+         '4f59608390ca566ef8ddfcf1dedf9cb8'
+         '816dda0f77bda27759f5d3cff96ec1d2'
+         'fd6f78dbdf02404c49c83e0fc50fdcb1'
+         '51d2685c3fd4357d70472bf89c7674f7'
+         '60ae3ec3e8c490b139d06260eea95ed6'
+         '9029fd778fcbe2d67d2884ab34bd6aa1'
+         '204298e1f5edb50ce68dcb5bdf6e0dbb'
+         '4646ae4272a7ed72ed4531214c1a94ea'
+         'cb5197804af66e8b7b568d5cbb9aea39'
+         '50e000c313d6061be06b7110c101fb49'
+         '54512d653ae4947911df73046024c07d'
+         'dba442d3c7ab15794c48d89ac2bd50ab'
+         '76ddee93248aaaaeb56a926f90a92d48'
+         '9e448cc39db6bca1421c58fd91994c2e'
+         'dc47073f62ba8b87d29593042e6b9c24'
+         '87698db3201d95b973430479872fb70c'
+         '4927e5f5c757b610db1184ed05c1c355'
+         'a3f136eb3e73254fe1bc90dd3319886f'
+         '366670c20b3dccd17ba16b48c0643543'
+         'a33bf5b244644dc1dfcedb58b64e224a'
+         '2b4e530e0286197917cccc4d5ddad75b'
+         'a121e8d4f5d3ef109b7dc708160c48ed'
+         '9d43a4cb5261144c5368afb47e91b15e'
+         'fc0905f652a5c3e2f8144ad940454ceb'
+         'bbc2bc5e522158c34f5a957e9a43ec85'
+         'abda87ae0b9590203661dff5cf212918'
+         '9551787240e4d4d0ba9962a88ffd295e'
+         'b7cda2d415ef56e93b436b157da65512'
+         'd323859a6998ab7566837e4ee487db4d'
+         '93fcc07a053e4bf17cc329eebf4eec69'
+         'd81436a10e166fd5ad0503961bb63f7e'
+         '1e0e441e0b182b3d2bf98d8dd0af693a'
+         '4116247c931e7ff221c09443cc04c546'
+         '99302b80b0d5ee894b3f738e08458eb9'
+         '1b3ed6f8ea6e05843a81bcb4cce6e8e1'
+         '16de31d06ac69308617d694a8cf613f5'
+         '873528f80a7ec68ec810ac2e004214ae'
+         '1b51b4236c8f66a39862dec80c0e09fa'
+         'a91e4776715aad77aed49ac4fb8b0d0a'
+         'c1d385c670fe6b82791146631d5bc6ed'
+         'ec306f720d5ecc3253447b2549e74f26'
+         'fae0aebc661a759a7b9ba4b21dbea8ae'
+         '443c1a3a9356deba3ac6df881f3f5435'
+         'e5a7b83955403b45f1fc39ae5fd7e831'
+         'b8760b468b258715f8c899192b052b2c'
+         '3c49aae8330d5e7bec5cb8ea2839f16c'
+         '58ff870a834c78ac8029cc5184956774'
+         '5c65a39cf1f61dc04e193625217f3a0e'
+         'b98987402460ad59476a9f818e521267'
+         '43c1b523d0d7e824150d70f5a7df4eed'
+         '91d51369ba38e07688afb06f13dd5379'
+         '2ebb987d6682668d5f75f96a44bcfebf'
+         '0ebbd934d668fe7ee1ee1cc1a62e9e09'
+         'a51fb3f490a7885ca1f57567de329af9'
+         '3503d584285dbf2f7054e9f05daaf78b'
+         '12c9b6b1981c695d75c2b160b96f00e1'
+         '9bfdc74c5a7fdc4913d581d07f117c4c'
+         'e4748d7c580ade5da8783b9cc19279ca'
+         '3b028c870f331f8850bf22a2dc9be54b'
+         'd536129a01653e7c8c3f89641cc26327'
+         'eb56cd6bcc7c3dd1b27124f06c10d696'
+         '75e63fa075300bbe4cc84e2a20698690'
+         '46a4f16608f1970babf511d9d830691b'
+         '39b526b2c079059d718e2601943bbe6e'
+         '54acbb63188f6170087efab15ebd3c2d'
+         '1bc9e66c81595688c9c265f649b98945'
+         '529cf57e1263aa4b27d058b126e09e98'
+         '78e8474e8610da9b193f1c7dfb041e90'
+         'aae6515b73e29a450aadf0aab8669e57'
+         '915bee53d1c5557a336981e4d24d3323'
+         'e5a94a7c4338fa75d9859f094afa7d9b'
+         '680c1963d04a308ec075defed4df0de5'
+         '1a53e118431bba2860b6cdf193894208'
+         '3a4a525946e8d97d944b1c85c157b41b'
+         '1ea094e261eeb5d5883510d105dbb119'
+         'd47a8e62b2740bfdeb4926f5b72425c4'
+         'bb2871c7e5e03edffe7006816ad52c58'
+         '5a800c854bdf2096ebb59bcc15eeee95'
+         '08a92e4d659af8f0710fcf6e0b92c7cf'
+         'eea46eebf3045d053da54e9bdfe36e9a'
+         '0d6d95486a3ca0aa7343466ce8c83a3c'
+         '18d75932e9d75b4f4ad87def535913f3'
+         'a7146ba9d71f7fbb98359436600db68c'
+         'db6c797bc31e15da6541e06155ce0884'
+         'd6ad6c6f6d373747d09d39bdc3626820'
+         '57f98f4ee9460959af0a8a87cdc25f2e'
+         '83ef453e3185460ec09294b47f0e185f'
+         'f6fdab3284505e1259615aaebb6efccf'
+         'b826f41b909594655da94b9da901309c'
+         'e5c2790d10e4796caaf70ee9d8e98738'
+         '20f58f5480efdaa634f52e74a3addd71'
+         '9ac8f36c153bd04e77b40790842f7337'
+         'b43bad2fe5761b0f59ec098ee08f26bc'
+         'd78dbc11e73315071dc838a34d231877'
+         '3ab83e89cb645f7bcf1dc9efcd8a0a73'
+         'c67b235b56b8ae6c82f0f0af289c336c'
+         '68f444ddc27ae1a3c189f81fa92f747a'
+         'ceb332b7f2e076d0cc1fd3d1dfd7dda8'
+         '1d1f1dcfe0cc5639bd810b3f398d9daf'
+         '9aad65e4793940caf11b6325f73dab06'
+         '11f9f2a76ec4fdc496fa6227d76e1d87'
+         '6abdb424f303c9992259c09013215041'
+         '1b6004c7bcf420420cf0190aa904f395'
+         'd1afe82821bcae5f168d8f088e429f93'
+         '0bc465599cd8b69b280c0ecf8fecb980'
+         '32298c57d950a06016a07132041be3a5'
+         '0f37167fbfcc808bf1c6845d6a904cbe'
+         '5456ea7727eb59111d4aaf2099975349'
+         '7e11d1c1fd8dccf561b7540a323e112e'
+         '3fc3336488a6f60094dbbd3ecd0769e4'
+         '43a4657f37ae56bdf946ae9c426e380e'
+         '540a3aa9d405a30b6fef97c1faf80c0c'
+         'f9b2000d9ef2b3e23c62244efd640f40'
+         '5df130e5db1097c5d062af517014ecd8'
+         '27aacd95c4834b38c17b04378486cab8'
+         'd2cdd35d3b9e76ce0d6b4abdf7b703ba'
+         '64d97351da772dc675f1c11c5886d9f7'
+         '277b53d418c9fb0c48983c5e53b2b74b'
+         '73845e7170e672e15655610d9f73e1ec'
+         'c723bf80bdd72053f334cf37269cd2fd'
+         'ad3c5edcc695600ef7ad254eccb064f4'
+         'a3c882ee8006eb4f6a1a1334bca08c11'
+         'adba03739abbe73d058fc8ddf474c531'
+         '53b9fa0d13737d5efd2827be007ccf4b'
+         '8e54ea844390ed324d4d449d38cbd260'
+         '9212103515da33938f49318fefb2ce27'
+         '3b39b379e637de3578796305f8e75e9d'
+         'cbd7975c5d1488ab24f398198f15ca1e'
+         '2face7141504f2d89b31c69fbba9b653'
+         'e116f5f6c9be5b47aaf8cd1034a61937'
+         '5785f807b23a7073c78244cc05ca7a86'
+         '5fa7dc7b528b518d5618c35ea38cf048'
+         '2ff19a6db082f3e78c764b2131890872'
+         '4527e41594caed5bb8ffc140a7a2ad79'
+         '119448ee7b1e5fe05ebbb231ae43027e'
+         'd8c3f2287ea065950ac9bb34ff80b138'
+         '2e9fb8257681220bee6509597d3bc6b5'
+         'fad1dd6de9372b2e610e52d5f8ee7a56'
+         '892bf014f642bfb810be64004a3ddb2a'
+         '1c4fad5af7e702d7021c30f792914e69'
+         'a21c2c41d50b97812f3eb4b1716f72e1'
+         '77939e599f984013f53b3dc645bc995a'
+         '10693840368e34e40430c7d34c71bd2d'
+         '6a9731f83856d6f7d7d5b37852a1b83f'
+         'ee9dc8c448acf229a2793a9346bd5da3'
+         '34b7f62f312e50010c7dbff7576a3cef'
+         '302f9fb4166fd5409d7e5af5fa82a21d'
+         'ad06590e1c4b047be814ce77b17341ed'
+         '864fc1d3c5618c435696d561f2727e5d'
+         '6c6dc0563d0f620927b489283e75743c'
+         '3574cadd16ca3d597561428e15ab2e30'
+         '9ca6bbe0ac7b386f90601bf1f3e6b547'
+         '59f5aebe4538888c764584bdc0f0baca'
+         'd325e9e01da6caec619467a3fbad835a'
+         'f6638637c0b1e2dca86f08f80522db0d'
+         '60895806c3825624f568a829ddba4494'
+         'f8e5224071732870d42e0c077ac13e2e')

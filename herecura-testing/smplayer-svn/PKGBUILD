@@ -1,0 +1,51 @@
+# Contributor : Flamelab <panosfilip@gmail.com>
+# Parts have been adopted by the previous contributor, AddictedToChaos and by the user "urandom"
+pkgname=smplayer-svn
+pkgver=3575
+pkgrel=1
+pkgdesc="A complete front-end for MPlayer. SVN (testing) version of SMplayer."
+arch=('i686' 'x86_64')
+url="http://smplayer.sourceforge.net/"
+license="GPL"
+depends=('qt' 'mplayer')
+makedepends=('subversion')
+conflicts=('smplayer')
+provides=('smplayer')
+install=('smplayer-svn.install')
+source=()
+md5sums=()
+
+_svnmod="smplayer"
+_svntrunk=https://smplayer.svn.sourceforge.net/svnroot/smplayer/smplayer/trunk/
+
+
+build() {
+     cd "${srcdir}"
+
+     if [ -d $_svnmod/.svn ]; then
+          (cd $_svnmod && svn up -r $pkgver)
+     else
+          svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
+     fi
+
+     msg "SVN checkout done or server timeout"
+     msg "Starting make..."
+
+     if [ -d $_svnmod-build ];then
+        rm -r $_svnmod-build
+     fi
+     cp -r $_svnmod $_svnmod-build
+     cd $_svnmod-build
+
+       
+      # remove broken translation
+     sed -i "s|translations/smplayer_gl.ts|#translations/smplayer_gl.ts|" src/smplayer.pro
+
+     sed -i 's/PREFIX=.*/PREFIX=\/usr/' Makefile || return 1
+     make || return 1
+     make PREFIX=/usr DESTDIR="${pkgdir}/" install
+      
+     install -dm755 ${pkgdir}/usr/share/pixmaps
+     ln -s /usr/share/icons/hicolor/64x64/apps/smplayer.png \
+        ${pkgdir}/usr/share/pixmaps/
+}

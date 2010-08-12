@@ -1,0 +1,26 @@
+# $Id$
+# Maintainer: Dino Krtanjek <krtanjekdino@gmail.com>
+# Maintainer: Richard Rowe <arch.richard@gmail.com>
+pkgname=php-mongo
+pkgver=1.0.9
+_githash='64eb8b20a558f3718978b712d28fdf9fb52f3ff4'
+_hash='64eb8b2'
+pkgrel=1
+pkgdesc="Officially supported PHP driver for MongoDB"
+arch=("i686" "x86_64")
+url="http://www.mongodb.org/display/DOCS/PHP+Language+Center"
+license=("APACHE")
+depends=("php" "mongodb>=1.0.0")
+backup=("etc/php/conf.d/mongo.ini")
+source=("http://github.com/mongodb/mongo-php-driver/tarball/${_githash}"
+		"mongo.ini")
+sha256sums=('3046ae49bc4a49775024145e342be50b7f88ebd0b4857ba5180d715bd7805fc4'
+            'c89685eee842d5c3a85149a5bb8e310e62bf1a17f94183bb66401593ab2b191b')
+
+build() {
+	cd "$srcdir/mongodb-mongo-php-driver-${_hash}"
+	phpize || return 1
+	./configure --prefix=/usr --enable-mongo || return 1
+	make INSTALL_ROOT=$pkgdir install || return 1
+	install -Dm644 $srcdir/mongo.ini "$pkgdir/etc/php/conf.d/mongo.ini"
+}

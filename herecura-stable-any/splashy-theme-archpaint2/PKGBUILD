@@ -1,0 +1,18 @@
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+
+pkgname=splashy-theme-archpaint2
+pkgver=0.1
+pkgrel=4
+pkgdesc="Splashy archpaint2 theme"
+arch=('any')
+url="http://www.archlinux.org"
+license=('CCPL')
+depends=('splashy' 'wallpaper-archpaint2')
+source=("http://www.herecura.be/archlinux/splashy-theme-archpaint2/${pkgname}-${pkgver}.tar.gz")
+
+build() {
+  cd ${srcdir}/archpaint2-${pkgver}
+  mkdir -p ${pkgdir}/usr/share/splashy/themes/
+  cp -r * ${pkgdir}/usr/share/splashy/themes/
+}
+md5sums=('78bbf98c89b744898fd41619a50f2cd3')

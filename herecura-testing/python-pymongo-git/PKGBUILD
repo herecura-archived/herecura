@@ -1,0 +1,34 @@
+# Contributor: Piotr Husiatyński <phusiatynski@gmail.com>
+# Contributor: lp76 <l.peduto@gmail.com>
+
+pkgname=python-pymongo-git
+pkgver=20100812
+pkgrel=1
+pkgdesc="Python driver for MongoDB"
+license=("APACHE")
+url="http://pypi.python.org/pypi/pymongo/"
+depends=('python' 'mongodb-git')
+makedepends=('setuptools' 'git')
+source=()
+arch=('i686' 'x86_64')
+
+_gitroot="http://github.com/mongodb/mongo-python-driver.git"
+_gitname="mongo-python-driver"
+
+build() {
+	if [ -d ${srcdir}/${_gitname} ] ; then
+		cd ${srcdir}/${_gitname} && git pull origin
+		msg "The local files are updated."
+	else
+		git clone ${_gitroot} || return 1
+		cd ${srcdir}/${_gitname}
+	fi
+	msg "Git checkout done or server timeout"
+	cd ${srcdir}
+	if [ -d ${_gitname}-build ]; then
+		rm -rf ${_gitname}-build
+	fi
+	git clone ${_gitname} ${_gitname}-build
+	cd ${srcdir}/${_gitname}-build
+	python setup.py install --root=$pkgdir
+}

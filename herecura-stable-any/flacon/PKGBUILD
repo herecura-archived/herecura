@@ -1,0 +1,27 @@
+# Contributor: Artem Sereda <overmind88@gmail.com>
+pkgname=flacon
+pkgver=0.4.5
+pkgrel=1
+pkgdesc="Extracts individual tracks from one big audio file containing the \
+ entire album of music and saves them as separate audio files."
+arch=('any')
+url="http://kde-apps.org/content/show.php/Flacon?content=113388"
+license=('GPL')
+depends=('pyqt' 'shntool')
+optdepends=(
+  'flac: for decoding and encoding FLAC files'
+  'mac: for decoding APE files'
+  'wavpack: for decoding WV files'
+  'oggenc: for encoding OGG files'
+  'lame: for encoding MP3 files'
+  'vorbisgain: for OGG replay gain'
+  'mp3gain: for MP3 replay gain'
+)
+
+source=(http://kde-apps.org/CONTENT/content-files/113388-$pkgname-$pkgver.tgz)
+sha256sums=('48a3bcc0650871849943aaef2641d5d7aa8c93d9a42dc3b57a417c79e457e143')
+
+build() {
+  cd ${pkgname}-${pkgver}
+  make DESTDIR=${pkgdir} install
+}

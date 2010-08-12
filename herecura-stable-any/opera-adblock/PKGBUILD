@@ -1,0 +1,21 @@
+# Maintainer: Jeremy Sands cto@jeremysands.com
+
+pkgname=opera-adblock
+pkgver=2010.08.08
+pkgrel=1
+pkgdesc="Fanboy's AdBlock Filterset for Opera"
+arch=('any')
+url="http://www.fanboy.co.nz/adblock/opera/"
+license=('cc-by-3.0')
+depends=('opera')
+source=(urlfilter.ini)
+sha256sums=('771f275d48832bccd60789eaac90eb8eb9aec1890fd1d059fd8a71e84014b5b5')
+
+build() {
+  cd "$startdir"/src
+  mkdir -p "$startdir"/pkg/usr/share/"$pkgname"/
+  install -m644 urlfilter.ini "$startdir"/pkg/usr/share/"$pkgname"/urlfilter.ini
+}
+install=${pkgname}.install
+
+# vim:set ts=2 sw=2 et:
