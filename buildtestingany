@@ -1,6 +1,6 @@
 #!/bin/bash
 PATH=$PATH:~/herecura
 cd ~/herecura
-svn up
+git pull origin master
 cd ~/herecura/herecura-testing-any
 buildrepo
