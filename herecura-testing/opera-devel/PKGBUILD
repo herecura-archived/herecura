@@ -2,9 +2,9 @@
 # Contributor: Skunnyk
 # Contributor: totoloco
 pkgname=opera-devel
-_bigrelease=10.61
-_buildver=6430
-_randomizer=rc3
+_bigrelease=10.60
+_buildver=6428
+_randomizer=heyprrresto
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
@@ -24,8 +24,8 @@ conflicts=('opera' 'opera-beta')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm)
-md5sums=('70be8b72f7d6de76479f1e1fd9db9ff5')
-[ "$CARCH" = "x86_64" ] && md5sums=('5ba2792c38f9613a0d7383e7216dba5b')
+sha256sums=('1203c1823222c329fa4af4a7ee2a2cb47b40cccffea4a3d573d5372117eff95a')
+[ "$CARCH" = "x86_64" ] && sha256sums=('e81f2333b8ed335806b4dbe37c422f20ccddd02232909514cfa58bb731255d18')
 
 build() {
         cd ${pkgdir}
