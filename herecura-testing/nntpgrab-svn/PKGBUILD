@@ -1,6 +1,6 @@
 # Archlinux buildscript for nntpgrab-svn
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
-# Contributor: BlackEagle <ike.devolder@scarlet.be>
 pkgname=nntpgrab-svn
 pkgver=1696
 pkgrel=1
@@ -9,13 +9,15 @@ arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license=('GPL2')
 groups=()
-depends=('gtk2' 'libxml2' 'libxslt' 'openssl' 'sqlite3' 'gtkhtml' 'libsoup' 'par2cmdline' 'intltool')
-makedepends=('subversion' 'pkgconfig')
+depends=('gtk2' 'libxml2' 'libxslt' 'openssl' 'libsoup' 'networkmanager')
+optdepends=('par2cmdline: for automatic repair'
+'unrar: for automatic extraction')
+makedepends=('subversion' 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool')
 provides=('nntpgrab')
 conflicts=('nntpgrab')
 replaces=()
 backup=()
-options=()
+options=(!libtool)
 install=
 source=()
 noextract=()
@@ -26,25 +28,29 @@ _svnmod='nntpgrab'
 
 build()
 {
-	cd "$srcdir"
-
-	if [ -d $_svnmod/.svn ]; then
-		(cd $_svnmod && svn up -r $pkgver)
+	if [ -d ${_svnmod}/.svn ]; then
+		(cd ${_svnmod} && svn up -r ${pkgver})
 	else
-		svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
+		svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod}
 	fi
 
 	msg "SVN checkout done"
 	msg "Starting make..."
 
-	if [ -d $srcdir/$_svnmod-build ]; then
-		rm -r $srcdir/$_svnmod-build
+	if [ -d ${_svnmod}-build ]; then
+		rm -rf ${_svnmod}-build
 	fi
-	cp -a $srcdir/$_svnmod $srcdir/$_svnmod-build
-	cd "$srcdir/$_svnmod-build"
+	cp -a ${_svnmod} ${_svnmod}-build
+	cd ${_svnmod}-build
 
 	./autogen.sh
-	./configure --prefix=/usr --disable-webinterface
-	make || return 1
+	msg2 "configure"
+	./configure --prefix=/usr
+	msg2 "make"
+	make
+}
+
+package() {
+	cd ${_svnmod}-build
 	make DESTDIR=$startdir/pkg install
 }
