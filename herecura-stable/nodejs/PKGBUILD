@@ -1,28 +1,25 @@
-# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
-# Contributor: James Campos   <james.r.campos@gmail.com>
+# Maintainer: James Campos   <james.r.campos@gmail.com>
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Dongsheng Cai <dongsheng at moodle dot com>
 # Contributor: Masutu Subric <masutu.arch at googlemail dot com>
 pkgname=nodejs
-pkgver=0.1.103
-pkgrel=1
+pkgver=0.1.104
+pkgrel=3
 pkgdesc="Evented I/O for V8 javascript"
 arch=('i686' 'x86_64')
 url="http://nodejs.org/"
 license=('custom:nodejs')
 depends=('openssl')
 source=("http://nodejs.org/dist/node-v$pkgver.tar.gz")
-sha256sums=('7482b898a0f9514c74137b490c3ad0810ee5ce1586e8886c5182f6446e56711e')
+md5sums=('907fa1e0a2f1f0c3df5efc97fd05a7d2')
 
 build() {
-    cd node-v${pkgver}
-    ./configure --prefix=/usr/
-    make
-}
-
-package() {
-    cd node-v${pkgver}
-    tools/waf-light install --destdir=${pkgdir}
-    install -D -m644 LICENSE ${pkgdir}/usr/share/licenses/${pkgname}/LICENSE
-    install -D -m644 ChangeLog ${pkgdir}/usr/share/${pkgname}/ChangeLog
-    install -D -m644 README ${pkgdir}/usr/share/${pkgname}/README
+    cd ${srcdir}
+    cd "node-v${pkgver}"
+    ./configure --prefix=/usr/ || return 1
+    make || return 1
+    tools/waf-light install --destdir=$pkgdir || return 1
+    install -D -m644 LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
+    install -D -m644 ChangeLog $pkgdir/usr/share/${pkgname}/ChangeLog
+    install -D -m644 README $pkgdir/usr/share/${pkgname}/README
 }
