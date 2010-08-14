@@ -23,8 +23,8 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		b44.c.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
             '8608aecae0e28dbd8e68ef8a3674295ea16fa1c018ad6ec4064eedc78b338295'
-            'c171a7d9fd8e4d2f493ee3ae4db04c3979de2479d61f92060d5f7b61cdddfb58'
-            'a8a84d3ac13fda653ddd5919deda4ae1c46d0ee464d90910303a98dc450c2df4'
+            'd081c6a31381f04e41841e54aafb0e6d82f1196d2bf3b3942e39c60d46d843d6'
+            '1309325679704839e69be6d0d298d912a62a64a993daadc56bf02d1ee9a29a4c'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
             '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf')
 
