@@ -3,8 +3,8 @@
 
 pkgname=nvidia-slk
 pkgver=256.44
-_kernver='2.6.35-SLK'
-pkgrel=1
+_kernver='2.6.35-SLK+'
+pkgrel=2
 pkgdesc="NVIDIA drivers for kernel26-slk"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
