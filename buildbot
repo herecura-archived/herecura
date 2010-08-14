@@ -4,5 +4,3 @@ cd ~/herecura/
 git pull origin master
 cd "$1"
 buildrepo
-cd ~/herecura/
-git commit -asm "updated possible auto updated pkgbuilds"
