@@ -7,7 +7,7 @@ pkgname=('kernel26-slk' 'kernel26-slk-headers')
 _kernelname=-slk
 _basekernel=2.6.35
 pkgver=${_basekernel}.2
-pkgrel=1
+pkgrel=2
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
 license=('GPL2')
@@ -23,8 +23,8 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		b44.c.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
             '8608aecae0e28dbd8e68ef8a3674295ea16fa1c018ad6ec4064eedc78b338295'
-            'd081c6a31381f04e41841e54aafb0e6d82f1196d2bf3b3942e39c60d46d843d6'
-            '1309325679704839e69be6d0d298d912a62a64a993daadc56bf02d1ee9a29a4c'
+            '93b74e1fe023289f9b2f2cde286f879efe868be55be53c7dd8e9734c1c70f2b5'
+            '1caa6c62bb5caeb63a7c81a1298f9769435c963f8a64bfc1fe7b30ca6d5340c8'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
             '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf')
 
