@@ -26,6 +26,7 @@ dhcpcd
 dialog
 diffutils
 e2fsprogs
+elfutils
 eventlog
 expat
 fakeroot
@@ -60,7 +61,6 @@ kernel26-slk-headers
 less
 libarchive
 libcap
-libelf
 libfetch
 libgcrypt
 libgpg-error
