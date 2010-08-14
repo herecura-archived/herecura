@@ -22,11 +22,11 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		# special patches for some longtime bug
 		b44.c.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
-			'8608aecae0e28dbd8e68ef8a3674295ea16fa1c018ad6ec4064eedc78b338295'
-			'cf1c84dcab9d7c01f17d945a58942f55b34d6dab434a486173cb92fba376a46f'
-			'c9948070801a40be06e472a4c939d67e022277fd632e216a87985dfc5582bfd6'
-			'2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
-			'6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf')
+            '8608aecae0e28dbd8e68ef8a3674295ea16fa1c018ad6ec4064eedc78b338295'
+            'c171a7d9fd8e4d2f493ee3ae4db04c3979de2479d61f92060d5f7b61cdddfb58'
+            'a8a84d3ac13fda653ddd5919deda4ae1c46d0ee464d90910303a98dc450c2df4'
+            '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
+            '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf')
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
