@@ -4,7 +4,7 @@
 pkgbase='packagekit'
 pkgname=('packagekit' 'packagekit-qt' 'packagekit-python')
 pkgver=0.6.7
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
 license=('GPL')
@@ -27,9 +27,8 @@ build() {
 		--disable-tests \
 		--disable-debuginfo-install \
 		--disable-dummy \
-		--enable-alpm \
 		--enable-pacman \
-		--with-default-backend=alpm
+		--with-default-backend=pacman
 	make
 
 	./configure --prefix=/usr \
@@ -53,9 +52,8 @@ build() {
 		--disable-device-rebind \
 		--disable-pm-utils \
 		--disable-dummy \
-		--enable-alpm \
 		--enable-pacman \
-		--with-default-backend=alpm
+		--with-default-backend=pacman
 }
 
 package_packagekit() {
