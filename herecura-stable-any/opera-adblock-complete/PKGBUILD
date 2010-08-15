@@ -1,7 +1,7 @@
 # Maintainer: Jeremy Sands cto@jeremysands.com
 
 pkgname=opera-adblock-complete
-pkgver=2010.08.08
+pkgver=2010.08.15
 pkgrel=1
 pkgdesc="Fanboy's AdBlock Filterset for Opera including Stat/Tracking Filters"
 arch=('i686' 'x86_64')
@@ -10,8 +10,8 @@ license=('cc-by-3.0')
 depends=('opera')
 source=('urlfilter.ini'
     'fanboy-adblocklist-elements-v3.css')
-sha256sums=('eac2bbc5f73e791fc18b6ef0be41172d3c00e6be2a0f446550ede92a4ffd558f'
-            '0d97315627a3ec78bb494441d27fa3bf0d73c86e4b82ed423cb7b52eb954dd0f')
+sha256sums=('807648727bb89bab26a17dab4bb0598e69f3cbc28047e14c1fe656801f4c8766'
+            '6fb6f9a08474cba36ffd5f1e5690c55322c89dcae30bbf1cce27bb765a649900')
 
 build() {
   cd "$startdir"/src/
