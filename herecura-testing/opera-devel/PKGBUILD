@@ -2,7 +2,7 @@
 # Contributor: Skunnyk
 # Contributor: totoloco
 pkgname=opera-devel
-_bigrelease=10.60
+_bigrelease=10.70
 _buildver=6428
 _randomizer=heyprrresto
 pkgver=${_bigrelease}_${_buildver}
