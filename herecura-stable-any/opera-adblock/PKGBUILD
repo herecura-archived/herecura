@@ -1,7 +1,7 @@
 # Maintainer: Jeremy Sands cto@jeremysands.com
 
 pkgname=opera-adblock
-pkgver=2010.08.15
+pkgver=2010.08.23
 pkgrel=1
 pkgdesc="Fanboy's AdBlock Filterset for Opera"
 arch=('any')
@@ -9,7 +9,7 @@ url="http://www.fanboy.co.nz/adblock/opera/"
 license=('cc-by-3.0')
 depends=('opera')
 source=(urlfilter.ini)
-sha256sums=('daeed62d239988f9416685940f34c719f1a618029e89fb61a299d487342dfed0')
+sha256sums=('74a12818367475c8cd717deb45bf0503c7b060df5f6642660b2fa74ee9356cf0')
 
 build() {
   cd "$startdir"/src
