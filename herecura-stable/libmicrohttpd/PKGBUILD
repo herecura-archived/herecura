@@ -17,14 +17,14 @@ sha256sums=('106f0599d60c9caaee36334d96cc4198ed6d392b1a45523e46f226bd24a680d5')
 build() {
 	cd ${pkgname}-${pkgver}
 	./configure --prefix=/usr --disable-dependency-tracking --enable-largefile --enable-curl --enable-messages --with-pic
-	make || return 1
+	make
 }
 
 package() {
 	cd ${pkgname}-${pkgver}
-	make DESTDIR=${pkgdir} install || return 1
+	make DESTDIR=${pkgdir} install
 	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/src/include/platform.h \
-		${pkgdir}/usr/include/platform.h || return 1
+		${pkgdir}/usr/include/platform.h
 	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/src/include/plibc.h \
-		${pkgdir}/usr/include/plibc.h || return 1
+		${pkgdir}/usr/include/plibc.h
 }
