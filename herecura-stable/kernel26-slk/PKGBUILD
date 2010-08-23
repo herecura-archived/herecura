@@ -6,8 +6,8 @@ pkgname=('kernel26-slk' 'kernel26-slk-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk
 _basekernel=2.6.35
-pkgver=${_basekernel}.2
-pkgrel=2
+pkgver=${_basekernel}.3
+pkgrel=1
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
 license=('GPL2')
@@ -22,9 +22,9 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		# special patches for some longtime bug
 		b44.c.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
-            '8608aecae0e28dbd8e68ef8a3674295ea16fa1c018ad6ec4064eedc78b338295'
-            '93b74e1fe023289f9b2f2cde286f879efe868be55be53c7dd8e9734c1c70f2b5'
-            '1caa6c62bb5caeb63a7c81a1298f9769435c963f8a64bfc1fe7b30ca6d5340c8'
+            '94d321099f20f47dc681304a630391322e0e4d6672bb1106a621e6347c44db83'
+            '3bb7209c0d63cdbbed1076efda698d50a71ff53ef9ae900355379aa47f29a74a'
+            'd3517a2edac95cc1f1d6453ead4aee324ee2fb89800ef57568221e0ac828592b'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
             '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf')
 
@@ -36,6 +36,9 @@ build() {
 	# b44 patch
 	patch -Np1 -i ${srcdir}/b44.c.patch
 
+	KERNELRELEASE=${_basekernel}-SLK
+	export KERNELRELEASE
+
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
 	else
@@ -45,6 +48,10 @@ build() {
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U${_kernelname}\"|g" ./.config
 	fi
 	sed -i -e 's/^EXTRAVERSION =.*/EXTRAVERSION =/' ./Makefile
+
+	# hack to prevent output kernel from being marked as dirty or git
+	echo "" > ${srcdir}/linux-${_basekernel}/.scmversion
+
 	# get kernel version
 	make prepare
 	# load configuration
@@ -60,6 +67,8 @@ build() {
 	#return 1
 	####################
 	yes "" | make config
+	#echo "${_basekernel}-SLK}" > ${srcdir}/linux-${_basekernel}/include/config/kernel.release
+	#sed -i -e "s/^#define UTS_RELEASE.*/#define UTS_RELEASE \"${_basekernel}-SLK\"/g" ${srcdir}/linux-${_basekernel}/include/generated/utsrelease.h
 	# build!
 	make bzImage modules
 }
