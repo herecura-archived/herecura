@@ -1,6 +1,6 @@
 # Contributor: Mark Harviston infinull@gmail.com
 pkgname=jslint
-pkgver='20100714'
+pkgver='20100808'
 pkgrel=2
 pkgdesc="The Javascript Code Quality Tool"
 arch=('any')
@@ -8,8 +8,8 @@ url="http://jslint.com"
 license=('(C)2002 Douglas Crockford')
 depends=('rhino')
 source=('http://www.jslint.com/rhino/jslint.js' 'jslint')
-md5sums=('10af24d3b1bff6ee05c9624a19f70b6a'
-         '47284ed63b5b35fd5576a83b8974dced')
+md5sums=('f9b889b3ca082a0c48bbad03bfca0f06' '47284ed63b5b35fd5576a83b8974dced')
+author='Douglas Crockford'
 
 build() {
 	install -m 644 -D "$srcdir/jslint.js" "$pkgdir/usr/share/jslint.js"
