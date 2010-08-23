@@ -4,12 +4,13 @@
 # Contributor: Mathias Rohnstock <linksoft@gmx.de>
 pkgname=libmicrohttpd
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="a small C library that is supposed to make it easy to run an HTTP server as part of another application."
 arch=('i686' 'x86_64')
 url="http://www.gnu.org/software/libmicrohttpd/"
 license=('LGPL')
-depends=('curl' 'libgcrypt')
+options=(!libtool)
+depends=('gnutls')
 source=(ftp://ftp.gnu.org/gnu/libmicrohttpd/$pkgname-$pkgver.tar.gz)
 sha256sums=('106f0599d60c9caaee36334d96cc4198ed6d392b1a45523e46f226bd24a680d5')
 
