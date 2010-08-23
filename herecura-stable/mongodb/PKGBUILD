@@ -1,8 +1,8 @@
 #Maintainer: Mathias Stearn <mathias@10gen.com>
 #Contributor: Alec Thomas
 pkgname=mongodb
-pkgver=1.6.0
-pkgrel=2
+pkgver=1.6.1
+pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
@@ -14,9 +14,9 @@ backup=('etc/conf.d/mongodb' 'etc/mongodb.conf')
 source=("http://downloads.mongodb.org/src/${pkgname}-src-r${pkgver}.tar.gz"
         "mongodb.rc"
         "mongodb.conf")
-md5sums=('d09e062b518ce71106652eac0e88a962'
-         'ebc707d3348c1f908166847040153620'
-         '9e0ea3f96732bb7811f0b64dace56440')
+sha256sums=('08ff3df5e30f854eb7154e104983d36d975b89e2f421ed799e58b2860372ff64'
+            '26b7f46902a822d7fa0b4219f1e68cbe0d0ac1d0e62c37fd8fd081dd4c88d70c'
+            'f3fc037c704d67c68c7d69c46878af3d8a601e48ca51105835f740cddb1b2b2e')
 install="mongodb.install"
 
 build() {
