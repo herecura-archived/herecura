@@ -9,10 +9,10 @@ arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license=('GPL2')
 groups=()
-depends=('gtk2' 'libxml2' 'libxslt' 'openssl' 'libsoup' 'networkmanager')
+depends=('gtk2' 'libsoup-gnome' 'networkmanager')
 optdepends=('par2cmdline: for automatic repair'
 'unrar: for automatic extraction')
-makedepends=('subversion' 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool')
+makedepends=('subversion' 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool' 'gobject-introspection')
 provides=('nntpgrab')
 conflicts=('nntpgrab')
 replaces=()
