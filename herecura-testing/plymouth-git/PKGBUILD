@@ -6,7 +6,7 @@ pkgdesc="A Linux boot screen implementation"
 url="http://freedesktop.org/wiki/Software/Plymouth"
 license=('GPL')
 arch=('i686' 'x86_64')
-pkgver=20100823
+pkgver=20100825
 pkgrel=1
 depends=('initscripts' 'libdrm' 'gtk2')
 makedepends=('git')
@@ -32,6 +32,12 @@ md5sums=('916fb026be911d4cf9c51d44bfee0791'
 'ab8a557d10f74bec5c94ed6cae34729c')
 
 
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
+_gitchash=""
 _gitroot='git://git.freedesktop.org/git/plymouth'
 _gitname='plymouth'
 _gitbranch='master'
@@ -48,6 +54,9 @@ build() {
 		git clone $_gitroot $_gitname
 	fi
 	msg "GIT checkout done or server timeout. Preparing sources..."
+	_gitchash=$(git show | grep commit | sed 's/commit //')
+	[ "${_gitphash}" == "${_gitchash}" ] && return 1
+
 
 	if [ -d ${srcdir}/${_gitname}-build ]; then
 		rm -rf ${srcdir}/${_gitname}-build
@@ -70,12 +79,16 @@ build() {
 		--with-background-start-color-stop=0x000000 \
 		--with-background-end-color-stop=0x4D4D4D
 
-	make || return 1
-	make DESTDIR="$pkgdir" install || return 1
+	make
+}
+
+package() {
+	cd ${_gitname}-build
+	make DESTDIR="$pkgdir" install
 
 	cd "$pkgdir"
 
-	patch -Np0 -i "$srcdir/plymouth-update-initrd.patch" || return 1
+	patch -Np0 -i "$srcdir/plymouth-update-initrd.patch"
 
 	#rm -rf `find . -name "*.a"`
 	rm -rf `find . -name "*.orig"`
@@ -87,5 +100,6 @@ build() {
 	install -D -m644 $srcdir/plymouth.functions ${pkgdir}/etc/rc.d/functions.d/plymouth.functions
 	install -D -m644 "$srcdir/arch-logo.png" ${pkgdir}/usr/share/plymouth/arch-logo.png
 	install -D -m644 "$srcdir/system-release" ${pkgdir}/etc/system-release
+	echo ${_gitchash} > ${startdir}/.githash
 }
 

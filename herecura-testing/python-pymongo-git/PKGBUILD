@@ -2,7 +2,7 @@
 # Contributor: lp76 <l.peduto@gmail.com>
 
 pkgname=python-pymongo-git
-pkgver=20100823
+pkgver=20100825
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
@@ -12,6 +12,12 @@ makedepends=('setuptools' 'git')
 source=()
 arch=('i686' 'x86_64')
 
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
+_gitchash=""
 _gitroot="http://github.com/mongodb/mongo-python-driver.git"
 _gitname="mongo-python-driver"
 
@@ -20,15 +26,22 @@ build() {
 		cd ${srcdir}/${_gitname} && git pull origin
 		msg "The local files are updated."
 	else
-		git clone ${_gitroot} || return 1
+		git clone ${_gitroot}
 		cd ${srcdir}/${_gitname}
 	fi
 	msg "Git checkout done or server timeout"
+	_gitchash=$(git show | grep commit | sed 's/commit //')
+	[ "${_gitphash}" == "${_gitchash}" ] && return 1
+
 	cd ${srcdir}
 	if [ -d ${_gitname}-build ]; then
 		rm -rf ${_gitname}-build
 	fi
 	git clone ${_gitname} ${_gitname}-build
+}
+
+package() {
 	cd ${srcdir}/${_gitname}-build
 	python setup.py install --root=$pkgdir
+	echo ${_gitchash} > ${startdir}/.githash
 }

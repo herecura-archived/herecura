@@ -1,7 +1,7 @@
 # Contributor: DsTr <kostindima@gmail.com>
 
 pkgname=krusader-svn
-pkgver=1164078
+pkgver=1167039
 pkgrel=1
 pkgdesc="The Krusader svn branch"
 arch=('i686' 'x86_64')

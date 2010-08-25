@@ -2,7 +2,7 @@
 
 _pkgname=pacman-glib
 pkgname="$_pkgname-git"
-pkgver=20100823
+pkgver=20100825
 pkgrel=1
 pkgdesc='GLib library for Arch Linux package management'
 arch=('i686' 'x86_64')
@@ -13,6 +13,12 @@ makedepends=('git' 'gnome-common' 'gtk-doc' 'intltool')
 provides=("$_pkgname=3.4.0")
 conflicts=("$_pkgname")
 
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
+_gitchash=""
 _gitroot='git://github.com/PirateJonno/pacman-glib.git'
 _gitname='pacman-glib'
 
@@ -25,8 +31,10 @@ build() {
 	else
 		git clone ${_gitroot} ${_gitname}
 	fi
-	
 	msg "GIT checkout done or server timeout"
+	_gitchash=$(git show | grep commit | sed 's/commit //')
+	[ "${_gitphash}" == "${_gitchash}" ] && return 1
+
 	msg "Starting make..."
 
 	cd ${srcdir}
@@ -42,4 +50,5 @@ build() {
 package() {
 	cd ${_gitname}-build
 	make DESTDIR="$pkgdir" install
+	echo ${_gitchash} > ${startdir}/.githash
 }

@@ -1,0 +1,25 @@
+# Maintainer BlackEagle < ike DOT devolder AT gmail DOT com >
+
+pkgname=kmtail
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="KDE tail tool"
+arch=('i686' 'x86_64')
+url="http://kde-apps.org/content/show.php/KmTail?content=124134"
+license=('GPL')
+depends=('kdebase-workspace' 'turbotail')
+source=(http://www.binro.org/$pkgname-$pkgver.tar.bz2)
+sha256sums=('8dc65a4b916f2eda642c07017c1aea95381ee66d341b7dad05f595709fea0243')
+
+build() {
+	cd $srcdir/$pkgname-$pkgver
+
+	mkdir build && cd build
+	cmake -DCMAKE_INSTALL_PREFIX=$KDEDIR ..
+	make
+}
+
+package() {
+	cd $srcdir/$pkgname-$pkgver/build
+	make DESTDIR=$pkgdir/usr/ install
+}

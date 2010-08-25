@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://splashy.alioth.debian.org/schemas/1.1/theme.xsd">
     <info>
         <!-- theme name is case sensitive. use directory name -->
-        <name>xbmc</name>
-        <version>1.2</version>
-        <description>xbmc theme</description>
+        <name>xbmc-dharma</name>
+        <version>1.0</version>
+        <description>xbmc dharma theme</description>
         <urls>http://www.xbmc.org</urls>
         <author>Haggy</author>
     </info>

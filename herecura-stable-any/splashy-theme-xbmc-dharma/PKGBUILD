@@ -1,0 +1,25 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# thanx to Haggy for original xbmc splashy theme
+# Contributor: Ralf Barth <archlinux dot org at haggy dot org>
+
+pkgname=splashy-theme-xbmc-dharma
+pkgver=1.0
+pkgrel=1
+pkgdesc="Splashy theme for xbmc"
+license=('custom')
+arch=('any')
+url="http://www.xbmc.org"
+depends=('splashy')
+conflicts=()
+source=('background.png' 
+        'theme.xml' 
+        'FreeSans.ttf')
+sha256sums=('b845b4befdbfacd9095b30a10d774607e9adca22973758ec6358e448f46cfdcf'
+            '3e2ec27db1c38c8de7ac892ef46f10ae7404a941ac0d4bd84b80a52f93558006'
+            '3b18573059ddc34ab48046706fdbcabd1df56623247492c704a064d2e998bfce')
+
+build() {
+  install -m 644 -D background.png $pkgdir/usr/share/splashy/themes/xbmc-dharma/background.png
+  install -m 644 -D theme.xml $pkgdir/usr/share/splashy/themes/xbmc-dharma/theme.xml
+  install -m 644 -D FreeSans.ttf $pkgdir/usr/share/splashy/themes/xbmc-dharma/FreeSans.ttf
+}
