@@ -2,7 +2,7 @@
 # Contributor: lp76 <l.peduto@gmail.com>
 
 pkgname=python-pymongo-git
-pkgver=20100823
+pkgver=20100825
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
