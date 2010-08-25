@@ -18,6 +18,12 @@ install=${pkgname}.install
 md5sums=('792607705dfb6358a871f8862e7b043d'
 'faf6e4f6e378cb1c1b0b8e85d6791988')
 
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
+_gitchash=""
 _gitroot="git://github.com/mongodb/mongo.git"
 _gitname="mongo"
 
@@ -26,11 +32,13 @@ build() {
 		cd ${srcdir}/${_gitname} && git pull origin
 		msg "The local files are updated."
 	else
-		git clone ${_gitroot} || return 1
+		git clone ${_gitroot}
 		cd ${srcdir}/${_gitname}
 	fi
-
 	msg "GIT checkout done or server timeout"
+	_gitchash=$(git show | grep commit | sed 's/commit //')
+	[ "${_gitphash}" == "${_gitchash}" ] && return 1
+
 	cd ${srcdir}
 	if [ -d ${_gitname}-build ]; then
 		rm -rf ${_gitname}-build
@@ -39,16 +47,19 @@ build() {
 	cd ${srcdir}/${_gitname}-build
 
 	local SCONSFLAGS="${MAKEFLAGS}"
-	scons all || return 1
-	scons --prefix="${startdir}/pkg/usr" install || return 1
-	install -Dm 755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb" || return 1
-	install -Dm 644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf" || return 1
-	install -dm 700 "${startdir}/pkg/var/lib/mongodb" || return 1
+	scons all
+}
+
+package() {
+	cd ${_gitname}-build
+	scons --prefix="${startdir}/pkg/usr" install
+	install -Dm 755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
+	install -Dm 644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
+	install -dm 700 "${startdir}/pkg/var/lib/mongodb"
 
 	if [ -d "${pkgdir}/usr/lib64" ] ; then
-		mv "${pkgdir}/usr/lib64" "${pkgdir}/usr/lib" || return 1
+		mv "${pkgdir}/usr/lib64" "${pkgdir}/usr/lib"
 	fi
 
-	msg "If upgrading from 1.0 don't forget to upgrade your db."
-	msg "Upgrade db with: mongod --config /etc/mongodb.conf --upgrade"
+	echo ${_gitchash} > ${startdir}/.githash
 }
