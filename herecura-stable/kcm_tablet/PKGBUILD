@@ -11,7 +11,7 @@ arch=('x86_64' 'i686')
 source=("http://www.kde-apps.org/CONTENT/content-files/114856-kcm-tablet-${pkgver}.tar.gz")
 md5sums=('174c0b9a7e9a390a30d007b7da741ed7')
 depends=('kdelibs' 'qt')
-makedepends=('cmake')
+makedepends=('cmake' 'automoc4')
 md5sums=('7e08518b28db1e87afba42d10dba821b')
 conflicts=('kcm_tablet-svn')
 
