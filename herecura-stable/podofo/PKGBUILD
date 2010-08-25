@@ -2,8 +2,8 @@
 # Contributor: Preecha Patumchareonpol <yumyai at gmail.com> 
 
 pkgname=podofo
-pkgver=0.8.1
-pkgrel=6
+pkgver=0.8.2
+pkgrel=1
 pkgdesc="PoDoFo is a library to work with the PDF file format."
 arch=('i686' 'x86_64')
 url="http://podofo.sourceforge.net"
@@ -14,16 +14,11 @@ optdepends=( 'cppunit' 'lua')
 install=
 source=(
 	"http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
-	'podofo-0.8.1-casts.patch'
 )
-md5sums=(
-	'1d5cc8c03e2942266f96a7e8bf09dd0e'
-	'49e4af041434435ff4b9b9c879ce6ab3'
-)
+sha256sums=('786a04a8afda2235d85f88103ddb7c7c345eba3f92b42262b1a7f82d777e8c18')
 
 build() {
 	cd ${pkgname}-${pkgver}
-	patch -Np1 -i ${startdir}/podofo-0.8.1-casts.patch || return 1
 	if [ -d build ]; then
 		rm -Rf build
 	fi
