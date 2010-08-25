@@ -1,0 +1,23 @@
+# Contributor: Ralf Barth <archlinux dot org at haggy dot org>
+
+pkgname=splashy-theme-xbmc-camelot
+pkgver=1.2
+pkgrel=4
+pkgdesc="Splashy theme for xbmc"
+license=('custom')
+arch=('any')
+url="http://www.xbmc.org"
+depends=('splashy')
+conflicts=()
+source=('background.png' 
+        'theme.xml' 
+        'FreeSans.ttf')
+sha256sums=('73b766abe00acd2b6f752a03ebd6be024eb6b0cf67b428edf60feee814027d8d'
+            'e5b01ff6dde18b98f8c70fffbb1af827ecfa375abc924c4b4501061014146da8'
+            '3b18573059ddc34ab48046706fdbcabd1df56623247492c704a064d2e998bfce')
+
+build() {
+  install -m 644 -D background.png $pkgdir/usr/share/splashy/themes/xbmc-camelot/background.png
+  install -m 644 -D theme.xml $pkgdir/usr/share/splashy/themes/xbmc-camelot/theme.xml
+  install -m 644 -D FreeSans.ttf $pkgdir/usr/share/splashy/themes/xbmc-camelot/FreeSans.ttf
+}

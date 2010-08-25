@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://splashy.alioth.debian.org/schemas/1.1/theme.xsd">
     <info>
         <!-- theme name is case sensitive. use directory name -->
-        <name>xbmc</name>
+        <name>xbmc-camelot</name>
         <version>1.2</version>
         <description>xbmc theme</description>
         <urls>http://www.xbmc.org</urls>
