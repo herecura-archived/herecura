@@ -1,8 +1,0 @@
-#!/bin/bash
-PATH=$PATH:~/github/herecura
-cd ~/github/herecura/
-git pull origin master
-cd "$1"
-buildrepo
-cd ~/github/herecura/
-git commit -asm "updated possible auto updated pkgbuilds"
