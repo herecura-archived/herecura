@@ -14,6 +14,12 @@ backup=("etc/php/conf.d/mongo.ini")
 source=("mongo.ini")
 md5sums=('6a34ebbedfbeb7b2462fbba936afea04')
 
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
+_gitchash=""
 _gitroot="http://github.com/mongodb/mongo-php-driver.git"
 _gitname="mongo-php-driver"
 
@@ -22,18 +28,26 @@ build() {
 		cd ${srcdir}/${_gitname} && git pull origin
 		msg "The local files are updated."
 	else
-		git clone ${_gitroot} || return 1
+		git clone ${_gitroot}
 		cd ${srcdir}/${_gitname}
 	fi
 	msg "Git checkout done or server timeout"
+	_gitchash=$(git show | grep commit | sed 's/commit //')
+	[ "${_gitphash}" == "${_gitchash}" ] && return 1
+
 	cd ${srcdir}
 	if [ -d ${_gitname}-build ]; then
 		rm -rf ${_gitname}-build
 	fi
 	git clone ${_gitname} ${_gitname}-build
 	cd ${srcdir}/${_gitname}-build
-	phpize || return 1
-	./configure --prefix=/usr --enable-mongo || return 1
-	make INSTALL_ROOT=$pkgdir install || return 1
+	phpize
+	./configure --prefix=/usr --enable-mongo
+}
+
+package() {
+	cd ${_gitname}-build
+	make INSTALL_ROOT=$pkgdir install
 	install -Dm644 $srcdir/mongo.ini "$pkgdir/etc/php/conf.d/mongo.ini"
+	echo ${_gitchash} > ${startdir}/.githash
 }
