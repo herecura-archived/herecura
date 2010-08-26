@@ -67,8 +67,6 @@ build() {
 	#return 1
 	####################
 	yes "" | make config
-	#echo "${_basekernel}-SLK}" > ${srcdir}/linux-${_basekernel}/include/config/kernel.release
-	#sed -i -e "s/^#define UTS_RELEASE.*/#define UTS_RELEASE \"${_basekernel}-SLK\"/g" ${srcdir}/linux-${_basekernel}/include/generated/utsrelease.h
 	# build!
 	make bzImage modules
 }
