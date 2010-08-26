@@ -117,8 +117,8 @@ build() {
 		--disable-hal \
 		--disable-avahi \
 		--enable-external-libraries \
-		--disable-external-ffmpeg \
 		--disable-external-python || return 1
+		#--disable-external-ffmpeg \
 
 	# Now (finally) build
 	msg2 "Running make" 
