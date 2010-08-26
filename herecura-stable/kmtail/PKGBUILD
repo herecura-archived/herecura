@@ -8,6 +8,7 @@ arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php/KmTail?content=124134"
 license=('GPL')
 depends=('kdebase-workspace' 'turbotail')
+makedeps=('cmake' 'automoc4')
 source=(http://www.binro.org/$pkgname-$pkgver.tar.bz2)
 sha256sums=('8dc65a4b916f2eda642c07017c1aea95381ee66d341b7dad05f595709fea0243')
 
