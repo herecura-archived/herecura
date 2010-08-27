@@ -6,7 +6,7 @@ pkgname=('kernel26-slk' 'kernel26-slk-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk
 _basekernel=2.6.35
-pkgver=${_basekernel}.3
+pkgver=${_basekernel}.4
 pkgrel=1
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
@@ -22,7 +22,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		# special patches for some longtime bug
 		b44.c.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
-            '94d321099f20f47dc681304a630391322e0e4d6672bb1106a621e6347c44db83'
+            '03f88e20d9138fd710b338403b2fc97e43ecc34b1f6f0b0d203e03307485550e'
             '3bb7209c0d63cdbbed1076efda698d50a71ff53ef9ae900355379aa47f29a74a'
             'd3517a2edac95cc1f1d6453ead4aee324ee2fb89800ef57568221e0ac828592b'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
