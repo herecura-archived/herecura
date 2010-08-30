@@ -23,8 +23,6 @@ source=(
   'gvim.desktop'
   'license.txt'
   "ftp://ftp.nluug.nl/pub/vim/unix/${pkgbase}-${_basever}.tar.bz2"
-  #"ftp://ftp.nluug.nl/pub/vim/extra/${pkgbase}-${_basever}-extra.tar.gz"
-  #"ftp://ftp.nluug.nl/pub/vim/extra/${pkgbase}-${_basever}-lang.tar.gz"
 )
 if [ ${_patchlevel} -gt 000 ]; then
   for p in $(seq -w 001 ${_patchlevel}); do
