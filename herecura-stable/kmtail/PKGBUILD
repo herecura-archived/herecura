@@ -8,13 +8,14 @@ arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php/KmTail?content=124134"
 license=('GPL')
 depends=('kdebase-workspace' 'turbotail')
-makedepends=('cmake' 'automoc4')
+makedepends=('cmake' 'automoc4' 'docbook-xsl')
 source=(http://www.binro.org/$pkgname-$pkgver.tar.bz2)
 sha256sums=('8dc65a4b916f2eda642c07017c1aea95381ee66d341b7dad05f595709fea0243')
 
 build() {
 	cd $srcdir/$pkgname-$pkgver
 
+	[ -e build ] && rm -rf build
 	mkdir build && cd build
 	cmake -DCMAKE_INSTALL_PREFIX=$KDEDIR ..
 	make
