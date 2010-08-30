@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
 _basever=7.3
-_patchlevel=000
+_patchlevel=003
 pkgver=${_basever}.${_patchlevel}
 pkgrel=1
 _versiondir=vim${_basever/./}
@@ -26,11 +26,6 @@ source=(
   #"ftp://ftp.nluug.nl/pub/vim/extra/${pkgbase}-${_basever}-extra.tar.gz"
   #"ftp://ftp.nluug.nl/pub/vim/extra/${pkgbase}-${_basever}-lang.tar.gz"
 )
-sha256sums=('70623e05d612985c76048ee26cc3daf746bb0becf179bd33c976eb549ebb2399'
-            'c4fe5e30dfd5093353e42c2c514d4492bec64da17f9a2b4e306af6ee39320715'
-            '5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
-            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-            '5c5d5d6e07f1bbc49b6fe3906ff8a7e39b049928b68195b38e3e3d347100221d')
 if [ ${_patchlevel} -gt 000 ]; then
   for p in $(seq -w 001 ${_patchlevel}); do
     source=( ${source[@]} "ftp://ftp.nluug.nl/pub/${pkgbase}/patches/${_basever}/${_basever}.${p}")
@@ -238,3 +233,11 @@ package_vim-rt() {
   install -Dm644 ${srcdir}/license.txt \
     ${pkgdir}/usr/share/licenses/vim-rt/license.txt
 }
+sha256sums=('70623e05d612985c76048ee26cc3daf746bb0becf179bd33c976eb549ebb2399'
+            'c4fe5e30dfd5093353e42c2c514d4492bec64da17f9a2b4e306af6ee39320715'
+            '5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
+            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
+            '5c5d5d6e07f1bbc49b6fe3906ff8a7e39b049928b68195b38e3e3d347100221d'
+            '01d460464b09d4bd66fdf1d7221887eb1734335d1d38eb43232499e1f5bcbe29'
+            '0719da2a4cd79ddc7751b56b67490c0a56629db3b0c7ab7804d8fa66ab4e52a6'
+            'ee990cd9b7b0b31b1f64c084d1b6a83593fde122b33a76617cf3e2790fba1c2b')
