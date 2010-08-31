@@ -1,4 +1,4 @@
-# Contributor: BlackEagle <ike.devolder@herecura.be>
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krename-svn
 pkgver=198
@@ -7,7 +7,7 @@ pkgdesc="KRename is a powerful batch file renamer for KDE4."
 url="http://www.krename.net/"
 arch=('i686' 'x86_64') 
 license=('GPL')
-depends=('kdelibs' 'taglib' 'xdg-utils' )
+depends=('kdelibs' 'taglib')
 makedepends=('subversion' 'cmake' 'automoc4')
 options=('libtool')
 conflicts=('krename')
@@ -19,26 +19,26 @@ _svnmod="krename"
 _svntrunk=https://krename.svn.sourceforge.net/svnroot/krename/trunk/
 
 build() {
-  cd $srcdir
-  if [ -d ${_svnmod}/.svn ]; then
-    (cd $_svnmod && svn up -r $pkgver)
-  else
-    svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
-  fi
+	if [ -d ${_svnmod}/.svn ]; then
+		cd ${_svnmod} && svn up -r ${pkgver}
+		cd ${srcdir}
+	else
+		svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod}
+	fi
+	msg "SVN checkout done or server timeout"
+	msg "Starting make..."
 
-  msg "SVN checkout done or server timeout"
-  msg "Starting make..."
+	[ -d ${_svnmod}-build ] && rm -rf ${_svnmod}-build
 
-  if [ -d ${_svnmod}-build ]; then
-    rm -r ${_svnmod}-build
-  fi
-  cp -a $_svnmod ${_svnmod}-build
-  cd ${_svnmod}-build
+	cp -a ${_svnmod} ${_svnmod}-build
 
-  mkdir build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-  make || return 1
-  make DESTDIR=$startdir/pkg/ install
+	cd ${_svnmod}-build
+
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	make
 }
 
+package() {
+	cd ${_svnmod}-build
+	make DESTDIR=$startdir/pkg/ install
+}
