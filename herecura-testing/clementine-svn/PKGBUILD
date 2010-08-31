@@ -1,16 +1,18 @@
 # Contributor: Adria Arrufat <swiftscythe@gmail.com>
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=clementine-svn
-pkgver=1846
+pkgver=1873
 pkgrel=1
 pkgdesc="A modern music player and library organiser and a port of Amarok 1.4, with some features rewritten to take advantage of Qt4."
 arch=('i686' 'x86_64')
 url="http://code.google.com/p/clementine-player/"
 license=('GPL')
-depends=('libgl' 'gstreamer0.10' 'taglib' 'glew' 'liblastfm' 'projectm')
+depends=('gstreamer0.10' 'taglib' 'glew' 'liblastfm' 'libgpod' 'libmtp')
 makedepends=('subversion' 'boost' 'cmake')
 provides=('clementine')
 conflicts=('clementine')
+install=(${pkgname}.install)
 source=()
 md5sums=()
 
@@ -18,19 +20,25 @@ _svntrunk=http://clementine-player.googlecode.com/svn/trunk/
 _svnmod=clementine
 
 build() {
-	cd ${srcdir}
-	if [ -d ${srcdir}/${_svnmod}-build ]; then
-		rm -rf ${srcdir}/${_svnmod}-build
+	if [ -d ${_svnmod}/.svn ]; then
+		cd ${_svnmod} && svn up -r ${pkgver}
+	else
+		svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod}
 	fi
-
-	svn co $_svntrunk $_svnmod
-
 	msg "SVN checkout done or server timeout"
 	msg "Starting make..."
+
+	cd ${srcdir}
+	[ -d ${_svnmod}-build ] && rm -rf ${_svnmod}-build
+
 	cp -a ${_svnmod} ${_svnmod}-build
-	cd ${_svnmod}-build/
-	cd bin/
+
+	cd ${_svnmod}-build/bin
 	cmake .. -DCMAKE_INSTALL_PREFIX=/usr
-	make || return 1
-	make DESTDIR=${pkgdir} install || return 1
+	make
+}
+
+package() {
+	cd ${_svnmod}-build/bin
+	make DESTDIR=${pkgdir} install
 }
