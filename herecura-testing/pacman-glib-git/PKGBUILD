@@ -32,7 +32,7 @@ build() {
 		git clone ${_gitroot} ${_gitname}
 	fi
 	msg "GIT checkout done or server timeout"
-	[ "${_gitphash}" == $(git show | grep commit | sed 's/commit //') ] && return 1
+	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
 
 	msg "Starting make..."
 
@@ -49,5 +49,5 @@ build() {
 package() {
 	cd ${_gitname}-build
 	make DESTDIR="$pkgdir" install
-	git show | grep commit | sed 's/commit //' > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
 }

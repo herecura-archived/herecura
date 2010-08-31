@@ -32,7 +32,7 @@ build() {
 	msg "Git checkout done or server timeout"
 
 	cd ${srcdir}/${_gitname}
-	[ "${_gitphash}" == $(git show | grep commit | sed 's/commit //') ] && return 1
+	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
 
 	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
@@ -48,5 +48,5 @@ package() {
 	cd ${_gitname}-build
 	make INSTALL_ROOT=$pkgdir install
 	install -Dm644 $srcdir/mongo.ini "$pkgdir/etc/php/conf.d/mongo.ini"
-	git show | grep commit | sed 's/commit //' > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
 }
