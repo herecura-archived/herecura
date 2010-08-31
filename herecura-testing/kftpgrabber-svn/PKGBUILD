@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 license=('GPL')
 conflicts=('kftpgrabber')
 provides=('kftpgrabber')
-depends=('kdebase-runtime' 'kdelibs' 'libssh2')
+depends=('kdelibs' 'libssh2')
 makedepends=('subversion' 'cmake' 'automoc4')
 source=()
 md5sums=()
@@ -18,28 +18,28 @@ _svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/network/kftpgrabber/
 _svnmod=kftpgrabber
 
 build() {
-  cd $srcdir
-
-  if [ -d $_svnmod/.svn ]; then
-    (cd $_svnmod && svn up -r $pkgver)
+  if [ -d ${_svnmod}/.svn ]; then
+    cd ${_svnmod} && svn up -r ${pkgver}
   else
-    svn co $_svntrunk --config-dir ./ $_svnmod
+    svn co ${_svntrunk} --config-dir ./ ${_svnmod}
   fi
-
   msg "SVN checkout done or server timeout"
   msg "Starting make..."
 
-  mkdir build
-  cd build
-  cmake ../$_svnmod \
+  cd ${srcdir}
+
+  [ -d ${_svnmod}-build ] && rm -rf ${_svnmod}-build
+
+  cp -a ${_svnmod} ${_svnmod}-build
+
+  cd ${_svnmod}-build
+  cmake . \
     -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix` \
     -DCMAKE_BUILD_TYPE=Release
-  make  || return 1
+  make
 }
 
 package() {
-  cd ${srcdir}/build
-  make DESTDIR=$pkgdir install || return 1
-
-  rm -rf ${srcdir}/build
+  cd ${_svnmod}-build
+  make DESTDIR=$pkgdir install
 }
