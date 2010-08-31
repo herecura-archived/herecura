@@ -6,7 +6,7 @@ pkgdesc="A Linux boot screen implementation"
 url="http://freedesktop.org/wiki/Software/Plymouth"
 license=('GPL')
 arch=('i686' 'x86_64')
-pkgver=20100830
+pkgver=20100831
 pkgrel=1
 depends=('initscripts' 'libdrm' 'gtk2')
 makedepends=('git')
@@ -37,31 +37,28 @@ if [ -e .githash ] ; then
 else
 	_gitphash=""
 fi
-_gitchash=""
 _gitroot='git://git.freedesktop.org/git/plymouth'
 _gitname='plymouth'
 _gitbranch='master'
 
 build() {
-	cd "$srcdir"
-
 	msg "Connecting to git.freedesktop.org GIT server...."
 
-	if [ -d ${srcdir}/${_gitname} ] ; then
+	if [ -d ${_gitname} ] ; then
 		cd $_gitname && git pull origin
 		msg "The local files are updated."
 	else
 		git clone $_gitroot $_gitname
 	fi
 	msg "GIT checkout done or server timeout. Preparing sources..."
-	_gitchash=$(git show | grep commit | sed 's/commit //')
-	[ "${_gitphash}" == "${_gitchash}" ] && return 1
 
+	cd ${srcdir}/${_gitname}
+	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
 
-	if [ -d ${srcdir}/${_gitname}-build ]; then
-		rm -rf ${srcdir}/${_gitname}-build
-	fi
-	cp -r ${srcdir}/${_gitname} ${srcdir}/${_gitname}-build
+	cd ${srcdir}
+	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
+
+	git clone ${_gitname} ${_gitname}-build
 
 	msg "Starting make..."
 	cd ${srcdir}/${_gitname}-build
@@ -87,12 +84,10 @@ package() {
 	make DESTDIR="$pkgdir" install
 
 	cd "$pkgdir"
-
 	patch -Np0 -i "$srcdir/plymouth-update-initrd.patch"
+	find . -name "*.orig" -delete
 
-	#rm -rf `find . -name "*.a"`
-	rm -rf `find . -name "*.orig"`
-
+	cd ${srcdir}/${_gitname}-build
 	install -D -m644 $srcdir/plymouth.initcpio_install ${pkgdir}/lib/initcpio/install/plymouth
 	install -D -m644 $srcdir/plymouth.initcpio_hook ${pkgdir}/lib/initcpio/hooks/plymouth
 	install -D -m644 $srcdir/plymouth-encrypt.initcpio_install ${pkgdir}/lib/initcpio/install/plymouth-encrypt
@@ -100,6 +95,6 @@ package() {
 	install -D -m644 $srcdir/plymouth.functions ${pkgdir}/etc/rc.d/functions.d/plymouth.functions
 	install -D -m644 "$srcdir/arch-logo.png" ${pkgdir}/usr/share/plymouth/arch-logo.png
 	install -D -m644 "$srcdir/system-release" ${pkgdir}/etc/system-release
-	echo ${_gitchash} > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
 }
 
