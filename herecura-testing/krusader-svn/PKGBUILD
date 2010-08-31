@@ -1,4 +1,5 @@
 # Contributor: DsTr <kostindima@gmail.com>
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krusader-svn
 pkgver=1169519
@@ -19,23 +20,25 @@ _svntrunk=svn://anonsvn.kde.org/home/kde/trunk/extragear/utils/krusader
 _svnmod=krusader
 
 build() {
-  cd $startdir/src
+	if [ -d $_svnmod/.svn ]; then
+		cd ${_svnmod} && svn up -r ${pkgver}
+		cd ${srcdir}
+	else
+		svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod}
+	fi
+	msg "SVN checkout done or server timeout"
+	msg "Starting make..."
 
-  if [ -d $_svnmod/.svn ]; then
-    (cd $_svnmod && svn up -r $pkgver)
-  else
-    svn co $_svntrunk --config-dir ./ -r $pkgver $_svnmod
-  fi
+	[ -d ${_svnmod}-build ] && rm -rf ${_svnmod}-build
 
-  msg "SVN checkout done or server timeout"
-  msg "Starting make..."
+	cp -a ${_svnmod} ${_svnmod}-build
 
-  cd $_svnmod
+	cd ${_svnmod}-build
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	make
+}
 
-  mkdir build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-  make  || return 1
-  make DESTDIR=$startdir/pkg/ install
-  cd .. && rm -rf build
+package() {
+	cd ${_svnmod}-build
+	make DESTDIR=${pkgdir} install
 }
