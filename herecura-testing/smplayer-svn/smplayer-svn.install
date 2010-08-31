@@ -1,12 +1,25 @@
+update_icons() {
+	if which gtk-update-icon-cache > /dev/null 2>&1
+	then
+		gtk-update-icon-cache -q /usr/share/icons/hicolor
+	fi
+}
+
 post_install() {
+	update_icons
 	cat <<-EndOfMessage
 	>>> If you want dvdvav support, check here:
-        >>> http://smplayer.berlios.de/forums/viewtopic.php?pid=4124
+	>>> http://smplayer.berlios.de/forums/viewtopic.php?pid=4124
 	EndOfMessage
 	/bin/true
 }
 
 post_upgrade() {
+	update_icons
 	post_install
+}
+
+post_remove() {
+	update_icons
 }
 
