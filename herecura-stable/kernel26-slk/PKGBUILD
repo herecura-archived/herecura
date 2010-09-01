@@ -20,13 +20,15 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		# standard config files for mkinitcpio ramdisk
 		kernel26-slk.preset
 		# special patches for some longtime bug
-		b44.c.patch)
+		b44.c.patch
+		Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
             '03f88e20d9138fd710b338403b2fc97e43ecc34b1f6f0b0d203e03307485550e'
             '3bb7209c0d63cdbbed1076efda698d50a71ff53ef9ae900355379aa47f29a74a'
             'd3517a2edac95cc1f1d6453ead4aee324ee2fb89800ef57568221e0ac828592b'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
-            '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf')
+            '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf'
+			'7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863')
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
@@ -35,6 +37,9 @@ build() {
 
 	# b44 patch
 	patch -Np1 -i ${srcdir}/b44.c.patch
+	
+	# ioapic patch
+	patch -Np1 -i ${srcdir}/Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch
 
 	KERNELRELEASE=${_basekernel}-SLK
 	export KERNELRELEASE
