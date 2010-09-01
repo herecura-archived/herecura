@@ -1,0 +1,56 @@
+
+# Maintainer: Jack Birdsong <jwbirdsongATgmailDOTcom>
+
+pkgname=hamsimanager
+_realname=HamsiManager
+pkgver=0.9.00
+pkgrel=1
+pkgdesc="Hamsi Manager is a file manager,renamer,id3 tagger,information changer ,.... tool."
+arch=('any')
+url="http://hamsimanager.sourceforge.net"
+license=('GPL3')
+depends=('pyqt')
+optdepends=(
+    'mplayer: optional player'
+    'phonon: optional player'
+)
+source=("https://downloads.sourceforge.net/project/hamsimanager/$_realname-$pkgver.tar.gz"
+    'hamsi.launcher'
+    'compile.py')
+sha256sums=('e251147ade8b6e6be8969c84aa5db5436c2165c2dd6714933a9e4f3bf354650a'
+            '2e3321a114ef1b3b9ec7d4405d26122c69a8e328a24f00f714bad93ddc82b1c3'
+            'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
+
+_destdir="/usr/lib"
+
+build() {
+  cd ${_realname}
+  ${srcdir}/compile.py $(find . -mindepth 1 -maxdepth 1 -type d | sed 's@./@@')
+  find . -mindepth 2 -name "*.py" -delete
+  mv ConfigureUpdate.py Update.py
+  rm install.py
+  sed "s@~InstallationDirectory~@${_destdir}/${pkgname}@" -i HamsiManager.desktop
+  chmod -R u=rwX,go=rX *
+}
+
+package() {
+  cd ${_realname}
+  install -Dm644 ${srcdir}/${_realname}/HamsiManager.desktop \
+    ${pkgdir}/usr/share/applications/${pkgname}.desktop
+  rm ${srcdir}/${_realname}/HamsiManager.desktop
+
+  for lic in BeniOku COPYING ForDevelopers Kopya ProjeNotları README; do
+    install -Dm644 ${srcdir}/${_realname}/${lic} \
+      ${pkgdir}/usr/share/licences/${pkgname}/${lic}
+    rm ${lic}
+  done
+
+  install -Dm755 ${srcdir}/hamsi.launcher \
+    $pkgdir/usr/bin/${pkgname}
+  sed "s@%DESTDIR%@${_destdir}/${pkgname}@" -i ${pkgdir}/usr/bin/${pkgname}
+
+  cd ${srcdir}
+  install -dm755 ${pkgdir}${_destdir}
+  cp -a ${_realname} ${pkgdir}${_destdir}/${pkgname}
+}
+# vim:set ts=2 sw=2 et:
