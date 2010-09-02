@@ -7,7 +7,7 @@ pkgname=('kernel26-slk' 'kernel26-slk-headers')
 _kernelname=-slk
 _basekernel=2.6.35
 pkgver=${_basekernel}.4
-pkgrel=2
+pkgrel=3
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
 license=('GPL2')
@@ -21,14 +21,14 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		kernel26-slk.preset
 		# special patches for some longtime bug
 		b44.c.patch
-		Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch)
+		acpi-use-indirect-call-to-register-gsi-in-different-modes.diff)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
             '03f88e20d9138fd710b338403b2fc97e43ecc34b1f6f0b0d203e03307485550e'
-            '3bb7209c0d63cdbbed1076efda698d50a71ff53ef9ae900355379aa47f29a74a'
-            'd3517a2edac95cc1f1d6453ead4aee324ee2fb89800ef57568221e0ac828592b'
+            'dd02963c7e1624a62195ee5001573a070a04dc831f3c1f75d636803a659d6008'
+            'd1066a83c33df2480ae6366df2d2dd35810e51f608cc995b439a91e18317b951'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
             '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf'
-			'7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863')
+            'e29c687e1f4c6d46b3340e5e16fb0e53b97edc26046ed498c09b42d8b2a1fe21')
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
@@ -39,10 +39,7 @@ build() {
 	patch -Np1 -i ${srcdir}/b44.c.patch
 	
 	# ioapic patch
-	patch -Np1 -i ${srcdir}/Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch
-
-	KERNELRELEASE=${_basekernel}-SLK
-	export KERNELRELEASE
+	patch -Np1 -i ${srcdir}/acpi-use-indirect-call-to-register-gsi-in-different-modes.diff
 
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
@@ -77,7 +74,7 @@ build() {
 }
 
 package_kernel26-slk() {
-	pkgdesc="The Linux Kernel and modules, a merge of Arch and Slackware, the best of both worlds"
+	pkgdesc="The Linux Kernel and modules, inspired by Slackware kernel"
 	groups=('base')
 	provides=('kernel26')
 	backup=(etc/mkinitcpio.d/${pkgname}.preset)
