@@ -122,6 +122,7 @@ package_kernel26-slk() {
 
 package_kernel26-slk-headers() {
 	pkgdesc="Header files and scripts for building modules for kernel26-slk"
+	provides=('kernel26-headers')
 	mkdir -p ${pkgdir}/lib/modules/${_kernver}
 	cd ${pkgdir}/lib/modules/${_kernver}
 	ln -sf ../../../usr/src/linux-${_kernver} build
