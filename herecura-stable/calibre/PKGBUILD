@@ -5,7 +5,7 @@
 
 pkgname=calibre
 pkgver=0.7.16
-pkgrel=1
+pkgrel=2
 pkgdesc="E-book library management application"
 arch=('i686' 'x86_64') 
 url="http://calibre.kovidgoyal.net/"
@@ -25,13 +25,15 @@ source=(http://downloads.sourceforge.net/project/calibre/${pkgver}/${pkgname}-${
 	calibre-gui.desktop
 	calibre-mimetypes
 	calibre-viewer.png
-	calibre-gui.png)
+	calibre-gui.png
+	compile.py)
 sha256sums=('54019a96733313f78bc8b31cce0db36256ff272d4862e1dac455d891ee9c8e11'
             'a8f01d9112e54d7166eaf201b222fd7fe312b03511265becb261b97d17d731b7'
             'f319841dd3c134b72684752e4a559fe8bd4e0edf9f4598b76799643196e0c461'
             '4cb2bcc019dd41a1fa786721ebb004d359295b76846ded96950a60233840d231'
             '5eb8844d154497116c214da30b473252dfc68494899066a4bc8d91baa6bee26b'
-            '0a84842f88e6cfb5e99512cdac0a9f40dc4d6b3b2cdf93c436d4a1254c889267')
+            '0a84842f88e6cfb5e99512cdac0a9f40dc4d6b3b2cdf93c436d4a1254c889267'
+            'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
 
 build() {
 	cd "${pkgname}"
@@ -67,6 +69,10 @@ package() {
 		--staging-sharedir=${pkgdir}/usr/share || return 1
 
 	find ${pkgdir} -type d -empty -delete
+
+	cd ${pkgdir}/usr/lib
+	${srcdir}/compile.py calibre
+	find -name "*.py" -delete
 
 
 	# Desktop integration
