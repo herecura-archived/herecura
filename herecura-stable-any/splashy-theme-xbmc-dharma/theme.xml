@@ -4,7 +4,7 @@
     <info>
         <!-- theme name is case sensitive. use directory name -->
         <name>xbmc-dharma</name>
-        <version>1.0</version>
+        <version>1.2</version>
         <description>xbmc dharma theme</description>
         <urls>http://www.xbmc.org</urls>
         <author>Haggy</author>
@@ -132,6 +132,6 @@
         </text>
     </textbox>
     <autoverboseonerror>yes</autoverboseonerror>
-    <fadein>yes</fadein>
-    <fadeout>yes</fadeout>
+    <fadein>no</fadein>
+    <fadeout>no</fadeout>
 </splashy>
