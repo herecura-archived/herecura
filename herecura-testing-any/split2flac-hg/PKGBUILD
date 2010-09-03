@@ -2,15 +2,18 @@
 
 pkgname=split2flac-hg
 pkgver=72
-pkgrel=1
+pkgrel=2
 pkgdesc="An utility to split one big APE/FLAC/WV file to FLAC/OGG/M4A/MP3 tracks with tagging, renaming, changing codeset"
 arch=('any')
 url="http://code.google.com/p/split2flac/"
 license=('MIT')
-depends=('flac' 'cuetools' 'shntool')
+depends=('flac' 'shntool')
 optdepends=('imagemagick: for resizing cover images'
             'libmp4v2: for setting tags in m4a files'
-            'faac: for encoding to m4a')
+            'faac: for encoding to m4a'
+			'mp3gain: for mp3 volume normalize'
+			'aacgain: for aac volume normalize'
+			'vorbisgain: for ogg/vorbis volume normalize')
 makedepends=('mercurial')
 _hgroot=https://split2flac.googlecode.com/hg
 _hgrepo=split2flac

@@ -1,7 +1,7 @@
 # Contributor: Lone_Wolf <lonewolf@xs4all.nl>
 pkgname=cfv
 pkgver=1.18.3
-pkgrel=3
+pkgrel=4
 pkgdesc="utility to test/create .sfv(Simple File Verify), .csv, .crc, md5sum, bsd md5, sha1sum, and .torrent files."
 arch=('any')
 url="http://cfv.sourceforge.net/"
@@ -11,9 +11,9 @@ optdepends=('python-imaging: for creation the dimensions column of .crc files'
             'python-fchksum: for increase checksumming speed a bit'
             'bittorrent: for torrent checking')
 source=(http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-md5sums=('1be9039c2ab859103d70b6c4f4e5edf5')
+sha256sums=('ff28a8aa679932b83eb3b248ed2557c6da5860d5f8456ffe24686253a354cff6')
 
 build() {
-  cd $startdir/src/$pkgname-$pkgver
+  cd ${pkgname}-${pkgver}
   make install='/bin/install -c' prefix=$startdir/pkg/usr mandir=$startdir/pkg/usr/share/man install || return 1
 }
