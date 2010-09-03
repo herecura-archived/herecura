@@ -2,7 +2,7 @@
 
 pkgname=colibri
 pkgver=0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Colibri provides an alternative to KDE4 Plasma notifications."
 arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php/Colibri?content=117147"
