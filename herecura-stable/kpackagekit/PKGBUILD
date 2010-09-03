@@ -2,7 +2,7 @@
 # Contributor: Zom <zom@eevul.org>
 
 pkgname=kpackagekit
-pkgver=0.6.0
+pkgver=0.6.1
 pkgrel=1
 pkgdesc="KDE tools for PackageKit, with pacman support by pacman-glib-git. PKGBUILD provided by gog."
 arch=('i686' 'x86_64')
@@ -10,21 +10,21 @@ url="http://www.kde-apps.org/content/show.php/KPackageKit?content=84745"
 license=('GPL')
 depends=('kdelibs' 'packagekit-qt')
 makedepends=('cmake' 'automoc4' 'p7zip')
-source=(http://kde-apps.org/CONTENT/content-files/84745-KPackageKit-0.6.0.7z)
-sha256sums=('eb6d9193d8c79d39dd10778a2169859b376f508fb20b8adf463c657aae2efd67')
+source=(http://kde-apps.org/CONTENT/content-files/84745-${pkgname}-${pkgver}.7z)
+sha256sums=('84735eea620653241512463c075300a69f50fd75171764d4102290c7b78ff2f6')
 
 build() {
-	[ -d "KPackageKit-${pkgver}" ] && rm -rf KPackageKit-${pkgver}
-	7z x 84745-KPackageKit-0.6.0.7z
+	[ -d "${pkgname}-${pkgver}" ] && rm -rf ${pkgname}-${pkgver}
+	7z x 84745-${pkgname}-${pkgver}.7z
 
 	[ -d "build" ] && rm -rf build
 	mkdir build
 	cd build
 
-	cmake ../KPackageKit-${pkgver} \
+	cmake ../${pkgname}-${pkgver} \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=/usr
-	make || return 1
+	make
 }
 
 package() {
