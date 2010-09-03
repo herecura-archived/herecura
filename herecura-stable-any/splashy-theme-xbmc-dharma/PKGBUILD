@@ -3,7 +3,7 @@
 # Contributor: Ralf Barth <archlinux dot org at haggy dot org>
 
 pkgname=splashy-theme-xbmc-dharma
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="Splashy theme for xbmc"
 license=('custom')
@@ -14,8 +14,8 @@ conflicts=()
 source=('background.png' 
         'theme.xml' 
         'FreeSans.ttf')
-sha256sums=('b845b4befdbfacd9095b30a10d774607e9adca22973758ec6358e448f46cfdcf'
-            '3e2ec27db1c38c8de7ac892ef46f10ae7404a941ac0d4bd84b80a52f93558006'
+sha256sums=('5ecb8f72c3833dbd150224a564c423bec2bf99e30fadc6df492f9d369b7bf6d0'
+            '4416d9d452eb9e988bc7fc75eb684cdfe92d231d06fedc07ed2e348f30249a55'
             '3b18573059ddc34ab48046706fdbcabd1df56623247492c704a064d2e998bfce')
 
 build() {

@@ -132,6 +132,6 @@
         </text>
     </textbox>
     <autoverboseonerror>yes</autoverboseonerror>
-    <fadein>no</fadein>
-    <fadeout>no</fadeout>
+    <fadein>yes</fadein>
+    <fadeout>yes</fadeout>
 </splashy>
