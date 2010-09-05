@@ -1,0 +1,34 @@
+# Maintainer: ruario 
+pkgname=opera-rc
+_bigrelease=10.62
+_buildver=6437
+_rclevel=1
+_randomizer=stability
+pkgver=${_bigrelease}rc${_rclevel}
+pkgrel=1
+pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
+url="http://my.opera.com/desktopteam/blog/"
+depends=('gcc-libs' 'gstreamer0.10-good' 'libxt' 'freetype2' 'libxext')
+makedepends=('libarchive')
+optdepends=('gtk2: GTK integration' \
+	    'kdebase-runtime: KDE4 integration' \
+	    'gstreamer0.10-ffmpeg: HTML5 H.264 support' \
+	    'gstreamer0.10-bad-plugins: HTML5 H.264 support')
+install=${pkgname}.install
+options=(!strip !zipman)
+license=('custom:opera')
+arch=('i686' 'x86_64')
+provides=('opera')
+conflicts=('opera' 'opera-beta')
+_arch=i386
+[ "$CARCH" = "x86_64" ] && _arch=x86_64
+source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm)
+md5sums=('cd4b5dd34ac788525cfc3e705dd936d4')
+[ "$CARCH" = "x86_64" ] && md5sums=('72a3f08c701da13ae5e1622fbafe021d')
+
+build() {
+        cd ${pkgdir}
+        bsdcpio -id < ${srcdir}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm
+        sed -i usr/share/opera/package-id.ini -e "s|\(Package Type=\)rpm|\1tar|"
+        install -D -m 644 usr/share/opera/defaults/license.txt usr/share/licenses/${pkgname}/license.txt
+}
