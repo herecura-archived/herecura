@@ -3,10 +3,10 @@ run_hook() {
 	msg -n ":: Loading plymouth..."
 
 	mknod /dev/fb c 29 0 &>/dev/null
-	mount none /dev/pts -t devpts
+	#mount devpts /dev/pts -t devpts
 
 	# plymouth deamon
-	/bin/plymouthd --attach-to-session
+	/bin/plymouthd
 	
 	# plymouth frontend
 	/bin/plymouth --show-splash
