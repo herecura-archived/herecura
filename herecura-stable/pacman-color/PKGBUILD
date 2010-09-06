@@ -1,33 +1,36 @@
 # Contributor: vogo <vogo(at)seznam(dot)cz>
 pkgname=pacman-color
-pkgver=3.4.0
+pkgver=3.4.1
 pkgrel=1
 pkgdesc="Command-line frontend for libalpm aka pacman with color patch"
 arch=('i686' 'x86_64')
 url="http://www.archlinux.org/pacman/"
 license=('GPL')
-depends=('pacman=3.4.0')
+depends=('pacman=3.4.1')
 makedepends=('patch')
 backup=('etc/pacman.d/color.conf')
-source=(ftp://ftp.archlinux.org/other/pacman/pacman-$pkgver.tar.gz
-        $pkgname-$pkgver-${pkgrel}.patch
-        color.conf)
-
-md5sums=('50ad71be1faaad84842c576e239d1bb5'
-         '227e9be2f23cb0f48217b95f0067d224'
-         'fd5087a5f6cf95ca0175ddb9fd257505')
+source=("ftp://ftp.archlinux.org/other/pacman/pacman-${pkgver}.tar.gz"
+	"${pkgname}-${pkgver}-${pkgrel}.patch"
+	"color.conf")
 
 build() {
-  cd $startdir/src/pacman-$pkgver
-  patch -p1 -i ../$pkgname-$pkgver-${pkgrel}.patch  || return 1
-  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc
-  make || return 1
-
-  # install pacman-color
-  install -Dm755 $startdir/src/pacman-$pkgver/src/pacman/.libs/pacman \
-                 $startdir/pkg/usr/bin/pacman-color
-
-  # install color.conf
-  install -Dm644 $startdir/src/color.conf \
-                 $startdir/pkg/etc/pacman.d/color.conf
+	cd pacman-${pkgver}
+	patch -p1 -i ${srcdir}/${pkgname}-${pkgver}-${pkgrel}.patch
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --disable-doc
+	make
 }
+
+package() {
+	cd pacman-${pkgver}
+
+	# install pacman-color
+	install -Dm755 ${srcdir}/pacman-${pkgver}/src/pacman/.libs/pacman \
+		${pkgdir}/usr/bin/pacman-color
+
+	# install color.conf
+	install -Dm644 ${srcdir}/color.conf \
+		${pkgdir}/etc/pacman.d/color.conf
+}
+sha256sums=('3818fc751036ec627a81b62007112aca17c16991e8ddb70da76230f9b4978d62'
+            '6d9398e33e7410cd190eb1a641e1523c0eda59b564019b43ac827c4e4e75caf8'
+            '863574c38bfca0a6485ec4adbfbaa14ca8d573f6f8b9319067acac50d6e2ca26')
