@@ -1,9 +1,9 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributer: Tom Billiet (mouse256@ulyssis.org)
-# Contributer: Ike Devolder (ike.devolder@herecura.be)
 
 pkgname=jalbum
 pkgver=8.9.3
-pkgrel=1
+pkgrel=2
 pkgdesc="free web photo album software and photo gallery software"
 url="http://jalbum.net/"
 license=('custom' 'lgpl')
@@ -13,7 +13,7 @@ source=("http://jalbum.net/download/Jalbum$pkgver.zip"
 	"jalbum.sh"
 	"jalbum.desktop")
 sha256sums=('e0ea311bde309b29b23ef6c63a8fb38fab421ee31ad07a7445c6f3cb22171c31'
-            'd008cb21b97620a91a854902166806afefcc9799aa6fa8ad7ca5855b199b567c'
+            '98e7978b46e59460e9420ccd0a2d43b5ac189593881b77b945bff1484217eb24'
             '89c0eee9fe4ba8bea89f1c4c0a7943cc5dff8f4427cce67b9eda6f1a64dd930c')
 
 build() {
