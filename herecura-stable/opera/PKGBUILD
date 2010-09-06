@@ -1,14 +1,15 @@
 # Maintainer: ruario <arch_aur@ruari.com>
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 # Contributor: dorphell <dorphell@archlinux.org>
 # Contributor: Sigitas Mazaliauskas <sigis@gmail.com>
 pkgname=opera
 pkgver=10.61
 _buildver=6430
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite."
 url="http://www.opera.com/browser/"
-depends=('gcc-libs' 'gstreamer0.10-good' 'libxt' 'freetype2' 'libxext')
+depends=('gcc-libs' 'gstreamer0.10-base' 'libxt' 'freetype2' 'libxext')
 optdepends=('gtk2: GTK integration' \
 	    'kdebase-runtime: KDE4 integration' \
 	    'gstreamer0.10-ffmpeg: HTML5 H.264 support' \

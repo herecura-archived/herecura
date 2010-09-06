@@ -1,14 +1,15 @@
 # Maintainer: ruario 
+# Contributor: BlackEagle
 pkgname=opera-rc
 _bigrelease=10.62
 _buildver=6437
 _rclevel=1
 _randomizer=stability
 pkgver=${_bigrelease}rc${_rclevel}
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
 url="http://my.opera.com/desktopteam/blog/"
-depends=('gcc-libs' 'gstreamer0.10-good' 'libxt' 'freetype2' 'libxext')
+depends=('gcc-libs' 'gstreamer0.10-base' 'libxt' 'freetype2' 'libxext')
 makedepends=('libarchive')
 optdepends=('gtk2: GTK integration' \
 	    'kdebase-runtime: KDE4 integration' \

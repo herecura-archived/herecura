@@ -1,4 +1,5 @@
 # Maintainer: ruario 
+# Contributor: BlackEagle
 # Contributor: Skunnyk
 # Contributor: totoloco
 pkgname=opera-devel
@@ -6,10 +7,10 @@ _bigrelease=10.70
 _buildver=9036
 _randomizer=architect
 pkgver=${_bigrelease}_${_buildver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
 url="http://my.opera.com/desktopteam/blog/"
-depends=('gcc-libs' 'gstreamer0.10-good' 'libxt' 'freetype2' 'libxext')
+depends=('gcc-libs' 'gstreamer0.10-base' 'libxt' 'freetype2' 'libxext')
 makedepends=('libarchive')
 optdepends=('gtk2: GTK integration' \
 	    'kdebase-runtime: KDE4 integration' \
