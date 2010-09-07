@@ -2,14 +2,14 @@
 # Contributor: BlackEagle
 pkgname=opera-rc
 _bigrelease=10.62
-_buildver=6437
-_rclevel=1
-_randomizer=stability
+_buildver=6438
+_rclevel=2
+_randomizer=uptime
 pkgver=${_bigrelease}rc${_rclevel}
-pkgrel=2
+pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
 url="http://my.opera.com/desktopteam/blog/"
-depends=('gcc-libs' 'gstreamer0.10-base' 'libxt' 'freetype2' 'libxext')
+depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
 makedepends=('libarchive')
 optdepends=('gtk2: GTK integration' \
 	    'kdebase-runtime: KDE4 integration' \
@@ -24,8 +24,8 @@ conflicts=('opera' 'opera-beta')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm)
-md5sums=('cd4b5dd34ac788525cfc3e705dd936d4')
-[ "$CARCH" = "x86_64" ] && md5sums=('72a3f08c701da13ae5e1622fbafe021d')
+md5sums=('f8f85ede84b449ef473499bd18a60924')
+[ "$CARCH" = "x86_64" ] && md5sums=('3914e43e0e09c1e0ec027c7e1e2f40e9')
 
 build() {
         cd ${pkgdir}
