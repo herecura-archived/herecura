@@ -3,7 +3,7 @@
 
 pkgname=jalbum
 pkgver=8.9.3
-pkgrel=2
+pkgrel=3
 pkgdesc="free web photo album software and photo gallery software"
 url="http://jalbum.net/"
 license=('custom' 'lgpl')
@@ -32,9 +32,9 @@ build() {
 }
 
 package() {
-	install -dm644 ${pkgdir}/usr/share/java/
+	install -dm755 ${pkgdir}/usr/share/java/
 	cp -a Jalbum ${pkgdir}/usr/share/java/Jalbum
-	install -dm644 ${pkgdir}/usr/share/pixmaps
+	install -dm755 ${pkgdir}/usr/share/pixmaps
 	ln -s "/usr/share/java/Jalbum/icons/JalbumApp48.png" "${pkgdir}/usr/share/pixmaps/jalbum.png"
 	install -Dm644 $srcdir/jalbum.desktop $pkgdir/usr/share/applications/$pkgname.desktop
 	install -Dm755 $srcdir/jalbum.sh $pkgdir/usr/bin/jalbum
