@@ -3,8 +3,8 @@
 
 pkgbase='packagekit'
 pkgname=('packagekit' 'packagekit-qt' 'packagekit-python')
-pkgver=0.6.7
-pkgrel=3
+pkgver=0.6.8
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
 license=('GPL')
