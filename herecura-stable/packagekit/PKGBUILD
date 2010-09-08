@@ -13,7 +13,7 @@ makedepends=('networkmanager-dhclient>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'pytho
 		 #'intltool' 'pm-utils' 'qt' 'gobject-introspection')
 options=('!libtool')
 source=("http://www.packagekit.org/releases/PackageKit-${pkgver}.tar.bz2")
-sha256sums=('79143b7a23ce084eb947006deaaa953f60c4cf3d4dca1fcd1201f5713151ffa8')
+sha256sums=('24de9db9b292b174746d3596a9ea624b868b59f033e786bccb29ed5303c50f83')
 
 build() {
 	cd PackageKit-${pkgver}
