@@ -6,14 +6,13 @@
 pkgname=opera
 pkgver=10.61
 _buildver=6430
-pkgrel=2
+pkgrel=3
 pkgdesc="A fast and secure web browser and Internet suite."
 url="http://www.opera.com/browser/"
-depends=('gcc-libs' 'gstreamer0.10-base' 'libxt' 'freetype2' 'libxext')
-optdepends=('gtk2: GTK integration' \
-	    'kdebase-runtime: KDE4 integration' \
-	    'gstreamer0.10-ffmpeg: HTML5 H.264 support' \
-	    'gstreamer0.10-bad-plugins: HTML5 H.264 support')
+depends=('gcc-libs' 'gstreamer0.10-good' 'gstreamer0.10-base-plugins' 'libxt' 'freetype2' 'libxext')
+optdepends=('gtk2: GTK integration'
+	    'kdebase-runtime: KDE4 integration'
+		'gstreamer0.10-{ffmpeg,bad,ugly}{,-plugins}: HTML5 video support')
 install=${pkgname}.install
 options=(!strip !zipman)
 license=('custom:opera')
