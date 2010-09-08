@@ -3,7 +3,7 @@
 pkgname=opera-rc
 _bigrelease=10.62
 _buildver=6438
-_rclevel=2
+_rclevel=3
 _randomizer=uptime
 pkgver=${_bigrelease}rc${_rclevel}
 pkgrel=1
@@ -11,10 +11,12 @@ pkgdesc="A fast and secure web browser and Internet suite. Release Candidate ver
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
 makedepends=('libarchive')
-optdepends=('gtk2: GTK integration' \
-	    'kdebase-runtime: KDE4 integration' \
-	    'gstreamer0.10-ffmpeg: HTML5 H.264 support' \
-	    'gstreamer0.10-bad-plugins: HTML5 H.264 support')
+optdepends=('gtk2: GTK integration'
+	    'kdebase-runtime: KDE4 integration'
+		'gstreamer0.10-base-plugins: HTML5 audio support'
+		'gstreamer0.10-good: HTML5 audio support'
+		'gstreamer0.10-ffmpeg: HTML5 video support'
+		'gstreamer0.10-bad-plugins: HTML5 video support')
 install=${pkgname}.install
 options=(!strip !zipman)
 license=('custom:opera')
