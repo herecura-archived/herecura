@@ -1,0 +1,111 @@
+Index: nntpgrab_core/plugins.c
+===================================================================
+--- nntpgrab_core/plugins.c	(revision 1719)
++++ nntpgrab_core/plugins.c	(revision 1722)
+@@ -751,12 +751,52 @@
+     return count;
+ }
+ 
++static void
++log_dependency_tree(GList *ordered_list)
++{
++    char list_str[1024];
++    GList *list;
++
++    memset(&list_str, 0, sizeof(list_str));
++    list = ordered_list;
++    while (list) {
++        NGPlugin *plugin_data = list->data;
++
++        if (strlen(list_str) > 0) {
++            strncat(list_str, ", ", sizeof(list_str) - strlen(list_str) - 1);
++            strncat(list_str, plugin_data->core_data->name, sizeof(list_str) - strlen(list_str) - 1);
++        } else {
++            strncpy(list_str, plugin_data->core_data->name, sizeof(list_str));
++        }
++
++        list = g_list_next(list);
++    }
++    ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_DEBUG, "Ordered list = %s", list_str);
++
++    memset(&list_str, 0, sizeof(list_str));
++    list = all_available_plugins;
++    while (list) {
++        NGPlugin *plugin_data = list->data;
++
++        if (strlen(list_str) > 0) {
++            strncat(list_str, ", ", sizeof(list_str) - strlen(list_str) - 1);
++            strncat(list_str, plugin_data->core_data->name, sizeof(list_str) - strlen(list_str) - 1);
++        } else {
++            strncpy(list_str, plugin_data->core_data->name, sizeof(list_str));
++        }
++
++        list = g_list_next(list);
++    }
++    ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_DEBUG, "All available plugins = %s", list_str);
++}
++
+ static GList *
+ plugins_generate_dependency_tree(gboolean only_load_required_plugins, char **errmsg)
+ {
+     GList *ordered_list = NULL;
+     GList *list_plugins = all_available_plugins;
+     int expected_length;
++    int num_iterations = 0;
+ 
+     /* Find out which plugins depend on each other */
+     while (list_plugins) {
+@@ -786,11 +826,15 @@
+ 
+     /* Find out the order in which we need to load plugins */
+     expected_length = g_list_length(all_available_plugins);
++    ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_DEBUG, "Expected length of ordered list initially set to %i", expected_length);
+     while (g_list_length(ordered_list) != expected_length) {
+         /* Keep on traversing the list of plugins until the order is fully known */
+         list_plugins = all_available_plugins;
+         gboolean dep_added = FALSE;
+ 
++        num_iterations++;
++        ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_DEBUG, "Iteration %i in dependency resolving", num_iterations);
++
+         while (list_plugins) {
+             NGPlugin *plugin_data = list_plugins->data;
+ 
+@@ -799,9 +843,12 @@
+                 test_all_plugin_deps_found(ordered_list, plugin_data)) {
+ 
+                 if (only_load_required_plugins && !test_if_plugin_is_needed_by_another_plugin(plugin_data)) {
+-                    expected_length = calculate_num_required_plugins();
+                     list_plugins = g_list_next(list_plugins);
+                     ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_DEBUG, "Marked plugin '%s' as optional plugin", plugin_data->core_data->name);
++
++                    expected_length = calculate_num_required_plugins();
++                    ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_DEBUG, "Expected length of ordered list updated to %i", expected_length);
++
+                     continue;
+                 }
+ 
+@@ -813,17 +860,22 @@
+             list_plugins = g_list_next(list_plugins);
+         }
+ 
+-        if (!dep_added) {
++        if (!dep_added && g_list_length(ordered_list) != expected_length) {
+             /* Endless loop detected! */
+             if (errmsg) {
+                 *errmsg = g_strdup_printf(__FILE__ ":%i Unable to resolve dependency order", __LINE__);
+             }
+ 
+             ng_plugin_emit_log_msg(NULL, NG_LOG_LEVEL_FATAL, "Unable to resolve dependency order");
++
++            log_dependency_tree(ordered_list);
++
+             return NULL;
+         }
+     }
+ 
++    log_dependency_tree(ordered_list);
++
+     return ordered_list;
+ }
+ 
