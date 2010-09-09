@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 url="http://www.kde-apps.org/content/show.php/KPassGen?content=108673"
 license=('GPL2')
 depends=('kdelibs')
-makedepends=('automoc4')
+makedepends=('cmake' 'automoc4')
 source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('54a6209e302efdbfbdc49e89dfeef12022de7aec86c2a7be0e55e70b9eca4d14')
 
