@@ -39,7 +39,7 @@ package() {
     ${pkgdir}/usr/share/applications/${pkgname}.desktop
   rm ${srcdir}/${_realname}/HamsiManager.desktop
 
-  for lic in BeniOku COPYING ForDevelopers Kopya ProjeNotları README; do
+  for lic in BeniOku COPYING ForDevelopers Kopya README; do
     install -Dm644 ${srcdir}/${_realname}/${lic} \
       ${pkgdir}/usr/share/licences/${pkgname}/${lic}
     rm ${lic}
