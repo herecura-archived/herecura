@@ -4,9 +4,9 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 # Contributor: Sigitas Mazaliauskas <sigis@gmail.com>
 pkgname=opera
-pkgver=10.61
-_buildver=6430
-pkgrel=3
+pkgver=10.62
+_buildver=6438
+pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite."
 url="http://www.opera.com/browser/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -23,8 +23,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_buildver}.${_arch}.rpm)
-md5sums=('b7dadfa7fcb1a9bbc26cda72c017d30b')
-[ "$CARCH" = "x86_64" ] && md5sums=('866616b57af39bfc10cbc9f83c3014b1')
+sha256sums=('600ba411db32534e32d2759e6493a2e670e260869f0620b921232cd2d9da6c6d')
+[ "$CARCH" = "x86_64" ] && sha256sums=('92c77ce5d69894fb59850fc933bb5c4d0fd15de7dd4b54fb54e1e3523800dbbe')
 
 build() {
 	cd ${pkgdir}
@@ -32,3 +32,4 @@ build() {
 	sed -i usr/share/opera/package-id.ini -e "s|\(Package Type=\)rpm|\1tar|"
 	install -D -m 644 usr/share/opera/defaults/license.txt usr/share/licenses/${pkgname}/license.txt
 }
+            
