@@ -1,7 +1,7 @@
 # Contributor : Flamelab <panosfilip@gmail.com>
 # Parts have been adopted by the previous contributor, AddictedToChaos and by the user "urandom"
 pkgname=smplayer-svn
-pkgver=3578
+pkgver=3585
 pkgrel=1
 pkgdesc="A complete front-end for MPlayer. SVN (testing) version of SMplayer."
 arch=('i686' 'x86_64')
