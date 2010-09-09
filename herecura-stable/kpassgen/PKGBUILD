@@ -1,0 +1,23 @@
+# created 11:40:28 - 20/08/09
+# Maintainer: Frikilinux <frikilinux at frikilinux.com.ar>
+
+pkgname=kpassgen
+pkgver=1.1
+pkgrel=1
+pkgdesc="Random password generator"
+arch=('i686' 'x86_64')
+url="http://www.kde-apps.org/content/show.php/KPassGen?content=108673"
+license=('GPL2')
+depends=('kdelibs')
+makedepends=('automoc4')
+source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('54a6209e302efdbfbdc49e89dfeef12022de7aec86c2a7be0e55e70b9eca4d14')
+
+build() {
+        cd "${srcdir}"/${pkgname}
+        mkdir -p build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
+        make
+        make DESTDIR="${pkgdir}" install
+}
