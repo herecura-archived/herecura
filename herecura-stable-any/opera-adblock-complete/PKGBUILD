@@ -1,7 +1,7 @@
 # Maintainer: Jeremy Sands cto@jeremysands.com
 
 pkgname=opera-adblock-complete
-pkgver=20100906
+pkgver=20100914
 pkgrel=1
 pkgdesc="Fanboy's AdBlock Filterset for Opera including Stat/Tracking Filters"
 arch=('i686' 'x86_64')
