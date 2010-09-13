@@ -7,7 +7,7 @@ _bigrelease=10.70
 _buildver=9046
 _randomizer=19447
 pkgver=${_bigrelease}_${_buildver}
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -23,7 +23,6 @@ options=(!strip !zipman)
 license=('custom:opera')
 arch=('i686' 'x86_64')
 provides=('opera')
-conflicts=('opera' 'opera-beta')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
@@ -31,6 +30,6 @@ sha256sums=('cb947eb8fb620e56a7811feebde6682e5360612144a75d5ed2a8f38f4df77316')
 [ "$CARCH" = "x86_64" ] && sha256sums=('e1fbbedacc93f55e754e99419e6461ced4b3a9203574992f6e7a7fe1ab48d5a0')
 
 build() {
-	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr --repackage ${pkgdir}/usr
-	install -D -m 644 ${pkgdir}/usr/share/opera/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
+	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
+	install -D -m 644 ${pkgdir}/usr/share/${pkgname}/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
