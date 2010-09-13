@@ -34,4 +34,3 @@ build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr --repackage ${pkgdir}/usr
 	install -D -m 644 ${pkgdir}/usr/share/opera/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
-            
