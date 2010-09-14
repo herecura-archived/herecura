@@ -7,7 +7,7 @@ _bigrelease=10.70
 _buildver=9046
 _randomizer=19447
 pkgver=${_bigrelease}_${_buildver}
-pkgrel=2
+pkgrel=3
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -22,7 +22,6 @@ install=${pkgname}.install
 options=(!strip !zipman)
 license=('custom:opera')
 arch=('i686' 'x86_64')
-provides=('opera')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
