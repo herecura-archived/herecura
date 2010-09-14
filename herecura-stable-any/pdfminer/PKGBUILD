@@ -3,7 +3,7 @@
 
 pkgname=pdfminer
 pkgver=20100829
-pkgrel=1
+pkgrel=2
 pkgdesc="python utils to extract, analyze text data of PDF files."
 arch=('any')
 url="http://www.unixuser.org/~euske/python/pdfminer/"
@@ -17,9 +17,9 @@ source=("http://pypi.python.org/packages/source/p/pdfminer/${pkgname}-${pkgver}.
 sha256sums=('f98da980399f5e4738224ac47b37a636eeeca409243cdd8453cc2082dd34bd09')
 
 build() {
-  cd $srcdir/$pkgname-$pkgver
-  cp Makefile Makefile.bak
-  sed 's/PREFIX=\/usr\/local//' Makefile.bak > Makefile
-  make PREFIX=$pkgdir/usr install || return 1
-  rm Makefile.bak
+  cd ${pkgname}-${pkgver}
+  make HOME=${pkgdir}/usr install
+  mkdir -p ${pkgdir}/usr/lib/$(python-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
+  mv ${pkgdir}/usr/lib/python/* ${pkgdir}/usr/lib/$(python-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
+  rm -rf ${pkgdir}/usr/lib/python
 }
