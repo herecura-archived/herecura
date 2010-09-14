@@ -2,12 +2,12 @@
 
 pkgname=opera-adblock
 pkgver=20100914
-pkgrel=1
+pkgrel=2
 pkgdesc="Fanboy's AdBlock Filterset for Opera"
 arch=('any')
 url="http://www.fanboy.co.nz/adblock/opera/"
 license=('cc-by-3.0')
-depends=('opera')
+depends=()
 source=(urlfilter.ini)
 sha256sums=('58068979d20856ec164be902cca61addd97fe7fe0d7dbe57b05169364ee5398e')
 
