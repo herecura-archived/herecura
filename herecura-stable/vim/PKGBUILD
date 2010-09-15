@@ -1,56 +1,68 @@
 # vim:set sw=2 sts=2 et:
-# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# thx for the original vim pkg:
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
-# Maintainer: tobias [ tobias at archlinux org ]
-# Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
+# Contributor: tobias [ tobias at archlinux org ]
+# Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
 pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
 _basever=7.3
-_patchlevel=003
+_patchlevel=005
 pkgver=${_basever}.${_patchlevel}
+__hgrev=1c00ea3641
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
 makedepends=('gpm' 'perl' 'python' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2'
-             'gettext' 'pkgconfig' 'sed')
+             'gettext' 'pkgconfig' 'sed' 'mercurial')
 options=()
 source=(
   'vimrc'
   'archlinux.vim'
   'gvim.desktop'
   'license.txt'
-  "ftp://ftp.nluug.nl/pub/vim/unix/${pkgbase}-${_basever}.tar.bz2"
 )
-if [ ${_patchlevel} -gt 000 ]; then
-  for p in $(seq -w 001 ${_patchlevel}); do
-    source=( ${source[@]} "ftp://ftp.nluug.nl/pub/${pkgbase}/patches/${_basever}/${_basever}.${p}")
-  done
-fi
+sha256sums=('70623e05d612985c76048ee26cc3daf746bb0becf179bd33c976eb549ebb2399'
+            'c4fe5e30dfd5093353e42c2c514d4492bec64da17f9a2b4e306af6ee39320715'
+            '5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
+            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55')
+
+__hgroot='http://vim.googlecode.com/hg/'
+__hgrepo='vim'
+__hgbranch='default'
 
 ##### Build #####
 
 build() {
-  cd ${_versiondir}
+  [ -d vim-build ] && rm -rf vim-build
+  [ -d gvim-build ] && rm -rf gvim-build
+  [ -d vim-sl-build ] && rm -rf vim-sl-build
+  msg2 'Checking out source from Mercurial...'
 
-  if [ ${_patchlevel} -gt 000 ]; then
-    msg2 'Patching...'
-    for p in ${srcdir}/${_basever}.*; do
-      msg "apply patch ${p}"
-      patch -p0 -i ${p}
-    done
+  if [[ -d ${__hgrepo} ]]; then
+    cd ${__hgrepo}
+    hg pull -b ${__hgbranch}|| warning 'hg pull failed!'
+    hg update -r ${__hgrev}
+    cd ${srcdir}
+  else
+    hg clone -b ${__hgbranch} -u ${__hgrev} "${__hgroot}${__hgrepo}" ${__hgrepo}
   fi
 
-  cd ${srcdir}
-  cp -a ${_versiondir} vim-build
+  cp -a ${pkgbase} vim-build
+  (cd vim-build && rm -rf ./.hg)
 
   # define the place for the global (g)vimrc file (set to /etc/vimrc)
   sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
     vim-build/src/feature.h
   sed -i 's|^.*\(#define VIMRC_FILE.*"\) .*$|\1|' \
     vim-build/src/feature.h
+  # fix python name
+  sed -i -e 's|vi_cv_path_python, python|vi_cv_path_python, python2|' \
+    vim-build/src/configure.in
+  (cd vim-build/src && autoconf)
 
   msg2 'Building...'
 
@@ -231,11 +243,3 @@ package_vim-rt() {
   install -Dm644 ${srcdir}/license.txt \
     ${pkgdir}/usr/share/licenses/vim-rt/license.txt
 }
-sha256sums=('70623e05d612985c76048ee26cc3daf746bb0becf179bd33c976eb549ebb2399'
-            'c4fe5e30dfd5093353e42c2c514d4492bec64da17f9a2b4e306af6ee39320715'
-            '5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
-            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-            '5c5d5d6e07f1bbc49b6fe3906ff8a7e39b049928b68195b38e3e3d347100221d'
-            '01d460464b09d4bd66fdf1d7221887eb1734335d1d38eb43232499e1f5bcbe29'
-            '0719da2a4cd79ddc7751b56b67490c0a56629db3b0c7ab7804d8fa66ab4e52a6'
-            'ee990cd9b7b0b31b1f64c084d1b6a83593fde122b33a76617cf3e2790fba1c2b')
