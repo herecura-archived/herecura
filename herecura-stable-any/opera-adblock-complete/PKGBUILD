@@ -10,8 +10,8 @@ license=('cc-by-3.0')
 depends=()
 source=('urlfilter.ini'
     'fanboy-adblocklist-elements-v3.css')
-sha256sums=('64b1664017d752435f3d4ad531d005dca6083b828a4f210b6b75e2d083b84b3a'
-            'ae72529f939e67b3d89e1901e9c276b4177de75bb94210f25d371f5694fc8ae1')
+sha256sums=('c3b6db288e207d93aefdd4e2737fb0f60dd594b474d8116f49410bb74c399303'
+            'a15884eecc6ac2eaba39379a5b3d02b588ed19615e384f92544328c17e47f399')
 
 build() {
   cd "$startdir"/src/
