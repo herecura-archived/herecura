@@ -2,11 +2,10 @@
 # Contributor: BlackEagle
 # Contributor: Skunnyk
 # Contributor: totoloco
-#http://snapshot.opera.com/unix/22851_10.70-9047/
 pkgname=opera-devel
 _bigrelease=10.70
-_buildver=9047
-_randomizer=22851
+_buildver=9048
+_randomizer=6531
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
@@ -30,8 +29,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('c4b0429ca73a8841db4fb7b05f52731a042613e6b47925e763ca71076f867aea')
-[ "$CARCH" = "x86_64" ] && sha256sums=('261510acbd0680be5bab7fe554534865ed4b24b264f24f7b425086622570ab6e')
+sha256sums=('58d73e10706e8000c011b61836e955db71005e99ea3919e928612575280f7e62')
+[ "$CARCH" = "x86_64" ] && sha256sums=('fad2d8a63be8747eac32b6ad52d67bf90ce91d6dd6cf3108185c864b6fe6bebc')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
