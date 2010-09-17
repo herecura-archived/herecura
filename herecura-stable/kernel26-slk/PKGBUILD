@@ -7,7 +7,7 @@ pkgname=('kernel26-slk' 'kernel26-slk-headers')
 _kernelname=-slk
 _basekernel=2.6.35
 pkgver=${_basekernel}.4
-pkgrel=4
+pkgrel=5
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
 license=('GPL2')
@@ -22,7 +22,8 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		# special patches for some longtime bug
 		b44.c.patch
 		acpi-use-indirect-call-to-register-gsi-in-different-modes.diff
-		Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch)
+		Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch
+		linux-2.6.git-c41d68a513c71e35a14f66d71782d27a79a81ea6.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
             '03f88e20d9138fd710b338403b2fc97e43ecc34b1f6f0b0d203e03307485550e'
             'dd02963c7e1624a62195ee5001573a070a04dc831f3c1f75d636803a659d6008'
@@ -30,7 +31,8 @@ sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
             '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf'
             'e29c687e1f4c6d46b3340e5e16fb0e53b97edc26046ed498c09b42d8b2a1fe21'
-			'7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863')
+			'7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863'
+			'b2c0f318d691e7d1c4ab4ea9bcdf5689ef898fa840268170318af3832256f071')
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
@@ -45,6 +47,9 @@ build() {
 
 	# fix locate ioapic gsi not found
 	patch -Np1 -i ${srcdir}/Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch
+
+	# fix Ac1db1tch3z exploit
+	patch -Np1 -i ${srcdir}/linux-2.6.git-c41d68a513c71e35a14f66d71782d27a79a81ea6.patch
 
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
