@@ -8,7 +8,7 @@
 pkgname="virtualbox_bin"
 pkgver="3.2.8"
 _build="64453"
-pkgrel=2
+pkgrel=3
 pkgdesc="Powerful x86 virtualization (Personal Use Binaries Edition)."
 arch=('i686' 'x86_64')
 url="http://virtualbox.org"
