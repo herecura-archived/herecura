@@ -2,7 +2,7 @@
 # Maintainer: Frikilinux <frikilinux at frikilinux.com.ar>
 
 pkgname=kpassgen
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc="Random password generator"
 arch=('i686' 'x86_64')
@@ -11,13 +11,16 @@ license=('GPL2')
 depends=('kdelibs')
 makedepends=('cmake' 'automoc4')
 source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('54a6209e302efdbfbdc49e89dfeef12022de7aec86c2a7be0e55e70b9eca4d14')
 
 build() {
-        cd "${srcdir}"/${pkgname}
-        mkdir -p build
-        cd build
-        cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
-        make
-        make DESTDIR="${pkgdir}" install
+	cd ${pkgname}
+	mkdir -p build
+	cd build
+	cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RELEASE ..
+	make
 }
+package() {
+	cd ${pkgname}/build
+	make DESTDIR="${pkgdir}" install
+}
+sha256sums=('0cbfde61f38fc43b9b7883c823f3da7326ab00697380de2383da2967119b0152')
