@@ -1,9 +1,6 @@
-
-# Maintainer: Jack Birdsong <jwbirdsongATgmailDOTcom>
-
 pkgname=hamsimanager
 _realname=HamsiManager
-pkgver=0.9.01
+pkgver=0.9.02
 pkgrel=1
 pkgdesc="Hamsi Manager is a file manager,renamer,id3 tagger,information changer ,.... tool."
 arch=('any')
@@ -17,7 +14,7 @@ optdepends=(
 source=("https://downloads.sourceforge.net/project/hamsimanager/$_realname-$pkgver.tar.gz"
     'hamsi.launcher'
     'compile.py')
-sha256sums=('e3550047421d3af3c1f798539a65517d00d1c82a7716aa0c7fc79e215e4f4493'
+sha256sums=('7cf8717e2dfa3fdbd19aaef5e694e8ca1fcc1308f0aaa75def1364d5a1416e81'
             '2e3321a114ef1b3b9ec7d4405d26122c69a8e328a24f00f714bad93ddc82b1c3'
             'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
 
@@ -53,4 +50,3 @@ package() {
   install -dm755 ${pkgdir}${_destdir}
   cp -a ${_realname} ${pkgdir}${_destdir}/${pkgname}
 }
-# vim:set ts=2 sw=2 et:
