@@ -3,7 +3,7 @@
 # Contributor: Dongsheng Cai <dongsheng at moodle dot com>
 # Contributor: Masutu Subric <masutu.arch at googlemail dot com>
 pkgname=nodejs
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Evented I/O for V8 javascript"
 arch=('i686' 'x86_64')
@@ -11,7 +11,7 @@ url="http://nodejs.org/"
 license=('custom:nodejs')
 depends=('openssl' 'python')
 source=("http://nodejs.org/dist/node-v$pkgver.tar.gz")
-sha256sums=('5bb7d084b2138ce43fcb34739ed894379c450a1dd569a1c710405bc39d2861c2')
+sha256sums=('21dc8e18cd678f55773a2dbe309a559882bf6f3b969c9e5b39f6977fb85ee480')
 
 build() {
     cd node-v${pkgver}
