@@ -8,45 +8,45 @@ url="http://hamsimanager.sourceforge.net"
 license=('GPL3')
 depends=('pyqt')
 optdepends=(
-    'mplayer: optional player'
-    'phonon: optional player'
+	'mplayer: optional player'
+	'phonon: optional player'
 )
 source=("https://downloads.sourceforge.net/project/hamsimanager/$_realname-$pkgver.tar.gz"
-    'hamsi.launcher'
-    'compile.py')
+	'hamsi.launcher'
+	'compile.py')
 sha256sums=('7cf8717e2dfa3fdbd19aaef5e694e8ca1fcc1308f0aaa75def1364d5a1416e81'
-            '2e3321a114ef1b3b9ec7d4405d26122c69a8e328a24f00f714bad93ddc82b1c3'
-            'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
+	'2e3321a114ef1b3b9ec7d4405d26122c69a8e328a24f00f714bad93ddc82b1c3'
+	'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
 
 _destdir="/usr/lib"
 
 build() {
-  cd ${_realname}
-  ${srcdir}/compile.py $(find . -mindepth 1 -maxdepth 1 -type d | sed 's@./@@')
-  find . -mindepth 2 -name "*.py" -delete
-  mv ConfigureUpdate.py Update.py
-  rm install.py
-  sed "s@~InstallationDirectory~@${_destdir}/${pkgname}@" -i HamsiManager.desktop
-  chmod -R u=rwX,go=rX *
+	cd ${_realname}
+	${srcdir}/compile.py $(find . -mindepth 1 -maxdepth 1 -type d | sed 's@./@@')
+	find . -mindepth 2 -name "*.py" -delete
+	mv ConfigureUpdate.py Update.py
+	rm install.py
+	sed "s@~InstallationDirectory~@${_destdir}/${pkgname}@" -i HamsiManager.desktop
+	chmod -R u=rwX,go=rX *
 }
 
 package() {
-  cd ${_realname}
-  install -Dm644 ${srcdir}/${_realname}/HamsiManager.desktop \
-    ${pkgdir}/usr/share/applications/${pkgname}.desktop
-  rm ${srcdir}/${_realname}/HamsiManager.desktop
+	cd ${_realname}
+	install -Dm644 ${srcdir}/${_realname}/HamsiManager.desktop \
+		${pkgdir}/usr/share/applications/${pkgname}.desktop
+	rm ${srcdir}/${_realname}/HamsiManager.desktop
 
-  for lic in BeniOku COPYING ForDevelopers Kopya README; do
-    install -Dm644 ${srcdir}/${_realname}/${lic} \
-      ${pkgdir}/usr/share/licences/${pkgname}/${lic}
-    rm ${lic}
-  done
+	for lic in BeniOku COPYING ForDevelopers Kopya README; do
+		install -Dm644 ${srcdir}/${_realname}/${lic} \
+			${pkgdir}/usr/share/licences/${pkgname}/${lic}
+		rm ${lic}
+	done
 
-  install -Dm755 ${srcdir}/hamsi.launcher \
-    $pkgdir/usr/bin/${pkgname}
-  sed "s@%DESTDIR%@${_destdir}/${pkgname}@" -i ${pkgdir}/usr/bin/${pkgname}
+	install -Dm755 ${srcdir}/hamsi.launcher \
+		$pkgdir/usr/bin/${pkgname}
+	sed "s@%DESTDIR%@${_destdir}/${pkgname}@" -i ${pkgdir}/usr/bin/${pkgname}
 
-  cd ${srcdir}
-  install -dm755 ${pkgdir}${_destdir}
-  cp -a ${_realname} ${pkgdir}${_destdir}/${pkgname}
+	cd ${srcdir}
+	install -dm755 ${pkgdir}${_destdir}
+	cp -a ${_realname} ${pkgdir}${_destdir}/${pkgname}
 }
