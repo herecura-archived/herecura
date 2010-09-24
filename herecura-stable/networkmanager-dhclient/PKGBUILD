@@ -3,13 +3,14 @@
 pkgname=networkmanager-dhclient
 _pkgname=networkmanager
 pkgver=0.8.1
-pkgrel=3
+pkgrel=4
 pkgdesc="Network Management daemon, using dhclient for DHCP"
 arch=('i686' 'x86_64')
 license=('GPL')
 url="http://www.gnome.org/projects/NetworkManager/"
 depends=('wireless_tools' 'iproute2' 'libnl>=1.1' 'ppp' 'dhclient' 'wpa_supplicant>=0.6.10' 'iptables' 'nss>=3.12.6' 'polkit>=0.96' 'udev>=157')
 provides=("networkmanager=${pkgver}")
+conflicts=('networkmanager')
 makedepends=('pkg-config' 'intltool' 'gettext')
 optdepends=('modemmanager: for modem management service')
 options=('!libtool' '!makeflags')

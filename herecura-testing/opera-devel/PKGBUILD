@@ -4,14 +4,15 @@
 # Contributor: totoloco
 pkgname=opera-devel
 _bigrelease=10.70
-_buildver=9049
-_randomizer=seventeen
+_buildver=9050
+_randomizer=buckyballs
 pkgver=${_bigrelease}_${_buildver}
-pkgrel=1
+pkgrel=3
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
 makedepends=('libarchive')
+provides=('opera')
 optdepends=('gtk2: GTK integration'
 	    'kdebase-runtime: KDE4 integration'
 		'gstreamer0.10-base-plugins: HTML5 open codecs support'
@@ -29,8 +30,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('f4b74e44fc8f8d7302bf99c08afbe5f26d1bc2ba8db2888d7214d59599707c43')
-[ "$CARCH" = "x86_64" ] && sha256sums=('ea23a38650f07aa5bb7b08f132c69a9caabfa296065261c0bd7e5a826df80c42')
+sha256sums=('c092e6b83695aec645fb97ca2891ef185fa0ec1bce6e1fff1b1a2a553f338b6c')
+[ "$CARCH" = "x86_64" ] && sha256sums=('e2ca92e836cff9404b0b9b28c64461eed56ab8d5ba58e1e5dc29c6436950aa07')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr

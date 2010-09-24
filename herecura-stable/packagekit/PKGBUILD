@@ -4,11 +4,11 @@
 pkgbase='packagekit'
 pkgname=('packagekit' 'packagekit-qt' 'packagekit-python')
 pkgver=0.6.8
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
 license=('GPL')
-makedepends=('networkmanager-dhclient>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=2.6' 'sqlite3' 'qt' 'intltool')
+makedepends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=2.6' 'sqlite3' 'qt' 'intltool')
          #'polkit>=0.92' 'pacman-glib>=3.4.0' 'python>=2.6' 'sqlite3'
 		 #'intltool' 'pm-utils' 'qt' 'gobject-introspection')
 options=('!libtool')
@@ -61,7 +61,7 @@ package_packagekit() {
 			'etc/PackageKit/pacman.d/pacman.conf'
 			'etc/PackageKit/pacman.d/repos.list')
 	install=(${pkgname}.install)
-	depends=('sqlite3' 'polkit' 'pacman-glib' 'networkmanager-dhclient>=0.8')
+	depends=('sqlite3' 'polkit' 'pacman-glib' 'networkmanager>=0.8')
 	pkgdesc='PackageKit is a system designed to make installing and updating software on your computer easier with glib bindings'
 	cd PackageKit-${pkgver}
 	make DESTDIR="${pkgdir}" install
