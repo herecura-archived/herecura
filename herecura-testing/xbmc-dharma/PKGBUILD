@@ -93,13 +93,6 @@ package() {
 	msg2 "Running make install" 
 	make DESTDIR=${pkgdir} install
 
-	#msg "bin/xbmc mods for ARCH package"
-	#msg2 "Fixup init script lsb_release stuff to arch-release"
-	#sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/arch-release ]/g' \
-		#${pkgdir}/usr/bin/xbmc
-	#sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/arch-release/g" \
-		#${pkgdir}/usr/bin/xbmc
-
 	# Replace FEH.py with FEH.sh (and thus remove external python dependency)
 	msg2 "Replace FEH.py with FEH.sh (and thus remove external python dependency)"
 	install -Dm755 ${srcdir}/FEH.sh \
@@ -131,8 +124,6 @@ package() {
 	msg2 "cleanup unneeded files"
 	rm -rf ${pkgdir}/usr/share/xsessions
 	rm -f ${pkgdir}/usr/share/xbmc/FEH.py
-
-	# strip
-	#msg "strip binaries"
-	#find $pkgdir -type f -exec strip {} \; >/dev/null 2>/dev/null
+	# its not very usefull, and broken at the moment
+	rm -f ${pkgdir}/usr/bin/xbmc-standalone
 }
