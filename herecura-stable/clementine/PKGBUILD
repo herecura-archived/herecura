@@ -1,7 +1,7 @@
 # Maintainer: Dany Martineau <dany.luc.martineau@gmail.com>
 
 pkgname=clementine
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc="A modern music player and library organiser and a port of Amarok 1.4, with some features rewritten to take advantage of Qt4. "
 url="http://code.google.com/p/clementine-player/"
@@ -16,7 +16,7 @@ optdepends=(
 	'gstreamer0.10-ugly-plugins: damn if youre really bad'
 )
 source=(http://clementine-player.googlecode.com/files/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('1794be993d3522abd68b91d80d63e4c49537b57f8f5e9b8d4843fd3394a4aa51')
+sha256sums=('0655062c19db53b5e2dd24c7e2c7f570daeae4a518adcdf7b38836b793513b4e')
 install=(clementine.install)
 
 build() {
