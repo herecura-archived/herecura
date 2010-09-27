@@ -4,10 +4,10 @@
 # Contributor: totoloco
 pkgname=opera-devel
 _bigrelease=10.70
-_buildver=9050
-_randomizer=buckyballs
+_buildver=9053
+_randomizer=bird
 pkgver=${_bigrelease}_${_buildver}
-pkgrel=3
+pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -30,8 +30,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('c092e6b83695aec645fb97ca2891ef185fa0ec1bce6e1fff1b1a2a553f338b6c')
-[ "$CARCH" = "x86_64" ] && sha256sums=('e2ca92e836cff9404b0b9b28c64461eed56ab8d5ba58e1e5dc29c6436950aa07')
+sha256sums=('77384f5b79449862c13fe1c3f7116a830aa61e2382acb9fdcf3a3a0a1207354a')
+[ "$CARCH" = "x86_64" ] && sha256sums=('5dfe6d6937abee679051bdc518a060eb4ac9118446e2de385e3884bb34ae564b')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
