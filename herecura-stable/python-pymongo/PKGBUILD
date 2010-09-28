@@ -3,7 +3,7 @@
 
 pkgname=python-pymongo
 _pkgname=pymongo
-pkgver=1.8.1
+pkgver=1.9
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
@@ -11,7 +11,7 @@ url="http://pypi.python.org/pypi/pymongo/"
 depends=('python')
 makedepends=('setuptools')
 source=(http://pypi.python.org/packages/source/p/${_pkgname}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('770f9b4ceabd92c6ed930e19672ea270590b4616d20e373076e5e31069f62930')
+sha256sums=('7342181435e77b5b47e55026d1d30db86b1f38dbd87d3c21c5b7ee96fa5a929a')
 arch=('i686' 'x86_64')
 
 build() {
