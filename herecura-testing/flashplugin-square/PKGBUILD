@@ -1,6 +1,10 @@
 pkgname=flashplugin-square
-_licensefile='Reader_Player_AIR_WWEULA-Combined-20080204_1313.pdf'
-pkgver=10.2.161.22
+_licensefile='PlatformClients_PC_WWEULA_Combined_20100108_1657.pdf'
+_basename='flashplayer'
+_builddate=092710
+_prerelnr='p2'
+_prerelnm='square'
+pkgver=10.2.161.23
 pkgrel=1
 pkgdesc='Adobe Flash Player x86_64'
 url='http://labs.adobe.com/technologies/flashplayer10/ '
@@ -10,17 +14,17 @@ replaces=('flashplugin-beta' 'flashplugin')
 license=('custom')
 provides=('flashplugin')
 #source=(
-#"http://download.macromedia.com/pub/labs/flashplayer10/flashplayer_square_p1_32bit_linux_091510.tar.gz"
-#"http://download.macromedia.com/pub/labs/flashplayer10/flashplayer_square_p1_64bit_linux_091510.tar.gz"
+#"http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_${_prerelnr}_32bit_linux_${_builddate}.tar.gz"
+#"http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_${_prerelnr}_64bit_linux_${_builddate}.tar.gz"
 #"http://www.adobe.com/products/eulas/pdfs/${_licensefile}"
 #)
 _arch='32bit'
 [ "${CARCH}" == 'x86_64' ] && _arch='64bit'
-source=("http://download.macromedia.com/pub/labs/flashplayer10/flashplayer_square_p1_${_arch}_linux_091510.tar.gz"
+source=("http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_${_prerelnr}_${_arch}_linux_${_builddate}.tar.gz"
 		"http://www.adobe.com/products/eulas/pdfs/${_licensefile}")
-sha256sums=('b8528f1e34e653bdcb7d0e466bc274047c2878e78e0662b3dbd0b7d6d7034848'
-            '80472d96f0b9835e399987849b632c23bd8b20406c7d3fe2313f8cf00e22837e')
-[ "${CARCH}" == 'x86_64' ] && sha256sums[0]='8b581da45ea80aa4d83afc94f64bc294e1247cab505829e6c6d13bcebaddf037'
+sha256sums=('9d821c3619a0a7f1f5769d6a7c57684d83a1c565896c354f9fcd7fb3f3620eec'
+			'3cb0a5f4576be735abcff7189ed18eda17c70b762c3a78a3379b6f44395fbc10')
+[ "${CARCH}" == 'x86_64' ] && sha256sums[0]='fdaaed681883636a3bba59a189986f5dda72e3c65613fce1e066e56111b00da1'
 
 build() {
   install -d -m755 ${pkgdir}/usr/lib/mozilla/plugins/
