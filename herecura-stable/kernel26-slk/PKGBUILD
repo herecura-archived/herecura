@@ -6,7 +6,7 @@ pkgname=('kernel26-slk' 'kernel26-slk-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk
 _basekernel=2.6.35
-pkgver=${_basekernel}.6
+pkgver=${_basekernel}.7
 pkgrel=1
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
@@ -24,7 +24,7 @@ source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
 		acpi-use-indirect-call-to-register-gsi-in-different-modes.diff
 		Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch)
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
-            '8f4c635265d1e7049bc94e22d3c3989dae15ea5cb4ae99bb11cd4a39757eafeb'
+            'e917d593b975853be4118934c35919936dec6069b35c277d26e7e85e88af062e'
             '4dadf940ec28dbb8713914a0616456db48daf597b85c126d29fd80905f3df9a7'
             '99b357ab55e9f316b292383784a181bb58e5fc5482782b5ed7fb0224c9edf817'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
