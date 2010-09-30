@@ -2,7 +2,7 @@
 # Maintainer: Dino Krtanjek <krtanjekdino@gmail.com>
 # Maintainer: Richard Rowe <arch.richard@gmail.com>
 pkgname=php-mongo-git
-pkgver=20100923
+pkgver=20100930
 pkgrel=1
 pkgdesc="Officially supported PHP driver for MongoDB"
 arch=("i686" "x86_64")
