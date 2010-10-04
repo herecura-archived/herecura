@@ -5,90 +5,61 @@
 
 pkgname=calibre
 pkgver=0.7.22
-pkgrel=1
+pkgrel=2
 pkgdesc="E-book library management application"
 arch=('i686' 'x86_64') 
 url="http://calibre.kovidgoyal.net/"
 license=('GPL3')
-
 depends=('python>=2.6' 'python-imaging' 'libusb' 'pyqt' 'python-mechanize'
-         'imagemagick' 'dbus-python' 'python-lxml' 'beautiful-soup' 'python-dateutil'
-         'python-cssutils' 'desktop-file-utils' 'shared-mime-info' 'python-dnspython' 
-         'podofo>=0.8.1-6' 'xdg-utils' 'cherrypy' 'python-pypdf' 'poppler-qt' 'unrar' 'chmlib')
+	'imagemagick' 'dbus-python' 'python-lxml' 'beautiful-soup' 'python-dateutil'
+	'python-cssutils' 'desktop-file-utils' 'shared-mime-info' 'python-dnspython' 
+	'podofo>=0.8.1-6' 'xdg-utils' 'cherrypy' 'python-pypdf' 'poppler-qt' 'unrar' 'chmlib')
 
 makedepends=( 'setuptools' )
 
 install=calibre.install
 
 source=(http://downloads.sourceforge.net/project/calibre/${pkgver}/${pkgname}-${pkgver}.tar.gz
-	calibre-lrfviewer.desktop
-	calibre-gui.desktop
-	calibre-mimetypes
-	calibre-viewer.png
-	calibre-gui.png
-	compile.py)
+	desktop_integration.patch)
 sha256sums=('255d48d58750b5dde30b1b1899035b02ea15ce0cd5a9e5d5b60afd6e56e4e2f4'
-            'a8f01d9112e54d7166eaf201b222fd7fe312b03511265becb261b97d17d731b7'
-            'f319841dd3c134b72684752e4a559fe8bd4e0edf9f4598b76799643196e0c461'
-            '4cb2bcc019dd41a1fa786721ebb004d359295b76846ded96950a60233840d231'
-            '5eb8844d154497116c214da30b473252dfc68494899066a4bc8d91baa6bee26b'
-            '0a84842f88e6cfb5e99512cdac0a9f40dc4d6b3b2cdf93c436d4a1254c889267'
-            'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
+	'3fc619c13b673619ec962bfa9cacb2359eeb2b93fa2110083e4ef226d3549495')
 
 build() {
 	cd "${pkgname}"
-	
-	rm -rf src/{cherrypy,pyPdf} || return 1
 
-	# Larryhaja patches
-	sed -ie "/self.setup_desktop_integration()/,/os.rmdir(config_dir)/d" src/calibre/linux.py || return 1
-	sed -ie "s|self.opts.staging_sharedir, 'man/man1'|self.opts.staging_root, 'usr/share/man/man1'|" src/calibre/linux.py || return 1
-	sed -ie "s|manpath, prog+'.1'+__appname__+'.bz2'|manpath, prog+'.1'+'.bz2'|" src/calibre/linux.py || return 1
-	
-	sed -e "s:old_udev = '/etc:old_udev = '${pkgdir}/etc:" -i src/calibre/linux.py || return 1
-    
-	# Temp
-	perl -pe 'undef $/; s/if islinux:\n\n/\n/' src/calibre/linux.py > src/calibre/linux.py.tmp
-	mv -f src/calibre/linux.py.tmp src/calibre/linux.py
+	rm -rf src/{cherrypy,pyPdf}
 
-	# Disable unnecessary privilege dropping
-	sed -e "s:if os.geteuid() == 0:if False and os.geteuid() == 0:" -i setup/install.py || return 1
-	
-	python setup.py build || return 1
-	#python setup.py install --root=${pkgdir} --prefix=/usr || return 1
+	patch -Np1 -i ${srcdir}/desktop_integration.patch
+
+	sed -i -e "/self.create_uninstaller()/,/os.rmdir(config_dir)/d" \
+		-e "s|self.opts.staging_sharedir, 'man/man1'|self.opts.staging_root, 'usr/share/man/man1'|" \
+		-e "s|manpath, prog+'.1'+__appname__+'.bz2'|manpath, prog+'.1'+'.bz2'|" \
+		-e "s|old_udev = '/etc|old_udev = '${pkgdir}/etc|" \
+		-e "s/^Name=calibre/Name=Calibre/g" src/calibre/linux.py
+
+	sed -ie "s/ldflags = shlex.split(ldflags)/ldflags = shlex.split(ldflags) + ['-fPIC']/" setup/extensions.py
+
+	python setup.py build
+	python setup.py resources
 }
 
 package() {
 
 	cd ${pkgname}
 
-	mkdir -p ${pkgdir}/lib/python2.6/site-packages
-	python setup.py install --root=${pkgdir} --prefix=/usr \
+	# Fix the environment module location
+	sed -i -e "s|(prefix=.*)|(prefix='$pkgdir/usr')|g" setup/install.py
+	mkdir -p ${pkgdir}/usr/lib/python2.6/site-packages
+
+	python setup.py install --root=${pkgdir}/ --prefix=/usr \
 		--staging-bindir=${pkgdir}/usr/bin \
 		--staging-libdir=${pkgdir}/usr/lib \
-		--staging-sharedir=${pkgdir}/usr/share || return 1
+		--staging-sharedir=${pkgdir}/usr/share
 
 	find ${pkgdir} -type d -empty -delete
-
-	cd ${pkgdir}/usr/lib
-	${srcdir}/compile.py calibre
-	find -name "*.py" -delete
-
-
-	# Desktop integration
-	for de in calibre-lrfviewer calibre-gui ; do
-		install -D -m644 "${srcdir}/${de}.desktop" "${pkgdir}/usr/share/applications/${de}.desktop"
-	done
-
-	# Correct icons
-	for icon in calibre-gui.png calibre-viewer.png ; do
-		install -D -m644 "${srcdir}/${icon}" "${pkgdir}/usr/share/pixmaps/${icon}"
-	done
 
 	# Decompress the man pages so makepkg will do it for us.
 	for decom in ${pkgdir}/usr/share/man/man1/*.bz2; do
 		bzip2 -d ${decom}
 	done
-
-	install -D -m644 "${srcdir}/calibre-mimetypes" "${pkgdir}/usr/share/mime/packages/calibre.xml"
 }

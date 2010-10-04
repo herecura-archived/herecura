@@ -1,7 +1,4 @@
 post_install() {
-  /etc/rc.d/hal restart &> /dev/null
-  udevadm control --reload-rules
-
   update-desktop-database -q
   update-mime-database usr/share/mime &> /dev/null
 }
@@ -13,5 +10,3 @@ post_upgrade() {
 post_remove() {
   post_install
 }
-
-# vim:set ts=2 sw=2 et:
