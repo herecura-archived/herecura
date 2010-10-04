@@ -4,7 +4,7 @@
 # Modified by BlackEagle.
 
 pkgname=calibre
-pkgver=0.7.21
+pkgver=0.7.22
 pkgrel=1
 pkgdesc="E-book library management application"
 arch=('i686' 'x86_64') 
@@ -27,7 +27,7 @@ source=(http://downloads.sourceforge.net/project/calibre/${pkgver}/${pkgname}-${
 	calibre-viewer.png
 	calibre-gui.png
 	compile.py)
-sha256sums=('743b3e5b4ef9419e086901288216df5f0b58286061704dbabbf3f3d30b2b4086'
+sha256sums=('255d48d58750b5dde30b1b1899035b02ea15ce0cd5a9e5d5b60afd6e56e4e2f4'
             'a8f01d9112e54d7166eaf201b222fd7fe312b03511265becb261b97d17d731b7'
             'f319841dd3c134b72684752e4a559fe8bd4e0edf9f4598b76799643196e0c461'
             '4cb2bcc019dd41a1fa786721ebb004d359295b76846ded96950a60233840d231'
