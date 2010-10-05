@@ -2,12 +2,12 @@
 # vim:syntax=sh
 pkgname=closure-linter
 pkgver=2.2.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A JavaScript style checker and style fixer"
 arch=('any')
 url="http://code.google.com/closure"
 license=('APACHE')
-depends=('python')
+depends=('python' 'python-gflags')
 makedepends=('setuptools')
 source=("http://${pkgname}.googlecode.com/files/${pkgname/-/_}-${pkgver}.tar.gz")
 sha256sums=('91ebb91145f07cf4d5881ca2b778264f974be544ac2d68279d4ada6a253e02fd')
