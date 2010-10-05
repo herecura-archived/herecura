@@ -1,7 +1,7 @@
 # Contributor: Mark Harviston infinull@gmail.com
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=jslint
-pkgver='20100916'
+pkgver='20101001'
 pkgrel=1
 pkgdesc="The Javascript Code Quality Tool"
 arch=('any')
@@ -9,7 +9,7 @@ url="http://jslint.com"
 license=('(C)2002 Douglas Crockford')
 depends=('rhino')
 source=("jslint${pkgver}.js::http://www.jslint.com/rhino/jslint.js" 'jslint')
-sha256sums=('5735e7a3e591310fc67815edd8bdfd65b08e00c97caaf2104d13fbcb3da2d65b'
+sha256sums=('ce23475a0f6e103c93e216f99b1d9385db5da61fa431c9af26a31155c1be54b4'
             'f6f19ddeb27d788ad779f06f20e768c178913bb8f2a2cfe7b88028711623c881')
 author='Douglas Crockford'
 
