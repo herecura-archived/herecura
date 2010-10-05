@@ -1,0 +1,27 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# vim:syntax=sh
+pkgname=python-gflags
+pkgver=1.3
+pkgrel=1
+pkgdesc="Commandline flags module for Python"
+arch=('any')
+url="http://code.google.com/p/python-gflags"
+license=('BSD')
+depends=('python')
+makedepends=('setuptools')
+source=("http://${pkgname}.googlecode.com/files/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('b5a2d424ab14b9f314f44b92d0a1069f9f7c5df1e6e4d175c44ea2c764ee8995')
+
+build() {
+	cd ${pkgname}-${pkgver}
+	./setup.py build
+}
+
+package() {
+	cd ${pkgname}-${pkgver}
+	./setup.py install --root=${pkgdir}
+	chmod +r ${pkgdir}/* -R
+	#install -dm755 ${pkgdir}/usr/share/licenses/${pkgname}
+	install -Dm644 AUTHORS ${pkgdir}/usr/share/licenses/${pkgname}/AUTHORS
+	install -Dm644 COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+}
