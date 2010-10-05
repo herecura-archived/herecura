@@ -1,0 +1,27 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# vim:syntax=sh
+pkgname=closure-linter
+pkgver=2.2.5
+pkgrel=1
+pkgdesc="A JavaScript style checker and style fixer"
+arch=('any')
+url="http://code.google.com/closure"
+license=('APACHE')
+depends=('python')
+makedepends=('setuptools')
+source=("http://${pkgname}.googlecode.com/files/${pkgname/-/_}-${pkgver}.tar.gz")
+sha256sums=('91ebb91145f07cf4d5881ca2b778264f974be544ac2d68279d4ada6a253e02fd')
+
+build() {
+	cd ${pkgname/-/_}-${pkgver}
+	./setup.py build
+}
+
+package() {
+	cd ${pkgname/-/_}-${pkgver}
+	./setup.py install --root=${pkgdir}
+	if [ -d ${pkgdir}/usr/lib/python2.6/site-packages/closure_linter-2.2.5-py2.6.egg-info ]; then
+		cd ${pkgdir}/usr/lib/python2.6/site-packages/closure_linter-2.2.5-py2.6.egg-info/
+		chmod u=rw,og=r *
+	fi
+}
