@@ -1,12 +1,12 @@
 # Maintainer: ruario 
 # Contributor: BlackEagle
 pkgname=opera-rc
-_bigrelease=10.62
-_buildver=6438
-_rclevel=2
-_randomizer=uptime
+_bigrelease=10.63
+_buildver=6447
+_rclevel=1
+_randomizer=22184
 pkgver=${_bigrelease}rc${_rclevel}
-pkgrel=2
+pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -23,11 +23,15 @@ license=('custom:opera')
 arch=('i686' 'x86_64')
 provides=('opera')
 conflicts=('opera' 'opera-beta')
+#source=(
+#"http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.i386.rpm"
+#"http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.x86_64.rpm"
+#)
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm)
-md5sums=('f8f85ede84b449ef473499bd18a60924')
-[ "$CARCH" = "x86_64" ] && md5sums=('3914e43e0e09c1e0ec027c7e1e2f40e9')
+sha256sums=('60f9be0e9b7b2fee8ba13a53429e51e54de3f702237df4b3486ee1080ee95b36')
+[ "$CARCH" = "x86_64" ] && sha256sums=('93de3ab08c01fa721ef3ea73d7444b1548841ce452c74ba7e8c7030123eaa6c1')
 
 build() {
         cd ${pkgdir}
