@@ -8,17 +8,15 @@ arch=('i686' 'x86_64')
 url="http://www.fanboy.co.nz/adblock/opera/"
 license=('cc-by-3.0')
 depends=()
+install=${pkgname}.install
 source=('urlfilter.ini'
-    'fanboy-adblocklist-elements-v3.css')
-sha256sums=('41c4b97e5d69c2b404638a6408e294fd19ee7b34ea99c0c1b2298827c6ebb8e1'
-            '3c68c58ba30c917bffb1b3c1c3057deafb9bc640bfa8c461d7d9b7476d7cf37d')
+		'fanboy-adblocklist-elements-v3.css')
+sha256sums=('eb5858129091dc1960cab15556201cae1009a380b75acc69568bdac1f86d230f'
+	'c3609883da092f39779cdb43def4200fb63098250ce2b511b5db83c385b186ba')
 
 build() {
-  cd "$startdir"/src/
-  mkdir -p "$startdir"/pkg/usr/share/"$pkgname"/
-  install -m644 urlfilter.ini "$startdir"/pkg/usr/share/"$pkgname"/urlfilter.ini
-  install -m644 fanboy-adblocklist-elements-v3.css "$startdir"/pkg/usr/share/"$pkgname"/adblock-elements.css
+	cd "$startdir"/src/
+	mkdir -p "$startdir"/pkg/usr/share/"$pkgname"/
+	install -m644 urlfilter.ini "$startdir"/pkg/usr/share/"$pkgname"/urlfilter.ini
+	install -m644 fanboy-adblocklist-elements-v3.css "$startdir"/pkg/usr/share/"$pkgname"/adblock-elements.css
 }
-install=${pkgname}.install
-
-# vim:set ts=2 sw=2 et:
