@@ -1,10 +1,11 @@
+# Maintainer; BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: PirateJonno <j@skurvy.no-ip.org>
 # Contributor: Zom <zom@eevul.org>
 
 pkgbase='packagekit'
-pkgname=('packagekit' 'packagekit-qt' 'packagekit-python')
-pkgver=0.6.8
-pkgrel=2
+pkgname=('packagekit' 'packagekit-qt' 'packagekit-python' 'packagekit-backend-alpm' 'packagekit-backend-pacman')
+pkgver=0.6.9
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
 license=('GPL')
@@ -13,7 +14,7 @@ makedepends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=2.6' '
 		 #'intltool' 'pm-utils' 'qt' 'gobject-introspection')
 options=('!libtool')
 source=("http://www.packagekit.org/releases/PackageKit-${pkgver}.tar.bz2")
-sha256sums=('24de9db9b292b174746d3596a9ea624b868b59f033e786bccb29ed5303c50f83')
+sha256sums=('e5d4912a48aa2e69e08f566822eb05a8349fc906251b22c1de0509e860e3b140')
 
 build() {
 	cd PackageKit-${pkgver}
@@ -27,6 +28,7 @@ build() {
 		--disable-tests \
 		--disable-debuginfo-install \
 		--disable-dummy \
+		--enable-alpm \
 		--enable-pacman \
 		--with-default-backend=pacman
 	make
@@ -52,6 +54,7 @@ build() {
 		--disable-device-rebind \
 		--disable-pm-utils \
 		--disable-dummy \
+		--enable-alpm \
 		--enable-pacman \
 		--with-default-backend=pacman
 }
@@ -61,7 +64,7 @@ package_packagekit() {
 			'etc/PackageKit/pacman.d/pacman.conf'
 			'etc/PackageKit/pacman.d/repos.list')
 	install=(${pkgname}.install)
-	depends=('sqlite3' 'polkit' 'pacman-glib' 'networkmanager>=0.8')
+	depends=('sqlite3' 'polkit' 'packagekit-backend-arch' 'networkmanager>=0.8')
 	pkgdesc='PackageKit is a system designed to make installing and updating software on your computer easier with glib bindings'
 	cd PackageKit-${pkgver}
 	make DESTDIR="${pkgdir}" install
@@ -80,6 +83,10 @@ package_packagekit() {
 	
 	# make sure log gets removed
 	touch ${pkgdir}/var/log/PackageKit
+
+	# store backends for later packaging
+	[ -d ${srcdir}/packagekit-backend-install ] && rm -rf ${srcdir}/packagekit-backend-install
+	mv ${pkgdir}/usr/lib/packagekit-backend ${srcdir}/packagekit-backend-install
 }
 
 package_packagekit-qt() {
@@ -94,4 +101,22 @@ package_packagekit-python() {
 	pkgdesc='Packagekit python bindings'
 	cd PackageKit-${pkgver}/lib/python/
 	make DESTDIR="${pkgdir}" install
+}
+
+package_packagekit-backend-alpm() {
+	depends=('pacman>=3.4.1')
+	pkgdesc='Packagekit alpm backend'
+	provides=('packagekit-backend-arch')
+	install=(packagekit-backend-alpm.install)
+	install -Dm755 ${srcdir}/packagekit-backend-install/libpk_backend_alpm.so \
+		${pkgdir}/usr/lib/packagekit-backend/libpk_backend_alpm.so
+}
+
+package_packagekit-backend-pacman() {
+	depends=('pacman-glib>=3.4.0')
+	pkgdesc='Packagekit pacman-glib backend'
+	provides=('packagekit-backend-arch')
+	install=(packagekit-backend-pacman.install)
+	install -Dm755 ${srcdir}/packagekit-backend-install/libpk_backend_pacman.so \
+		${pkgdir}/usr/lib/packagekit-backend/libpk_backend_pacman.so
 }
