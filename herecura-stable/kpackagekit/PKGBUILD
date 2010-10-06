@@ -2,7 +2,7 @@
 # Contributor: Zom <zom@eevul.org>
 
 pkgname=kpackagekit
-pkgver=0.6.1
+pkgver=0.6.2
 pkgrel=1
 pkgdesc="KDE tools for PackageKit, with pacman support by pacman-glib-git. PKGBUILD provided by gog."
 arch=('i686' 'x86_64')
@@ -11,7 +11,7 @@ license=('GPL')
 depends=('kdelibs' 'packagekit-qt')
 makedepends=('cmake' 'automoc4' 'p7zip')
 source=(http://kde-apps.org/CONTENT/content-files/84745-${pkgname}-${pkgver}.7z)
-sha256sums=('84735eea620653241512463c075300a69f50fd75171764d4102290c7b78ff2f6')
+sha256sums=('c29bcbf04cabfac8aaf1c03ee0153e9256bf37f9eaaeb6407dcef5a982eb02e8')
 
 build() {
 	[ -d "${pkgname}-${pkgver}" ] && rm -rf ${pkgname}-${pkgver}
