@@ -5,7 +5,7 @@
 pkgname=kpackagekit
 pkgver=0.6.2
 pkgrel=1
-pkgdesc="KDE tools for PackageKit, with pacman support by pacman-glib-git. PKGBUILD provided by gog."
+pkgdesc="KDE tools for PackageKit"
 arch=('i686' 'x86_64')
 url="http://www.kde-apps.org/content/show.php/KPackageKit?content=84745"
 license=('GPL')
