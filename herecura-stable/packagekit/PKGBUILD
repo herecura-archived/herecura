@@ -9,7 +9,7 @@ pkgrel=1
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
 license=('GPL')
-makedepends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=2.6' 'sqlite3' 'qt' 'intltool')
+makedepends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=2.6' 'sqlite3' 'qt' 'intltool' 'dbus-glib')
          #'polkit>=0.92' 'pacman-glib>=3.4.0' 'python>=2.6' 'sqlite3'
 		 #'intltool' 'pm-utils' 'qt' 'gobject-introspection')
 options=('!libtool')
