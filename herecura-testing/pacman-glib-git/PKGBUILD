@@ -2,7 +2,7 @@
 
 _pkgname=pacman-glib
 pkgname="$_pkgname-git"
-pkgver=20100930
+pkgver=20101006
 pkgrel=1
 pkgdesc='GLib library for Arch Linux package management'
 arch=('i686' 'x86_64')
