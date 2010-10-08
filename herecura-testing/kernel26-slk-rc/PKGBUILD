@@ -1,12 +1,12 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
-pkgbase="kernel26-slk"
-pkgname=('kernel26-slk' 'kernel26-slk-headers')
+pkgbase="kernel26-slk-rc"
+pkgname=('kernel26-slk-rc' 'kernel26-slk-rc-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
-_kernelname=-slk
+_kernelname=-slk-rc
 _basekernel=2.6.36
-pkgver=${_basekernel}_rc4
+pkgver=${_basekernel}_rc7
 pkgrel=1
 arch=(i686 x86_64)
 license=('GPL2')
@@ -18,17 +18,17 @@ ftp://ftp.kernel.org/pub/linux/kernel/v2.6/testing/linux-${pkgver/_/-}.tar.bz2
 		config-${_basekernel}.i686
 		config-${_basekernel}.x86_64
 		# standard config files for mkinitcpio ramdisk
-		kernel26-slk.preset
+		${pkgname}.preset
 		# special patches for some longtime bug
 )
-sha256sums=('4ade259398ff0d733ae3c25567f0589e1a1538ed7ebd5b49a16a4f390aaf8ea5'
-            'dd02963c7e1624a62195ee5001573a070a04dc831f3c1f75d636803a659d6008'
-            'd1066a83c33df2480ae6366df2d2dd35810e51f608cc995b439a91e18317b951'
+sha256sums=('d8268d54844bcb847fb0963d03fc9cba0c6e8226a28ea71556ac374a8989d5b3'
+            'dbc96ec604474cbe25bba8e056e164ab517693fd1e79d9271b428727d35f7ef1'
+            'd688121743958b3b8e94ebe0f5edadaa76db79b4e30dce38a1730b98272019c1'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
 
 build() {
 	cd ${srcdir}/linux-${pkgver/_/-}
-	return 1
+	#return 1
 
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
@@ -47,7 +47,7 @@ build() {
 	make prepare
 	# load configuration
 	# Configure the kernel. Replace the line below with one of your choice.
-	make menuconfig # CLI menu for configuration
+	#make menuconfig # CLI menu for configuration
 	#make xconfig # X-based configuration
 	#make oldconfig # using old config from previous kernel version
 	# ... or manually edit .config
@@ -55,14 +55,14 @@ build() {
 	# stop here
 	# this is useful to configure the kernel
 	#msg "Stopping build"
-	return 1
+	#return 1
 	####################
 	yes "" | make config
 	# build!
 	make bzImage modules
 }
 
-package_kernel26-slk() {
+package_kernel26-slk-rc() {
 	pkgdesc="The Linux Kernel and modules, inspired by Slackware kernel"
 	groups=('base')
 	provides=('kernel26')
@@ -81,7 +81,7 @@ package_kernel26-slk() {
 	'linux-firmware: when having some hardware needing special firmware')
 
 	KARCH=x86
-	cd ${srcdir}/linux-$_basekernel
+	cd ${srcdir}/linux-${pkgver/_/-}
 	# get kernel version
 	_kernver="$(make kernelrelease)"
 	mkdir -p ${pkgdir}/{lib/modules,boot}
@@ -109,28 +109,19 @@ package_kernel26-slk() {
 	rm -rf ${pkgdir}/lib/firmware
 }
 
-package_kernel26-slk-headers() {
+package_kernel26-slk-rc-headers() {
 	pkgdesc="Header files and scripts for building modules for kernel26-slk"
 	provides=('kernel26-headers')
 	mkdir -p ${pkgdir}/lib/modules/${_kernver}
 	cd ${pkgdir}/lib/modules/${_kernver}
 	ln -sf ../../../usr/src/linux-${_kernver} build
-	cd ${srcdir}/linux-$_basekernel
+	cd ${srcdir}/linux-${pkgver/_/-}
 	install -D -m644 Makefile \
 		${pkgdir}/usr/src/linux-${_kernver}/Makefile
 	install -D -m644 kernel/Makefile \
 		${pkgdir}/usr/src/linux-${_kernver}/kernel/Makefile
 	install -D -m644 .config \
 		${pkgdir}/usr/src/linux-${_kernver}/.config
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include
-
-	for i in acpi asm-generic config generated linux math-emu media net pcmcia scsi sound trace video; do
-		cp -a include/$i ${pkgdir}/usr/src/linux-${_kernver}/include/
-	done
-
-	# copy arch includes for external modules
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/arch/x86
-	cp -a arch/x86/include ${pkgdir}/usr/src/linux-${_kernver}/arch/x86/
 
 	# copy files necessary for later builds, like nvidia and vmware
 	cp Module.symvers ${pkgdir}/usr/src/linux-${_kernver}
@@ -147,53 +138,17 @@ package_kernel26-slk-headers() {
 	fi
 	cp arch/$KARCH/kernel/asm-offsets.s ${pkgdir}/usr/src/linux-${_kernver}/arch/$KARCH/kernel/
 
-	# add headers for lirc package
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video
-	cp drivers/media/video/*.h  ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/
-	for i in bt8xx cpia2 cx25840 cx88 em28xx et61x251 pwc saa7134 sn9c102 usbvideo zc0301; do
-		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/$i
-		cp -a drivers/media/video/$i/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/$i
-	done
 	# add docbook makefile
 	install -D -m644 Documentation/DocBook/Makefile \
 		${pkgdir}/usr/src/linux-${_kernver}/Documentation/DocBook/Makefile
-	# add dm headers
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/md
-	cp drivers/md/*.h  ${pkgdir}/usr/src/linux-${_kernver}/drivers/md
-	# add inotify.h
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/linux
-	cp include/linux/inotify.h ${pkgdir}/usr/src/linux-${_kernver}/include/linux/
-	# add wireless headers
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/
-	cp net/mac80211/*.h ${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/
-	# add dvb headers for external modules
-	# in reference to:
-	# http://bugs.archlinux.org/task/9912
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core
-	cp drivers/media/dvb/dvb-core/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core/
-	# add dvb headers for external modules
-	# in reference to:
-	# http://bugs.archlinux.org/task/11194
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-	cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-	# add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
-	# in reference to:
-	# http://bugs.archlinux.org/task/13146
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-	cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-	cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-	# add xfs and shmem for aufs building
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/mm
-	cp fs/xfs/xfs_sb.h ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs/xfs_sb.h
-	# add headers vor virtualbox
-	# in reference to:
-	# http://bugs.archlinux.org/task/14568
-	cp -a include/drm $pkgdir/usr/src/linux-${_kernver}/include/
-	# add headers for broadcom wl
-	# in reference to:
-	# http://bugs.archlinux.org/task/14568
-	cp -a include/trace $pkgdir/usr/src/linux-${_kernver}/include/
+
+	# add headers
+	cd ${srcdir}/linux-${pkgver/_/-}
+	for header in `find -name '*.h'`; do
+		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${header})
+		cp -a ${header} ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${header})
+	done
+
 	# copy in Kconfig files
 	for i in `find . -name "Kconfig*"`; do
 		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/`echo $i | sed 's|/Kconfig.*||'`
@@ -203,5 +158,5 @@ package_kernel26-slk-headers() {
 	chown -R root.root ${pkgdir}/usr/src/linux-${_kernver}
 	find ${pkgdir}/usr/src/linux-${_kernver} -type d -exec chmod 755 {} \;
 	# remove unneeded architectures
-	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
+	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }

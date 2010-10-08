@@ -1,8 +1,8 @@
 # arg 1:  the new package version
 # arg 2:  the old package version
 
-KERNEL_NAME=-slk
-KERNEL_VERSION=2.6.35-SLK
+KERNEL_NAME=-slk-rc
+KERNEL_VERSION=2.6.36-SLK
 
 post_install () {
   # updating module dependencies
