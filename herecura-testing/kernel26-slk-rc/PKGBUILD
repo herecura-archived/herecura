@@ -142,9 +142,14 @@ package_kernel26-slk-rc-headers() {
 	install -D -m644 Documentation/DocBook/Makefile \
 		${pkgdir}/usr/src/linux-${_kernver}/Documentation/DocBook/Makefile
 
+	# add config
+	for config in `find ./include/config -size +1c -type f`; do
+		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${config})
+		cp -a ${config} ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${config})
+	done
+
 	# add headers
-	cd ${srcdir}/linux-${pkgver/_/-}
-	for header in `find -name '*.h'`; do
+	for header in `find -size +1c -name '*.h'`; do
 		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${header})
 		cp -a ${header} ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${header})
 	done
