@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 _kernver='2.6.35-SLK'
 ARCH=x86_64 && _srcname=NVIDIA-Linux-x86_64-${pkgver}-no-compat32 && md5sums=('69f00bf3f8f381a6a870d9ad341e3a2e')
 [ "$CARCH" = "i686" ] && ARCH=x86 && _srcname=NVIDIA-Linux-x86-${pkgver} && md5sums=('845154d89f9c56bbfcd9554213053bed')
-provides=("nvidia=${pkgver}")
+provides=("nvidia-beta=${pkgver}")
 url="http://www.nvidia.com/" 
 depends=('kernel26-slk>=2.6.35' 'kernel26-slk<2.6.36' "nvidia-utils-beta=${pkgver}") 
 makedepends=('kernel26-slk-headers>=2.6.35' 'kernel26-slk-headers<2.6.36')
