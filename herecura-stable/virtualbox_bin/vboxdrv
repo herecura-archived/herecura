@@ -4,7 +4,7 @@
 . /etc/rc.d/functions
 . /etc/vbox/vbox.cfg
 
-MODLIST=()
+MODLIST=('vboxdrv' 'vboxnetadp' 'vboxnetflt')
 LOG="/var/log/vbox-install.log"
 
 if [ -n "$INSTALL_DIR" ]; then
@@ -18,15 +18,42 @@ else
 fi
 
 case "$1" in
-  setup)
-    stat_busy "Unloading VirtualBox kernel modules"
-    for module in vbox{netflt,netadp,drv}; do
-      if grep -q "^${module}" /proc/modules; then
-        MODLIST+=($module)
-        modprobe -r $module
+  start)
+    stat_busy "Loading VirtualBox kernel modules"
+    returnval=0
+    for module in ${MODLIST[@]}; do
+      modprobe $module > /dev/null 2>&1
+      if [ $? -ne 0 ]; then
+        returnval=1
       fi
     done
+    if [ $returnval -ne 0 ]; then
+      $0 build
+      $0 start
+    fi
     stat_done
+    ;;
+  stop)
+    stat_busy "Unloading VirtualBox kernel modules"
+    let md=${#MODLIST[@]}-1
+    while [ $md -ge 0 ]; do
+      if grep -q "^${MODLIST[$md]#@}" /proc/modules; then
+        modprobe -r ${MODLIST[$md]#@}
+      fi
+      let md=md-1
+    done
+    stat_done
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  setup)
+    $0 stop
+    $0 build
+    $0 start
+    ;;
+  build)
     for p in /lib/modules/*; do
       if [ ! -d "$p/kernel" ]; then
         if [ -e "$p/misc/vboxdrv.ko" ]; then
@@ -69,12 +96,7 @@ case "$1" in
       echo "Look at $LOG to find out what went wrong"
     fi
     stat_done
-    stat_busy "Reloading VirtualBox kernel modules"
-    for module in "${MODLIST[@]}"; do
-      modprobe $module
-    done
-    stat_done
     ;;
   *)
-    echo "usage: $0 {setup}"
+    echo "usage: $0 {start|stop|restart|setup}"
 esac

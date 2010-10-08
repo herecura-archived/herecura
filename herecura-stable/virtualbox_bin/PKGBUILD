@@ -8,7 +8,7 @@
 pkgname="virtualbox_bin"
 pkgver="3.2.8"
 _build="64453"
-pkgrel=3
+pkgrel=4
 pkgdesc="Powerful x86 virtualization (Personal Use Binaries Edition)."
 arch=('i686' 'x86_64')
 url="http://virtualbox.org"
@@ -31,26 +31,25 @@ source=("VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run::http://download.virt
 	'virtualbox-unlocked_ioctl.patch')
 sha256sums=('e1de3139499397b33da68f3a0e6941d50638206648b432e1a86de5cbff5171f9'
 	'f2123c40b37be9144eaa974f90c1708e61101d69a3a31aeade92746e07bf9bb7'
-	'85637e28829c515ad0538a2d684641d4c92add54262ed9d5a0d32a66ab4969b9'
+	'44ef744ae8f16020862bdcfff34af44b196c0782617b1439206e06386bf78f55'
 	'd75ddf5667f8e4a97eda1e30eb60a23ca8bbaa93f769769cdbbf8c5baea1c963')
 [ "$CARCH" = "x86_64" ] && sha256sums[0]='ff37f25a20c626b1f381362d1da05da984d41f83bdacc9fb1fc0cdea09bc0697'
 
 build() {
 	# Check and unpack the run package via sh(1)
-	sh "VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run" --check || return 1
+	sh "VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run" --check
 	echo yes | sh "VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run" --target "$srcdir" \
-		--nox11 --noexec &> /dev/null || return 1
-
+		--nox11 --noexec &> /dev/null
 	# Unpack bundled files
-	install -d "$pkgdir/opt/VirtualBox" || return 1
+	install -d "$pkgdir/opt/VirtualBox"
 	cd "$pkgdir/opt/VirtualBox"
-	tar -xjf "$srcdir/VirtualBox.tar.bz2" || return 1
+	tar -xjf "$srcdir/VirtualBox.tar.bz2"
 
 	# Fix compilation issues with kernel versions >= 2.6.36
 	patch -Np2 "$pkgdir/opt/VirtualBox/src/vboxnetadp/linux/VBoxNetAdp-linux.c" \
 		-i "$srcdir/virtualbox-unlocked_ioctl.patch"
 
-	install -d "$pkgdir/usr/"{bin,share/applications,share/pixmaps} || return 1
+	install -d "$pkgdir/usr/"{bin,share/applications,share/pixmaps}
 
 	# Hardened build: Mark binaries suid root, create symlinks for working around
 	#                 unsupported $ORIGIN/.. in VBoxC.so and make sure the
@@ -74,13 +73,13 @@ build() {
 	# Install the SDK (disabled, since the extension expects an UCS4-compiled
 	# python, while Arch Linux has an UCS2-compiled python)
 	#cd "$pkgdir/opt/VirtualBox/sdk/installer"
-	#VBOX_INSTALL_PATH="/opt/VirtualBox" python vboxapisetup.py install --root "${pkgdir}" || return 1
+	#VBOX_INSTALL_PATH="/opt/VirtualBox" python vboxapisetup.py install --root "${pkgdir}"
 	#rm -Rf build
 	#cd "$pkgdir/opt/VirtualBox"
 	rm -Rf sdk vboxshell.py VBoxPython*
 
 	# Install rc.d script for module compilation
-	install -Dm0755 "${srcdir}/vboxdrv" "${pkgdir}/etc/rc.d/vboxdrv" || return 1
+	install -Dm0755 "${srcdir}/vboxdrv" "${pkgdir}/etc/rc.d/vboxdrv"
 
 	# Replace init script stuff
 	sed -i -e 's,sudo /etc/init.d/vboxdrv setup,/etc/rc.d/vboxdrv setup,g' \
@@ -89,7 +88,7 @@ build() {
 		"$pkgdir/opt/VirtualBox/VBox.sh"
 
 	# Install udev rules
-	install -Dm0644 "$srcdir/10-vboxdrv.rules" "$pkgdir/lib/udev/rules.d/10-vboxdrv.rules" || return 1
+	install -Dm0644 "$srcdir/10-vboxdrv.rules" "$pkgdir/lib/udev/rules.d/10-vboxdrv.rules"
 
 	# Symlink the launchers
 	for _bin in VirtualBox VBox{Headless,Manage,SDL,SVC,Tunctl,NetAdpCtl} rdesktop-vrdp; do
@@ -101,10 +100,10 @@ build() {
 	ln -s "/opt/VirtualBox/virtualbox.desktop" "$pkgdir/usr/share/applications/VirtualBox.desktop"
 
 	# Symlink the license
-	install -d "$pkgdir/usr/share/licenses/$pkgname" || return 1
+	install -d "$pkgdir/usr/share/licenses/$pkgname"
 	ln -s "/opt/VirtualBox/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/PUEL"
 
 	# Setup configuration
-	install -d "$pkgdir/etc/vbox" || return 1
+	install -d "$pkgdir/etc/vbox"
 	echo 'INSTALL_DIR="/opt/VirtualBox"' > "$pkgdir/etc/vbox/vbox.cfg"
 }
