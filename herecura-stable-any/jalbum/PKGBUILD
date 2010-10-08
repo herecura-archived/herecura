@@ -19,7 +19,7 @@ sha256sums=('e021ab986ef07f5953e623f92c9f4817c53086f9f247466db8242c9d08408077'
 build() {
 	#remove batfiles and java sourcefiles
 	cd Jalbum
-	find \( -name "*.bat" -o -name "*.java" \) -delete
+	find \( -name "*.bat" -o -name "*.cmd" -o -name "*.java" \) -delete
 
 	#remove lib/sunos/windows
 	rm -rf lib/{sunos,windows}
