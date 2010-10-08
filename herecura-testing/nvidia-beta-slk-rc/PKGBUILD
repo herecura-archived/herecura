@@ -19,7 +19,7 @@ source=("ftp://download.nvidia.com/XFree86/Linux-$ARCH/${pkgver}/${_srcname}.run
 
 build()
 {
-
+	return 1 # make sure it won't build
 	# Extract the nvidia drivers
 	cd "${srcdir}"
 	if [ -d ${_srcname} ]; then

@@ -28,7 +28,7 @@ sha256sums=('d8268d54844bcb847fb0963d03fc9cba0c6e8226a28ea71556ac374a8989d5b3'
 
 build() {
 	cd ${srcdir}/linux-${pkgver/_/-}
-	#return 1
+	return 1 # make sure it won't build
 
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
