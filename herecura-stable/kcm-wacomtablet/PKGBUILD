@@ -9,11 +9,11 @@ pkgdesc="This module implements a GUI for the Wacom Linux Drivers and extends it
 license=('GPLv2')
 arch=('x86_64' 'i686')
 source=("http://www.kde-apps.org/CONTENT/content-files/114856-kcm-tablet-${pkgver}.tar.gz")
-md5sums=('174c0b9a7e9a390a30d007b7da741ed7')
 depends=('kdelibs')
 makedepends=('cmake' 'automoc4')
 conflicts=('kcm_tablet-svn kde-wacomtablet-svn')
 replaces=('kcm_tablet')
+sha256sums=('8650df7ecff11ddb781f232044d8dabc54e35da30ccb804cb85930536fb0cf0b')
 
 build()  {	
 	cd ${srcdir}/kcm-tablet
