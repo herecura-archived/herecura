@@ -8,9 +8,9 @@
 pkgbase=vim
 pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
 _basever=7.3
-_patchlevel=020
+_patchlevel=021
 pkgver=${_basever}.${_patchlevel}
-__hgrev=c3b5d3fe94
+__hgrev=10ce04af8c
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
