@@ -2,12 +2,12 @@
 
 pkgname=ksplash-archpaint2
 pkgver=1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="KSplash theme based on archpaint2 wallpaper"
 arch=('any')
 url="http://www.archlinux.org"
 license=('CCPL')
-depends=('wallpaper-archpaint2')
+depends=('kdebase-workspace' 'wallpaper-archpaint2')
 source=("http://www.herecura.be/archlinux/${pkgname}/${pkgname}-${pkgver}.tar.bz2")
 sha256sums=('83fbb2541fee33437f039eedb0de2a2988fd8df7a05dffc70e95d7cac654deee')
 
