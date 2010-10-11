@@ -7,7 +7,7 @@ license=('MPL' 'GPL' 'LGPL')
 pkgname=firefox-nightly
 pkgdesc='Standalone web browser from mozilla.org, nightly build.'
 url='http://www.mozilla.org/projects/firefox'
-pkgver=4.0b7pre
+pkgver=4.0b8pre
 pkgrel=1
 
 source=( 'firefox-nightly.desktop' 'firefox-nightly-safe.desktop' )
