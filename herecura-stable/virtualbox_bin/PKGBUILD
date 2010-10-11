@@ -5,35 +5,37 @@
 # Contributor: Sascha Pfau <MrPeacockΘgmail·com>
 # Contributor: iggy <iggy.mfΘgmail·com>
 
-pkgname="virtualbox_bin"
-pkgver="3.2.8"
-_build="64453"
-pkgrel=4
+pkgname=virtualbox_bin
+pkgver=3.2.10
+_build=66523
+pkgrel=1
 pkgdesc="Powerful x86 virtualization (Personal Use Binaries Edition)."
 arch=('i686' 'x86_64')
 url="http://virtualbox.org"
 license=('custom:PUEL')
-depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'gcc' 'make' 'kernel26-headers')
-optdepends=("qt: for VirtualBox GUI"
-	"sdl: for VBoxSDL and VirtualBox GUI"
-	"libgl: for shared OpenGL"
-	"libxt: for shared Clipboard"
+depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'gcc' 'make' 'kernel26-headers' 'qt')
+optdepends=("sdl: for VBoxSDL and VirtualBox GUI"
+	"mesa: for OpenGL support"
+	"libgl: for shared OpenGL support"
+	"libxt: for shared Clipboard support"
 	"alsa-lib: for ALSA support"
 	"pulseaudio: for PulseAudio support")
 provides=("virtualbox=${pkgver}")
 conflicts=('virtualbox-ose' 'virtualbox-modules')
 install='virtualbox.install'
+#source=(
+#"VirtualBox-${pkgver}-${_build}-Linux_x86.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_x86.run"
+#"VirtualBox-${pkgver}-${_build}-Linux_amd64.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_amd64.run"
+#)
 _arch='x86'
 [ "$CARCH" = "x86_64" ] && _arch='amd64'
 source=("VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run"
 	'10-vboxdrv.rules'
-	'vboxdrv'
-	'virtualbox-unlocked_ioctl.patch')
-sha256sums=('e1de3139499397b33da68f3a0e6941d50638206648b432e1a86de5cbff5171f9'
+	'vboxdrv')
+sha256sums=('8bb6f050c5ecbe15b9f812bb13b37f3587da57b26e92479ba75fa4c63c9b18e9'
 	'f2123c40b37be9144eaa974f90c1708e61101d69a3a31aeade92746e07bf9bb7'
-	'44ef744ae8f16020862bdcfff34af44b196c0782617b1439206e06386bf78f55'
-	'd75ddf5667f8e4a97eda1e30eb60a23ca8bbaa93f769769cdbbf8c5baea1c963')
-[ "$CARCH" = "x86_64" ] && sha256sums[0]='ff37f25a20c626b1f381362d1da05da984d41f83bdacc9fb1fc0cdea09bc0697'
+	'9918d9be4802c0c99e6761eda29b3b04a47666cbabda3e13c312c337920c6987')
+[ "$CARCH" = "x86_64" ] && sha256sums[0]='4c142872eb7132e880467ecda0e3693708568901665f3d623fd969edada52a81'
 
 build() {
 	# Check and unpack the run package via sh(1)
@@ -44,10 +46,6 @@ build() {
 	install -d "$pkgdir/opt/VirtualBox"
 	cd "$pkgdir/opt/VirtualBox"
 	tar -xjf "$srcdir/VirtualBox.tar.bz2"
-
-	# Fix compilation issues with kernel versions >= 2.6.36
-	patch -Np2 "$pkgdir/opt/VirtualBox/src/vboxnetadp/linux/VBoxNetAdp-linux.c" \
-		-i "$srcdir/virtualbox-unlocked_ioctl.patch"
 
 	install -d "$pkgdir/usr/"{bin,share/applications,share/pixmaps}
 

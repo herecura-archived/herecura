@@ -9,9 +9,9 @@ LOG="/var/log/vbox-install.log"
 
 if [ -n "$INSTALL_DIR" ]; then
   VBOXMANAGE="$INSTALL_DIR/VBoxManage"
-  BUILDVBOXDRV="$INSTALL_DIR/src/vboxdrv/build_in_tmp"
-  BUILDVBOXNETFLT="$INSTALL_DIR/src/vboxnetflt/build_in_tmp"
-  BUILDVBOXNETADP="$INSTALL_DIR/src/vboxnetadp/build_in_tmp"
+  BUILDVBOXDRV="$INSTALL_DIR/src/vboxhost/vboxdrv/build_in_tmp"
+  BUILDVBOXNETFLT="$INSTALL_DIR/src/vboxhost/vboxnetflt/build_in_tmp"
+  BUILDVBOXNETADP="$INSTALL_DIR/src/vboxhost/vboxnetadp/build_in_tmp"
 else
   echo "missing vbox.cfg"
   exit 0
