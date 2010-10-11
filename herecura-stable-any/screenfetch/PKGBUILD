@@ -1,0 +1,46 @@
+pkgname=screenfetch
+pkgver=2.1.7
+pkgrel=1
+pkgdesc="Bash screenshot info grabber (DE, WM, theme, uptime, ...)"
+arch=('any')
+url="http://git.silverirc.com/cgit.cgi/screenfetch-dev.git/"
+license=('GPL')
+depends=('bash')
+optdepends=('scrot: To take screenshot')
+makedepends=('git')
+
+_gitname="screenfetch-dev"
+
+build() {
+	_gitroot="git://git.silverirc.com/screenfetch-dev.git"
+
+	# Git
+	msg "Connecting to GIT server...."
+	if [ -d ${_gitname}/.git ] ; then
+		cd ${_gitname} && git pull origin
+		msg "The local files are updated."
+	else
+		git clone ${_gitroot} ${_gitname}
+	fi
+	msg "GIT checkout done or server timeout"
+
+	cd ${srcdir}
+
+	msg "Starting make..."
+	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
+	git clone ${_gitname} ${_gitname}-build
+}
+
+package() {
+	cd ${_gitname}-build
+	git checkout v${pkgver}
+	# Create pkgdir folders
+	install -d $pkgdir/usr/bin
+	install -d $pkgdir/usr/share/screenfetch
+
+	# Install
+	cp -r screenfetch-dev $pkgdir/usr/share/screenfetch
+	cp -r extra/ascii $pkgdir/usr/share/screenfetch
+
+	ln -s /usr/share/screenfetch/screenfetch-dev $pkgdir/usr/bin/screenfetch
+}
