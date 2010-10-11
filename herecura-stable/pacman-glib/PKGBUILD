@@ -2,7 +2,7 @@
 
 pkgname=pacman-glib
 pkgver=3.4.0
-pkgrel=3
+pkgrel=4
 _githash='5ba04c369c4e414fd95e4b88f4b55ae2ad6eabb5'
 _hash='5ba04c3'
 pkgdesc='GLib library for Arch Linux package management'

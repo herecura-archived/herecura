@@ -5,7 +5,7 @@
 pkgbase='packagekit'
 pkgname=('packagekit' 'packagekit-qt' 'packagekit-python' 'packagekit-backend-alpm' 'packagekit-backend-pacman')
 pkgver=0.6.9
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
 license=('GPL')
