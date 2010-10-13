@@ -2,7 +2,7 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia-slk
-pkgver=256.53
+pkgver=260.19.12
 _kernver='2.6.35-SLK'
 pkgrel=1
 pkgdesc="NVIDIA drivers for kernel26-slk"
@@ -14,16 +14,21 @@ conflicts=('nvidia-96xx' 'nvidia-173xx')
 license=('custom')
 install=nvidia.install
 
+#source=(
+#"http://uk.download.nvidia.com/XFree86/Linux-x86/${pkgver}/NVIDIA-Linux-x86-${pkgver}.run"
+#"http://uk.download.nvidia.com/XFree86/Linux-x86_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}.run"
+#)
+
 if [ "$CARCH" = "i686" ]; then
 	_arch='x86'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
-	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('21fe3fe0afed7818b7adf383477b2155')
+	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+	sha256sums=('5ce99ae80acb4a9e0d5334247a800baa4c24a97c274292fed12a6e264ed0aa5d')
 elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
-	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('73f08a19e00d05165cbbfc74e2fa4bdd')
+	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+	sha256sums=('7cc90b5bd402742167a1647d0d92aa997af4184da614c2ca882afb2f2e48eb7e')
 fi
 
 build() {
