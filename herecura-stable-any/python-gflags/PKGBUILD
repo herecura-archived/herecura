@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # vim:syntax=sh
 pkgname=python-gflags
-pkgver=1.3
+pkgver=1.4
 pkgrel=1
 pkgdesc="Commandline flags module for Python"
 arch=('any')
@@ -10,7 +10,7 @@ license=('BSD')
 depends=('python')
 makedepends=('setuptools')
 source=("http://${pkgname}.googlecode.com/files/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('b5a2d424ab14b9f314f44b92d0a1069f9f7c5df1e6e4d175c44ea2c764ee8995')
+sha256sums=('55f6a7f1bde4df987e2253111058ec8e73c791c1588cc95da5bd0379f1745d19')
 
 build() {
 	cd ${pkgname}-${pkgver}
