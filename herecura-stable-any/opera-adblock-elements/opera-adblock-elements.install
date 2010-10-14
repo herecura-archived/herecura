@@ -1,0 +1,12 @@
+post_install() {
+  cat << _EOF 
+
+==> IMPORTANT!!!
+==> This provides a adblock-elements.css file in /usr/share/opera-adblock
+==> 
+==> To use it, do the following as the users you use opera with:
+==> goto Settings -> Preferences -> Advanced -> Content -> Style Options ...
+==> select /usr/share/opera-adblock/adblock-elements.css
+
+_EOF
+}
