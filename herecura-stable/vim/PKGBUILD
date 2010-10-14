@@ -8,10 +8,10 @@
 pkgbase=vim
 pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
 _basever=7.3
-_patchlevel=027
+_patchlevel=028
 pkgver=${_basever}.${_patchlevel}
-__hgrev=6a85219723
-pkgrel=2
+__hgrev=a0b03b7e91
+pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -57,7 +57,7 @@ build() {
   (cd vim-build && rm -rf ./.hg)
 
   # patch regression introduced in 7.3.024
-  (cd vim-build && patch -Np1 -i ${srcdir}/fix_sign_regression.patch)
+  #(cd vim-build && patch -Np1 -i ${srcdir}/fix_sign_regression.patch)
 
   # define the place for the global (g)vimrc file (set to /etc/vimrc)
   sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
