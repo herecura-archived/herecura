@@ -1,0 +1,22 @@
+--- vim-build/src/ex_cmds.c	2010-10-14 11:50:45.731765000 +0200
++++ vim/src/ex_cmds.c	2010-10-14 12:03:39.643943000 +0200
+@@ -6682,7 +6682,7 @@
+ 
+ 			for (lp = first_sign; lp != NULL; lp = lp->sn_next)
+ 			{
+-			    if (lp->sn_typenr == -last_sign_typenr)
++			    if (lp->sn_typenr == last_sign_typenr)
+ 			    {
+ 				--last_sign_typenr;
+ 				if (last_sign_typenr == 0)
+@@ -6698,8 +6698,8 @@
+ 			    }
+ 			}
+ 
+-			sp->sn_typenr = -last_sign_typenr;
+-			if (--last_sign_typenr == 0)
++			sp->sn_typenr = last_sign_typenr--;
++			if (last_sign_typenr == 0)
+ 			    last_sign_typenr = MAX_TYPENR; /* wrap around */
+ 		    }
+ 
