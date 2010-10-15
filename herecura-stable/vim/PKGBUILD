@@ -24,13 +24,11 @@ source=(
   'archlinux.vim'
   'gvim.desktop'
   'license.txt'
-  'fix_sign_regression.patch'
 )
 sha256sums=('70623e05d612985c76048ee26cc3daf746bb0becf179bd33c976eb549ebb2399'
             'c4fe5e30dfd5093353e42c2c514d4492bec64da17f9a2b4e306af6ee39320715'
             '5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
-            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-            '6bd37e115f463dc8d7fed8c11d814cee0a15cd455c8d47e2e69cb298dc22f269')
+            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55')
 
 __hgroot='http://vim.googlecode.com/hg/'
 __hgrepo='vim'
@@ -55,9 +53,6 @@ build() {
 
   cp -a ${pkgbase} vim-build
   (cd vim-build && rm -rf ./.hg)
-
-  # patch regression introduced in 7.3.024
-  #(cd vim-build && patch -Np1 -i ${srcdir}/fix_sign_regression.patch)
 
   # define the place for the global (g)vimrc file (set to /etc/vimrc)
   sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
