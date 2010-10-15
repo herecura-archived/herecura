@@ -1,5 +1,5 @@
 pkgname=screenfetch
-pkgver=2.1.7
+pkgver=2.2.0
 pkgrel=1
 pkgdesc="Bash screenshot info grabber (DE, WM, theme, uptime, ...)"
 arch=('any')
@@ -36,11 +36,7 @@ package() {
 	git checkout v${pkgver}
 	# Create pkgdir folders
 	install -d $pkgdir/usr/bin
-	install -d $pkgdir/usr/share/screenfetch
 
 	# Install
-	cp -r screenfetch-dev $pkgdir/usr/share/screenfetch
-	cp -r extra/ascii $pkgdir/usr/share/screenfetch
-
-	ln -s /usr/share/screenfetch/screenfetch-dev $pkgdir/usr/bin/screenfetch
+	install -Dm755 screenfetch-dev ${pkgdir}/usr/bin/screenfetch
 }
