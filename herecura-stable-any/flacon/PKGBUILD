@@ -1,6 +1,6 @@
 # Contributor: Artem Sereda <overmind88@gmail.com>
 pkgname=flacon
-pkgver=0.5
+pkgver=0.5.1
 pkgrel=1
 pkgdesc="Extracts individual tracks from one big audio file containing the \
  entire album of music and saves them as separate audio files."
@@ -17,9 +17,8 @@ optdepends=(
   'vorbisgain: for OGG replay gain'
   'mp3gain: for MP3 replay gain'
 )
-
 source=(http://kde-apps.org/CONTENT/content-files/113388-$pkgname-$pkgver.tgz)
-sha256sums=('148b08c120b3bc08f9021ba771f9c3dd97522401c771150a134b240d8899b80d')
+sha256sums=('ff283edb8c69a9a0b9f71258df6eaac17deaec5a1b4155b8c9f1fcc968748d7c')
 
 build() {
   cd ${pkgname}-${pkgver}
