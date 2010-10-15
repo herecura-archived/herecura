@@ -6,29 +6,33 @@ pkgname=('kernel26-slk-rc' 'kernel26-slk-rc-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk-rc
 _basekernel=2.6.36
-pkgver=${_basekernel}_rc7
-pkgrel=1
-arch=(i686 x86_64)
+pkgver=${_basekernel}_rc8
+pkgrel=0
+arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
 source=(
-#ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
-ftp://ftp.kernel.org/pub/linux/kernel/v2.6/testing/linux-${pkgver/_/-}.tar.bz2
-		# the main kernel config files
-		config-${_basekernel}.i686
-		config-${_basekernel}.x86_64
-		# standard config files for mkinitcpio ramdisk
-		${pkgname}.preset
-		# special patches for some longtime bug
+	"ftp://ftp.kernel.org/pub/linux/kernel/v2.6/testing/linux-${pkgver/_/-}.tar.bz2"
+	# the main kernel config files
+	config-${_basekernel}.i686
+	config-${_basekernel}.x86_64
+	# standard config files for mkinitcpio ramdisk
+	${pkgname}.preset
 )
-sha256sums=('d8268d54844bcb847fb0963d03fc9cba0c6e8226a28ea71556ac374a8989d5b3'
+sha256sums=('2e385efd0801f2b43f574bbd737a043fb1ef0566a7fb37e3d8a7cae266a77717'
             'dbc96ec604474cbe25bba8e056e164ab517693fd1e79d9271b428727d35f7ef1'
             'd688121743958b3b8e94ebe0f5edadaa76db79b4e30dce38a1730b98272019c1'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
+if [ ${pkgrel} -ne 0 ]; then
+	source[4]="ftp://ftp.kernel.org/pub/linux/kernel/v2.6/snapshots/patch-${pkgver/_/-}-git${pkgrel}.bz2"
+	sha256sums[4]='';
+fi
 
 build() {
 	cd ${srcdir}/linux-${pkgver/_/-}
 	return 1 # make sure it won't build
+
+	[ ${pkgrel} -ne 0 ] && patch -Np1 -i ${srcdir}/patch-${pkgver/_/-}-git${pkgrel}
 
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
