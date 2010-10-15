@@ -2,7 +2,7 @@
 # Contributer: Tom Billiet (mouse256@ulyssis.org)
 
 pkgname=jalbum
-pkgver=8.11
+pkgver=8.12
 pkgrel=1
 pkgdesc="free web photo album software and photo gallery software"
 url="http://jalbum.net/"
@@ -12,6 +12,9 @@ arch=('any')
 source=("http://jalbum.net/download/Jalbum$pkgver.zip"
 	"jalbum.sh"
 	"jalbum.desktop")
+sha256sums=('9dc1c9d2b5b4343211e152c72d756637acd5da87c5b4ea44e9991e438f9812d9'
+            '98e7978b46e59460e9420ccd0a2d43b5ac189593881b77b945bff1484217eb24'
+            '89c0eee9fe4ba8bea89f1c4c0a7943cc5dff8f4427cce67b9eda6f1a64dd930c')
 
 build() {
 	#remove batfiles and java sourcefiles
@@ -23,6 +26,9 @@ build() {
 
 	#remove startupscript, we install one in usr/bin
 	rm -f startjalbum.sh
+
+	# remove distritbution text, it doesnt add usefull info
+	rm -f distribution.txt
 
 	#make sure no executable files are here
 	chmod -R u=rwX,go=rX *
@@ -36,6 +42,3 @@ package() {
 	install -Dm644 $srcdir/jalbum.desktop $pkgdir/usr/share/applications/$pkgname.desktop
 	install -Dm755 $srcdir/jalbum.sh $pkgdir/usr/bin/jalbum
 }
-sha256sums=('2c2a4dc18c39ac201f5efd3a67d6dbc3d545723c9937c88b0febb74523419f89'
-            '98e7978b46e59460e9420ccd0a2d43b5ac189593881b77b945bff1484217eb24'
-            '89c0eee9fe4ba8bea89f1c4c0a7943cc5dff8f4427cce67b9eda6f1a64dd930c')
