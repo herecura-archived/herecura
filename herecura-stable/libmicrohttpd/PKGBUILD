@@ -3,7 +3,7 @@
 # Contributor: Dmitrij D. Czarkoff <czarkoff@gmail.com>
 # Contributor: Mathias Rohnstock <linksoft@gmx.de>
 pkgname=libmicrohttpd
-pkgver=0.9.1
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="a small C library that is supposed to make it easy to run an HTTP server as part of another application."
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ license=('LGPL')
 options=(!libtool)
 depends=('gnutls')
 source=(ftp://ftp.gnu.org/gnu/libmicrohttpd/$pkgname-$pkgver.tar.gz)
-sha256sums=('377e31d419a82c11606d4e2cd1a83bf8c57af9d11f3974a6ad0296a75dbba306')
+sha256sums=('23fce3b73d464a826d8ae619e665fe963c5a79af1b20a487572fd1e314d0d74c')
 
 build() {
 	cd ${pkgname}-${pkgver}
@@ -23,8 +23,8 @@ build() {
 package() {
 	cd ${pkgname}-${pkgver}
 	make DESTDIR=${pkgdir} install
-	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/src/include/platform.h \
-		${pkgdir}/usr/include/platform.h
-	install -Dm644 ${srcdir}/${pkgname}-${pkgver}/src/include/plibc/plibc.h \
-		${pkgdir}/usr/include/plibc/plibc.h
+	#install -Dm644 ${srcdir}/${pkgname}-${pkgver}/src/include/platform.h \
+		#${pkgdir}/usr/include/platform.h
+	#install -Dm644 ${srcdir}/${pkgname}-${pkgver}/src/include/plibc/plibc.h \
+		#${pkgdir}/usr/include/plibc/plibc.h
 }
