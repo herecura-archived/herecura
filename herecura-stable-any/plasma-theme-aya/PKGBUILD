@@ -1,0 +1,20 @@
+pkgname=plasma-theme-aya
+pkgver=2.0.3
+pkgrel=1
+pkgdesc="Aya plasmatheme for KDE 4.x"
+arch=('any')
+license=('GPL')
+url="http://kde-look.org/content/show.php/Aya?content=76197"
+depends=('kdelibs' 'kdebase-workspace')
+source=("http://kde-look.org/CONTENT/content-files/76197-Aya.tar.gz")
+sha256sums=('54c79161c6109a5c78f9a56681faca3c02c143f32243d4065d4e532cb15502c7')
+
+build() {
+	cd Aya
+	rm -rf $(find -name ".svn")
+}
+
+package() {
+  install -dm755 ${pkgdir}/usr/share/apps/desktoptheme
+  cp -a ${srcdir}/Aya ${pkgdir}/usr/share/apps/desktoptheme/aya
+}
