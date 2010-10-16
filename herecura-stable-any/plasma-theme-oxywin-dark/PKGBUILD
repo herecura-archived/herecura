@@ -1,0 +1,19 @@
+pkgname=plasma-theme-oxywin-dark
+pkgver=0.11.1
+pkgrel=1
+pkgdesc="Oxywin Dark plasmatheme for KDE 4.x"
+arch=('any')
+license=('GPL')
+url="http://kde-look.org/content/show.php/Oxywin?content=112004"
+depends=('kdelibs' 'kdebase-workspace')
+source=("http://kame2.de/KDE/oxywin/Oxywin-dark-${pkgver}.tar.gz")
+sha256sums=('afecd39fa7a410d07745307ae4aaa9cb42c4c6a7de17fbec7b1b90cd1a9b053f')
+
+build() {
+	return
+}
+
+package() {
+  install -dm755 ${pkgdir}/usr/share/apps/desktoptheme
+  cp -a ${srcdir}/Oxywin-dark ${pkgdir}/usr/share/apps/desktoptheme/oxywin-dark
+}
