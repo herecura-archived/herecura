@@ -1,0 +1,21 @@
+pkgname=plasma-theme-tibanna
+pkgver=6.1
+pkgrel=1
+pkgdesc="Tibanna plasmatheme for KDE 4.x"
+arch=('any')
+license=('GPL')
+url="http://kde-look.org/content/show.php/Tibanna?content=115322"
+depends=('kdelibs' 'kdebase-workspace')
+source=("http://kde-look.org/CONTENT/content-files/115322-Tibanna.tar.gz")
+sha256sums=('f191d891e1aa400fa26c68476b6ceca53a31bd92de23049c207a0195a74c7705')
+
+build() {
+	cd Tibanna
+	find -name "*~" -delete
+	find -name ".directory" -delete
+}
+
+package() {
+  install -dm755 ${pkgdir}/usr/share/apps/desktoptheme
+  cp -a ${srcdir}/Tibanna ${pkgdir}/usr/share/apps/desktoptheme/tibanna
+}
