@@ -5,7 +5,7 @@
 # for his xbmc-vdpau-vdr PKGBUILD at https://archvdr.svn.sourceforge.net/svnroot/archvdr/trunk/archvdr/xbmc-vdpau-vdr/PKGBUILD
 
 pkgname=xbmc-dharma
-pkgver=34752
+pkgver=34802
 pkgrel=1
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
@@ -14,7 +14,7 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=('lzo2' 'libxtst' 'jasper' 'libmysqlclient' 'libsamplerate' 'wavpack' 'libssh' 'bzip2' 
-	'sdl_image' 'libva' 'dbus-core' 'libmms' 'glew' 'libmicrohttpd' 'libcdio' 'smbclient' 
+	'sdl_image' 'libva' 'dbus-core' 'libmms' 'glew' 'libmicrohttpd-xbmc' 'libcdio' 'smbclient' 
 	'libmad' 'libgl' 'fribidi' 'libmpeg2' 'faac' 'libmodplug' 'faad2' 'sdl_mixer' 'libass')
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'subversion' 'unzip' 'zip'
 	'vdpau-video'
