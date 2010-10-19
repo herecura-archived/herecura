@@ -5,24 +5,24 @@
 
 pkgname=calibre
 pkgver=0.7.24
-pkgrel=1
+pkgrel=2
 pkgdesc="E-book library management application"
 arch=('i686' 'x86_64') 
 url="http://calibre.kovidgoyal.net/"
 license=('GPL3')
-depends=('python>=2.6' 'python-imaging' 'libusb' 'pyqt' 'python-mechanize'
-	'imagemagick' 'dbus-python' 'python-lxml' 'beautiful-soup' 'python-dateutil'
-	'python-cssutils' 'desktop-file-utils' 'shared-mime-info' 'python-dnspython' 
-	'podofo>=0.8.1-6' 'xdg-utils' 'cherrypy' 'python-pypdf' 'poppler-qt' 'unrar' 'chmlib')
+depends=('python2' 'python-imaging' 'libusb' 'pyqt' 'python-mechanize'
+'imagemagick' 'python-lxml' 'beautiful-soup' 'python-dateutil'
+'python-cssutils' 'desktop-file-utils' 'shared-mime-info' 'python-dnspython' 
+'podofo>=0.8.1-6' 'xdg-utils' 'cherrypy' 'python-pypdf' 'poppler-qt' 'unrar' 'chmlib')
 
 makedepends=( 'setuptools' )
 
 install=calibre.install
 
 source=(http://downloads.sourceforge.net/project/calibre/${pkgver}/${pkgname}-${pkgver}.tar.gz
-		desktop_integration.patch)
+desktop_integration.patch)
 sha256sums=('ea83f2fd4edbdf68ca503b60fc026c95c2cb707e2da4db6fd4ef9a814686c5fb'
-            '3fc619c13b673619ec962bfa9cacb2359eeb2b93fa2110083e4ef226d3549495')
+'3fc619c13b673619ec962bfa9cacb2359eeb2b93fa2110083e4ef226d3549495')
 
 build() {
 	cd "${pkgname}"
@@ -39,8 +39,14 @@ build() {
 
 	sed -ie "s/ldflags = shlex.split(ldflags)/ldflags = shlex.split(ldflags) + ['-fPIC']/" setup/extensions.py
 
-	python setup.py build
-	python setup.py resources
+	sed -ie 's:\(#!/usr/bin/env[ ]\+python$\|#!/usr/bin/python$\):\12:g' \
+		$(find . -regex ".*.py\|.*.recipe")
+
+	# disable update checking by default
+	sed -ie 's/\(--no-update-check.*\)False\(.*\)store_true/\1True\2store_false/g' src/calibre/gui2/main.py
+
+	python2 setup.py build
+	python2 setup.py resources
 }
 
 package() {
@@ -49,9 +55,9 @@ package() {
 
 	# Fix the environment module location
 	sed -i -e "s|(prefix=.*)|(prefix='$pkgdir/usr')|g" setup/install.py
-	mkdir -p ${pkgdir}/usr/lib/python2.6/site-packages
 
-	python setup.py install --root=${pkgdir}/ --prefix=/usr \
+	install -dm755 ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
+	python2 setup.py install --root=${pkgdir}/ --prefix=/usr \
 		--staging-bindir=${pkgdir}/usr/bin \
 		--staging-libdir=${pkgdir}/usr/lib \
 		--staging-sharedir=${pkgdir}/usr/share
