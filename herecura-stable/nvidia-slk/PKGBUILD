@@ -28,7 +28,7 @@ elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
 	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	sha256sums=('7cc90b5bd402742167a1647d0d92aa997af4184da614c2ca882afb2f2e48eb7e')
+	sha256sums=('909dd5f45e33445871027cbef37c28990d73fe462b1dc9202f17aeecdba2ac7d')
 fi
 
 build() {
