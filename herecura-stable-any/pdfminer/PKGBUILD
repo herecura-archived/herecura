@@ -3,13 +3,13 @@
 
 pkgname=pdfminer
 pkgver=20100829
-pkgrel=2
+pkgrel=3
 pkgdesc="python utils to extract, analyze text data of PDF files."
 arch=('any')
 url="http://www.unixuser.org/~euske/python/pdfminer/"
 license=('MIT/X')
 groups=()
-depends=('python')
+depends=('python2')
 backup=()
 options=()
 install=
@@ -18,8 +18,8 @@ sha256sums=('f98da980399f5e4738224ac47b37a636eeeca409243cdd8453cc2082dd34bd09')
 
 build() {
   cd ${pkgname}-${pkgver}
-  make HOME=${pkgdir}/usr install
-  mkdir -p ${pkgdir}/usr/lib/$(python-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
-  mv ${pkgdir}/usr/lib/python/* ${pkgdir}/usr/lib/$(python-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
+  python2 setup.py install --home=${pkgdir}/usr
+  mkdir -p ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
+  mv ${pkgdir}/usr/lib/python/* ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
   rm -rf ${pkgdir}/usr/lib/python
 }
