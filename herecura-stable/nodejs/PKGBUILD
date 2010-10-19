@@ -4,21 +4,28 @@
 # Contributor: Masutu Subric <masutu.arch at googlemail dot com>
 pkgname=nodejs
 pkgver=0.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Evented I/O for V8 javascript"
 arch=('i686' 'x86_64')
 url="http://nodejs.org/"
 license=('custom:nodejs')
-depends=('openssl' 'python')
+depends=('openssl' 'python2')
 source=("http://nodejs.org/dist/node-v$pkgver.tar.gz")
 sha256sums=('7358f8969b7bf6da7b066185bfa72d3bbc92e80b174ff5ea0e2b536fd357c8cf')
 
 build() {
-    cd node-v${pkgver}
-    ./configure --prefix=/usr
-    make
-    tools/waf-light install --destdir=$pkgdir
-    install -Dm644 LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
-    install -Dm644 ChangeLog $pkgdir/usr/share/${pkgname}/ChangeLog
-    install -Dm644 README $pkgdir/usr/share/${pkgname}/README
+	cd node-v${pkgver}
+	# python2 fix
+	for file in $(find . -name '*.py' -print) wscript tools/waf-light bin/node-waf; do
+		sed -i 's_^#!.*/usr/bin/python_#!/usr/bin/python2_' $file
+		sed -i 's_^#!.*/usr/bin/env.*python_#!/usr/bin/env python2_' $file
+	done
+	sed -i "s|cmd_R = 'python |cmd_R = 'python2 |" wscript
+	./configure --prefix=/usr
+	sed -i "s|python |python2 |" Makefile
+	make
+	tools/waf-light install --destdir=$pkgdir
+	install -Dm644 LICENSE $pkgdir/usr/share/licenses/${pkgname}/LICENSE
+	install -Dm644 ChangeLog $pkgdir/usr/share/${pkgname}/ChangeLog
+	install -Dm644 README $pkgdir/usr/share/${pkgname}/README
 }
