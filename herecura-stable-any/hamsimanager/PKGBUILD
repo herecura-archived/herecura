@@ -1,7 +1,7 @@
 pkgname=hamsimanager
 _realname=HamsiManager
 pkgver=0.9.02
-pkgrel=1
+pkgrel=2
 pkgdesc="Hamsi Manager is a file manager,renamer,id3 tagger,information changer ,.... tool."
 arch=('any')
 url="http://hamsimanager.sourceforge.net"
@@ -15,13 +15,14 @@ source=("https://downloads.sourceforge.net/project/hamsimanager/$_realname-$pkgv
 	'hamsi.launcher'
 	'compile.py')
 sha256sums=('7cf8717e2dfa3fdbd19aaef5e694e8ca1fcc1308f0aaa75def1364d5a1416e81'
-	'2e3321a114ef1b3b9ec7d4405d26122c69a8e328a24f00f714bad93ddc82b1c3'
-	'b1038236fed8622a009b104a163b85fd1adb1d3235fa62089c8af6d7c8c64219')
+            '579745bfbe0f5ec06a34f8b87702f23d95a8ba06c907e35248a215a569511079'
+            '595bcb1e158c3ab4cf12e0ee1ad8a0627f5980ab7be4eeb33fc1f7d93aa073e6')
 
 _destdir="/usr/lib"
 
 build() {
 	cd ${_realname}
+	sed -i "s|#!/usr/bin/env python|#!/usr/bin/env python2|" HamsiManager.py
 	${srcdir}/compile.py $(find . -mindepth 1 -maxdepth 1 -type d | sed 's@./@@')
 	find . -mindepth 2 -name "*.py" -delete
 	mv ConfigureUpdate.py Update.py
