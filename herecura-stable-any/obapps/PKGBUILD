@@ -3,7 +3,7 @@
 
 pkgname=obapps
 pkgver=0.1.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A graphical tool for configuring application settings in Openbox"
 arch=('any')
 url="http://obapps.sourceforge.net/"
@@ -17,5 +17,5 @@ md5sums=('de9fcc8430faa3ebeeaa4d4abf7aae17')
 
 build() {
   cd ${pkgname}-${pkgver}
-  python setup.py install --prefix=/usr --root=${pkgdir} || return 1  
+  python2 setup.py install --prefix=/usr --root=${pkgdir}
 }
