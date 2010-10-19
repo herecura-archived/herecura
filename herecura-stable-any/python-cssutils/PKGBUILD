@@ -4,18 +4,18 @@
 
 pkgname=python-cssutils
 pkgver=0.9.7b3
-pkgrel=1
+pkgrel=2
 pkgdesc="A CSS Cascading Style Sheets library for Python"
 arch=('any')
 url="http://code.google.com/p/cssutils/"
 license=('LGPL3')
 conflicts=('python-cssutils-legacy')
-depends=('python')
+depends=('python2')
 makedepends=('unzip' 'setuptools')
 source=(http://cssutils.googlecode.com/files/cssutils-$pkgver.zip)
 md5sums=('4539c061bb03612cc3a0e278c44e8f96')
 
 build() {
   cd "$srcdir/cssutils-$pkgver"
-  python setup.py install --root="$pkgdir" || return 1
+  python2 setup.py install --root="$pkgdir"
 }
