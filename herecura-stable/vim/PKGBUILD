@@ -11,12 +11,12 @@ _basever=7.3
 _patchlevel=029
 pkgver=${_basever}.${_patchlevel}
 __hgrev=94694351f5
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-makedepends=('gpm' 'perl' 'python' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2'
+makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2'
              'gettext' 'pkgconfig' 'sed' 'mercurial')
 options=()
 source=(
@@ -132,7 +132,7 @@ package_vim-slim() {
 
 package_vim-cli() {
   pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, cli only'
-  depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python' 'ruby' 'lua')
+  depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua')
   conflicts=('vim' 'vim-slim')
   provides=('vim')
 
