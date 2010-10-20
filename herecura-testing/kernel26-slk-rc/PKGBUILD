@@ -7,7 +7,7 @@ pkgname=('kernel26-slk-rc' 'kernel26-slk-rc-headers')
 _kernelname=-slk-rc
 _basekernel=2.6.36
 pkgver=${_basekernel}_rc8
-pkgrel=4
+pkgrel=5
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -25,7 +25,7 @@ sha256sums=('2e385efd0801f2b43f574bbd737a043fb1ef0566a7fb37e3d8a7cae266a77717'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
 if [ ${pkgrel} -ne 0 ]; then
 	source[4]="ftp://ftp.kernel.org/pub/linux/kernel/v2.6/snapshots/patch-${pkgver/_/-}-git${pkgrel}.bz2"
-	sha256sums[4]='716d5a9678977aaef16c6d6ebdf3dc343ba0c9169409ec2377fb4bc66d008be1';
+	sha256sums[4]='1f4fb20743be7ff693f547fd9dd3d583045878315fd15c6ac1ac0a949f42b97c';
 fi
 
 build() {
@@ -169,8 +169,3 @@ package_kernel26-slk-rc-headers() {
 	# remove unneeded architectures
 	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
-sha256sums=('2e385efd0801f2b43f574bbd737a043fb1ef0566a7fb37e3d8a7cae266a77717'
-            'dbc96ec604474cbe25bba8e056e164ab517693fd1e79d9271b428727d35f7ef1'
-            'd688121743958b3b8e94ebe0f5edadaa76db79b4e30dce38a1730b98272019c1'
-            '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
-            '')
