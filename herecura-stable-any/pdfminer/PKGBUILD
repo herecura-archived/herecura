@@ -2,7 +2,7 @@
 # Contributor: James Feng Cao
 
 pkgname=pdfminer
-pkgver=20100829
+pkgver=20101017
 pkgrel=3
 pkgdesc="python utils to extract, analyze text data of PDF files."
 arch=('any')
@@ -14,7 +14,7 @@ backup=()
 options=()
 install=
 source=("http://pypi.python.org/packages/source/p/pdfminer/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('f98da980399f5e4738224ac47b37a636eeeca409243cdd8453cc2082dd34bd09')
+sha256sums=('3f463fced4f422b87c32cfec81c17d32c4e718f845daa0bb7ed3f6fc0db49bc9')
 
 build() {
   cd ${pkgname}-${pkgver}
