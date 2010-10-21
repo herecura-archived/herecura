@@ -3,7 +3,7 @@
 
 pkgname=pdfminer
 pkgver=20101017
-pkgrel=3
+pkgrel=1
 pkgdesc="python utils to extract, analyze text data of PDF files."
 arch=('any')
 url="http://www.unixuser.org/~euske/python/pdfminer/"
