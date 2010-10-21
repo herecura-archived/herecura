@@ -5,46 +5,60 @@ pkgbase="kernel26-slk"
 pkgname=('kernel26-slk' 'kernel26-slk-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk
-_basekernel=2.6.35
-pkgver=${_basekernel}.7
+_basekernel=2.6.36
+_patchver=0
+pkgver=${_basekernel}
 pkgrel=1
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
 license=('GPL2')
 url="http://www.kernel.org"
-source=(ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2
-		http://www.kernel.org/pub/linux/kernel/v2.6/patch-${pkgver}.bz2
+source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		# the main kernel config files
-		config-${_basekernel}.i686
-		config-${_basekernel}.x86_64
+		"config-${_basekernel}.i686"
+		"config-${_basekernel}.x86_64"
 		# standard config files for mkinitcpio ramdisk
-		kernel26-slk.preset
-		# special patches for some longtime bug
-		b44.c.patch
-		acpi-use-indirect-call-to-register-gsi-in-different-modes.diff
-		Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch)
-sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
-            'e917d593b975853be4118934c35919936dec6069b35c277d26e7e85e88af062e'
-            '4dadf940ec28dbb8713914a0616456db48daf597b85c126d29fd80905f3df9a7'
-            '99b357ab55e9f316b292383784a181bb58e5fc5482782b5ed7fb0224c9edf817'
-            '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862'
-            '6fba48226785eca9663e0c4adc24a379fea5e0b30417dad1b47ba7fdcdc9e3cf'
-            'e29c687e1f4c6d46b3340e5e16fb0e53b97edc26046ed498c09b42d8b2a1fe21'
-            '7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863')
+		"kernel26-slk.preset"
+)
+sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
+            'dbc96ec604474cbe25bba8e056e164ab517693fd1e79d9271b428727d35f7ef1'
+            'd688121743958b3b8e94ebe0f5edadaa76db79b4e30dce38a1730b98272019c1'
+			'2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
+if [ ${_patchver} -ne 0 ]; then
+	pkgver=${_basekernel}.${_patchver}
+	_patchname="patch-${pkgver}"
+	source=( "${source[@]}"
+		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
+	)
+	sha256sums=( "${sha256sums[@]}"
+		""
+	)
+fi
+# extra patches
+_extrapatches=(
+	"Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch"
+)
+_extrapatchessums=(
+	"7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863"
+)
+source=( "${source[@]}"
+	"${_extrapatches[@]}"
+)
+sha256sums=( "${sha256sums[@]}"
+	"${_extrapatchessums[@]}"
+)
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
 	# Add revision patches
-	patch -Np1 -i ${srcdir}/${_patchname}
+	if [ ${_patchver} -ne 0 ]; then
+		patch -Np1 -i ${srcdir}/${_patchname}
+	fi
 
-	# b44 patch
-	patch -Np1 -i ${srcdir}/b44.c.patch
-	
-	# ioapic patch
-	patch -Np1 -i ${srcdir}/acpi-use-indirect-call-to-register-gsi-in-different-modes.diff
-
-	# fix locate ioapic gsi not found
-	patch -Np1 -i ${srcdir}/Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch
+	# extra patches
+	for patch in ${_extrapatches[@]}; do
+		patch -Np1 -i ${srcdir}/${patch}
+	done
 
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}.x86_64 >./.config
@@ -138,15 +152,6 @@ package_kernel26-slk-headers() {
 		${pkgdir}/usr/src/linux-${_kernver}/kernel/Makefile
 	install -D -m644 .config \
 		${pkgdir}/usr/src/linux-${_kernver}/.config
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include
-
-	for i in acpi asm-generic config generated linux math-emu media net pcmcia scsi sound trace video; do
-		cp -a include/$i ${pkgdir}/usr/src/linux-${_kernver}/include/
-	done
-
-	# copy arch includes for external modules
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/arch/x86
-	cp -a arch/x86/include ${pkgdir}/usr/src/linux-${_kernver}/arch/x86/
 
 	# copy files necessary for later builds, like nvidia and vmware
 	cp Module.symvers ${pkgdir}/usr/src/linux-${_kernver}
@@ -163,53 +168,22 @@ package_kernel26-slk-headers() {
 	fi
 	cp arch/$KARCH/kernel/asm-offsets.s ${pkgdir}/usr/src/linux-${_kernver}/arch/$KARCH/kernel/
 
-	# add headers for lirc package
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video
-	cp drivers/media/video/*.h  ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/
-	for i in bt8xx cpia2 cx25840 cx88 em28xx et61x251 pwc saa7134 sn9c102 usbvideo zc0301; do
-		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/$i
-		cp -a drivers/media/video/$i/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/video/$i
-	done
 	# add docbook makefile
 	install -D -m644 Documentation/DocBook/Makefile \
 		${pkgdir}/usr/src/linux-${_kernver}/Documentation/DocBook/Makefile
-	# add dm headers
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/md
-	cp drivers/md/*.h  ${pkgdir}/usr/src/linux-${_kernver}/drivers/md
-	# add inotify.h
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/linux
-	cp include/linux/inotify.h ${pkgdir}/usr/src/linux-${_kernver}/include/linux/
-	# add wireless headers
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/
-	cp net/mac80211/*.h ${pkgdir}/usr/src/linux-${_kernver}/net/mac80211/
-	# add dvb headers for external modules
-	# in reference to:
-	# http://bugs.archlinux.org/task/9912
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core
-	cp drivers/media/dvb/dvb-core/*.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/dvb-core/
-	# add dvb headers for external modules
-	# in reference to:
-	# http://bugs.archlinux.org/task/11194
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-	cp include/config/dvb/*.h ${pkgdir}/usr/src/linux-${_kernver}/include/config/dvb/
-	# add dvb headers for http://mcentral.de/hg/~mrec/em28xx-new
-	# in reference to:
-	# http://bugs.archlinux.org/task/13146
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-	cp drivers/media/dvb/frontends/lgdt330x.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-	cp drivers/media/video/msp3400-driver.h ${pkgdir}/usr/src/linux-${_kernver}/drivers/media/dvb/frontends/
-	# add xfs and shmem for aufs building
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs
-	mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/mm
-	cp fs/xfs/xfs_sb.h ${pkgdir}/usr/src/linux-${_kernver}/fs/xfs/xfs_sb.h
-	# add headers vor virtualbox
-	# in reference to:
-	# http://bugs.archlinux.org/task/14568
-	cp -a include/drm $pkgdir/usr/src/linux-${_kernver}/include/
-	# add headers for broadcom wl
-	# in reference to:
-	# http://bugs.archlinux.org/task/14568
-	cp -a include/trace $pkgdir/usr/src/linux-${_kernver}/include/
+
+	# add config
+	for config in `find ./include/config -size +1c -type f`; do
+		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${config})
+		cp -a ${config} ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${config})
+	done
+
+	# add headers
+	for header in `find -size +1c -name '*.h'`; do
+		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${header})
+		cp -a ${header} ${pkgdir}/usr/src/linux-${_kernver}/$(dirname ${header})
+	done
+
 	# copy in Kconfig files
 	for i in `find . -name "Kconfig*"`; do
 		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/`echo $i | sed 's|/Kconfig.*||'`
