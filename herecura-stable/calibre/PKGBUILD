@@ -5,12 +5,12 @@
 
 pkgname=calibre
 pkgver=0.7.24
-pkgrel=2
+pkgrel=3
 pkgdesc="E-book library management application"
 arch=('i686' 'x86_64') 
 url="http://calibre.kovidgoyal.net/"
 license=('GPL3')
-depends=('python2' 'python-imaging' 'libusb' 'pyqt' 'python-mechanize'
+depends=('python2' 'python-imaging' 'libusb' 'pyqt>=4.8.0' 'python-mechanize'
 'imagemagick' 'python-lxml' 'beautiful-soup' 'python-dateutil'
 'python-cssutils' 'desktop-file-utils' 'shared-mime-info' 'python-dnspython' 
 'podofo>=0.8.1-6' 'xdg-utils' 'cherrypy' 'python-pypdf' 'poppler-qt' 'unrar' 'chmlib')
