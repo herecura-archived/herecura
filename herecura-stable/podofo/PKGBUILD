@@ -2,7 +2,7 @@
 # Contributor: Preecha Patumchareonpol <yumyai at gmail.com> 
 
 pkgname=podofo
-pkgver=0.8.3
+pkgver=0.8.4
 pkgrel=1
 pkgdesc="PoDoFo is a library to work with the PDF file format."
 arch=('i686' 'x86_64')
@@ -15,7 +15,7 @@ install=
 source=(
 	"http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.gz"
 )
-sha256sums=('37440c266b81ee3184479039fcca26fd0f2fc153365a4f691387543ef8c6d89a')
+sha256sums=('979d5fd79ba365a599ef4321a3cf1015745105493e333d0985820ed02804f826')
 
 build() {
 	cd ${pkgname}-${pkgver}
