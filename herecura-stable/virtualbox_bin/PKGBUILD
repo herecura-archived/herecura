@@ -7,8 +7,8 @@
 
 pkgname=virtualbox_bin
 pkgver=3.2.10
-_build=66523
-pkgrel=1
+_build=66896
+pkgrel=2
 pkgdesc="Powerful x86 virtualization (Personal Use Binaries Edition)."
 arch=('i686' 'x86_64')
 url="http://virtualbox.org"
@@ -32,10 +32,10 @@ _arch='x86'
 source=("VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run"
 	'10-vboxdrv.rules'
 	'vboxdrv')
-sha256sums=('8bb6f050c5ecbe15b9f812bb13b37f3587da57b26e92479ba75fa4c63c9b18e9'
+sha256sums=('c481799640da061a57b1faaacb768795abab40c784004c137d1f4184352a4f5d'
 	'f2123c40b37be9144eaa974f90c1708e61101d69a3a31aeade92746e07bf9bb7'
 	'9918d9be4802c0c99e6761eda29b3b04a47666cbabda3e13c312c337920c6987')
-[ "$CARCH" = "x86_64" ] && sha256sums[0]='4c142872eb7132e880467ecda0e3693708568901665f3d623fd969edada52a81'
+[ "$CARCH" = "x86_64" ] && sha256sums[0]='84b59b137aee4e8de518b3dae05453fe1d6fd69d7ac5d7341cc92176c6e73063'
 
 build() {
 	# Check and unpack the run package via sh(1)
