@@ -4,8 +4,8 @@
 # Modified by BlackEagle.
 
 pkgname=calibre
-pkgver=0.7.24
-pkgrel=3
+pkgver=0.7.25
+pkgrel=1
 pkgdesc="E-book library management application"
 arch=('i686' 'x86_64') 
 url="http://calibre.kovidgoyal.net/"
@@ -21,8 +21,8 @@ install=calibre.install
 
 source=(http://downloads.sourceforge.net/project/calibre/${pkgver}/${pkgname}-${pkgver}.tar.gz
 desktop_integration.patch)
-sha256sums=('ea83f2fd4edbdf68ca503b60fc026c95c2cb707e2da4db6fd4ef9a814686c5fb'
-'3fc619c13b673619ec962bfa9cacb2359eeb2b93fa2110083e4ef226d3549495')
+sha256sums=('c615cbb248d64df874be0a69dbb1bfa5ca032706d90d0de060c7c57cfdaa8486'
+            '3fc619c13b673619ec962bfa9cacb2359eeb2b93fa2110083e4ef226d3549495')
 
 build() {
 	cd "${pkgname}"
