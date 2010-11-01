@@ -5,9 +5,9 @@ pkgbase="kernel26-slk-rc"
 pkgname=('kernel26-slk-rc' 'kernel26-slk-rc-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk-rc
-_basekernel=2.6.36
-pkgver=${_basekernel}_rc8
-pkgrel=5
+_basekernel=2.6.37
+pkgver=${_basekernel}_rc1
+pkgrel=0
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -19,7 +19,7 @@ source=(
 	# standard config files for mkinitcpio ramdisk
 	${pkgname}.preset
 )
-sha256sums=('2e385efd0801f2b43f574bbd737a043fb1ef0566a7fb37e3d8a7cae266a77717'
+sha256sums=('3abc44edd3bc4adac2cda6cb570791fa0e03bca7a1d58f7ca89e84340707e7fd'
             'dbc96ec604474cbe25bba8e056e164ab517693fd1e79d9271b428727d35f7ef1'
             'd688121743958b3b8e94ebe0f5edadaa76db79b4e30dce38a1730b98272019c1'
             '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
