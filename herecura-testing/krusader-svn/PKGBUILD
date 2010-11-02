@@ -2,7 +2,7 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krusader-svn
-pkgver=1190375
+pkgver=1190652
 pkgrel=1
 pkgdesc="The Krusader svn branch"
 arch=('i686' 'x86_64')
