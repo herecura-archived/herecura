@@ -3,8 +3,8 @@
 # Contributor: Rick W. Chena <stuffcorpse@archlinux.us>
 
 pkgname=python-cssutils
-pkgver=0.9.7b3
-pkgrel=2
+pkgver=0.9.7b4
+pkgrel=1
 pkgdesc="A CSS Cascading Style Sheets library for Python"
 arch=('any')
 url="http://code.google.com/p/cssutils/"
@@ -13,7 +13,7 @@ conflicts=('python-cssutils-legacy')
 depends=('python2')
 makedepends=('unzip' 'setuptools')
 source=(http://cssutils.googlecode.com/files/cssutils-$pkgver.zip)
-md5sums=('4539c061bb03612cc3a0e278c44e8f96')
+sha256sums=('0b6b3aba856fa90d79aa4628fc056d5ff70b75efc9e35dd031d6f9c9829a537d')
 
 build() {
   cd "$srcdir/cssutils-$pkgver"
