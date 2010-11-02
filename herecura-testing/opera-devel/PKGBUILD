@@ -4,11 +4,11 @@
 # Contributor: totoloco
 pkgname=opera-devel
 _bigrelease=11.00
-_buildver=1029
-_randomizer=alpha1-with-extensions
+_buildver=1045
+_randomizer=7218
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
-pkgdesc="A fast and secure web browser and Internet suite. Development/Snapshot version."
+pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
 makedepends=('libarchive')
@@ -23,15 +23,11 @@ install=${pkgname}.install
 options=(!strip !zipman)
 license=('custom:opera')
 arch=('i686' 'x86_64')
-#source=(
-#http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.i386.linux.tar.xz
-#http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.x86_64.linux.tar.xz
-#)
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('ba48059cfbdec2b943a086770d9a85e23d4649e04fecd54af7df0be10215021c')
-[ "$CARCH" = "x86_64" ] && sha256sums=('5f4d52549bf197c7e153253b38f7bf2df1c12de98cce22efa6e97f82bb3b59fd')
+sha256sums=('17d21a16345d981c4e8fec9913b3f705ca40e1cbc7af4ed8f8ccc62a2f85c18a')
+[ "$CARCH" = "x86_64" ] && sha256sums=('f2e15584202f87fa8c41df72b3cbd1e3a33ba06807ae00d4bea0605fe880f785')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
