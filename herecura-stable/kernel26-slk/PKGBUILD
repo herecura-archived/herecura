@@ -8,7 +8,7 @@ _kernelname=-slk
 _basekernel=2.6.36
 _patchver=0
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 _patchname="patch-${pkgver}"
 arch=(i686 x86_64)
 license=('GPL2')
@@ -21,7 +21,7 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-slk.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-            'dbc96ec604474cbe25bba8e056e164ab517693fd1e79d9271b428727d35f7ef1'
+            '702c6092b8bde5cd6bb6d5770451229721fc0719719c76a682995b53c0d7d859'
             '3e0d32644ad8c5fff0273cab4eedb40ce7d515845b4eecc4a552504e508bd3e7'
 	    '2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
 if [ ${_patchver} -ne 0 ]; then
