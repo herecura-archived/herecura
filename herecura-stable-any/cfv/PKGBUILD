@@ -1,7 +1,7 @@
 # Contributor: Lone_Wolf <lonewolf@xs4all.nl>
 pkgname=cfv
 pkgver=1.18.3
-pkgrel=5
+pkgrel=6
 pkgdesc="utility to test/create .sfv(Simple File Verify), .csv, .crc, md5sum, bsd md5, sha1sum, and .torrent files."
 arch=('any')
 url="http://cfv.sourceforge.net/"
@@ -15,5 +15,6 @@ sha256sums=('ff28a8aa679932b83eb3b248ed2557c6da5860d5f8456ffe24686253a354cff6')
 
 build() {
   cd ${pkgname}-${pkgver}
+  sed 's/\/usr\/bin\/env python/\/usr\/bin\/env python2/' -i cfv
   make install='/bin/install -c' prefix=$startdir/pkg/usr mandir=$startdir/pkg/usr/share/man install
 }
