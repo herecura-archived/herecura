@@ -21,16 +21,9 @@ source=("http://www.freedesktop.org/software/${pkgname}/releases/${pkgname}-${pk
 	'plymouth.initcpio_install'
 	'arch-logo.png'
 	'system-release')
-md5sums=('e59b4f04816fcbe506e9d4b725cb1e29'
-         'f9418c98f84f948ccc860c08cf4177ed'
-         'f218e7e4c6b27c5c2135a3de076d8b1a'
-         '916fb026be911d4cf9c51d44bfee0791'
-         '86c85dcf88dfdb6b895f72bdca1babd1'
-         '3f7e1a50984788082e60a82931e1a21a'
-         '9508a1adaac3641a0e6e6eb1155beb2f'
-         'ab8a557d10f74bec5c94ed6cae34729c')
+
 build() {
-	cd "$srcdir/${pkgname}-${pkgver}"
+	cd ${pkgname}-${pkgver}
 	sed -e 's:png_set_gray_1_2_4_to_8:png_set_expand_gray_1_2_4_to_8:g' -i src/libply-splash-graphics/ply-image.c
 	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
 		--enable-tracing \
@@ -42,12 +35,12 @@ build() {
 		--with-logo=/usr/share/plymouth/arch-logo.png \
 		--with-background-start-color-stop=0x000000 \
 		--with-background-end-color-stop=0x4D4D4D
-
 	
 	make
 }
 
 package() {
+	cd ${pkgname}-${pkgver}
 	make DESTDIR=$pkgdir install
 	
 	cd $pkgdir
@@ -63,3 +56,12 @@ package() {
 	install -D -m644 "$srcdir/arch-logo.png" ${pkgdir}/usr/share/plymouth/arch-logo.png
 	install -D -m644 "$srcdir/system-release" ${pkgdir}/etc/system-release
 }
+sha256sums=('a9f2fe507c2ee0a2368ff563a42f92bedec553be7dfc9c0b8bb324d2b7fc650c'
+            '73e585aa82c5b4f64e9e36cab9156ab6a8d7535446b81926059671ede037affe'
+            '12e387eb0a279f9ec9e7600b65fd2dd068a608f8f651de3ff0e14b694fa9e022'
+            '8ef0ab3ab0028bd1cb7003fc3ac510b275ae08e4191b1388a77d6b3e1af1bf21'
+            '55f6e4ea63706ab62813cddcf88865275e56470f2e041895b39ddceb2566d02b'
+            '1a4604d84387e0373c899866c3fd475e0ab2ebd0e58afc7ee69bbd2e631220bc'
+            '033f1331174b4a353551d05209664d205e4ef3e723eee3f971b408006a668e92'
+            'b8d3b1d0f61c5154b2473f98e4a5b53a912188fb08ccfb6c2e9a9822ccb76e27'
+            '4ba2e16e7c6ed9c89e4999bd1ce5dd6e39e2db7447b5e43be384d0fbced67828')
