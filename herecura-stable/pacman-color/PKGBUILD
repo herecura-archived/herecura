@@ -12,6 +12,9 @@ backup=('etc/pacman.d/color.conf')
 source=("ftp://ftp.archlinux.org/other/pacman/pacman-${pkgver}.tar.gz"
 	"${pkgname}-${pkgver}-${pkgrel}.patch"
 	"color.conf")
+sha256sums=('3818fc751036ec627a81b62007112aca17c16991e8ddb70da76230f9b4978d62'
+            'e6f241f7fbd7b907490c775b22ff86c03bce11beeb3c46fd334653f9cd53f36f'
+            '863574c38bfca0a6485ec4adbfbaa14ca8d573f6f8b9319067acac50d6e2ca26')
 
 build() {
 	cd pacman-${pkgver}
@@ -31,6 +34,3 @@ package() {
 	install -Dm644 ${srcdir}/color.conf \
 		${pkgdir}/etc/pacman.d/color.conf
 }
-sha256sums=('3818fc751036ec627a81b62007112aca17c16991e8ddb70da76230f9b4978d62'
-            '6d9398e33e7410cd190eb1a641e1523c0eda59b564019b43ac827c4e4e75caf8'
-            '863574c38bfca0a6485ec4adbfbaa14ca8d573f6f8b9319067acac50d6e2ca26')
