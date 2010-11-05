@@ -4,7 +4,7 @@
 
 pkgbase='packagekit'
 pkgname=('packagekit' 'packagekit-qt' 'packagekit-python' 'packagekit-backend-alpm' 'packagekit-backend-pacman')
-pkgver=0.6.9
+pkgver=0.6.10
 pkgrel=1
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
@@ -12,7 +12,7 @@ license=('GPL')
 makedepends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=3.1' 'sqlite3' 'qt' 'intltool' 'dbus-glib')
 options=('!libtool')
 source=("http://www.packagekit.org/releases/PackageKit-${pkgver}.tar.bz2")
-sha256sums=('e5d4912a48aa2e69e08f566822eb05a8349fc906251b22c1de0509e860e3b140')
+sha256sums=('369b761a48028771582c311a7eb0d926778a3cf45cc1c681193711631d695dfa')
 
 build() {
 	cd PackageKit-${pkgver}
