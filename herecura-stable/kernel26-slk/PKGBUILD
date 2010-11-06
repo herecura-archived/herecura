@@ -2,15 +2,16 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 pkgbase="kernel26-slk"
-pkgname=('kernel26-slk' 'kernel26-slk-headers')
+pkgname='kernel26-slk'
+true && pkgname=('kernel26-slk' 'kernel26-slk-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-slk
 _basekernel=2.6.36
 _patchver=0
 pkgver=${_basekernel}
 pkgrel=2
-_patchname="patch-${pkgver}"
-arch=(i686 x86_64)
+_patchname="patch-${pkgver}.${_patchver}"
+arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
 source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
@@ -41,12 +42,22 @@ _extrapatches=(
 _extrapatchessums=(
 	"7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863"
 )
-source=( "${source[@]}"
-	"${_extrapatches[@]}"
-)
-sha256sums=( "${sha256sums[@]}"
-	"${_extrapatchessums[@]}"
-)
+if [ ${#_extrapatches[@]} -ne 0 ]; then
+	source=( "${source[@]}"
+		"${_extrapatches[@]}"
+	)
+	sha256sums=( "${sha256sums[@]}"
+		"${_extrapatchessums[@]}"
+	)
+fi
+# some stuff for the AUR parser :p
+if [ "aur" == "there" ]; then
+	source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
+			"config-${_basekernel}.i686"
+			"config-${_basekernel}.x86_64"
+			"kernel26-slk.preset"
+	)
+fi
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
@@ -195,3 +206,4 @@ package_kernel26-slk-headers() {
 	# remove unneeded architectures
 	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
 }
+pkgdesc="The Linux Kernel and modules, inspired by Slackware kernel"
