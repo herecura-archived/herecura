@@ -2,7 +2,7 @@
 # Contributer: Tom Billiet (mouse256@ulyssis.org)
 
 pkgname=jalbum
-pkgver=8.12
+pkgver=8.12.2
 pkgrel=1
 pkgdesc="free web photo album software and photo gallery software"
 url="http://jalbum.net/"
@@ -12,7 +12,7 @@ arch=('any')
 source=("http://jalbum.net/download/Jalbum$pkgver.zip"
 	"jalbum.sh"
 	"jalbum.desktop")
-sha256sums=('9dc1c9d2b5b4343211e152c72d756637acd5da87c5b4ea44e9991e438f9812d9'
+sha256sums=('2fbcf5a16e1fc4086455203beba6ddb9c1e510b22c3a957363367db901fd5a2c'
             '98e7978b46e59460e9420ccd0a2d43b5ac189593881b77b945bff1484217eb24'
             '89c0eee9fe4ba8bea89f1c4c0a7943cc5dff8f4427cce67b9eda6f1a64dd930c')
 
