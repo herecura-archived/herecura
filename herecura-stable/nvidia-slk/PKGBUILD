@@ -2,9 +2,9 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia-slk
-pkgver=260.19.12
+pkgver=260.19.21
 _kernver='2.6.36-SLK'
-pkgrel=2
+pkgrel=1
 pkgdesc="NVIDIA drivers for kernel26-slk"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -23,12 +23,12 @@ if [ "$CARCH" = "i686" ]; then
 	_arch='x86'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
 	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	sha256sums=('5ce99ae80acb4a9e0d5334247a800baa4c24a97c274292fed12a6e264ed0aa5d')
+	md5sums=('2ec917f51e752802646920e9bcd747e7')
 elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
 	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	sha256sums=('909dd5f45e33445871027cbef37c28990d73fe462b1dc9202f17aeecdba2ac7d')
+	md5sums=('9db612fb5679249627d52bfff0e16f4f')
 fi
 
 build() {
