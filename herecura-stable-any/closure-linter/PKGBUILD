@@ -1,16 +1,16 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # vim:syntax=sh
 pkgname=closure-linter
-pkgver=2.2.5
-pkgrel=3
+pkgver=2.2.6
+pkgrel=1
 pkgdesc="A JavaScript style checker and style fixer"
 arch=('any')
 url="http://code.google.com/closure"
 license=('APACHE')
 depends=('python2' 'python-gflags')
-makedepends=('setuptools')
+makedepends=('python2-distribute')
 source=("http://${pkgname}.googlecode.com/files/${pkgname/-/_}-${pkgver}.tar.gz")
-sha256sums=('91ebb91145f07cf4d5881ca2b778264f974be544ac2d68279d4ada6a253e02fd')
+sha256sums=('1ab0e890d675c9a60d839b8c4fcbac8279a93f251338401d138769c442c25f8f')
 
 build() {
 	cd ${pkgname/-/_}-${pkgver}
