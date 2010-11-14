@@ -2,7 +2,7 @@
 # vim:syntax=sh
 pkgname=closure-linter
 pkgver=2.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A JavaScript style checker and style fixer"
 arch=('any')
 url="http://code.google.com/closure"
@@ -20,8 +20,8 @@ build() {
 package() {
 	cd ${pkgname/-/_}-${pkgver}
 	python2 setup.py install --root=${pkgdir}
-	if [ -d ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages/closure_linter-2.2.5-py$(python2-config --libs | sed 's/.*\(python.*\)/\1/g' | sed 's/[a-Z]*//').egg-info ]; then
-		cd ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages/closure_linter-2.2.5-py$(python2-config --libs | sed 's/.*\(python.*\)/\1/g' | sed 's/[a-Z]*//').egg-info/
+	if [ -d ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages/closure_linter-${pkgver}-py$(python2-config --libs | sed 's/.*\(python.*\)/\1/g' | sed 's/[a-Z]*//').egg-info ]; then
+		cd ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages/closure_linter-${pkgver}-py$(python2-config --libs | sed 's/.*\(python.*\)/\1/g' | sed 's/[a-Z]*//').egg-info/
 		chmod u=rw,og=r *
 	fi
 }
