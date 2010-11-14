@@ -18,8 +18,8 @@ url="http://www.kernel.org"
 source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"http://liquorix.net/sources/${_lqxpatchname}.gz"
 		# the main kernel config files
-		"http://liquorix.net/sources/36/config.i386"
-		"http://liquorix.net/sources/36/config.amd64"
+		"config.${pkgver}-${pkgrel}.i386::http://liquorix.net/sources/36/config.i386"
+		"config.${pkgver}-${pkgrel}.amd64::http://liquorix.net/sources/36/config.amd64"
 		# standard config files for mkinitcpio ramdisk
 		"kernel26-lqx.preset"
 )
@@ -57,8 +57,8 @@ fi
 if [ "aur" == "there" ]; then
 	source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 			"http://liquorix.net/sources/${_lqxpatchname}.gz"
-			"http://liquorix.net/sources/36/config.i386"
-			"http://liquorix.net/sources/36/config.amd64"
+			"config.${pkgver}-${pkgrel}.i386::http://liquorix.net/sources/36/config.i386"
+			"config.${pkgver}-${pkgrel}.amd64::http://liquorix.net/sources/36/config.amd64"
 			"kernel26-lqx.preset"
 	)
 fi
@@ -79,9 +79,9 @@ build() {
 	done
 
 	if [ "$CARCH" = "x86_64" ]; then
-		cat ../config.amd64 >./.config
+		cat ${srcdir}/config.${pkgver}-${pkgrel}.amd64 > ./.config
 	else
-		cat ../config.i386 >./.config
+		cat ${srcdir}/config.${pkgver}-${pkgrel}.i386 > ./.config
 	fi
 	if [ "${_kernelname}" != "" ]; then
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U${_kernelname}\"|g" ./.config
