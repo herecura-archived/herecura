@@ -24,9 +24,9 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-lqx.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-            '5b20a79871dd275e02fc9a62347b9a032110890f177261f0212ceafd226aeb86'
-            '8eaa6605745fc356bb0738aacfe118286b1dd109b2ea4ca715133d7c6aa3331e'
-            '64a53b05bae443031d4eb3773132a1079d7f94fe7a1d737dbe8be8c8c3772000'
+			'5b20a79871dd275e02fc9a62347b9a032110890f177261f0212ceafd226aeb86'
+			'8eaa6605745fc356bb0738aacfe118286b1dd109b2ea4ca715133d7c6aa3331e'
+			'64a53b05bae443031d4eb3773132a1079d7f94fe7a1d737dbe8be8c8c3772000'
 			'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
@@ -34,8 +34,8 @@ if [ ${_patchver} -ne 0 ]; then
 	source=( "${source[@]}"
 		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
 	)
-	sha256sums=( "${sha256sums[@]}"
-		""
+		sha256sums=( "${sha256sums[@]}"
+	""
 	)
 fi
 # extra patches
