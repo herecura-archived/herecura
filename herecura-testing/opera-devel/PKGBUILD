@@ -4,8 +4,8 @@
 # Contributor: totoloco
 pkgname=opera-devel
 _bigrelease=11.00
-_buildver=1060
-_randomizer=snowinoslo
+_buildver=1085
+_randomizer=suggest
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -26,8 +26,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('df73c5af7471ef51b23c38bf96fe32bb5661bee690d980cbe927858a89013048')
-[ "$CARCH" = "x86_64" ] && sha256sums=('e5f8d2b86687ae457616e28146156fe69bda432c71605498316060a3e727dc2b')
+sha256sums=('f73d9971958c455ba8eeb7283ece05d46e5e014616666d6ffc1b43900635dc23')
+[ "$CARCH" = "x86_64" ] && sha256sums=('f66dda33b23b78c32aa02d1c93a8b3152e6c770cc640a756c31465322fcd1ddc')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
