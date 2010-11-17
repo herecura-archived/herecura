@@ -9,9 +9,9 @@ _kernelname=-lqx
 _basekernel=2.6.36
 _patchver=0
 pkgver=${_basekernel}
-pkgrel=10
+pkgrel=11
 _patchname="patch-${pkgver}.${_patchver}"
-_lqxpatchname="36.${_patchver}-10.patch"
+_lqxpatchname="36.${_patchver}-11.patch"
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -24,9 +24,9 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-lqx.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-			'5b20a79871dd275e02fc9a62347b9a032110890f177261f0212ceafd226aeb86'
-			'8eaa6605745fc356bb0738aacfe118286b1dd109b2ea4ca715133d7c6aa3331e'
-			'64a53b05bae443031d4eb3773132a1079d7f94fe7a1d737dbe8be8c8c3772000'
+			'156c3c57cd536de9d1b6ff5c3c3388ef83f9d26b0e15c1551b2f554a44f101dc'
+            '5b22471bd220cfb3160b248926f0137c0f355bbb2bad60ee20388a0e0bced35f'
+            '39f3490789b10a75fea5e0be0bafebceaa6e094d5109e9749696738b16b5d290'
 			'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
