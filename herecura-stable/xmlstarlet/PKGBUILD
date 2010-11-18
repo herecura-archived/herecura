@@ -3,26 +3,26 @@
 # Contributor: chochem <chochem@gmail.com>
 
 pkgname=xmlstarlet
-pkgver=1.0.2
-pkgrel=2
+pkgver=1.0.3
+pkgrel=1
 pkgdesc="A set of tools to transform, query, validate, and edit XML documents"
 arch=('i686' 'x86_64')
 url="http://xmlstar.sourceforge.net/"
 license=('MIT')
 depends=('libxslt>=1.1.9')
 makedepends=(glibc)
-source=("http://xmlstar.sourceforge.net/downloads/${pkgname}-${pkgver}.tar.gz")
-md5sums=('cc6031201cb263ab364ee5bfbe503cb5')
+source=("http://downloads.sourceforge.net/xmlstar/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('a080bfb178671c6fc68ef25d797e9d21bcfd20fb4e0bcff46f4f1b4e6207f673')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   local xsltlibs=$(pkg-config --libs libxslt libexslt)
   local xmllibs=$(pkg-config --libs libxml-2.0)
 
-  LIBXSLT_PREFIX=/usr LIBXML_PREFIX=/usr LIBXSLT_LIBS="${xsltlibs}" LIBXML_LIBS="${xmllibs}" ./configure --prefix=/usr || return 1
+  LIBXSLT_PREFIX=/usr LIBXML_PREFIX=/usr LIBXSLT_LIBS="${xsltlibs}" LIBXML_LIBS="${xmllibs}" ./configure --prefix=/usr
   
-  make || return 1
-  make DESTDIR="${pkgdir}" install || return 1
+  make
+  make DESTDIR="${pkgdir}" install
   mkdir -p $pkgdir/usr/share/licenses/$pkgname
   cp Copyright $pkgdir/usr/share/licenses/$pkgname/COPYING
   ln -s /usr/bin/xml ${pkgdir}/usr/bin/xmlstarlet
