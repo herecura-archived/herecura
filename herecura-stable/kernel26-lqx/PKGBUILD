@@ -9,7 +9,7 @@ _kernelname=-lqx
 _basekernel=2.6.36
 _patchver=0
 pkgver=${_basekernel}
-pkgrel=13
+pkgrel=14
 _patchname="patch-${pkgver}.${_patchver}"
 _lqxpatchname="36.${_patchver}-${pkgrel}.patch"
 arch=('i686' 'x86_64')
@@ -24,7 +24,7 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-lqx.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-            '282f19a0482c7178cdeec605bfd96e7eca7e6eb3afece75fa1f279ea6a07f5a5'
+            'd7b1ddc2141b1e56f7fc8e83d93c887c6a039f0c5527375cbeac4d93f5a31854'
             '5b22471bd220cfb3160b248926f0137c0f355bbb2bad60ee20388a0e0bced35f'
             '39f3490789b10a75fea5e0be0bafebceaa6e094d5109e9749696738b16b5d290'
 			'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
