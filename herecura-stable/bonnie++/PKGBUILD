@@ -1,0 +1,26 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: eric <eric@archlinux.org>
+# Contributor: Tom Newsom <Jeepster@gmx.co.uk>
+
+pkgname=bonnie++
+pkgver=1.03e
+pkgrel=2
+pkgdesc="Based on the Bonnie hard drive benchmark by Tim Bray"
+arch=('i686' 'x86_64')
+url="http://www.coker.com.au/bonnie++/"
+license=('GPL')
+depends=('perl')
+source=(http://www.coker.com.au/bonnie++/$pkgname-$pkgver.tgz)
+
+build() {
+	cd ${pkgname}-${pkgver}
+	./configure --prefix=/usr
+	sed -i "s:CFLAGS=-O2  -DNDEBUG \$(WFLAGS) \$(MORECFLAGS):CFLAGS=${CFLAGS}:" \
+		Makefile
+	make
+}
+
+package() {
+	cd ${pkgname}-${pkgver}
+	make prefix="${pkgdir}/usr" install || return 1
+}
