@@ -1,0 +1,32 @@
+Index: plugins/par2/plugin_par2.c
+===================================================================
+--- plugins/par2/plugin_par2.c	(revision 1727)
++++ plugins/par2/plugin_par2.c	(revision 1728)
+@@ -922,7 +922,10 @@
+     int c;
+     struct _par2_repair_file *active_file = NULL;
+     const char *disable_concurrent_verify_option;
+-    gboolean first_time = TRUE;
++    gboolean first_line = TRUE;
++#ifndef WIN32
++    gboolean second_line = FALSE;
++#endif
+     PluginPAR2Priv *priv;
+     static GStaticMutex mutex = G_STATIC_MUTEX_INIT;
+     ConfigOpts opts;
+@@ -1010,8 +1013,13 @@
+         }
+ 
+         if (c == '\r' || (c == '\n' && i > 0)) {
+-            if (first_time) {
+-                first_time = FALSE;
++            if (first_line) {
++                first_line = FALSE;
++#ifndef WIN32
++                second_line = TRUE;
++            } else if (second_line) {
++                second_line = FALSE;
++#endif
+                 /* Check if the given options were valid */
+                 if (!strncmp(buf, "Invalid option specified", 24)) {
+                     if (invalid_option_detected) {
