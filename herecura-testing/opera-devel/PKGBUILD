@@ -25,7 +25,7 @@ license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
-source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
+source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}_${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
 sha256sums=('9554f3dd283cf8c9289b7237e3ec9691437188a495a2ae6467a402f286b0ea1b')
 [ "$CARCH" = "x86_64" ] && sha256sums=('002b467e4027fc3df3f13eecaa9a8d03819180eed0ec42d68cc5128656b43f2a')
 
