@@ -38,9 +38,13 @@ fi
 # extra patches
 _extrapatches=(
 	"Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch"
+	"fix-desktop-latency.patch"
+	"fix-sched.patch"
 )
 _extrapatchessums=(
 	"7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863"
+	"03b5641e0adff30c20dffe140897071bac3badfbef4ff12c4199b0cf61ac607b"
+	"a3388916a3054bd11c7533dc43f8667f65dc51843229c11e5a117c22e88bafc4"
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
