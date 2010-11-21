@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.36
-# Tue Nov  2 19:47:38 2010
+# Tue Nov 21 19:07:38 2010
 #
 # CONFIG_64BIT is not set
 CONFIG_X86_32=y
@@ -99,7 +99,6 @@ CONFIG_AUDIT_TREE=y
 # RCU Subsystem
 #
 CONFIG_TREE_RCU=y
-# CONFIG_TREE_PREEMPT_RCU is not set
 # CONFIG_RCU_TRACE is not set
 CONFIG_RCU_FANOUT=32
 # CONFIG_RCU_FANOUT_EXACT is not set
@@ -125,6 +124,7 @@ CONFIG_FAIR_GROUP_SCHED=y
 CONFIG_RT_GROUP_SCHED=y
 CONFIG_BLK_CGROUP=y
 # CONFIG_DEBUG_BLK_CGROUP is not set
+CONFIG_SHED_AUTOGROUP=y
 CONFIG_MM_OWNER=y
 # CONFIG_SYSFS_DEPRECATED_V2 is not set
 CONFIG_RELAY=y
