@@ -21,7 +21,7 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-slk.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-	'34bf4757b450053023b5f3737e2f11c83c7421e9b7e1da78fb04b17e366527cc'
+	'7def14f10ddce9095d6f30c339414fb0e57da307d50d3e51cb89150c26b664f8'
 	'bd7ecac366cf6d1497619a66220f65e357ca995a7bd81676bf021eca32bb9b97'
 	'2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
 if [ ${_patchver} -ne 0 ]; then
