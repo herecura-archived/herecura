@@ -7,16 +7,16 @@ _ext_python="disable"
 
 pkgname=xbmc
 pkgver=9.11
-pkgrel=18
+pkgrel=19
 pkgdesc="XBMC Media Center"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'custom')
 depends=( 'bzip2' 'curl' 'enca' 'faac' 'faad2' 'fontconfig' 'fribidi'
-          'glew' 'hal' 'jasper' 'libcdio' 'libmad' 'libmms'
+          'hal' 'jasper' 'libcdio' 'libmad' 'libmms'
 		  'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libxinerama'
 		  'libxrandr' 'libxtst' 'lzo2' 'sdl_image' 'sdl_mixer' 
-		  'smbclient' 'wavpack' 'libcdio')
+		  'smbclient' 'wavpack' 'libcdio' 'mesa-demos')
 if [ "$_ext_python" != "disable" ]; then
   depends=( '${depends[@]}' 'python' )
 fi
