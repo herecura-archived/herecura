@@ -14,7 +14,7 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=('lzo2' 'libxtst' 'jasper' 'libmysqlclient' 'libsamplerate' 'wavpack' 'libssh' 'bzip2' 
-	'sdl_image' 'libva' 'dbus-core' 'libmms' 'glew' 'libmicrohttpd-xbmc' 'libcdio' 'smbclient' 
+	'sdl_image' 'libva' 'dbus-core' 'libmms' 'libmicrohttpd-xbmc' 'libcdio' 'mesa-demos' 'smbclient' 
 	'libmad' 'libgl' 'fribidi' 'libmpeg2' 'faac' 'libmodplug' 'faad2' 'sdl_mixer' 'libass')
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'subversion' 'unzip' 'zip'
 	'vdpau-video'
