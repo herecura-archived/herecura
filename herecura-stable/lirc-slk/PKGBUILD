@@ -1,0 +1,86 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: Paul Mattal <paul@archlinux.org>
+
+pkgbase='lirc-slk'
+pkgname=('lirc-slk' 'lirc-slk-utils')
+pkgver=0.8.7
+pkgrel=1
+arch=('i686' 'x86_64')
+url="http://www.lirc.org/"
+license=('GPL')
+_kernver=2.6.36-SLK
+depends=('alsa-lib' 'libusb' 'libx11' 'libsm' 'python2' 'libftdi')
+makedepends=('help2man' 'kernel26-slk-headers')
+replaces=('lirc+pctv')
+options=('!libtool' '!makeflags')
+source=("http://downloads.sourceforge.net/lirc/lirc-${pkgver}.tar.bz2"
+lircd lircmd lirc.logrotate lircd.conf irexec.conf irexecd)
+sha256sums=('e431454f266c4ddc209c3cc84fc506cac6092eb5124b4f3dcc215c8584ea7a39'
+            '06250333bffdc5e7d4b364559a3de6e43314fed12cafd4dc6aff4f5f03cb809e'
+            '111f8bd4b69e7caa6d2b9da87938f949a5fcba01319c1611decbd51caf0ff497'
+            'bd13ca00e30d85ff9166c03b8f7a20195ef89794e66d7e54f04ba1d014a73e7d'
+            'a64962f310805db250e574464fce93cb4566a6f5bac1d9aad462435090bf3cb2'
+            '398b9867c22537e71ac80e2e20a6915c52d90a8e542c1efaef6b8608a54e10ed'
+            '10519cd8f458456bec36500d4196347c5d849511264cbbd4d17f7f84f8b9e6a7')
+
+build() {
+	cd "${srcdir}/lirc-${pkgver}"
+
+	autoreconf
+	libtoolize
+
+	./configure --enable-sandboxed \
+		--prefix=/usr \
+		--with-driver=all \
+		--with-kerneldir=/usr/src/linux-${_kernver} \
+		--with-moduledir=/lib/modules/${_kernver}/kernel/drivers/misc \
+		--with-transmitter
+
+	# disable parallel and bt829
+	# because of incompatibility with smp systems
+	sed -i -e "s:lirc_parallel::" -e "s:lirc_bt829::" \
+		Makefile drivers/Makefile drivers/*/Makefile tools/Makefile
+
+	# Disabling lirc_gpio driver as it does no longer work Kernel 2.6.22+
+	sed -i -e "s:lirc_gpio\.o::" drivers/lirc_gpio/Makefile.am
+
+	make
+}
+
+package_lirc-slk() {
+	pkgdesc="Linux Infrared Remote Control kernel modules for SLK kernel"
+	install=lirc.install
+
+	cd lirc-${pkgver}
+	cd drivers
+	make DESTDIR=${pkgdir} install
+
+	# set the kernel version in install script
+	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/g" \
+		${startdir}/lirc.install
+}
+
+package_lirc-slk-utils() {
+	pkgdesc="Linux Infrared Remote Control utils for SLK kernel"
+	backup=('etc/conf.d/lircd.conf' 'etc/conf.d/irexec.conf')
+	cd lirc-${pkgver}
+	make DESTDIR="${pkgdir}" install
+	install -d "${pkgdir}/usr/share/lirc" "${pkgdir}/etc/rc.d"
+	cp "${srcdir}"/{lircd,lircmd,irexecd} "${pkgdir}/etc/rc.d"
+	cp -rp remotes "${pkgdir}/usr/share/lirc"
+	chmod -R go-w "${pkgdir}/usr/share/lirc/"
+
+	# install the logrotate config
+	install -Dm644 "${srcdir}/lirc.logrotate" "${pkgdir}/etc/logrotate.d/lirc"
+
+	# install conf.d file
+	install -Dm644 "${srcdir}/lircd.conf" "${pkgdir}/etc/conf.d/lircd.conf"
+
+	# install conf.d file
+	install -Dm644 "${srcdir}/irexec.conf" "${pkgdir}/etc/conf.d/irexec.conf"
+
+	install -d "${pkgdir}/etc/lirc"
+
+	# remove built modules
+	rm -r "${pkgdir}/lib/"
+}
