@@ -7,14 +7,16 @@ true && pkgname=('kernel26-lqx' 'kernel26-lqx-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-lqx
 _basekernel=2.6.36
-_patchver=0
+_patchver=1
 pkgver=${_basekernel}
-pkgrel=14
-_patchname="patch-${pkgver}.${_patchver}"
+pkgrel=2
 _lqxpatchname="36.${_patchver}-${pkgrel}.patch"
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
+if [ ${_patchver} -ne 0 ]; then
+	pkgver=${_basekernel}.${_patchver}
+fi
 source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"http://liquorix.net/sources/${_lqxpatchname}.gz"
 		# the main kernel config files
@@ -24,20 +26,10 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-lqx.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-            'd7b1ddc2141b1e56f7fc8e83d93c887c6a039f0c5527375cbeac4d93f5a31854'
-            '5b22471bd220cfb3160b248926f0137c0f355bbb2bad60ee20388a0e0bced35f'
-            '39f3490789b10a75fea5e0be0bafebceaa6e094d5109e9749696738b16b5d290'
-			'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
-if [ ${_patchver} -ne 0 ]; then
-	pkgver=${_basekernel}.${_patchver}
-	_patchname="patch-${pkgver}"
-	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
-	)
-		sha256sums=( "${sha256sums[@]}"
-	""
-	)
-fi
+	'6b23e27c91499d03bd6f100c78bf107a03652757f6cbf69789802aa6b7318541'
+	'f598b1c36e5a9896ec0d38a099605dfe11a9c22c562368d2ae601d9237c27d10'
+	'680af9efbb6e8178893b8c11db54b2d04dc0567fb1e97c3517f53fc94bf91c79'
+	'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
 # extra patches
 _extrapatches=(
 	"Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch"
@@ -66,9 +58,9 @@ fi
 build() {
 	cd ${srcdir}/linux-$_basekernel
 	# Add revision patches
-	if [ ${_patchver} -ne 0 ]; then
-		patch -Np1 -i ${srcdir}/${_patchname}
-	fi
+	#if [ ${_patchver} -ne 0 ]; then
+		#patch -Np1 -i ${srcdir}/${_patchname}
+	#fi
 
 	# Liquorix patches
 	patch -Np1 -i ${srcdir}/${_lqxpatchname}
@@ -105,7 +97,7 @@ build() {
 	#msg "Stopping build"
 	#return 1
 	####################
-	yes "" | make config
+	#yes "" | make config
 	# build!
 	make bzImage modules
 }
