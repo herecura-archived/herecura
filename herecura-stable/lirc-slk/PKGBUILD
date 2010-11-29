@@ -4,7 +4,7 @@
 pkgbase='lirc-slk'
 pkgname=('lirc-slk' 'lirc-slk-utils')
 pkgver=0.8.7
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -50,6 +50,7 @@ build() {
 package_lirc-slk() {
 	pkgdesc="Linux Infrared Remote Control kernel modules for SLK kernel"
 	install=lirc.install
+	provides=('lirc')
 
 	cd lirc-${pkgver}
 	cd drivers
@@ -63,6 +64,7 @@ package_lirc-slk() {
 package_lirc-slk-utils() {
 	pkgdesc="Linux Infrared Remote Control utils for SLK kernel"
 	backup=('etc/conf.d/lircd.conf' 'etc/conf.d/irexec.conf')
+	provides=('lirc-utils')
 	cd lirc-${pkgver}
 	make DESTDIR="${pkgdir}" install
 	install -d "${pkgdir}/usr/share/lirc" "${pkgdir}/etc/rc.d"
