@@ -2,7 +2,7 @@
 #Contributor: Alec Thomas
 pkgname=mongodb
 pkgver=1.6.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
