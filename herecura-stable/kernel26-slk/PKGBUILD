@@ -9,7 +9,7 @@ _kernelname=-slk
 _basekernel=2.6.36
 _patchver=1
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -21,8 +21,8 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-slk.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-	'7def14f10ddce9095d6f30c339414fb0e57da307d50d3e51cb89150c26b664f8'
-	'bd7ecac366cf6d1497619a66220f65e357ca995a7bd81676bf021eca32bb9b97'
+	'a502a5cc02c27c8856130bebf47b1e3cabedeee7c836ea3c90242c3670367f17'
+	'3e0d32644ad8c5fff0273cab4eedb40ce7d515845b4eecc4a552504e508bd3e7'
 	'2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
@@ -37,13 +37,9 @@ fi
 # extra patches
 _extrapatches=(
 	"Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch"
-	"fix-desktop-latency.patch"
-	"fix-sched.patch"
 )
 _extrapatchessums=(
 	"7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863"
-	"03b5641e0adff30c20dffe140897071bac3badfbef4ff12c4199b0cf61ac607b"
-	"a3388916a3054bd11c7533dc43f8667f65dc51843229c11e5a117c22e88bafc4"
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -209,6 +205,6 @@ package_kernel26-slk-headers() {
 	chown -R root.root ${pkgdir}/usr/src/linux-${_kernver}
 	find ${pkgdir}/usr/src/linux-${_kernver} -type d -exec chmod 755 {} \;
 	# remove unneeded architectures
-	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,sh,sh64,sparc,sparc64,um,v850,xtensa}
+	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
 pkgdesc="The Linux Kernel and modules, inspired by Slackware kernel"
