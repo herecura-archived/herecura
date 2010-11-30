@@ -9,7 +9,7 @@ _kernelname=-lqx
 _basekernel=2.6.36
 _patchver=1
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=3
 _lqxpatchname="36.${_patchver}-${pkgrel}.patch"
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -26,16 +26,14 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-lqx.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-	'6b23e27c91499d03bd6f100c78bf107a03652757f6cbf69789802aa6b7318541'
+	'11fe47d26b5c93ffa50290f8641b08d4dc6ba08ac528cf77d7a586054533a3b2'
 	'f598b1c36e5a9896ec0d38a099605dfe11a9c22c562368d2ae601d9237c27d10'
 	'680af9efbb6e8178893b8c11db54b2d04dc0567fb1e97c3517f53fc94bf91c79'
 	'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
 # extra patches
 _extrapatches=(
-	"Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch"
 )
 _extrapatchessums=(
-	"7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863"
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -57,16 +55,14 @@ fi
 
 build() {
 	cd ${srcdir}/linux-$_basekernel
-	# Add revision patches
-	#if [ ${_patchver} -ne 0 ]; then
-		#patch -Np1 -i ${srcdir}/${_patchname}
-	#fi
 
 	# Liquorix patches
+	msg2 "apply liquorix patch"
 	patch -Np1 -i ${srcdir}/${_lqxpatchname}
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
+		msg2 "apply ${patch}"
 		patch -Np1 -i ${srcdir}/${patch}
 	done
 
