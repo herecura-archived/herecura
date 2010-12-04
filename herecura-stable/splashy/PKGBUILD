@@ -7,7 +7,7 @@
 
 pkgname=splashy
 pkgver=0.3.13
-pkgrel=8
+pkgrel=9
 pkgdesc="A next-generation user-space boot splashing system for Linux systems without depending on initscripts-splashy"
 arch=('i686' 'x86_64')
 url="http://splashy.alioth.debian.org/"
@@ -25,7 +25,7 @@ source=(https://alioth.debian.org/frs/download.php/2691/splashy-0.3.13.tar.gz
 	splash.conf
 	splashy_video.c.patch)
 sha256sums=('cba37294fc8313eed5c311fd73ce081ecd3f3328562f70969f4e89f0d9030fc1'
-            '28dee20c36c4b854cfd13c76db3efcf4030ce02a579b402a6bcf17380b894ca9'
+            '9bb61d6f356cfb5a03933bf819a6a76dabdfac411e650b01cef56c9c55ba6ce5'
             'c29ac2ca78c4d4782be16d8e3397ba3ab8d48e8c847ae2992621ddfa078fa0e4'
             'cb4e5a6420e5efa13f362af8ca20efe506ea4ae1fd52612c860e0a666db4fbd0'
             '75fa3f51591573e3e0ee5b5a365dbe837880c48b175cd6b5abcc33380f31a4ce'

@@ -31,7 +31,6 @@ add_file "/usr/lib/directfb-1.4-5/wm/libdirectfbwm_default.so"
 add_file "/usr/lib/directfb-1.4-5/systems/libdirectfb_fbdev.so"
 add_file "/usr/lib/directfb-1.4-5/inputdrivers/libdirectfb_keyboard.so"
 add_file "/usr/lib/directfb-1.4-5/interfaces/IDirectFBFont/libidirectfbfont_ft2.so"
-add_file "/usr/lib/directfb-1.4-5/interfaces/IDirectFBFont/libidirectfbfont_default.so"
 add_file "/usr/lib/directfb-1.4-5/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_png.so"
 add_file "/usr/lib/directfb-1.4-5/interfaces/IDirectFBImageProvider/libidirectfbimageprovider_jpeg.so"
 
