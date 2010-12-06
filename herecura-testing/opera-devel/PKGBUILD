@@ -4,8 +4,8 @@
 # Contributor: totoloco
 pkgname=opera-devel
 _bigrelease=11.00
-_buildver=1111
-_randomizer=one_step_closer
+_buildver=1128
+_randomizer=dinner
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -25,10 +25,10 @@ license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
-#source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}_${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-source=(ftp://ftp.opera.com/pub/opera/linux/1100b1/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('80b04b3b81014f104a033497b37bff59e6e8e0dda0b00ba1381b03c7fcb8b665')
-[ "$CARCH" = "x86_64" ] && sha256sums=('6439067493b6f0f687f2694ec5b763846e651d06bc126bbf56bdc268c6a1331b')
+source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
+#source=(ftp://ftp.opera.com/pub/opera/linux/1100b1/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
+sha256sums=('718d4a2ea995afd41cd6f0948cb7462f1e7618788fdea7361acb12f7eda75ab3')
+[ "$CARCH" = "x86_64" ] && sha256sums=('34c7621b50f90e672b09f3ffbb50a2093acd1c02fb660b489006231a1cf82d41')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
