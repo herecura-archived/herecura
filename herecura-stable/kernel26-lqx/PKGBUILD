@@ -9,7 +9,7 @@ _kernelname=-lqx
 _basekernel=2.6.36
 _patchver=1
 pkgver=${_basekernel}
-pkgrel=4
+pkgrel=5
 _lqxpatchname="36.${_patchver}-${pkgrel}.patch"
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -26,9 +26,9 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-lqx.preset"
 )
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-	'b1fe2990817b4b220f55eec0e8c69fbe8922820d957b8df524776f8c50293a96'
-	'f598b1c36e5a9896ec0d38a099605dfe11a9c22c562368d2ae601d9237c27d10'
-	'680af9efbb6e8178893b8c11db54b2d04dc0567fb1e97c3517f53fc94bf91c79'
+	'e79b50fa7d86f66bf83ba123abc32517d13ad79a63458012cdfd850d3bd6dc16'
+	'5958e499c14e114db6493cf26967b52afd7622df607e7762dafea2be5cb9065c'
+	'd4b4f1b7b42a881e0d09d7beffe00050f475352835fc68b1c270592b3f24e261'
 	'53caf0895e64fc87312f879d7e04b0f3a8938e6df0d73bfc932a5889f2c0f8c1')
 # extra patches
 _extrapatches=(
