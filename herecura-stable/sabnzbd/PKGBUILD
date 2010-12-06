@@ -1,0 +1,38 @@
+pkgname=sabnzbd
+pkgver=0.5.6
+pkgrel=1
+pkgdesc="A web-interface based binary newsgrabber with NZB file support"
+arch=('i686' 'x86_64')
+url="http://www.sabnzbd.org/"
+license=('GPL')
+depends=('par2cmdline' 'python2' 'python-cheetah' 'python-feedparser' 'python-yenc' 'pyopenssl' 'unrar' 'unzip' 'sqlite3' 'curl')
+install=sabnzbd.install
+backup=('etc/conf.d/sabnzbd' 'opt/sabnzbd/sabnzbd.ini')
+source=("http://downloads.sourceforge.net/sabnzbdplus/SABnzbd-$pkgver-src.tar.gz"
+'sabnzbd' 'sabnzbd.init' 'sabnzbd.confd' 'sabnzbd.desktop' 'x-nzb.xml' 'addnzb.sh')
+sha256sums=('dc83f3e2f9af2d3cd32cd02e88de7522e37b5d0732e59498b67244cca1d5cb22'
+            'd3688609f5977fb1e6e155b5fdf09af078a68cb3f1dfef94d98176946b9f989c'
+            '8cac283c22b65a199c6bece0a04949d332b163ea6fbfc1411d85700a32cc4f09'
+            'e8fd3785099bca2f2e64dda7207ec20de815d5688628185b36594429a39c2f3e'
+            'e38d93bc7847a784a6de5dac06aa60b4c8c0b9650fec3e6eba451e200254d53e'
+            'f53261d7578c67fb9fd6a639df94cd53604bcf37b9b03a926cb03e5214b496fe'
+            'b3076d7d7c5167656f722e5f7282cd0d5361594b81b44d283b08b9f2e2da3760')
+
+build() {
+        mkdir -p $startdir/pkg/opt/sabnzbd
+        touch $startdir/pkg/opt/sabnzbd/sabnzbd.ini 
+        mv -v $startdir/src/SABnzbd-$pkgver/* $startdir/pkg/opt/sabnzbd/
+        find $startdir/pkg/opt/sabnzbd -type d -exec chmod 755 {} \;
+        find $startdir/pkg/opt/sabnzbd -type f -exec chmod 644 {} \;
+        chmod 755 $startdir/pkg/opt/sabnzbd/SABnzbd.py
+        chmod 755 $startdir/pkg/opt/sabnzbd/Sample-PostProc.sh
+        install -D -m755 $startdir/sabnzbd $startdir/pkg/usr/bin/sabnzbd
+        install -D -m755 $startdir/sabnzbd.init $startdir/pkg/etc/rc.d/sabnzbd
+        install -D -m644 $startdir/sabnzbd.confd $startdir/pkg/etc/conf.d/sabnzbd
+        install -D -m755 $startdir/sabnzbd.desktop $startdir/pkg/usr/share/applications/sabnzbd.desktop
+        install -D -m755 $startdir/addnzb.sh $startdir/pkg/opt/sabnzbd/addnzb.sh
+        install -D -m770 $startdir/x-nzb.xml $startdir/pkg/opt/sabnzbd/x-nzb.xml
+
+        # Fix for issues with Python 3
+        find $startdir/pkg/opt/sabnzbd -type f -exec sed -i 's/python/python2/g' {} \;
+}
