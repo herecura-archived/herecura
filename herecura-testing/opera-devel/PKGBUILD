@@ -4,14 +4,13 @@
 # Contributor: totoloco
 pkgname=opera-devel
 _bigrelease=11.00
-_buildver=1128
-_randomizer=dinner
+_buildver=1133
+_randomizer=cup
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
-makedepends=('libarchive')
 provides=('opera')
 optdepends=('gtk2: GTK integration'
 	    'kdebase-runtime: KDE4 integration'
@@ -26,11 +25,10 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-#source=(ftp://ftp.opera.com/pub/opera/linux/1100b1/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('718d4a2ea995afd41cd6f0948cb7462f1e7618788fdea7361acb12f7eda75ab3')
-[ "$CARCH" = "x86_64" ] && sha256sums=('34c7621b50f90e672b09f3ffbb50a2093acd1c02fb660b489006231a1cf82d41')
+sha256sums=('2a9df239bafa8635b750371786b02a8c86166146bd4a2651bc39cc48859442f9')
+[ "$CARCH" = "x86_64" ] && sha256sums=('9375b729e3c5b16d9dca2490da3076cf941918a6d50501f6e9ea421b1825ff1b')
 
 build() {
-	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --suffix devel --prefix /usr --repackage ${pkgdir}/usr
+	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr --suffix devel --repackage ${pkgdir}/usr
 	install -D -m 644 ${pkgdir}/usr/share/${pkgname}/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
