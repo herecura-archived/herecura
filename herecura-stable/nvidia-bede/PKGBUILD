@@ -33,7 +33,6 @@ elif [ "$CARCH" = "x86_64" ]; then
 fi
 
 build() {
-	return 1
 	cd $srcdir
 	sh ${_pkg}.run --extract-only
 	cd ${_pkg}/kernel
