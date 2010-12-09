@@ -23,7 +23,7 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
 	'd3653e7d512685cc7b205c64aafd2449c7a52aa9041692d4cfb72775ff794859'
 	'eeabb4f9ca10cbb772f62c6c33acf92a2cd631280f1fb25362c0c00f390470e6'
-	'2b5abb325d33a02bb1d21a8b4d314a9e155ce41a066ad94c8a95b01341886862')
+	'3e09b0f2d85b33fa08868b60832d59d90c0499d407bfbff1e2c65203d730889c')
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
 	_patchname="patch-${pkgver}"
