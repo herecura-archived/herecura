@@ -54,6 +54,7 @@ if [ "aur" == "there" ]; then
 fi
 
 build() {
+	return 1
 	cd ${srcdir}/linux-$_basekernel
 
 	# Liquorix patches
