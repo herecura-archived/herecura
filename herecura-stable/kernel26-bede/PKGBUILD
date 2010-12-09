@@ -117,7 +117,7 @@ package_kernel26-bede() {
 	'alsa-driver' 'ieee80211' 'hostap-driver26'
 	'pwc' 'nforce' 'squashfs' 'unionfs' 'ivtv'
 	'zd1211' 'kvm-modules' 'iwlwifi' 'rt2x00-cvs'
-	'gspcav1' 'atl2' 'wlan-ng26' 'rt2500' 'nouveau-drm')
+	'gspcav1' 'atl2' 'wlan-ng26' 'rt2500' 'nouveau-drm' 'kernel26-slk')
 	install=${pkgname}.install
 	optdepends=('crda: to set the correct wireless channels of your country'
 	'linux-firmware: when having some hardware needing special firmware')
