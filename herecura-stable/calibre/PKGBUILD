@@ -1,0 +1,71 @@
+# Contributor: Petrov Roman <nwhisper@gmail.com>
+
+# Modified by larryhaja.
+# Modified by BlackEagle.
+
+pkgname=calibre
+pkgver=0.7.33
+pkgrel=1
+pkgdesc="E-book library management application"
+arch=('i686' 'x86_64') 
+url="http://calibre.kovidgoyal.net/"
+license=('GPL3')
+depends=('python2' 'python-imaging' 'libusb' 'pyqt>=4.8.0' 'python-mechanize'
+'imagemagick' 'python-lxml' 'beautiful-soup' 'python-dateutil'
+'python-cssutils' 'desktop-file-utils' 'shared-mime-info' 'python-dnspython' 
+'podofo>=0.8.1-6' 'xdg-utils' 'cherrypy' 'python-pypdf' 'poppler-qt' 'unrar' 'chmlib')
+
+makedepends=( 'python2-distribute' )
+
+install=calibre.install
+
+source=(http://downloads.sourceforge.net/project/calibre/${pkgver}/${pkgname}-${pkgver}.tar.gz
+desktop_integration.patch)
+sha256sums=('c5fe1ad730da2e46769eb297890e993f3bf7ee234128c0a8b8faa3cc843c7ea7'
+            '3fc619c13b673619ec962bfa9cacb2359eeb2b93fa2110083e4ef226d3549495')
+
+build() {
+	cd "${pkgname}"
+
+	rm -rf src/{cherrypy,pyPdf}
+
+	patch -Np1 -i ${srcdir}/desktop_integration.patch
+
+	sed -i -e "/self.create_uninstaller()/,/os.rmdir(config_dir)/d" \
+		-e "s|self.opts.staging_sharedir, 'man/man1'|self.opts.staging_root, 'usr/share/man/man1'|" \
+		-e "s|manpath, prog+'.1'+__appname__+'.bz2'|manpath, prog+'.1'+'.bz2'|" \
+		-e "s|old_udev = '/etc|old_udev = '${pkgdir}/etc|" \
+		-e "s/^Name=calibre/Name=Calibre/g" src/calibre/linux.py
+
+	sed -ie "s/ldflags = shlex.split(ldflags)/ldflags = shlex.split(ldflags) + ['-fPIC']/" setup/extensions.py
+
+	sed -ie 's:\(#!/usr/bin/env[ ]\+python$\|#!/usr/bin/python$\):\12:g' \
+		$(find . -regex ".*.py\|.*.recipe")
+
+	# disable update checking by default
+	sed -ie 's/\(--no-update-check.*\)False\(.*\)store_true/\1True\2store_false/g' src/calibre/gui2/main.py
+
+	python2 setup.py build
+	python2 setup.py resources
+}
+
+package() {
+
+	cd ${pkgname}
+
+	# Fix the environment module location
+	sed -i -e "s|(prefix=.*)|(prefix='$pkgdir/usr')|g" setup/install.py
+
+	install -dm755 ${pkgdir}/usr/lib/$(python2-config --libs | sed 's/.*\(python.*\)/\1/g')/site-packages
+	python2 setup.py install --root=${pkgdir}/ --prefix=/usr \
+		--staging-bindir=${pkgdir}/usr/bin \
+		--staging-libdir=${pkgdir}/usr/lib \
+		--staging-sharedir=${pkgdir}/usr/share
+
+	find ${pkgdir} -type d -empty -delete
+
+	# Decompress the man pages so makepkg will do it for us.
+	for decom in ${pkgdir}/usr/share/man/man1/*.bz2; do
+		bzip2 -d ${decom}
+	done
+}
