@@ -1,8 +1,8 @@
 #Maintainer: Mathias Stearn <mathias@10gen.com>
 #Contributor: Alec Thomas
 pkgname=mongodb
-pkgver=1.6.4
-pkgrel=2
+pkgver=1.6.5
+pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
@@ -14,7 +14,7 @@ backup=('etc/conf.d/mongodb' 'etc/mongodb.conf')
 source=("http://downloads.mongodb.org/src/${pkgname}-src-r${pkgver}.tar.gz"
         "mongodb.rc"
         "mongodb.conf")
-sha256sums=('47de312e3f479358c6f529ffed2a0de659c741cd781bf7a3cd0bc1a507ed19fe'
+sha256sums=('5feac5302be91eea758851d28e4ad09ff4d11a28ffcb61e792ab7aeb5327a8a0'
             '26b7f46902a822d7fa0b4219f1e68cbe0d0ac1d0e62c37fd8fd081dd4c88d70c'
             'f3fc037c704d67c68c7d69c46878af3d8a601e48ca51105835f740cddb1b2b2e')
 install="mongodb.install"
@@ -24,13 +24,13 @@ build() {
 
     cd "${pkgname}-src-r${pkgver}"
 
-    scons --pch all --full || return 1
+    scons --pch all --full
 }
 
 package() {
     cd "${pkgname}-src-r${pkgver}"
 
-    scons --pch install --full --prefix="$pkgdir/usr" || return 1
+    scons --pch install --full --prefix="$pkgdir/usr"
 
     install -Dm 755 "$startdir/mongodb.rc" "$pkgdir/etc/rc.d/mongodb"
     install -Dm 644 "$startdir/mongodb.conf" "$pkgdir/etc/mongodb.conf"
