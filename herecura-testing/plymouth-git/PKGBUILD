@@ -1,7 +1,7 @@
 # Contributor: PirateJonno <j@skurvy.no-ip.org>
 # Contributor: lh <jarryson#gmail.com>
 pkgname=plymouth-git
-pkgver=20101204
+pkgver=20101212
 pkgrel=1
 pkgdesc="A Linux boot screen implementation"
 arch=('i686' 'x86_64')
