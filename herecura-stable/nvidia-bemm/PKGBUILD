@@ -2,7 +2,7 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia-bemm
-pkgver=260.19.21
+pkgver=260.19.29
 _kernver='2.6.35-BEMM'
 pkgrel=1
 pkgdesc="NVIDIA drivers for kernel26-bemm"
@@ -24,12 +24,12 @@ if [ "$CARCH" = "i686" ]; then
 	_arch='x86'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
 	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('2ec917f51e752802646920e9bcd747e7')
+	md5sums=('e982a05a85c68130acfe1d48086250e3')
 elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
 	source=("http://uk.download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('9db612fb5679249627d52bfff0e16f4f')
+	md5sums=('0583668d86f7318d99def3ed3e1cc4bc')
 fi
 
 build() {
