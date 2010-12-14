@@ -10,7 +10,7 @@ _basever=7.3
 _patchlevel=081
 pkgver=${_basever}.${_patchlevel}
 __hgrev=916c90b37e
-pkgrel=5
+pkgrel=6
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -53,6 +53,11 @@ build() {
 	cp -a ${pkgbase} vim-build
 	(cd vim-build && rm -rf ./.hg)
 
+	# define the place for the global (g)vimrc file (set to /etc/vimrc)
+	sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
+		vim-build/src/feature.h
+	sed -i 's|^.*\(#define VIMRC_FILE.*"\) .*$|\1|' \
+		vim-build/src/feature.h
 	# fix python name
 	sed -i -e 's|vi_cv_path_python, python|vi_cv_path_python, python2|' \
 		vim-build/src/configure.in
@@ -207,7 +212,7 @@ package_vim-rt() {
 pkgdesc='Runtime for vim and gvim'
 conflicts=('vim-runtime')
 provides=('vim-runtime')
-backup=(etc/vim/vimrc)
+backup=(etc/vimrc)
 
 # Install the runtime split from gvim
 install -dm755 ${pkgdir}/usr/share
@@ -228,8 +233,8 @@ sed -i "/find the end/,+3{s/changelog_date_entry_search/changelog_date_end_entry
 	${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/changelog.vim
 
 # rc files
-install -dm755 ${pkgdir}/etc/vim
-install -Dm644 ${srcdir}/vimrc ${pkgdir}/etc/vim/vimrc
+#install -dm755 ${pkgdir}/etc/vim
+install -Dm644 ${srcdir}/vimrc ${pkgdir}/etc/vimrc
 install -dm755 ${pkgdir}/usr/share/vim/vimfiles/colors
 install -Dm644 ${srcdir}/peaksea.vim \
 	${pkgdir}/usr/share/vim/vimfiles/colors/peaksea.vim
