@@ -1,16 +1,16 @@
 # Maintainer: ruario 
 # Contributor: BlackEagle
 pkgname=opera-rc
-_bigrelease=10.63
-_buildver=6450
+_bigrelease=11.00
+_buildver=1152
 _rclevel=2
-_randomizer=almostthere
+_randomizer=santa
 pkgver=${_bigrelease}rc${_rclevel}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
 url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
-makedepends=('libarchive')
+provides=('opera')
 optdepends=('gtk2: GTK integration'
 	    'kdebase-runtime: KDE4 integration'
 		'gstreamer0.10-base-plugins: HTML5 open codecs support'
@@ -21,21 +21,13 @@ install=${pkgname}.install
 options=(!strip !zipman)
 license=('custom:opera')
 arch=('i686' 'x86_64')
-provides=('opera')
-conflicts=('opera' 'opera-beta')
-#source=(
-#"http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.i386.rpm"
-#"http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.x86_64.rpm"
-#)
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
-source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm)
-sha256sums=('d4fd55b6e7255543cf1ff4185fbba2ee52d3014b2efe6eaaf0ea202dcec6e073')
-[ "$CARCH" = "x86_64" ] && sha256sums=('6eced876b42db6b7c0f9519359cf472e357f2fae7460d28e6ebd4635b32b973e')
+source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
+sha256sums=('e60c8ca463df18a1679b2ba954fcde773311be8e4533dbcecc2f0170877b1634')
+[ "$CARCH" = "x86_64" ] && sha256sums=('d30804c4b6bb4c6e2da415aeae2d569cb465f2a6dbcefd65051c9c5f8abf6dbf')
 
 build() {
-        cd ${pkgdir}
-        bsdcpio -id < ${srcdir}/opera-${_bigrelease}-${_buildver}.${_arch}.rpm
-        sed -i usr/share/opera/package-id.ini -e "s|\(Package Type=\)rpm|\1tar|"
-        install -D -m 644 usr/share/opera/defaults/license.txt usr/share/licenses/${pkgname}/license.txt
+	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr --suffix rc --repackage ${pkgdir}/usr
+	install -D -m 644 ${pkgdir}/usr/share/${pkgname}/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
