@@ -2,9 +2,9 @@
 # Contributor: BlackEagle
 pkgname=opera-rc
 _bigrelease=11.00
-_buildver=1152
-_rclevel=2
-_randomizer=santa
+_buildver=1156
+_rclevel=3
+_randomizer=rc3
 pkgver=${_bigrelease}rc${_rclevel}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
@@ -24,8 +24,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('e60c8ca463df18a1679b2ba954fcde773311be8e4533dbcecc2f0170877b1634')
-[ "$CARCH" = "x86_64" ] && sha256sums=('d30804c4b6bb4c6e2da415aeae2d569cb465f2a6dbcefd65051c9c5f8abf6dbf')
+sha256sums=('c49a97d68569f63c543fd66a340c4719c0ea2fd5703c5b3f2ec0e4ff0dcb60ed')
+[ "$CARCH" = "x86_64" ] && sha256sums=('5b3a9a1c5cf54e5e28313e8b0b4238857a166232674688e888ca9bf52e0a9aed')
 
 build() {
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr --suffix rc --repackage ${pkgdir}/usr
