@@ -28,10 +28,11 @@ if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
 	_patchname="patch-${pkgver}"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
+		#"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
+		"http://herecura.be/archlinux/${_patchname}.bz2"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"337a1649110d5bd4d08b178b9437d88df692b2d4ed62b988083a132d0e057725"
+		"2a7c7bebd6c361c987fe95d7e8e5e6f6ca65bfe8c37b5f67d5ea2417f56791be"
 	)
 fi
 # extra patches
