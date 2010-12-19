@@ -14,7 +14,7 @@ replaces=('xbmc-dharma')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd-xbmc libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos)
+depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd-xbmc libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos libmad)
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama')
 optdepends=(
 	'lirc: remote controller support' 
