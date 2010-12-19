@@ -15,7 +15,7 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd-xbmc libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos)
-makedepends=('boost' 'cmake' 'gperf' 'yasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama'
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama'
 libmad libmodplug faac faad2 jasper)
 optdepends=(
 	'lirc: remote controller support' 
