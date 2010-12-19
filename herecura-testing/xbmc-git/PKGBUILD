@@ -5,20 +5,17 @@
 # for his xbmc-vdpau-vdr PKGBUILD at https://archvdr.svn.sourceforge.net/svnroot/archvdr/trunk/archvdr/xbmc-vdpau-vdr/PKGBUILD
 
 pkgname=xbmc-git
-pkgver=35649
+pkgver=20101219
 pkgrel=1
-pkgdesc="XBMC Media Center Trunk snapshot"
+pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=('lzo2' 'libxtst' 'jasper' 'libmysqlclient' 'libsamplerate' 'wavpack' 'libssh' 'bzip2' 
-	'sdl_image' 'libva' 'dbus-core' 'libmms' 'libmicrohttpd-xbmc' 'libcdio' 'mesa-demos' 'smbclient' 
-	'libmad' 'libgl' 'fribidi' 'libmpeg2' 'faac' 'libmodplug' 'faad2' 'sdl_mixer' 'libass')
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'subversion' 'unzip' 'zip'
-	'vdpau-video'
-	'libxrandr' 'libxinerama')
+depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd-xbmc libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos)
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama'
+libmad libmodplug faac faad2 jasper)
 optdepends=(
 	'lirc: remote controller support' 
 	'udisks: automount external drives' 
@@ -29,21 +26,21 @@ optdepends=(
 install=("${pkgname}.install")
 source=( "FEH.sh" )
 sha256sums=('1b391dfbaa07f81e5a5a7dfd1288bf2bdeab8dc50bbb6dbf39a80d8797dfaeb0')
-noextract=()
 options=(strip)
 
-_svntrunk=http://xbmc.svn.sourceforge.net/svnroot/xbmc/trunk
-_svnmod=XBMC
-_prefix=/usr
+_prefix='/usr'
+_gitroot='https://github.com/xbmc/xbmc.git'
+_gitname='xbmc'
+_gitbranch='master'
 
 build() {
-	if [ -d ${_svnmod}/.svn ]; then
-		msg2 "SVN tree found, reverting changes and updating to -r${pkgver}"
-		cd ${_svnmod} && svn up -r ${pkgver}
+	msg2 "Getting XBMC from git"
+	if [ -d ${_gitname} ]; then
+		pushd ${_gitname} && git pull origin master && popd
 	else
-		msg2 "Checking out SVN tree of -r${pkgver}"
-		svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod}
+		git clone ${_gitroot} ${_gitname}
 	fi
+	msg2 "Git clone/checkout done or server timeout"
 
 	# Configure XBMC
 	#
@@ -52,17 +49,14 @@ build() {
 	#     UCS2 unicode support, whereas xbmc expects UCS4 support
 	#   - According to an xbmc dev using external/system ffmpeg with xbmc is "pure stupid" :D
 
-	cd ${srcdir}
-
 	# remove builddir if it already exists
-	[ -d ${_svnmod}-build ] && rm -Rf ${_svnmod}-build
+	[ -d ${_gitname}-build ] && rm -Rf ${_gitname}-build
 
 	# create builddir
 	msg2 "create build directory"
-	cp -a ${_svnmod} ${_svnmod}-build
+	cp -a ${_gitname} ${_gitname}-build
 
-	cd ${_svnmod}-build
-	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu -Wl"
+	cd ${_gitname}-build
 
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
@@ -70,7 +64,7 @@ build() {
 	msg2 "Configuring XBMC" 
 	./configure --prefix=${_prefix} --exec-prefix=${_prefix} \
 		--disable-debug \
-		--disable-optimizations \
+		--enable-optimizations \
 		--enable-gl \
 		--enable-vdpau \
 		--enable-vaapi \
@@ -89,16 +83,10 @@ build() {
 }
 
 package() {
-	cd ${_svnmod}-build
+	#cd ${_svnmod}-build
+	cd ${_gitname}-build
 	msg2 "Running make install" 
 	make DESTDIR=${pkgdir} install
-
-	#msg "bin/xbmc mods for ARCH package"
-	#msg2 "Fixup init script lsb_release stuff to arch-release"
-	#sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/arch-release ]/g' \
-		#${pkgdir}/usr/bin/xbmc
-	#sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/arch-release/g" \
-		#${pkgdir}/usr/bin/xbmc
 
 	# Replace FEH.py with FEH.sh (and thus remove external python dependency)
 	msg2 "Replace FEH.py with FEH.sh (and thus remove external python dependency)"
@@ -109,9 +97,7 @@ package() {
 
 	# Tools
 	msg2 "Tools"
-	#install -Dm755 ${srcdir}/${_svnmod}-build/xbmc-xrandr \
-		#${pkgdir}${_prefix}/lib/xbmc/xbmc-xrandr
-	install -Dm755 ${srcdir}/${_svnmod}-build/tools/TexturePacker/TexturePacker \
+	install -Dm755 ${srcdir}/${_gitname}-build/tools/TexturePacker/TexturePacker \
 		${pkgdir}${_prefix}/lib/xbmc/
 
 	# Licenses
@@ -122,17 +108,12 @@ package() {
 			${pkgdir}${_prefix}/share/licenses/${pkgname}
 	done
 
-	# Docs
-	msg2 "Copy docs"
-	mv ${pkgdir}${_prefix}/share/doc/xbmc \
-		${pkgdir}${_prefix}/share/doc/${pkgname}
-
 	#cleanup some stuff
 	msg2 "cleanup unneeded files"
 	rm -rf ${pkgdir}/usr/share/xsessions
 	rm -f ${pkgdir}/usr/share/xbmc/FEH.py
-
-	# strip
-	#msg "strip binaries"
-	#find $pkgdir -type f -exec strip {} \; >/dev/null 2>/dev/null
+	# its not very usefull, and broken at the moment
+	rm -f ${pkgdir}/usr/bin/xbmc-standalone
+	# didnt we built --disable-xrandr ?
+	rm -f ${pkgdir}/usr/lib/xbmc/xbmc-xrandr
 }
