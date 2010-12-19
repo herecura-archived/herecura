@@ -1,11 +1,28 @@
+update_icons() {
+  if which update-desktop-database > /dev/null 2>&1
+  then
+    update-desktop-database -q /usr/share/applications
+  fi
+  if which gtk-update-icon-cache > /dev/null 2>&1
+  then
+    gtk-update-icon-cache -q /usr/share/icons/hicolor
+  fi
+}
+
 post_install() {
-  echo ">> If XBMC won't start, but just segfaults, double check your X.Org config"
-  echo ">> so that your display depth is at least 24-bit. Eg: change "
-  echo ">> \"DefaultDepth 16\" under the \"Screen\" section so it says 24 instead"
-  echo ">> of 16."
-  echo " "
-  echo ">> PM3.HD skin got removed"
-  echo ">> xbmc basedir is now /opt/xbmc !!!"
-  echo ">> keep above in mind for your skins"
+  update_icons
+  echo ">> If XBMC won't start, but just segfaults, double check your X.Org config."
+  echo ">> The display depth has to be at least 24-bit, ie"
+  echo ">> set \"DefaultDepth 24\" under the \"Screen\" section of your xorg.conf file."
   /bin/true
 }
+
+post_upgrade() {
+  update_icons
+}
+
+post_remove() {
+  update_icons
+}
+
+# vim:set ts=2 sw=2 et:

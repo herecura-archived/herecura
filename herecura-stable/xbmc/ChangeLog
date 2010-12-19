@@ -1,3 +1,8 @@
+2010-12-19 BlackEagle <ike DOT devolder AT gmail DOT com>
+	* 10.0 -1 :
+	Stripped down dependencies to the minimum
+	1st try for the newest and greatest stable
+
 2010-04-10 BlackEagle <ike DOT devolder AT gmail DOT com>
 	* 9.11-15 :
 	Made it back compliant with FHS ( thx pierre for pointing that out )
