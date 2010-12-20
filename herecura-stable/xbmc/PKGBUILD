@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.0
-pkgrel=2
+pkgrel=3
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -40,6 +40,9 @@ build() {
 	#   - According to an xbmc dev using external/system ffmpeg with xbmc is "pure stupid" :D
 
 	cd ${pkgname}-${pkgver}
+
+	# remove "--as-needed" from LDFLAGS
+	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu"
 
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
