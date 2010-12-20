@@ -59,12 +59,15 @@ build() {
 
 	cd ${_gitname}-build
 
+	# remove "--as-needed" from LDFLAGS
+	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu"
+
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
 
 	msg2 "Configuring XBMC" 
 	./configure --prefix=${_prefix} --exec-prefix=${_prefix} \
-		--disable-debug \
+		--enable-debug \
 		--enable-optimizations \
 		--enable-gl \
 		--enable-vdpau \
