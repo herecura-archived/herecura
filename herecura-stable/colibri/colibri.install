@@ -6,6 +6,7 @@ post_install() {
 - Right-click on the systemtray applet
 - Select \"System Tray Settings\"
 - Uncheck the \"Application notifications\" box"
+	true
 }
 
 post_upgrade() {
