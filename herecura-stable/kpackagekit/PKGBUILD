@@ -3,32 +3,31 @@
 # Contributor: Zom <zom@eevul.org>
 
 pkgname=kpackagekit
-pkgver=0.6.2
+pkgver=0.6.3
 pkgrel=1
 pkgdesc="KDE tools for PackageKit"
 arch=('i686' 'x86_64')
 url="http://www.kde-apps.org/content/show.php/KPackageKit?content=84745"
 license=('GPL')
-depends=('kdelibs' 'packagekit-qt')
-makedepends=('cmake' 'automoc4' 'p7zip')
-source=(http://kde-apps.org/CONTENT/content-files/84745-${pkgname}-${pkgver}.7z)
-sha256sums=('c29bcbf04cabfac8aaf1c03ee0153e9256bf37f9eaaeb6407dcef5a982eb02e8')
+depends=('kdelibs' 'packagekit-qt>=0.6.9')
+makedepends=('cmake' 'automoc4')
+source=(http://kde-apps.org/CONTENT/content-files/84745-${pkgname}-${pkgver}.tar.bz2)
+sha256sums=('7f257c59da0639f273137b9d0d7a307bc93193a92a75f48dd3d35bedbc068fd8')
 
 build() {
-	[ -d "${pkgname}-${pkgver}" ] && rm -rf ${pkgname}-${pkgver}
-	7z x 84745-${pkgname}-${pkgver}.7z
-
+	cd ${pkgname}-${pkgver}
 	[ -d "build" ] && rm -rf build
 	mkdir build
 	cd build
 
-	cmake ../${pkgname}-${pkgver} \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=/usr
+	cmake ../ \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr
 	make
 }
 
 package() {
+	cd ${pkgname}-${pkgver}
 	cd build
 	make DESTDIR=${pkgdir} install
 }
