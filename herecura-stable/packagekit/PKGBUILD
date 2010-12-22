@@ -3,7 +3,8 @@
 # Contributor: Zom <zom@eevul.org>
 
 pkgbase='packagekit'
-pkgname=('packagekit' 'packagekit-qt' 'packagekit-python' 'packagekit-backend-alpm' 'packagekit-backend-pacman')
+pkgname='packagekit-split' # aur faker
+true && pkgname=('packagekit' 'packagekit-qt' 'packagekit-python' 'packagekit-backend-alpm' 'packagekit-backend-pacman')
 pkgver=0.6.11
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -121,3 +122,7 @@ package_packagekit-backend-pacman() {
 	install -Dm755 ${srcdir}/packagekit-backend-install/libpk_backend_pacman.so \
 		${pkgdir}/usr/lib/packagekit-backend/libpk_backend_pacman.so
 }
+pkgdesc='PackageKit is a system designed to make installing and updating software on your computer easier with glib bindings' # aur faker
+if [ "aur" == "there" ]; then # aur faker
+	depends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=3.1' 'sqlite3' 'qt' 'intltool' 'dbus-glib')
+fi
