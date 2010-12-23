@@ -6,19 +6,17 @@
 # Contributor: iggy <iggy.mfΘgmail·com>
 
 pkgname=virtualbox_bin
-pkgver=3.2.12
-_build=68302
+pkgver=4.0.0
+_build=69151
 pkgrel=1
 pkgdesc="Powerful x86 virtualization (Personal Use Binaries Edition)."
 arch=('i686' 'x86_64')
 url="http://virtualbox.org"
 license=('custom:PUEL')
-depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'gcc' 'make' 'kernel26-headers' 'qt')
+depends=('libidl2' 'libxcursor' 'libxinerama' 'libxslt' 'curl' 'gcc' 'make' 'kernel26-headers' 'qt' 'python2')
 optdepends=("sdl: for VBoxSDL and VirtualBox GUI"
 	"mesa: for OpenGL support"
-	"libgl: for shared OpenGL support"
 	"libxt: for shared Clipboard support"
-	"alsa-lib: for ALSA support"
 	"pulseaudio: for PulseAudio support")
 provides=("virtualbox=${pkgver}")
 conflicts=('virtualbox-ose' 'virtualbox-modules')
@@ -32,10 +30,10 @@ _arch='x86'
 source=("VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run::http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}-${_build}-Linux_${_arch}.run"
 	'10-vboxdrv.rules'
 	'vboxdrv')
-sha256sums=('92ff4a7de8c69ed8baad8cd6d554eb902f95a0e6bdfee45eff42b0432c118bfc'
+sha256sums=('56870c3c6c1c1ba2453e41beba3990430157297e212facde0f0281f0b4086160'
 	'f2123c40b37be9144eaa974f90c1708e61101d69a3a31aeade92746e07bf9bb7'
 	'9918d9be4802c0c99e6761eda29b3b04a47666cbabda3e13c312c337920c6987')
-[ "$CARCH" = "x86_64" ] && sha256sums[0]='dcc422c75306dc83ae81af3de0eccf31fc4d8ae9bbe4155e4ff0b572822dbefa'
+[ "$CARCH" = "x86_64" ] && sha256sums[0]='0ffba25008dd5651047b7eacd2d77b2931b51a3f6a7da18132303c18c63ba8c8'
 
 build() {
 	# Check and unpack the run package via sh(1)
@@ -68,13 +66,16 @@ build() {
 		ln -s /usr/lib/${_lib}.so.4 ${_lib}VBox.so.4
 	done
 
+	# Patch "vboxshell.py" to use Python 2.x (instead of Python 3)
+	sed -i 's#/usr/bin/python#\02#' "${pkgdir}/opt/VirtualBox/vboxshell.py"	
+
 	# Install the SDK (disabled, since the extension expects an UCS4-compiled
 	# python, while Arch Linux has an UCS2-compiled python)
-	#cd ${pkgdir}/opt/VirtualBox/sdk/installer
-	#VBOX_INSTALL_PATH=/opt/VirtualBox python vboxapisetup.py install --root ${pkgdir}
-	#rm -Rf build
-	#cd ${pkgdir}/opt/VirtualBox
-	rm -Rf sdk vboxshell.py VBoxPython*
+	cd ${pkgdir}/opt/VirtualBox/sdk/installer
+	VBOX_INSTALL_PATH=/opt/VirtualBox python2 vboxapisetup.py install --root ${pkgdir}
+	rm -Rf build
+	cd ${pkgdir}/opt/VirtualBox
+	#rm -Rf sdk vboxshell.py VBoxPython*
 
 	# Install rc.d script for module compilation
 	install -Dm0755 ${srcdir}/vboxdrv ${pkgdir}/etc/rc.d/vboxdrv
