@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.0
-pkgrel=3
+pkgrel=4
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -14,7 +14,7 @@ replaces=('xbmc-dharma')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd-xbmc libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos xorg-utils libmad libmodplug faac faad2 jasper)
+depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd-xbmc libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper)
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama')
 optdepends=(
 	'lirc: remote controller support' 
