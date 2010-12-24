@@ -7,22 +7,22 @@
 pkgbase=vim
 pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
 _basever=7.3
-_patchlevel=087
+_patchlevel=089
 pkgver=${_basever}.${_patchlevel}
-__hgrev=bfade53bca
-pkgrel=2
+__hgrev=2839820659
+pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
 makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2'
-	'gettext' 'pkgconfig' 'sed' 'mercurial')
+'gettext' 'pkgconfig' 'sed' 'mercurial')
 options=()
 source=(
-	'vimrc'
-	'peaksea.vim'
-	'gvim.desktop'
-	'license.txt'
+'vimrc'
+'peaksea.vim'
+'gvim.desktop'
+'license.txt'
 )
 sha256sums=('868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'0e6a2364c9fe45169efc68b3f301c3965e9202b67fd37fe1b93c7e3060887fdf'
@@ -102,23 +102,23 @@ build() {
 ##### Packaging #####
 
 package_vim-slim() {
-pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, slim edition'
-conflicts=('vim' 'vim-cli')
-provides=('vim')
+	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, slim edition'
+	conflicts=('vim' 'vim-cli')
+	provides=('vim')
 
-cd ${srcdir}/vim-sl-build
-make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
+	cd ${srcdir}/vim-sl-build
+	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-# provided by (n)vi in core
-rm ${pkgdir}/usr/bin/{ex,view}
+	# provided by (n)vi in core
+	rm ${pkgdir}/usr/bin/{ex,view}
 
-# delete some manpages
-find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-	while read _mandir; do
-		cd ${_mandir}
-		rm -f ex.1 view.1 # provided by (n)vi
-		rm -f evim.1    # this does not make sense if we have no GUI
-	done
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f evim.1    # this does not make sense if we have no GUI
+		done
 
 	# Runtime provided by runtime package
 	rm -r ${pkgdir}/usr/share/vim
@@ -130,24 +130,24 @@ find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
 }
 
 package_vim-cli() {
-pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, cli only'
-depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua')
-conflicts=('vim' 'vim-slim')
-provides=('vim')
+	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, cli only'
+	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua')
+	conflicts=('vim' 'vim-slim')
+	provides=('vim')
 
-cd ${srcdir}/vim-build
-make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
+	cd ${srcdir}/vim-build
+	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-# provided by (n)vi in core
-rm ${pkgdir}/usr/bin/{ex,view}
+	# provided by (n)vi in core
+	rm ${pkgdir}/usr/bin/{ex,view}
 
-# delete some manpages
-find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-	while read _mandir; do
-		cd ${_mandir}
-		rm -f ex.1 view.1 # provided by (n)vi
-		rm -f evim.1    # this does not make sense if we have no GUI
-	done
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f evim.1    # this does not make sense if we have no GUI
+		done
 
 	# Runtime provided by runtime package
 	rm -r ${pkgdir}/usr/share/vim
@@ -159,40 +159,40 @@ find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
 }
 
 package_vim-gvim() {
-pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
-depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
-provides=("vim=${pkgver}-${pkgrel}")
-conflicts=('gvim')
-provides=('gvim')
-install=gvim.install
+	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
+	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
+	provides=("vim=${pkgver}-${pkgrel}")
+	conflicts=('gvim')
+	provides=('gvim')
+	install=gvim.install
 
-cd ${srcdir}/gvim-build
-make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
+	cd ${srcdir}/gvim-build
+	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-# provided by (n)vi in core
-rm ${pkgdir}/usr/bin/{ex,view}
+	# provided by (n)vi in core
+	rm ${pkgdir}/usr/bin/{ex,view}
 
-# cleanup so there is no more conflict with vim-bin
-cd ${pkgdir}/usr/bin/
-mv vim gvim
-rm -f rview rvim vimdiff vimtutor xxd # all available in vim-bin
-rm -f eview evim gview gvimdiff rgview rgvim # symlinking to vim, has to be gvim
-ln -s gvim eview
-ln -s gvim evim
-ln -s gvim gview
-ln -s gvim gvimdiff
-ln -s gvim rgview
-ln -s gvim rgvim
+	# cleanup so there is no more conflict with vim-bin
+	cd ${pkgdir}/usr/bin/
+	mv vim gvim
+	rm -f rview rvim vimdiff vimtutor xxd # all available in vim-bin
+	rm -f eview evim gview gvimdiff rgview rgvim # symlinking to vim, has to be gvim
+	ln -s gvim eview
+	ln -s gvim evim
+	ln -s gvim gview
+	ln -s gvim gvimdiff
+	ln -s gvim rgview
+	ln -s gvim rgvim
 
-cd ${srcdir}/gvim-build
+	cd ${srcdir}/gvim-build
 
-# delete some manpages
-find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-	while read _mandir; do
-		cd ${_mandir}
-		rm -f ex.1 view.1 # provided by (n)vi
-		rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
-	done
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
+		done
 
 	# Move the runtime for later packaging
 	mv ${pkgdir}/usr/share/vim ${srcdir}/runtime-install
@@ -209,38 +209,38 @@ find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
 }
 
 package_vim-rt() {
-pkgdesc='Runtime for vim and gvim'
-conflicts=('vim-runtime')
-provides=('vim-runtime')
-backup=(etc/vimrc)
+	pkgdesc='Runtime for vim and gvim'
+	conflicts=('vim-runtime')
+	provides=('vim-runtime')
+	backup=(etc/vimrc)
 
-# Install the runtime split from gvim
-install -dm755 ${pkgdir}/usr/share
-mv ${srcdir}/runtime-install ${pkgdir}/usr/share/vim
+	# Install the runtime split from gvim
+	install -dm755 ${pkgdir}/usr/share
+	mv ${srcdir}/runtime-install ${pkgdir}/usr/share/vim
 
-# Don't forget logtalk.dict
-install -Dm644 ${srcdir}/gvim-build/runtime/ftplugin/logtalk.dict \
-	${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/logtalk.dict
+	# Don't forget logtalk.dict
+	install -Dm644 ${srcdir}/gvim-build/runtime/ftplugin/logtalk.dict \
+		${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/logtalk.dict
 
-# fix FS#17216
-sed -i 's|messages,/var|messages,/var/log/messages.log,/var|' \
-	${pkgdir}/usr/share/vim/${_versiondir}/filetype.vim
+	# fix FS#17216
+	sed -i 's|messages,/var|messages,/var/log/messages.log,/var|' \
+		${pkgdir}/usr/share/vim/${_versiondir}/filetype.vim
 
-# patch filetype.vim for better handling of pacman related files
-sed -i "s/rpmsave/pacsave/;s/rpmnew/pacnew/;s/,\*\.ebuild/\0,PKGBUILD*,*.install/" \
-	${pkgdir}/usr/share/vim/${_versiondir}/filetype.vim
-sed -i "/find the end/,+3{s/changelog_date_entry_search/changelog_date_end_entry_search/}" \
-	${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/changelog.vim
+	# patch filetype.vim for better handling of pacman related files
+	sed -i "s/rpmsave/pacsave/;s/rpmnew/pacnew/;s/,\*\.ebuild/\0,PKGBUILD*,*.install/" \
+		${pkgdir}/usr/share/vim/${_versiondir}/filetype.vim
+	sed -i "/find the end/,+3{s/changelog_date_entry_search/changelog_date_end_entry_search/}" \
+		${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/changelog.vim
 
-# rc files
-#install -dm755 ${pkgdir}/etc/vim
-install -Dm644 ${srcdir}/vimrc ${pkgdir}/etc/vimrc
-install -dm755 ${pkgdir}/usr/share/vim/vimfiles/colors
-install -Dm644 ${srcdir}/peaksea.vim \
-	${pkgdir}/usr/share/vim/vimfiles/colors/peaksea.vim
+	# rc files
+	#install -dm755 ${pkgdir}/etc/vim
+	install -Dm644 ${srcdir}/vimrc ${pkgdir}/etc/vimrc
+	install -dm755 ${pkgdir}/usr/share/vim/vimfiles/colors
+	install -Dm644 ${srcdir}/peaksea.vim \
+		${pkgdir}/usr/share/vim/vimfiles/colors/peaksea.vim
 
-# license
-install -dm755 ${pkgdir}/usr/share/licenses/vim-rt
-install -Dm644 ${srcdir}/license.txt \
-	${pkgdir}/usr/share/licenses/vim-rt/license.txt
+	# license
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-rt
+	install -Dm644 ${srcdir}/license.txt \
+		${pkgdir}/usr/share/licenses/vim-rt/license.txt
 }
