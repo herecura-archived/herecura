@@ -1,6 +1,6 @@
-diff -Naur pacman-3.4.1/src/pacman//callback.c pacman-color-3.4.1/src/pacman//callback.c
---- pacman-3.4.1/src/pacman//callback.c	2010-07-03 01:23:20.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//callback.c	2010-09-05 23:07:49.691841728 +0200
+diff -Naur pacman-3.4.2/src/pacman/callback.c pacman-color-3.4.2/src/pacman/callback.c
+--- pacman-3.4.2/src/pacman/callback.c	2010-07-03 01:23:20.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/callback.c	2010-12-30 15:13:26.423333336 +0100
 @@ -218,16 +218,16 @@
  			printf(_("generating %s with %s... "), (char *)data1, (char *)data2);
  			break;
@@ -82,22 +82,22 @@ diff -Naur pacman-3.4.1/src/pacman//callback.c pacman-color-3.4.1/src/pacman//ca
  			break;
  	}
 @@ -421,8 +421,8 @@
-
+ 
  	}
-
+ 
 -	printf("(%*d/%*d) %ls%-*s", digits, remain, digits, howmany,
 -			wcstr, padwid, "");
 +	color_printf(COLOR_BLUE_ALL, "(%*d/%*d)", digits, remain, digits, howmany);
 +	printf(" %ls%-*s", wcstr, padwid, "");
-
+ 
  	free(wcstr);
-
-diff -Naur pacman-3.4.1/src/pacman//package.c pacman-color-3.4.1/src/pacman//package.c
---- pacman-3.4.1/src/pacman//package.c	2010-07-03 01:23:20.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//package.c	2010-09-05 23:07:49.691841728 +0200
+ 
+diff -Naur pacman-3.4.2/src/pacman/package.c pacman-color-3.4.2/src/pacman/package.c
+--- pacman-3.4.2/src/pacman/package.c	2010-07-03 01:23:20.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/package.c	2010-12-30 15:13:26.423333336 +0100
 @@ -91,47 +91,47 @@
  	}
-
+ 
  	/* actual output */
 -	string_display(_("Name           :"), alpm_pkg_get_name(pkg));
 -	string_display(_("Version        :"), alpm_pkg_get_version(pkg));
@@ -133,7 +133,7 @@ diff -Naur pacman-3.4.1/src/pacman//package.c pacman-color-3.4.1/src/pacman//pac
 +		color_printf(COLOR_WHITE_COLON, _("Compressed Size: %6.2f K\n"),
  			(float)alpm_pkg_get_size(pkg) / 1024.0);
  	}
-
+ 
 -	printf(_("Installed Size : %6.2f K\n"),
 +	color_printf(COLOR_WHITE_COLON, _("Installed Size : %6.2f K\n"),
  			(float)alpm_pkg_get_isize(pkg) / 1024.0);
@@ -154,7 +154,7 @@ diff -Naur pacman-3.4.1/src/pacman//package.c pacman-color-3.4.1/src/pacman//pac
 +		string_display(COLOR_WHITE_ALL, _("Install Script :"),
  				alpm_pkg_has_scriptlet(pkg) ?  _("Yes") : _("No"));
  	}
-
+ 
  	/* MD5 Sum for sync package */
  	if(level < 0) {
 -		string_display(_("MD5 Sum        :"), alpm_pkg_get_md5sum(pkg));
@@ -162,7 +162,7 @@ diff -Naur pacman-3.4.1/src/pacman//package.c pacman-color-3.4.1/src/pacman//pac
  	}
 -	string_display(_("Description    :"), alpm_pkg_get_desc(pkg));
 +	string_display(COLOR_WHITE_ALL, _("Description    :"), alpm_pkg_get_desc(pkg));
-
+ 
  	/* Print additional package info if info flag passed more than once */
  	if(level > 1) {
 @@ -152,7 +152,7 @@
@@ -184,7 +184,7 @@ diff -Naur pacman-3.4.1/src/pacman//package.c pacman-color-3.4.1/src/pacman//pac
  		/* package has backup files, so print them */
  		for(i = alpm_pkg_get_backup(pkg); i; i = alpm_list_next(i)) {
 @@ -190,13 +190,13 @@
-
+ 
  				/* if checksums don't match, file has been modified */
  				if (strcmp(md5sum, ptr)) {
 -					printf(_("MODIFIED\t%s\n"), path);
@@ -210,9 +210,9 @@ diff -Naur pacman-3.4.1/src/pacman//package.c pacman-color-3.4.1/src/pacman//pac
  		} else {
  			fprintf(stdout, "%s%s\n", root, filestr);
  		}
-diff -Naur pacman-3.4.1/src/pacman//pacman.c pacman-color-3.4.1/src/pacman//pacman.c
---- pacman-3.4.1/src/pacman//pacman.c	2010-07-03 01:23:20.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//pacman.c	2010-09-05 23:07:49.691841728 +0200
+diff -Naur pacman-3.4.2/src/pacman/pacman.c pacman-color-3.4.2/src/pacman/pacman.c
+--- pacman-3.4.2/src/pacman/pacman.c	2010-07-03 01:23:20.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/pacman.c	2010-12-30 15:13:26.423333336 +0100
 @@ -174,11 +174,22 @@
   */
  static void version(void)
@@ -242,15 +242,15 @@ diff -Naur pacman-3.4.1/src/pacman//pacman.c pacman-color-3.4.1/src/pacman//pacm
  	         "                       the terms of the GNU General Public License.\n"));
  	printf("\n");
 @@ -1125,6 +1136,7 @@
-
+ 
  	/* init config data */
  	config = config_new();
 +	parsecolorconfig();
-
+ 
  	/* disable progressbar if the output is redirected */
  	if(!isatty(1)) {
 @@ -1196,17 +1208,17 @@
-
+ 
  	if(config->verbose > 0) {
  		alpm_list_t *i;
 -		printf("Root      : %s\n", alpm_option_get_root());
@@ -272,14 +272,14 @@ diff -Naur pacman-3.4.1/src/pacman//pacman.c pacman-color-3.4.1/src/pacman//pacm
 +		string_display(COLOR_WHITE_ALL, "Log File  :", alpm_option_get_logfile());
 +		list_display(COLOR_WHITE_ALL, "Targets   :", pm_targets);
  	}
-
+ 
  	/* Opening local database */
-diff -Naur pacman-3.4.1/src/pacman//query.c pacman-color-3.4.1/src/pacman//query.c
---- pacman-3.4.1/src/pacman//query.c	2010-06-24 15:23:29.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//query.c	2010-09-05 23:07:49.691841728 +0200
+diff -Naur pacman-3.4.2/src/pacman/query.c pacman-color-3.4.2/src/pacman/query.c
+--- pacman-3.4.2/src/pacman/query.c	2010-06-24 15:23:29.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/query.c	2010-12-30 15:13:26.423333336 +0100
 @@ -220,7 +220,9 @@
  		pmpkg_t *pkg = alpm_list_getdata(i);
-
+ 
  		if (!config->quiet) {
 -			printf("local/%s %s", alpm_pkg_get_name(pkg), alpm_pkg_get_version(pkg));
 +			color_printf(COLOR_MAGENTA_ALL, "local/");
@@ -305,11 +305,11 @@ diff -Naur pacman-3.4.1/src/pacman//query.c pacman-color-3.4.1/src/pacman//query
  				}
 -				printf(")");
  			}
-
+ 
  			/* we need a newline and initial indent first */
 @@ -278,7 +275,8 @@
  			packages = alpm_grp_get_pkgs(grp);
-
+ 
  			for(p = packages; p; p = alpm_list_next(p)) {
 -				printf("%s %s\n", grpname, alpm_pkg_get_name(alpm_list_getdata(p)));
 +				color_printf(COLOR_BLUE_ALL, "%s ", grpname);
@@ -338,9 +338,9 @@ diff -Naur pacman-3.4.1/src/pacman//query.c pacman-color-3.4.1/src/pacman//query
  		} else {
  			printf("%s\n", alpm_pkg_get_name(pkg));
  		}
-diff -Naur pacman-3.4.1/src/pacman//remove.c pacman-color-3.4.1/src/pacman//remove.c
---- pacman-3.4.1/src/pacman//remove.c	2010-06-24 15:23:29.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//remove.c	2010-09-05 23:07:49.691841728 +0200
+diff -Naur pacman-3.4.2/src/pacman/remove.c pacman-color-3.4.2/src/pacman/remove.c
+--- pacman-3.4.2/src/pacman/remove.c	2010-06-24 15:23:29.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/remove.c	2010-12-30 15:13:26.423333336 +0100
 @@ -79,7 +79,7 @@
  			case PM_ERR_PKG_INVALID_ARCH:
  				for(i = data; i; i = alpm_list_next(i)) {
@@ -377,9 +377,9 @@ diff -Naur pacman-3.4.1/src/pacman//remove.c pacman-color-3.4.1/src/pacman//remo
  		retval = 1;
  		goto cleanup;
  	}
-diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
---- pacman-3.4.1/src/pacman//sync.c	2010-07-03 01:23:20.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//sync.c	2010-09-05 23:07:49.691841728 +0200
+diff -Naur pacman-3.4.2/src/pacman/sync.c pacman-color-3.4.2/src/pacman/sync.c
+--- pacman-3.4.2/src/pacman/sync.c	2010-07-03 01:23:20.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/sync.c	2010-12-30 15:13:26.423333336 +0100
 @@ -86,7 +86,7 @@
  		/* We have a directory that doesn't match any syncdb.
  		 * Ask the user if he wants to remove it. */
@@ -388,10 +388,10 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
 +			if(!yesno(NULL, _("Do you want to remove %s?"), path)) {
  				continue;
  			}
-
+ 
 @@ -108,8 +108,8 @@
  	int ret = 0;
-
+ 
  	dbpath = alpm_option_get_dbpath();
 -	printf(_("Database directory: %s\n"), dbpath);
 -	if(!yesno(_("Do you want to remove unused repositories?"))) {
@@ -402,12 +402,12 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  	/* The sync dbs were previously put in dbpath/, but are now in dbpath/sync/,
 @@ -131,18 +131,18 @@
  	int ret = 0;
-
+ 
  	for(i = alpm_option_get_cachedirs(); i; i = alpm_list_next(i)) {
 -		printf(_("Cache directory: %s\n"), (char*)alpm_list_getdata(i));
 +		color_printf(COLOR_WHITE_COLON, _("Cache directory: %s\n"), (char*)alpm_list_getdata(i));
  	}
-
+ 
  	if(level == 1) {
  		switch(config->cleanmethod) {
  			case PM_CLEAN_KEEPINST:
@@ -440,9 +440,21 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  					if(localpkg) {
  						alpm_pkg_free(localpkg);
  					}
+@@ -287,9 +287,9 @@
+ 	if(lpkg) {
+ 		const char *lpkgver = alpm_pkg_get_version(lpkg);
+ 		if(strcmp(lpkgver,pkgver) == 0) {
+-			printf(" [%s]", _("installed"));
++			color_printf(COLOR_CYAN_ALL, " [%s]", _("installed"));
+ 		} else {
+-			printf(" [%s: %s]", _("installed"), lpkgver);
++			color_printf(COLOR_CYAN_ALL, " [%s: %s]", _("installed"), lpkgver);
+ 		}
+ 	}
+ }
 @@ -321,8 +321,9 @@
  			pmpkg_t *pkg = alpm_list_getdata(j);
-
+ 
  			if (!config->quiet) {
 -				printf("%s/%s %s", alpm_db_get_name(db), alpm_pkg_get_name(pkg),
 -							 alpm_pkg_get_version(pkg));
@@ -469,7 +481,7 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  					}
 -					printf(")");
  				}
-
+ 
  				print_installed(pkg);
 @@ -382,8 +378,8 @@
  					/* get names of packages in group */
@@ -483,7 +495,7 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  							printf("%s\n", alpm_pkg_get_name(alpm_list_getdata(k)));
  						}
 @@ -401,8 +397,8 @@
-
+ 
  				if(level > 1) {
  					for(k = alpm_grp_get_pkgs(grp); k; k = alpm_list_next(k)) {
 -						printf("%s %s\n", grpname,
@@ -495,7 +507,7 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  					/* print grp names only, no package names */
 @@ -538,8 +534,9 @@
  			pmpkg_t *pkg = alpm_list_getdata(j);
-
+ 
  			if (!config->quiet) {
 -				printf("%s %s %s", alpm_db_get_name(db), alpm_pkg_get_name(pkg),
 -						alpm_pkg_get_version(pkg));
@@ -507,7 +519,7 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  			} else {
 @@ -628,7 +625,7 @@
  	}
-
+ 
  	if(config->op_s_upgrade) {
 -		printf(_(":: Starting full system upgrade...\n"));
 +		color_printf(COLOR_DOUBLECOLON, _(":: Starting full system upgrade...\n"));
@@ -545,7 +557,7 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  				}
  				break;
 @@ -699,9 +696,9 @@
-
+ 
  	int confirm;
  	if(config->op_s_downloadonly) {
 -		confirm = yesno(_("Proceed with download?"));
@@ -575,7 +587,7 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  		goto cleanup;
  	}
 @@ -790,7 +787,7 @@
-
+ 
  	if(config->op_s_sync) {
  		/* grab a fresh package list */
 -		printf(_(":: Synchronizing package databases...\n"));
@@ -596,9 +608,9 @@ diff -Naur pacman-3.4.1/src/pacman//sync.c pacman-color-3.4.1/src/pacman//sync.c
  								":: and upgrade these packages now?"))) {
  					FREELIST(targs);
  					targs = packages;
-diff -Naur pacman-3.4.1/src/pacman//upgrade.c pacman-color-3.4.1/src/pacman//upgrade.c
---- pacman-3.4.1/src/pacman//upgrade.c	2010-07-03 01:23:20.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//upgrade.c	2010-09-05 23:07:49.691841728 +0200
+diff -Naur pacman-3.4.2/src/pacman/upgrade.c pacman-color-3.4.2/src/pacman/upgrade.c
+--- pacman-3.4.2/src/pacman/upgrade.c	2010-07-03 01:23:20.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/upgrade.c	2010-12-30 15:13:26.423333336 +0100
 @@ -88,7 +88,7 @@
  			case PM_ERR_PKG_INVALID_ARCH:
  				for(i = data; i; i = alpm_list_next(i)) {
@@ -647,13 +659,13 @@ diff -Naur pacman-3.4.1/src/pacman//upgrade.c pacman-color-3.4.1/src/pacman//upg
  									alpm_fileconflict_get_target(conflict),
  									alpm_fileconflict_get_file(conflict));
  							break;
-diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
---- pacman-3.4.1/src/pacman//util.c	2010-07-27 17:10:55.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//util.c	2010-09-05 23:08:26.762672026 +0200
+diff -Naur pacman-3.4.2/src/pacman/util.c pacman-color-3.4.2/src/pacman/util.c
+--- pacman-3.4.2/src/pacman/util.c	2010-07-27 17:10:55.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/util.c	2010-12-30 15:13:26.423333336 +0100
 @@ -45,6 +45,20 @@
  #include "conf.h"
  #include "callback.h"
-
+ 
 +#define COLOR_LEN 8
 +
 +typedef struct __colortab_t {
@@ -668,18 +680,18 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 +} colortab_t;
 +
 +static colortab_t colortab;
-
+ 
  int trans_init(pmtransflag_t flags)
  {
 @@ -426,12 +440,12 @@
  	return(len);
  }
-
+ 
 -void string_display(const char *title, const char *string)
 +void string_display(const colordata_t *colors_title, const char *title, const char *string)
  {
  	int len = 0;
-
+ 
  	if(title) {
 -		printf("%s ", title);
 +		color_printf(colors_title, "%s ", title);
@@ -689,46 +701,46 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 @@ -443,14 +457,14 @@
  	printf("\n");
  }
-
+ 
 -void list_display(const char *title, const alpm_list_t *list)
 +void list_display(const colordata_t *colors_title, const char *title, const alpm_list_t *list)
  {
  	const alpm_list_t *i;
  	int cols, len = 0;
-
+ 
  	if(title) {
  		len = string_length(title) + 1;
 -		printf("%s ", title);
 +		color_printf(colors_title, "%s ", title);
  	}
-
+ 
  	if(!list) {
 @@ -479,14 +493,14 @@
  	}
  }
-
+ 
 -void list_display_linebreak(const char *title, const alpm_list_t *list)
 +void list_display_linebreak(const colordata_t *colors_title, const char *title, const alpm_list_t *list)
  {
  	const alpm_list_t *i;
  	int len = 0;
-
+ 
  	if(title) {
  		len = string_length(title) + 1;
 -		printf("%s ", title);
 +		color_printf(colors_title, "%s ", title);
  	}
-
+ 
  	if(!list) {
 @@ -546,21 +560,21 @@
-
+ 
  	if(install) {
  		asprintf(&str, _("Targets (%d):"), alpm_list_count(targets));
 -		list_display(str, targets);
 +		list_display(COLOR_YELLOW_ALL, str, targets);
  		free(str);
  		printf("\n");
-
+ 
 -		printf(_("Total Download Size:    %.2f MB\n"), mbdlsize);
 +		color_printf(COLOR_WHITE_COLON, _("Total Download Size:    %.2f MB\n"), mbdlsize);
  		if(!(config->flags & PM_TRANS_FLAG_DOWNLOADONLY)) {
@@ -741,11 +753,11 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 +		list_display(COLOR_RED_ALL, str, targets);
  		free(str);
  		printf("\n");
-
+ 
 -		printf(_("Total Removed Size:   %.2f MB\n"), mbisize);
 +		color_printf(COLOR_WHITE_COLON, _("Total Removed Size:   %.2f MB\n"), mbisize);
  	}
-
+ 
  	FREELIST(targets);
 @@ -672,7 +686,7 @@
  	alpm_list_t *optdeps = alpm_list_diff(new,old,str_cmp);
@@ -764,7 +776,7 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 +		list_display_linebreak(NULL, "   ", optdeps);
  	}
  }
-
+ 
  /* presents a prompt and gets a Y/N answer */
 -static int question(short preset, char *fmt, va_list args)
 +static int question(const colordata_t *colors, short preset, char *fmt, va_list args)
@@ -774,45 +786,45 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 @@ -700,7 +714,7 @@
  		stream = stderr;
  	}
-
+ 
 -	vfprintf(stream, fmt, args);
 +	color_vfprintf(stream, colors, fmt, args);
-
+ 
  	if(preset) {
  		fprintf(stream, " %s ", _("[Y/n]"));
 @@ -728,25 +742,25 @@
  	return(0);
  }
-
+ 
 -int yesno(char *fmt, ...)
 +int yesno(const colordata_t *colors, char *fmt, ...)
  {
  	int ret;
  	va_list args;
-
+ 
  	va_start(args, fmt);
 -	ret = question(1, fmt, args);
 +	ret = question(colors, 1, fmt, args);
  	va_end(args);
-
+ 
  	return(ret);
  }
-
+ 
 -int noyes(char *fmt, ...)
 +int noyes(const colordata_t *colors, char *fmt, ...)
  {
  	int ret;
  	va_list args;
-
+ 
  	va_start(args, fmt);
 -	ret = question(0, fmt, args);
 +	ret = question(colors, 0, fmt, args);
  	va_end(args);
-
+ 
  	return(ret);
 @@ -792,21 +806,40 @@
  	ret = vasprintf(&msg, format, args);
-
+ 
  	/* print a prefix to the message */
 -	switch(level) {
 -		case PM_LOG_DEBUG:
@@ -865,7 +877,7 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 +		}
  	}
  	free(msg);
-
+ 
 @@ -844,10 +877,10 @@
  			fprintf(stream, "debug: ");
  			break;
@@ -882,7 +894,7 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 @@ -885,4 +918,310 @@
  }
  #endif
-
+ 
 +/* pacman-color */
 +
 +int _set_color_sequence(const char* name, char* dest)
@@ -1073,7 +1085,7 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 +		len = mbstowcs(wcstr, msg, len);
 +		free(msg);
 +		const wchar_t *strpos = wcstr;
-+
++		
 +		while(*strpos) {
 +			if(colorpos->color != COLOR_END &&
 +				((colorpos->separator == SEP_ANY) ||
@@ -1190,13 +1202,13 @@ diff -Naur pacman-3.4.1/src/pacman//util.c pacman-color-3.4.1/src/pacman//util.c
 +	{ SEP_ANY, COLOR_END } };
 +
  /* vim: set ts=2 sw=2 noet: */
-diff -Naur pacman-3.4.1/src/pacman//util.h pacman-color-3.4.1/src/pacman//util.h
---- pacman-3.4.1/src/pacman//util.h	2010-06-24 15:23:29.000000000 +0200
-+++ pacman-color-3.4.1/src/pacman//util.h	2010-09-05 23:07:49.695175136 +0200
+diff -Naur pacman-3.4.2/src/pacman/util.h pacman-color-3.4.2/src/pacman/util.h
+--- pacman-3.4.2/src/pacman/util.h	2010-06-24 15:23:29.000000000 +0200
++++ pacman-color-3.4.2/src/pacman/util.h	2010-12-30 15:13:26.426666669 +0100
 @@ -37,6 +37,48 @@
  /* update speed for the fill_progress based functions */
  #define UPDATE_SPEED_SEC 0.2f
-
+ 
 +/* pacman-color */
 +typedef enum _separator_t {
 +	SEP_ANY = 0,

@@ -6,15 +6,15 @@ pkgdesc="Command-line frontend for libalpm aka pacman with color patch"
 arch=('i686' 'x86_64')
 url="http://www.archlinux.org/pacman/"
 license=('GPL')
-depends=('pacman=3.4.1')
+depends=("pacman=${pkgver}")
 makedepends=('patch')
 backup=('etc/pacman.d/color.conf')
 source=("ftp://ftp.archlinux.org/other/pacman/pacman-${pkgver}.tar.gz"
 	"${pkgname}-${pkgver}-${pkgrel}.patch"
 	"color.conf")
 sha256sums=('27437484be86b61b30db482fcc4436967373e98b67eebe4909ab6c60c35c97b0'
-            '0bec1b078e9e365e2328a31a1dd148ea882181736ca3a528c058b67fe3be25b6'
-            '863574c38bfca0a6485ec4adbfbaa14ca8d573f6f8b9319067acac50d6e2ca26')
+            'f5a35b7b2bfcd624e99b445bbb512d1a4f177cc9740eb851f0c16304b0b1e020'
+            'af5e4f53b71582f6eac54a123024bb063adff0cf36a264d3f08eb2817ec43fab')
 
 build() {
 	cd pacman-${pkgver}
