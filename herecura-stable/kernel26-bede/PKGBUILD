@@ -6,8 +6,8 @@ pkgname='kernel26-bede'
 true && pkgname=('kernel26-bede' 'kernel26-bede-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bede
-_basekernel=2.6.36
-_patchver=2
+_basekernel=2.6.37
+_patchver=0
 pkgver=${_basekernel}
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -20,9 +20,9 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		# standard config files for mkinitcpio ramdisk
 		"kernel26-bede.preset"
 )
-sha256sums=('15a076d1a435a6bf8e92834eba4b390b4ec094ce06d47f89d071ca9e5788ce04'
-	'd3653e7d512685cc7b205c64aafd2449c7a52aa9041692d4cfb72775ff794859'
-	'eeabb4f9ca10cbb772f62c6c33acf92a2cd631280f1fb25362c0c00f390470e6'
+sha256sums=('edbf091805414739cf57a3bbfeba9e87f5e74f97e38f04d12060e9e0c71e383a'
+	'ef4fb0dd3f6713aaccb8e62645af06221dc817f67d59c1d5878547b4604fb0b7'
+	'23ad38783ddb444d4d56ca5133ce525edae6bb1d7ec05de6520045114dc56b4e'
 	'3e09b0f2d85b33fa08868b60832d59d90c0499d407bfbff1e2c65203d730889c')
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
@@ -31,7 +31,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"3ccff8d0ec6a6dfb76e86f8dc337ff00e699c5c9ea6d553866188b4d4555d3e5"
+		""
 	)
 fi
 # extra patches
