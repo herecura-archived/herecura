@@ -1,0 +1,30 @@
+#Contributor Unknown
+#Maintainer Jesse Jaara <jesse.jaara@gmail.com>
+
+pkgname=xvba-video
+pkgver=0.7.7
+pkgrel=1
+pkgdesc="AMDs XvBA backend for VA-API, hardware video acceleration on RadeonHD cards"
+arch=('i686' 'x86_64')
+url="http://www.splitted-desktop.com/~gbeauchesne/xvba-video/"
+license=('custom')
+depends=('libva' 'catalyst-utils')
+source=(http://www.splitted-desktop.com/~gbeauchesne/xvba-video/xvba-video-${pkgver}.${CARCH}.tar.gz)
+
+if [ "${CARCH}" == "x86_64" ]; then
+md5sums=('705c0192696aa8e4344db9651015269a')
+else
+md5sums=('44c430512122e6f04e42da9fd70afe9c')
+fi
+
+build() {
+cd ${srcdir}/xvba-video-${pkgver}.${CARCH}
+
+# driver
+install -m755 -d "${pkgdir}/usr/lib/dri"
+install -m755 -t "${pkgdir}/usr/lib/dri" usr/lib/va/drivers/*
+
+# documentation
+install -m755 -d "${pkgdir}/usr/share/doc/${pkgname}"
+install -m755 -t "${pkgdir}/usr/share/doc/${pkgname}" AUTHORS COPYING NEWS README
+}
