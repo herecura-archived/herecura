@@ -1,0 +1,103 @@
+# Maintainer: Vi0L0 <vi0l093@gmail.com>
+# Great Contributor: Eduardo "kensai" Romero (previous maintainer)
+# Contributor: aidanlinz
+# Contributor: Spasswolf
+# Contributor: DestroyFX
+# Contributor: Rip-Rip
+
+_kernver='2.6.35-BEMM'
+
+pkgname=catalyst-bemm
+pkgver=10.12
+pkgrel=1
+pkgdesc="AMD/ATI Catalyst drivers for kernel26-bemm. fglrx kernel module only"
+arch=('i686' 'x86_64')
+url="http://www.ati.amd.com"
+license=('custom')
+depends=('kernel26-bemm>=2.6.35' 'kernel26-bemm<2.6.36' "catalyst-utils=${pkgver}")
+makedepends=('kernel26-bemm-headers>=2.6.35' 'kernel26-bemm-headers<2.6.36')
+conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
+install=${pkgname}.install
+
+patch_file="fglrx-2.6.36.patch"
+patch_md5="eb58dbf993dbf8d77924055cc8caaeb6"
+patch_target="2.6.36"
+
+source=(
+	http://www2.ati.com/drivers/linux/ati-driver-installer-${pkgver/./-}-x86.x86_64.run
+	makefile_compat.patch
+	${patch_file})
+
+md5sums=('debf1518bd58c49b49aafddbae60b748'
+	'3e1b82bd69774ea808da69c983d6a43b'
+	${patch_md5})
+
+
+
+build() {
+	## Unpack archive
+	msg "Unpacking archive ..."
+	/bin/sh ./ati-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
+
+	if [ "${CARCH}" = "x86_64" ]; then
+		BUILDARCH=x86_64
+		_archdir=x86_64
+	fi
+	if [ "${CARCH}" = "i686" ]; then
+		BUILDARCH=i386
+		_archdir=x86
+	fi
+
+	cd "${srcdir}/archive_files/"
+
+	patch -Np1 -i ../makefile_compat.patch
+
+	patch -Np1 -i ../fglrx-2.6.36.patch
+
+	###--- cut ---### ati's code from their make.sh file
+
+	# ==============================================================
+	# resolve if we are running a SMP enabled kernel
+	def_smp=-D__SMP__
+
+	# ==============================================================
+	# resolve whether we need to set PAGE_ATTR_FIX 
+	PAGE_ATTR_FIX=0
+
+	# ==============================================================
+	# resolve if we are running a MODVERSIONS enabled kernel
+
+	def_modversions=''
+
+	# ==============================================================
+	# resolve if we are building for a kernel with a fix for CVE-2010-3081
+	# On kernels with the fix, use arch_compat_alloc_user_space instead
+	# of compat_alloc_user_space since the latter is GPL-only
+
+	COMPAT_ALLOC_USER_SPACE=arch_compat_alloc_user_space
+
+	###--- cut ---###
+
+
+	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
+	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a.GCC4" .
+	cp 2.6.x/Makefile .
+
+
+	## Compiling module
+	make -C /lib/modules/${_kernver}/build SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
+		MODFLAGS="-DMODULE -DATI -DFGL -DPAGE_ATTR_FIX=$PAGE_ATTR_FIX -DCOMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE $def_smp $def_modversions" \
+		PAGE_ATTR_FIX=$PAGE_ATTR_FIX COMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE modules
+}
+
+package() {
+	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
+	install -m755 -d "${pkgdir}/lib/modules/${_kernver}/video/"
+	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_kernver}/video/"
+	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
+
+	## License
+	install -m644 "${srcdir}/archive_files/ATI_LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+
+	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
+}
