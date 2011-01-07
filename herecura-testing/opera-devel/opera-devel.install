@@ -23,20 +23,26 @@ EOF
 }
 
 updatemimeandall() {
-	if available update-mime-database
-	then
-		update-mime-database /usr/share/mime >/dev/null
-	fi
 
 	if available update-desktop-database
 	then
 		update-desktop-database -q /usr/share/applications
 	fi
 
-	if available gtk-update-icon-cache
+	if available update-mime-database
 	then
-		gtk-update-icon-cache -q /usr/share/icons/hicolor
+		update-mime-database /usr/share/mime >/dev/null
 	fi
+
+	touch -c usr/share/icons/hicolor
+	if available update-icon-caches
+	then
+		update-icon-caches -tq /usr/share/icons/hicolor
+	elif available gtk-update-icon-cache
+	then
+		gtk-update-icon-cache -tq /usr/share/icons/hicolor
+	fi
+
 }
 
 post_install() {
