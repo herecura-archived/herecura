@@ -1,11 +1,12 @@
 # Maintainer: ruario 
+# Contributor: Robert90 (My Opera)
 # Contributor: BlackEagle
 # Contributor: Skunnyk
 # Contributor: totoloco
-pkgname=opera-devel
+pkgname=opera-devel # Set to opera if you want to install as your main/stable build
 _bigrelease=11.01
-_buildver=1160
-_randomizer=minor
+_buildver=1164
+_randomizer=earlofpudding
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -18,24 +19,32 @@ optdepends=('gtk2: GTK integration'
 	    'gstreamer0.10-good: HTML5 open codecs support'
 	    'gstreamer0.10-ffmpeg: HTML5 not so open codecs support'
 	    'gstreamer0.10-bad-plugins: HTML5 not so open codecs support')
-install=${pkgname}.install
+install=opera-devel.install
 options=(!strip !zipman)
 license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('8e1185e6601728d3801c02f9ee60fdc8b47923efc87c2efe27b8b8ba048bd5a4')
-[ "$CARCH" = "x86_64" ] && sha256sums=('89c870c51281b4c3d69af8f428b7c0ed33784c827c11259ff76c8ce176fc8b1d')
+sha256sums=('fdfc30f52f45e9270a08972175bed88b6ba10f47ab142f5ecb3692e31def90b5')
+[ "$CARCH" = "x86_64" ] && sha256sums=('817f3bbda6e29e9ec23981e27618cdf53f765c07fccf98f9879f3a99228d80fa')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
 #_opdistro="Arch Linux"
 
 build() {
-	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr --suffix devel --repackage ${pkgdir}/usr
+
+	# Check if the $pkgname includes a suffix and if so set ${_suffix} for a suffix install.
+	if echo $pkgname | grep -q "^opera-[a-zA-Z0-9]\{1,\}$"
+	then
+		_suffix="--suffix ${pkgname:6}"
+	fi
+
+	# 'Install' Opera into $pkgdir
+	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr ${_suffix} --repackage ${pkgdir}/usr
 	install -D -m 644 ${pkgdir}/usr/share/${pkgname}/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 
-	#Insert an Arch User Agent string if set
+	# Insert an Arch User Agent string if set
 	if [ -n "${_opdistro}" ]
 	then
 		mkdir -p ${pkgdir}/usr/share/${pkgname}/custom/defaults
