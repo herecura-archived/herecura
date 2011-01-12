@@ -29,6 +29,11 @@ source=( "FEH.sh" )
 sha256sums=('1b391dfbaa07f81e5a5a7dfd1288bf2bdeab8dc50bbb6dbf39a80d8797dfaeb0')
 options=(strip)
 
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
 _prefix='/usr'
 _gitroot='https://github.com/xbmc/xbmc.git'
 _gitname='xbmc'
@@ -43,6 +48,9 @@ build() {
 	fi
 	msg2 "Git clone/checkout done or server timeout"
 
+	cd ${srcdir}/${_gitname}
+	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
+
 	# Configure XBMC
 	#
 	# Note on external-libs:
@@ -51,6 +59,7 @@ build() {
 	#   - According to an xbmc dev using external/system ffmpeg with xbmc is "pure stupid" :D
 
 	# remove builddir if it already exists
+	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -Rf ${_gitname}-build
 
 	# create builddir
