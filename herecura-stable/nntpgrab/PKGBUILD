@@ -2,8 +2,8 @@
 
 pkgbase=nntpgrab
 pkgname=('nntpgrab-gtk' 'nntpgrab-qt')
-pkgver=0.6.90
-pkgrel=2
+pkgver=0.6.91
+pkgrel=1
 pkgdesc="NNTPGrab is an open source usenet download program"
 arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
@@ -12,17 +12,17 @@ makedepends=('gtk2' 'libsoup' 'networkmanager' 'qt'
 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool' 'gobject-introspection' 'gconf')
 options=('!libtool')
 source=("http://openftd.mirrors.sebsoft.nl/${pkgbase}/${pkgbase}-${pkgver}.tar.bz2"
-	'nntpgrab_0_6_90_commit1722.patch'
-	'nntpgrab_0_6_90_commit1728.patch')
-sha256sums=('d761b4f93b0ef3d961d154dbe31f41c35a32a87e4a392520d5e6f93cf7a0490e'
-            'b0455afc4541e7bd6ccd4f693b1619c1beaa39d5676357d9b910533ef4875481'
-			'e287c906117499e19a943a8e4aa09e3f902c1299d6d83e7e51ede832f3e05e5d')
+	"nntpgrab_0_6_91_support_older_qt_versions.patch"
+	"nntpgrab_0_6_91_use_bundled_qtsolutions.patch")
+sha256sums=('fea58723bbf01e68c1a80c59c3d148ccf1e934c0ed4c97bf3ccc5ebeea19b806'
+            '74fb21b9d532d4ec6699bcb5147c68502bff55f6f4de84e0411ed727bd5d1e62'
+            '6483d1d1cd9f4e02259e4ffb4916a2e31fcf76f30eb7d2ac2ba792df284a3305')
 
 build()
 {
 	cd ${pkgbase}-${pkgver}
-	patch -Np0 -i ${srcdir}/nntpgrab_0_6_90_commit1722.patch
-	patch -Np0 -i ${srcdir}/nntpgrab_0_6_90_commit1728.patch
+	patch -Np0 -i ${srcdir}/nntpgrab_0_6_91_support_older_qt_versions.patch
+	patch -Np0 -i ${srcdir}/nntpgrab_0_6_91_use_bundled_qtsolutions.patch
 
 	./configure\
 		--enable-introspection=no\
