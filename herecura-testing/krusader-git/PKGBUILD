@@ -1,0 +1,55 @@
+# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+
+pkgname=krusader-git
+pkgver=20110114
+pkgrel=1
+pkgdesc="Krusader - Twin Panel File Management For Your Desktop - GIT version"
+arch=('i686' 'x86_64')
+url="http://www.krusader.org/"
+license=('GPL')
+depends=('kdelibs')
+makedepends=('subversion' 'cmake' 'automoc4')
+provides=('krusader')
+conflicts=('krusader')
+replaces=('krusader' 'krusader-svn')
+source=()
+md5sums=()
+
+if [ -e .githash ] ; then
+	_gitphash=$(cat .githash)
+else
+	_gitphash=""
+fi
+_gitroot="git://anongit.kde.org/krusader"
+_gitname="krusader"
+
+build() {
+	if [ -d ${srcdir}/${_gitname} ] ; then
+		cd ${srcdir}/${_gitname} && git pull origin
+		msg "The local files are updated."
+	else
+		git clone ${_gitroot}
+	fi
+	msg "GIT checkout done or server timeout"
+
+	cd ${srcdir}/${_gitname}
+	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
+
+	msg "Starting make..."
+
+	cd ${srcdir}
+
+	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
+
+	cp -a ${_gitname} ${_gitname}-build
+
+	cd ${_gitname}-build
+	cmake -DCMAKE_INSTALL_PREFIX=/usr .
+	make
+}
+
+package() {
+	cd ${_gitname}-build
+	make DESTDIR=${pkgdir} install
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
+}
