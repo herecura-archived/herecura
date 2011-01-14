@@ -13,7 +13,7 @@ END
 }
 
 post_install() {
-  useradd -r -g daemon -d /var/state/mongodb -s /bin/bash mongodb
+  useradd -r -g daemon -d /var/state/mongodb -s /bin/false mongodb
   chown -R mongodb:daemon /var/state/mongodb
 
   show_msg
