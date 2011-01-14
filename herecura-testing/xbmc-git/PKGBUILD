@@ -129,4 +129,6 @@ package() {
 	rm -f ${pkgdir}/usr/bin/xbmc-standalone
 	# didnt we built --disable-xrandr ?
 	rm -f ${pkgdir}/usr/lib/xbmc/xbmc-xrandr
+
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
 }
