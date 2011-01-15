@@ -4,7 +4,7 @@
 _basename=wacomtablet
 _content=114856
 pkgname=kcm-${_basename}
-pkgver=1.2.3b
+pkgver=1.2.4
 pkgrel=1
 url="http://kde-apps.org/content/show.php/wacom+tablet?content=${_content}"
 pkgdesc="KDE GUI for the Wacom Linux Drivers"
@@ -14,8 +14,8 @@ depends=('kdelibs')
 makedepends=('cmake' 'automoc4')
 conflicts=('kcm_tablet-svn kde-wacomtablet-svn')
 replaces=('kcm_tablet')
-source=("http://www.kde-apps.org/CONTENT/content-files/${_content}-${_basename}-${pkgver}.tar.gz")
-sha256sums=('cb6557ec844f472b7e6f8922f6c17beaa45a2511381f44cc9d6595ac1b04ae00')
+source=("http://kde-apps.org/CONTENT/content-files/${_content}-${_basename}-${pkgver}.tar.gz")
+sha256sums=('666698c83e4d9fb074af903cf73a2cd5872d7cef022b9cb242eeb73705f5caae')
 
 build()  {	
 	cd ${_basename}-${pkgver}
