@@ -125,5 +125,5 @@ package_packagekit-backend-pacman() {
 }
 pkgdesc='PackageKit is a system designed to make installing and updating software on your computer easier with glib bindings' # aur faker
 if [ "aur" == "there" ]; then # aur faker
-	depends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python>=3.1' 'sqlite3' 'qt' 'intltool' 'dbus-glib')
+	depends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python2' 'sqlite3' 'qt' 'intltool' 'dbus-glib')
 fi
