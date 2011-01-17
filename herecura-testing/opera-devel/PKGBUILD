@@ -1,12 +1,12 @@
 # Maintainer: ruario 
-# Contributor: Robert90 (My Opera)
+# Contributor: RobertMe
 # Contributor: BlackEagle
 # Contributor: Skunnyk
 # Contributor: totoloco
 pkgname=opera-devel # Set to opera if you want to install as your main/stable build
 _bigrelease=11.01
-_buildver=1164
-_randomizer=earlofpudding
+_buildver=1170
+_randomizer=buildnumbers
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -26,8 +26,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('fdfc30f52f45e9270a08972175bed88b6ba10f47ab142f5ecb3692e31def90b5')
-[ "$CARCH" = "x86_64" ] && sha256sums=('817f3bbda6e29e9ec23981e27618cdf53f765c07fccf98f9879f3a99228d80fa')
+sha256sums=('607b01107d751a3cf2f2cf658f02bd0e1b8823e134ecf7360fcffe5b44e312c3')
+[ "$CARCH" = "x86_64" ] && sha256sums=('a3e3d3f4224591d2f9212ff54480b8196ed3d27ae4867cf7053e1a1d371347dc')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
 #_opdistro="Arch Linux"
