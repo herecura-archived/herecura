@@ -1,18 +1,18 @@
 # Maintainer: PyroPeter <abi1789@googlemail.com>
-# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: BlackEagle <ike.devolder@scarlet.be>
 # Contributor: chochem <chochem@gmail.com>
 
 pkgname=xmlstarlet
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc="A set of tools to transform, query, validate, and edit XML documents"
 arch=('i686' 'x86_64')
 url="http://xmlstar.sourceforge.net/"
 license=('MIT')
-depends=('libxslt>=1.1.9')
-makedepends=(glibc)
-source=("http://downloads.sourceforge.net/xmlstar/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('a080bfb178671c6fc68ef25d797e9d21bcfd20fb4e0bcff46f4f1b4e6207f673')
+depends=(zlib libgcrypt)
+makedepends=(glibc 'libxslt>=1.1.9' 'libxml2')
+source=("xmlstarlet-$pkgver.tar.gz::http://sourceforge.net/projects/xmlstar/files/xmlstarlet/$pkgver/xmlstarlet-$pkgver.tar.gz/download")
+md5sums=('dbfe7127199c0ae7f291ea11ef4f8e19')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
