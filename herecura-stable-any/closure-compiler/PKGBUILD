@@ -1,7 +1,7 @@
 # Maintainer: Bram Schoenmakers <me@bramschoenmakers.nl>
 # vim:syntax=sh
 pkgname=closure-compiler
-pkgver=20100917
+pkgver=20110119
 pkgrel=1
 pkgdesc="Performs checking, instrumentation and optimizations on Javascript code."
 arch=('any')
@@ -9,7 +9,7 @@ url="http://code.google.com/closure"
 license=('APACHE')
 depends=(java-runtime)
 source=("http://${pkgname}.googlecode.com/files/compiler-${pkgver}.tar.gz")
-sha256sums=('c26e17857bfcc6fcded7a42a81aaf89651ecc8f6bcd1ced87e3187736c15d097')
+sha256sums=('0935daf92671eace46188118ffeace60387a4cc657387e3970c10f0316e92550')
 
 package() {
   cd $srcdir
