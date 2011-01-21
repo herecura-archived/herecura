@@ -1,4 +1,4 @@
 #!/bin/bash
-repo=herecura-stable/$(arch)
+rarch='i686 x86_64'
 repository=herecura-stable
 keepsource=0
