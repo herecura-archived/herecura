@@ -1,12 +1,12 @@
 pkgname=hamsimanager
 _realname=HamsiManager
 pkgver=0.9.54
-pkgrel=1
+pkgrel=2
 pkgdesc="Hamsi Manager is a file manager,renamer,id3 tagger,information changer ,.... tool."
 arch=('any')
 url="http://hamsimanager.sourceforge.net"
 license=('GPL3')
-depends=('pyqt')
+depends=('python2-qt')
 optdepends=(
 	'mplayer: optional player'
 	'phonon: optional player'
