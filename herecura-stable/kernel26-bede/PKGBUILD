@@ -9,7 +9,7 @@ _kernelname=-bede
 _basekernel=2.6.37
 _patchver=0
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -37,10 +37,8 @@ if [ ${_patchver} -ne 0 ]; then
 fi
 # extra patches
 _extrapatches=(
-	"Skip-looking-for-ioapic-overrides-when-ioapics-are-not-present.patch"
 )
 _extrapatchessums=(
-	"7c59e191f7581246bb37960f2b8817b88eee42b1ef464417bf19e6258246b863"
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
