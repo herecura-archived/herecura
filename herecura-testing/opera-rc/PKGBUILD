@@ -35,7 +35,7 @@ _opdistro="Arch Linux"
 build() {
 
 	# Check if the $pkgname includes a suffix and if so set ${_suffix} for a suffix install.
-	[ ${pkgname/opera-/} ] && _suffix="--suffix ${pkgname/opera-/}"
+	[ ${pkgname/opera/} ] && _suffix="--suffix ${pkgname/opera-/}"
 
 	# 'Install' Opera into $pkgdir
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr ${_suffix} --repackage ${pkgdir}/usr
