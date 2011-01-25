@@ -5,8 +5,8 @@
 # Contributor: totoloco
 pkgname=opera-devel # Set to opera if you want to install as your main/stable build
 _bigrelease=11.01
-_buildver=1179
-_randomizer=powerbook
+_buildver=1189
+_randomizer=rc1
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -26,19 +26,16 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('11eaf64ca9a8543bea6091b0a7e92e61dceab0a99a9e9362fa8992bb7c4f68fb')
-[ "$CARCH" = "x86_64" ] && sha256sums=('2f79800126297d8aaa2e8059cb5ed39635528fb3204f2bc230e0b8f881d57c18')
+sha256sums=('3ebf045aa13002581cdef06613dd1d706e9c6f8846cc66a66988c16ae52b85b4')
+[ "$CARCH" = "x86_64" ] && sha256sums=('2165f7a2d15c5fc0ee639127c00f2780fb71dbc51e2a93677931d21bbb198872')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
-#_opdistro="Arch Linux"
+_opdistro="Arch Linux"
 
 build() {
 
 	# Check if the $pkgname includes a suffix and if so set ${_suffix} for a suffix install.
-	if echo $pkgname | grep -q "^opera-[a-zA-Z0-9]\{1,\}$"
-	then
-		_suffix="--suffix ${pkgname:6}"
-	fi
+	[ ${pkgname/opera-/} ] && _suffix="--suffix ${pkgname/opera-/}"
 
 	# 'Install' Opera into $pkgdir
 	opera-${_bigrelease}-${_buildver}.${_arch}.linux/install --prefix /usr ${_suffix} --repackage ${pkgdir}/usr
