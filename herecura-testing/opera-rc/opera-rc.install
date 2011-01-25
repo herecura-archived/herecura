@@ -8,14 +8,16 @@ cat <<EOF
 >>
 >> WARNING THIS CAN LEAD TO DATA LOSS
 >> 
->> For people who want to use the same profile for opera-rc
->> as they use for opera, start opera-rc as follows:
+>> If installed with a devel suffix (the default) the 
+>> ~/.opera-devel profile will be used. For people who 
+>> want to use the same profile for opera-devel as they 
+>> use for opera (stable), start opera-devel as follows:
 >>
->> # opera-rc -pd ~/.opera
+>> \$ opera-devel -pd ~/.opera
 >>
 >> You can make this more permenant by editing 
->> /usr/bin/opera-rc and setting 
->> \$OPERA_PERSONALDIR to \$HOME/.opera
+>> /usr/bin/opera-devel and un-setting 
+>> \$OPERA_PERSONALDIR
 >>
 >> WARNING THIS CAN LEAD TO DATA LOSS
 >> 
@@ -23,20 +25,29 @@ EOF
 }
 
 updatemimeandall() {
-	if available update-mime-database
-	then
-		update-mime-database /usr/share/mime >/dev/null
-	fi
 
+	# Setup Menus
 	if available update-desktop-database
 	then
 		update-desktop-database -q /usr/share/applications
 	fi
 
-	if available gtk-update-icon-cache
+	# Setup MIME types
+	if available update-mime-database
 	then
-		gtk-update-icon-cache -q /usr/share/icons/hicolor
+		update-mime-database /usr/share/mime >/dev/null
 	fi
+
+	# Setup Icons
+	touch -c /usr/share/icons/hicolor
+	if available update-icon-caches
+	then
+		update-icon-caches -tq /usr/share/icons/hicolor
+	elif available gtk-update-icon-cache
+	then
+		gtk-update-icon-cache -tq /usr/share/icons/hicolor
+	fi
+
 }
 
 post_install() {
