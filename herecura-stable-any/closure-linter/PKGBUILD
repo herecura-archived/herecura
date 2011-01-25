@@ -2,7 +2,7 @@
 # vim:syntax=sh
 pkgname=closure-linter
 pkgver=2.2.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A JavaScript style checker and style fixer"
 arch=('any')
 url="http://code.google.com/closure"
