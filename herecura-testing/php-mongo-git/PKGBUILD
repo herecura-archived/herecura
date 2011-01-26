@@ -8,14 +8,14 @@ pkgdesc="Officially supported PHP driver for MongoDB"
 arch=("i686" "x86_64")
 url="http://www.mongodb.org/display/DOCS/PHP+Language+Center"
 license=("APACHE")
-depends=("php" "mongodb-git")
+depends=("php")
 makedepends=( 'git' )
 backup=("etc/php/conf.d/mongo.ini")
 source=("mongo.ini")
 md5sums=('6a34ebbedfbeb7b2462fbba936afea04')
 
 if [ -e .githash ] ; then
-	_gitphash=$(cat .githash)
+	_gitphash=$(cat .githash_${CARCH})
 else
 	_gitphash=""
 fi
@@ -48,5 +48,5 @@ package() {
 	cd ${_gitname}-build
 	make INSTALL_ROOT=$pkgdir install
 	install -Dm644 $srcdir/mongo.ini "$pkgdir/etc/php/conf.d/mongo.ini"
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }

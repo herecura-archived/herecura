@@ -8,7 +8,7 @@ pkgdesc="Officially supported PHP driver for MongoDB"
 arch=("i686" "x86_64")
 url="http://www.mongodb.org/display/DOCS/PHP+Language+Center"
 license=("APACHE")
-depends=("php" "mongodb>=1.6.0")
+depends=("php")
 backup=("etc/php/conf.d/mongo.ini")
 #source=("${pkgname}-${pkgver}.tar.gz::http://github.com/mongodb/mongo-php-driver/tarball/${_githash}"
 		#"mongo.ini")
