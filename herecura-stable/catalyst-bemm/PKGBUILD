@@ -46,8 +46,6 @@ build() {
 
 	patch -Np1 -i ../makefile_compat.patch
 
-	patch -Np1 -i ../fglrx-2.6.36.patch
-
 	###--- cut ---### ati's code from their make.sh file
 
 	# ==============================================================
