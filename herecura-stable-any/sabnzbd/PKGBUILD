@@ -1,11 +1,11 @@
 pkgname=sabnzbd
 pkgver=0.5.6
-pkgrel=1
+pkgrel=2
 pkgdesc="A web-interface based binary newsgrabber with NZB file support"
-arch=('i686' 'x86_64')
+arch=('any')
 url="http://www.sabnzbd.org/"
 license=('GPL')
-depends=('par2cmdline' 'python2' 'python-cheetah' 'python-feedparser' 'python-yenc' 'pyopenssl' 'unrar' 'unzip' 'sqlite3' 'curl')
+depends=('par2cmdline' 'python2' 'python-cheetah' 'python-feedparser' 'python-yenc' 'python2-pyopenssl' 'unrar' 'unzip' 'sqlite3' 'curl')
 install=sabnzbd.install
 backup=('etc/conf.d/sabnzbd' 'opt/sabnzbd/sabnzbd.ini')
 source=("http://downloads.sourceforge.net/sabnzbdplus/SABnzbd-$pkgver-src.tar.gz"
@@ -31,7 +31,7 @@ build() {
         install -D -m644 $startdir/sabnzbd.confd $startdir/pkg/etc/conf.d/sabnzbd
         install -D -m755 $startdir/sabnzbd.desktop $startdir/pkg/usr/share/applications/sabnzbd.desktop
         install -D -m755 $startdir/addnzb.sh $startdir/pkg/opt/sabnzbd/addnzb.sh
-        install -D -m770 $startdir/x-nzb.xml $startdir/pkg/opt/sabnzbd/x-nzb.xml
+        install -D -m644 $startdir/x-nzb.xml $startdir/pkg/opt/sabnzbd/x-nzb.xml
 
         # Fix for issues with Python 3
         find $startdir/pkg/opt/sabnzbd -type f -exec sed -i 's/python/python2/g' {} \;
