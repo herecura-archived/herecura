@@ -15,8 +15,8 @@ replaces=('krusader' 'krusader-svn')
 source=()
 md5sums=()
 
-if [ -e .githash ] ; then
-	_gitphash=$(cat .githash)
+if [ -e .githash_${CARCH} ] ; then
+	_gitphash=$(cat .githash_${CARCH})
 else
 	_gitphash=""
 fi
@@ -51,5 +51,5 @@ build() {
 package() {
 	cd ${_gitname}-build
 	make DESTDIR=${pkgdir} install
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }

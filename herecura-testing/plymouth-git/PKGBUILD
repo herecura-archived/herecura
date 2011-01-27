@@ -31,8 +31,8 @@ md5sums=('e59b4f04816fcbe506e9d4b725cb1e29'
          'ab8a557d10f74bec5c94ed6cae34729c')
 
 
-if [ -e .githash ] ; then
-	_gitphash=$(cat .githash)
+if [ -e .githash_${CARCH} ] ; then
+	_gitphash=$(cat .githash_${CARCH})
 else
 	_gitphash=""
 fi
@@ -92,6 +92,6 @@ package() {
 	install -Dm644 $srcdir/plymouth.functions ${pkgdir}/etc/rc.d/functions.d/plymouth.functions
 	install -Dm644 $srcdir/arch-logo.png ${pkgdir}/usr/share/plymouth/arch-logo.png
 	install -Dm644 $srcdir/system-release ${pkgdir}/etc/system-release
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
 

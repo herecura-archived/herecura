@@ -29,8 +29,8 @@ source=( "FEH.sh" )
 sha256sums=('1b391dfbaa07f81e5a5a7dfd1288bf2bdeab8dc50bbb6dbf39a80d8797dfaeb0')
 options=(strip)
 
-if [ -e .githash ] ; then
-	_gitphash=$(cat .githash)
+if [ -e .githash_${CARCH} ] ; then
+	_gitphash=$(cat .githash_${CARCH})
 else
 	_gitphash=""
 fi
@@ -130,5 +130,5 @@ package() {
 	# didnt we built --disable-xrandr ?
 	rm -f ${pkgdir}/usr/lib/xbmc/xbmc-xrandr
 
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash
+	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
