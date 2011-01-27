@@ -3,7 +3,7 @@
 
 pkgname=catalyst-utils
 pkgver=11.1
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -23,7 +23,7 @@ source=(
 	atieventsd.sh
 )
 sha256sums=(
-	'0c0cb9e2d85fa649162dec3680c1a22bbfb9e82719fba2b0d9445135284307f1'
+	'2d278152a2be0dc58b6e45799317a7001170ac665c234efdb47c051d89fd9265'
 	'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
 	'48450ae34d4594f6f90c7d3e170ece4216165252180393dda40982d90821ee36'
 	'32f12a15d1c3289b3c45aff8ca6998fa265f53a96a9c73b36d7c83ec0e0f8ce8'

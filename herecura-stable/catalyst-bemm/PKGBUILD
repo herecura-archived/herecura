@@ -9,7 +9,7 @@ _kernver='2.6.35-BEMM'
 
 pkgname=catalyst-bemm
 pkgver=11.1
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers for kernel26-bemm. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -24,7 +24,7 @@ source=(
 	makefile_compat.patch
 )
 sha256sums=(
-	'0c0cb9e2d85fa649162dec3680c1a22bbfb9e82719fba2b0d9445135284307f1'
+	'2d278152a2be0dc58b6e45799317a7001170ac665c234efdb47c051d89fd9265'
 	'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
 )
 
