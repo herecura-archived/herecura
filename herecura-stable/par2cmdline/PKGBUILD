@@ -1,8 +1,7 @@
-# Maintainer: wide-eye <eyeswide@gmail.com>
-# Contributor: BlackEagle < ike DOT devolder AT herecura DOT be >
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=par2cmdline
 pkgver=0.4
-pkgrel=14
+pkgrel=15
 pkgdesc="Providing a tool to apply the data-recovery capability concepts of RAID-like systems to the posting & recovery of multi-part archives on Usenet."
 url="http://sourceforge.net/projects/parchive/"
 license="GPL"
@@ -19,36 +18,36 @@ source=(
 	'par2cmdline-0.4-cosmetic.patch'
 	'par2cmdline-0.4-hardlinks.patch'
 )
-md5sums=(
-	'1551b63e57e3c232254dc62073b723a9'
-	'8a0fad41e3c3165e3c788d2693797557'
-	'c823d25f8862531e6e435ce0c76f8384'
-	'cd54801b5107f03982c2b01ead21f02a'
-	'1f7adb9308d4e972a5630eb56a42f8d5'
-	'd52515669d3bc43f19c545fd6405dacc'
-	'986d44b0cdba449459f9cfd93322144f'
-	'8683d237bc11e9d5581d14b4697d1f8b'
+sha256sums=(
+	'9e32b7dbcf7bca8249f98824757d4868714156fe2276516504cd26f736e9f677'
+	'47a8342fca3248a9b49415c735b68b58fa98b77d553fe13e27162649b5114a5b'
+	'56d0fe724853298b818a8067b39d918ab2c8e27bb81380fde0499cecea41ab4b'
+	'391ffaea8c7a684dbc40ed1edc221681d34a58feafd707d36b0a0af3436d3917'
+	'54b41cc8237dd0764629267ca51ded256f820c6bc100acfa3d011638b07b5973'
+	'eda0a381f944b1bc9d3d78bf4526f77620bcb01de48abcb08878178e47c833f7'
+	'63390cbee6275f427756e3c457d082e5a67b9bf209dfe8d4381945fd7c118a47'
+	'89643a2373fa097fccfd7d30d7b42c6225c71b7acd90cd6c863db9688c4af6be'
 )
 
 build() {
 	cd ${pkgname}-${pkgver}
 	msg "patch autoconf failure"
-	patch -N -i ../par2cmdline-0.4-autoconf.patch || return 1
+	patch -N -i ../par2cmdline-0.4-autoconf.patch
 	msg "patch wildcard-fix"
-	patch -N -i ../par2cmdline-0.4-wildcard-fix.patch || return 1
+	patch -N -i ../par2cmdline-0.4-wildcard-fix.patch
 	msg "patch offset"
-	patch -N -i ../par2cmdline-0.4-offset.patch || return 1
+	patch -N -i ../par2cmdline-0.4-offset.patch
 	msg "patch letype"
-	patch -N -i ../par2cmdline-0.4-letype.patch || return 1
+	patch -N -i ../par2cmdline-0.4-letype.patch
 	msg "patch gcc4"
-	patch -N -i ../par2cmdline-0.4-gcc4.patch || return 1
+	patch -N -i ../par2cmdline-0.4-gcc4.patch
 	msg "patch cosmetic"
-	patch -N -i ../par2cmdline-0.4-cosmetic.patch || return 1
+	patch -N -i ../par2cmdline-0.4-cosmetic.patch
 	msg "patch hardlinks"
-	patch -N -i ../par2cmdline-0.4-hardlinks.patch || return 1
+	patch -N -i ../par2cmdline-0.4-hardlinks.patch
 	msg "Configure"
 	./configure --prefix=/usr
-	make || return 1
+	make
 }
 
 package() {
