@@ -1,3 +1,4 @@
 src
 pkg
-.githash
+.githash_i686
+.githash_x86_64
