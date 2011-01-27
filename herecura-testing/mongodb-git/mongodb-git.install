@@ -1,22 +1,31 @@
+# vim: syntax=sh
+
+show_msg(){
+    if [ "$(arch)" != "x86_64" ]
+    then
+        cat <<END
+###########################################################################
+# Warning: the 32 bit version of MongoDB is limited to about 2GB of data. #
+# See http://blog.mongodb.org/post/137788967/32-bit-limitations           #
+###########################################################################
+END
+    fi
+}
+
 post_install() {
-    /usr/sbin/useradd -d /var/lib/mongodb -r -g daemon -M -N -s /bin/false mongodb && \
-    /bin/chown -R mongodb:daemon /var/lib/mongodb
+  useradd -r -g daemon -d /var/state/mongodb -s /bin/false mongodb
+  chown -R mongodb:daemon /var/state/mongodb
+
+  show_msg
 }
 
 post_upgrade() {
-    if [ ! "$(id -g mongodb)" = "daemon" ]; then
-        /usr/sbin/usermod -g daemon mongodb
-    fi
+  chown -R mongodb:daemon /var/state/mongodb
+
+  show_msg
 }
 
 pre_remove() {
     /etc/rc.d/mongodb stop
+    userdel mongodb
 }
-
-post_remove() {
-    /usr/sbin/userdel mongodb
-}
-
-op=$1
-shift
-$op "$@"

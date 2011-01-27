@@ -8,15 +8,17 @@ pkgdesc="A high-performance, open source, schema-free document-oriented database
 arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
 license=('AGPL')
-makedepends=('git' 'scons')
-depends=('boost' 'spidermonkey>=1.7.0-3' 'pcre' 'xulrunner')
+makedepends=('git' 'scons' 'boost')
+depends=('boost-libs' 'spidermonkey>=1.7.0-3' 'pcre')
 provides=('mongodb')
 conflicts=('mongodb')
 backup=('etc/mongodb.conf')
 source=('mongodb.rc' 'mongodb.conf')
 install=${pkgname}.install
-md5sums=('792607705dfb6358a871f8862e7b043d'
-'faf6e4f6e378cb1c1b0b8e85d6791988')
+sha256sums=(
+	'5ba40a3c2d1c67f7617f010e660e2a0c609dcf5c5e7c897d7ac6843167d8329f'
+	'f3fc037c704d67c68c7d69c46878af3d8a601e48ca51105835f740cddb1b2b2e'
+)
 
 if [ -e .githash_${CARCH} ] ; then
 	_gitphash=$(cat .githash_${CARCH})
@@ -44,16 +46,16 @@ build() {
 	git clone ${_gitname} ${_gitname}-build
 
 	cd ${srcdir}/${_gitname}-build
-	local SCONSFLAGS="${MAKEFLAGS}"
-	scons all
+	export SCONSFLAGS="${MAKEFLAGS}"
+	scons --pch all --full
 }
 
 package() {
 	cd ${_gitname}-build
-	scons --prefix="${startdir}/pkg/usr" install
-	install -Dm 755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
-	install -Dm 644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
-	install -dm 700 "${startdir}/pkg/var/lib/mongodb"
+	scons --pch install --full --prefix="${startdir}/pkg/usr"
+	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
+	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
+	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
 
 	if [ -d "${pkgdir}/usr/lib64" ] ; then
 		mv "${pkgdir}/usr/lib64" "${pkgdir}/usr/lib"
