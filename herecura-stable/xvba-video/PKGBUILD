@@ -1,20 +1,19 @@
-#Contributor Unknown
 #Maintainer Jesse Jaara <jesse.jaara@gmail.com>
 
 pkgname=xvba-video
-pkgver=0.7.7
+pkgver=0.7.8.pre1
 pkgrel=1
 pkgdesc="AMDs XvBA backend for VA-API, hardware video acceleration on RadeonHD cards"
 arch=('i686' 'x86_64')
 url="http://www.splitted-desktop.com/~gbeauchesne/xvba-video/"
 license=('custom')
-depends=('libva' 'catalyst-utils')
+depends=('catalyst-utils')
 source=(http://www.splitted-desktop.com/~gbeauchesne/xvba-video/xvba-video-${pkgver}.${CARCH}.tar.gz)
 
 if [ "${CARCH}" == "x86_64" ]; then
-md5sums=('705c0192696aa8e4344db9651015269a')
+md5sums=('75a97c46cea9de5779ad465c1f17872b')
 else
-md5sums=('44c430512122e6f04e42da9fd70afe9c')
+md5sums=('ccb89bad37197b9cbf446d64d7ea50ff')
 fi
 
 build() {
