@@ -2,12 +2,12 @@
 # Contributor: lp76 <l.peduto@gmail.com>
 
 pkgname=python-pymongo-git
-pkgver=20110103
+pkgver=20110201
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
 url="http://pypi.python.org/pypi/pymongo/"
-depends=('python' 'mongodb-git')
+depends=('python2') 
 makedepends=('setuptools' 'git')
 source=()
 arch=('i686' 'x86_64')
@@ -38,6 +38,6 @@ build() {
 
 package() {
 	cd ${srcdir}/${_gitname}-build
-	python setup.py install --root=$pkgdir
+	python2 setup.py install --root=$pkgdir
 	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }

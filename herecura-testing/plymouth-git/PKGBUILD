@@ -1,7 +1,7 @@
 # Contributor: PirateJonno <j@skurvy.no-ip.org>
 # Contributor: lh <jarryson#gmail.com>
 pkgname=plymouth-git
-pkgver=20110103
+pkgver=20110201
 pkgrel=1
 pkgdesc="A Linux boot screen implementation"
 arch=('i686' 'x86_64')
@@ -62,6 +62,7 @@ build() {
 	cd ${srcdir}/${_gitname}-build
 
 	sed -e 's:png_set_gray_1_2_4_to_8:png_set_expand_gray_1_2_4_to_8:g' -i src/libply-splash-graphics/ply-image.c
+	./autogen.sh
 	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
 		--enable-tracing \
 		--enable-tests \

@@ -1,14 +1,14 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krusader-git
-pkgver=20110114
+pkgver=20110201
 pkgrel=1
 pkgdesc="Krusader - Twin Panel File Management For Your Desktop - GIT version"
 arch=('i686' 'x86_64')
 url="http://www.krusader.org/"
 license=('GPL')
 depends=('kdelibs')
-makedepends=('subversion' 'cmake' 'automoc4')
+makedepends=('git' 'cmake' 'automoc4')
 provides=('krusader')
 conflicts=('krusader')
 replaces=('krusader' 'krusader-svn')
