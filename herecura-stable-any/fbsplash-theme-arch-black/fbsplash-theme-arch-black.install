@@ -1,5 +1,5 @@
 post_install() {
-  echo '==> To enable, add chakra-phoix to /etc/conf.d/splash'
+  echo '==> To enable, add arch-black to /etc/conf.d/fbsplash'
   echo '==> Remember to update your initcpio if you want fbsplash to start early.'
 }
 

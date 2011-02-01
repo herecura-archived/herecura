@@ -8,7 +8,7 @@
 pkgname=fbsplash-scripts
 pkgver=2.0
 pkgrel=1
-pkgdesc="Basic Fbsplash scripts for Chakra GNU/Linux"
+pkgdesc="Basic Fbsplash scripts for Archlinux"
 arch=('any')
 url="http://aur.archlinux.org/packages.php?ID=35428"
 license=( 'GPL' )
