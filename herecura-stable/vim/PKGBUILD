@@ -218,6 +218,10 @@ package_vim-rt() {
 	install -dm755 ${pkgdir}/usr/share
 	mv ${srcdir}/runtime-install ${pkgdir}/usr/share/vim
 
+	# fix FS#22661 add rgb.txt
+	install -Dm644 ${srcdir}/vim/runtime/rgb.txt \
+		${pkgdir}/usr/share/vim/${_versiondir}/rgb.txt
+
 	# Don't forget logtalk.dict
 	install -Dm644 ${srcdir}/gvim-build/runtime/ftplugin/logtalk.dict \
 		${pkgdir}/usr/share/vim/${_versiondir}/ftplugin/logtalk.dict
