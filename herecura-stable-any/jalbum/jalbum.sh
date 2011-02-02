@@ -1,2 +1,3 @@
 #!/bin/sh
-java -Xmx400M -jar /usr/share/java/Jalbum/JAlbum.jar
+cd /usr/share/jalbum
+java -Xmx400m -DuseDesktop=true -jar /usr/share/jalbum/JAlbum.jar
