@@ -82,7 +82,7 @@ build() {
 	cd ${srcdir}/vim-build
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
-		--with-features=huge --enable-gpm --enable-acl --with-x=no \
+		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--disable-gui --enable-multibyte --enable-cscope \
 		--disable-netbeans --enable-perlinterp --enable-pythoninterp \
 		--enable-rubyinterp --enable-luainterp=yes
