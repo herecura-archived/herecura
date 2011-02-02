@@ -2,9 +2,9 @@
 
 pkgname=fbsplash-theme-arch-black
 pkgver=1.2
-pkgrel=8
+pkgrel=9
 pkgdesc='An Arch Linux fbsplash theme with the new logo'
-arch=('i686' 'x86_64')
+arch=('any')
 license='CCPL:cc-by-nc-sa'
 url='http://www.opendesktop.org/content/show.php?content=118523'
 depends=('fbsplash')
