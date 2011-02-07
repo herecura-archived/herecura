@@ -1,4 +1,5 @@
 #!/bin/bash
 rarch='any'
 repository=herecura-testing-any
+testing=1
 keepsource=1

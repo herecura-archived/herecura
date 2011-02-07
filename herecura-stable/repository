@@ -1,4 +1,5 @@
 #!/bin/bash
 rarch='i686 x86_64'
 repository=herecura-stable
+testing=0
 keepsource=0
