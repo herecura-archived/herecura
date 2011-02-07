@@ -4,7 +4,7 @@
 pkgbase='lirc-bemm'
 pkgname=('lirc-bemm' 'lirc-bemm-utils')
 pkgver=0.8.7
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -61,6 +61,9 @@ package_lirc-bemm() {
 	cd lirc-${pkgver}
 	cd drivers
 	make DESTDIR=${pkgdir} install
+
+	# gzip all modules
+	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
 
 	# set the kernel version in install script
 	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/g" \
