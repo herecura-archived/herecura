@@ -4,7 +4,7 @@
 pkgname=nvidia-bede
 pkgver=260.19.36
 _kernver='2.6.37-BEDE'
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA drivers for kernel26-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -44,5 +44,9 @@ package() {
 		$pkgdir/lib/modules/${_kernver}/kernel/drivers/video/nvidia.ko
         install -d -m755 $pkgdir/etc/modprobe.d
         echo "blacklist nouveau" >> $pkgdir/etc/modprobe.d/nouveau_blacklist.conf
+
+	# gzip all modules
+	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
+
 	sed -i -e "s/KERNEL_VERSION='.*'/KERNEL_VERSION='${_kernver}'/" $startdir/nvidia.install
 }
