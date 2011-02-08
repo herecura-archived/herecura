@@ -2,7 +2,7 @@
 
 pkgname=kcm-grub2
 _pname=${pkgname//-}
-pkgver=1.0
+pkgver=1.1
 pkgdesc="This Kcm module manages the most common settings of Grub2."
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -13,14 +13,13 @@ makedepends=('cmake' 'automoc4')
 depends=('kdebindings-python')
 options=()
 source=(http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${_pname}.tar.gz)
-md5sums=('6ede60540b208bab9a22046ae6694085')
+sha256sums=('d61ff5d8b8406a7aa09fdd755ce3482c50a9a481f2d70af6562ec9ab5a68c251')
 
 build(){	
   cd ${srcdir}/${_pname}
   # change python to python2 since kde depends on python2
   sed 's/python/python2/g' -i kcmgrub2.py
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_PROBER=ON \
     -DCMAKE_BUILD_TYPE=Release
   make
 }
