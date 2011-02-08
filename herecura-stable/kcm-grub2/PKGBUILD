@@ -12,7 +12,7 @@ license=(GPL)
 makedepends=('cmake' 'automoc4')
 depends=('kdebindings-python')
 options=()
-source=(http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${_pname}.tar.gz)
+source=("${pkgname}-${pkgver}.tar.gz::http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${_pname}.tar.gz")
 sha256sums=('d61ff5d8b8406a7aa09fdd755ce3482c50a9a481f2d70af6562ec9ab5a68c251')
 
 build(){	
