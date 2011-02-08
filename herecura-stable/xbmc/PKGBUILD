@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.0
-pkgrel=5
+pkgrel=6
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -15,7 +15,7 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper)
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama')
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'libxrandr' 'libxinerama')
 optdepends=(
 	'lirc: remote controller support' 
 	'udisks: automount external drives' 
@@ -52,7 +52,6 @@ build() {
 		--disable-debug \
 		--enable-optimizations \
 		--enable-gl \
-		--enable-vdpau \
 		--enable-vaapi \
 		--disable-profiling \
 		--enable-joystick \
