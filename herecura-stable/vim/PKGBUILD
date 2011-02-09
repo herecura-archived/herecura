@@ -5,12 +5,12 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-pkgname=('vim-slim' 'vim-cli' 'vim-gvim' 'vim-rt')
+pkgname=('vim-tiny' 'vim-cli' 'vim-gvim' 'vim-rt')
 _basever=7.3
-_patchlevel=112
+_patchlevel=118
 pkgver=${_basever}.${_patchlevel}
-__hgrev=fcea35e2a4
-pkgrel=2
+__hgrev=6d80dbca85
+pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -38,7 +38,7 @@ __hgbranch='default'
 build() {
 	[ -d vim-build ] && rm -rf vim-build
 	[ -d gvim-build ] && rm -rf gvim-build
-	[ -d vim-sl-build ] && rm -rf vim-sl-build
+	[ -d vim-tn-build ] && rm -rf vim-tn-build
 	msg2 'Checking out source from Mercurial...'
 
 	if [[ -d ${__hgrepo} ]]; then
@@ -66,10 +66,10 @@ build() {
 	msg2 'Building...'
 
 	cp -a vim-build gvim-build
-	cp -a vim-build vim-sl-build
+	cp -a vim-build vim-tn-build
 
-	msg2 'Building vim-slim'
-	cd ${srcdir}/vim-sl-build
+	msg2 'Building vim-tiny'
+	cd ${srcdir}/vim-tn-build
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
 		--with-features=tiny --disable-gpm --enable-acl --with-x=no \
@@ -101,12 +101,13 @@ build() {
 
 ##### Packaging #####
 
-package_vim-slim() {
-	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, slim edition'
+package_vim-tiny() {
+	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, tiny edition'
 	conflicts=('vim' 'vim-cli')
+	replaces=('vim-slim')
 	provides=('vim')
 
-	cd ${srcdir}/vim-sl-build
+	cd ${srcdir}/vim-tn-build
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
 	# provided by (n)vi in core
@@ -124,15 +125,15 @@ package_vim-slim() {
 	rm -r ${pkgdir}/usr/share/vim
 
 	# license
-	install -dm755 ${pkgdir}/usr/share/licenses/vim-slim
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-tiny
 	install -Dm644 ${srcdir}/license.txt \
-		${pkgdir}/usr/share/licenses/vim-slim/license.txt
+		${pkgdir}/usr/share/licenses/vim-tiny/license.txt
 }
 
 package_vim-cli() {
 	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, cli only'
 	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua')
-	conflicts=('vim' 'vim-slim')
+	conflicts=('vim' 'vim-tiny')
 	provides=('vim')
 
 	cd ${srcdir}/vim-build
