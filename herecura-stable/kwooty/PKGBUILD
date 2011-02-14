@@ -12,7 +12,7 @@ makedepends=('cmake' 'automoc4')
 optdepends=('unrar: automatic RAR-archive extraction' 'p7zip: automatic zip and 7z archive extraction' 'par2cmdline: automatic file repairing')
 install="${pkgname}.install"
 source=(http://kde-apps.org/CONTENT/content-files/114385-$pkgname-$pkgver.tar.gz)
-sha256sums=('454c3fe9014b5bd5e713129a221bc6840814af9affbbed6a56bdc549674e6e91')
+sha256sums=('639e64ac32f25ea7bf08c89192a0c8421575c8133597b4c19117679592806d32')
 
 build() {
 	cd ${srcdir}/${pkgname}-${pkgver}/build
@@ -24,4 +24,3 @@ package() {
 	cd ${srcdir}/${pkgname}-${pkgver}/build
 	make DESTDIR="$pkgdir/" install
 }
-sha256sums=('639e64ac32f25ea7bf08c89192a0c8421575c8133597b4c19117679592806d32')
