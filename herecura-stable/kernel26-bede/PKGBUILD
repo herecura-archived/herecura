@@ -8,9 +8,9 @@ true && pkgname=('kernel26-bede' 'kernel26-bede-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bede
 _basekernel=2.6.37
-_patchver=0
+_patchver=1
 pkgver=${_basekernel}
-pkgrel=3
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -38,7 +38,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		""
+		"c33bfa59828a9ff6916993ec008967a8c1d71a18b743ee15f4280e773ef4baaf"
 	)
 fi
 
