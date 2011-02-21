@@ -4,7 +4,7 @@
 # Contributor: Masutu Subric <masutu.arch at googlemail dot com>
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 pkgname=nodejs
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Evented I/O for V8 javascript"
 arch=('i686' 'x86_64')
