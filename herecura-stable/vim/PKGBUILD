@@ -5,17 +5,17 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-pkgname=('vim-tiny' 'vim-cli' 'vim-gvim' 'vim-rt')
+pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
 _basever=7.3
 _patchlevel=135
 pkgver=${_basever}.${_patchlevel}
 __hgrev=0139403c8e
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2'
+makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
 'gettext' 'pkgconfig' 'sed' 'mercurial')
 options=()
 source=(
@@ -65,7 +65,8 @@ build() {
 
 	msg2 'Building...'
 
-	cp -a vim-build gvim-build
+	cp -a vim-build gvim-build-gtk
+	cp -a vim-build gvim-build-x11
 	cp -a vim-build vim-tn-build
 
 	msg2 'Building vim-tiny'
@@ -88,12 +89,22 @@ build() {
 		--enable-rubyinterp --enable-luainterp=yes
 	make
 
-	msg2 'Building vim-gvim'
-	cd ${srcdir}/gvim-build
+	msg2 'Building vim-gvim-gtk'
+	cd ${srcdir}/gvim-build-gtk
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
+		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
+		--enable-rubyinterp --enable-luainterp=yes
+	make
+
+	msg2 'Building vim-gvim-x11'
+	cd ${srcdir}/gvim-build-x11
+	./configure --prefix=/usr --localstatedir=/var/lib/vim \
+		--mandir=/usr/share/man --with-compiledby=ArchLinux \
+		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
+		--enable-gui=athena --enable-multibyte --enable-cscope \
 		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
 		--enable-rubyinterp --enable-luainterp=yes
 	make
@@ -159,7 +170,7 @@ package_vim-cli() {
 		${pkgdir}/usr/share/licenses/vim-cli/license.txt
 }
 
-package_vim-gvim() {
+package_vim-gvim-gtk() {
 	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
 	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
 	provides=("vim=${pkgver}-${pkgrel}")
@@ -185,7 +196,7 @@ package_vim-gvim() {
 	ln -s gvim rgview
 	ln -s gvim rgvim
 
-	cd ${srcdir}/gvim-build
+	cd ${srcdir}/gvim-build-gtk
 
 	# delete some manpages
 	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
@@ -204,9 +215,59 @@ package_vim-gvim() {
 	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
 
 	# license
-	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-gtk
 	install -Dm644 ${srcdir}/license.txt \
-		${pkgdir}/usr/share/licenses/vim-gvim/license.txt
+		${pkgdir}/usr/share/licenses/vim-gvim-gtk/license.txt
+}
+
+package_vim-gvim-x11() {
+	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
+	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'libxaw')
+	provides=("vim=${pkgver}-${pkgrel}")
+	conflicts=('gvim')
+	provides=('gvim')
+	install=gvim.install
+
+	cd ${srcdir}/gvim-build
+	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
+
+	# provided by (n)vi in core
+	rm ${pkgdir}/usr/bin/{ex,view}
+
+	# cleanup so there is no more conflict with vim-bin
+	cd ${pkgdir}/usr/bin/
+	mv vim gvim
+	rm -f rview rvim vimdiff vimtutor xxd # all available in vim-bin
+	rm -f eview evim gview gvimdiff rgview rgvim # symlinking to vim, has to be gvim
+	ln -s gvim eview
+	ln -s gvim evim
+	ln -s gvim gview
+	ln -s gvim gvimdiff
+	ln -s gvim rgview
+	ln -s gvim rgvim
+
+	cd ${srcdir}/gvim-build-x11
+
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
+		done
+
+	# Move the runtime for later packaging
+	mv ${pkgdir}/usr/share/vim ${srcdir}/runtime-install
+
+	# freedesktop links
+	install -Dm644 ${srcdir}/gvim.desktop \
+		${pkgdir}/usr/share/applications/gvim.desktop
+	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
+
+	# license
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-x11
+	install -Dm644 ${srcdir}/license.txt \
+		${pkgdir}/usr/share/licenses/vim-gvim-x11/license.txt
 }
 
 package_vim-rt() {
