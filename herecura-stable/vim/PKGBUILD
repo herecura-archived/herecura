@@ -178,7 +178,7 @@ package_vim-gvim-gtk() {
 	provides=('gvim')
 	install=gvim.install
 
-	cd ${srcdir}/gvim-build
+	cd ${srcdir}/gvim-build-gtk
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
 	# provided by (n)vi in core
@@ -228,7 +228,7 @@ package_vim-gvim-x11() {
 	provides=('gvim')
 	install=gvim.install
 
-	cd ${srcdir}/gvim-build
+	cd ${srcdir}/gvim-build-x11
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
 	# provided by (n)vi in core
