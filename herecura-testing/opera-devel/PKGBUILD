@@ -30,7 +30,7 @@ md5sums=('5cd2fdee80539585a2c659f3dd7ca5d3')
 [ "$CARCH" = "x86_64" ] && md5sums=('e2ca303b01a832f1444b4ab56d10589c')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
-#_opdistro="Arch Linux"
+_opdistro="Arch Linux"
 
 package() {
 
