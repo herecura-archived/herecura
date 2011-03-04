@@ -10,7 +10,7 @@ _basever=7.3
 _patchlevel=138
 pkgver=${_basever}.${_patchlevel}
 __hgrev=ea399ac2c1
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -174,7 +174,6 @@ package_vim-gvim-gtk() {
 	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
 	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua'
 		'libxt' 'desktop-file-utils' 'gtk2')
-	provides=("vim=${pkgver}-${pkgrel}")
 	conflicts=('vim' 'gvim')
 	provides=('gvim')
 	install=gvim.install
@@ -210,8 +209,7 @@ package_vim-gvim-gtk() {
 package_vim-gvim-x11() {
 	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
 	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'libxaw')
-	provides=("vim=${pkgver}-${pkgrel}")
-	conflicts=('gvim')
+	conflicts=('vim' 'gvim')
 	provides=('gvim')
 	install=gvim.install
 
