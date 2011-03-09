@@ -2,13 +2,13 @@
 # Great Contributor: Eduardo "kensai" Romero (previous maintainer)
 
 pkgname=catalyst-utils
-pkgver=11.1
-pkgrel=2
+pkgver=11.2
+pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-depends=('xorg-server>=1.9.0' 'xorg-server<1.10.0' 'netkit-bsd-finger' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs')
+depends=('xorg-server>=1.7.0' 'xorg-server<1.10.0' 'netkit-bsd-finger' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs')
 optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)')
 replaces=('libgl')
 conflicts=('catalyst-test' 'nvidia-utils' 'libgl')
@@ -23,7 +23,7 @@ source=(
 	atieventsd.sh
 )
 sha256sums=(
-	'2d278152a2be0dc58b6e45799317a7001170ac665c234efdb47c051d89fd9265'
+	'5a538e256487dc45441e907e5f0644446c5e2d6e50d724419c3df5b17e8585f8'
 	'd5583bfb5977f73b4ca65533030f490350daca9e0ed10aefe517ffb70817531e'
 	'48450ae34d4594f6f90c7d3e170ece4216165252180393dda40982d90821ee36'
 	'32f12a15d1c3289b3c45aff8ca6998fa265f53a96a9c73b36d7c83ec0e0f8ce8'
@@ -61,12 +61,12 @@ package() {
 	install -m755 -d "${pkgdir}/usr/share/man/man8"
 	install -m755 -d "${pkgdir}/usr/share/pixmaps"
 
-	# X.org driver
-	if [ "${CARCH}" = "i686" ]; then
-		cd "${srcdir}/archive_files/x760/usr/X11R6/lib/modules"
-	elif [ "${CARCH}" = "x86_64" ]; then
-		cd "${srcdir}/archive_files/x760_64a/usr/X11R6/lib64/modules"
-	fi
+    # X.org driver
+      if [ "${CARCH}" = "i686" ]; then
+	cd "${srcdir}/archive_files/xpic/usr/X11R6/lib/modules" || return 1
+      elif [ "${CARCH}" = "x86_64" ]; then
+	cd "${srcdir}/archive_files/xpic_64a/usr/X11R6/lib64/modules" || return 1
+      fi
 
 	#install -m644 *.a "${pkgdir}/usr/lib/xorg/modules/"
 	install -m755 *.so "${pkgdir}/usr/lib/xorg/modules/"

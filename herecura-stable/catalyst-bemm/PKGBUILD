@@ -8,8 +8,8 @@
 _kernver='2.6.35-BEMM'
 
 pkgname=catalyst-bemm
-pkgver=11.1
-pkgrel=3
+pkgver=11.2
+pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for kernel26-bemm. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -22,10 +22,12 @@ install=${pkgname}.install
 source=(
 	http://www2.ati.com/drivers/linux/ati-driver-installer-${pkgver/./-}-x86.x86_64.run
 	makefile_compat.patch
+	no_bkl.patch
 )
 sha256sums=(
-	'2d278152a2be0dc58b6e45799317a7001170ac665c234efdb47c051d89fd9265'
+	'5a538e256487dc45441e907e5f0644446c5e2d6e50d724419c3df5b17e8585f8'
 	'd344df75ffbe9bd899e288862f41983c2e24b5eff3e7e8cf02d4891eeb137fff'
+	'c4031cd239edb732186f5a51442d2154218d822871d4eb3e86eaeaaff1b68ecc'
 )
 
 build() {
@@ -45,6 +47,10 @@ build() {
 	cd "${srcdir}/archive_files/"
 
 	patch -Np1 -i ../makefile_compat.patch
+
+    if [ `cat /lib/modules/${_kernver}/build/.config | grep -c CONFIG_BKL=y` = 0 ]; then
+		patch -Np1 -i ${srcdir}/no_bkl.patch
+    fi
 
 	###--- cut ---### ati's code from their make.sh file
 
