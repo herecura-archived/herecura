@@ -1,20 +1,20 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 pkgname=pacgraph
-pkgver=20101016
-pkgrel=1
+pkgver=20110308
+pkgrel=2
 pkgdesc="Draws a graph of installed packages to PNG, SVG, console or GUI.  Good for finding bloat."
 arch=('any')
 url="http://kmkeen.com/pacgraph/"
 license=('GPL')
-depends=('python2')
+depends=('python')
 makedepends=()
-optdepends=('inkscape' 'imagemagick' 'svg2png' 'tk' 'optipng')
+optdepends=('inkscape' 'imagemagick' 'svg2png' 'tk')
 source=(http://kmkeen.com/pacgraph/$pkgname-$pkgver.tar.gz)
-md5sums=('7401304d4f7d341004a58334c483b8aa')
+md5sums=('43c3a95014461dc1da1660b133676321')
 
 build() {
-  cd $srcdir/$pkgname
-  sed -i 's/env python/env python2/' pacgraph*
-  install -D -m 0755 pacgraph   ${pkgdir}/usr/bin/pacgraph
-  install -D -m 0755 pacgraph-i ${pkgdir}/usr/bin/pacgraph-i
+  cd "$srcdir/$pkgname"
+  install -D -m 0755 pacgraph    "$pkgdir/usr/bin/pacgraph"
+  install -D -m 0755 pacgraph-tk "$pkgdir/usr/bin/pacgraph-tk"
 }
+
