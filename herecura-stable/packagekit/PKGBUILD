@@ -6,7 +6,7 @@
 pkgbase='packagekit'
 pkgname='packagekit-split' # aur faker
 true && pkgname=('packagekit' 'packagekit-qt' 'packagekit-python' 'packagekit-backend-alpm' 'packagekit-backend-pacman')
-pkgver=0.6.12
+pkgver=0.6.13
 pkgrel=1
 arch=('i686' 'x86_64')
 url='http://www.packagekit.org/'
@@ -14,7 +14,7 @@ license=('GPL')
 makedepends=('networkmanager>=0.8' 'polkit' 'pacman-glib>=3.4.0' 'python2' 'sqlite3' 'qt' 'intltool' 'dbus-glib')
 options=('!libtool')
 source=("http://www.packagekit.org/releases/PackageKit-${pkgver}.tar.bz2")
-sha256sums=('29c2f1dab00d10ca97a782bc0632edcc4d8517221fe82176248718b3432e5fab')
+sha256sums=('cec67a54cd615163402b1e5100a6a9be0bd1838896d6183407b4d9274de47249')
 
 build() {
 	cd PackageKit-${pkgver}
