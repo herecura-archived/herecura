@@ -3,14 +3,13 @@
 
 pkgname=catalyst-utils
 pkgver=11.2
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
 depends=('xorg-server>=1.7.0' 'xorg-server<1.10.0' 'netkit-bsd-finger' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs')
 optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)')
-replaces=('libgl')
 conflicts=('catalyst-test' 'nvidia-utils' 'libgl')
 provides=('libgl' "libatical=${pkgver}")
 install=${pkgname}.install
