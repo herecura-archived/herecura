@@ -2,7 +2,7 @@
 
 pkgname=kcm-grub2
 _pname=${pkgname//-}
-pkgver=1.1
+pkgver=1.2
 pkgdesc="This Kcm module manages the most common settings of Grub2."
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -10,7 +10,7 @@ _kdeapps=137886
 url="http://kde-apps.org/content/show.php?content=${_kdeapps}"
 license=(GPL)
 makedepends=('cmake' 'automoc4')
-depends=('kdebindings-python')
+depends=('kdelibs' 'python2-qt' 'kdebindings-python')
 options=()
 source=("${pkgname}-${pkgver}.tar.gz::http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${_pname}.tar.gz")
 sha256sums=('d61ff5d8b8406a7aa09fdd755ce3482c50a9a481f2d70af6562ec9ab5a68c251')
