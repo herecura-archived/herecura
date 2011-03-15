@@ -6,17 +6,17 @@
 # Contributor: DestroyFX
 # Contributor: Rip-Rip
 
-_kernver='2.6.37-BEDE'
+_kernver='2.6.38-BEDE'
 
 pkgname=catalyst-bede
 pkgver=11.2
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers for kernel26-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-depends=('kernel26-bede>=2.6.37' 'kernel26-bede<2.6.38' "catalyst-utils=${pkgver}")
-makedepends=('kernel26-bede-headers>=2.6.37' 'kernel26-bede-headers<2.6.38')
+depends=('kernel26-bede>=2.6.38' 'kernel26-bede<2.6.39' "catalyst-utils=${pkgver}")
+makedepends=('kernel26-bede-headers>=2.6.38' 'kernel26-bede-headers<2.6.39')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 install=${pkgname}.install
 
