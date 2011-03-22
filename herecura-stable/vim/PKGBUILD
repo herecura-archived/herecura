@@ -7,9 +7,9 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
 _basever=7.3
-_patchlevel=142
+_patchlevel=143
 pkgver=${_basever}.${_patchlevel}
-__hgrev=bffecb4e87a7
+__hgrev=0c5490025387
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
@@ -19,10 +19,10 @@ makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'g
 'gettext' 'pkgconfig' 'sed' 'mercurial')
 options=()
 source=(
-'vimrc'
-'peaksea.vim'
-'gvim.desktop'
-'license.txt'
+	'vimrc'
+	'peaksea.vim'
+	'gvim.desktop'
+	'license.txt'
 )
 sha256sums=('868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'0e6a2364c9fe45169efc68b3f301c3965e9202b67fd37fe1b93c7e3060887fdf'
@@ -49,6 +49,11 @@ build() {
 	else
 		hg clone -b ${__hgbranch} -u ${__hgrev} "${__hgroot}${__hgrepo}" ${__hgrepo}
 	fi
+
+	#(
+	#	cd ${pkgbase}
+	#	patch -Np2 -i ${startdir}/it.po.patch
+	#)
 
 	cp -a ${pkgbase} vim-build
 	(cd vim-build && rm -rf ./.hg)
