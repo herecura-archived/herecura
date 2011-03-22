@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 url="http://www.mozilla.org/projects/calendar/lightning/"
 license=('MPL' 'GPL' 'LGPL')
 depends=('thunderbird' 'xulrunner')
-makedepends=('pkgconfig' 'zip' 'glib' 'libidl2' 'wireless_tools' 'python2')
+makedepends=('pkgconfig' 'zip' 'glib' 'libidl2' 'wireless_tools' 'python2' 'curl')
 options=('!ccache' '!distcc' '!makeflags')
 source=(
 	"http://releases.mozilla.org/pub/mozilla.org/calendar/lightning/releases/1.0b2rc3/source/lightning-$pkgver.source.tar.bz2"
