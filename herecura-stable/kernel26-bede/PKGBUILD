@@ -10,7 +10,7 @@ _kernelname=-bede
 _basekernel=2.6.38
 _patchver=0
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'72f0cfaefb8dc86b219d5a742dd0375332627641ecbdf5badd3158e2127b9304'
-	'7fbd9372c975e522ecdc3f8ad0cc334a68c527455b59ed693b3644f490fdd4a4'
-	'2a2c0e068e3a01269a30e623c079cd8ac8e273c36838e9c472ab5dcb05d3c229'
+	'042b5ad710ab559179b8d8c503b36347f4c1136f95e201714510be8604a9a388'
+	'b82418d9b9dde0fe24832ffa76b1095acc48368b7d2ddf441143b73b765fb7ba'
 	'3e09b0f2d85b33fa08868b60832d59d90c0499d407bfbff1e2c65203d730889c'
 )
 
