@@ -10,7 +10,7 @@ _kernver='2.6.38-BEDE'
 
 pkgname=catalyst-bede
 pkgver=11.2
-pkgrel=2
+pkgrel=3
 pkgdesc="AMD/ATI Catalyst drivers for kernel26-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
