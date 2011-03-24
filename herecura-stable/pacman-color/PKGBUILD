@@ -1,20 +1,19 @@
 # Contributor: vogo <vogo(at)seznam(dot)cz>
 pkgname=pacman-color
-pkgver=3.4.3
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="Command-line frontend for libalpm aka pacman with color patch"
 arch=('i686' 'x86_64')
 url="http://www.archlinux.org/pacman/"
 license=('GPL')
 depends=("pacman=${pkgver}")
-makedepends=('patch')
 backup=('etc/pacman.d/color.conf')
 source=("ftp://ftp.archlinux.org/other/pacman/pacman-${pkgver}.tar.gz"
 	"${pkgname}-${pkgver}-${pkgrel}.patch"
 	"color.conf")
-sha256sums=('9bbe8e1f9859163351bdf3fcb9860491c5220ea35aa22135fa66ec3cc7f1a30b'
-            '3e1af97a9a196148ab53b20769c57a3304428470910f4f4e28a4c5cf5022792f'
-            'af5e4f53b71582f6eac54a123024bb063adff0cf36a264d3f08eb2817ec43fab')
+sha256sums=('e01558d3c394f8f3def589fa97c40c6253466ff670bbce898cfbd592fbcb6a8a'
+            'fd1eedb7528c795b69de2dff50a3a3855faef1fe008f79a7ca35cc0e89596e39'
+            '66e182733fed303b98f6a0012f91b5239dba87b447ea683a6edb75f63c4774c2')
 
 build() {
 	cd pacman-${pkgver}
@@ -24,8 +23,6 @@ build() {
 }
 
 package() {
-	cd pacman-${pkgver}
-
 	# install pacman-color
 	install -Dm755 ${srcdir}/pacman-${pkgver}/src/pacman/.libs/pacman \
 		${pkgdir}/usr/bin/pacman-color
