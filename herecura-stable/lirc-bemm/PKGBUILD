@@ -3,8 +3,8 @@
 
 pkgbase='lirc-bemm'
 pkgname=('lirc-bemm' 'lirc-bemm-utils')
-pkgver=0.8.7
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -13,20 +13,24 @@ makedepends=('kernel26-bemm>=2.6.35' 'kernel26-bemm<2.6.36' 'kernel26-bemm-heade
 	'help2man' 'alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi')
 replaces=('lirc+pctv')
 options=('!libtool' '!makeflags')
-source=("http://downloads.sourceforge.net/lirc/lirc-${pkgver}.tar.bz2"
+source=(
+	"http://downloads.sourceforge.net/lirc/lirc-${pkgver}.tar.bz2"
 	'lircd'
 	'lircmd'
 	'lirc.logrotate'
 	'lircd.conf'
 	'irexec.conf'
-	'irexecd')
-sha256sums=('e431454f266c4ddc209c3cc84fc506cac6092eb5124b4f3dcc215c8584ea7a39'
+	'irexecd'
+)
+sha256sums=(
+	'6323afae6ad498d4369675f77ec3dbb680fe661bea586aa296e67f2e2daba4ff'
 	'16e1285eb473a8e15796bc828dc11eb88a1007f30d2eb35727239a50859a7b34'
 	'111f8bd4b69e7caa6d2b9da87938f949a5fcba01319c1611decbd51caf0ff497'
 	'bd13ca00e30d85ff9166c03b8f7a20195ef89794e66d7e54f04ba1d014a73e7d'
 	'a64962f310805db250e574464fce93cb4566a6f5bac1d9aad462435090bf3cb2'
 	'398b9867c22537e71ac80e2e20a6915c52d90a8e542c1efaef6b8608a54e10ed'
-	'175b4ce902688885b40423f2a55b3f55ccf54b55582f1fbd51a4cfcdc7a0cfb9')
+	'175b4ce902688885b40423f2a55b3f55ccf54b55582f1fbd51a4cfcdc7a0cfb9'
+)
 
 build() {
 	cd lirc-${pkgver}
