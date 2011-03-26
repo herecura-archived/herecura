@@ -14,7 +14,7 @@ fi
 
 if [[ -z $(xdpyinfo | grep "depth of root.*24" | uniq) ]]; then
   echo "XBMC cannot run unless the"
-  echo "screen color depth is atleast 24 bit."
+  echo "screen color depth is at least 24 bit."
   echo
   echo "Please reconfigure your screen."
   RETVAL=1
