@@ -2,7 +2,7 @@
 # Mantainer: Juan Diego Tascon
 
 pkgname=xcursor-comix
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc="Comix X Cursor Theme"
 url="http://www.kde-look.org/content/show.php/ComixCursors?content=32627"
@@ -10,7 +10,7 @@ depends=()
 license=('GPL')
 arch=('any')
 source=(http://www.limitland.de/comixcursors/ComixCursors-${pkgver}.tar.bz2)
-sha256sums=('bb7fd35021cd760ccae099d6af313df1875ad7d774625453d7fbbb2ea77d0fbe')
+sha256sums=('d3b34da9c3b4376747378b47cbee7064fcd7050b5f9493127433e49adabe8455')
 
 build(){
 	install -dm755 ${pkgdir}/usr/share/icons
