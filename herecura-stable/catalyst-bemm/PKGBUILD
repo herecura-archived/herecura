@@ -78,8 +78,8 @@ build() {
 
 
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
-	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a.GCC4" .
-	cp 2.6.x/Makefile .
+	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" ./
+	cp 2.6.x/Makefile ./
 
 
 	## Compiling module
