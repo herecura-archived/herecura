@@ -14,5 +14,5 @@ sha256sums=('33470faf86ffb19337a1551162213af74770ee5de034c35f98d124798c835cdb')
 
 build() {
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-elements/}
-	install -m644 fanboy-adblocklist-elements-v3.css ${pkgdir}/usr/share/${pkgname/-elements/}/adblock-elements.css
+	install -m644 fanboy-adblocklist-elements-v4.css ${pkgdir}/usr/share/${pkgname/-elements/}/adblock-elements.css
 }
