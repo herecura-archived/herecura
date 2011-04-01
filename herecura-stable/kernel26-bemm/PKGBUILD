@@ -7,7 +7,7 @@ true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bemm
 _basekernel=2.6.35
-_patchver=11
+_patchver=12
 pkgver=${_basekernel}
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -32,7 +32,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v2.6/longterm/v${_basekernel}/${_patchname}.bz2"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"a30b875de116adab88af30a74793140d756b8054e6364a0f0aea4b62878e623e"
+		"4d031e45899f2343b2f6699bf6074558341917edb602356d76c9dba1ae53e678"
 	)
 fi
 # extra patches
