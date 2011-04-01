@@ -22,8 +22,8 @@ source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 		"kernel26-bemm.preset"
 )
 sha256sums=('18b2e2c336032e366c942622b77302cb05fc034fb19018f086a4ebc9ed41bfcf'
-	'2a4134eed2f3bdf40a7494613e34c165e14eac2d52e9f77fb835ea70099f1fda'
-	'f099b015f829d91b03411e2ea894243936667a9188ae2c86fb0922f77e03449a'
+	'1f7838201a38e0e4a3c2caff97e361fe833360aa1867aa74e7ec5f1ab817c9b6'
+	'df68f575f80c2c39f32cf82964f0d43bc7c8f60f400e4f2cef9d605a52230f98'
 	'b447fdd7acec14ff5afd01a44d317e3f8a4586bed15bf7a3d3c774e84a3ab401')
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}

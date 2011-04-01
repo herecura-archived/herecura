@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Linux kernel version: 2.6.35
-# Tue Dec 14 10:22:39 2010
+# Fri Apr  1 10:48:10 2011
 #
 CONFIG_64BIT=y
 # CONFIG_X86_32 is not set
@@ -344,6 +344,7 @@ CONFIG_IOMMU_API=y
 CONFIG_NR_CPUS=16
 CONFIG_SCHED_SMT=y
 CONFIG_SCHED_MC=y
+CONFIG_IRQ_TIME_ACCOUNTING=y
 # CONFIG_PREEMPT_NONE is not set
 # CONFIG_PREEMPT_VOLUNTARY is not set
 CONFIG_PREEMPT=y
