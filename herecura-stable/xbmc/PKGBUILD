@@ -26,7 +26,7 @@ optdepends=(
 install=("${pkgname}.install")
 source=( "http://mirrors.xbmc.org/releases/source/${pkgname}-${pkgver}.tar.gz" "FEH.sh" )
 sha256sums=('3403195b7eb1d076523f2394793b7f050df00743892b031f6fea86b998559d8a'
-            '1b391dfbaa07f81e5a5a7dfd1288bf2bdeab8dc50bbb6dbf39a80d8797dfaeb0')
+            'a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede')
 options=(strip)
 
 _prefix='/usr'
