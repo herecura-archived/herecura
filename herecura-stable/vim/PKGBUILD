@@ -5,12 +5,11 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-#pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
-pkgname=('vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
+pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
 _basever=7.3
-_patchlevel=153
+_patchlevel=154
 pkgver=${_basever}.${_patchlevel}
-__hgrev=1772d74dcb
+__hgrev=74503f6ee6
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
@@ -25,10 +24,12 @@ source=(
 	'gvim.desktop'
 	'license.txt'
 )
-sha256sums=('868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
+sha256sums=(
+	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'0e6a2364c9fe45169efc68b3f301c3965e9202b67fd37fe1b93c7e3060887fdf'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
-	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55')
+	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
+)
 
 __hgroot='http://vim.googlecode.com/hg/'
 __hgrepo='vim'
@@ -75,15 +76,15 @@ build() {
 	cp -a vim-build gvim-build-x11
 	cp -a vim-build vim-tn-build
 
-	#msg2 'Building vim-tiny'
-	#cd ${srcdir}/vim-tn-build
-	#./configure --prefix=/usr --localstatedir=/var/lib/vim \
-		#--mandir=/usr/share/man --with-compiledby=ArchLinux \
-		#--with-features=tiny --disable-gpm --enable-acl --with-x=no \
-		#--disable-gui --enable-multibyte --disable-cscope \
-		#--disable-netbeans --disable-perlinterp --disable-pythoninterp \
-		#--disable-rubyinterp --enable-luainterp=no
-	#make
+	msg2 'Building vim-tiny'
+	cd ${srcdir}/vim-tn-build
+	./configure --prefix=/usr --localstatedir=/var/lib/vim \
+		--mandir=/usr/share/man --with-compiledby=ArchLinux \
+		--with-features=tiny --disable-gpm --enable-acl --with-x=no \
+		--disable-gui --enable-multibyte --disable-cscope \
+		--disable-netbeans --disable-perlinterp --disable-pythoninterp \
+		--disable-rubyinterp --enable-luainterp=no
+	make
 
 	msg2 'Building vim-cli'
 	cd ${srcdir}/vim-build
