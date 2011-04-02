@@ -3,8 +3,8 @@
 
 pkgbase='lirc-bemm'
 pkgname=('lirc-bemm' 'lirc-bemm-utils')
-pkgver=0.9.0
-pkgrel=1
+pkgver=0.8.7
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -23,7 +23,7 @@ source=(
 	'irexecd'
 )
 sha256sums=(
-	'6323afae6ad498d4369675f77ec3dbb680fe661bea586aa296e67f2e2daba4ff'
+	'e431454f266c4ddc209c3cc84fc506cac6092eb5124b4f3dcc215c8584ea7a39'
 	'16e1285eb473a8e15796bc828dc11eb88a1007f30d2eb35727239a50859a7b34'
 	'111f8bd4b69e7caa6d2b9da87938f949a5fcba01319c1611decbd51caf0ff497'
 	'bd13ca00e30d85ff9166c03b8f7a20195ef89794e66d7e54f04ba1d014a73e7d'
