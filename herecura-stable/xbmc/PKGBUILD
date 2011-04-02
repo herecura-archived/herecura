@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=2
+pkgrel=3
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
