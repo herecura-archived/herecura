@@ -5,11 +5,12 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
+#pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
+pkgname=('vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
 _basever=7.3
-_patchlevel=152
+_patchlevel=153
 pkgver=${_basever}.${_patchlevel}
-__hgrev=6e042e124c
+__hgrev=1772d74dcb
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
@@ -38,7 +39,7 @@ __hgbranch='default'
 build() {
 	[ -d vim-build ] && rm -rf vim-build
 	[ -d gvim-build ] && rm -rf gvim-build
-	[ -d vim-tn-build ] && rm -rf vim-tn-build
+	#[ -d vim-tn-build ] && rm -rf vim-tn-build
 	msg2 'Checking out source from Mercurial...'
 
 	if [[ -d ${__hgrepo} ]]; then
@@ -74,15 +75,15 @@ build() {
 	cp -a vim-build gvim-build-x11
 	cp -a vim-build vim-tn-build
 
-	msg2 'Building vim-tiny'
-	cd ${srcdir}/vim-tn-build
-	./configure --prefix=/usr --localstatedir=/var/lib/vim \
-		--mandir=/usr/share/man --with-compiledby=ArchLinux \
-		--with-features=tiny --disable-gpm --enable-acl --with-x=no \
-		--disable-gui --enable-multibyte --disable-cscope \
-		--disable-netbeans --disable-perlinterp --disable-pythoninterp \
-		--disable-rubyinterp --enable-luainterp=no
-	make
+	#msg2 'Building vim-tiny'
+	#cd ${srcdir}/vim-tn-build
+	#./configure --prefix=/usr --localstatedir=/var/lib/vim \
+		#--mandir=/usr/share/man --with-compiledby=ArchLinux \
+		#--with-features=tiny --disable-gpm --enable-acl --with-x=no \
+		#--disable-gui --enable-multibyte --disable-cscope \
+		#--disable-netbeans --disable-perlinterp --disable-pythoninterp \
+		#--disable-rubyinterp --enable-luainterp=no
+	#make
 
 	msg2 'Building vim-cli'
 	cd ${srcdir}/vim-build
