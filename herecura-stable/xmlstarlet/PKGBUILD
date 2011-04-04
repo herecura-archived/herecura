@@ -3,16 +3,17 @@
 # Contributor: chochem <chochem@gmail.com>
 
 pkgname=xmlstarlet
-pkgver=1.0.6
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="A set of tools to transform, query, validate, and edit XML documents"
 arch=('i686' 'x86_64')
 url="http://xmlstar.sourceforge.net/"
 license=('MIT')
-depends=(zlib libgcrypt)
-makedepends=(glibc 'libxslt>=1.1.9' 'libxml2')
+#depends=('zlib' 'libgcrypt')
+depends=('libxslt')
+#makedepends=('glibc' 'libxslt>=1.1.9' 'libxml2')
 source=("xmlstarlet-$pkgver.tar.gz::http://sourceforge.net/projects/xmlstar/files/xmlstarlet/$pkgver/xmlstarlet-$pkgver.tar.gz/download")
-sha256sums=('183f5647d80c7fd956dda2a50350413660ca65aeb02a5aa029593c6a921b6d69')
+sha256sums=('6aab05fd727a794229eff031d8f89718ac01a4020716f257c9f3a755855824b3')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -22,6 +23,10 @@ build() {
   LIBXSLT_PREFIX=/usr LIBXML_PREFIX=/usr LIBXSLT_LIBS="${xsltlibs}" LIBXML_LIBS="${xmllibs}" ./configure --prefix=/usr
   
   make
+}
+
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
   make DESTDIR="${pkgdir}" install
   mkdir -p $pkgdir/usr/share/licenses/$pkgname
   cp Copyright $pkgdir/usr/share/licenses/$pkgname/COPYING
