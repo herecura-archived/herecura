@@ -2,16 +2,15 @@
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgname=nvidia-bemm
-pkgver=270.30
-_kernver='2.6.35-BEMM'
-pkgrel=2
+pkgver=270.41.03
+_kernver='2.6.38-BEMM'
+pkgrel=1
 pkgdesc="NVIDIA drivers for kernel26-bemm"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-depends=('kernel26-bemm>=2.6.35' 'kernel26-bemm<2.6.36' "nvidia-utils=${pkgver}")
-makedepends=('kernel26-bemm-headers>=2.6.35' 'kernel26-bemm-headers<2.6.36')
+depends=('kernel26-bemm>=2.6.38' 'kernel26-bemm<2.6.39' "nvidia-utils=${pkgver}")
+makedepends=('kernel26-bemm-headers>=2.6.38' 'kernel26-bemm-headers<2.6.39')
 conflicts=('nvidia-96xx' 'nvidia-173xx')
-replaces=('nvidia-slk')
 license=('custom')
 install=nvidia.install
 
@@ -24,12 +23,12 @@ if [ "$CARCH" = "i686" ]; then
 	_arch='x86'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
 	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('ff319212b9ac52d645df31027c31ee45')
+	md5sums=('4e3b54ee55c6cfa4437c12a8bd9a4250')
 elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
 	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('2fa08295aa0d0ea21646bdc9630c5116')
+	md5sums=('8fa312dd8aff26299f8df1e721665960')
 fi
 
 build() {
