@@ -3,14 +3,14 @@
 
 pkgbase='lirc-bemm'
 pkgname=('lirc-bemm' 'lirc-bemm-utils')
-pkgver=0.8.7
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
-_kernver=2.6.35-BEMM
-makedepends=('kernel26-bemm>=2.6.35' 'kernel26-bemm<2.6.36' 'kernel26-bemm-headers>=2.6.35' 'kernel26-bemm-headers<2.6.36'
-	'help2man' 'alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi')
+_kernver=2.6.38-BEMM
+makedepends=('kernel26-bemm>=2.6.38' 'kernel26-bemm<2.6.39' 'kernel26-bemm-headers>=2.6.38' 'kernel26-bemm-headers<2.6.39'
+	'help2man' 'alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi' 'libirman')
 replaces=('lirc+pctv')
 options=('!libtool' '!makeflags')
 source=(
@@ -23,7 +23,7 @@ source=(
 	'irexecd'
 )
 sha256sums=(
-	'e431454f266c4ddc209c3cc84fc506cac6092eb5124b4f3dcc215c8584ea7a39'
+	'6323afae6ad498d4369675f77ec3dbb680fe661bea586aa296e67f2e2daba4ff'
 	'16e1285eb473a8e15796bc828dc11eb88a1007f30d2eb35727239a50859a7b34'
 	'111f8bd4b69e7caa6d2b9da87938f949a5fcba01319c1611decbd51caf0ff497'
 	'bd13ca00e30d85ff9166c03b8f7a20195ef89794e66d7e54f04ba1d014a73e7d'
@@ -36,12 +36,18 @@ build() {
 	cd lirc-${pkgver}
 
 	# Disabling lirc_gpio driver as it does no longer work Kernel 2.6.22+
-	sed -i -e "s:lirc_gpio\.o::" drivers/lirc_gpio/Makefile.am
+	#sed -i -e "s:lirc_gpio\.o::" drivers/lirc_gpio/Makefile.am
+
+  sed -i '/AC_PATH_XTRA/d' configure.ac
+  sed -e 's/@X_CFLAGS@//g' \
+      -e 's/@X_LIBS@//g' \
+      -e 's/@X_PRE_LIBS@//g' \
+      -e 's/@X_EXTRA_LIBS@//g' -i Makefile.am tools/Makefile.am
 
 	autoreconf
 	libtoolize
 
-	./configure --enable-sandboxed \
+	PYTHON=python2 ./configure --enable-sandboxed \
 		--prefix=/usr \
 		--with-driver=all \
 		--with-kerneldir=/usr/src/linux-${_kernver} \
@@ -50,15 +56,21 @@ build() {
 
 	# disable parallel and bt829
 	# because of incompatibility with smp systems
-	sed -i -e "s:lirc_parallel::" -e "s:lirc_bt829::" \
-		Makefile drivers/Makefile drivers/*/Makefile tools/Makefile
+#	sed -i -e "s:lirc_parallel::" -e "s:lirc_bt829::" \
+#		Makefile drivers/Makefile drivers/*/Makefile tools/Makefile
+
+  # Remove drivers already in kernel
+  sed -e "s:lirc_dev::" -e "s:lirc_bt829::" -e "s:lirc_igorplugusb::" \
+      -e "s:lirc_imon::" -e "s:lirc_parallel::" -e "s:lirc_sasem::" \
+      -e "s:lirc_serial::" -e "s:lirc_sir::" -e "s:lirc_ttusbir::" \
+      -i Makefile drivers/Makefile drivers/*/Makefile tools/Makefile 
 
 	make
 }
 
 package_lirc-bemm() {
 	pkgdesc="Linux Infrared Remote Control kernel modules for BEMM kernel"
-	depends=("lirc-bemm-utils>=${pkgver}" 'kernel26-bemm>=2.6.35' 'kernel26-bemm<2.6.36')
+	depends=("lirc-bemm-utils>=${pkgver}" 'kernel26-bemm>=2.6.38' 'kernel26-bemm<2.6.39')
 	install=lirc.install
 	provides=('lirc')
 
@@ -76,7 +88,8 @@ package_lirc-bemm() {
 
 package_lirc-bemm-utils() {
 	pkgdesc="Linux Infrared Remote Control utils for BEMM kernel"
-	depends=('alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi')
+	depends=('alsa-lib' 'libx11' 'libftdi' 'libirman')
+	optdepends=('python2: pronto2lirc util')
 	backup=('etc/conf.d/lircd.conf'
 		'etc/conf.d/irexec.conf')
 	provides=('lirc-utils')
