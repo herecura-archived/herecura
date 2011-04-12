@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-bemm
-KERNEL_VERSION=2.6.35-BEMM
+KERNEL_VERSION=2.6.38-BEMM
 
 post_install () {
   # updating module dependencies
