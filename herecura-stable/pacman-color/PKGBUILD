@@ -1,6 +1,6 @@
 # Contributor: vogo <vogo(at)seznam(dot)cz>
 pkgname=pacman-color
-pkgver=3.5.1
+pkgver=3.5.2
 pkgrel=1
 pkgdesc="Command-line frontend for libalpm aka pacman with color patch"
 arch=('i686' 'x86_64')
@@ -11,8 +11,8 @@ backup=('etc/pacman.d/color.conf')
 source=("ftp://ftp.archlinux.org/other/pacman/pacman-${pkgver}.tar.gz"
 	"${pkgname}-${pkgver}-${pkgrel}.patch"
 	"color.conf")
-sha256sums=('e01558d3c394f8f3def589fa97c40c6253466ff670bbce898cfbd592fbcb6a8a'
-            'fd1eedb7528c795b69de2dff50a3a3855faef1fe008f79a7ca35cc0e89596e39'
+sha256sums=('e1765eb5bd4c39192ce016a8d52f67941fdab85b6694d1dbec5954615538b33f'
+            '41b83a3e8f201ac6e26825d56aa9fe8ce939d87cd0bf51c6ac59782c479112ef'
             '66e182733fed303b98f6a0012f91b5239dba87b447ea683a6edb75f63c4774c2')
 
 build() {
