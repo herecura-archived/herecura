@@ -31,6 +31,7 @@ build() {
 
   sed -i -e 's#python$#python2#' `find -name *.py` || return 1
   export PYTHON=python2
+  export CXXFLAGS="$CXXFLAGS -fpermissive"
 
   ./configure --enable-application=mail --enable-calendar || return 1
   make || return 1
