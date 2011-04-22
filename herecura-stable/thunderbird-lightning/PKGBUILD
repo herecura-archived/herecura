@@ -1,6 +1,6 @@
 pkgname=thunderbird-lightning
 pkgver=1.0b2
-pkgrel=1
+pkgrel=2
 _tb_ver=3.1
 _tb_libdir=thunderbird-3.1 # Adjust this to your thunderbird directory in /usr/lib
 _comm_dir=comm-1.9.2
