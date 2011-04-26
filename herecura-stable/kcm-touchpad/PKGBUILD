@@ -4,12 +4,12 @@
 
 pkgname=kcm-touchpad
 pkgver=0.3.1
-pkgrel=1
+pkgrel=2
 url="http://www.kde-apps.org/content/show.php/kcm_touchpad?content=113335"
 pkgdesc="Synaptics driver based touchpads kcontrol module"
 license=('GPL2')
 arch=('i686' 'x86_64')
-depends=('xf86-input-synaptics' 'kdelibs')
+depends=('xf86-input-synaptics' 'kdebase-workspace')
 makedepends=('cmake' 'automoc4')
 source=("http://herecura.be/archlinux/${pkgname}-${pkgver}.tar.gz")
 md5sums=('f355a658d2e9267fdf4e8d8f88038bcf')
