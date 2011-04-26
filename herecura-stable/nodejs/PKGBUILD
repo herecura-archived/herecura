@@ -4,7 +4,7 @@
 # Contributor: Masutu Subric <masutu.arch at googlemail dot com>
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 pkgname=nodejs
-pkgver=0.4.4
+pkgver=0.4.7
 pkgrel=1
 pkgdesc="Evented I/O for V8 javascript"
 arch=('i686' 'x86_64')
@@ -14,7 +14,7 @@ depends=('python2')
 optdepends=('openssl: TLS support')
 conflicts=('nodejs-unstable')
 source=("http://nodejs.org/dist/node-v$pkgver.tar.gz")
-sha256sums=('ea4430909601340cb3e8adb15569facfeca4e1d59129f1932254535bb4bf3e17')
+sha256sums=('5c405ff85549ebff49ee06d4e4391f02ed65b2b1177dc0f617f727ab48593dee')
 
 build() {
   cd "node-v$pkgver"
