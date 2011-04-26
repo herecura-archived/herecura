@@ -9,7 +9,7 @@ _kdeapps=139643
 url="http://kde-apps.org/content/show.php?content=${_kdeapps}"
 license=(GPLv3)
 makedepends=('cmake' 'automoc4')
-depends=('kdelibs');
+depends=('kdebase-workspace');
 options=()
 source=("${pkgname}-${pkgver}.tar.gz::http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${pkgname}-${pkgver}.tar.gz")
 sha256sums=('37bd7cd80cc7e1ea5988638b835d470bd5b0693cb9447d229926d1e17e6904dd')
