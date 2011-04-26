@@ -5,12 +5,12 @@ _basename=wacomtablet
 _content=114856
 pkgname=kcm-${_basename}
 pkgver=1.2.5
-pkgrel=1
+pkgrel=2
 url="http://kde-apps.org/content/show.php/wacom+tablet?content=${_content}"
 pkgdesc="KDE GUI for the Wacom Linux Drivers"
 license=('GPLv2')
 arch=('x86_64' 'i686')
-depends=('kdelibs')
+depends=('kdebase-workspace')
 makedepends=('cmake' 'automoc4')
 conflicts=('kcm_tablet-svn kde-wacomtablet-svn')
 replaces=('kcm_tablet')
