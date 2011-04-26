@@ -1,29 +1,26 @@
-# Contributor: Mladen Pejakovic <pejakm@gmail.com>
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=kcm-grub2
-_pname=${pkgname//-}
-pkgver=1.2
+pkgver=0.3.6
 pkgdesc="This Kcm module manages the most common settings of Grub2."
 pkgrel=1
 arch=('i686' 'x86_64')
-_kdeapps=137886
+_kdeapps=139643
 url="http://kde-apps.org/content/show.php?content=${_kdeapps}"
-license=(GPL)
+license=(GPLv3)
 makedepends=('cmake' 'automoc4')
-depends=('kdelibs' 'python2-qt' 'kdebindings-python')
+depends=('kdelibs');
 options=()
-source=("${pkgname}-${pkgver}.tar.gz::http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${_pname}.tar.gz")
-sha256sums=('d61ff5d8b8406a7aa09fdd755ce3482c50a9a481f2d70af6562ec9ab5a68c251')
+source=("${pkgname}-${pkgver}.tar.gz::http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${pkgname}-${pkgver}.tar.gz")
+sha256sums=('37bd7cd80cc7e1ea5988638b835d470bd5b0693cb9447d229926d1e17e6904dd')
 
 build(){	
-  cd ${srcdir}/${_pname}
-  # change python to python2 since kde depends on python2
-  sed 's/python/python2/g' -i kcmgrub2.py
+  cd ${pkgname}-${pkgver}
   cmake -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
   make
 }
 package(){
-  cd ${srcdir}/${_pname}
+  cd ${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
 }
