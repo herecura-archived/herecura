@@ -20,7 +20,6 @@ whisperer(){
     echo "- catalyst-daemon (auto rebuilding script and source files)"
     echo "- catalyst-generator (generator of catalyst-{kernver} packages)"
     echo "----------------------------------------------------------------"
-	true
 }
 
 remove_hook(){
@@ -47,5 +46,4 @@ post_remove() {
     echo "----------------------------------------------------------------"
     echo "Don't forget to remove fglrx from MODULES array of /etc/rc.conf"
     echo "----------------------------------------------------------------"
-	true
 }
