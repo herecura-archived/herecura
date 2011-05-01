@@ -18,13 +18,13 @@ source=("http://kde-apps.org/CONTENT/content-files/${_content}-${_basename}-v${p
 sha256sums=('703a380b8f079ffdf351effb8793e6efe5f13bdb7ff81b1273a54126bc1d1e14')
 
 build()  {	
-	cd ${_basename}-${pkgver}
+	cd ${_basename}-v${pkgver}
 	cmake -DCMAKE_INSTALL_PREFIX=/usr \
 	      -DCMAKE_BUILD_TYPE=Release
 	make
 }
 
 package() {
-	cd ${_basename}-${pkgver}
+	cd ${_basename}-v${pkgver}
 	make DESTDIR=${pkgdir} install
 }
