@@ -1,6 +1,6 @@
 pkgname=gstreamer0.10-be-pulse
 pkgver=0.10.28
-pkgrel=1
+pkgrel=2
 pkgdesc="A GStreamer 0.10 plugin for the PulseAudio sound server"
 arch=('i686' 'x86_64')
 license=('LGPL')
@@ -11,6 +11,7 @@ optdepends=('pulseaudio: pulseaudio support')
 options=(!libtool !emptydirs)
 groups=('pulseaudio')
 provides=('gstreamer0.10-pulse')
+conflicts=('gstreamer0.10-pulse')
 source=(${url}/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.bz2)
 md5sums=('6ef1588921f59d85c44ee2e49a3c97a0')
 

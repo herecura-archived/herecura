@@ -1,6 +1,6 @@
 pkgname=gstreamer0.10-be-ffmpeg
 pkgver=0.10.11
-pkgrel=1
+pkgrel=2
 pkgdesc="Gstreamer FFMpeg Plugin"
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -9,6 +9,7 @@ makedepends=('pkgconfig')
 url="http://www.gstreamer.net"
 groups=('gstreamer0.10-be-plugins')
 provides=('gstreamer0.10-ffmpeg')
+conflicts=('gstreamer0.10-ffmpeg')
 source=(http://gstreamer.freedesktop.org/src/gst-ffmpeg/gst-ffmpeg-${pkgver}.tar.bz2)
 md5sums=('0d23197ba7ac06ea34fa66d38469ebe5')
 

@@ -1,7 +1,7 @@
 pkgbase=gstreamer0.10-be-good
 pkgname=('gstreamer0.10-be-good' 'gstreamer0.10-be-good-plugins')
 pkgver=0.10.28
-pkgrel=4
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('LGPL')
 makedepends=('intltool' 'pkgconfig' 'gstreamer0.10-be-base>=0.10.30' 'libavc1394>=0.5.3-3' 'libiec61883>=1.2.0' 'aalib>=1.4rc5-6' 'libshout>=2.2.2' 'libdv>=1.0.0' 'esound>=0.2.41' 'flac>=1.2.1' 'wavpack>=4.60.1' 'taglib>=1.6.3' 'libsoup>=2.30.1' 'v4l-utils' 'libcaca>=0.99.beta17' 'bzip2>=1.0.5' 'gdk-pixbuf2' 'orc>=0.4.11')
@@ -36,6 +36,7 @@ package_gstreamer0.10-be-good() {
 	depends=('gstreamer0.10-be-base>=0.10.29' 'bzip2>=1.0.5' 'orc>=0.4.11')
 	pkgdesc="GStreamer Multimedia Framework Good plugin libraries"
 	provides=('gstreamer0.10-good')
+	conflicts=('gstreamer0.10-good')
 
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
 	make GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install
@@ -47,6 +48,7 @@ package_gstreamer0.10-be-good-plugins() {
 	pkgdesc="GStreamer Multimedia Framework Good Plugins (gst-plugins-good)"
 	groups=('gstreamer0.10-be-plugins')
 	provides=('gstreamer0.10-good-plugins')
+	conflicts=('gstreamer0.10-good-plugins')
 
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
 	make -C sys DESTDIR="${pkgdir}" install
