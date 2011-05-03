@@ -1,0 +1,27 @@
+pkgname=gstreamer0.10-be-ffmpeg
+pkgver=0.10.11
+pkgrel=1
+pkgdesc="Gstreamer FFMpeg Plugin"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('gstreamer0.10-be-base>=0.10.30' 'bzip2')
+makedepends=('pkgconfig')
+url="http://www.gstreamer.net"
+groups=('gstreamer0.10-be-plugins')
+provides=('gstreamer0.10-ffmpeg')
+source=(http://gstreamer.freedesktop.org/src/gst-ffmpeg/gst-ffmpeg-${pkgver}.tar.bz2)
+md5sums=('0d23197ba7ac06ea34fa66d38469ebe5')
+
+build() {
+	cd "${srcdir}/gst-ffmpeg-${pkgver}"
+	unset CFLAGS
+	unset CXXFLAGS
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+	make
+}
+
+package() {
+	cd "${srcdir}/gst-ffmpeg-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+	rm -f ${pkgdir}/usr/lib/gstreamer-0.10/*.{l,}a
+}

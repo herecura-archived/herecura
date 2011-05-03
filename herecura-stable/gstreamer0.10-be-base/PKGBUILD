@@ -1,0 +1,43 @@
+pkgbase=('gstreamer0.10-be-base')
+pkgname=('gstreamer0.10-be-base' 'gstreamer0.10-be-base-plugins')
+pkgver=0.10.32
+pkgrel=1
+arch=('i686' 'x86_64')
+license=('LGPL')
+makedepends=('pkgconfig' 'gstreamer0.10-be>=0.10.30' 'orc>=0.4.6' 'libsm>=1.1.1' 'libxv>=1.0.5' 'alsa-lib>=1.0.23' 'cdparanoia>=10.2' 'libvisual>=0.4.0' 'libvorbis>=1.3.1' 'libtheora>=1.1.1' 'pango>=1.28.1' 'udev>=151' 'gobject-introspection')
+options=(!libtool !emptydirs)
+url="http://gstreamer.freedesktop.org/"
+source=(${url}/src/gst-plugins-base/gst-plugins-base-${pkgver}.tar.bz2)
+md5sums=('2920af2b3162f3d9fbaa7fabc8ed4d38')
+
+build() {
+	cd "${srcdir}/gst-plugins-base-${pkgver}"
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+		--disable-static --enable-experimental --disable-gnome_vfs \
+		--with-package-name="GStreamer Base (ArchLinux BE)" \
+		--with-package-origin="http://www.archlinux.org/"
+
+	make
+	sed -e 's/^SUBDIRS_EXT =.*/SUBDIRS_EXT =/' -i Makefile
+}
+
+package_gstreamer0.10-be-base() {
+	pkgdesc="GStreamer Multimedia Framework Base plugin libraries"
+	depends=('gstreamer0.10-be>=0.10.30' 'orc>=0.4.6' 'libsm>=1.1.1' 'libxv>=1.0.5' 'udev>=151')
+	provides=('gstreamer0.10-base')
+
+	cd "${srcdir}/gst-plugins-base-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
+
+package_gstreamer0.10-be-base-plugins() {
+	pkgdesc="GStreamer Multimedia Framework Base Plugins (gst-plugins-base)"
+	depends=("gstreamer0.10-be-base=${pkgver}" 'alsa-lib>=1.0.23' 'cdparanoia>=10.2' 'libvisual>=0.4.0' 'libvorbis>=1.3.1' 'libtheora>=1.1.1' 'pango>=1.28.1')
+	groups=('gstreamer0.10-be-plugins')
+	provides=('gstreamer0.10-base-plugins')
+
+	cd "${srcdir}/gst-plugins-base-${pkgver}"
+	make -C gst-libs DESTDIR="${pkgdir}" install
+	make -C ext DESTDIR="${pkgdir}" install
+	make -C gst-libs DESTDIR="${pkgdir}" uninstall
+}
