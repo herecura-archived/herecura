@@ -9,6 +9,8 @@ true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 _kernelname=-bemm
 _basekernel=2.6.38
 _patchver=4
+_lqxpatchver=38.${_patchver}
+_lqxpatchrel=1
 pkgver=${_basekernel}
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -26,20 +28,20 @@ source=(
 )
 sha256sums=(
 	'72f0cfaefb8dc86b219d5a742dd0375332627641ecbdf5badd3158e2127b9304'
-	'19bbb718e7900da49418c0573f445974373604a7d5c1c51d1d07ae9c15f0eb0c'
-	'cd640b0257be6da49df09113dd46f5c04eb5186bc407589b7ca4375babce3d9c'
+	'337980577a2bd18218619a7cc84a351efed61aa9d0ba800b8266b4f6c4925c02'
+	'e680393590ff61bd2b0c186dee93d31664c7ced7a622d15898286658ad4ee951'
 	'b447fdd7acec14ff5afd01a44d317e3f8a4586bed15bf7a3d3c774e84a3ab401'
 )
 
 # revision patches
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
-	_patchname="patch-${pkgver}"
+	_patchname="${_lqxpatchver}-${_lqxpatchrel}.patch"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
+		"http://liquorix.net/sources/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"64abfd999ac9416db143293528f73a0b88ac287bf4d075556dc7859017d97687"
+		"5117ed82522869376d1cd92746660aef923d74452ef6a1c5b9a2674a51cbb09f"
 	)
 fi
 
