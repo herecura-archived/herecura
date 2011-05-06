@@ -8,11 +8,11 @@ true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bemm
 _basekernel=2.6.38
-_patchver=4
+_patchver=5
 _lqxpatchver=38.${_patchver}
 _lqxpatchrel=1
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -28,8 +28,8 @@ source=(
 )
 sha256sums=(
 	'72f0cfaefb8dc86b219d5a742dd0375332627641ecbdf5badd3158e2127b9304'
-	'337980577a2bd18218619a7cc84a351efed61aa9d0ba800b8266b4f6c4925c02'
-	'e680393590ff61bd2b0c186dee93d31664c7ced7a622d15898286658ad4ee951'
+	'07d445258f4b2c9c4c43ce2211fe4d8a064bdf228257d401cc3b4c52fb49386c'
+	'da637b7848cf8bd09f9efb9db9a8c6bc4396b9f0c164327e269bf2d044f86867'
 	'b447fdd7acec14ff5afd01a44d317e3f8a4586bed15bf7a3d3c774e84a3ab401'
 )
 
@@ -41,7 +41,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://liquorix.net/sources/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"5117ed82522869376d1cd92746660aef923d74452ef6a1c5b9a2674a51cbb09f"
+		"012ec24fb25d04d1587d78bce790630f74ddb56fbbf602496e95429176eddce6"
 	)
 fi
 
