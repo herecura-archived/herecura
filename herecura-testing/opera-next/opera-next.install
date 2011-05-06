@@ -8,15 +8,15 @@ cat <<EOF
 >>
 >> WARNING THIS CAN LEAD TO DATA LOSS
 >> 
->> If installed with a devel suffix (the default) the 
->> ~/.opera-devel profile will be used. For people who 
->> want to use the same profile for opera-devel as they 
->> use for opera (stable), start opera-devel as follows:
+>> If installed with a next suffix (the default) the 
+>> ~/.opera-next profile will be used. For people who 
+>> want to use the same profile for opera-next as they 
+>> use for opera (stable), start opera-next as follows:
 >>
->> \$ opera-devel -pd ~/.opera
+>> \$ opera-next -pd ~/.opera
 >>
 >> You can make this more permenant by editing 
->> /usr/bin/opera-devel and un-setting 
+>> /usr/bin/opera-next and un-setting 
 >> \$OPERA_PERSONALDIR
 >>
 >> WARNING THIS CAN LEAD TO DATA LOSS
