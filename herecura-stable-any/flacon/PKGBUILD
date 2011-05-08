@@ -1,6 +1,6 @@
 # Contributor: Artem Sereda <overmind88@gmail.com>
 pkgname=flacon
-pkgver=0.5.6
+pkgver=0.5.7
 pkgrel=1
 pkgdesc="Extracts individual tracks from one big audio file containing the \
  entire album of music and saves them as separate audio files."
@@ -18,7 +18,7 @@ optdepends=(
   'mp3gain: for MP3 replay gain'
 )
 source=("http://flacon.googlecode.com/files/${pkgname}-${pkgver}.tgz")
-sha256sums=('6b2a5e013c7a28e2a25cad4a977bcc5cf822b5db01603eae2a3d385f85126325')
+md5sums=('56500dd2b0cafc90e3e4c354e7f2616a')
 
 build() {
   cd ${pkgname}-${pkgver}
