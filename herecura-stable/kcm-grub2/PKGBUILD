@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=kcm-grub2
-pkgver=0.4.5
+pkgver=0.5.0
 pkgdesc="This Kcm module manages the most common settings of Grub2."
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -11,8 +11,8 @@ license=(GPLv3)
 makedepends=('cmake' 'automoc4')
 depends=('kdebase-workspace');
 options=()
-source=("${pkgname}-${pkgver}.tar.gz::http://kde-apps.org/CONTENT/content-files/${_kdeapps}-${pkgname}-${pkgver}.tar.gz")
-sha256sums=('56b1552640d78659af5ab892eba7c46d2c21ac17e8e16d084697af6f03d942ab')
+source=("http://downloads.sourceforge.net/project/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('c748e272b86f54e043e4cebb3238a19d697218cb56753b75d638907bac0c4236')
 
 build(){	
   cd ${pkgname}-${pkgver}
