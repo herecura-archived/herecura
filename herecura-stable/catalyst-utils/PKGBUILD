@@ -77,7 +77,7 @@ package() {
 	install -m755 drivers/*.so "${pkgdir}/usr/lib/xorg/modules/drivers/" 
 	install -m755 linux/*.so "${pkgdir}/usr/lib/xorg/modules/linux/" 
 	#install -m755 extensions/libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/"  #before 11.4
-	install -m755 extensions/fglrx/libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so"  # since 11.5
+	install -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so" # since 11.5
 	ln -snf /usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so" # since 11.4
 	#install -m755 extensions/libdri.so "${pkgdir}/usr/lib/xorg/modules/extensions/libdri.ati" 
 
