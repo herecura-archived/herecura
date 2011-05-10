@@ -4,8 +4,6 @@ KERNEL_VERSION=2.6.38-BEMM
 
 whisperer(){
     echo "----------------------------------------------------------------"
-    echo "Don't forget to add fglrx into MODULES array of /etc/rc.conf"
-    echo "----------------------------------------------------------------"
     echo "For more info and more troubleshooting visit:"
     echo "http://wiki.archlinux.org/index.php/ATI_Catalyst"
     echo "----------------------------------------------------------------"
@@ -25,9 +23,9 @@ whisperer(){
 remove_hook(){
    ##removing hook's entries
     # remove hook fglrx
-     sed '/^HOOKS/s/ *fglrx//' -i /etc/mkinitcpio.conf
+	sed '/^HOOKS/s/ *fglrx//' -i /etc/mkinitcpio.conf
     # remove heads
-     sed '/^SyncFirst/s/ *kernel26-headers//' -i /etc/pacman.conf
+	sed '/^SyncFirst/s/ *kernel26-headers//' -i /etc/pacman.conf
 }
 
 post_install() {
