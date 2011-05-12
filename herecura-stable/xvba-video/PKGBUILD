@@ -2,28 +2,37 @@
 
 pkgname=xvba-video
 pkgver=0.7.8
-pkgrel=1
+pkgrel=2
 pkgdesc="AMDs XvBA backend for VA-API, hardware video acceleration on RadeonHD cards"
 arch=('i686' 'x86_64')
 url="http://www.splitted-desktop.com/~gbeauchesne/xvba-video/"
 license=('custom')
 depends=('catalyst-utils')
-source=(http://www.splitted-desktop.com/~gbeauchesne/xvba-video/xvba-video-${pkgver}.${CARCH}.tar.gz)
+source=(
+	"http://www.splitted-desktop.com/~gbeauchesne/xvba-video/xvba-video-${pkgver}.${CARCH}.tar.gz"
+	"xvba.sh"
+)
 
+md5sums=(
+	'8e3ee3fbd393dd0e73922018c9629431'
+	'092e3e805938edc8532cecc0b03140d1'
+)
 if [ "${CARCH}" == "x86_64" ]; then
-md5sums=('0dccf6b12a24b21c52541b60fb0cace2')
-else
-md5sums=('8e3ee3fbd393dd0e73922018c9629431')
+	md5sums[0]='0dccf6b12a24b21c52541b60fb0cace2'
 fi
 
 build() {
-cd ${srcdir}/xvba-video-${pkgver}.${CARCH}
+	cd ${srcdir}/xvba-video-${pkgver}.${CARCH}
 
-# driver
-install -m755 -d "${pkgdir}/usr/lib/dri"
-install -m755 -t "${pkgdir}/usr/lib/dri" usr/lib/va/drivers/*
+	# driver
+	install -m755 -d "${pkgdir}/usr/lib/dri"
+	install -m755 -t "${pkgdir}/usr/lib/dri" usr/lib/va/drivers/*
 
-# documentation
-install -m755 -d "${pkgdir}/usr/share/doc/${pkgname}"
-install -m755 -t "${pkgdir}/usr/share/doc/${pkgname}" AUTHORS COPYING NEWS README
+	# documentation
+	install -m755 -d "${pkgdir}/usr/share/doc/${pkgname}"
+	install -m755 -t "${pkgdir}/usr/share/doc/${pkgname}" AUTHORS COPYING NEWS README
+
+	# thanks to Dhiru Kholia vaapi is working again :D
+	install -m755 -d "${pkgdir}/etc/profile.d"
+	install -m755 "${srcdir}/xvba.sh" "${pkgdir}/etc/profile.d/" || return 1
 }
