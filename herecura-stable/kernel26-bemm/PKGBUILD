@@ -8,7 +8,7 @@ true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bemm
 _basekernel=2.6.38
-_patchver=5
+_patchver=6
 _lqxpatchver=38.${_patchver}
 _lqxpatchrel=1
 pkgver=${_basekernel}
@@ -28,8 +28,8 @@ source=(
 )
 sha256sums=(
 	'72f0cfaefb8dc86b219d5a742dd0375332627641ecbdf5badd3158e2127b9304'
-	'07d445258f4b2c9c4c43ce2211fe4d8a064bdf228257d401cc3b4c52fb49386c'
-	'da637b7848cf8bd09f9efb9db9a8c6bc4396b9f0c164327e269bf2d044f86867'
+	'd9893516dc32eb5db078d66bb4564bb70664fefdf735dd62053fee6015ad8c97'
+	'1ac26f2d77d8615764623738bb2d5dff3c378a7c033d363295d079d8aa8fd07a'
 	'b447fdd7acec14ff5afd01a44d317e3f8a4586bed15bf7a3d3c774e84a3ab401'
 )
 
@@ -41,7 +41,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://liquorix.net/sources/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"012ec24fb25d04d1587d78bce790630f74ddb56fbbf602496e95429176eddce6"
+		"0658c2a04b9ec15b95f1dde3e94daba195323c8af5bc0e045f25b208c6967cb3"
 	)
 fi
 
@@ -140,7 +140,7 @@ package_kernel26-bemm() {
 	cd ${srcdir}/linux-$_basekernel
 	# get kernel version
 	_kernver=$(make kernelrelease)
-	make INSTALL_MOD_PATH=${pkgdir} modules_install
+	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=${pkgdir} modules_install
 	mkdir -p ${pkgdir}/boot
 	cp System.map ${pkgdir}/boot/System.map26${_kernelname}
 	cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26${_kernelname}
@@ -220,6 +220,21 @@ package_kernel26-bemm-headers() {
 	for i in `find . -name "Kconfig*"`; do
 		mkdir -p ${pkgdir}/usr/src/linux-${_kernver}/`echo $i | sed 's|/Kconfig.*||'`
 		cp $i ${pkgdir}/usr/src/linux-${_kernver}/$i
+	done
+
+	# strip scripts directory
+	find ${pkgdir}/usr/src/linux-${_kernver}/scripts  -type f -perm -u+w 2>/dev/null | while read binary ; do
+		case "$(file -bi "$binary")" in
+			*application/x-sharedlib*) # Libraries (.so)
+				/usr/bin/strip $STRIP_SHARED "$binary"
+			;;
+			*application/x-archive*) # Libraries (.a)
+				/usr/bin/strip $STRIP_STATIC "$binary"
+			;;
+			*application/x-executable*) # Binaries
+				/usr/bin/strip $STRIP_BINARIES "$binary"
+			;;
+		esac 
 	done
 
 	chown -R root.root ${pkgdir}/usr/src/linux-${_kernver}
