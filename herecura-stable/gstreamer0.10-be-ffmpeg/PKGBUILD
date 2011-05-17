@@ -1,11 +1,11 @@
 pkgname=gstreamer0.10-be-ffmpeg
 pkgver=0.10.11
-pkgrel=2
+pkgrel=3
 pkgdesc="Gstreamer FFMpeg Plugin"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('gstreamer0.10-be-base>=0.10.30' 'bzip2')
-makedepends=('pkgconfig')
+depends=('gstreamer0.10-be-base>=0.10.34' 'bzip2')
+makedepends=('pkgconfig' 'yasm' 'sdl')
 url="http://www.gstreamer.net"
 groups=('gstreamer0.10-be-plugins')
 provides=('gstreamer0.10-ffmpeg')
@@ -17,7 +17,9 @@ build() {
 	cd "${srcdir}/gst-ffmpeg-${pkgver}"
 	unset CFLAGS
 	unset CXXFLAGS
-	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+		--disable-static \
+		--with-ffmpeg-extra-configure="--enable-runtime-cpudetect"
 	make
 }
 

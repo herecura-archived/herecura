@@ -1,11 +1,11 @@
 pkgname=gstreamer0.10-be-python
 pkgver=0.10.21
-pkgrel=2
+pkgrel=3
 pkgdesc="Python bindings for GStreamer 0.10"
 arch=('i686' 'x86_64')
 license=('LGPL')
 url="http://gstreamer.freedesktop.org/"
-depends=('pygobject>=2.20.0' 'gstreamer0.10-be-base>=0.10.30')
+depends=('pygobject>=2.20.0' 'gstreamer0.10-be-base>=0.10.34')
 provides=('gstreamer0.10-python')
 conflicts=('gstreamer0.10-python')
 makedepends=('pkgconfig')
@@ -15,6 +15,8 @@ md5sums=('31340ae3e877797a10d088a226d74b16')
 
 build() {
 	cd "${srcdir}/gst-python-${pkgver}"
+	export PYTHON=python2
+	sed -i -e 's%^#!.*env python$%#!/usr/bin/env python2%' examples/* gst/extend/*.py
 	./configure --prefix=/usr
 	make
 }

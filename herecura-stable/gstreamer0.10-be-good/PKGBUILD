@@ -1,14 +1,14 @@
 pkgbase=gstreamer0.10-be-good
 pkgname=('gstreamer0.10-be-good' 'gstreamer0.10-be-good-plugins')
-pkgver=0.10.28
-pkgrel=2
+pkgver=0.10.29
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('LGPL')
-makedepends=('intltool' 'pkgconfig' 'gstreamer0.10-be-base>=0.10.30' 'libavc1394>=0.5.3-3' 'libiec61883>=1.2.0' 'aalib>=1.4rc5-6' 'libshout>=2.2.2' 'libdv>=1.0.0' 'esound>=0.2.41' 'flac>=1.2.1' 'wavpack>=4.60.1' 'taglib>=1.6.3' 'libsoup>=2.30.1' 'v4l-utils' 'libcaca>=0.99.beta17' 'bzip2>=1.0.5' 'gdk-pixbuf2' 'orc>=0.4.11')
+makedepends=('intltool' 'pkgconfig' 'gstreamer0.10-be-base>=0.10.34' 'libavc1394>=0.5.3-3' 'libiec61883>=1.2.0' 'aalib>=1.4rc5-6' 'libshout>=2.2.2' 'libdv>=1.0.0' 'esound>=0.2.41' 'flac>=1.2.1' 'wavpack>=4.60.1' 'taglib>=1.6.3' 'libsoup>=2.30.1' 'v4l-utils' 'libcaca>=0.99.beta17' 'bzip2>=1.0.5' 'gdk-pixbuf2' 'orc>=0.4.11')
 url="http://gstreamer.freedesktop.org/"
 options=(!libtool !emptydirs)
 source=(${url}/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.bz2)
-md5sums=('6ef1588921f59d85c44ee2e49a3c97a0')
+sha256sums=('466a64dcb580d4feef701abfc90656abb3558a2e3fc1e40e43977034bebc354c')
 
 build() {
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
