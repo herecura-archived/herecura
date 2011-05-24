@@ -3,16 +3,16 @@
 
 pkgname=python-pymongo
 _pkgname=pymongo
-pkgver=1.9
-pkgrel=2
+pkgver=1.11
+pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
 url="http://pypi.python.org/pypi/pymongo/"
 depends=('python2')
+arch=('i686' 'x86_64')
 makedepends=('setuptools')
 source=(http://pypi.python.org/packages/source/p/${_pkgname}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('7342181435e77b5b47e55026d1d30db86b1f38dbd87d3c21c5b7ee96fa5a929a')
-arch=('i686' 'x86_64')
+sha256sums=('3969282dbf4616de48ebb3ced00844f86dd7e99bc7b738c2ef78af4b448f8b38')
 
 build() {
   cd $srcdir/${_pkgname}-${pkgver}
