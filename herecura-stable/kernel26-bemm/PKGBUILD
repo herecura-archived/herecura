@@ -8,7 +8,7 @@ true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bemm
 _basekernel=2.6.38
-_patchver=6
+_patchver=7
 _lqxpatchver=38.${_patchver}
 _lqxpatchrel=1
 pkgver=${_basekernel}
@@ -41,7 +41,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://liquorix.net/sources/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		"0658c2a04b9ec15b95f1dde3e94daba195323c8af5bc0e045f25b208c6967cb3"
+		'805c8130da4f9699c8156ccad7dfcdb30d8d0ee01c30df8a052ae4dcab66e64b'
 	)
 fi
 
