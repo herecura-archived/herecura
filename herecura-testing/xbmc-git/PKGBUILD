@@ -7,27 +7,36 @@
 pkgname=xbmc-git
 pkgver=20110524
 pkgrel=1
-pkgdesc="XBMC Media Center Dharma branch"
+pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse' 'xbmc-svn')
 replaces=('xbmc-svn')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper)
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'vdpau-video' 'git' 'libxrandr' 'libxinerama')
+depends=('bzip2' 'faac' 'faad2' 'fribidi' 'glew' 'jasper' 'libass' 'libcdio' 'libgl' 'libmad' 'libmicrohttpd' 
+         'libmodplug' 'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libxtst' 'lzo2' 'python2'
+         'sdl_image>=1.2.10' 'sdl_mixer' 'smbclient' 'unzip' 'wavpack' 'mesa-demos' 'xorg-xdpyinfo')
+makedepends=('boost' 'cmake' 'git' 'gperf' 'nasm' 'libxinerama' 'libxrandr'
+             # 'crystalhd-snapshot'
+             'zip'
+			 'libvdpau' 'libva')
 
 optdepends=(
-	'lirc: remote controller support' 
-	'udisks: automount external drives' 
-	'upower: used to trigger suspend functionality' 
-	'unrar: access compressed files without unpacking them'
-	'vdpau-video: for nvidia hardware accelleration'
-)
+            'gdb: for meaningful backtraces in case of trouble - STRONGLY RECOMMENDED' 
+            'libcrystalhd: Broadcom CrystalHD kernel module'
+            'libssh: support for sshfs'
+            'vdpau-video: accelerated video playback for nvidia cards' 
+            'libva: accelerated video playback for nvidia, ati/amd and some intel cards'
+            'lirc: remote controller support' 
+            'pulseaudio: pulseaudio support'
+            'udisks: automount external drives' 
+            'upower: used to trigger suspend functionality' 
+            'unrar: access compressed files without unpacking them')
 install=("${pkgname}.install")
 source=( "FEH.sh" )
-sha256sums=('1b391dfbaa07f81e5a5a7dfd1288bf2bdeab8dc50bbb6dbf39a80d8797dfaeb0')
-options=(strip)
+sha256sums=('a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede')
+options=('strip' 'makeflags')
 
 if [ -e .githash_${CARCH} ] ; then
 	_gitphash=$(cat .githash_${CARCH})
@@ -68,6 +77,9 @@ build() {
 
 	cd ${_gitname}-build
 
+    # fix lsb_release dependency
+    sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/arch-release:' xbmc/utils/SystemInfo.cpp
+
 	# remove "--as-needed" from LDFLAGS
 	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu"
 
@@ -75,6 +87,7 @@ build() {
 	./bootstrap
 
 	msg2 "Configuring XBMC" 
+    export PYTHON_VERSION=2  # external python v2
 	./configure --prefix=${_prefix} --exec-prefix=${_prefix} \
 		--enable-debug \
 		--enable-optimizations \
@@ -83,6 +96,8 @@ build() {
 		--enable-vaapi \
 		--disable-profiling \
 		--enable-joystick \
+		--enable-external-libraries \
+		--disable-external-ffmpeg \
 		--disable-xrandr \
 		--disable-pulse \
 		--disable-hal \
@@ -91,8 +106,6 @@ build() {
 	# Now (finally) build
 	msg2 "Running make" 
 	make
-	make -C lib/addons/script.module.pil
-	make -C lib/addons/script.module.pysqlite
 }
 
 package() {
@@ -129,6 +142,8 @@ package() {
 	rm -f ${pkgdir}/usr/bin/xbmc-standalone
 	# didnt we built --disable-xrandr ?
 	rm -f ${pkgdir}/usr/lib/xbmc/xbmc-xrandr
+	# remove icon theme cache
+    rm -f ${pkgdir}/usr/share/icons/hicolor/icon-theme.cache
 
 	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
