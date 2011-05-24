@@ -4,7 +4,7 @@
 pkgbase='lirc-bemm'
 pkgname=('lirc-bemm' 'lirc-bemm-utils')
 pkgver=0.9.0
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
