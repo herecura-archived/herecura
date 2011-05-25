@@ -40,10 +40,7 @@ updatemimeandall() {
 
 	# Setup Icons
 	touch -c /usr/share/icons/hicolor
-	if available update-icon-caches
-	then
-		update-icon-caches -tq /usr/share/icons/hicolor
-	elif available gtk-update-icon-cache
+	if available gtk-update-icon-cache
 	then
 		gtk-update-icon-cache -tq /usr/share/icons/hicolor
 	fi
