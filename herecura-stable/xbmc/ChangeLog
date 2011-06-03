@@ -1,3 +1,11 @@
+2011-06-03 BlackEagle <ike DOT devolder AT gmail DOT com>
+	* 10.1-4:
+	- glew rebuild
+	- need sqlite3
+	- add rtmp support
+	- fix gcc 4.5+ linking
+	- added lsb-release fix again
+
 2011-03-10 BlackEagle <ike DOT devolder AT gmail DOT com>
 	* 10.1-1:
 	upstream update

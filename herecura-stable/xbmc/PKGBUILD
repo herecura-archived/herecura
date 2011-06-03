@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=3
+pkgrel=4
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -14,14 +14,15 @@ replaces=('xbmc-dharma')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image dbus-core libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh libass lcms mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper)
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'unzip' 'zip' 'libxrandr' 'libxinerama' 'vdpau-video')
+depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper sqlite3 rtmpdump fontconfig enca)
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video')
 optdepends=(
 	'lirc: remote controller support' 
-	'udisks: automount external drives' 
-	'upower: used to trigger suspend functionality' 
-	'unrar: access compressed files without unpacking them'
 	'vdpau-video: for nvidia hardware accelleration'
+	'unrar: access compressed files without unpacking them'
+	'udisks: automount external drives'
+	'upower: used to trigger suspend functionality'
+	'lcms'
 )
 install=("${pkgname}.install")
 source=( "http://mirrors.xbmc.org/releases/source/${pkgname}-${pkgver}.tar.gz" "FEH.sh" )
@@ -41,8 +42,18 @@ build() {
 
 	cd ${pkgname}-${pkgver}
 
-	# remove "--as-needed" from LDFLAGS
+	# remove "--as-needed" from LDFLAGS, since it causes
+	# undefined symbols at runtime:
+	# /usr/lib/xbmc/system/players/dvdplayer/avcodec-52-i486-linux.so:
+	#  undefined symbol: NeAACDecOpen
 	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu"
+
+	# fix linking issue with gcc 4.5, see git 6ea61fce78q
+	sed -i 's: --soname,: -Wl,--soname,:' \
+	xbmc/cores/dvdplayer/Codecs/{,libdvd/}Makefile.in
+
+	# fix lsb_release dependency
+	sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/arch-release:' xbmc/utils/SystemInfo.cpp
 
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
@@ -56,6 +67,7 @@ build() {
 		--enable-vaapi \
 		--disable-profiling \
 		--enable-joystick \
+		--enable-rtmp \
 		--disable-xrandr \
 		--disable-pulse \
 		--disable-hal \
@@ -64,6 +76,7 @@ build() {
 	# Now (finally) build
 	msg2 "Running make" 
 	make
+	msg2 "building python modules" 
 	make -C lib/addons/script.module.pil
 	make -C lib/addons/script.module.pysqlite
 }
@@ -79,6 +92,10 @@ package() {
 		${pkgdir}${_prefix}/share/xbmc/FEH.sh
 	sed -i -e 's/^python \(.*\)FEH.py \(.*\)$/\1FEH.sh \2/' \
 		${pkgdir}${_prefix}/bin/xbmc
+
+	# lsb_release fix
+	sed -i -e 's/which lsb_release &> \/dev\/null/\[ -f \/etc\/arch-release ]/g' "${pkgdir}${_prefix}/bin/xbmc"
+	sed -i -e "s/lsb_release -a 2> \/dev\/null | sed -e 's\/\^\/    \/'/cat \/etc\/arch-release/g" "${pkgdir}${_prefix}/bin/xbmc"
 
 	# Tools
 	msg2 "Tools"
