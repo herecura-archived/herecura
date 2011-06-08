@@ -7,7 +7,7 @@ pkgdesc="Apper - Application to get and manage software in KDE"
 arch=('i686' 'x86_64')
 url="https://projects.kde.org/projects/playground/sysadmin/apper/"
 license=('GPL')
-depends=('kdelibs' 'packagekit-qt>=0.6.11')
+depends=('kdelibs' 'packagekit-qt2')
 makedepends=('git' 'cmake' 'automoc4')
 provides=('kpackagekit')
 conflicts=('kpackagekit')
