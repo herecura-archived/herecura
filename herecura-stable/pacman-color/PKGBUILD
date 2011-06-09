@@ -1,6 +1,6 @@
 # Contributor: vogo <vogo(at)seznam(dot)cz>
 pkgname=pacman-color
-pkgver=3.5.2
+pkgver=3.5.3
 pkgrel=1
 pkgdesc="Command-line frontend for libalpm aka pacman with color patch"
 arch=('i686' 'x86_64')
