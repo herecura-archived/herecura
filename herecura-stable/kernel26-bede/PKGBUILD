@@ -136,7 +136,6 @@ package_kernel26-bede() {
 	# get kernel version
 	_kernver=$(make kernelrelease)
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=${pkgdir} modules_install
-	mkdir -p ${pkgdir}/boot
 	cp System.map ${pkgdir}/boot/System.map26${_kernelname}
 	cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26${_kernelname}
 
