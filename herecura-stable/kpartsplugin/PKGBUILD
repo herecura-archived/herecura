@@ -2,7 +2,7 @@
 
 pkgname=kpartsplugin
 pkgver=20110606
-pkgrel=1
+pkgrel=2
 pkgdesc="This plugin uses KDE's KParts to embed file viewers into non-KDE browsers"
 url="http://www.unix-ag.uni-kl.de/~fischer/kpartsplugin/"
 license=('GPL3')
@@ -14,13 +14,13 @@ source="${url}${pkgname}-${pkgver}.tar.bz2"
 sha256sums=('087b625e49e82ccd78213af67bd2a5f5d762dbeef707ce68eb1576a16e025d00')
 
 build() {
-	cd ${pkgname}/src
+	cd ${pkgname}-${pkgver}/src
 	cmake -DPLUGIN_INSTALL_DIR="/usr/lib${LIB_SUFFIX}/mozilla/plugins/" \
 		-DCMAKE_BUILD_TYPE=RELEASE
 	make
 }
 
 package() {
-	cd ${pkgname}/src
+	cd ${pkgname}-${pkgver}/src
 	make DESTDIR=$pkgdir install                                                        
 }
