@@ -7,10 +7,10 @@ pkgname='kernel26-bemm'
 true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 # pkgname=kernel26-custom       # Build kernel with a different name
 _kernelname=-bemm
-_basekernel=2.6.38
-_patchver=7
-_lqxpatchver=38.${_patchver}
-_lqxpatchrel=1
+_basekernel=2.6.39
+_patchver=1
+_lqxpatchver=39.${_patchver}
+_lqxpatchrel=3
 pkgver=${_basekernel}
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -27,9 +27,9 @@ source=(
 	"kernel26-bemm.preset"
 )
 sha256sums=(
-	'72f0cfaefb8dc86b219d5a742dd0375332627641ecbdf5badd3158e2127b9304'
-	'd9893516dc32eb5db078d66bb4564bb70664fefdf735dd62053fee6015ad8c97'
-	'1ac26f2d77d8615764623738bb2d5dff3c378a7c033d363295d079d8aa8fd07a'
+	'584d17f2a3ee18a9501d7ff36907639e538cfdba4529978b8550c461d45c61f6'
+	'd331a29260bbe8a06adf7369a680c4ec53bf52a880d5f3d01ba41c6429904a16'
+	'84287c333049e14a0d1b3195a654987389b1cbf12630f51d9b8fe008f9304bfd'
 	'b447fdd7acec14ff5afd01a44d317e3f8a4586bed15bf7a3d3c774e84a3ab401'
 )
 
@@ -41,7 +41,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://liquorix.net/sources/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'805c8130da4f9699c8156ccad7dfcdb30d8d0ee01c30df8a052ae4dcab66e64b'
+		'0f4d280479ae4f08777cf2e025f30a3fa502c0ae01ba0d69ae1486859220e5b6'
 	)
 fi
 
@@ -140,8 +140,10 @@ package_kernel26-bemm() {
 	cd ${srcdir}/linux-$_basekernel
 	# get kernel version
 	_kernver=$(make kernelrelease)
+
+	mkdir -p ${pkgdir}/{lib/modules,lib/firmware,boot}
+
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=${pkgdir} modules_install
-	mkdir -p ${pkgdir}/boot
 	cp System.map ${pkgdir}/boot/System.map26${_kernelname}
 	cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26${_kernelname}
 
