@@ -1,5 +1,5 @@
 
-KERNEL_VERSION=2.6.38-BEMM
+KERNEL_VERSION=2.6.39-BEMM
 
 
 whisperer(){
