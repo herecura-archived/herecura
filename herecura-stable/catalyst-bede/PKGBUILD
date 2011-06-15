@@ -10,7 +10,7 @@ _kernver='2.6.39-BEDE'
 
 pkgname=catalyst-bede
 pkgver=11.6
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers for kernel26-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -18,6 +18,7 @@ license=('custom')
 depends=('kernel26-bede>=2.6.39' 'kernel26-bede<2.6.40' "catalyst-utils=${pkgver}")
 makedepends=('kernel26-bede-headers>=2.6.39' 'kernel26-bede-headers<2.6.40')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
+provides=('catalyst')
 install=${pkgname}.install
 
 source=(
