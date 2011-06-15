@@ -15,8 +15,8 @@ pkgdesc="AMD/ATI Catalyst drivers for kernel26-bemm. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-depends=('kernel26-bemm>=2.6.38' 'kernel26-bemm<2.6.39' "catalyst-utils=${pkgver}")
-makedepends=('kernel26-bemm-headers>=2.6.38' 'kernel26-bemm-headers<2.6.39')
+depends=('kernel26-bemm>=2.6.39' 'kernel26-bemm<2.6.40' "catalyst-utils=${pkgver}")
+makedepends=('kernel26-bemm-headers>=2.6.39' 'kernel26-bemm-headers<2.6.40')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 install=${pkgname}.install
 
