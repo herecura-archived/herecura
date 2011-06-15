@@ -30,7 +30,7 @@ elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
 	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('29f28cd59e2647cdb517eca2381d3dbd')
+	md5sums=('f75df248f7bf32199ed88db2f080cbfa')
 fi
 
 build() {
@@ -52,3 +52,6 @@ package() {
 
 	sed -i -e "s/KERNEL_VERSION='.*'/KERNEL_VERSION='${_kernver}'/" $startdir/nvidia.install
 }
+/**
+ * 
+ */
