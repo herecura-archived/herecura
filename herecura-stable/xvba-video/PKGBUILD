@@ -8,7 +8,8 @@ arch=('i686' 'x86_64')
 url="http://www.splitted-desktop.com/~gbeauchesne/xvba-video/"
 license=('GPL2')
 #depends=('catalyst>=10.12' 'xvba-sdk' 'libva')
-depends=('catalyst>=10.12' 'libva')
+#depends=('catalyst>=10.12' 'libva')
+depends=('catalyst-utils>=10.12' 'libva')
 makedepends=('python2')
 source=(
 	"http://www.splitted-desktop.com/~gbeauchesne/xvba-video/xvba-video-${pkgver}.tar.gz"
