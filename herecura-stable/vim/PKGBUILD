@@ -5,30 +5,34 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-rt')
+pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
 _patchlevel=219
 pkgver=${_basever}.${_patchlevel}
 __hgrev=c6f8f1957c
-pkgrel=2
+pkgrel=3
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
 makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-'gettext' 'pkgconfig' 'sed' 'mercurial')
+'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt')
 options=()
 source=(
 	'vimrc'
 	'peaksea.vim'
 	'gvim.desktop'
 	'license.txt'
+	'vim-qt-src.patch'
+	'qt-icons.tar.gz'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
+	'c8523e6eac31cf24c1c411286dcddea81bb0b780a1c673bb47891194a64f40c3'
+	'55dc2586064a6b00b4256fd14ad1f58de5f87a29ea70890932b57d4fc1c01946'
 )
 
 __hgroot='http://vim.googlecode.com/hg/'
@@ -38,9 +42,6 @@ __hgbranch='default'
 ##### Build #####
 
 build() {
-	[ -d vim-build ] && rm -rf vim-build
-	[ -d gvim-build ] && rm -rf gvim-build
-	#[ -d vim-tn-build ] && rm -rf vim-tn-build
 	msg2 'Checking out source from Mercurial...'
 
 	if [[ -d ${__hgrepo} ]]; then
@@ -52,13 +53,15 @@ build() {
 		hg clone -b ${__hgbranch} -u ${__hgrev} "${__hgroot}${__hgrepo}" ${__hgrepo}
 	fi
 
-	#(
-	#	cd ${pkgbase}
-	#	patch -Np2 -i ${startdir}/it.po.patch
-	#)
+	# remove old build dirs if exist
+	[ -d vim-build ] && rm -rf vim-build
+	[ -d gvim-build-gtk ] && rm -rf gvim-build-gtk
+	[ -d gvim-build-x11 ] && rm -rf gvim-build-x11
+	[ -d gvim-build-qt ] && rm -rf gvim-build-qt
+	[ -d vim-tn-build ] && rm -rf vim-tn-build
 
 	cp -a ${pkgbase} vim-build
-	(cd vim-build && rm -rf ./.hg)
+	(cd vim-build && rm -rf ./.hg*)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
 	sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
@@ -68,16 +71,18 @@ build() {
 	# fix python name
 	sed -i -e 's|vi_cv_path_python, python|vi_cv_path_python, python2|' \
 		vim-build/src/configure.in
-	(cd vim-build/src && autoconf)
+	#(cd vim-build/src && autoconf)
 
 	msg2 'Building...'
 
 	cp -a vim-build gvim-build-gtk
 	cp -a vim-build gvim-build-x11
+	cp -a vim-build gvim-build-qt
 	cp -a vim-build vim-tn-build
 
 	msg2 'Building vim-tiny'
 	cd ${srcdir}/vim-tn-build
+	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
 		--with-features=tiny --disable-gpm --enable-acl --with-x=no \
@@ -88,6 +93,7 @@ build() {
 
 	msg2 'Building vim-cli'
 	cd ${srcdir}/vim-build
+	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
 		--with-features=huge --enable-gpm --enable-acl --with-x=no \
@@ -98,6 +104,7 @@ build() {
 
 	msg2 'Building vim-gvim-gtk'
 	cd ${srcdir}/gvim-build-gtk
+	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
@@ -108,10 +115,26 @@ build() {
 
 	msg2 'Building vim-gvim-x11'
 	cd ${srcdir}/gvim-build-x11
+	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=ArchLinux \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=athena --enable-multibyte --enable-cscope \
+		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
+		--enable-rubyinterp --enable-luainterp=yes
+	make
+
+	msg2 'Building vim-gvim-qt'
+	cd ${srcdir}/gvim-build-qt
+	patch -Np1 -i ${srcdir}/vim-qt-src.patch
+	(cd src && autoconf)
+	(cd src/qt && tar -zxf ${srcdir}/qt-icons.tar.gz)
+	#export CFLAGS="-g -O0"
+	#export CXXFLAGS="-g -O0"
+	./configure --prefix=/usr --localstatedir=/var/lib/vim \
+		--mandir=/usr/share/man --with-compiledby=ArchLinux \
+		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
+		--enable-gui=qt --enable-multibyte --enable-cscope \
 		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
 		--enable-rubyinterp --enable-luainterp=yes
 	make
@@ -196,6 +219,14 @@ package_vim-gvim-gtk() {
 		while read _mandir; do
 			cd ${_mandir}
 			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f evim.1    # this does not make sense if we have no GUI
+		done
+
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
 			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
 		done
 
@@ -232,8 +263,70 @@ package_vim-gvim-x11() {
 		while read _mandir; do
 			cd ${_mandir}
 			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f evim.1    # this does not make sense if we have no GUI
+		done
+
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
 			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
 		done
+
+	# Runtime provided by runtime package
+	rm -r ${pkgdir}/usr/share/vim
+
+	# freedesktop links
+	install -Dm644 ${srcdir}/gvim.desktop \
+		${pkgdir}/usr/share/applications/gvim.desktop
+	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
+
+	# license
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-x11
+	install -Dm644 ${srcdir}/license.txt \
+		${pkgdir}/usr/share/licenses/vim-gvim-x11/license.txt
+}
+
+package_vim-gvim-qt() {
+	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
+	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua'
+		'libxt' 'desktop-file-utils' 'libxaw' 'qt')
+	conflicts=('vim' 'gvim')
+	provides=('gvim')
+	install=gvim.install
+
+	cd ${srcdir}/gvim-build-qt
+	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
+
+	# provided by (n)vi in core
+	rm ${pkgdir}/usr/bin/{ex,view}
+
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f evim.1    # this does not make sense if we have no GUI
+		done
+
+	# delete some manpages
+	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
+		while read _mandir; do
+			cd ${_mandir}
+			rm -f ex.1 view.1 # provided by (n)vi
+			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
+		done
+
+	# some symlinks wont install so manually added
+	(
+		cd ${pkgdir}/usr/bin
+		ln -s vim gvim
+		ln -s vim gvimdiff
+		ln -s vim gview
+		ln -s vim rgview
+		ln -s vim rgvim
+	)
 
 	# Move the runtime for later packaging
 	mv ${pkgdir}/usr/share/vim ${srcdir}/runtime-install
@@ -244,7 +337,7 @@ package_vim-gvim-x11() {
 	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
 
 	# license
-	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-x11
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-qt
 	install -Dm644 ${srcdir}/license.txt \
 		${pkgdir}/usr/share/licenses/vim-gvim-x11/license.txt
 }
