@@ -14399,7 +14399,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-06-16 17:29:55.936562971 +0200
++++ vim-qt-src/src/configure.in	2011-06-19 09:21:15.497592502 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14531,7 +14531,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-06-16 17:29:55.927562877 +0200
++++ vim-qt-src/src/feature.h	2011-06-19 09:21:15.488592356 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14596,16 +14596,19 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_CON_DIALOG
  #  define FEAT_GUI_DIALOG
  # else
-@@ -1010,7 +1013,7 @@
+@@ -1009,9 +1012,11 @@
+  * +X11			Unix only.  Include code for xterm title saving and X
   *			clipboard.  Only works if HAVE_X11 is also defined.
   */
++#if !defined(FEAT_GUI_QT)
  #if (defined(FEAT_NORMAL) || defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_ATHENA))
--# define WANT_X11
-+//# define WANT_X11
+ # define WANT_X11
  #endif
++#endif
  
  /*
-@@ -1107,7 +1110,7 @@
+  * XSMP - X11 Session Management Protocol
+@@ -1107,7 +1112,7 @@
  /*
   * +dnd		Drag'n'drop support.  Always used for the GTK+ GUI.
   */
@@ -14614,7 +14617,7 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  # define FEAT_DND
  #endif
  
-@@ -1149,7 +1152,7 @@
+@@ -1149,7 +1154,7 @@
  # endif
  # if defined(FEAT_GUI_W32) || defined(FEAT_GUI_W16) || defined(FEAT_GUI_MOTIF) \
  	|| defined(FEAT_GUI_ATHENA) || defined(FEAT_GUI_GTK) \
@@ -14752,8 +14755,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-06-16 16:58:04.000000000 +0200
-@@ -0,0 +1,1447 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-06-19 08:23:04.000000000 +0200
+@@ -0,0 +1,1451 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -14798,40 +14801,40 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_get_font(char_u *name, int giveErrorIfMissing)
 +{
 +	QString family = (char*)name;
-+	QFont *font = new QFont();
-+	font->setStyleHint(QFont::TypeWriter);
++	QFont font;
++	font.setStyleHint(QFont::TypeWriter);
 +
 +	if ( name == NULL ) { // Fallback font
-+		font->setFamily("Monospace");
-+		font->setPointSize(10);
-+		font->setKerning(false);
-+		return font;
++		font.setFamily("Monospace");
++		font.setPointSize(10);
++		font.setKerning(false);
++		return new QFont(font);
 +	}
 +
 +	bool ok;
 +	int size = family.section(' ', -1).trimmed().toInt(&ok);
 +	if ( ok ) {
 +		QString realname = family.section(' ', 0, -2).trimmed();
-+		font->setFamily(realname);
-+		font->setPointSize(size);
-+	} else if ( !font->fromString((char*)name) ) {
-+		font->setRawName((char*)name);
++		font.setFamily(realname);
++		font.setPointSize(size);
++	} else if ( !font.fromString((char*)name) ) {
++		font.setRawName((char*)name);
 +	}
 +
 +	// I expected QFont::exactMatch to do this - but I was wrong
 +	// FIXME: this needs further testing
-+	if ( QFontInfo(*font).family() != font->family() ) {
++	if ( QFontInfo(font).family() != font.family() ) {
 +		if ( giveErrorIfMissing ) {
 +			EMSG2(e_font, name);
 +		}
 +		return NOFONT;
 +	}
 +
-+	font->setFixedPitch(true);
-+	font->setBold(false);
-+	font->setItalic(false);
++	font.setFixedPitch(true);
++	font.setBold(false);
++	font.setItalic(false);
 +
-+	return font;
++	return new QFont(font);
 +}
 +
 +/**
@@ -15032,7 +15035,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	}
 +
 +	gui.norm_font = qf;
-+	gui.char_width = metric.width(" ");
++	gui.char_width = metric.width("M");
 +	gui.char_height = metric.height();
 +	gui.char_ascent = metric.ascent();
 +	vimshell->setCharWidth(gui.char_width);
@@ -15227,6 +15230,10 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	// Clipboard - the order matters, for safety
 +	clip_plus.clipboardMode = QClipboard::Selection;
 +	clip_star.clipboardMode = QClipboard::Clipboard;
++
++	QObject::connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
++			vimshell, SLOT(clipboardChanged(QClipboard::Mode)));
++
 +
 +	display_errors();
 +
@@ -16687,9 +16694,10 @@ Binary files vim-src/src/qt/icons/run-build-clean.png and vim-qt-src/src/qt/icon
 Binary files vim-src/src/qt/icons/run-build.png and vim-qt-src/src/qt/icons/run-build.png differ
 Binary files vim-src/src/qt/icons/system-run.png and vim-qt-src/src/qt/icons/system-run.png differ
 Binary files vim-src/src/qt/icons/table.png and vim-qt-src/src/qt/icons/table.png differ
+Binary files vim-src/src/qt/icons/vim-qt.png and vim-qt-src/src/qt/icons/vim-qt.png differ
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/icons.qrc	2011-06-16 16:58:05.000000000 +0200
++++ vim-qt-src/src/qt/icons.qrc	2011-06-19 08:23:04.000000000 +0200
 @@ -0,0 +1,25 @@
 + <!DOCTYPE RCC><RCC version="1.0">
 + <qresource>
@@ -16713,13 +16721,13 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 +     <file>icons/go-jump.png</file>
 +     <file>icons/help-contents.png</file>
 +     <file>icons/help-contextual.png</file>
-+
++     <file>icons/vim-qt.png</file>
 + </qresource>
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,165 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-19 08:23:04.000000000 +0200
+@@ -0,0 +1,179 @@
 +#include "mainwindow.moc"
 +
 +#include "../runtime/vim32x32.xpm"
@@ -16727,7 +16735,7 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
 +:QMainWindow(parent), m_keepTabbar(false)
 +{
-+	setWindowIcon(QPixmap(vim32x32));
++	setWindowIcon(QIcon(":/icons/vim-qt.png"));
 +
 +	// Menu
 +	menutoolbar = addToolBar("Menu");
@@ -16748,10 +16756,11 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	// TabLine
 +	tabtoolbar = addToolBar("tabline");
 +	tabtoolbar->setObjectName("tabline");
-+	tabtoolbar->setAllowedAreas(Qt::LeftToolBarArea | Qt::TopToolBarArea);
 +
 +	connect( tabtoolbar, SIGNAL(orientationChanged(Qt::Orientation)),
-+			this, SLOT(updateTabOrientation(Qt::Orientation)) );
++			this, SLOT(updateTabOrientation()) );
++	connect( tabtoolbar, SIGNAL(topLevelChanged(bool)),
++			this, SLOT(updateTabOrientation()));
 +
 +	tabbar = new QTabBar(tabtoolbar);
 +	tabbar->setTabsClosable(true);
@@ -16769,12 +16778,25 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 +}
 +
-+void MainWindow::updateTabOrientation(Qt::Orientation orientation)
++void MainWindow::updateTabOrientation()
 +{
-+	if ( orientation == Qt::Horizontal ) {
-+		tabbar->setShape( QTabBar::RoundedNorth );
++
++	if ( tabtoolbar->orientation() == Qt::Horizontal ) {
++		if ( toolBarArea(tabtoolbar) == Qt::BottomToolBarArea ) {
++			tabbar->setShape( QTabBar::RoundedSouth );
++		} else {
++			tabbar->setShape( QTabBar::RoundedNorth );
++		}
 +	} else {
-+		tabbar->setShape( QTabBar::RoundedWest );
++		if ( toolBarArea(tabtoolbar) == Qt::LeftToolBarArea ) {
++			tabbar->setShape( QTabBar::RoundedWest );
++		} else {
++			tabbar->setShape( QTabBar::RoundedEast );
++		}
++	}
++
++	if ( tabtoolbar->isFloating() ) {
++		tabtoolbar->resize(tabtoolbar->minimumWidth(), tabtoolbar->sizeHint().height());
 +	}
 +}
 +
@@ -16887,7 +16909,7 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2011-06-16 16:58:05.000000000 +0200
++++ vim-qt-src/src/qt/mainwindow.h	2011-06-19 08:23:04.000000000 +0200
 @@ -0,0 +1,53 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
@@ -16926,7 +16948,7 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +	virtual void closeEvent( QCloseEvent *);
 +
 +protected slots:
-+	void updateTabOrientation(Qt::Orientation);
++	void updateTabOrientation();
 +
 +private:
 +	QToolBar *toolbar;
@@ -16944,8 +16966,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,1309 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-06-19 08:23:04.000000000 +0200
+@@ -0,0 +1,1328 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -16969,6 +16991,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	setAttribute(Qt::WA_KeyCompression, true);
 +	setAttribute(Qt::WA_InputMethodEnabled, true);
 +	setAttribute(Qt::WA_OpaquePaintEvent, true);
++	setAttribute(Qt::WA_PaintOnScreen, true);
 +	setAcceptDrops(true);
 +}
 +
@@ -17228,7 +17251,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			continue;
 +		}
 +		painter.drawText(rect, 
-+				Qt::TextSingleLine | Qt::AlignLeft | Qt::AlignTop, 
++				Qt::TextSingleLine | Qt::AlignCenter | Qt::AlignTop, 
 +				c);
 +		rect.moveTo( rect.x() + rect.width(), rect.y() );
 +	}
@@ -17323,8 +17346,11 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::paintEvent ( QPaintEvent *ev )
 +{
 +	flushPaintOps();
++
 +	QPainter realpainter(this);
-+	realpainter.drawPixmap( ev->rect(), canvas, ev->rect());
++	foreach(const QRect r, ev->region().rects()) {
++		realpainter.drawPixmap( r, canvas, r);
++	}
 +}
 +
 +//
@@ -17582,6 +17608,21 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	m_tooltip->update();
 +}
 +
++/*
++ * Mark the given clipboard has not owned by Vim
++ *
++ */
++void QVimShell::clipboardChanged(QClipboard::Mode mode)
++{
++	switch(mode) {
++	case QClipboard::Clipboard:
++		clip_star.owned = FALSE;
++		break;
++	case QClipboard::Selection:
++		clip_plus.owned = FALSE;
++		break;
++	}
++}
 +
 +/*
 + * Fill color table with Vim colors
@@ -18257,8 +18298,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,153 @@
++++ vim-qt-src/src/qt/qvimshell.h	2011-06-19 08:23:04.000000000 +0200
+@@ -0,0 +1,154 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -18315,6 +18356,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	void switchTab(int idx);
 +	void closeTab(int idx);
++	void clipboardChanged(QClipboard::Mode);
 +
 +protected:
 +	void flushPaintOps();
@@ -18370,8 +18412,8 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +struct special_key
 +{
 +	int key_sym;
-+	char code0;
-+	char code1;
++	char_u code0;
++	char_u code1;
 +};
 +
 +static const struct special_key special_keys[] =
