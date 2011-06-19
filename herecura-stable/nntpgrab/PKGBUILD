@@ -3,13 +3,13 @@
 pkgbase=nntpgrab
 pkgname=('nntpgrab-gtk' 'nntpgrab-qt')
 pkgver=0.6.91
-pkgrel=1
+pkgrel=2
 pkgdesc="NNTPGrab is an open source usenet download program"
 arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license="gpl2"
 makedepends=('gtk2' 'libsoup' 'networkmanager' 'qt'
-'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool' 'gobject-introspection' 'gconf')
+'pkgconfig' 'par2cmdline' 'intltool')
 options=('!libtool')
 source=("http://openftd.mirrors.sebsoft.nl/${pkgbase}/${pkgbase}-${pkgver}.tar.bz2"
 	"nntpgrab_0_6_91_support_older_qt_versions.patch"
@@ -25,10 +25,11 @@ build()
 	patch -Np0 -i ${srcdir}/nntpgrab_0_6_91_use_bundled_qtsolutions.patch
 
 	./configure\
-		--enable-introspection=no\
-		--enable-gtk-doc=no\
-		--enable-gtk-doc-html=no\
-		--enable-gtk-doc-pdf=no\
+		--enable-introspection=no \
+		--enable-gtk-doc=no \
+		--enable-gtk-doc-html=no \
+		--enable-gtk-doc-pdf=no \
+		--disable-gtk3 \
 		--prefix=/usr
 	make
 
@@ -45,9 +46,10 @@ build()
 
 package_nntpgrab-gtk() {
 	pkgdesc="NNTPGrab is an open source usenet download program"
-	depends=('gtk2' 'libsoup' 'networkmanager')
+	depends=('gtk2' 'libsoup' 'networkmanager' 'desktop-file-utils')
 	optdepends=('par2cmdline: for automatic repair'
 		'unrar: for automatic extraction')
+	install='nntpgrab.install'
 	cd ${pkgbase}-${pkgver}
 	make DESTDIR=${pkgdir} install
 }
@@ -57,6 +59,7 @@ package_nntpgrab-qt() {
 	depends=('nntpgrab-gtk' 'qt')
 	optdepends=('par2cmdline: for automatic repair'
 		'unrar: for automatic extraction')
+	install='nntpgrab.install'
 	cd ${pkgbase}-${pkgver}
 	mkdir -p ${pkgdir}/usr/bin
 	mkdir -p ${pkgdir}/usr/share/applications
