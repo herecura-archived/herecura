@@ -1,7 +1,8 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgbase=nntpgrab
-pkgname=('nntpgrab-gtk' 'nntpgrab-qt')
+pkgname=nntpgrab
+true && pkgname=('nntpgrab-gtk' 'nntpgrab-qt')
 pkgver=0.6.91
 pkgrel=2
 pkgdesc="NNTPGrab is an open source usenet download program"
