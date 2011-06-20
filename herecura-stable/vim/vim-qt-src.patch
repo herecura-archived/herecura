@@ -14399,7 +14399,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-06-19 09:21:15.497592502 +0200
++++ vim-qt-src/src/configure.in	2011-06-20 17:29:12.314773459 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14531,7 +14531,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-06-19 09:21:15.488592356 +0200
++++ vim-qt-src/src/feature.h	2011-06-20 17:29:12.272772678 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -16726,8 +16726,8 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-19 08:23:04.000000000 +0200
-@@ -0,0 +1,179 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-20 17:24:24.000000000 +0200
+@@ -0,0 +1,180 @@
 +#include "mainwindow.moc"
 +
 +#include "../runtime/vim32x32.xpm"
@@ -16736,6 +16736,7 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +:QMainWindow(parent), m_keepTabbar(false)
 +{
 +	setWindowIcon(QIcon(":/icons/vim-qt.png"));
++	setContextMenuPolicy(Qt::PreventContextMenu);
 +
 +	// Menu
 +	menutoolbar = addToolBar("Menu");
