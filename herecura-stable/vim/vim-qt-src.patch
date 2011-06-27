@@ -59,19 +59,21 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +target_link_libraries(qvim -lm -lncurses -lacl -lgpm ${QT_LIBRARIES})
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
 --- vim-src/src/config.mk.in	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/config.mk.in	2011-06-16 16:58:04.000000000 +0200
-@@ -156,6 +156,7 @@
++++ vim-qt-src/src/config.mk.in	2011-06-27 16:28:02.000000000 +0200
+@@ -156,6 +156,9 @@
  GUI_X_LIBS	= @GUI_X_LIBS@
  MOTIF_LIBNAME	= @MOTIF_LIBNAME@
  GTK_LIBNAME	= @GTK_LIBNAME@
 +QT_MOC		= @QT_MOC@
++QT_LIBDIR	= @QT_LIBDIR@
++QT_INCDIR	= @QT_INCDIR@
  
  ### Any OS dependent extra source and object file
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/configure	2011-06-16 16:58:04.000000000 +0200
-@@ -1,10 +1,14318 @@
++++ vim-qt-src/src/configure	2011-06-27 16:28:02.000000000 +0200
+@@ -1,10 +1,14355 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -679,6 +681,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +ac_subst_vars='LTLIBOBJS
 +LIBOBJS
++LINK_AS_NEEDED
 +DEPEND_CFLAGS_FILTER
 +MAKEMO
 +MSGFMT
@@ -691,8 +694,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +GUITYPE
 +GUI_LIB_LOC
 +GUI_INC_LOC
++QT_INCDIR
++QT_LIBDIR
 +QT_MOC
-+CXXCPP
 +ac_ct_CXX
 +CXXFLAGS
 +CXX
@@ -880,6 +884,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +with_gnome_libs
 +with_gnome
 +with_motif_lib
++with_qt_dir
 +with_tlib
 +enable_largefile
 +enable_acl
@@ -899,8 +904,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +XMKMF
 +CXX
 +CXXFLAGS
-+CCC
-+CXXCPP'
++CCC'
 +
 +
 +# Initialize some variables set by options.
@@ -1524,7 +1528,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --enable-pythoninterp=OPTS   Include Python interpreter. default=no OPTS=no/yes/dynamic
 +  --enable-python3interp=OPTS   Include Python3 interpreter. default=no OPTS=no/yes/dynamic
 +  --enable-tclinterp      Include Tcl interpreter.
-+  --enable-rubyinterp     Include Ruby interpreter.
++  --enable-rubyinterp=OPTS     Include Ruby interpreter.  default=no OPTS=no/yes/dynamic
 +  --enable-cscope         Include cscope interface.
 +  --enable-workshop       Include Sun Visual Workshop support.
 +  --disable-netbeans      Disable NetBeans integration support.
@@ -1573,6 +1577,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --with-gnome-libs=DIR   Specify location of GNOME libs
 +  --with-gnome            Specify prefix for GNOME files
 +  --with-motif-lib=STRING   Library for Motif
++  --with-qt-dir=PATH      to specify the Qt4 base prefix
 +  --with-tlib=library     terminal library to be used
 +
 +Some influential environment variables:
@@ -1587,7 +1592,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  XMKMF       Path to xmkmf, Makefile generator for X Window System
 +  CXX         C++ compiler command
 +  CXXFLAGS    C++ compiler flags
-+  CXXCPP      C++ preprocessor
 +
 +Use these variables to override the choices made by `configure' or to help
 +it to find libraries and programs with nonstandard names/locations.
@@ -2054,130 +2058,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  as_fn_set_status $ac_retval
 +
 +} # ac_fn_cxx_try_compile
-+
-+# ac_fn_cxx_try_cpp LINENO
-+# ------------------------
-+# Try to preprocess conftest.$ac_ext, and return whether this succeeded.
-+ac_fn_cxx_try_cpp ()
-+{
-+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-+  if { { ac_try="$ac_cpp conftest.$ac_ext"
-+case "(($ac_try" in
-+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-+  *) ac_try_echo=$ac_try;;
-+esac
-+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
-+$as_echo "$ac_try_echo"; } >&5
-+  (eval "$ac_cpp conftest.$ac_ext") 2>conftest.err
-+  ac_status=$?
-+  if test -s conftest.err; then
-+    grep -v '^ *+' conftest.err >conftest.er1
-+    cat conftest.er1 >&5
-+    mv -f conftest.er1 conftest.err
-+  fi
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; } > conftest.i && {
-+	 test -z "$ac_cxx_preproc_warn_flag$ac_cxx_werror_flag" ||
-+	 test ! -s conftest.err
-+       }; then :
-+  ac_retval=0
-+else
-+  $as_echo "$as_me: failed program was:" >&5
-+sed 's/^/| /' conftest.$ac_ext >&5
-+
-+    ac_retval=1
-+fi
-+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-+  as_fn_set_status $ac_retval
-+
-+} # ac_fn_cxx_try_cpp
-+
-+# ac_fn_cxx_check_header_mongrel LINENO HEADER VAR INCLUDES
-+# ---------------------------------------------------------
-+# Tests whether HEADER exists, giving a warning if it cannot be compiled using
-+# the include files in INCLUDES and setting the cache variable VAR
-+# accordingly.
-+ac_fn_cxx_check_header_mongrel ()
-+{
-+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-+  if eval \${$3+:} false; then :
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
-+$as_echo_n "checking for $2... " >&6; }
-+if eval \${$3+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+fi
-+eval ac_res=\$$3
-+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-+$as_echo "$ac_res" >&6; }
-+else
-+  # Is the header compilable?
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 usability" >&5
-+$as_echo_n "checking $2 usability... " >&6; }
-+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-+/* end confdefs.h.  */
-+$4
-+#include <$2>
-+_ACEOF
-+if ac_fn_cxx_try_compile "$LINENO"; then :
-+  ac_header_compiler=yes
-+else
-+  ac_header_compiler=no
-+fi
-+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_compiler" >&5
-+$as_echo "$ac_header_compiler" >&6; }
-+
-+# Is the header present?
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking $2 presence" >&5
-+$as_echo_n "checking $2 presence... " >&6; }
-+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-+/* end confdefs.h.  */
-+#include <$2>
-+_ACEOF
-+if ac_fn_cxx_try_cpp "$LINENO"; then :
-+  ac_header_preproc=yes
-+else
-+  ac_header_preproc=no
-+fi
-+rm -f conftest.err conftest.i conftest.$ac_ext
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_header_preproc" >&5
-+$as_echo "$ac_header_preproc" >&6; }
-+
-+# So?  What about this header?
-+case $ac_header_compiler:$ac_header_preproc:$ac_cxx_preproc_warn_flag in #((
-+  yes:no: )
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&5
-+$as_echo "$as_me: WARNING: $2: accepted by the compiler, rejected by the preprocessor!" >&2;}
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
-+$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
-+    ;;
-+  no:yes:* )
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: present but cannot be compiled" >&5
-+$as_echo "$as_me: WARNING: $2: present but cannot be compiled" >&2;}
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     check for missing prerequisite headers?" >&5
-+$as_echo "$as_me: WARNING: $2:     check for missing prerequisite headers?" >&2;}
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: see the Autoconf documentation" >&5
-+$as_echo "$as_me: WARNING: $2: see the Autoconf documentation" >&2;}
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&5
-+$as_echo "$as_me: WARNING: $2:     section \"Present But Cannot Be Compiled\"" >&2;}
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: $2: proceeding with the compiler's result" >&5
-+$as_echo "$as_me: WARNING: $2: proceeding with the compiler's result" >&2;}
-+    ;;
-+esac
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for $2" >&5
-+$as_echo_n "checking for $2... " >&6; }
-+if eval \${$3+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  eval "$3=\$ac_header_compiler"
-+fi
-+eval ac_res=\$$3
-+	       { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_res" >&5
-+$as_echo "$ac_res" >&6; }
-+fi
-+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-+
-+} # ac_fn_cxx_check_header_mongrel
 +
 +# ac_fn_c_check_type LINENO TYPE VAR INCLUDES
 +# -------------------------------------------
@@ -5123,16 +5003,36 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +      else
 +	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
-+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if scheme.h can be found in /usr/include/plt/" >&5
-+$as_echo_n "checking if scheme.h can be found in /usr/include/plt/... " >&6; }
-+	if test -f /usr/include/plt/scheme.h; then
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if scheme.h can be found in $vi_cv_path_mzscheme_pfx/include/racket" >&5
++$as_echo_n "checking if scheme.h can be found in $vi_cv_path_mzscheme_pfx/include/racket... " >&6; }
++	if test -f $vi_cv_path_mzscheme_pfx/include/racket/scheme.h; then
 +	  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 +$as_echo "yes" >&6; }
-+	  SCHEME_INC=/usr/include/plt
++	  SCHEME_INC=${vi_cv_path_mzscheme_pfx}/include/racket
 +	else
 +	  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
-+	  vi_cv_path_mzscheme_pfx=
++	  { $as_echo "$as_me:${as_lineno-$LINENO}: checking if scheme.h can be found in /usr/include/plt/" >&5
++$as_echo_n "checking if scheme.h can be found in /usr/include/plt/... " >&6; }
++	  if test -f /usr/include/plt/scheme.h; then
++	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++	    SCHEME_INC=/usr/include/plt
++	  else
++	    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++	    { $as_echo "$as_me:${as_lineno-$LINENO}: checking if scheme.h can be found in /usr/include/racket/" >&5
++$as_echo_n "checking if scheme.h can be found in /usr/include/racket/... " >&6; }
++	    if test -f /usr/include/racket/scheme.h; then
++	      { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++	      SCHEME_INC=/usr/include/racket
++	    else
++	      { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++	      vi_cv_path_mzscheme_pfx=
++	    fi
++	  fi
 +	fi
 +      fi
 +    fi
@@ -5144,12 +5044,22 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libmzscheme3m.a"; then
 +      MZSCHEME_LIBS="${vi_cv_path_mzscheme_pfx}/lib/libmzscheme3m.a"
 +      MZSCHEME_CFLAGS="-DMZ_PRECISE_GC"
-+    elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libmzgc.a"; then
++    elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libracket3m.a"; then
++      MZSCHEME_LIBS="${vi_cv_path_mzscheme_pfx}/lib/libracket3m.a"
++      MZSCHEME_CFLAGS="-DMZ_PRECISE_GC"
++    elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libracket.a"; then
++      MZSCHEME_LIBS="${vi_cv_path_mzscheme_pfx}/lib/libracket.a ${vi_cv_path_mzscheme_pfx}/lib/libmzgc.a"
++    elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libmzscheme.a"; then
 +      MZSCHEME_LIBS="${vi_cv_path_mzscheme_pfx}/lib/libmzscheme.a ${vi_cv_path_mzscheme_pfx}/lib/libmzgc.a"
 +    else
 +            if test -f "${vi_cv_path_mzscheme_pfx}/lib/libmzscheme3m.so"; then
 +        MZSCHEME_LIBS="-L${vi_cv_path_mzscheme_pfx}/lib -lmzscheme3m"
 +	MZSCHEME_CFLAGS="-DMZ_PRECISE_GC"
++      elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libracket3m.so"; then
++        MZSCHEME_LIBS="-L${vi_cv_path_mzscheme_pfx}/lib -lracket3m"
++	MZSCHEME_CFLAGS="-DMZ_PRECISE_GC"
++      elif test -f "${vi_cv_path_mzscheme_pfx}/lib/libracket.so"; then
++        MZSCHEME_LIBS="-L${vi_cv_path_mzscheme_pfx}/lib -lracket -lmzgc"
 +      else
 +        MZSCHEME_LIBS="-L${vi_cv_path_mzscheme_pfx}/lib -lmzscheme -lmzgc"
 +      fi
@@ -5162,10 +5072,20 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    fi
 +    if test -d $vi_cv_path_mzscheme_pfx/lib/plt/collects; then
 +      SCHEME_COLLECTS=lib/plt/
++    else
++      if test -d $vi_cv_path_mzscheme_pfx/lib/racket/collects; then
++	SCHEME_COLLECTS=lib/racket/
++      fi
 +    fi
 +    if test -f "${vi_cv_path_mzscheme_pfx}/${SCHEME_COLLECTS}collects/scheme/base.ss" ; then
-+            MZSCHEME_EXTRA="mzscheme_base.c"
-+      MZSCHEME_CFLAGS="${MZSCHEME_CFLAGS} -DINCLUDE_MZSCHEME_BASE"
++      MZSCHEME_EXTRA="mzscheme_base.c"
++    else
++      if test -f "${vi_cv_path_mzscheme_pfx}/${SCHEME_COLLECTS}collects/scheme/base.rkt" ; then
++	MZSCHEME_EXTRA="mzscheme_base.c"
++      fi
++    fi
++    if test "X$MZSCHEME_EXTRA" != "X" ; then
++            MZSCHEME_CFLAGS="${MZSCHEME_CFLAGS} -DINCLUDE_MZSCHEME_BASE"
 +      MZSCHEME_MZC="${vi_cv_path_mzscheme_pfx}/bin/mzc"
 +    fi
 +    MZSCHEME_CFLAGS="${MZSCHEME_CFLAGS} -I${SCHEME_INC} \
@@ -5546,9 +5466,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +	PYTHON_LIBS="${vi_cv_path_python_plibs}"
 +	if test "${vi_cv_path_python_pfx}" = "${vi_cv_path_python_epfx}"; then
-+	  PYTHON_CFLAGS="-I${vi_cv_path_python_pfx}/include/python${vi_cv_var_python_version}"
++	  PYTHON_CFLAGS="-I${vi_cv_path_python_pfx}/include/python${vi_cv_var_python_version} -DPYTHON_HOME=\\\"${vi_cv_path_python_pfx}\\\""
 +	else
-+	  PYTHON_CFLAGS="-I${vi_cv_path_python_pfx}/include/python${vi_cv_var_python_version} -I${vi_cv_path_python_epfx}/include/python${vi_cv_var_python_version}"
++	  PYTHON_CFLAGS="-I${vi_cv_path_python_pfx}/include/python${vi_cv_var_python_version} -I${vi_cv_path_python_epfx}/include/python${vi_cv_var_python_version} -DPYTHON_HOME=\\\"${vi_cv_path_python_pfx}\\\""
 +	fi
 +	PYTHON_SRC="if_python.c"
 +		if test "x$MACOSX" = "xyes"; then
@@ -5559,7 +5479,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +	if test "${vi_cv_var_python_version}" = "1.4"; then
 +	   PYTHON_OBJ="$PYTHON_OBJ objects/py_getpath.o"
 +	fi
-+	PYTHON_GETPATH_CFLAGS="-DPYTHONPATH='\"${vi_cv_path_pythonpath}\"' -DPREFIX='\"${vi_cv_path_python_pfx}\"' -DEXEC_PREFIX='\"${vi_cv_path_python_epfx}\"'"
++    PYTHON_GETPATH_CFLAGS="-DPYTHONPATH='\"${vi_cv_path_pythonpath}\"' -DPREFIX='\"${vi_cv_path_python_pfx}\"' -DEXEC_PREFIX='\"${vi_cv_path_python_epfx}\"'"
 +
 +								{ $as_echo "$as_me:${as_lineno-$LINENO}: checking if -pthread should be used" >&5
 +$as_echo_n "checking if -pthread should be used... " >&6; }
@@ -5725,6 +5645,23 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $vi_cv_var_python3_version" >&5
 +$as_echo "$vi_cv_var_python3_version" >&6; }
 +
++        { $as_echo "$as_me:${as_lineno-$LINENO}: checking Python's abiflags" >&5
++$as_echo_n "checking Python's abiflags... " >&6; }
++if ${vi_cv_var_python3_abiflags+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++
++     vi_cv_var_python3_abiflags=
++     if ${vi_cv_path_python3} -c \
++         "import sys; sys.exit(${vi_cv_var_python3_version} < 3.2)"
++     then
++       vi_cv_var_python3_abiflags=`${vi_cv_path_python3} -c \
++         "import sys; print(sys.abiflags)"`
++     fi
++fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $vi_cv_var_python3_abiflags" >&5
++$as_echo "$vi_cv_var_python3_abiflags" >&6; }
++
 +        { $as_echo "$as_me:${as_lineno-$LINENO}: checking Python's install prefix" >&5
 +$as_echo_n "checking Python's install prefix... " >&6; }
 +if ${vi_cv_path_python3_pfx+:} false; then :
@@ -5775,9 +5712,13 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +else
 +
 +     vi_cv_path_python3_conf=
++     config_dir="config"
++     if test "${vi_cv_var_python3_abiflags}" != ""; then
++       config_dir="${config_dir}-${vi_cv_var_python3_version}${vi_cv_var_python3_abiflags}"
++     fi
 +     for path in "${vi_cv_path_python3_pfx}" "${vi_cv_path_python3_epfx}"; do
 +       for subdir in lib64 lib share; do
-+         d="${path}/${subdir}/python${vi_cv_var_python3_version}/config"
++         d="${path}/${subdir}/python${vi_cv_var_python3_version}/${config_dir}"
 +         if test -d "$d" && test -f "$d/config.c"; then
 +           vi_cv_path_python3_conf="$d"
 +         fi
@@ -5806,13 +5747,12 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +	@echo "python3_BASEMODLIBS='$(BASEMODLIBS)'"
 +	@echo "python3_LIBS='$(LIBS)'"
 +	@echo "python3_SYSLIBS='$(SYSLIBS)'"
-+	@echo "python3_LINKFORSHARED='$(LINKFORSHARED)'"
 +	@echo "python3_INSTSONAME='$(INSTSONAME)'"
 +eof
 +                    eval "`cd ${PYTHON3_CONFDIR} && make -f "${tmp_mkf}" __ | sed '/ directory /d'`"
 +          rm -f -- "${tmp_mkf}"
 +          vi_cv_path_python3_plibs="-L${PYTHON3_CONFDIR} -lpython${vi_cv_var_python3_version}"
-+          vi_cv_path_python3_plibs="${vi_cv_path_python3_plibs} ${python3_BASEMODLIBS} ${python3_LIBS} ${python3_SYSLIBS} ${python3_LINKFORSHARED}"
++          vi_cv_path_python3_plibs="${vi_cv_path_python3_plibs} ${python3_BASEMODLIBS} ${python3_LIBS} ${python3_SYSLIBS}"
 +                    vi_cv_path_python3_plibs=`echo $vi_cv_path_python3_plibs | sed s/-ltermcap//`
 +          vi_cv_path_python3_plibs=`echo $vi_cv_path_python3_plibs | sed s/-lffi//`
 +
@@ -5821,9 +5761,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +      PYTHON3_LIBS="${vi_cv_path_python3_plibs}"
 +      if test "${vi_cv_path_python3_pfx}" = "${vi_cv_path_python3_epfx}"; then
-+        PYTHON3_CFLAGS="-I${vi_cv_path_python3_pfx}/include/python${vi_cv_var_python3_version}"
++        PYTHON3_CFLAGS="-I${vi_cv_path_python3_pfx}/include/python${vi_cv_var_python3_version}${vi_cv_var_python3_abiflags} -DPYTHON3_HOME=L\\\"${vi_cv_path_python3_pfx}\\\""
 +      else
-+        PYTHON3_CFLAGS="-I${vi_cv_path_python3_pfx}/include/python${vi_cv_var_python3_version} -I${vi_cv_path_python3_epfx}/include/python${vi_cv_var_python3_version}"
++        PYTHON3_CFLAGS="-I${vi_cv_path_python3_pfx}/include/python${vi_cv_var_python3_version}${vi_cv_var_python3_abiflags} -I${vi_cv_path_python3_epfx}/include/python${vi_cv_var_python3_version}${vi_cv_var_python3_abiflags} -DPYTHON3_HOME=L\\\"${vi_cv_path_python3_pfx}\\\""
 +      fi
 +      PYTHON3_SRC="if_python3.c"
 +            if test "x$MACOSX" = "xyes"; then
@@ -5928,10 +5868,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +  $as_echo "#define DYNAMIC_PYTHON3 1" >>confdefs.h
 +
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether we can do without RTLD_GLOBAL" >&5
-+$as_echo_n "checking whether we can do without RTLD_GLOBAL... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether we can do without RTLD_GLOBAL for Python" >&5
++$as_echo_n "checking whether we can do without RTLD_GLOBAL for Python... " >&6; }
 +  cflags_save=$CFLAGS
-+  CFLAGS="$CFLAGS $PYTHON3_CFLAGS"
++  CFLAGS="$CFLAGS $PYTHON_CFLAGS"
 +  ldflags_save=$LDFLAGS
 +  LDFLAGS="$LDFLAGS -ldl"
 +  if test "$cross_compiling" = yes; then :
@@ -5950,15 +5890,17 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +     * Only the first pyhton version used will be switched on.
 +     */
 +
-+    int no_rtl_global_needed_for(char *python_instsoname)
++    int no_rtl_global_needed_for(char *python_instsoname, char *prefix)
 +    {
 +      int needed = 0;
 +      void* pylib = dlopen(python_instsoname, RTLD_LAZY);
 +      if (pylib != 0)
 +      {
++          void (*pfx)(char *home) = dlsym(pylib, "Py_SetPythonHome");
 +          void (*init)(void) = dlsym(pylib, "Py_Initialize");
 +          int (*simple)(char*) = dlsym(pylib, "PyRun_SimpleString");
 +          void (*final)(void) = dlsym(pylib, "Py_Finalize");
++          (*pfx)(prefix);
 +          (*init)();
 +          needed = (*simple)("import termios") == -1;
 +          (*final)();
@@ -5970,7 +5912,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    int main(int argc, char** argv)
 +    {
 +      int not_needed = 0;
-+      if (no_rtl_global_needed_for("libpython2.7.so.1.0") && no_rtl_global_needed_for("libpython3.1.so.1.0"))
++      if (no_rtl_global_needed_for("${python_INSTSONAME}", "${vi_cv_path_python_pfx}"))
 +            not_needed = 1;
 +      return !not_needed;
 +    }
@@ -5987,8 +5929,76 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  conftest.$ac_objext conftest.beam conftest.$ac_ext
 +fi
 +
++
 +  CFLAGS=$cflags_save
 +  LDFLAGS=$ldflags_save
++
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether we can do without RTLD_GLOBAL for Python3" >&5
++$as_echo_n "checking whether we can do without RTLD_GLOBAL for Python3... " >&6; }
++  cflags_save=$CFLAGS
++  CFLAGS="$CFLAGS $PYTHON3_CFLAGS"
++  ldflags_save=$LDFLAGS
++  LDFLAGS="$LDFLAGS -ldl"
++  if test "$cross_compiling" = yes; then :
++  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
++$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
++as_fn_error $? "cannot run test program while cross compiling
++See \`config.log' for more details" "$LINENO" 5; }
++else
++  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++    #include <dlfcn.h>
++    #include <wchar.h>
++    /* If this program fails, then RTLD_GLOBAL is needed.
++     * RTLD_GLOBAL will be used and then it is not possible to
++     * have both python versions enabled in the same vim instance.
++     * Only the first pyhton version used will be switched on.
++     */
++
++    int no_rtl_global_needed_for(char *python_instsoname, wchar_t *prefix)
++    {
++      int needed = 0;
++      void* pylib = dlopen(python_instsoname, RTLD_LAZY);
++      if (pylib != 0)
++      {
++          void (*pfx)(wchar_t *home) = dlsym(pylib, "Py_SetPythonHome");
++          void (*init)(void) = dlsym(pylib, "Py_Initialize");
++          int (*simple)(char*) = dlsym(pylib, "PyRun_SimpleString");
++          void (*final)(void) = dlsym(pylib, "Py_Finalize");
++          (*pfx)(prefix);
++          (*init)();
++          needed = (*simple)("import termios") == -1;
++          (*final)();
++          dlclose(pylib);
++      }
++      return !needed;
++    }
++
++    int main(int argc, char** argv)
++    {
++      int not_needed = 0;
++      if (no_rtl_global_needed_for("${python3_INSTSONAME}", L"${vi_cv_path_python3_pfx}"))
++            not_needed = 1;
++      return !not_needed;
++    }
++_ACEOF
++if ac_fn_c_try_run "$LINENO"; then :
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; };$as_echo "#define PY3_NO_RTLD_GLOBAL 1" >>confdefs.h
++
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
++  conftest.$ac_objext conftest.beam conftest.$ac_ext
++fi
++
++
++  CFLAGS=$cflags_save
++  LDFLAGS=$ldflags_save
++
 +  PYTHON_SRC="if_python.c"
 +  PYTHON_OBJ="objects/if_python.o"
 +  PYTHON_CFLAGS="$PYTHON_CFLAGS -DDYNAMIC_PYTHON_DLL=\\\"${python_INSTSONAME}\\\""
@@ -6364,19 +6374,19 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_rubyinterp" >&5
 +$as_echo "$enable_rubyinterp" >&6; }
-+if test "$enable_rubyinterp" = "yes"; then
++if test "$enable_rubyinterp" = "yes" -o "$enable_rubyinterp" = "dynamic"; then
 +  { $as_echo "$as_me:${as_lineno-$LINENO}: checking --with-ruby-command argument" >&5
 +$as_echo_n "checking --with-ruby-command argument... " >&6; }
 +
++
 +# Check whether --with-ruby-command was given.
 +if test "${with_ruby_command+set}" = set; then :
-+  withval=$with_ruby_command; RUBY_CMD="$withval"; { $as_echo "$as_me:${as_lineno-$LINENO}: result: $RUBY_CMD" >&5
++  withval=$with_ruby_command; RUBY_CMD="$withval"; vi_cv_path_ruby="$withval"; { $as_echo "$as_me:${as_lineno-$LINENO}: result: $RUBY_CMD" >&5
 +$as_echo "$RUBY_CMD" >&6; }
 +else
 +  RUBY_CMD="ruby"; { $as_echo "$as_me:${as_lineno-$LINENO}: result: defaulting to $RUBY_CMD" >&5
 +$as_echo "defaulting to $RUBY_CMD" >&6; }
 +fi
-+
 +
 +  # Extract the first word of "$RUBY_CMD", so it can be a program name with args.
 +set dummy $RUBY_CMD; ac_word=$2
@@ -6442,17 +6452,14 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +	  RUBY_LIBS="$rubylibs"
 +	fi
 +	librubyarg=`$vi_cv_path_ruby -r rbconfig -e 'print Config.expand(Config::CONFIG["LIBRUBYARG"])'`
-+	if test -f "$rubyhdrdir/$librubyarg"; then
-+	  librubyarg="$rubyhdrdir/$librubyarg"
-+	else
-+	  rubylibdir=`$vi_cv_path_ruby -r rbconfig -e 'print Config.expand(Config::CONFIG["libdir"])'`
-+	  if test -f "$rubylibdir/$librubyarg"; then
-+	    librubyarg="$rubylibdir/$librubyarg"
-+	  elif test "$librubyarg" = "libruby.a"; then
-+	    	    librubyarg="-lruby"
-+	  else
-+	    librubyarg=`$vi_cv_path_ruby -r rbconfig -e "print '$librubyarg'.gsub(/-L\./, %'-L#{Config.expand(Config::CONFIG[\"libdir\"])}')"`
-+	  fi
++	librubya=`$vi_cv_path_ruby -r rbconfig -e 'print Config.expand(Config::CONFIG["LIBRUBY_A"])'`
++  rubylibdir=`$vi_cv_path_ruby -r rbconfig -e 'print Config.expand(Config::CONFIG["libdir"])'`
++	if test -f "$rubylibdir/$librubya"; then
++	  librubyarg="$librubyarg"
++    RUBY_LIBS="$RUBY_LIBS -L$rubylibdir"
++  elif test "$librubyarg" = "libruby.a"; then
++        librubyarg="-lruby"
++    RUBY_LIBS="$RUBY_LIBS -L$rubylibdir"
 +	fi
 +
 +	if test "X$librubyarg" != "X"; then
@@ -6470,6 +6477,13 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +	RUBY_PRO="if_ruby.pro"
 +	$as_echo "#define FEAT_RUBY 1" >>confdefs.h
 +
++	if test "$enable_rubyinterp" = "dynamic"; then
++	  libruby=`$vi_cv_path_ruby -r rbconfig -e 'printf "lib%s.%s\n", Config::CONFIG["RUBY_SO_NAME"], Config::CONFIG["DLEXT"]'`
++	  $as_echo "#define DYNAMIC_RUBY 1" >>confdefs.h
++
++	  RUBY_CFLAGS="-DDYNAMIC_RUBY_DLL=\\\"$libruby\\\" -DDYNAMIC_RUBY_VER=$rubyversion $RUBY_CFLAGS"
++	  RUBY_LIBS=
++	fi
 +      else
 +	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: not found; disabling Ruby" >&5
 +$as_echo "not found; disabling Ruby" >&6; }
@@ -8734,7 +8748,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +fi
 +
 +
-+if test -z "$SKIP_QT"; then
++if test -z "$SKIP_QT" -a -z "$DONT_FIND_QT"; then
 +    ac_ext=cpp
 +ac_cpp='$CXXCPP $CPPFLAGS'
 +ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -8998,201 +9012,205 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 +ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 +
++    QT_FOUND="no"
 +
-+ac_ext=cpp
-+ac_cpp='$CXXCPP $CPPFLAGS'
-+ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-+ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-+ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking how to run the C++ preprocessor" >&5
-+$as_echo_n "checking how to run the C++ preprocessor... " >&6; }
-+if test -z "$CXXCPP"; then
-+  if ${ac_cv_prog_CXXCPP+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+      # Double quotes because CXXCPP needs to be expanded
-+    for CXXCPP in "$CXX -E" "/lib/cpp"
-+    do
-+      ac_preproc_ok=false
-+for ac_cxx_preproc_warn_flag in '' yes
-+do
-+  # Use a header file that comes with gcc, so configuring glibc
-+  # with a fresh cross-compiler works.
-+  # Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-+  # <limits.h> exists even on freestanding compilers.
-+  # On the NeXT, cc -E runs the code through the compiler's parser,
-+  # not just through cpp. "Syntax error" is here to catch this case.
-+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-+/* end confdefs.h.  */
-+#ifdef __STDC__
-+# include <limits.h>
-+#else
-+# include <assert.h>
-+#endif
-+		     Syntax error
-+_ACEOF
-+if ac_fn_cxx_try_cpp "$LINENO"; then :
-+
-+else
-+  # Broken: fails on valid input.
-+continue
-+fi
-+rm -f conftest.err conftest.i conftest.$ac_ext
-+
-+  # OK, works on sane cases.  Now check whether nonexistent headers
-+  # can be detected and how.
-+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-+/* end confdefs.h.  */
-+#include <ac_nonexistent.h>
-+_ACEOF
-+if ac_fn_cxx_try_cpp "$LINENO"; then :
-+  # Broken: success on invalid input.
-+continue
-+else
-+  # Passes both tests.
-+ac_preproc_ok=:
-+break
-+fi
-+rm -f conftest.err conftest.i conftest.$ac_ext
-+
-+done
-+# Because of `break', _AC_PREPROC_IFELSE's cleaning code was skipped.
-+rm -f conftest.i conftest.err conftest.$ac_ext
-+if $ac_preproc_ok; then :
-+  break
-+fi
-+
-+    done
-+    ac_cv_prog_CXXCPP=$CXXCPP
-+
-+fi
-+  CXXCPP=$ac_cv_prog_CXXCPP
-+else
-+  ac_cv_prog_CXXCPP=$CXXCPP
-+fi
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $CXXCPP" >&5
-+$as_echo "$CXXCPP" >&6; }
-+ac_preproc_ok=false
-+for ac_cxx_preproc_warn_flag in '' yes
-+do
-+  # Use a header file that comes with gcc, so configuring glibc
-+  # with a fresh cross-compiler works.
-+  # Prefer <limits.h> to <assert.h> if __STDC__ is defined, since
-+  # <limits.h> exists even on freestanding compilers.
-+  # On the NeXT, cc -E runs the code through the compiler's parser,
-+  # not just through cpp. "Syntax error" is here to catch this case.
-+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-+/* end confdefs.h.  */
-+#ifdef __STDC__
-+# include <limits.h>
-+#else
-+# include <assert.h>
-+#endif
-+		     Syntax error
-+_ACEOF
-+if ac_fn_cxx_try_cpp "$LINENO"; then :
-+
-+else
-+  # Broken: fails on valid input.
-+continue
-+fi
-+rm -f conftest.err conftest.i conftest.$ac_ext
-+
-+  # OK, works on sane cases.  Now check whether nonexistent headers
-+  # can be detected and how.
-+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-+/* end confdefs.h.  */
-+#include <ac_nonexistent.h>
-+_ACEOF
-+if ac_fn_cxx_try_cpp "$LINENO"; then :
-+  # Broken: success on invalid input.
-+continue
-+else
-+  # Passes both tests.
-+ac_preproc_ok=:
-+break
-+fi
-+rm -f conftest.err conftest.i conftest.$ac_ext
-+
-+done
-+# Because of `break', _AC_PREPROC_IFELSE's cleaning code was skipped.
-+rm -f conftest.i conftest.err conftest.$ac_ext
-+if $ac_preproc_ok; then :
-+
-+else
-+  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
-+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-+as_fn_error $? "C++ preprocessor \"$CXXCPP\" fails sanity check
-+See \`config.log' for more details" "$LINENO" 5; }
-+fi
-+
-+ac_ext=cpp
-+ac_cpp='$CXXCPP $CPPFLAGS'
-+ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
-+ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
-+ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
++#    # Candidate paths for Qt4
++#    QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4 $prefix"
++#
 +
 +
-+ac_fn_cxx_check_header_mongrel "$LINENO" "Qt/QtGui" "ac_cv_header_Qt_QtGui" "$ac_includes_default"
-+if test "x$ac_cv_header_Qt_QtGui" = xyes; then :
++cat > qttest_c.h << EOF
++#include <Qt/QtGui>
++class QtTest: public QWidget {
++    Q_OBJECT
++public:
++    QtTest(QWidget *p=0 );
++};
++EOF
 +
-+else
-+  as_fn_error $? "Cannot find Qt include headers" "$LINENO" 5
++cat > qttest_c.cpp << EOF
++#include "qttest_c.h"
++QtTest::QtTest(QWidget* p)
++:QWidget(p) {}
++EOF
++
++cat > qttest.cpp << EOF
++#include <Qt/QtGui>
++int main(int ac, char **av) {
++    QApplication app(ac, av);
++    return app.exec();
++}
++EOF
++
++    #
++    # Here are the rules for finding Qt
++    # 1. If --with-qt-dir is used, use that or fail immediatly
++    # 2. Try building with no special flags, just system defaults
++    # 3. Try to guess, use some hardcoded paths
++    #
++
++    # --with-qt-dir overrides everything else
++
++# Check whether --with-qt-dir was given.
++if test "${with_qt_dir+set}" = set; then :
++  withval=$with_qt_dir; QT_DIR=("$withval")
 +fi
 +
 +
-+    # Extract the first word of "moc-qt4", so it can be a program name with args.
-+set dummy moc-qt4; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_prog_QT_MOC+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  if test -n "$QT_MOC"; then
-+  ac_cv_prog_QT_MOC="$QT_MOC" # Let the user override the test.
-+else
-+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-+    ac_cv_prog_QT_MOC="moc-qt4"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
++    if test -n "$QT_DIR" ; then
++        { $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt4 in $QT_DIR" >&5
++$as_echo_n "checking Qt4 in $QT_DIR... " >&6; }
++        QT_FOUND="yes"
++	QT_MOC="$QT_DIR/bin/moc"
++	QT_LIBDIR="$QT_DIR/lib"
++	QT_INCDIR="$QT_DIR/include"
 +
-+  test -z "$ac_cv_prog_QT_MOC" && ac_cv_prog_QT_MOC="moc"
-+fi
-+fi
-+QT_MOC=$ac_cv_prog_QT_MOC
-+if test -n "$QT_MOC"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
-+$as_echo "$QT_MOC" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
++        # Test moc
++        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
++        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
++  (eval $moc_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++        if test x"$ac_status" != x0; then
++            as_fn_error $? "no moc available" "$LINENO" 5
++        fi
++
++        # test Compile
++        qt_try="$CXX $CXXFLAGS  -I$QT_INCDIR qttest.cpp -o qttest -L$QT_LIBDIR -lQtGui"
++        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
++  (eval $qt_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++        if test x"$ac_status" != x0; then
++            as_fn_error $? "unable to build" "$LINENO" 5
++        fi
++
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++    fi
++
++    # Cross your fingers - hope for the best
++    if test "$QT_FOUND" = "no" ; then
++        { $as_echo "$as_me:${as_lineno-$LINENO}: checking system wide Qt4" >&5
++$as_echo_n "checking system wide Qt4... " >&6; }
++        QT_FOUND="yes"
++
++        # Test moc
++        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
++        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
++  (eval $moc_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++        if test x"$ac_status" != x0; then
++            QT_FOUND="no"
++        fi
++
++        # test Compile
++        qt_try="$CXX $CXXFLAGS qttest.cpp -o qttest -lQtGui"
++        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
++  (eval $qt_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++        if test x"$ac_status" != x0; then
++            QT_FOUND="no"
++        fi
++
++	QT_MOC="moc"
++	QT_LIBDIR="."
++	QT_INCDIR="."
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++    fi
++
++    # Hardcoded paths
++    if test "$QT_FOUND" = "no" ; then
++	QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4"
++        for x in $QTPATHS; do
++            { $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt4 in $x" >&5
++$as_echo_n "checking Qt4 in $x... " >&6; }
++
++            if test -d $x ; then
++                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++	        continue;
++            fi
++    	    # Test moc
++    	    moc_try="$x/bin/moc qttest_c.h -o moc_qttest_c.cpp"
++            { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
++  (eval $moc_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++            if test x"$ac_status" != x0; then
++                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++    	        continue;
++            fi
++
++    	    # test Compile
++    	    qt_try="$CXX $CXXFLAGS -I$x/include qttest.cpp -o qttest -L$x/lib -lQtGui"
++            { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
++  (eval $qt_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++            if test x"$ac_status" != x0; then
++                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++    	        continue;
++            fi
++
++            QT_FOUND="yes"
++    	    QT_MOC="$x/bin/moc"
++    	    QT_LIBDIR="$x/lib/"
++    	    QT_INCDIR="$x/include/"
++    	    break;
++        done
++    fi
++
++
++    # One last desperate attempt - for Gentoo
++    if test "$QT_FOUND" = "no" ; then
++        QT_FOUND="yes"
++        QT_LIBDIR="/usr/lib/qt4"
++        QT_INCDIR="/usr/include/qt4"
++        QT_MOC="moc"
++
++        # Test moc
++        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
++        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
++  (eval $moc_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++        if test x"$ac_status" != x0; then
++               QT_FOUND="no"
++        fi
++
++        # test Compile
++        qt_try="$CXX $CXXFLAGS -I$QT_INCDIR -L$QT_LIBDIR -lQtGui qttest.cpp -o qttest"
++        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
++  (eval $qt_try) 2>&5
++  ac_status=$?
++  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
++  test $ac_status = 0; }
++        if test x"$ac_status" != x0; then
++               QT_FOUND="no"
++        fi
++
++    fi
++
++    if test "$QT_FOUND" = "no" ; then
++        as_fn_error $? "Could not locate Qt4" "$LINENO" 5
++    fi
 +
 +
 +
-+#    cppflags_save=$CPPFLAGS
-+#    CPPFLAGS="$CPPFLAGS -lQtGui"
-+#    AC_LINK_IFELSE([AC_LANG_PROGRAM(
-+#		    [[
-+#		     #include <Qt/QtGui>
-+#		     ]],
-+#		    [[
-+#		     qVersion();
-+#		     ]]
-+#		    )],
-+#		   [],
-+#		   [AC_MSG_ERROR(Cannot find Qt libraries)])
-+#    CPPFLAGS=$cppflags_save
++
 +    ac_ext=c
 +ac_cpp='$CPP $CPPFLAGS'
 +ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -10522,9 +10540,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +else
 +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: empty: automatic terminal library selection" >&5
 +$as_echo "empty: automatic terminal library selection" >&6; }
-+              case "`uname -s 2>/dev/null`" in
-+	OSF1|SCO_SV)	tlibs="ncurses curses termlib termcap";;
-+	*)	tlibs="ncurses termlib termcap curses";;
++                case "`uname -s 2>/dev/null`" in
++	OSF1|SCO_SV)	tlibs="tinfo ncurses curses termlib termcap";;
++	*)	tlibs="tinfo ncurses termlib termcap curses";;
 +  esac
 +  for libname in $tlibs; do
 +    as_ac_Lib=`$as_echo "ac_cv_lib_${libname}''_tgetent" | $as_tr_sh`
@@ -12663,6 +12681,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +test -f tags && mv tags tags.save
 +if (eval ctags --version /dev/null | grep Exuberant) < /dev/null 1>&5 2>&1; then
 +  TAGPRG="ctags -I INIT+ --fields=+S"
++elif (eval exctags --version /dev/null | grep Exuberant) < /dev/null 1>&5 2>&1; then
++  TAGPRG="exctags -I INIT+ --fields=+S"
++elif (eval exuberant-ctags --version /dev/null | grep Exuberant) < /dev/null 1>&5 2>&1; then
++  TAGPRG="exuberant-ctags -I INIT+ --fields=+S"
 +else
 +  TAGPRG="ctags"
 +  (eval etags	   /dev/null) < /dev/null 1>&5 2>&1 && TAGPRG="etags"
@@ -13102,6 +13124,23 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
 +  fi
++fi
++
++
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking linker --as-needed support" >&5
++$as_echo_n "checking linker --as-needed support... " >&6; }
++LINK_AS_NEEDED=
++# Check if linker supports --as-needed and --no-as-needed options
++if $CC -Wl,--help 2>/dev/null | grep as-needed > /dev/null; then
++  LDFLAGS="$LDFLAGS -Wl,--as-needed"
++  LINK_AS_NEEDED=yes
++fi
++if test "$LINK_AS_NEEDED" = yes; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
 +fi
 +
 +
@@ -14399,7 +14438,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-06-20 17:29:12.314773459 +0200
++++ vim-qt-src/src/configure.in	2011-06-27 16:29:58.120557111 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14471,30 +14510,172 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2305,6 +2323,33 @@
+@@ -2305,6 +2323,175 @@
    CPPFLAGS=$cppflags_save
  fi
  
 +dnl Check if the Qt files can be found
 +
-+if test -z "$SKIP_QT"; then
++if test -z "$SKIP_QT" -a -z "$DONT_FIND_QT"; then
 +    AC_LANG_PUSH(C++)
-+    AC_CHECK_HEADER(Qt/QtGui, [], [AC_MSG_ERROR(Cannot find Qt include headers)] )
-+    AC_CHECK_PROG( QT_MOC, moc-qt4, moc-qt4, moc)
++    AC_PROG_CXX
++    QT_FOUND="no"
++
++#    # Candidate paths for Qt4
++#    QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4 $prefix"
++#
++
++
++cat > qttest_c.h << EOF
++#include <Qt/QtGui>
++class QtTest: public QWidget {
++    Q_OBJECT
++public:
++    QtTest(QWidget *p=0 );
++};
++EOF
++
++cat > qttest_c.cpp << EOF
++#include "qttest_c.h"
++QtTest::QtTest(QWidget* p)
++:QWidget(p) {}
++EOF
++
++cat > qttest.cpp << EOF
++#include <Qt/QtGui>
++int main(int ac, char **av) {
++    QApplication app(ac, av);
++    return app.exec();
++}
++EOF
++
++    #
++    # Here are the rules for finding Qt
++    # 1. If --with-qt-dir is used, use that or fail immediatly
++    # 2. Try building with no special flags, just system defaults
++    # 3. Try to guess, use some hardcoded paths
++    #
++
++    # --with-qt-dir overrides everything else
++    AC_ARG_WITH([qt-dir], AC_HELP_STRING([--with-qt-dir=PATH],
++					[to specify the Qt4 base prefix]),
++				[QT_DIR=("$withval")],
++				)
++
++    if test -n "$QT_DIR" ; then
++        AC_MSG_CHECKING(Qt4 in $QT_DIR)
++        QT_FOUND="yes"
++	QT_MOC="$QT_DIR/bin/moc"
++	QT_LIBDIR="$QT_DIR/lib"
++	QT_INCDIR="$QT_DIR/include"
++
++        # Test moc
++        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
++        AC_TRY_EVAL(moc_try)
++        if test x"$ac_status" != x0; then
++            AC_MSG_ERROR(no moc available)
++        fi
++    
++        # test Compile
++        qt_try="$CXX $CXXFLAGS  -I$QT_INCDIR qttest.cpp -o qttest -L$QT_LIBDIR -lQtGui"
++        AC_TRY_EVAL(qt_try)
++        if test x"$ac_status" != x0; then
++            AC_MSG_ERROR(unable to build)
++        fi
++    
++	AC_MSG_RESULT($QT_FOUND)
++    fi
++
++    # Cross your fingers - hope for the best
++    if test "$QT_FOUND" = "no" ; then
++        AC_MSG_CHECKING(system wide Qt4)
++        QT_FOUND="yes"
++
++        # Test moc
++        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
++        AC_TRY_EVAL(moc_try)
++        if test x"$ac_status" != x0; then
++            QT_FOUND="no"
++        fi
++    
++        # test Compile
++        qt_try="$CXX $CXXFLAGS qttest.cpp -o qttest -lQtGui"
++        AC_TRY_EVAL(qt_try)
++        if test x"$ac_status" != x0; then
++            QT_FOUND="no"
++        fi
++    
++	QT_MOC="moc"
++	QT_LIBDIR="."
++	QT_INCDIR="."
++	AC_MSG_RESULT($QT_FOUND)
++    fi
++
++    # Hardcoded paths
++    if test "$QT_FOUND" = "no" ; then
++	QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4"
++        for x in $QTPATHS; do
++            AC_MSG_CHECKING(Qt4 in $x)
++
++            if test -d $x ; then
++                AC_MSG_RESULT($QT_FOUND)
++	        continue;
++            fi
++    	    # Test moc
++    	    moc_try="$x/bin/moc qttest_c.h -o moc_qttest_c.cpp"
++            AC_TRY_EVAL(moc_try)
++            if test x"$ac_status" != x0; then
++                AC_MSG_RESULT($QT_FOUND)
++    	        continue;
++            fi
++    
++    	    # test Compile
++    	    qt_try="$CXX $CXXFLAGS -I$x/include qttest.cpp -o qttest -L$x/lib -lQtGui"
++            AC_TRY_EVAL(qt_try)
++            if test x"$ac_status" != x0; then
++                AC_MSG_RESULT($QT_FOUND)
++    	        continue;
++            fi
++    
++            QT_FOUND="yes"
++    	    QT_MOC="$x/bin/moc"
++    	    QT_LIBDIR="$x/lib/"
++    	    QT_INCDIR="$x/include/"
++    	    break;
++        done
++    fi
++
++
++    # One last desperate attempt - for Gentoo
++    if test "$QT_FOUND" = "no" ; then
++        QT_FOUND="yes"
++        QT_LIBDIR="/usr/lib/qt4"
++        QT_INCDIR="/usr/include/qt4"
++        QT_MOC="moc"
++
++        # Test moc
++        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
++        AC_TRY_EVAL(moc_try)
++        if test x"$ac_status" != x0; then
++               QT_FOUND="no"
++        fi
++    
++        # test Compile
++        qt_try="$CXX $CXXFLAGS -I$QT_INCDIR -L$QT_LIBDIR -lQtGui qttest.cpp -o qttest"
++        AC_TRY_EVAL(qt_try)
++        if test x"$ac_status" != x0; then
++               QT_FOUND="no"
++        fi
++    
++    fi
++
++    if test "$QT_FOUND" = "no" ; then
++        AC_MSG_ERROR(Could not locate Qt4)
++    fi
++
 +    AC_SUBST(QT_MOC)
-+#    cppflags_save=$CPPFLAGS
-+#    CPPFLAGS="$CPPFLAGS -lQtGui"
-+#    AC_LINK_IFELSE([AC_LANG_PROGRAM(
-+#		    [[
-+#		     #include <Qt/QtGui>
-+#		     ]],
-+#		    [[
-+#		     qVersion();
-+#		     ]]
-+#		    )],
-+#		   [],
-+#		   [AC_MSG_ERROR(Cannot find Qt libraries)])
-+#    CPPFLAGS=$cppflags_save
++    AC_SUBST(QT_LIBDIR)
++    AC_SUBST(QT_INCDIR)
 +    AC_LANG_POP(C++)
 +fi
 +
@@ -14531,7 +14712,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-06-20 17:29:12.272772678 +0200
++++ vim-qt-src/src/feature.h	2011-06-27 16:29:58.109557059 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14693,7 +14874,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  #ifdef FEAT_WINDOWS
 diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
 --- vim-src/src/gui.h	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/gui.h	2011-06-16 16:58:04.000000000 +0200
++++ vim-qt-src/src/gui.h	2011-06-27 16:28:02.000000000 +0200
 @@ -71,7 +71,7 @@
   * On some systems scrolling needs to be done right away instead of in the
   * main loop.
@@ -14717,7 +14898,7 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
  
 +#ifdef FEAT_GUI_QT
-+struct QScrollBar;
++struct VimScrollBar;
 +#endif
 +
  typedef struct GuiScrollbar
@@ -14728,7 +14909,7 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
      PtWidget_t	*id;
  #endif
 +#ifdef FEAT_GUI_QT
-+    struct QScrollBar* wid;
++    struct VimScrollBar* wid;
 +#endif
  } scrollbar_T;
  
@@ -14755,8 +14936,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-06-19 08:23:04.000000000 +0200
-@@ -0,0 +1,1451 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,1464 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -14833,6 +15014,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	font.setFixedPitch(true);
 +	font.setBold(false);
 +	font.setItalic(false);
++	font.setKerning(false);
 +
 +	return new QFont(font);
 +}
@@ -15248,9 +15430,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	gui.def_norm_pixel = VimGui::toColor(QColor(Qt::black));
 +	gui.def_back_pixel = VimGui::toColor(QColor(Qt::white));
 +
++	// The Scrollbar manages the scrollbars
++	gui.scrollbar_width = 0;
++	gui.scrollbar_height = 0;
++
 +	// Background color hint
 +	vimshell->setBackground(VimGui::backgroundColor() );
-+
 +
 +	return OK;
 +}
@@ -15940,6 +16125,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	sb->wid->setValue(val);
 +	sb->wid->setMaximum(max);
 +	sb->wid->setPageStep(size);
++
++	sb->wid->setEnabled( !(size > max) );
 +}
 +
 +/**
@@ -15948,17 +16135,16 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_set_scrollbar_pos(scrollbar_T *sb, int x, int y, int width, int height)
 +{
-+	//
-+	// Override scrollbar position to take margin 
-+	// into consideration
-+	//
-+	if ( sb->type == SBAR_RIGHT ) {
-+		x = vimshell->width() - width;
-+	} else if ( sb->type == SBAR_BOTTOM ) {
-+		y = vimshell->height() - height;
++	switch(sb->type) {
++	case SBAR_RIGHT:
++	case SBAR_LEFT:
++		sb->wid->setLength(height);
++		sb->wid->setIndex(y);
++		break;
++	default:
++		sb->wid->setLength(width);
++		sb->wid->setIndex(x);
 +	}
-+
-+	sb->wid->setGeometry(x, y, width, height);
 +}
 +
 +/**
@@ -15985,10 +16171,21 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		dir = Qt::Vertical;
 +	}
 +
-+	VimScrollBar *widget = new VimScrollBar( sb, dir, vimshell);
-+	widget->setMinimumWidth(gui.scrollbar_width);
-+
++	VimScrollBar *widget = new VimScrollBar( sb, dir, window);
++	widget->setVisible(false);
 +	sb->wid = widget;
++
++	switch(sb->type) {
++	case SBAR_RIGHT:
++		window->addScrollbarRight(widget);
++		break;
++	case SBAR_LEFT:
++		window->addScrollbarLeft(widget);
++		break;
++	case SBAR_BOTTOM:
++		window->addScrollbarBottom(widget);
++		break;
++	}
 +}
 +
 +/**
@@ -16184,16 +16381,13 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_font_dialog(char_u *oldval)
 +{
 +	QFont *oldfont = gui_mch_get_font(oldval, 0);
-+	QFont old;
-+	if ( oldfont ) {
-+		old = *oldfont;
-+	}
-+
 +
 +	bool ok;
-+	QFont f = FontDialog::getFont(&ok, old, window);
++	static FontDialog *dialog = new FontDialog();
++	dialog->selectCurrentFont(*oldfont);
 +
-+	if ( ok ) {
++	if ( dialog->exec() == QDialog::Accepted ) {
++		QFont f =  dialog->selectedFont();
 +		QByteArray text = vimshell->convertTo( QString("%1 %2").arg(f.family()).arg(f.pointSize()) );
 +
 +		char_u *buffer;
@@ -16222,23 +16416,26 @@ diff -urN vim-src/src/main.c vim-qt-src/src/main.c
  #ifdef FEAT_GUI
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/Makefile	2011-06-16 16:58:04.000000000 +0200
-@@ -1232,6 +1232,25 @@
++++ vim-qt-src/src/Makefile	2011-06-27 16:28:02.000000000 +0200
+@@ -1232,6 +1232,28 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
  
 +### Qt
-+#
++# We use the following to build
++# - QT_MOC
++# - QT_LIBDIR
++# - QT_INCDIR
 +MOC		= $(QT_MOC)
-+QT_LIBS1	= -lQtGui -lQtCore -lstdc++
++QT_LIBS1	= -L$(QT_LIBDIR) -lQtGui -lQtCore -lstdc++
 +QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
 +			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
-+			qt/vimgui.cpp qt/fontdialog.cpp
++			qt/vimgui.cpp qt/fontdialog.cpp qt/scrollarea.cpp
 +QT_OBJ	= objects/gui.o objects/gui_qt.o \
 +			objects/pty.o objects/gui_beval.o \
 +			objects/mainwindow.o objects/qvimshell.o objects/vimaction.o objects/qtresources.o \
-+			objects/vimscrollbar.o objects/vimgui.o objects/fontdialog.o
-+QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I.
++			objects/vimscrollbar.o objects/vimgui.o objects/fontdialog.o objects/scrollarea.o
++QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. -I$(QT_INCDIR)
 +QT_IPATH	= $(GUI_INC_LOC)
 +QT_LIBS_DIR = $(GUI_LIB_LOC)
 +
@@ -16249,7 +16446,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ### (J)  Sun OpenWindows 3.2 (SunOS 4.1.x) or earlier that produce these ld
  #	 errors:  ld: Undefined symbol
  #		      _get_wmShellWidgetClass
-@@ -1276,7 +1295,7 @@
+@@ -1276,7 +1298,7 @@
  CARBONGUI_TESTARG = VIMPROG=../$(APPDIR)/Contents/MacOS/$(VIMTARGET)
  
  # All GUI files
@@ -16258,7 +16455,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ALL_GUI_PRO  = gui.pro gui_gtk.pro gui_motif.pro gui_xmdlg.pro gui_athena.pro gui_gtk_x11.pro gui_x11.pro gui_w16.pro gui_w32.pro gui_photon.pro
  
  # }}}
-@@ -2495,6 +2514,38 @@
+@@ -2495,6 +2517,42 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
  
@@ -16293,6 +16490,10 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +objects/fontdialog.o: qt/fontdialog.cpp
 +	$(MOC) qt/fontdialog.h > fontdialog.moc
 +	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/fontdialog.cpp
++
++objects/scrollarea.o: qt/scrollarea.cpp
++	$(MOC) qt/scrollarea.h > scrollarea.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/scrollarea.cpp
 +
  objects/gui_beval.o: gui_beval.c
  	$(CCC) -o $@ gui_beval.c
@@ -16491,8 +16692,8 @@ diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
  # ifdef FEAT_OLE
 diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 --- vim-src/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.cpp	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,148 @@
++++ vim-qt-src/src/qt/fontdialog.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,153 @@
 +#include "fontdialog.moc"
 +
 +/**
@@ -16578,7 +16779,12 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +		return;
 +	}
 +
-+	foreach ( int points, fontDatabase.smoothSizes(current->text(), "Normal") ) {
++	QList<int> fsizes = fontDatabase.smoothSizes(current->text(), "Normal");
++	if ( fsizes.isEmpty() ) {
++		fsizes = fontDatabase.pointSizes(current->text(), "Normal");
++	}
++
++	foreach ( int points, fsizes ) {
 +		QListWidgetItem *item = new QListWidgetItem(sizeList);
 +		item->setText(QString::number(points));
 +	}
@@ -16694,11 +16900,12 @@ Binary files vim-src/src/qt/icons/run-build-clean.png and vim-qt-src/src/qt/icon
 Binary files vim-src/src/qt/icons/run-build.png and vim-qt-src/src/qt/icons/run-build.png differ
 Binary files vim-src/src/qt/icons/system-run.png and vim-qt-src/src/qt/icons/system-run.png differ
 Binary files vim-src/src/qt/icons/table.png and vim-qt-src/src/qt/icons/table.png differ
+Binary files vim-src/src/qt/icons/tab-new.png and vim-qt-src/src/qt/icons/tab-new.png differ
 Binary files vim-src/src/qt/icons/vim-qt.png and vim-qt-src/src/qt/icons/vim-qt.png differ
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/icons.qrc	2011-06-19 08:23:04.000000000 +0200
-@@ -0,0 +1,25 @@
++++ vim-qt-src/src/qt/icons.qrc	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,26 @@
 + <!DOCTYPE RCC><RCC version="1.0">
 + <qresource>
 +     <file>icons/document-open.png</file>
@@ -16722,18 +16929,17 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 +     <file>icons/help-contents.png</file>
 +     <file>icons/help-contextual.png</file>
 +     <file>icons/vim-qt.png</file>
++     <file>icons/tab-new.png</file>
 + </qresource>
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-20 17:24:24.000000000 +0200
-@@ -0,0 +1,180 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,191 @@
 +#include "mainwindow.moc"
 +
-+#include "../runtime/vim32x32.xpm"
-+
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
-+:QMainWindow(parent), m_keepTabbar(false)
++:QMainWindow(parent), m_keepTabbar(false), scrollArea(0)
 +{
 +	setWindowIcon(QIcon(":/icons/vim-qt.png"));
 +	setContextMenuPolicy(Qt::PreventContextMenu);
@@ -16749,10 +16955,13 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	toolbar = addToolBar("ToolBar");
 +	toolbar->setObjectName("toolbar");
 +
++	scrollArea = new ScrollArea(this);
++	setCentralWidget( scrollArea );
++
 +	// Vim shell
-+	vimshell = new QVimShell( this );
-+	setCentralWidget(vimshell);
++	vimshell = new QVimShell( scrollArea );
 +	vimshell->setFocus();
++	scrollArea->setWidget(vimshell);
 +
 +	// TabLine
 +	tabtoolbar = addToolBar("tabline");
@@ -16770,13 +16979,15 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	tabbar->setDrawBase(false);
 +	tabbar->addTab("VIM"); // One tab must always exist
 +
++	QAction *newTab = tabtoolbar->addAction( VimGui::icon("tab-new"), "New Tab");
 +	tabtoolbar->addWidget(tabbar);
 +
 +	connect( tabbar, SIGNAL(tabCloseRequested(int)),
 +			this, SLOT(closeTab(int)));
 +	connect( tabbar, SIGNAL(currentChanged(int)),
 +			this, SLOT(switchTab(int)));
-+
++	connect( newTab, SIGNAL(triggered()),
++			this, SLOT(openNewTab()));
 +}
 +
 +void MainWindow::updateTabOrientation()
@@ -16898,6 +17109,14 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	}
 +}
 +
++void MainWindow::openNewTab()
++{
++	// The amusing +1 trick opens the
++	// tab at the right of other tabs
++	VimGui::newTab(tabbar->count()+1);
++	vimshell->forceInput();
++}
++
 +void MainWindow::setKeepTabbar(bool keep)
 +{
 +	m_keepTabbar = keep;
@@ -16910,13 +17129,14 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2011-06-19 08:23:04.000000000 +0200
-@@ -0,0 +1,53 @@
++++ vim-qt-src/src/qt/mainwindow.h	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,60 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
++#include "scrollarea.h"
 +
 +class MainWindow: public QMainWindow
 +{
@@ -16934,6 +17154,10 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +
 +	bool restoreState(const QByteArray& state, int version=0);
 +
++	void addScrollbarRight(VimScrollBar *b) { scrollArea->addScrollbarRight(b); }
++	void addScrollbarBottom(VimScrollBar *b) { scrollArea->addScrollbarBottom(b); }
++	void addScrollbarLeft(VimScrollBar *b) { scrollArea->addScrollbarLeft(b); }
++
 +public slots:
 +	void showTabline(bool show);
 +	void showMenu(bool show);
@@ -16944,6 +17168,7 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +	void switchTab(int idx);
 +	void closeTab(int idx);
 +	void setKeepTabbar(bool);
++	void openNewTab();
 +
 +protected:
 +	virtual void closeEvent( QCloseEvent *);
@@ -16962,13 +17187,14 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +	QMenuBar *menu;
 +
 +	bool m_keepTabbar;
++	ScrollArea *scrollArea;
 +};
 +
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-06-19 08:23:04.000000000 +0200
-@@ -0,0 +1,1328 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,1333 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17172,7 +17398,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +bool QVimShell::isFakeMonospace(const QFont& f)
 +{
 +	QFontMetrics fm(f);
-+	return ( fm.averageCharWidth() != charWidth() );
++	return ( fm.averageCharWidth() != VimGui::charWidth() );
 +}
 +
 +/*
@@ -17234,8 +17460,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 + */
 +void QVimShell::drawStringSlow( const PaintOperation& op, QPainter &painter )
 +{
-+	painter.save();
-+
 +	QFont f = op.font;
 +	f.setUnderline(op.undercurl);
 +	painter.setFont(f);
@@ -17256,7 +17480,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +				c);
 +		rect.moveTo( rect.x() + rect.width(), rect.y() );
 +	}
-+	painter.restore();
 +}
 +
 +/**
@@ -17269,7 +17492,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +	QTextLayout l(op.str);
 +	QTextOption opt;
-+	opt.setAlignment(Qt::AlignJustify);
++	opt.setWrapMode(QTextOption::WrapAnywhere);
 +
 +	l.setTextOption(opt);
 +	l.setFont(op.font);
@@ -17291,16 +17514,20 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +	l.beginLayout();
 +	QTextLine line = l.createLine();
-+	line.setLineWidth(op.rect.width());
++	line.setNumColumns(op.str.size());
 +	l.endLayout();
-+
 +	l.draw(&painter, op.rect.topLeft());
++	if( l.maximumWidth() != QFontMetrics(op.font).width(op.str) ) {
++		qDebug() << __func__ << "rect mismatch, this is serious, please poke a developer about this" 
++			<< l.maximumWidth() << QFontMetrics(op.font).width(op.str) << op.str << op.str.size() << op.font;
++	}
 +}
 +
 +void QVimShell::flushPaintOps()
 +{
 +	QPainter painter(&canvas);
 +	while ( !paintOps.isEmpty() ) {
++		painter.save();
 +
 +		PaintOperation op = paintOps.dequeue();
 +		switch( op.type ) {
@@ -17311,10 +17538,11 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			painter.fillRect(op.rect, op.color);
 +			break;
 +		case DRAWRECT:
-+			painter.drawRect(op.rect); // FIXME: need color
++			painter.setPen(op.color);
++			painter.drawRect(op.rect);
 +			break;
 +		case DRAWSTRING:
-+			if ( op.str.length() != VimGui::stringCellWidth(op.str) ) {
++			if ( getenv("QVIM_DRAW_STRING_SLOW") || op.str.length() != VimGui::stringCellWidth(op.str) ) {
 +				drawStringSlow(op, painter);
 +			} else if ( isFakeMonospace(op.font) ) {
 +				qDebug() << __func__ << "Font size mismatch a.k.a. this is not a proper monospace font";
@@ -17330,6 +17558,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			painter.setCompositionMode( QPainter::CompositionMode_SourceOver );
 +			break;
 +		case SCROLLRECT:
++			painter.restore();
 +			painter.end();
 +
 +			QRegion exposed;
@@ -17338,8 +17567,10 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +			painter.begin(&canvas);
 +			painter.fillRect(exposed.boundingRect(), op.color);
-+			break;
++			continue; // exception, skip painter restore
 +		}
++
++		painter.restore();
 +	}
 +}
 +
@@ -18455,6 +18686,177 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +};
 +
 +#endif
+diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
+--- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/scrollarea.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,125 @@
++#include "scrollarea.moc"
++
++#include "vimgui.h"
++
++/**
++ * The scroll area is a 3x3 grid to place
++ * multipla scrollbars around a central widget
++ *
++ * ----------------------
++ * |  |     North     |  |
++ * |--|--------------|---|
++ * |W |               |E |
++ * |e |               |a |
++ * |s |               |s |
++ * |t |               |t |
++ * |--|---------------|--|
++ * |  |    South      |  |
++ * |__|_______________|__|
++ *
++ * Each edge is a vertical/horizontal
++ * box layout.
++ */
++ScrollArea::ScrollArea(QWidget *parent)
++:m_widget(0)
++{
++	// Grid layout
++	m_layout = new QGridLayout(this);
++	m_layout->setSpacing(0);
++	m_layout->setContentsMargins(0, 0, 0, 0);
++
++	// Edge layouts
++	north = new QHBoxLayout();
++	north->setSpacing(0);
++	south = new QHBoxLayout();
++	south->setSpacing(0);
++	west = new QVBoxLayout();
++	west->setSpacing(0);
++	east = new QVBoxLayout();
++	east->setSpacing(0);
++
++	m_layout->addLayout(north, 0, 1);
++	m_layout->addLayout(south, 2, 1);
++	m_layout->addLayout(west, 1, 0);
++	m_layout->addLayout(east, 1, 2);
++}
++
++void ScrollArea::setWidget(QWidget *w)
++{
++	m_widget = w;
++	m_layout->addWidget(m_widget, 1, 1);
++}
++
++void ScrollArea::layoutEdge(QBoxLayout *edge)
++{
++	QLayoutItem *item;
++	QLayoutItem *w;
++	QList<VimScrollBar*> bars;
++	int i;
++
++	while ( (item = edge->takeAt(0)) ) {
++		bars.append( static_cast<VimScrollBar*>(item->widget()) );
++		delete item;
++	}
++
++	qSort(bars.begin(), bars.end(), scrollBarLessThan);
++	foreach( VimScrollBar *b, bars ) {
++		edge->addWidget(b, b->length());
++	}
++
++	// Fix stretch for last item
++	if ( edge->expandingDirections() == Qt::Vertical ) {
++		edge->setStretch(-1, edge->stretch(-1) + (height() % gui.char_height ));
++	}
++}
++
++void ScrollArea::layoutEast()
++{
++	layoutEdge(east);
++}
++
++void ScrollArea::layoutWest()
++{
++	layoutEdge(west);
++}
++
++void ScrollArea::layoutSouth()
++{
++	layoutEdge(south);
++}
++
++void ScrollArea::addScrollbarRight(VimScrollBar *b)
++{
++	connect(b, SIGNAL(indexChanged(int)),
++			this, SLOT(layoutEast()));
++	connect(b, SIGNAL(visibilityChanged(bool)),
++			this, SLOT(layoutEast()));
++	east->addWidget(b);
++	layoutEdge(east);
++}
++
++void ScrollArea::addScrollbarBottom(VimScrollBar *b)
++{
++	connect(b, SIGNAL(indexChanged(int)),
++			this, SLOT(layoutSouth()));
++	connect(b, SIGNAL(visibilityChanged(bool)),
++			this, SLOT(layoutSouth()));
++	south->addWidget(b);
++	layoutEdge(south);
++}
++
++void ScrollArea::addScrollbarLeft(VimScrollBar *b)
++{
++	connect(b, SIGNAL(indexChanged(int)),
++			this, SLOT(layoutWest()));
++	connect(b, SIGNAL(visibilityChanged(bool)),
++			this, SLOT(layoutWest()));
++	west->addWidget(b);
++	layoutEdge(west);
++}
++
++bool ScrollArea::scrollBarLessThan(const VimScrollBar *b1, const VimScrollBar *b2)
++{
++	return (b1->index() < b2->index());
++}
++
+diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
+--- vim-src/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/scrollarea.h	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,38 @@
++#ifndef __GUI_QT_SCROLLAREA__
++#define __GUI_QT_SCROLLAREA__
++
++#include <Qt/QtGui>
++#include "vimscrollbar.h"
++
++class ScrollArea: public QWidget
++{
++	Q_OBJECT
++public:
++	ScrollArea(QWidget *parent=0);
++	void setWidget(QWidget *);
++
++	void addScrollbarRight(VimScrollBar *);
++	void addScrollbarBottom(VimScrollBar *);
++	void addScrollbarLeft(VimScrollBar *);
++
++	static bool scrollBarLessThan(const VimScrollBar *, const VimScrollBar *);
++
++protected slots:
++	void layoutEast();
++	void layoutWest();
++	void layoutSouth();
++
++protected:
++	void layoutEdge(QBoxLayout *);
++
++private:
++	QWidget *m_widget;
++	QGridLayout *m_layout;
++
++	QHBoxLayout *north;
++	QHBoxLayout *south;
++	QVBoxLayout *east;
++	QVBoxLayout *west;
++};
++
++#endif
 diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 --- vim-src/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
 +++ vim-qt-src/src/qt/vimaction.cpp	2011-06-16 16:58:05.000000000 +0200
@@ -18504,8 +18906,8 @@ diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 +#endif
 diff -urN vim-src/src/qt/vimgui.cpp vim-qt-src/src/qt/vimgui.cpp
 --- vim-src/src/qt/vimgui.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimgui.cpp	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,187 @@
++++ vim-qt-src/src/qt/vimgui.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,192 @@
 +#include "vimgui.h"
 +
 +
@@ -18692,11 +19094,16 @@ diff -urN vim-src/src/qt/vimgui.cpp vim-qt-src/src/qt/vimgui.cpp
 +	return ((long)c.red() << 16) + ((long)c.green() << 8) + ((long)c.blue());
 +}
 +
++void
++VimGui::newTab(int idx)
++{
++	send_tabline_menu_event(idx, TABLINE_MENU_NEW);
++}
 +
 diff -urN vim-src/src/qt/vimgui.h vim-qt-src/src/qt/vimgui.h
 --- vim-src/src/qt/vimgui.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimgui.h	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,60 @@
++++ vim-qt-src/src/qt/vimgui.h	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,65 @@
 +#ifndef __VIM_QT_GUI__
 +#define __VIM_QT_GUI__
 +
@@ -18754,23 +19161,25 @@ diff -urN vim-src/src/qt/vimgui.h vim-qt-src/src/qt/vimgui.h
 +
 +	static QColor fromColor(long);
 +	static long toColor(const QColor&);
++
++	/**
++	 * New tab
++	 */
++	static void newTab(int idx=1);
 +};
 +
 +#endif
 diff -urN vim-src/src/qt/vimscrollbar.cpp vim-qt-src/src/qt/vimscrollbar.cpp
 --- vim-src/src/qt/vimscrollbar.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimscrollbar.cpp	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,29 @@
++++ vim-qt-src/src/qt/vimscrollbar.cpp	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,62 @@
 +#include "vimscrollbar.moc"
 +
 +VimScrollBar::VimScrollBar(scrollbar_T *sbar, Qt::Orientation o, QWidget *parent)
-+:QScrollBar(o, parent), sb(sbar)
++:QScrollBar(o, parent), sb(sbar), m_index(-1), m_length(0)
 +{
-+	setAutoFillBackground(true);
-+
 +	connect(this, SIGNAL(valueChanged(int)),
 +			this, SLOT(draggingFinished()));
-+
 +}
 +
 +void VimScrollBar::dragging()
@@ -18790,10 +19199,46 @@ diff -urN vim-src/src/qt/vimscrollbar.cpp vim-qt-src/src/qt/vimscrollbar.cpp
 +
 +	gui_drag_scrollbar(sb, this->value(), 0);
 +}
++
++void VimScrollBar::setIndex(int idx)
++{
++	if ( idx != m_index ) {
++		m_index = idx;
++		emit indexChanged(m_index);
++	}
++}
++
++void VimScrollBar::setLength(int len)
++{
++	if ( len != m_length ) {
++		m_length = len;
++		emit indexChanged(m_index); // FIXME
++	}
++}
++
++int VimScrollBar::length()
++{
++	return m_length;
++}
++
++int VimScrollBar::index() const
++{
++	return m_index;
++}
++
++void VimScrollBar::setVisible(bool show)
++{
++	bool visible = isVisible();
++	QScrollBar::setVisible(show);
++
++	if ( visible != show )
++		emit visibilityChanged(show);
++}
++
 diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 --- vim-src/src/qt/vimscrollbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimscrollbar.h	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,22 @@
++++ vim-qt-src/src/qt/vimscrollbar.h	2011-06-27 16:28:02.000000000 +0200
+@@ -0,0 +1,35 @@
 +#ifndef __GUI_QT_VIMSCROLLBAR__
 +#define __GUI_QT_VIMSCROLLBAR__
 +
@@ -18806,6 +19251,17 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +	Q_OBJECT
 +public:
 +	VimScrollBar(scrollbar_T *, Qt::Orientation, QWidget *parent=0);
++	void setIndex(int);
++	int index() const;
++	int length();
++
++	bool operator<(const VimScrollBar& other) { return ( m_index < other.m_index ); }
++
++	void setVisible(bool);
++	void setLength(int);
++signals:
++	void indexChanged(int);
++	void visibilityChanged(bool);
 +
 +protected slots:
 +	void dragging();
@@ -18813,6 +19269,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +
 +private:
 +	scrollbar_T *sb;
++	int m_index;
++	int m_length;
 +};
 +
 +#endif
