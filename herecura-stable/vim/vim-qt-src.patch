@@ -14438,7 +14438,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-06-27 16:29:58.120557111 +0200
++++ vim-qt-src/src/configure.in	2011-07-02 01:16:35.693921834 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14712,7 +14712,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-06-27 16:29:58.109557059 +0200
++++ vim-qt-src/src/feature.h	2011-07-02 01:16:35.684921840 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14936,14 +14936,13 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,1464 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,1442 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
 +#include "vimaction.h"
 +#include "vimscrollbar.h"
-+#include "vimgui.h"
 +#include "fontdialog.h"
 +
 +extern "C" {
@@ -14957,12 +14956,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +static QColor foregroundColor;
 +static QColor backgroundColor;
 +static QColor specialColor;
-+
-+//
-+// A mutex guard against concurrent execution 
-+// of QApplication::processEvents()
-+//
-+static QMutex loop_guard;
 +
 +/**
 + * Raise application window
@@ -15063,9 +15056,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +int
 +gui_mch_wait_for_chars(long wtime)
 +{
-+	QMutexLocker l(&loop_guard);
 +	if ( wtime == -1 ) {
-+		QApplication::processEvents( QEventLoop::WaitForMoreEvents | QEventLoop::ExcludeSocketNotifiers);
++		QApplication::processEvents( QEventLoop::WaitForMoreEvents);
 +		return OK;
 +	} else {
 +		//
@@ -15080,12 +15072,13 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		QTime t;
 +		t.start();
 +		do {
-+			QApplication::processEvents( QEventLoop::WaitForMoreEvents | QEventLoop::ExcludeSocketNotifiers);
++			QApplication::processEvents( QEventLoop::WaitForMoreEvents );
 +			if ( vimshell->hasInput() ) {
 +				return OK;
 +			}
 +		} while( t.elapsed() < wtime );
 +	}
++
 +	return FAIL;
 +}
 +
@@ -15098,20 +15091,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_update()
 +{
-+	//
-+	// We used to process Events here, however Qt
-+	// cannot handle recursive calls to resizeEvent.
-+	// The end result was:
-+	//
-+	// gui_mch_wait_for_chars -> resizeEvent -> gui_resize_shell-> (??)
-+	// -> gui_mch_update -> (!crash!)
-+	//
-+	// Now we enforce that only one of (wait_for_chars/mch_update) may
-+	// call process events at a time
-+	//
-+	if (loop_guard.tryLock()) {
++	if ( QApplication::hasPendingEvents() ) {
 +		QApplication::processEvents();
-+		loop_guard.unlock();
 +	}
 +}
 +
@@ -15133,7 +15114,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_set_fg_color(guicolor_T	color)
 +{
 +	if ( color != INVALCOLOR ) {
-+		foregroundColor = VimGui::fromColor(color);
++		foregroundColor = VimWrapper::fromColor(color);
 +	}
 +}
 +
@@ -15146,7 +15127,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	// The shell needs a hint background color
 +	// to paint the back when resizing
 +	if ( color != INVALCOLOR ) {
-+		backgroundColor = VimGui::fromColor(color);
++		backgroundColor = VimWrapper::fromColor(color);
 +	}
 +}
 +
@@ -15192,7 +15173,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +{
 +	PaintOperation op;
 +	op.type = CLEARALL;
-+	op.color = VimGui::fromColor(gui.back_pixel);
++	op.color = VimWrapper::fromColor(gui.back_pixel);
 +	vimshell->queuePaintOp(op);
 +}
 +
@@ -15292,11 +15273,11 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_clear_block(int row1, int col1, int row2, int col2)
 +{
-+	QRect rect = VimGui::mapBlock(row1, col1, row2, col2); 
++	QRect rect = VimWrapper::mapBlock(row1, col1, row2, col2); 
 +
 +	PaintOperation op;
 +	op.type = FILLRECT;
-+	op.color = VimGui::fromColor(gui.back_pixel);
++	op.color = VimWrapper::fromColor(gui.back_pixel);
 +	op.rect = rect;
 +	vimshell->queuePaintOp(op);
 +}
@@ -15320,7 +15301,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	PaintOperation op;
 +	op.type = FILLRECT;
-+	op.color = VimGui::fromColor(gui.back_pixel);
++	op.color = VimWrapper::fromColor(gui.back_pixel);
 +	op.rect = QRect(tl, br);
 +	vimshell->queuePaintOp(op);
 +}
@@ -15332,14 +15313,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_insert_lines(int row, int num_lines)
 +{
-+	QRect scrollRect = VimGui::mapBlock(row, gui.scroll_region_left, 
++	QRect scrollRect = VimWrapper::mapBlock(row, gui.scroll_region_left, 
 +					gui.scroll_region_bot, gui.scroll_region_right);
 +
 +	PaintOperation op1;
 +	op1.type = SCROLLRECT;
 +	op1.rect = scrollRect;
 +	op1.pos = QPoint(0, num_lines*gui.char_height);
-+	op1.color = VimGui::fromColor(gui.back_pixel);
++	op1.color = VimWrapper::fromColor(gui.back_pixel);
 +	vimshell->queuePaintOp(op1);
 +
 +	clear_shell_border();
@@ -15353,14 +15334,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_delete_lines(int row, int num_lines)
 +{
 +	// This used to be Bottom+1 and right+1
-+	QRect scrollRect = VimGui::mapBlock(row, gui.scroll_region_left, 
++	QRect scrollRect = VimWrapper::mapBlock(row, gui.scroll_region_left, 
 +					gui.scroll_region_bot, gui.scroll_region_right);
 +
 +	PaintOperation op;
 +	op.type = SCROLLRECT;
 +	op.rect = scrollRect;
 +	op.pos = QPoint(0, -num_lines*gui.char_height);
-+	op.color = VimGui::fromColor(gui.back_pixel);
++	op.color = VimWrapper::fromColor(gui.back_pixel);
 +	vimshell->queuePaintOp(op);
 +}
 +
@@ -15420,22 +15401,22 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	display_errors();
 +
 +	/* Colors */
-+	gui.norm_pixel = VimGui::toColor(QColor(Qt::black));
-+	gui.back_pixel = VimGui::toColor(QColor(Qt::white));
++	gui.norm_pixel = VimWrapper::toColor(QColor(Qt::black));
++	gui.back_pixel = VimWrapper::toColor(QColor(Qt::white));
 +
 +	set_normal_colors();
 +	gui_check_colors();
 +	highlight_gui_started();
 +
-+	gui.def_norm_pixel = VimGui::toColor(QColor(Qt::black));
-+	gui.def_back_pixel = VimGui::toColor(QColor(Qt::white));
++	gui.def_norm_pixel = VimWrapper::toColor(QColor(Qt::black));
++	gui.def_back_pixel = VimWrapper::toColor(QColor(Qt::white));
 +
 +	// The Scrollbar manages the scrollbars
 +	gui.scrollbar_width = 0;
 +	gui.scrollbar_height = 0;
 +
 +	// Background color hint
-+	vimshell->setBackground(VimGui::backgroundColor() );
++	vimshell->setBackground(VimWrapper::backgroundColor() );
 +
 +	return OK;
 +}
@@ -15481,7 +15462,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	// call Qt to do it for us.
 +	//
 +	gui_resize_shell(vimshell->size().width(), vimshell->size().height());
-+	gui_mch_update();
 +}
 +
 +/**
@@ -15510,7 +15490,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_settitle(char_u *title, char_u *icon)
 +{
 +	if ( title != NULL ) {
-+		window->setWindowTitle( vimshell->convertFrom((char*)title) );
++		window->setWindowTitle( VimWrapper::convertFrom((char*)title) );
 +	}
 +}
 +
@@ -15576,7 +15556,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_invert_rectangle(int row, int col, int nr, int nc)
 +{
-+	QRect rect = VimGui::mapBlock(row, col, row+nr-1, col +nc-1);
++	QRect rect = VimWrapper::mapBlock(row, col, row+nr-1, col +nc-1);
 +
 +	PaintOperation op;
 +	op.type = INVERTRECT;
@@ -15662,7 +15642,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	if (type >= 0) {
 +		QClipboard *clip = QApplication::clipboard();
-+		clip->setText( vimshell->convertFrom((char *)str, size), (QClipboard::Mode)cbd->clipboardMode);
++		clip->setText( VimWrapper::convertFrom((char *)str, size), (QClipboard::Mode)cbd->clipboardMode);
 +	}
 +
 +	vim_free(str);
@@ -15677,7 +15657,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +{
 +
 +	QClipboard *clip = QApplication::clipboard();
-+	QByteArray text = vimshell->convertTo(clip->text( (QClipboard::Mode)cbd->clipboardMode));
++	QByteArray text = VimWrapper::convertTo(clip->text( (QClipboard::Mode)cbd->clipboardMode));
 +
 +	char_u	*buffer;
 +	buffer = lalloc( text.size(), TRUE);
@@ -15724,7 +15704,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	PaintOperation op;
 +	op.type = DRAWRECT;
 +	op.rect = rect;
-+	op.color = VimGui::fromColor(color);
++	op.color = VimWrapper::fromColor(color);
 +	vimshell->queuePaintOp(op);
 +}
 +
@@ -15753,7 +15733,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	PaintOperation op;
 +	op.type = FILLRECT;
 +	op.rect = rect;
-+	op.color = VimGui::fromColor(color);
++	op.color = VimWrapper::fromColor(color);
 +	vimshell->queuePaintOp(op);
 +}
 +
@@ -15764,7 +15744,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_set_sp_color(guicolor_T color) 
 +{
 +	if ( color != INVALCOLOR ) {
-+		specialColor = VimGui::fromColor(color);
++		specialColor = VimWrapper::fromColor(color);
 +	}
 +}
 +
@@ -15779,7 +15759,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +    int		len,
 +    int		flags)
 +{
-+	QString str = vimshell->convertFrom((char *)s, len);
++	QString str = VimWrapper::convertFrom((char *)s, len);
 +	
 +	// Font
 +	QFont f = vimshell->font();
@@ -15789,8 +15769,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	QFontMetrics fm(f);
 +
-+	int cellwidth = VimGui::stringCellWidth(str);
-+	QPoint pos = VimGui::mapText(row, col);
++	int cellwidth = VimWrapper::stringCellWidth(str);
++	QPoint pos = VimWrapper::mapText(row, col);
 +	QRect rect( pos.x(), pos.y(), gui.char_width*cellwidth, gui.char_height);
 +
 +	if (flags & DRAW_TRANSP) {
@@ -15831,7 +15811,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	}
 +	QColor c = vimshell->color((char*)reqname);
 +	if ( c.isValid() ) {
-+		return VimGui::toColor(c);
++		return VimWrapper::toColor(c);
 +	}
 +
 +	return INVALCOLOR;
@@ -15935,7 +15915,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_draw_menubar()
 +{
-+	gui_mch_update();
 +}
 +
 +/**
@@ -16001,15 +15980,15 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	menu->qmenu = NULL;
 +
 +	if ( menu_is_popup(menu->name) ) {
-+		menu->qmenu = new QMenu(vimshell->convertFrom((char*)menu->name), vimshell);
++		menu->qmenu = new QMenu(VimWrapper::convertFrom((char*)menu->name), vimshell);
 +		return;
 +	} else if ( menu_is_toolbar(menu->name) ) {
 +		menu->qmenu = window->toolBar();
 +	} else if ( menu->parent == NULL ) {
-+		menu->qmenu = window->menuBar()->addMenu( vimshell->convertFrom((char*)menu->name) );
++		menu->qmenu = window->menuBar()->addMenu( VimWrapper::convertFrom((char*)menu->name) );
 +	} else if ( menu->parent && menu->parent->qmenu ) {
 +		QMenu *m = (QMenu*)menu->parent->qmenu;
-+		menu->qmenu = m->addMenu( vimshell->convertFrom((char*)menu->name) );
++		menu->qmenu = m->addMenu( VimWrapper::convertFrom((char*)menu->name) );
 +	}
 +}
 +
@@ -16108,8 +16087,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_def_colors()
 +{
-+	gui.norm_pixel = VimGui::toColor(QColor(Qt::black));
-+	gui.back_pixel = VimGui::toColor(QColor(Qt::white));
++	gui.norm_pixel = VimWrapper::toColor(QColor(Qt::black));
++	gui.back_pixel = VimWrapper::toColor(QColor(Qt::white));
 +	gui.def_norm_pixel = gui.norm_pixel;
 +	gui.def_back_pixel = gui.back_pixel;
 +}
@@ -16234,7 +16213,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		return NULL;
 +	}
 +
-+	return vim_strsave((char_u *) vimshell->convertTo(file).data());
++	return vim_strsave((char_u *) VimWrapper::convertTo(file).data());
 +}
 +
 +
@@ -16277,7 +16256,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	if ( buttons != NULL ) {
 +		QStringList b_string;
 +
-+		b_string = vimshell->convertFrom((char*)buttons).split(DLG_BUTTON_SEP);
++		b_string = VimWrapper::convertFrom((char*)buttons).split(DLG_BUTTON_SEP);
 +
 +		QListIterator<QString> it(b_string);
 +		int bt=1;
@@ -16321,7 +16300,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_show_tabline(int showit)
 +{
 +	window->showTabline(showit != 0);
-+	gui_mch_update();
 +}
 +
 +/**
@@ -16355,7 +16333,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +		get_tabline_label(tp, FALSE);
 +		char_u *labeltext = CONVERT_TO_UTF8(NameBuff);
-+		window->setTab( nr, vimshell->convertFrom((char*)labeltext));
++		window->setTab( nr, VimWrapper::convertFrom((char*)labeltext));
 +		CONVERT_TO_UTF8_FREE(labeltext);
 +	}
 +	window->removeTabs(nr);
@@ -16388,7 +16366,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	if ( dialog->exec() == QDialog::Accepted ) {
 +		QFont f =  dialog->selectedFont();
-+		QByteArray text = vimshell->convertTo( QString("%1 %2").arg(f.family()).arg(f.pointSize()) );
++		QByteArray text = VimWrapper::convertTo( QString("%1 %2").arg(f.family()).arg(f.pointSize()) );
 +
 +		char_u *buffer;
 +		buffer = lalloc( text.size(), TRUE);
@@ -16416,8 +16394,8 @@ diff -urN vim-src/src/main.c vim-qt-src/src/main.c
  #ifdef FEAT_GUI
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/Makefile	2011-06-27 16:28:02.000000000 +0200
-@@ -1232,6 +1232,28 @@
++++ vim-qt-src/src/Makefile	2011-06-30 21:01:01.000000000 +0200
+@@ -1232,6 +1232,31 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
  
@@ -16430,11 +16408,14 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +QT_LIBS1	= -L$(QT_LIBDIR) -lQtGui -lQtCore -lstdc++
 +QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
 +			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
-+			qt/vimgui.cpp qt/fontdialog.cpp qt/scrollarea.cpp
++			qt/fontdialog.cpp qt/scrollarea.cpp \
++			qt/vimwrapper.cpp qt/tabbar.cpp
 +QT_OBJ	= objects/gui.o objects/gui_qt.o \
 +			objects/pty.o objects/gui_beval.o \
 +			objects/mainwindow.o objects/qvimshell.o objects/vimaction.o objects/qtresources.o \
-+			objects/vimscrollbar.o objects/vimgui.o objects/fontdialog.o objects/scrollarea.o
++			objects/vimscrollbar.o objects/fontdialog.o objects/scrollarea.o objects/vimwrapper.o \
++			objects/tabbar.o
++
 +QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. -I$(QT_INCDIR)
 +QT_IPATH	= $(GUI_INC_LOC)
 +QT_LIBS_DIR = $(GUI_LIB_LOC)
@@ -16446,7 +16427,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ### (J)  Sun OpenWindows 3.2 (SunOS 4.1.x) or earlier that produce these ld
  #	 errors:  ld: Undefined symbol
  #		      _get_wmShellWidgetClass
-@@ -1276,7 +1298,7 @@
+@@ -1276,7 +1301,7 @@
  CARBONGUI_TESTARG = VIMPROG=../$(APPDIR)/Contents/MacOS/$(VIMTARGET)
  
  # All GUI files
@@ -16455,7 +16436,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ALL_GUI_PRO  = gui.pro gui_gtk.pro gui_motif.pro gui_xmdlg.pro gui_athena.pro gui_gtk_x11.pro gui_x11.pro gui_w16.pro gui_w32.pro gui_photon.pro
  
  # }}}
-@@ -2495,6 +2517,42 @@
+@@ -2495,6 +2520,50 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
  
@@ -16494,6 +16475,14 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +objects/scrollarea.o: qt/scrollarea.cpp
 +	$(MOC) qt/scrollarea.h > scrollarea.moc
 +	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/scrollarea.cpp
++
++objects/vimwrapper.o: qt/vimwrapper.cpp
++	$(MOC) qt/vimwrapper.h > vimwrapper.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimwrapper.cpp
++
++objects/tabbar.o: qt/tabbar.cpp
++	$(MOC) qt/tabbar.h > tabbar.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/tabbar.cpp
 +
  objects/gui_beval.o: gui_beval.c
  	$(CCC) -o $@ gui_beval.c
@@ -16934,7 +16923,7 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-27 16:28:02.000000000 +0200
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-30 21:01:01.000000000 +0200
 @@ -0,0 +1,191 @@
 +#include "mainwindow.moc"
 +
@@ -16972,14 +16961,14 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	connect( tabtoolbar, SIGNAL(topLevelChanged(bool)),
 +			this, SLOT(updateTabOrientation()));
 +
-+	tabbar = new QTabBar(tabtoolbar);
++	tabbar = new TabBar(tabtoolbar);
 +	tabbar->setTabsClosable(true);
 +	tabbar->setExpanding(false);
 +	tabbar->setFocusPolicy(Qt::NoFocus);
 +	tabbar->setDrawBase(false);
 +	tabbar->addTab("VIM"); // One tab must always exist
 +
-+	QAction *newTab = tabtoolbar->addAction( VimGui::icon("tab-new"), "New Tab");
++	QAction *newTab = tabtoolbar->addAction( VimWrapper::icon("tab-new"), "New Tab");
 +	tabtoolbar->addWidget(tabbar);
 +
 +	connect( tabbar, SIGNAL(tabCloseRequested(int)),
@@ -17113,7 +17102,7 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +{
 +	// The amusing +1 trick opens the
 +	// tab at the right of other tabs
-+	VimGui::newTab(tabbar->count()+1);
++	VimWrapper::newTab(tabbar->count()+1);
 +	vimshell->forceInput();
 +}
 +
@@ -17129,14 +17118,15 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,60 @@
++++ vim-qt-src/src/qt/mainwindow.h	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,61 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "scrollarea.h"
++#include "tabbar.h"
 +
 +class MainWindow: public QMainWindow
 +{
@@ -17181,7 +17171,7 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +
 +	QVimShell *vimshell;
 +	QToolBar *tabtoolbar;
-+	QTabBar *tabbar;
++	TabBar *tabbar;
 +	
 +	QToolBar *menutoolbar;
 +	QMenuBar *menu;
@@ -17193,8 +17183,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,1333 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-07-02 01:16:10.000000000 +0200
+@@ -0,0 +1,1306 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17229,13 +17219,13 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::switchTab(int idx)
 +{
-+	send_tabline_event(idx);
++	vim.sendTablineEvent(idx);
 +	m_input = true;
 +}
 +
 +void QVimShell::closeTab(int idx)
 +{
-+	send_tabline_menu_event(idx, TABLINE_MENU_CLOSE);
++	vim.sendTablineMenuEvent(idx, TABLINE_MENU_CLOSE);
 +	m_input = true;
 +}
 +
@@ -17264,7 +17254,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	}
 +
 +	update();
-+	gui_resize_shell(ev->size().width(), ev->size().height());
++	vim.guiResizeShell(ev->size().width(), ev->size().height());
 +}
 +
 +/**
@@ -17300,25 +17290,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	}
 +	return false;
 +}
-+
-+QByteArray QVimShell::convertTo(const QString& s)
-+{
-+	if ( m_encoding_utf8 ) {
-+		return s.toUtf8();
-+	} else {
-+		return s.toAscii();
-+	}
-+}
-+
-+QString QVimShell::convertFrom(const char *s, int size)
-+{
-+	if ( m_encoding_utf8 ) {
-+		return QString::fromUtf8(s, size);
-+	} else {
-+		return QString::fromAscii(s, size);
-+	}
-+}
-+
 +
 +bool QVimShell::hasInput()
 +{
@@ -17379,14 +17350,14 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +		add_to_input_buf((char_u *) str, len);
 +		return;
 +	} else if ( !ev->text().isEmpty() ) {
-+		add_to_input_buf( (char_u *) convertTo(ev->text()).data(), ev->count() );
++		add_to_input_buf( (char_u *) VimWrapper::convertTo(ev->text()).data(), ev->count() );
 +		return;
 +	}
 +}
 +
 +void QVimShell::close()
 +{
-+	gui_shell_closed();
++	vim.guiShellClosed();
 +}
 +
 +void QVimShell::closeEvent(QCloseEvent *event)
@@ -17398,7 +17369,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +bool QVimShell::isFakeMonospace(const QFont& f)
 +{
 +	QFontMetrics fm(f);
-+	return ( fm.averageCharWidth() != VimGui::charWidth() );
++	return ( fm.averageCharWidth() != VimWrapper::charWidth() );
 +}
 +
 +/*
@@ -17467,12 +17438,12 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +	QRect rect = op.rect;
 +	foreach(QChar c, op.str) {
-+		if ( VimGui::charCellWidth(c) == 1 ) {
-+			rect.setWidth(VimGui::charWidth());
-+		} else if (VimGui::charCellWidth(c) == 2) {
-+			rect.setWidth(2*VimGui::charWidth());
++		if ( VimWrapper::charCellWidth(c) == 1 ) {
++			rect.setWidth(VimWrapper::charWidth());
++		} else if (VimWrapper::charCellWidth(c) == 2) {
++			rect.setWidth(2*VimWrapper::charWidth());
 +		} else {
-+			qDebug() << __func__ << "invalid lenght" << c << VimGui::charCellWidth(c);
++			qDebug() << __func__ << "invalid lenght" << c << VimWrapper::charCellWidth(c);
 +			continue;
 +		}
 +		painter.drawText(rect, 
@@ -17517,7 +17488,12 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	line.setNumColumns(op.str.size());
 +	l.endLayout();
 +	l.draw(&painter, op.rect.topLeft());
-+	if( l.maximumWidth() != QFontMetrics(op.font).width(op.str) ) {
++
++	//
++	// An error of one pixel seems to be insignificant. We tolerate this here
++	// but the painter is clipped anyway.
++	int miss = l.maximumWidth() - QFontMetrics(op.font).width(op.str);
++	if( miss  > 1 || miss < -1 ) {
 +		qDebug() << __func__ << "rect mismatch, this is serious, please poke a developer about this" 
 +			<< l.maximumWidth() << QFontMetrics(op.font).width(op.str) << op.str << op.str.size() << op.font;
 +	}
@@ -17542,7 +17518,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			painter.drawRect(op.rect);
 +			break;
 +		case DRAWSTRING:
-+			if ( getenv("QVIM_DRAW_STRING_SLOW") || op.str.length() != VimGui::stringCellWidth(op.str) ) {
++			painter.setClipRect(op.rect);
++			if ( getenv("QVIM_DRAW_STRING_SLOW") || op.str.length() != VimWrapper::stringCellWidth(op.str) ) {
 +				drawStringSlow(op, painter);
 +			} else if ( isFakeMonospace(op.font) ) {
 +				qDebug() << __func__ << "Font size mismatch a.k.a. this is not a proper monospace font";
@@ -17592,10 +17569,10 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::mouseMoveEvent(QMouseEvent *ev)
 +{	
 +	if ( ev->buttons() ) {
-+		gui_send_mouse_event(MOUSE_DRAG, ev->pos().x(),
++		vim.guiSendMouseEvent(MOUSE_DRAG, ev->pos().x(),
 +					  ev->pos().y(), FALSE, 0);
 +	} else {
-+		gui_mouse_moved(ev->pos().x(), ev->pos().y());
++		vim.guiMouseMoved(ev->pos().x(), ev->pos().y());
 +	}
 +	m_input = true;
 +}
@@ -17632,14 +17609,14 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +	int_u vmod = vimMouseModifiers(QApplication::keyboardModifiers());
 +
-+	gui_send_mouse_event(but, ev->pos().x(),
++	vim.guiSendMouseEvent(but, ev->pos().x(),
 +					  ev->pos().y(), repeat, vmod);
 +	m_input = true;
 +}
 +
 +void QVimShell::mouseReleaseEvent(QMouseEvent *ev)
 +{
-+	gui_send_mouse_event(MOUSE_RELEASE, ev->pos().x(),
++	vim.guiSendMouseEvent(MOUSE_RELEASE, ev->pos().x(),
 +					  ev->pos().y(), FALSE, 0);
 +	m_input = true;
 +	setMouseTracking(false);
@@ -17647,7 +17624,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::wheelEvent(QWheelEvent *ev)
 +{
-+	gui_send_mouse_event((ev->delta() > 0) ? MOUSE_4 : MOUSE_5,
++	vim.guiSendMouseEvent((ev->delta() > 0) ? MOUSE_4 : MOUSE_5,
 +					    ev->pos().x(), ev->pos().y(), FALSE, 0);
 +	m_input = true;
 +}
@@ -17664,7 +17641,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	}
 +
 +	while (!f.atEnd()) {
-+		QString line = convertFrom( f.readLine() );
++		QString line = VimWrapper::convertFrom( f.readLine() );
 +		if ( line.startsWith("!") ) {
 +			continue;
 +		}
@@ -17701,7 +17678,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +{
 +	QString cname = name.toLower().remove(' ');
 +	QColor c =m_colorMap.value(cname, QColor());
-+	if ( !c.isValid() ) {
++	if ( !c.isValid() && cname != "transparent" ) {
 +		c.setNamedColor(cname);
 +	}
 +
@@ -17742,24 +17719,10 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +		if ( urls.size() == 0 ) {
 +			return;
 +		}
++		vim.guiHandleDrop(ev->pos().x(), ev->pos().y(), 0, urls);
 +
-+		char_u **fnames = (char_u**)alloc( urls.size() * sizeof(char_u*));
-+		int i;
-+		for (i=0; i<urls.size(); i++) {
-+			QByteArray encoded = convertTo(urls.at(i).toString());
-+			char *s = (char*)alloc(encoded.size()*sizeof(char)+1);
-+			int j;
-+			for (j=0; j<encoded.size(); j++) {
-+				s[j] = encoded.at(j);
-+			}
-+			s[j]='\0';
-+
-+			fnames[i] = (char_u *) s;
-+		}
-+		
-+		gui_handle_drop(ev->pos().x(), ev->pos().y(), 0, fnames, urls.size());
 +	} else {
-+		QByteArray text = convertTo(ev->mimeData()->text());
++		QByteArray text = VimWrapper::convertTo(ev->mimeData()->text());
 +		dnd_yank_drag_data( (char_u*)text.data(), text.size());
 +
 +		char_u buf[3] = {CSI, KS_EXTRA, (char_u)KE_DROP};
@@ -17770,14 +17733,14 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::focusInEvent(QFocusEvent *ev)
 +{
-+	gui_focus_change(TRUE);
++	vim.guiFocusChanged(TRUE);
 +	QWidget::focusInEvent(ev);
 +	update();
 +}
 +
 +void QVimShell::focusOutEvent(QFocusEvent *ev)
 +{
-+	gui_focus_change(FALSE);
++	vim.guiFocusChanged(FALSE);
 +	QWidget::focusOutEvent(ev);
 +	update();
 +}
@@ -17795,7 +17758,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::inputMethodEvent(QInputMethodEvent *ev)
 +{
 +	if ( !ev->commitString().isEmpty() ) {
-+		QByteArray s = convertTo(ev->commitString());
++		QByteArray s = VimWrapper::convertTo(ev->commitString());
 +		add_to_input_buf( (char_u *) s.data(), s.size() );
 +		tooltip("");
 +	} else {
@@ -17830,8 +17793,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	}
 +
 +	if ( !m_tooltip->isVisible() ) {
-+		m_tooltip->setMinimumHeight(VimGui::charHeight());
-+		m_tooltip->move( VimGui::cursorPosition() );
++		m_tooltip->setMinimumHeight(VimWrapper::charHeight());
++		m_tooltip->move( VimWrapper::cursorPosition() );
 +		m_tooltip->show();
 +	}
 +
@@ -18530,14 +18493,13 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2011-06-19 08:23:04.000000000 +0200
-@@ -0,0 +1,154 @@
++++ vim-qt-src/src/qt/qvimshell.h	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,151 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
 +#include <Qt/QtGui>
-+#include "vimgui.h"
-+
++#include "vimwrapper.h"
 +
 +
 +
@@ -18570,9 +18532,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	QColor background();
 +	int charWidth();
-+
-+	QByteArray convertTo(const QString& s);
-+	QString convertFrom(const char *, int size=-1);
 +
 +	void setEncodingUtf8(bool);
 +	static void setupColorMap();
@@ -18639,6 +18598,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	QLabel *m_tooltip;
 +
 +	static QHash<QString, QColor> m_colorMap;
++	VimWrapper vim;
 +};
 +
 +struct special_key
@@ -18688,11 +18648,10 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +#endif
 diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
 --- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.cpp	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,125 @@
++++ vim-qt-src/src/qt/scrollarea.cpp	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,126 @@
 +#include "scrollarea.moc"
 +
-+#include "vimgui.h"
 +
 +/**
 + * The scroll area is a 3x3 grid to place
@@ -18739,6 +18698,8 @@ diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
 +void ScrollArea::setWidget(QWidget *w)
 +{
 +	m_widget = w;
++
++	m_widget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 +	m_layout->addWidget(m_widget, 1, 1);
 +}
 +
@@ -18857,17 +18818,64 @@ diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
 +};
 +
 +#endif
+diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
+--- vim-src/src/qt/tabbar.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/tabbar.cpp	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,22 @@
++#include "tabbar.moc"
++
++
++TabBar::TabBar(QWidget *parent)
++:QTabBar(parent)
++{
++}
++
++
++void TabBar::mouseReleaseEvent(QMouseEvent *ev)
++{
++	if (ev->button() != Qt::MiddleButton) {
++		QTabBar::mouseReleaseEvent(ev);
++		return;
++	}
++
++	int tab = tabAt(ev->pos());
++	if ( tab != -1 ) {
++		emit QTabBar::tabCloseRequested(tab);
++	}
++}
++
+diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
+--- vim-src/src/qt/tabbar.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/tabbar.h	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,17 @@
++#ifndef __GUI_QT_TABBAR__
++#define __GUI_QT_TABBAR__
++
++#include <Qt/QtGui>
++
++class TabBar: public QTabBar
++{
++	Q_OBJECT
++public:
++	TabBar(QWidget *parent=0);
++
++protected:
++	virtual void mouseReleaseEvent(QMouseEvent *);
++
++};
++
++#endif
 diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 --- vim-src/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.cpp	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,20 @@
++++ vim-qt-src/src/qt/vimaction.cpp	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,19 @@
 +#include "vimaction.moc"
 +
 +VimAction::VimAction(vimmenu_T* menu, QObject *parent)
 +:QAction(parent), m_menu(menu)
 +{
 +	if ( menu_is_toolbar(menu->parent->name) ) {
-+		setIcon( VimGui::icon(QString::fromUtf8((char*)menu->name)) );
++		setIcon( VimWrapper::icon(QString::fromUtf8((char*)menu->name)) );
 +		setToolTip(QString::fromUtf8((char*) menu->strings[MENU_INDEX_TIP]));
 +	} else {
 +		setText( QString::fromUtf8((char*)menu->name) );
@@ -18879,7 +18887,6 @@ diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 +void VimAction::actionTriggered()
 +{
 +	gui_menu_cb(m_menu);
-+	QApplication::processEvents();	
 +}
 diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 --- vim-src/src/qt/vimaction.h	1970-01-01 01:00:00.000000000 +0100
@@ -18901,271 +18908,6 @@ diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 +
 +private:
 +	vimmenu_T *m_menu;
-+};
-+
-+#endif
-diff -urN vim-src/src/qt/vimgui.cpp vim-qt-src/src/qt/vimgui.cpp
---- vim-src/src/qt/vimgui.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimgui.cpp	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,192 @@
-+#include "vimgui.h"
-+
-+
-+QPoint VimGui::mapText(int row, int col) 
-+{ 
-+	return QPoint( gui.char_width*col, gui.char_height*row );
-+}
-+
-+QPoint VimGui::cursorPosition() 
-+{ 
-+	return mapText(gui.cursor_row, gui.cursor_col);
-+}
-+
-+QRect VimGui::mapBlock(int row1, int col1, int row2, int col2)
-+{
-+	QPoint tl = mapText( row1, col1 );
-+	QPoint br = mapText( row2+1, col2+1);
-+	br.setX( br.x()-1 );
-+	br.setY( br.y()-1 );
-+
-+	return QRect(tl, br);
-+}
-+
-+QColor VimGui::backgroundColor()
-+{
-+	return fromColor(gui.back_pixel);
-+}
-+
-+QColor VimGui::normalColor()
-+{
-+	return fromColor(gui.norm_pixel);
-+}
-+
-+int VimGui::charWidth()
-+{
-+	return gui.char_width;
-+}
-+
-+int VimGui::charHeight()
-+{
-+	return gui.char_height;
-+}
-+
-+QFont VimGui::normalFont()
-+{
-+	if ( gui.norm_font ) {
-+		return *(gui.norm_font);
-+	}
-+
-+	return QFont();
-+}
-+
-+int VimGui::charCellWidth(const QChar& c)
-+{
-+	int len = utf_char2cells(c.unicode());
-+	if ( len <= 2 ) {
-+		return len;
-+	}
-+
-+	return 0;
-+}
-+
-+int VimGui::stringCellWidth(const QString& s)
-+{
-+	/*
-+	 * Vim kindly provides us with utf_char2cells,
-+	 * unfortunately Qt does not have a way measure
-+	 * wide char length.
-+	 */
-+	int len=0;
-+	foreach ( QChar c, s ) {
-+		len += charCellWidth(c);
-+	}
-+	return len;
-+}
-+
-+QIcon VimGui::iconFromTheme(const QString& name)
-+{
-+	QIcon icon;
-+
-+	// Theme icons
-+	if ( "Open" == name ) {
-+		icon = QIcon::fromTheme("document-open", 
-+				QIcon(":/icons/document-open.png"));
-+	} else if ( "Save" == name ) {
-+		icon = QIcon::fromTheme("document-save",
-+				QIcon(":/icons/document-save.png"));
-+	} else if ( "SaveAll" == name ) {
-+		icon = QIcon::fromTheme("document-save-all",
-+				QIcon(":/icons/document-save-all.png"));
-+	} else if ( "Print" == name ) {
-+		icon = QIcon::fromTheme("document-print",
-+				QIcon(":/icons/document-print.png"));
-+	} else if ( "Undo" == name ) {
-+		icon = QIcon::fromTheme("edit-undo",
-+				QIcon(":/icons/edit-undo.png"));
-+	} else if ( "Redo"== name ) {
-+		icon = QIcon::fromTheme("edit-redo",
-+				QIcon(":/icons/edit-redo.png"));
-+	} else if ( "Cut" == name ) {
-+		icon = QIcon::fromTheme("edit-cut",
-+				QIcon(":/icons/edit-cut.png"));
-+	} else if ( "Copy" == name ) {
-+		icon = QIcon::fromTheme("edit-copy",
-+				QIcon(":/icons/edit-copy.png"));
-+	} else if ( "Paste" == name ) {
-+		icon = QIcon::fromTheme("edit-paste",
-+				QIcon(":/icons/edit-paste.png"));
-+	} else if ( "Replace" == name ) {
-+		icon = QIcon::fromTheme("edit-find-replace",
-+				QIcon(":/icons/edit-find-replace.png"));
-+	} else if ( "FindNext" == name ) {
-+		icon = QIcon::fromTheme("go-next",
-+				QIcon(":/icons/go-next.png"));
-+	} else if ( "FindPrev" == name ) {
-+		icon = QIcon::fromTheme("go-previous",
-+				QIcon(":/icons/go-previous.png"));
-+	} else if ( "LoadSesn" == name ) {
-+		icon = QIcon::fromTheme("folder-open",
-+				QIcon(":/icons/document-open-folder.png"));
-+	} else if ( "SaveSesn" == name ) {
-+		icon = QIcon::fromTheme("document-save-as",
-+				QIcon(":/icons/document-save-as.png"));
-+	} else if ( "RunScript" == name ) {
-+		icon = QIcon::fromTheme("system-run",
-+				QIcon(":/icons/system-run.png"));
-+	} else if ( "Make" == name ) {
-+		icon = QIcon::fromTheme("run-build", 
-+				QIcon(":/icons/run-build.png"));
-+	} else if ( "RunCtags" == name ) {
-+		icon = QIcon(":/icons/table.png");
-+	} else if ( "TagJump" == name ) {
-+		icon = QIcon::fromTheme("go-jump",
-+				QIcon(":/icons/go-jump.png"));
-+	} else if ( "Help" == name ) {
-+		icon = QIcon::fromTheme("help-contents",
-+				QIcon(":/icons/help-contents.png"));
-+	} else if ( "FindHelp" == name ) {
-+		icon = QIcon::fromTheme("help-faq",
-+				QIcon(":/icons/help-contextual.png"));
-+	}
-+
-+	if ( icon.isNull() ) { // last resort
-+		icon = QIcon::fromTheme(name.toLower());
-+	}
-+
-+	return icon;
-+}
-+
-+
-+/**
-+ * Get an icon for a given name
-+ *
-+ */
-+QIcon VimGui::icon(const QString& name)
-+{
-+	QIcon icon = iconFromTheme(name);
-+
-+	if ( icon.isNull() ) {
-+		return QApplication::style()->standardIcon(QStyle::SP_FileLinkIcon);
-+	}
-+
-+	return icon;
-+}
-+
-+
-+QColor
-+VimGui::fromColor(long color)
-+{
-+	if ( color == INVALCOLOR ) {
-+		return QColor();
-+	}
-+
-+	int red = ((color & 0x00FF0000) >> 16);
-+	int green = ((color & 0x0000FF00) >>  8);
-+	int blue = ((color & 0x000000FF) >>  0);
-+
-+	return QColor(red, green, blue);
-+}
-+
-+long
-+VimGui::toColor(const QColor& c)
-+{
-+	return ((long)c.red() << 16) + ((long)c.green() << 8) + ((long)c.blue());
-+}
-+
-+void
-+VimGui::newTab(int idx)
-+{
-+	send_tabline_menu_event(idx, TABLINE_MENU_NEW);
-+}
-+
-diff -urN vim-src/src/qt/vimgui.h vim-qt-src/src/qt/vimgui.h
---- vim-src/src/qt/vimgui.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimgui.h	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,65 @@
-+#ifndef __VIM_QT_GUI__
-+#define __VIM_QT_GUI__
-+
-+#include <Qt/QtGui>
-+
-+extern "C" {
-+#include "vim.h"
-+}
-+
-+class VimGui
-+{
-+public:
-+	/**
-+	 * Map a row/col coordinate to a point in widget coordinates
-+	 */
-+	static QPoint mapText(int row, int col);
-+
-+	/**
-+	 * Returns the current cursor coordinates(top left corner)
-+	 */
-+	static QPoint cursorPosition();
-+
-+	/**
-+	 * Map an area in row/col(inclusive) coordinates into
-+	 * widget coordinates
-+	 */
-+	static QRect mapBlock(int row1, int col1, int row2, int col2);
-+
-+	/**
-+	 * The current background pixel color
-+	 */
-+	static QColor backgroundColor();
-+
-+	/**
-+	 * Normal text color
-+	 */
-+	static QColor normalColor();
-+
-+	static int charWidth();
-+	static int charHeight();
-+
-+	/**
-+	 * Gui normal font
-+	 */
-+	static QFont normalFont();
-+
-+	static int stringCellWidth(const QString&);
-+	static int charCellWidth(const QChar&);
-+
-+	/**
-+	 * Load icons
-+	 */
-+	static QIcon iconFromTheme(const QString&);
-+	static QIcon icon(const QString&);
-+
-+	static QColor fromColor(long);
-+	static long toColor(const QColor&);
-+
-+	/**
-+	 * New tab
-+	 */
-+	static void newTab(int idx=1);
 +};
 +
 +#endif
@@ -19271,6 +19013,447 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +	scrollbar_T *sb;
 +	int m_index;
 +	int m_length;
++};
++
++#endif
+diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
+--- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimwrapper.cpp	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,332 @@
++#include "vimwrapper.moc"
++
++extern "C" {
++#include "vim.h"
++}
++
++Q_DECLARE_METATYPE( QList<QUrl> );
++
++VimWrapper::VimWrapper(QObject *parent)
++:QObject(parent)
++{
++	qRegisterMetaType<QList<QUrl> >("URLList");
++
++}
++
++void VimWrapper::guiResizeShell(int w, int h)
++{
++	QMetaObject::invokeMethod(this, 
++				"slot_guiResizeShell", Qt::QueuedConnection, 
++				Q_ARG(int, w), 
++				Q_ARG(int, h)
++			);
++	
++}
++void VimWrapper::slot_guiResizeShell(int w, int h)
++{
++	gui_resize_shell(w,h);
++}
++
++void VimWrapper::guiShellClosed()
++{
++	QMetaObject::invokeMethod(this, 
++				"slot_guiShellClosed", 
++				Qt::QueuedConnection);
++}
++void VimWrapper::slot_guiShellClosed()
++{
++	gui_shell_closed();
++}
++
++void VimWrapper::guiSendMouseEvent(int button, int x, int y, int repeated_click, unsigned int modifiers)
++{
++	QMetaObject::invokeMethod(this, 
++				"slot_guiSendMouseEvent", Qt::QueuedConnection, 
++				Q_ARG(int, button), 
++				Q_ARG(int, x), 
++				Q_ARG(int, y), 
++				Q_ARG(int, repeated_click), 
++				Q_ARG(unsigned int, modifiers)
++				);
++}
++void VimWrapper::slot_guiSendMouseEvent(int button, int x, int y, int repeated_click, unsigned int modifiers)
++{
++	gui_send_mouse_event(button, x, y, repeated_click, modifiers);
++}
++
++void VimWrapper::guiMouseMoved(int x, int y)
++{
++	QMetaObject::invokeMethod(this, 
++				"slot_guiMouseMoved",  Qt::QueuedConnection, 
++				Q_ARG(int, x),
++				Q_ARG(int, y)
++				);
++
++}
++void VimWrapper::slot_guiMouseMoved(int x, int y)
++{
++	gui_mouse_moved(x, y);
++}
++
++void VimWrapper::guiFocusChanged(int focus)
++{
++	QMetaObject::invokeMethod(this, 
++				"slot_guiFocusChanged", 
++				Qt::QueuedConnection, Q_ARG(int, focus));
++}
++void VimWrapper::slot_guiFocusChanged(int focus)
++{
++	gui_focus_change(focus);
++}
++
++void VimWrapper::sendTablineEvent(int ev)
++{
++	send_tabline_event(ev);
++}
++
++void VimWrapper::sendTablineMenuEvent(int idx, int ev)
++{
++	send_tabline_menu_event(idx, ev);
++}
++
++void VimWrapper::guiHandleDrop(int x, int y, unsigned int mod, const QList<QUrl> urls)
++{
++	QMetaObject::invokeMethod(this, 
++				"slot_guiHandleDrop", 
++				Qt::QueuedConnection, 
++				Q_ARG(int, x),
++				Q_ARG(int, y),
++				Q_ARG(unsigned int, mod),
++				Q_ARG(QList<QUrl>, urls)
++				);
++}
++void VimWrapper::slot_guiHandleDrop(int x, int y, unsigned int mod, const QList<QUrl> urls)
++{
++	char_u **fnames = (char_u**)alloc( urls.size() * sizeof(char_u*));
++	int i;
++	for (i=0; i<urls.size(); i++) {
++		QByteArray encoded = convertTo(urls.at(i).toString());
++		char *s = (char*)alloc(encoded.size()*sizeof(char)+1);
++		int j;
++		for (j=0; j<encoded.size(); j++) {
++			s[j] = encoded.at(j);
++		}
++		s[j]='\0';
++
++		fnames[i] = (char_u *) s;
++	}
++	gui_handle_drop(x, y, 0, fnames, urls.size());
++}
++
++
++QPoint VimWrapper::mapText(int row, int col) 
++{ 
++	return QPoint( gui.char_width*col, gui.char_height*row );
++}
++
++QPoint VimWrapper::cursorPosition() 
++{ 
++	return mapText(gui.cursor_row, gui.cursor_col);
++}
++
++QRect VimWrapper::mapBlock(int row1, int col1, int row2, int col2)
++{
++	QPoint tl = mapText( row1, col1 );
++	QPoint br = mapText( row2+1, col2+1);
++	br.setX( br.x()-1 );
++	br.setY( br.y()-1 );
++
++	return QRect(tl, br);
++}
++
++QColor VimWrapper::backgroundColor()
++{
++	return fromColor(gui.back_pixel);
++}
++
++QColor VimWrapper::normalColor()
++{
++	return fromColor(gui.norm_pixel);
++}
++
++int VimWrapper::charWidth()
++{
++	return gui.char_width;
++}
++
++int VimWrapper::charHeight()
++{
++	return gui.char_height;
++}
++
++QFont VimWrapper::normalFont()
++{
++	if ( gui.norm_font ) {
++		return *(gui.norm_font);
++	}
++
++	return QFont();
++}
++
++int VimWrapper::charCellWidth(const QChar& c)
++{
++	int len = utf_char2cells(c.unicode());
++	if ( len <= 2 ) {
++		return len;
++	}
++
++	return 0;
++}
++
++int VimWrapper::stringCellWidth(const QString& s)
++{
++	/*
++	 * Vim kindly provides us with utf_char2cells,
++	 * unfortunately Qt does not have a way measure
++	 * wide char length.
++	 */
++	int len=0;
++	foreach ( QChar c, s ) {
++		len += charCellWidth(c);
++	}
++	return len;
++}
++
++QIcon VimWrapper::iconFromTheme(const QString& name)
++{
++	QIcon icon;
++
++	// Theme icons
++	if ( "Open" == name ) {
++		icon = QIcon::fromTheme("document-open", 
++				QIcon(":/icons/document-open.png"));
++	} else if ( "Save" == name ) {
++		icon = QIcon::fromTheme("document-save",
++				QIcon(":/icons/document-save.png"));
++	} else if ( "SaveAll" == name ) {
++		icon = QIcon::fromTheme("document-save-all",
++				QIcon(":/icons/document-save-all.png"));
++	} else if ( "Print" == name ) {
++		icon = QIcon::fromTheme("document-print",
++				QIcon(":/icons/document-print.png"));
++	} else if ( "Undo" == name ) {
++		icon = QIcon::fromTheme("edit-undo",
++				QIcon(":/icons/edit-undo.png"));
++	} else if ( "Redo"== name ) {
++		icon = QIcon::fromTheme("edit-redo",
++				QIcon(":/icons/edit-redo.png"));
++	} else if ( "Cut" == name ) {
++		icon = QIcon::fromTheme("edit-cut",
++				QIcon(":/icons/edit-cut.png"));
++	} else if ( "Copy" == name ) {
++		icon = QIcon::fromTheme("edit-copy",
++				QIcon(":/icons/edit-copy.png"));
++	} else if ( "Paste" == name ) {
++		icon = QIcon::fromTheme("edit-paste",
++				QIcon(":/icons/edit-paste.png"));
++	} else if ( "Replace" == name ) {
++		icon = QIcon::fromTheme("edit-find-replace",
++				QIcon(":/icons/edit-find-replace.png"));
++	} else if ( "FindNext" == name ) {
++		icon = QIcon::fromTheme("go-next",
++				QIcon(":/icons/go-next.png"));
++	} else if ( "FindPrev" == name ) {
++		icon = QIcon::fromTheme("go-previous",
++				QIcon(":/icons/go-previous.png"));
++	} else if ( "LoadSesn" == name ) {
++		icon = QIcon::fromTheme("folder-open",
++				QIcon(":/icons/document-open-folder.png"));
++	} else if ( "SaveSesn" == name ) {
++		icon = QIcon::fromTheme("document-save-as",
++				QIcon(":/icons/document-save-as.png"));
++	} else if ( "RunScript" == name ) {
++		icon = QIcon::fromTheme("system-run",
++				QIcon(":/icons/system-run.png"));
++	} else if ( "Make" == name ) {
++		icon = QIcon::fromTheme("run-build", 
++				QIcon(":/icons/run-build.png"));
++	} else if ( "RunCtags" == name ) {
++		icon = QIcon(":/icons/table.png");
++	} else if ( "TagJump" == name ) {
++		icon = QIcon::fromTheme("go-jump",
++				QIcon(":/icons/go-jump.png"));
++	} else if ( "Help" == name ) {
++		icon = QIcon::fromTheme("help-contents",
++				QIcon(":/icons/help-contents.png"));
++	} else if ( "FindHelp" == name ) {
++		icon = QIcon::fromTheme("help-faq",
++				QIcon(":/icons/help-contextual.png"));
++	}
++
++	if ( icon.isNull() ) { // last resort
++		icon = QIcon::fromTheme(name.toLower());
++	}
++
++	return icon;
++}
++
++/**
++ * Get an icon for a given name
++ *
++ */
++QIcon VimWrapper::icon(const QString& name)
++{
++	QIcon icon = iconFromTheme(name);
++
++	if ( icon.isNull() ) {
++		return QApplication::style()->standardIcon(QStyle::SP_FileLinkIcon);
++	}
++
++	return icon;
++}
++
++
++QColor
++VimWrapper::fromColor(long color)
++{
++	if ( color == INVALCOLOR ) {
++		return QColor();
++	}
++
++	int red = ((color & 0x00FF0000) >> 16);
++	int green = ((color & 0x0000FF00) >>  8);
++	int blue = ((color & 0x000000FF) >>  0);
++
++	return QColor(red, green, blue);
++}
++
++long
++VimWrapper::toColor(const QColor& c)
++{
++	return ((long)c.red() << 16) + ((long)c.green() << 8) + ((long)c.blue());
++}
++
++void
++VimWrapper::newTab(int idx)
++{
++	send_tabline_menu_event(idx, TABLINE_MENU_NEW);
++}
++
++QByteArray VimWrapper::convertTo(const QString& s)
++{
++	bool m_encoding_utf8 = true; // FIXME: check encoding
++
++	if ( m_encoding_utf8 ) {
++		return s.toUtf8();
++	} else {
++		return s.toAscii();
++	}
++}
++
++QString VimWrapper::convertFrom(const char *s, int size)
++{
++	bool m_encoding_utf8 = true; // FIXME: check encoding
++
++	if ( m_encoding_utf8 ) {
++		return QString::fromUtf8(s, size);
++	} else {
++		return QString::fromAscii(s, size);
++	}
++}
++
++
+diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
+--- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimwrapper.h	2011-06-30 21:01:01.000000000 +0200
+@@ -0,0 +1,101 @@
++#ifndef __VIM_QT_VIM__
++#define __VIM_QT_VIM__
++
++#include <Qt/QtGui>
++
++extern "C" {
++#include "vim.h"
++}
++
++class VimWrapper: public QObject
++{
++	Q_OBJECT
++public:
++	VimWrapper(QObject *parent=0);
++	
++	/**
++	 * Map a row/col coordinate to a point in widget coordinates
++	 */
++	static QPoint mapText(int row, int col);
++
++	/**
++	 * Returns the current cursor coordinates(top left corner)
++	 */
++	static QPoint cursorPosition();
++
++	/**
++	 * Map an area in row/col(inclusive) coordinates into
++	 * widget coordinates
++	 */
++	static QRect mapBlock(int row1, int col1, int row2, int col2);
++
++	/**
++	 * The current background pixel color
++	 */
++	static QColor backgroundColor();
++
++	/**
++	 * Normal text color
++	 */
++	static QColor normalColor();
++
++	static int charWidth();
++	static int charHeight();
++
++	/**
++	 * Gui normal font
++	 */
++	static QFont normalFont();
++
++	static int stringCellWidth(const QString&);
++	static int charCellWidth(const QChar&);
++
++	/**
++	 * Load icons
++	 */
++	static QIcon iconFromTheme(const QString&);
++	static QIcon icon(const QString&);
++
++	static QColor fromColor(long);
++	static long toColor(const QColor&);
++
++	/**
++	 * New tab
++	 */
++	static void newTab(int idx=1);
++
++	static QByteArray convertTo(const QString& s);
++	static QString convertFrom(const char *, int size=-1);
++
++
++	/**
++	 * Vim methods
++	 */
++	void guiResizeShell(int, int);
++	void guiShellClosed();
++	void guiSendMouseEvent(int, int);
++	void guiSendMouseEvent(int , int , int , int , unsigned int );
++	void guiMouseMoved(int, int);
++	void guiFocusChanged(int);
++	void guiHandleDrop(int, int, unsigned int, const QList<QUrl>);
++
++	void sendTablineEvent(int);
++	void sendTablineMenuEvent(int, int);
++
++private slots:
++
++	/**
++	 * Vim methods slots
++	 */
++	void slot_guiResizeShell(int, int);
++	void slot_guiShellClosed();
++	void slot_guiSendMouseEvent(int , int , int , int , unsigned int );
++	void slot_guiMouseMoved(int, int);
++	void slot_guiFocusChanged(int);
++	void slot_guiHandleDrop(int, int, unsigned int, const QList<QUrl>);
++
++//	void guiMenuCb(long);
++
 +};
 +
 +#endif

@@ -10,7 +10,7 @@ _basever=7.3
 _patchlevel=237
 pkgver=${_basever}.${_patchlevel}
 __hgrev=c45a38bd18
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -31,7 +31,7 @@ sha256sums=(
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'dc20ab4bbbd3c9ada7ecda2766718975cf11eb4305cc04c3b2b3ef675454a930'
+	'07a062bafdf6aa675fd0c713762e1d55c3f690cc797d3cc5806f731d9261df47'
 	'4f381a06e7306563d478e57fe4c0114af9965b91edac75b05fc3dea831ad2a15'
 )
 
@@ -143,24 +143,13 @@ build() {
 ##### Packaging #####
 
 package_vim-tiny() {
-	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, tiny edition'
-	conflicts=('vim' 'gvim')
+	pkgdesc='Vi Improved, tiny edition'
+	conflicts=('vi' 'vim')
 	replaces=('vim-slim')
 	provides=('vim')
 
 	cd ${srcdir}/vim-tn-build
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
-
-	# provided by (n)vi in core
-	rm ${pkgdir}/usr/bin/{ex,view}
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f evim.1    # this does not make sense if we have no GUI
-		done
 
 	# Runtime not needed
 	rm -r ${pkgdir}/usr/share/vim
@@ -172,24 +161,16 @@ package_vim-tiny() {
 }
 
 package_vim-cli() {
-	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor, cli only'
+	pkgdesc='Vi Improved, cli'
 	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua')
-	conflicts=('vim' 'gvim')
+	conflicts=('vi' 'vim')
 	provides=('vim')
 
 	cd ${srcdir}/vim-build
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-	# provided by (n)vi in core
-	rm ${pkgdir}/usr/bin/{ex,view}
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f evim.1    # this does not make sense if we have no GUI
-		done
+	# remove evim manpages
+	rm -f ${pkgdir}/usr/share/man/*{,/*}/evim*
 
 	# Runtime provided by runtime package
 	rm -r ${pkgdir}/usr/share/vim
@@ -201,34 +182,29 @@ package_vim-cli() {
 }
 
 package_vim-gvim-gtk() {
-	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
-	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua'
-		'libxt' 'desktop-file-utils' 'gtk2')
-	conflicts=('vim' 'gvim')
+	pkgdesc='Vi Improved, gtk gui'
+	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
+	conflicts=('gvim')
 	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-gtk
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-	# provided by (n)vi in core
-	rm ${pkgdir}/usr/bin/{ex,view}
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f evim.1    # this does not make sense if we have no GUI
-		done
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
-		done
+	# move vim to gvim
+	rm -f ${pkgdir}/usr/bin/gvim
+	mv ${pkgdir}/usr/bin/{vim,gvim}
+	# remove files provided by vim-cli
+	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
+	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
+	# recreate gvim symlinks
+	(
+	cd ${pkgdir}/usr/bin
+	for link in eview evim gview gvimdiff rgview rgvim; do
+		rm -f ${link}
+		ln -s gvim ${link}
+	done
+	)
 
 	# Runtime provided by runtime package
 	rm -r ${pkgdir}/usr/share/vim
@@ -245,34 +221,29 @@ package_vim-gvim-gtk() {
 }
 
 package_vim-gvim-x11() {
-	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
-	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua'
-		'libxt' 'desktop-file-utils' 'libxaw')
-	conflicts=('vim' 'gvim')
+	pkgdesc='Vi Improved, x11 (athena) gui'
+	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'libxaw')
+	conflicts=('gvim')
 	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-x11
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-	# provided by (n)vi in core
-	rm ${pkgdir}/usr/bin/{ex,view}
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f evim.1    # this does not make sense if we have no GUI
-		done
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
-		done
+	# move vim to gvim
+	rm -f ${pkgdir}/usr/bin/gvim
+	mv ${pkgdir}/usr/bin/{vim,gvim}
+	# remove files provided by vim-cli
+	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
+	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
+	# recreate gvim symlinks
+	(
+	cd ${pkgdir}/usr/bin
+	for link in eview evim gview gvimdiff rgview rgvim; do
+		rm -f ${link}
+		ln -s gvim ${link}
+	done
+	)
 
 	# Runtime provided by runtime package
 	rm -r ${pkgdir}/usr/share/vim
@@ -289,43 +260,28 @@ package_vim-gvim-x11() {
 }
 
 package_vim-gvim-qt() {
-	pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
-	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua'
-		'libxt' 'desktop-file-utils' 'libxaw' 'qt')
-	conflicts=('vim' 'gvim')
+	pkgdesc='Vi Improved, qt gui'
+	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'qt')
+	conflicts=('gvim')
 	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-qt
 	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
 
-	# provided by (n)vi in core
-	rm ${pkgdir}/usr/bin/{ex,view}
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f evim.1    # this does not make sense if we have no GUI
-		done
-
-	# delete some manpages
-	find ${pkgdir}/usr/share/man -type d -name 'man1' 2>/dev/null | \
-		while read _mandir; do
-			cd ${_mandir}
-			rm -f ex.1 view.1 # provided by (n)vi
-			rm -f rview.1 rvim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1 # provided by vim-bin
-		done
-
-	# some symlinks wont install so manually added
+	# move vim to gvim
+	rm -f ${pkgdir}/usr/bin/gvim
+	mv ${pkgdir}/usr/bin/{vim,gvim}
+	# remove files provided by vim-cli
+	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
+	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
+	# recreate gvim symlinks
 	(
-		cd ${pkgdir}/usr/bin
-		ln -s vim gvim
-		ln -s vim gvimdiff
-		ln -s vim gview
-		ln -s vim rgview
-		ln -s vim rgvim
+	cd ${pkgdir}/usr/bin
+	for link in eview evim gview gvimdiff rgview rgvim; do
+		rm -f ${link}
+		ln -s gvim ${link}
+	done
 	)
 
 	# Move the runtime for later packaging
