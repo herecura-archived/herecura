@@ -5,7 +5,7 @@
 # for his xbmc-vdpau-vdr PKGBUILD at https://archvdr.svn.sourceforge.net/svnroot/archvdr/trunk/archvdr/xbmc-vdpau-vdr/PKGBUILD
 
 pkgname=xbmc-git
-pkgver=20110608
+pkgver=20110703
 pkgrel=1
 pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
@@ -16,7 +16,7 @@ url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=('bzip2' 'faac' 'faad2' 'fribidi' 'glew' 'jasper' 'libass' 'libcdio' 'libgl' 'libmad' 'libmicrohttpd' 
          'libmodplug' 'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libxtst' 'lzo2' 'python2'
-         'sdl_image>=1.2.10' 'sdl_mixer' 'smbclient' 'unzip' 'wavpack' 'mesa-demos' 'xorg-xdpyinfo')
+         'sdl_image>=1.2.10' 'sdl_mixer' 'smbclient' 'unzip' 'wavpack' 'mesa-demos' 'xorg-xdpyinfo' 'yajl')
 makedepends=('boost' 'cmake' 'git' 'gperf' 'nasm' 'libxinerama' 'libxrandr'
              # 'crystalhd-snapshot'
              'zip'
