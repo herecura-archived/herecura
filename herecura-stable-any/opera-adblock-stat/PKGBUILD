@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=opera-adblock-stat
-pkgver=20110615
+pkgver=20110703
 pkgrel=1
 pkgdesc="Fanboy's Main AdBlock Filterset for Opera"
 arch=('any')
@@ -12,7 +12,7 @@ conflicts=('opera-adblock' 'opera-adblock-complete')
 replaces=('opera-adblock-complete')
 install=${pkgname}.install
 source=('urlfilter-stat.ini')
-sha256sums=('b4d3154ba02f695c5f7507ea5bf54b4c601245a96bc891a2915772e07da9ba4d')
+sha256sums=('a5a4f49ac59a5d2703bbb43ce82c4fe4e9c697a48c7f2e6ee05bd913c2c22c3f')
 
 build() {
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-stat/}
