@@ -1,8 +1,8 @@
 # arg 1:  the new package version
 # arg 2:  the old package version
 
-KERNEL_NAME=-bemm
-KERNEL_VERSION=2.6.38-BEMM
+KERNEL_NAME=-bede
+KERNEL_VERSION=2.6.39-BEDE
 
 post_install () {
   # updating module dependencies

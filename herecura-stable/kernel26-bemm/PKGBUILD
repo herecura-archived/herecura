@@ -9,8 +9,6 @@ true && pkgname=('kernel26-bemm' 'kernel26-bemm-headers')
 _kernelname=-bemm
 _basekernel=2.6.39
 _patchver=3
-_lqxpatchver=39.${_patchver}
-_lqxpatchrel=2
 pkgver=${_basekernel}
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -28,20 +26,20 @@ source=(
 )
 sha256sums=(
 	'584d17f2a3ee18a9501d7ff36907639e538cfdba4529978b8550c461d45c61f6'
-	'133dea0a5fd504f84ee74d53dbb94967270c0b50125332b48c5b3e0929982598'
-	'bfd12cb85a95c54d24d7399cff46a0d6edb6375bb533366a500b24eac95b79f9'
-	'b447fdd7acec14ff5afd01a44d317e3f8a4586bed15bf7a3d3c774e84a3ab401'
+	'6f25b2937eeae62183a1c356ce464c7b9e8210b322d7b63da9902c0d73047656'
+	'9cde11f94345a6fb84a72d9d612028df31c7fe2bc2e76aa7965a9e63e72e469f'
+	'3e09b0f2d85b33fa08868b60832d59d90c0499d407bfbff1e2c65203d730889c'
 )
 
 # revision patches
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
-	_patchname="${_lqxpatchver}-${_lqxpatchrel}.patch"
+	_patchname="patch-${pkgver}"
 	source=( "${source[@]}"
-		"http://liquorix.net/sources/${_patchname}.gz"
+		"http://www.kernel.org/pub/linux/kernel/v2.6/${_patchname}.bz2"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'5c6e18478e8b1750d7ea8eba81dfeea013eeef6fd16437c55b639eae8c4f7e44'
+		'244d18d076c06e3cd627128000fd18ebdfb3a8dae907e653fb6a6648c7dcbf5e'
 	)
 fi
 
@@ -60,7 +58,7 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 fi
 
 # some stuff for the AUR parser :p
-if [ "aur" = "there" ]; then
+if [ "aur" == "there" ]; then
 	source=("ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-$_basekernel.tar.bz2"
 			"config-${_basekernel}.i686"
 			"config-${_basekernel}.x86_64"
@@ -115,7 +113,7 @@ build() {
 }
 
 package_kernel26-bemm() {
-	pkgdesc="The Linux Kernel and modules, BlackEagle Desktop Edition"
+	pkgdesc="The Linux Kernel and modules, BlackEagle Multimedia Edition"
 	groups=('base')
 	provides=('kernel26')
 	backup=(etc/mkinitcpio.d/${pkgname}.preset)
@@ -124,13 +122,7 @@ package_kernel26-bemm() {
 		'crda: to set the correct wireless channels of your country'
 		'linux-firmware: when having some hardware needing special firmware'
 	)
-	# pwc, ieee80211 and hostap-driver26 modules are included in kernel26 now
-	# nforce package support was abandoned by nvidia, kernel modules should cover everything now.
-	# kernel24 support is dropped since glibc24
 	replaces=(
-		'kernel26-scsi' 'alsa-driver' 'ieee80211' 'hostap-driver26'
-		'pwc' 'nforce' 'squashfs' 'unionfs' 'ivtv' 'zd1211' 'kvm-modules'
-		'iwlwifi' 'rt2x00-cvs' 'gspcav1' 'atl2' 'wlan-ng26' 'rt2500' 
 		'nouveau-drm' 'kernel26-slk'
 	)
 
@@ -138,11 +130,11 @@ package_kernel26-bemm() {
 
 	KARCH=x86
 	cd ${srcdir}/linux-$_basekernel
-	# get kernel version
-	_kernver=$(make kernelrelease)
 
 	mkdir -p ${pkgdir}/{lib/modules,lib/firmware,boot}
 
+	# get kernel version
+	_kernver=$(make kernelrelease)
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=${pkgdir} modules_install
 	cp System.map ${pkgdir}/boot/System.map26${_kernelname}
 	cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz26${_kernelname}
@@ -244,4 +236,4 @@ package_kernel26-bemm-headers() {
 	# remove unneeded architectures
 	rm -rf ${pkgdir}/usr/src/linux-${_kernver}/arch/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
-pkgdesc="The Linux Kernel and modules, BlackEagle Desktop Edition"
+pkgdesc="The Linux Kernel and modules, BlackEagle Multimedia Edition"
