@@ -4,7 +4,7 @@
 pkgname=nvidia-bemm
 pkgver=275.09.07
 _kernver='2.6.39-BEMM'
-pkgrel=2
+pkgrel=3
 pkgdesc="NVIDIA drivers for kernel26-bemm"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"

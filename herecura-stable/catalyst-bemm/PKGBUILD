@@ -10,7 +10,7 @@ _kernver='2.6.39-BEMM'
 
 pkgname=catalyst-bemm
 pkgver=11.6
-pkgrel=2
+pkgrel=3
 pkgdesc="AMD/ATI Catalyst drivers for kernel26-bemm. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
