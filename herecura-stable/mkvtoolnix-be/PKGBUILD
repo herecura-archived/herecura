@@ -1,0 +1,37 @@
+# Maintainer: BlackEagle <ike DOT devolder AT gmail DOT com>
+# Contributor: Giovanni Scafora <giovanni@archlinux.org>
+# Contributor: 03/08/04 <lefungus@altern.org>
+
+pkgname=mkvtoolnix-be
+pkgver=4.9.0
+pkgrel=1
+pkgdesc="Set of tools to create, edit and inspect Matroska files, with gui's"
+arch=('i686' 'x86_64')
+license=('GPL')
+url="http://www.bunkus.org/videotools/mkvtoolnix/index.html"
+depends=('libmatroska' 'flac' 'libvorbis' 'file' 'wxgtk' 'boost-libs' 'lzo2' 'xdg-utils')
+makedepends=('boost' 'ruby')
+conflicts=('mkvtoolnix' 'mkvmerge-gui')
+install=mkvtoolnix.install
+source=("http://www.bunkus.org/videotools/${pkgname/-be/}/sources/${pkgname/-be/}-${pkgver}.tar.bz2")
+sha256sums=('586d0462035ee77b89dc52d071f742a45a5216bfe42b28bf74fffa5d3e54c7ba')
+
+build() {
+  cd "${srcdir}/${pkgname/-be/}-${pkgver}"
+
+  export CFLAGS="${CFLAGS} -DBOOST_FILESYSTEM_VERSION=2"
+  export CXXFLAGS="${CXXFLAGS} -DBOOST_FILESYSTEM_VERSION=2"
+
+  #return 1
+
+  ./configure --prefix=/usr \
+              --with-boost-libdir=/usr/lib \
+			  --enable-gui
+  ./drake
+}
+
+package () {
+  cd "${srcdir}/${pkgname/-be/}-${pkgver}"
+
+  ./drake DESTDIR="${pkgdir}" install
+}
