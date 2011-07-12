@@ -3,7 +3,7 @@
 # Contributor: 03/08/04 <lefungus@altern.org>
 
 pkgname=mkvtoolnix-be
-pkgver=4.9.0
+pkgver=4.9.1
 pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files, with gui's"
 arch=('i686' 'x86_64')
@@ -14,7 +14,7 @@ makedepends=('boost' 'ruby')
 conflicts=('mkvtoolnix' 'mkvmerge-gui')
 install=mkvtoolnix.install
 source=("http://www.bunkus.org/videotools/${pkgname/-be/}/sources/${pkgname/-be/}-${pkgver}.tar.bz2")
-sha256sums=('586d0462035ee77b89dc52d071f742a45a5216bfe42b28bf74fffa5d3e54c7ba')
+sha256sums=('bb24dd7b2f2fc3b343abcfeb098ddf42659b6d867e5d75eb81524121fef88b88')
 
 build() {
   cd "${srcdir}/${pkgname/-be/}-${pkgver}"
