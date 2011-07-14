@@ -1,41 +1,43 @@
+# Contributor : Anish Bhatt <anish[removethis][at]gatech[dot]edu>
+
 pkgname=flashplugin-labs
 _licensefile='PlatformClients_PC_WWEULA_Combined_20100108_1657.pdf'
-_basename='flashplayer10'
-_builddate=111710
-_prerelnm='2'
-pkgrel=1
-pkgdesc='Adobe Flash Player LABS'
-url='http://labs.adobe.com/technologies/flashplayer10/ '
+pkgver=11.0.1.60
+pkgrel=2 
+
+pkgdesc='Adobe Flash Player 11 Beta'
+url='http://labs.adobe.com/technologies/flashplatformruntimes/flashplayer11/'
 arch=('i686' 'x86_64')
-depends=('mozilla-common' 'libxt' 'gtk2' 'nss' 'curl')
-replaces=('flashplugin-beta' 'flashplugin' 'flashplugin-square' 'flashplugin-prerelease')
-license=('custom')
-provides=('flashplugin')
 
-#source=(
-#"http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_p2_32bit_linux_${_builddate}.tar.gz"
-#"http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_p3_64bit_linux_${_builddate}.tar.gz"
-#"http://www.adobe.com/products/eulas/pdfs/${_licensefile}"
-#)
+source=('http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_b1_install_lin_32_071311.tar.gz'
+        "http://www.adobe.com/products/eulas/pdfs/${_licensefile}")
+md5sums=('8816dfa0bbb4210df5a37e061834c24a'
+         '94ca2aecb409abfe36494d1a7ec7591d')
 
-if [ "${CARCH}" == 'i686' ]; then
-	pkgver=10.2.151.49
-	flsource="http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_p2_32bit_linux_${_builddate}.tar.gz"
-	flsums='12a648979d16796ae4ee681b8fa90b31bf7c36c11ac7a3653548fce0339ba91f'
-elif [ "${CARCH}" == 'x86_64' ]; then
-	pkgver=10.3.162.29
-	flsource="http://download.macromedia.com/pub/labs/flashplayer10/${_basename}_${_prerelnm}_p3_64bit_linux_${_builddate}.tar.gz"
-	flsums='ef05f679f8977144621560587ffdf9bc81812e9941dea422e977070c9cd05ff0'
+if [[ $CARCH == x86_64 ]]; then
+source[0]=http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_b1_install_lin_64_071311.tar.gz
+md5sums[0]=806b348cfb27054568d9f63d13bee3fd
 fi
 
-source=("${flsource}"
-	"http://www.adobe.com/products/eulas/pdfs/${_licensefile}")
-sha256sums=("${flsums}"
-	'3cb0a5f4576be735abcff7189ed18eda17c70b762c3a78a3379b6f44395fbc10')
+depends=('mozilla-common' 'libxt' 'gtk2' 'nss' 'curl')
+optdepends=('libvdpau: GPU acceleration on Nvidia card')
+replaces=('flashplugin-beta' 'flashplugin' 'flashplugin-square' 'flashplugin-prerelease')
+provides=('flashplayer' 'flashplugin')
+license=('custom')
+options=(!strip)
 
-build() {
-  install -d -m755 ${pkgdir}/usr/lib/mozilla/plugins/
-  install -m755 ${srcdir}/libflashplayer.so ${pkgdir}/usr/lib/mozilla/plugins/
-  install -d -m755 "${pkgdir}"/usr/share/licenses/${pkgname}/
-  install -m644 "${_licensefile}" "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE.pdf
+package() {
+  install -D -m755 ${srcdir}/usr/lib/kde4/kcm_adobe_flash_player.so ${pkgdir}/usr/lib/kde4/kcm_adobe_flash_player.so
+  install -D -m644 ${srcdir}/usr/share/icons/hicolor/16x16/apps/flash-player-properties.png ${pkgdir}/usr/share/icons/hicolor/16x16/apps/flash-player-properties.png
+  install -D -m644 ${srcdir}/usr/share/icons/hicolor/32x32/apps/flash-player-properties.png ${pkgdir}/usr/share/icons/hicolor/32x32/apps/flash-player-properties.png
+  install -D -m644 ${srcdir}/usr/share/icons/hicolor/24x24/apps/flash-player-properties.png ${pkgdir}/usr/share/icons/hicolor/24x24/apps/flash-player-properties.png
+  install -D -m644 ${srcdir}/usr/share/icons/hicolor/48x48/apps/flash-player-properties.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/flash-player-properties.png
+  install -D -m644 ${srcdir}/usr/share/icons/hicolor/22x22/apps/flash-player-properties.png ${pkgdir}/usr/share/icons/hicolor/22x22/apps/flash-player-properties.png
+  install -D -m644 ${srcdir}/usr/share/icons/hicolor/48x48/apps/flash-player-properties.png ${pkgdir}/usr/share/pixmaps/flash-player-properties.png
+  install -D -m644 ${srcdir}/usr/share/applications/flash-player-properties.desktop ${pkgdir}/usr/share/applications/flash-player-properties.desktop
+  install -D -m644 ${srcdir}/usr/share/kde4/services/kcm_adobe_flash_player.desktop ${pkgdir}/usr/share/kde4/services/kcm_adobe_flash_player.desktop
+  install -D -m755 ${srcdir}/usr/bin/flash-player-properties ${pkgdir}/usr/bin/flash-player-properties
+  install -D -m755 libflashplayer.so ${pkgdir}/usr/lib/mozilla/plugins/libflashplayer.so
+  install -D -m644 ${_licensefile} ${pkgdir}/usr/share/licenses/${pkgname}/${_licensefile}
 }
+
