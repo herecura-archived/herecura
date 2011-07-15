@@ -14438,7 +14438,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-07-02 01:16:35.693921834 +0200
++++ vim-qt-src/src/configure.in	2011-07-15 20:23:06.484318449 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14712,7 +14712,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-07-02 01:16:35.684921840 +0200
++++ vim-qt-src/src/feature.h	2011-07-15 20:23:06.475318353 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14936,8 +14936,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,1442 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-07-15 20:17:03.000000000 +0200
+@@ -0,0 +1,1465 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15978,6 +15978,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_add_menu(vimmenu_T *menu, int idx)
 +{
 +	menu->qmenu = NULL;
++	QAction *before=NULL;
 +
 +	if ( menu_is_popup(menu->name) ) {
 +		menu->qmenu = new QMenu(VimWrapper::convertFrom((char*)menu->name), vimshell);
@@ -15985,10 +15986,24 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	} else if ( menu_is_toolbar(menu->name) ) {
 +		menu->qmenu = window->toolBar();
 +	} else if ( menu->parent == NULL ) {
-+		menu->qmenu = window->menuBar()->addMenu( VimWrapper::convertFrom((char*)menu->name) );
++		QList<QAction*> actions = window->menuBar()->actions();
++		if ( idx < actions.size() ) {
++			before = actions.at(idx);
++		}
++
++		QMenu *m = new QMenu(VimWrapper::convertFrom((char*)menu->name), window);
++		window->menuBar()->insertMenu( before, m);
++		menu->qmenu = m;
 +	} else if ( menu->parent && menu->parent->qmenu ) {
-+		QMenu *m = (QMenu*)menu->parent->qmenu;
-+		menu->qmenu = m->addMenu( VimWrapper::convertFrom((char*)menu->name) );
++		QMenu *parent = (QMenu*)menu->parent->qmenu;
++		QList<QAction*> actions = parent->actions();
++		if ( idx < actions.size() ) {
++			before = actions.at(idx);
++		}
++
++		QMenu *m = new QMenu(VimWrapper::convertFrom((char*)menu->name), window);
++		parent->insertMenu( before, m);
++		menu->qmenu = m;
 +	}
 +}
 +
@@ -16003,6 +16018,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		return;
 +	}
 +
++	QList<QAction*> actions = menu->parent->qmenu->actions();
++	QAction *before=NULL;
++	if ( idx < actions.size() ) {
++		before = actions.at(idx);
++	}
++
 +	if ( menu_is_toolbar(menu->parent->name) ) {
 +		// Toolbar
 +		QToolBar *b = (QToolBar*)menu->parent->qmenu;
@@ -16010,7 +16031,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +			b->addSeparator();
 +		} else {
 +			QAction *action = new VimAction( menu, window );
-+			b->addAction( action );
++			b->insertAction(before, action);
 +			menu->qaction = action;
 +
 +			QObject::connect( action, SIGNAL(triggered()),
@@ -16023,7 +16044,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +			m->addSeparator();
 +		} else {
 +			QAction *action = new VimAction( menu, window );
-+			m->addAction( action );
++			m->insertAction(before, action);
 +			menu->qaction = action;
 +			
 +			QObject::connect( action, SIGNAL(triggered()),
@@ -16362,7 +16383,9 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	bool ok;
 +	static FontDialog *dialog = new FontDialog();
-+	dialog->selectCurrentFont(*oldfont);
++	if ( oldfont != NULL ) {
++		dialog->selectCurrentFont(*oldfont);
++	}
 +
 +	if ( dialog->exec() == QDialog::Accepted ) {
 +		QFont f =  dialog->selectedFont();
@@ -16923,7 +16946,7 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-06-30 21:01:01.000000000 +0200
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-07-15 20:17:03.000000000 +0200
 @@ -0,0 +1,191 @@
 +#include "mainwindow.moc"
 +
@@ -16968,8 +16991,8 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	tabbar->setDrawBase(false);
 +	tabbar->addTab("VIM"); // One tab must always exist
 +
-+	QAction *newTab = tabtoolbar->addAction( VimWrapper::icon("tab-new"), "New Tab");
 +	tabtoolbar->addWidget(tabbar);
++	QAction *newTab = tabtoolbar->addAction( VimWrapper::icon("tab-new"), "New Tab");
 +
 +	connect( tabbar, SIGNAL(tabCloseRequested(int)),
 +			this, SLOT(closeTab(int)));
@@ -17183,8 +17206,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-07-02 01:16:10.000000000 +0200
-@@ -0,0 +1,1306 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-07-15 20:17:03.000000000 +0200
+@@ -0,0 +1,1323 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17269,10 +17292,20 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	for ( i=0; special_keys[i].key_sym != 0; i++ ) {
 +		if ( special_keys[i].key_sym == ev->key() ) {
 +
-+			int key_char = TO_SPECIAL(special_keys[i].code0, special_keys[i].code1);
++			// Modifiers
 +			int_u vmod = vimKeyboardModifiers(QApplication::keyboardModifiers());
 +
++			int key_char;
++			if (special_keys[i].code1 == NUL) {
++				key_char = special_keys[i].code0;
++			} else {
++				key_char = TO_SPECIAL(special_keys[i].code0, special_keys[i].code1);
++			}
++
 +			key_char = simplify_key(key_char, (int *)&vmod);
++			if (key_char == CSI) {
++				key_char = K_CSI;
++			}
 +
 +			if ( vmod ) {
 +				str[start++] = (char)CSI;
@@ -17280,9 +17313,17 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +				str[start++] = (char)vmod;
 +			}
 +
-+			str[start++] = (char)CSI;
-+			str[start++] = K_SECOND(key_char);
-+			str[start++] = K_THIRD(key_char);
++			if (IS_SPECIAL(key_char)) {
++				str[start++] = (char)CSI;
++				str[start++] = K_SECOND(key_char);
++				str[start++] = K_THIRD(key_char);
++			} else {
++				QByteArray key = VimWrapper::convertTo(ev->text());
++				int j;
++				for (j=0; j<key.size(); j++) {
++					str[start++] = key[j];
++				}
++			}
 +
 +			*len = start;
 +			return true;
@@ -17343,10 +17384,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +{
 +	char str[20];
 +	int len=0;
-+
 +	m_input = true;
-+	if ( specialKey( ev, str, &len)) {
 +
++	if ( specialKey( ev, str, &len)) {
 +		add_to_input_buf((char_u *) str, len);
 +		return;
 +	} else if ( !ev->text().isEmpty() ) {
@@ -18493,8 +18533,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,151 @@
++++ vim-qt-src/src/qt/qvimshell.h	2011-07-15 20:17:03.000000000 +0200
+@@ -0,0 +1,153 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -18639,6 +18679,8 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +    {Qt::Key_PageDown,	'k', 'N'},
 +
 +    {Qt::Key_Print,	'%', '9'},
++    {Qt::Key_Tab,	TAB, NUL},
++    {Qt::Key_Backtab,	TAB, NUL},
 +
 +
 +    /* End of list marker: */
