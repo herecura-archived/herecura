@@ -72,8 +72,8 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/configure	2011-06-27 16:28:02.000000000 +0200
-@@ -1,10 +1,14355 @@
++++ vim-qt-src/src/configure	2011-07-20 21:11:13.000000000 +0200
+@@ -1,10 +1,14361 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -9179,6 +9179,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +        QT_LIBDIR="/usr/lib/qt4"
 +        QT_INCDIR="/usr/include/qt4"
 +        QT_MOC="moc"
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt4 in Gentoo locations" >&5
++$as_echo_n "checking Qt4 in Gentoo locations... " >&6; }
 +
 +        # Test moc
 +        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
@@ -9188,7 +9190,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
 +  test $ac_status = 0; }
 +        if test x"$ac_status" != x0; then
-+               QT_FOUND="no"
++		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++		QT_FOUND="no"
 +        fi
 +
 +        # test Compile
@@ -9199,7 +9203,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
 +  test $ac_status = 0; }
 +        if test x"$ac_status" != x0; then
-+               QT_FOUND="no"
++                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
++		QT_FOUND="no"
 +        fi
 +
 +    fi
@@ -14438,7 +14444,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-07-15 20:23:06.484318449 +0200
++++ vim-qt-src/src/configure.in	2011-07-20 21:11:23.692801716 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14510,7 +14516,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2305,6 +2323,175 @@
+@@ -2305,6 +2323,178 @@
    CPPFLAGS=$cppflags_save
  fi
  
@@ -14652,19 +14658,22 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +        QT_LIBDIR="/usr/lib/qt4"
 +        QT_INCDIR="/usr/include/qt4"
 +        QT_MOC="moc"
++	AC_MSG_CHECKING(Qt4 in Gentoo locations)
 +
 +        # Test moc
 +        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
 +        AC_TRY_EVAL(moc_try)
 +        if test x"$ac_status" != x0; then
-+               QT_FOUND="no"
++		AC_MSG_RESULT($QT_FOUND)
++		QT_FOUND="no"
 +        fi
 +    
 +        # test Compile
 +        qt_try="$CXX $CXXFLAGS -I$QT_INCDIR -L$QT_LIBDIR -lQtGui qttest.cpp -o qttest"
 +        AC_TRY_EVAL(qt_try)
 +        if test x"$ac_status" != x0; then
-+               QT_FOUND="no"
++                AC_MSG_RESULT($QT_FOUND)
++		QT_FOUND="no"
 +        fi
 +    
 +    fi
@@ -14712,7 +14721,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-07-15 20:23:06.475318353 +0200
++++ vim-qt-src/src/feature.h	2011-07-20 21:11:23.682801626 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
