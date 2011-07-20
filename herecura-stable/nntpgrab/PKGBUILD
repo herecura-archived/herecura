@@ -18,8 +18,6 @@ sha256sums=('33f267ecb50655b15a705c71729c83b92be9b1bf54c59598476a8d64bf3bfd63')
 build()
 {
 	cd ${pkgbase}-${pkgver}
-	patch -Np0 -i ${srcdir}/nntpgrab_0_6_91_support_older_qt_versions.patch
-	patch -Np0 -i ${srcdir}/nntpgrab_0_6_91_use_bundled_qtsolutions.patch
 
 	./configure\
 		--enable-introspection=no \
