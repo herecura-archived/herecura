@@ -6,16 +6,16 @@
 # Contributor: DestroyFX
 # Contributor: Rip-Rip
 
-_kernver='2.6.39-BEDE'
+_kernver='3.0.0-BEDE'
 
 pkgname=catalyst-bede
 pkgver=11.6
-pkgrel=2
-pkgdesc="AMD/ATI Catalyst drivers for kernel26-bede. fglrx kernel module only"
+pkgrel=3
+pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-makedepends=("catalyst-utils=${pkgver}" 'kernel26-bede-headers>=2.6.39' 'kernel26-bede-headers<2.6.40')
+makedepends=("catalyst-utils=${pkgver}" 'linux-bede-headers>=3.0' 'linux-bede-headers<3.1')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
 install=${pkgname}.install
@@ -92,7 +92,7 @@ build() {
 }
 
 package() {
-	depends=('kernel26-bede>=2.6.39' 'kernel26-bede<2.6.40' "catalyst-utils=${pkgver}")
+	depends=('linux-bede>=3.0' 'linux-bede<3.1' "catalyst-utils=${pkgver}")
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
 	install -m755 -d "${pkgdir}/lib/modules/${_kernver}/video/"
 	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_kernver}/video/"
