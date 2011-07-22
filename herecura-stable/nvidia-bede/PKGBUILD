@@ -3,12 +3,12 @@
 
 pkgname=nvidia-bede
 pkgver=275.19
-_kernver='2.6.39-BEDE'
-pkgrel=1
-pkgdesc="NVIDIA drivers for kernel26-bede"
+_kernver='3.0.0-BEDE'
+pkgrel=2
+pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('kernel26-bede-headers>=2.6.39' 'kernel26-bede-headers<2.6.40' "nvidia-utils=${pkgver}")
+makedepends=('linux-bede-headers>=3.0' 'linux-bede-headers<3.1' "nvidia-utils=${pkgver}")
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 replaces=('nvidia-slk')
 license=('custom')
@@ -42,7 +42,7 @@ build() {
 }
 
 package() {
-	depends=('kernel26-bede>=2.6.39' 'kernel26-bede<2.6.40' "nvidia-utils=${pkgver}")
+	depends=('linux-bede>=3.0' 'linux-bede<3.1' "nvidia-utils=${pkgver}")
 	install -D -m644 $srcdir/${_pkg}/kernel/nvidia.ko \
 		$pkgdir/lib/modules/${_kernver}/kernel/drivers/video/nvidia.ko
 
