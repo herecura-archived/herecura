@@ -23,14 +23,10 @@ install=${pkgname}.install
 source=(
 	http://www2.ati.com/drivers/linux/ati-driver-installer-${pkgver/./-}-x86.x86_64.run
 	makefile_compat.patch
-	no_bkl.patch
-	2.6.39_bkl.patch
 )
 
 md5sums=('acebb812d4c057766828df0bf572e8ae'
-	 '3e1b82bd69774ea808da69c983d6a43b'
-	 '6a6b2133aa6ef3bcd377731b19c0553a'
-	 'eb24250f8e537273bae9dbd79a022d61')
+	'3e1b82bd69774ea808da69c983d6a43b')
 
 build() {
 	## Unpack archive
@@ -49,11 +45,6 @@ build() {
 	cd "${srcdir}/archive_files/"
 
 	patch -Np1 -i ${srcdir}/makefile_compat.patch
-
-    if [ `cat /lib/modules/${_kernver}/build/.config | grep -c CONFIG_BKL=y` = 0 ]; then
-		patch -Np1 -i ${srcdir}/no_bkl.patch
-        patch -Np1 -i ${srcdir}/2.6.39_bkl.patch
-    fi
 
 	###--- cut ---### ati's code from their make.sh file
 
