@@ -1,21 +1,21 @@
+# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Maintainer: Vi0L0 <vi0l093@gmail.com>
 # Great Contributor: Eduardo "kensai" Romero (previous maintainer)
 # Contributor: aidanlinz
 # Contributor: Spasswolf
 # Contributor: DestroyFX
 # Contributor: Rip-Rip
-# Contributor: OvsInc
 
-_kernver='2.6.39-BEMM'
+_kernver='3.0.0-BEMM'
 
 pkgname=catalyst-bemm
-pkgver=11.6
-pkgrel=3
-pkgdesc="AMD/ATI Catalyst drivers for kernel26-bemm. fglrx kernel module only"
+pkgver=11.7
+pkgrel=1
+pkgdesc="AMD/ATI Catalyst drivers for linux-bemm. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-makedepends=("catalyst-utils=${pkgver}" 'kernel26-bemm-headers>=2.6.39' 'kernel26-bemm-headers<2.6.40')
+makedepends=("catalyst-utils=${pkgver}" 'linux-bemm-headers>=3.0' 'linux-bemm-headers<3.1')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
 install=${pkgname}.install
@@ -27,7 +27,7 @@ source=(
 	2.6.39_bkl.patch
 )
 
-md5sums=('516ea47b13d367e09a90acb9422df738'
+md5sums=('acebb812d4c057766828df0bf572e8ae'
 	 '3e1b82bd69774ea808da69c983d6a43b'
 	 '6a6b2133aa6ef3bcd377731b19c0553a'
 	 'eb24250f8e537273bae9dbd79a022d61')
@@ -92,7 +92,7 @@ build() {
 }
 
 package() {
-	depends=('kernel26-bemm>=2.6.39' 'kernel26-bemm<2.6.40' "catalyst-utils=${pkgver}")
+	depends=('linux-bemm>=3.0' 'linux-bemm<3.1' "catalyst-utils=${pkgver}")
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
 	install -m755 -d "${pkgdir}/lib/modules/${_kernver}/video/"
 	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_kernver}/video/"
