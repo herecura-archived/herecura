@@ -4,12 +4,12 @@
 pkgbase='lirc-bemm'
 pkgname=('lirc-bemm' 'lirc-bemm-utils')
 pkgver=0.9.0
-pkgrel=8
+pkgrel=9
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
-_kernver=2.6.39-BEMM
-makedepends=('kernel26-bemm-headers>=2.6.39' 'kernel26-bemm-headers<2.6.40'
+_kernver=3.0.0-BEMM
+makedepends=('linux-bemm-headers>=3.0' 'linux-bemm-headers<3.1'
 	'help2man' 'alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi' 'libirman')
 options=('!strip' '!makeflags')
 source=(
@@ -71,7 +71,7 @@ build() {
 
 package_lirc-bemm() {
 	pkgdesc="Linux Infrared Remote Control kernel modules for BEMM kernel"
-	depends=("lirc-bemm-utils>=${pkgver}" 'kernel26-bemm>=2.6.39' 'kernel26-bemm<2.6.40')
+	depends=("lirc-bemm-utils>=${pkgver}" 'linux-bemm>=3.0' 'linux-bemm<3.1')
 	install=lirc.install
 	provides=('lirc')
 	replaces=('lirc+pctv')
