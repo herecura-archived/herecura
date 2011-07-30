@@ -7,14 +7,14 @@ pkgdesc="Fanboy's Main AdBlock Filterset for Opera"
 arch=('any')
 url="http://www.fanboy.co.nz/adblock/opera/"
 license=('cc-by-3.0')
-depends=('opera')
 conflicts=('opera-adblock' 'opera-adblock-complete')
 replaces=('opera-adblock')
 install=${pkgname}.install
 source=('urlfilter-main.ini')
 sha256sums=('ac8ceed9f12ede7abd6af7e26ce9baaf63b69fb1072dd3f225f340f8956d660b')
 
-build() {
+package() {
+	depends=('opera')
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-main/}
 	install -m644 urlfilter-main.ini ${pkgdir}/usr/share/${pkgname/-main/}/urlfilter-main.ini
 }
