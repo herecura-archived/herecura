@@ -1,4 +1,4 @@
-# mkinitcpio preset file for kernel26
+# mkinitcpio preset file for linux-bemm
 
 ########################################
 # DO NOT EDIT THIS LINE:
@@ -9,9 +9,9 @@ ALL_config="/etc/mkinitcpio.conf"
 PRESETS=('default' 'fallback')
 
 #default_config="/etc/mkinitcpio.conf"
-default_image="/boot/initrd-bemm.img"
+default_image="/boot/initramfs-linux-bemm.img"
 #default_options=""
 
 #fallback_config="/etc/mkinitcpio.conf"
-fallback_image="/boot/initrd-bemm-fallback.img" 
+fallback_image="/boot/initramfs-linux-bemm-fallback.img" 
 fallback_options="-S autodetect"
