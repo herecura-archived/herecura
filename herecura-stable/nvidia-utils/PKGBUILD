@@ -3,7 +3,7 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'opencl-nvidia')
-pkgver=275.21
+pkgver=280.13
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
