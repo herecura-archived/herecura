@@ -1,6 +1,6 @@
 pkgname=gstreamer0.10-be-ffmpeg
-pkgver=0.10.11
-pkgrel=3
+pkgver=0.10.12
+pkgrel=1
 pkgdesc="Gstreamer FFMpeg Plugin"
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -11,7 +11,7 @@ groups=('gstreamer0.10-be-plugins')
 provides=('gstreamer0.10-ffmpeg')
 conflicts=('gstreamer0.10-ffmpeg')
 source=(http://gstreamer.freedesktop.org/src/gst-ffmpeg/gst-ffmpeg-${pkgver}.tar.bz2)
-md5sums=('0d23197ba7ac06ea34fa66d38469ebe5')
+sha256sums=('b17707102b4bfa5e0d5095be3608ee2d4388268eab822c9a0ce7a18011bdd73b')
 
 build() {
 	cd "${srcdir}/gst-ffmpeg-${pkgver}"
