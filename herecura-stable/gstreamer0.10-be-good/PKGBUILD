@@ -1,6 +1,6 @@
 pkgbase=gstreamer0.10-be-good
 pkgname=('gstreamer0.10-be-good' 'gstreamer0.10-be-good-plugins')
-pkgver=0.10.29
+pkgver=0.10.30
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('LGPL')
@@ -8,7 +8,7 @@ makedepends=('intltool' 'pkgconfig' 'gstreamer0.10-be-base>=0.10.34' 'libavc1394
 url="http://gstreamer.freedesktop.org/"
 options=(!libtool !emptydirs)
 source=(${url}/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.bz2)
-sha256sums=('466a64dcb580d4feef701abfc90656abb3558a2e3fc1e40e43977034bebc354c')
+sha256sums=('b12cba90b27d8423cd0a808939098d19db3996cfb9bf528507c6321782e095f6')
 
 build() {
 	cd "${srcdir}/gst-plugins-good-${pkgver}"
