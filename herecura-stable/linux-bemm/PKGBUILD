@@ -9,7 +9,7 @@ true && pkgname=("linux${_kernelname}" "linux${_kernelname}-headers")
 _basekernel=3.0
 _patchver=0
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -25,8 +25,8 @@ source=(
 )
 sha256sums=(
 	'64b0228b54ce39b0b2df086109a7b737cde58e3df4f779506ddcaccee90356a0'
-	'5f0d62670699f55246960b13e4ec378ec070c714a0d397b97dcdea6d647b7282'
-	'843bbb3655e396b32b086d393dce8983fd63cdfb75c64827bbee5991c02756e3'
+	'94e2b243029dd2eb77b220c488c304a482ba52b539f6b5d74d64a5c1183b5117'
+	'1eb6829fa788adfbe1b360974e8313f4d55ec9529d9bf7c7397f1014f2ad6499'
 	'55e9587994fe437ab4c2d9cea256a6c7afbf9faed56ad41e5229aecd5b47b7bf'
 )
 
@@ -96,15 +96,15 @@ build() {
 	make prepare
 	# load configuration
 	# Configure the kernel. Replace the line below with one of your choice.
-	#make menuconfig # CLI menu for configuration
+	make menuconfig # CLI menu for configuration
 	#make xconfig # X-based configuration
 	#make oldconfig # using old config from previous kernel version
 	# ... or manually edit .config
 	####################
 	# stop here
 	# this is useful to configure the kernel
-	#msg "Stopping build"
-	#return 1
+	msg "Stopping build"
+	return 1
 	####################
 	# yes "" | make config
 	# build!
