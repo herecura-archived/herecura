@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=4
+pkgrel=5
 pkgdesc="XBMC Media Center Dharma branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -15,7 +15,7 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper sqlite3 rtmpdump fontconfig enca)
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video')
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video' 'gcc45')
 optdepends=(
 	'lirc: remote controller support' 
 	'vdpau-video: for nvidia hardware accelleration'
@@ -54,6 +54,9 @@ build() {
 
 	# fix lsb_release dependency
 	sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/arch-release:' xbmc/utils/SystemInfo.cpp
+
+	export CC=gcc-4.5
+	export CXX=g++-4.5
 
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
