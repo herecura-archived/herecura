@@ -3,8 +3,8 @@
 
 pkgname=nvidia-bede
 pkgver=280.13
-_kernver='3.0.0-BEDE'
-pkgrel=1
+_kernver='3.0.1-BEDE'
+pkgrel=2
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
