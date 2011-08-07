@@ -1,6 +1,8 @@
 # This is a default template for a post-install scriptlet.  You can
 # remove any functions you don't need (and this header).
 
+KERNEL_VERSION=3.0.1-BEMM
+
 # arg 1:  the new package version
 pre_install() {
   /bin/true
@@ -10,7 +12,6 @@ pre_install() {
 post_install() {
   # updating module dependencies
   echo ">>> Updating module dependencies. Please wait ..."
-  KERNEL_VERSION=3.0.0-BEMM
   depmod -v $KERNEL_VERSION > /dev/null 2>&1
   /bin/true
 }
@@ -26,7 +27,6 @@ pre_upgrade() {
 post_upgrade() {
   # updating module dependencies
   echo ">>> Updating module dependencies. Please wait ..."
-  KERNEL_VERSION=3.0.0-BEMM
   depmod -v $KERNEL_VERSION > /dev/null 2>&1
   /bin/true
 }
@@ -40,7 +40,6 @@ pre_remove() {
 post_remove() {
   # updating module dependencies
   echo ">>> Updating module dependencies. Please wait ..."
-  KERNEL_VERSION=3.0.0-BEMM
   depmod -v $KERNEL_VERSION > /dev/null 2>&1
   /bin/true
 }
