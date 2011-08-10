@@ -10,7 +10,7 @@ _kernver='3.0.1-BEDE'
 
 pkgname=catalyst-bede
 pkgver=11.7
-pkgrel=2
+pkgrel=3
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
