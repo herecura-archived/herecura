@@ -20,8 +20,9 @@ if [ -e .githash_${CARCH} ] ; then
 else
 	_gitphash=""
 fi
-_gitroot="git://anongit.kde.org/apper"
+
 _gitname="apper"
+_gitroot="git://anongit.kde.org/apper"
 
 build() {
 	if [ -d ${srcdir}/${_gitname}/.git ] ; then
