@@ -74,7 +74,7 @@ package_lirc-bede() {
 	depends=("lirc-bede-utils>=${pkgver}" 'linux-bede>=3.0' 'linux-bede<3.1')
 	install=lirc.install
 	provides=('lirc')
-	replaces=('lirc+pctv')
+	replaces=('lirc+pctv' 'lirc-bemm')
 
 	cd lirc-${pkgver}
 	cd drivers
