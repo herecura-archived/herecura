@@ -38,27 +38,36 @@ source=( "FEH.sh" )
 sha256sums=('a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede')
 options=('strip' 'makeflags')
 
+_prefix='/usr'
+
 if [ -e .githash_${CARCH} ] ; then
 	_gitphash=$(cat .githash_${CARCH})
 else
 	_gitphash=""
 fi
-_prefix='/usr'
-_gitroot='https://github.com/xbmc/xbmc.git'
+
 _gitname='xbmc'
-_gitbranch='master'
+_gitroot='git://github.com/xbmc/xbmc.git'
 
 build() {
-	msg2 "Getting XBMC from git"
-	if [ -d ${_gitname} ]; then
-		pushd ${_gitname} && git pull origin master && popd
+	if [ -d ${srcdir}/${_gitname}/.git ] ; then
+		( cd ${srcdir}/${_gitname} && git pull origin )
+		msg "The local files are updated."
 	else
-		git clone ${_gitroot} ${_gitname}
+		( git clone --depth 1 ${_gitroot} ${_gitname} )
 	fi
-	msg2 "Git clone/checkout done or server timeout"
+	msg "GIT checkout done or server timeout"
 
-	cd ${srcdir}/${_gitname}
+	cd ${_gitname}
 	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
+
+	msg "creating build directory"
+	cd ${srcdir}
+	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
+	cp -a ${_gitname} ${_gitname}-build
+
+	msg "Starting make..."
+	cd ${_gitname}-build
 
 	# Configure XBMC
 	#
@@ -66,16 +75,6 @@ build() {
 	#   - We cannot use external python because Arch's python was built with
 	#     UCS2 unicode support, whereas xbmc expects UCS4 support
 	#   - According to an xbmc dev using external/system ffmpeg with xbmc is "pure stupid" :D
-
-	# remove builddir if it already exists
-	cd ${srcdir}
-	[ -d ${_gitname}-build ] && rm -Rf ${_gitname}-build
-
-	# create builddir
-	msg2 "create build directory"
-	cp -a ${_gitname} ${_gitname}-build
-
-	cd ${_gitname}-build
 
     # fix lsb_release dependency
     sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/arch-release:' xbmc/utils/SystemInfo.cpp
@@ -109,7 +108,6 @@ build() {
 }
 
 package() {
-	#cd ${_svnmod}-build
 	cd ${_gitname}-build
 	msg2 "Running make install" 
 	make DESTDIR=${pkgdir} install

@@ -9,7 +9,7 @@ arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
 license=('AGPL')
 makedepends=('git' 'scons' 'boost')
-depends=('boost-libs' 'spidermonkey>=1.7.0-3' 'pcre')
+depends=('boost-libs' 'js' 'pcre')
 provides=('mongodb')
 conflicts=('mongodb')
 backup=('etc/mongodb.conf')
@@ -25,27 +25,29 @@ if [ -e .githash_${CARCH} ] ; then
 else
 	_gitphash=""
 fi
-_gitroot="git://github.com/mongodb/mongo.git"
+
 _gitname="mongo"
+_gitroot="git://github.com/mongodb/mongo.git"
 
 build() {
-	if [ -d ${srcdir}/${_gitname} ] ; then
-		cd ${srcdir}/${_gitname} && git pull origin
+	if [ -d ${srcdir}/${_gitname}/.git ] ; then
+		( cd ${srcdir}/${_gitname} && git pull origin )
 		msg "The local files are updated."
 	else
-		git clone ${_gitroot}
+		( git clone --depth 1 ${_gitroot} ${_gitname} )
 	fi
 	msg "GIT checkout done or server timeout"
 
-	cd ${srcdir}/${_gitname}
+	cd ${_gitname}
 	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
 
+	msg "creating build directory"
 	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
+	cp -a ${_gitname} ${_gitname}-build
 
-	git clone ${_gitname} ${_gitname}-build
-
-	cd ${srcdir}/${_gitname}-build
+	msg "Starting make..."
+	cd ${_gitname}-build
 	export SCONSFLAGS="${MAKEFLAGS}"
 	scons --pch all --full
 }
