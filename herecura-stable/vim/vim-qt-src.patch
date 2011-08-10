@@ -14444,7 +14444,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 --- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-07-27 20:51:28.211737920 +0200
++++ vim-qt-src/src/configure.in	2011-08-10 18:25:49.693338104 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14721,7 +14721,7 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
 --- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-07-27 20:51:28.202737826 +0200
++++ vim-qt-src/src/feature.h	2011-08-10 18:25:49.685338016 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14841,7 +14841,7 @@ diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
 diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
 --- vim-src/src/gui.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/gui.c	2011-06-16 16:58:04.000000000 +0200
++++ vim-qt-src/src/gui.c	2011-08-10 18:24:48.000000000 +0200
 @@ -103,10 +103,10 @@
  
      vim_free(old_term);
@@ -14873,6 +14873,15 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* We can't take the sizes properly into account until anything is
       * realized.  Therefore we recalculate all the values here just before
       * setting the size. (--mdcki) */
+@@ -2193,7 +2193,7 @@
+     if (back != 0 && ((draw_flags & DRAW_BOLD) || (highlight_mask & HL_ITALIC)))
+ 	return FAIL;
+ 
+-#if defined(FEAT_GUI_GTK)
++#if defined(FEAT_GUI_GTK) || defined(FEAT_GUI_QT)
+     /* If there's no italic font, then fake it.
+      * For GTK2, we don't need a different font for italic style. */
+     if (hl_mask_todo & HL_ITALIC)
 @@ -5206,6 +5206,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
@@ -14945,8 +14954,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-07-15 20:17:03.000000000 +0200
-@@ -0,0 +1,1465 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-08-10 18:24:48.000000000 +0200
+@@ -0,0 +1,1459 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15004,12 +15013,18 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		font.setRawName((char*)name);
 +	}
 +
-+	// I expected QFont::exactMatch to do this - but I was wrong
-+	// FIXME: this needs further testing
-+	if ( QFontInfo(font).family() != font.family() ) {
-+		if ( giveErrorIfMissing ) {
-+			EMSG2(e_font, name);
-+		}
++	//
++	// When you ask for a font you may get a different font. This happens
++	// when the font system does some form of substitution (such as as virtual fonts).
++	// This bit of code checks if the font that is requested is the font that is returned.
++	//
++	// In a nutshell this is what is done:
++	// - If giveErrorIfMissing is FALSE and the font does not match ignore the error and proceed
++	// - If giveErrorIfMissing is TRUE fail with an error message
++	// * I expected QFont::exactMatch to do all this - but I was wrong
++	//
++	if ( QFontInfo(font).family() != font.family() && giveErrorIfMissing ) {
++		EMSG2(e_font, name);
 +		return NOFONT;
 +	}
 +
@@ -15065,24 +15080,19 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +int
 +gui_mch_wait_for_chars(long wtime)
 +{
++	if (!vim_is_input_buf_empty()) {
++		return OK;
++	}
++
 +	if ( wtime == -1 ) {
 +		QApplication::processEvents( QEventLoop::WaitForMoreEvents);
 +		return OK;
 +	} else {
-+		//
-+		// FIXME
-+		// This is, evidently, broken. We should block until we get an event or the given
-+		// time expires. Since we have no practical way to block Qt for a certain time step
-+		// instead we wait indefinitely. In practice this works because vim likes pass in
-+		// large time slots(4s).
-+		//
-+		// @see gui_mch_update
-+
 +		QTime t;
 +		t.start();
 +		do {
-+			QApplication::processEvents( QEventLoop::WaitForMoreEvents );
-+			if ( vimshell->hasInput() ) {
++			QApplication::processEvents( QEventLoop::WaitForMoreEvents);
++			if (!vim_is_input_buf_empty()) {
 +				return OK;
 +			}
 +		} while( t.elapsed() < wtime );
@@ -15195,7 +15205,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +int
 +gui_mch_init_font(char_u *font_name, int do_fontset)
 +{
-+	QFont *qf = gui_mch_get_font(font_name, 0);
++	QFont *qf = gui_mch_get_font(font_name, FALSE);
 +	if ( qf == NULL ) {
 +		return FAIL;
 +	}
@@ -16042,9 +16052,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +			QAction *action = new VimAction( menu, window );
 +			b->insertAction(before, action);
 +			menu->qaction = action;
-+
-+			QObject::connect( action, SIGNAL(triggered()),
-+					vimshell, SLOT(forceInput()));
 +		}
 +	} else {
 +		// Menu entries
@@ -16055,10 +16062,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +			QAction *action = new VimAction( menu, window );
 +			m->insertAction(before, action);
 +			menu->qaction = action;
-+			
-+			QObject::connect( action, SIGNAL(triggered()),
-+					vimshell, SLOT(forceInput()));
-+
 +		}
 +	}
 +}
@@ -16078,7 +16081,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_destroy_menu(vimmenu_T *menu)
 +{
-+	QMenu *parent;
++	QMenu *parent = NULL;
 +	if ( menu->parent ) {
 +		parent = (QMenu*)menu->parent->qmenu;
 +	}
@@ -16955,8 +16958,8 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-07-15 20:17:03.000000000 +0200
-@@ -0,0 +1,191 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-08-10 18:24:48.000000000 +0200
+@@ -0,0 +1,190 @@
 +#include "mainwindow.moc"
 +
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
@@ -17135,7 +17138,6 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	// The amusing +1 trick opens the
 +	// tab at the right of other tabs
 +	VimWrapper::newTab(tabbar->count()+1);
-+	vimshell->forceInput();
 +}
 +
 +void MainWindow::setKeepTabbar(bool keep)
@@ -17215,8 +17217,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-07-27 20:51:17.000000000 +0200
-@@ -0,0 +1,1327 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-08-10 18:24:48.000000000 +0200
+@@ -0,0 +1,1307 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17227,7 +17229,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +QVimShell::QVimShell(QWidget *parent)
 +:QWidget(parent), m_encoding_utf8(true),
-+	m_input(false), m_lastClickEvent(-1), m_tooltip(0)
++	m_lastClickEvent(-1), m_tooltip(0)
 +{
 +	// IM Tooltip
 +	m_tooltip = new QLabel(this);
@@ -17252,13 +17254,11 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::switchTab(int idx)
 +{
 +	vim.sendTablineEvent(idx);
-+	m_input = true;
 +}
 +
 +void QVimShell::closeTab(int idx)
 +{
 +	vim.sendTablineMenuEvent(idx, TABLINE_MENU_CLOSE);
-+	m_input = true;
 +}
 +
 +
@@ -17341,20 +17341,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	return false;
 +}
 +
-+bool QVimShell::hasInput()
-+{
-+	if (m_input) {
-+		m_input = false;
-+		return true;
-+	}
-+	return false;
-+}
-+
-+void QVimShell::forceInput()
-+{
-+	m_input = true;
-+}
-+
 +int_u QVimShell::vimKeyboardModifiers(Qt::KeyboardModifiers mod)
 +{
 +	int_u vim = 0x00;
@@ -17393,14 +17379,16 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +{
 +	char str[20];
 +	int len=0;
-+	m_input = true;
 +
 +	if ( specialKey( ev, str, &len)) {
 +		add_to_input_buf((char_u *) str, len);
-+		return;
 +	} else if ( !ev->text().isEmpty() ) {
-+		add_to_input_buf( (char_u *) VimWrapper::convertTo(ev->text()).data(), ev->count() );
-+		return;
++		if ( QApplication::keyboardModifiers() == Qt::AltModifier ) {
++			char str[2] = {(char)195, ev->text().data()[0].toAscii() + 64};
++			add_to_input_buf( (char_u *) str, 2 );
++		} else {
++			add_to_input_buf( (char_u *) VimWrapper::convertTo(ev->text()).data(), ev->count() );
++		}
 +	}
 +}
 +
@@ -17626,7 +17614,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	} else {
 +		vim.guiMouseMoved(ev->pos().x(), ev->pos().y());
 +	}
-+	m_input = true;
 +}
 +
 +void QVimShell::mousePressEvent(QMouseEvent *ev)
@@ -17663,14 +17650,12 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +	vim.guiSendMouseEvent(but, ev->pos().x(),
 +					  ev->pos().y(), repeat, vmod);
-+	m_input = true;
 +}
 +
 +void QVimShell::mouseReleaseEvent(QMouseEvent *ev)
 +{
 +	vim.guiSendMouseEvent(MOUSE_RELEASE, ev->pos().x(),
 +					  ev->pos().y(), FALSE, 0);
-+	m_input = true;
 +	setMouseTracking(false);
 +}
 +
@@ -17678,7 +17663,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +{
 +	vim.guiSendMouseEvent((ev->delta() > 0) ? MOUSE_4 : MOUSE_5,
 +					    ev->pos().x(), ev->pos().y(), FALSE, 0);
-+	m_input = true;
 +}
 +
 +/**
@@ -17780,7 +17764,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +		char_u buf[3] = {CSI, KS_EXTRA, (char_u)KE_DROP};
 +		add_to_input_buf(buf, 3);
 +	}
-+	m_input = true;
 +	ev->acceptProposedAction();
 +}
 +
@@ -17817,7 +17800,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	} else {
 +		tooltip( ev->preeditString());
 +	}
-+	m_input = true;
 +}
 +
 +QVariant QVimShell::inputMethodQuery(Qt::InputMethodQuery query)
@@ -18546,8 +18528,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2011-07-27 20:51:17.000000000 +0200
-@@ -0,0 +1,153 @@
++++ vim-qt-src/src/qt/qvimshell.h	2011-08-10 18:24:48.000000000 +0200
+@@ -0,0 +1,151 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -18596,7 +18578,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	void close();
 +	virtual void closeEvent(QCloseEvent *event);
-+	void forceInput();
 +
 +	void switchTab(int idx);
 +	void closeTab(int idx);
@@ -18642,7 +18623,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	blink_state blinkState;
 +	bool m_encoding_utf8;
 +
-+	volatile bool m_input;
 +	QQueue<PaintOperation> paintOps;
 +	QPixmap canvas;
 +
