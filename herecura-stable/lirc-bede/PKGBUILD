@@ -1,15 +1,15 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Paul Mattal <paul@archlinux.org>
 
-pkgbase='lirc-bemm'
-pkgname=('lirc-bemm' 'lirc-bemm-utils')
+pkgbase='lirc-bede'
+pkgname=('lirc-bede' 'lirc-bede-utils')
 pkgver=0.9.0
 pkgrel=11
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
-_kernver=3.0.1-BEMM
-makedepends=('linux-bemm-headers>=3.0' 'linux-bemm-headers<3.1'
+_kernver=3.0.1-BEDE
+makedepends=('linux-bede-headers>=3.0' 'linux-bede-headers<3.1'
 	'help2man' 'alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi' 'libirman')
 options=('!strip' '!makeflags')
 source=(
@@ -69,9 +69,9 @@ build() {
 	make
 }
 
-package_lirc-bemm() {
-	pkgdesc="Linux Infrared Remote Control kernel modules for BEMM kernel"
-	depends=("lirc-bemm-utils>=${pkgver}" 'linux-bemm>=3.0' 'linux-bemm<3.1')
+package_lirc-bede() {
+	pkgdesc="Linux Infrared Remote Control kernel modules for BEDE kernel"
+	depends=("lirc-bede-utils>=${pkgver}" 'linux-bede>=3.0' 'linux-bede<3.1')
 	install=lirc.install
 	provides=('lirc')
 	replaces=('lirc+pctv')
@@ -88,8 +88,8 @@ package_lirc-bemm() {
 		${startdir}/lirc.install
 }
 
-package_lirc-bemm-utils() {
-	pkgdesc="Linux Infrared Remote Control utils for BEMM kernel"
+package_lirc-bede-utils() {
+	pkgdesc="Linux Infrared Remote Control utils for BEDE kernel"
 	depends=('alsa-lib' 'libx11' 'libftdi' 'libirman')
 	optdepends=('python2: pronto2lirc util')
 	options=('strip' '!libtool')
