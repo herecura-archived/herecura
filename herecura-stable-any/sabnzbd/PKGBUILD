@@ -19,9 +19,10 @@ sha256sums=('cd6d16d265b81ba39a5f1429a01af658ace51ca7cc04b27b9eab531f628c24d8'
             'baea3351a40551a63b90b4a4c32719d4c27b5fff596e74e4a91f289964960eb6')
 
 package() {
-        mkdir -p ${pkgdir}/opt/sabnzbd
+		mkdir -p ${pkgdir}/opt/
+        cp -a ${srcdir}/SABnzbd-$pkgver ${pkgdir}/opt/sabnzbd
+
         touch ${pkgdir}/opt/sabnzbd/sabnzbd.ini 
-        cp -a ${srcdir}/SABnzbd-$pkgver/ ${pkgdir}/opt/sabnzbd/
 
         find ${pkgdir}/opt/sabnzbd -type d -exec chmod 755 {} \;
         find ${pkgdir}/opt/sabnzbd -type f -exec chmod 644 {} \;
