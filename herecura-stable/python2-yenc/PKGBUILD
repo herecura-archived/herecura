@@ -1,0 +1,18 @@
+# Contributor: Jonathan Curran <jonc@icicled.net>
+# Maintainer: Clément Démoulins <clement@archivel.fr>
+
+pkgname=python2-yenc
+pkgver=0.3
+pkgrel=1
+arch=('i686' 'x86_64')
+license=('GPL')
+pkgdesc='yenc decoder for python2'
+url='http://www.golug.it/yenc.html'
+depends=('python2')
+source=("http://www.golug.it/pub/yenc/${pkgname/python2-/}-${pkgver}.tar.gz")
+sha256sums=('88b3ea30c93c24a162874eeb3c1920ac7254953342578a5d63d075963478437e')
+
+package() {
+	cd ${pkgname/python2-/}-$pkgver
+	python2 setup.py install --root=$startdir/pkg
+}
