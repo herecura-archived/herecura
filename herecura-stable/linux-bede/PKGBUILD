@@ -7,9 +7,9 @@ pkgbase="linux${_kernelname}"
 pkgname="linux${_kernelname}"
 true && pkgname=("linux${_kernelname}" "linux${_kernelname}-headers")
 _basekernel=3.0
-_patchver=1
+_patchver=2
 pkgver=${_basekernel}
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -35,10 +35,10 @@ if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
 	_patchname="patch-${pkgver}"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v3.0/${_patchname}.bz2"
+		"http://www.kernel.org/pub/linux/kernel/v3.0/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'e0f60e7443ca36ed624386ca2bacf25b4e5b45eaff2ff59b81114dcf78965fbc'
+		'4e4e3389bb7e4e9dac5426560a4019d2421f737228434865d0aebacc5a1347d5'
 	)
 fi
 
