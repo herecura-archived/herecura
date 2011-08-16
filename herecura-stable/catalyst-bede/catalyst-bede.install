@@ -1,5 +1,5 @@
 
-KERNEL_VERSION=3.0.1-BEDE
+KERNEL_VERSION=3.0.2-BEDE
 
 
 whisperer(){

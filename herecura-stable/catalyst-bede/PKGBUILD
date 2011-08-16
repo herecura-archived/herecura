@@ -6,11 +6,11 @@
 # Contributor: DestroyFX
 # Contributor: Rip-Rip
 
-_kernver='3.0.1-BEDE'
+_kernver='3.0.2-BEDE'
 
 pkgname=catalyst-bede
 pkgver=11.7
-pkgrel=4
+pkgrel=5
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
