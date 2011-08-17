@@ -4,17 +4,18 @@
 
 pkgname=catalyst-utils
 pkgver=11.7
-pkgrel=2
+pkgrel=3
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-depends=('xorg-server>=1.7.0' 'xorg-server<1.11.0' 'netkit-bsd-finger' 'libxrandr' 'libxinerama' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs')
-optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)')
+depends=('xorg-server>=1.7.0' 'xorg-server<1.11.0' 'netkit-bsd-finger' 'libxrandr' 'libsm' 'fontconfig' 'libxcursor' 'libxi' 'gcc-libs' 'libxinerama')
+optdepends=('qt: to run ATi Catalyst Control Center (amdcccle)'
+'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)')
+replaces=('libgl')
 conflicts=('catalyst-test' 'nvidia-utils' 'libgl')
 provides=('libgl' "libatical=${pkgver}")
 install=${pkgname}.install
-
 
 source=(
 	"http://www2.ati.com/drivers/linux/ati-driver-installer-${pkgver/./-}-x86.x86_64.run"
@@ -22,7 +23,6 @@ source=(
 	"amdcccle.desktop"
 	"atieventsd.sh"
 )
-
 md5sums=(
 	'acebb812d4c057766828df0bf572e8ae'
 	'bdafe749e046bfddee2d1c5e90eabd83'
@@ -77,7 +77,7 @@ package() {
 	install -m755 drivers/*.so "${pkgdir}/usr/lib/xorg/modules/drivers/" 
 	install -m755 linux/*.so "${pkgdir}/usr/lib/xorg/modules/linux/" 
 	#install -m755 extensions/libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/"  #before 11.4
-	install -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so" # since 11.5
+	install -m755 extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so"  # since 11.5
 	ln -snf /usr/lib/xorg/modules/extensions/fglrx/fglrx-libglx.so "${pkgdir}/usr/lib/xorg/modules/extensions/libglx.so" # since 11.4
 	#install -m755 extensions/libdri.so "${pkgdir}/usr/lib/xorg/modules/extensions/libdri.ati" 
 
@@ -93,7 +93,7 @@ package() {
 	install -m755 X11R6/bin/* "${pkgdir}/usr/bin/" 
 	install -m755 sbin/* "${pkgdir}/usr/sbin/" 
 	#install -m755 X11R6/${_lib}/*.so* "${pkgdir}/usr/lib/" || return #before 11.4
-	install -m755 X11R6/${_lib}/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx" || return 1 # since 11.5
+	install -m755 X11R6/${_lib}/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx"  # since 11.5
 	ln -snf /usr/lib/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx/libGL.so.1.2" # since 11.4
 	ln -snf /usr/lib/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/fglrx-libGL.so.1.2" # since 11.4
 	ln -snf /usr/lib/fglrx/fglrx-libGL.so.1.2 "${pkgdir}/usr/lib/libGL.so.1.2" # since 11.4
