@@ -1,0 +1,32 @@
+Already up-to-date.
+==> The local files are updated.
+==> GIT checkout done or server timeout
+==> creating build directory
+==> Starting make...
+scons: Reading SConscript files ...
+scons version: 2.0.1
+python version: 2 7 2 'final' 0
+using precompiled headers
+Checking whether the C++ compiler worksyes
+Checking for C library stdc++... yes
+Checking for C++ header file pcrecpp.h... yes
+Checking for C++ header file boost/filesystem/operations.hpp... yes
+Checking for C library boost_system-mt... no
+Checking for C library boost_system... yes
+Checking for C library boost_thread-mt... no
+Checking for C library boost_thread... yes
+Checking for C library boost_filesystem-mt... no
+Checking for C library boost_filesystem... yes
+Checking for C library boost_program_options-mt... no
+Checking for C library boost_program_options... yes
+Checking for C++ header file execinfo.h... yes
+Checking for C library pcrecpp... yes
+Checking for C library pcre... yes
+Checking for C library pcap... yes
+Checking for C library mozjs... no
+Checking for C library js... no
+Checking for C library js_static... no
+can't find or link against library ['mozjs', 'js', 'js_static'] in ['/usr/lib64', '/lib64']
+see config.log for more information
+==> ERROR: A failure occurred in build().
+    Aborting...
