@@ -1,7 +1,7 @@
 # This is a default template for a post-install scriptlet.  You can
 # remove any functions you don't need (and this header).
 
-KERNEL_VERSION=3.0.2-BEDE
+KERNEL_VERSION=3.0-BEDE
 
 # arg 1:  the new package version
 pre_install() {

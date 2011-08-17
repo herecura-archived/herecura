@@ -1,4 +1,4 @@
-KERNEL_VERSION='3.0.2-BEDE'
+KERNEL_VERSION='3.0-BEDE'
 
 post_install() {
 	depmod $KERNEL_VERSION
