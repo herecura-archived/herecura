@@ -1,5 +1,5 @@
 diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
---- vim-src/runtime/menu.vim	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/runtime/menu.vim	2011-06-16 17:00:46.000000000 +0200
 +++ vim-qt-src/runtime/menu.vim	2011-06-16 16:58:04.000000000 +0200
 @@ -381,7 +381,7 @@
    endif
@@ -58,7 +58,7 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +add_executable(qvim ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES})
 +target_link_libraries(qvim -lm -lncurses -lacl -lgpm ${QT_LIBRARIES})
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
---- vim-src/src/config.mk.in	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/config.mk.in	2011-06-16 17:00:46.000000000 +0200
 +++ vim-qt-src/src/config.mk.in	2011-06-27 16:28:02.000000000 +0200
 @@ -156,6 +156,9 @@
  GUI_X_LIBS	= @GUI_X_LIBS@
@@ -71,7 +71,7 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  ### Any OS dependent extra source and object file
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
---- vim-src/src/configure	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/configure	2011-06-16 17:00:46.000000000 +0200
 +++ vim-qt-src/src/configure	2011-07-20 21:11:13.000000000 +0200
 @@ -1,10 +1,14361 @@
  #! /bin/sh
@@ -14443,8 +14443,17 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-08-10 18:25:49.693338104 +0200
+--- vim-src/src/configure.in	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/configure.in	2011-08-17 18:27:14.008812621 +0200
+@@ -796,7 +796,7 @@
+ AC_MSG_RESULT($enable_pythoninterp)
+ if test "$enable_pythoninterp" = "yes" -o "$enable_pythoninterp" = "dynamic"; then
+   dnl -- find the python executable
+-  AC_PATH_PROG(vi_cv_path_python, python)
++  AC_PATH_PROG(vi_cv_path_python, python2)
+   if test "X$vi_cv_path_python" != "X"; then
+ 
+     dnl -- get its version number
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14696,9 +14705,9 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  if test -z "$SKIP_ATHENA" -o -z "$SKIP_NEXTAW" -o -z "$SKIP_MOTIF" -o -z "$SKIP_GTK2"; then
    dnl Check for X11/xpm.h and X11/Sunkeysym.h with the GUI include path
 diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
---- vim-src/src/eval.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/eval.c	2011-06-16 16:58:04.000000000 +0200
-@@ -11984,6 +11984,9 @@
+--- vim-src/src/eval.c	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/eval.c	2011-08-17 18:23:57.000000000 +0200
+@@ -11991,6 +11991,9 @@
  #ifdef FEAT_GUI_W32
  	"gui_win32",
  #endif
@@ -14709,9 +14718,9 @@ diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
  	"hangul_input",
  #endif
 diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
---- vim-src/src/ex_docmd.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/ex_docmd.c	2011-06-16 16:58:04.000000000 +0200
-@@ -6886,6 +6886,7 @@
+--- vim-src/src/ex_docmd.c	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/ex_docmd.c	2011-08-17 18:23:57.000000000 +0200
+@@ -6893,6 +6893,7 @@
  	|| (defined(FEAT_GUI_GTK) && defined(FEAT_DND)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -14720,8 +14729,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-06-16 17:27:03.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-08-10 18:25:49.685338016 +0200
+--- vim-src/src/feature.h	2011-06-16 17:00:46.000000000 +0200
++++ vim-qt-src/src/feature.h	2011-08-17 18:27:13.999812548 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14786,6 +14795,30 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_CON_DIALOG
  #  define FEAT_GUI_DIALOG
  # else
+@@ -877,7 +880,7 @@
+ /*
+  * VIMRC_FILE		Name of the .vimrc file in current dir.
+  */
+-/* #define VIMRC_FILE	".vimrc" */
++#define VIMRC_FILE	".vimrc"
+ 
+ /*
+  * EXRC_FILE		Name of the .exrc file in current dir.
+@@ -926,12 +929,12 @@
+ /*
+  * SYS_VIMRC_FILE	Name of the system-wide .vimrc file.
+  */
+-/* #define SYS_VIMRC_FILE	"/etc/vimrc" */
++#define SYS_VIMRC_FILE	"/etc/vimrc"
+ 
+ /*
+  * SYS_GVIMRC_FILE	Name of the system-wide .gvimrc file.
+  */
+-/* #define SYS_GVIMRC_FILE	"/etc/gvimrc" */
++#define SYS_GVIMRC_FILE	"/etc/gvimrc"
+ 
+ /*
+  * DFLT_HELPFILE	Name of the help file.
 @@ -1009,9 +1012,11 @@
   * +X11			Unix only.  Include code for xterm title saving and X
   *			clipboard.  Only works if HAVE_X11 is also defined.
@@ -14817,8 +14850,8 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  # endif
  #endif
 diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
---- vim-src/src/fileio.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/fileio.c	2011-06-16 16:58:04.000000000 +0200
+--- vim-src/src/fileio.c	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/fileio.c	2011-08-17 18:23:57.000000000 +0200
 @@ -6129,6 +6129,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
@@ -14828,7 +14861,7 @@ diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
  /*
   * Shorten all filenames in "fnames[count]" by current directory.
 diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
---- vim-src/src/globals.h	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/globals.h	2011-06-16 17:00:46.000000000 +0200
 +++ vim-qt-src/src/globals.h	2011-06-16 16:58:04.000000000 +0200
 @@ -1399,7 +1399,7 @@
  EXTERN char_u e_fontset[]	INIT(= N_("E234: Unknown fontset: %s"));
@@ -14840,9 +14873,9 @@ diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
  #endif
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
 diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
---- vim-src/src/gui.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/gui.c	2011-08-10 18:24:48.000000000 +0200
-@@ -103,10 +103,10 @@
+--- vim-src/src/gui.c	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/gui.c	2011-08-17 18:23:57.000000000 +0200
+@@ -108,10 +108,10 @@
  
      vim_free(old_term);
  
@@ -14855,7 +14888,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  	Window	x11_window;
  	Display	*x11_display;
  
-@@ -643,7 +643,7 @@
+@@ -648,7 +648,7 @@
  }
  
  #if defined(FEAT_GUI_GTK) || defined(FEAT_GUI_X11) || defined(FEAT_GUI_MSWIN) \
@@ -14864,7 +14897,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  # define NEED_GUI_UPDATE_SCREEN 1
  /*
   * Called when the GUI shell is closed by the user.  If there are no changed
-@@ -1241,7 +1241,7 @@
+@@ -1246,7 +1246,7 @@
      base_height = 2 * gui.border_offset;
      if (gui.which_scrollbars[SBAR_BOTTOM])
  	base_height += gui.scrollbar_height;
@@ -14873,7 +14906,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* We can't take the sizes properly into account until anything is
       * realized.  Therefore we recalculate all the values here just before
       * setting the size. (--mdcki) */
-@@ -2193,7 +2193,7 @@
+@@ -2198,7 +2198,7 @@
      if (back != 0 && ((draw_flags & DRAW_BOLD) || (highlight_mask & HL_ITALIC)))
  	return FAIL;
  
@@ -14882,7 +14915,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* If there's no italic font, then fake it.
       * For GTK2, we don't need a different font for italic style. */
      if (hl_mask_todo & HL_ITALIC)
-@@ -5206,6 +5206,7 @@
+@@ -5211,6 +5211,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -14891,8 +14924,8 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  
  #ifdef FEAT_WINDOWS
 diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
---- vim-src/src/gui.h	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/gui.h	2011-06-27 16:28:02.000000000 +0200
+--- vim-src/src/gui.h	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/gui.h	2011-08-17 18:23:57.000000000 +0200
 @@ -71,7 +71,7 @@
   * On some systems scrolling needs to be done right away instead of in the
   * main loop.
@@ -16416,7 +16449,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +} // extern "C"
 diff -urN vim-src/src/main.c vim-qt-src/src/main.c
---- vim-src/src/main.c	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/main.c	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/main.c	2011-06-16 16:58:04.000000000 +0200
 @@ -1557,7 +1557,7 @@
      }
@@ -16428,7 +16461,7 @@ diff -urN vim-src/src/main.c vim-qt-src/src/main.c
  	main_start_gui();
  #ifdef FEAT_GUI
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
---- vim-src/src/Makefile	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/Makefile	2011-06-16 17:00:46.000000000 +0200
 +++ vim-qt-src/src/Makefile	2011-06-30 21:01:01.000000000 +0200
 @@ -1232,6 +1232,31 @@
  NEXTAW_TESTTARGET = gui
@@ -16523,7 +16556,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  	$(CCC) -o $@ gui_beval.c
  
 diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
---- vim-src/src/menu.c	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/menu.c	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/menu.c	2011-06-16 16:58:04.000000000 +0200
 @@ -272,7 +272,7 @@
  	EMSG(_(e_trailing));
@@ -16544,9 +16577,9 @@ diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
      if (gui.in_use
  	    && (gui.menu_height != old_menu_height
 diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
---- vim-src/src/normal.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/normal.c	2011-06-16 16:58:04.000000000 +0200
-@@ -2641,7 +2641,7 @@
+--- vim-src/src/normal.c	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/normal.c	2011-08-17 18:23:57.000000000 +0200
+@@ -2649,7 +2649,7 @@
  	     * Windows only shows the popup menu on the button up event.
  	     */
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) \
@@ -16555,7 +16588,7 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  	    if (!is_click)
  		return FALSE;
  #endif
-@@ -2651,7 +2651,7 @@
+@@ -2659,7 +2659,7 @@
  #endif
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) \
  	    || defined(FEAT_GUI_ATHENA) || defined(FEAT_GUI_MSWIN) \
@@ -16565,7 +16598,7 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  	    {
  		jump_flags = 0;
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
---- vim-src/src/option.c	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/option.c	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/option.c	2011-06-16 16:58:04.000000000 +0200
 @@ -6279,7 +6279,7 @@
  	if (gui.in_use)
@@ -16577,8 +16610,8 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
  	     * Put up a font dialog and let the user select a new value.
  	     * If this is cancelled go back to the old value but don't
 diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
---- vim-src/src/os_unix.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/os_unix.c	2011-06-16 16:58:04.000000000 +0200
+--- vim-src/src/os_unix.c	2011-08-17 18:26:26.000000000 +0200
++++ vim-qt-src/src/os_unix.c	2011-08-17 18:23:57.000000000 +0200
 @@ -2030,7 +2030,7 @@
      if (get_x11_windis() == OK)
  	type = 1;
@@ -16702,7 +16735,7 @@ diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
 +
 +
 diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
---- vim-src/src/proto.h	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/proto.h	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/proto.h	2011-06-16 16:58:05.000000000 +0200
 @@ -248,6 +248,9 @@
  #  ifdef FEAT_SUN_WORKSHOP
@@ -19493,7 +19526,7 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +
 +#endif
 diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
---- vim-src/src/structs.h	2011-06-16 17:21:57.000000000 +0200
+--- vim-src/src/structs.h	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/structs.h	2011-06-16 16:58:05.000000000 +0200
 @@ -2295,6 +2295,10 @@
  
@@ -19518,9 +19551,9 @@ diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
  #else
  /* For generating prototypes when FEAT_MENU isn't defined. */
 diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
---- vim-src/src/ui.c	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/ui.c	2011-06-16 16:58:05.000000000 +0200
-@@ -3021,7 +3021,7 @@
+--- vim-src/src/ui.c	2011-08-17 18:26:27.000000000 +0200
++++ vim-qt-src/src/ui.c	2011-08-17 18:23:57.000000000 +0200
+@@ -3020,7 +3020,7 @@
  
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) || defined(FEAT_GUI_MAC) \
  	|| defined(FEAT_GUI_ATHENA) || defined(FEAT_GUI_MSWIN) \
@@ -19530,8 +19563,8 @@ diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
   * Translate window coordinates to buffer position without any side effects
   */
 diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
---- vim-src/src/vim.h	2011-06-16 17:21:57.000000000 +0200
-+++ vim-qt-src/src/vim.h	2011-06-16 16:58:05.000000000 +0200
+--- vim-src/src/vim.h	2011-08-17 18:26:27.000000000 +0200
++++ vim-qt-src/src/vim.h	2011-08-17 18:23:57.000000000 +0200
 @@ -114,6 +114,11 @@
  # define FEAT_GUI_MAC
  #endif
@@ -19544,7 +19577,7 @@ diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
  #if defined(FEAT_GUI_MOTIF) \
      || defined(FEAT_GUI_GTK) \
      || defined(FEAT_GUI_ATHENA) \
-@@ -1915,6 +1920,10 @@
+@@ -1917,6 +1922,10 @@
      GdkAtom     gtk_sel_atom;	/* PRIMARY/CLIPBOARD selection ID */
  # endif
  
