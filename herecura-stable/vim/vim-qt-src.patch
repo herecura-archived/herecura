@@ -14443,17 +14443,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-08-17 18:26:26.000000000 +0200
-+++ vim-qt-src/src/configure.in	2011-08-17 18:27:14.008812621 +0200
-@@ -796,7 +796,7 @@
- AC_MSG_RESULT($enable_pythoninterp)
- if test "$enable_pythoninterp" = "yes" -o "$enable_pythoninterp" = "dynamic"; then
-   dnl -- find the python executable
--  AC_PATH_PROG(vi_cv_path_python, python)
-+  AC_PATH_PROG(vi_cv_path_python, python2)
-   if test "X$vi_cv_path_python" != "X"; then
- 
-     dnl -- get its version number
+--- vim-src/src/configure.in	2011-08-17 19:39:18.002844370 +0200
++++ vim-qt-src/src/configure.in	2011-08-17 19:39:18.333852678 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14729,8 +14720,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/feature.h	2011-08-17 18:27:13.999812548 +0200
+--- vim-src/src/feature.h	2011-08-17 19:39:17.994844169 +0200
++++ vim-qt-src/src/feature.h	2011-08-17 19:39:18.325852478 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14795,30 +14786,6 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_CON_DIALOG
  #  define FEAT_GUI_DIALOG
  # else
-@@ -877,7 +880,7 @@
- /*
-  * VIMRC_FILE		Name of the .vimrc file in current dir.
-  */
--/* #define VIMRC_FILE	".vimrc" */
-+#define VIMRC_FILE	".vimrc"
- 
- /*
-  * EXRC_FILE		Name of the .exrc file in current dir.
-@@ -926,12 +929,12 @@
- /*
-  * SYS_VIMRC_FILE	Name of the system-wide .vimrc file.
-  */
--/* #define SYS_VIMRC_FILE	"/etc/vimrc" */
-+#define SYS_VIMRC_FILE	"/etc/vimrc"
- 
- /*
-  * SYS_GVIMRC_FILE	Name of the system-wide .gvimrc file.
-  */
--/* #define SYS_GVIMRC_FILE	"/etc/gvimrc" */
-+#define SYS_GVIMRC_FILE	"/etc/gvimrc"
- 
- /*
-  * DFLT_HELPFILE	Name of the help file.
 @@ -1009,9 +1012,11 @@
   * +X11			Unix only.  Include code for xterm title saving and X
   *			clipboard.  Only works if HAVE_X11 is also defined.
