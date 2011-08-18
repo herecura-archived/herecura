@@ -1,75 +1,95 @@
+# Maintainer: Det <nimetonmaili at gmail dot com>
+# Contributor: Christian Autermann <christian@autermann.org>
+# Contributor: Martin Lee <hellnest.fuah@gmail.com>
+# Contributor: Ricardo Funke
 # Contributor: PirateJonno <j@skurvy.no-ip.org>
 # Contributor: lh <jarryson#gmail.com>
+# Contributor: Cilyan Olowen <gaknar@gmail.com>
+
 pkgname=plymouth-git
-pkgver=20110817
+pkgver=20110731
 pkgrel=1
-pkgdesc="A Linux boot screen implementation"
+pkgdesc="A graphical boot splash screen with kernel mode-setting support (Git version)"
 arch=('i686' 'x86_64')
 url="http://freedesktop.org/wiki/Software/Plymouth"
 license=('GPL')
 depends=('initscripts' 'libdrm' 'gtk2')
 makedepends=('git')
+options=('!libtool' '!emptydirs')
+install=${pkgname}.install
+backup=('etc/plymouth/plymouthd.conf')
 provides=('plymouth')
 conflicts=('plymouth')
-options=('!libtool' '!emptydirs')
-install=plymouth.install
-source=('plymouth-update-initrd'
-	'plymouth-encrypt.initcpio_hook'
-	'plymouth-encrypt.initcpio_install'
+source=(
+	'arch-logo.png'
+	"http://projects.archlinux.org/svntogit/packages.git/plain/cryptsetup/repos/core-${CARCH}/encrypt_hook"
+	"http://projects.archlinux.org/svntogit/packages.git/plain/cryptsetup/repos/core-${CARCH}/encrypt_install"
+	'encrypt_hook.patch'
+	'encrypt_install.patch'
+	'plymouthd.conf'
 	'plymouth.functions'
 	'plymouth.initcpio_hook'
 	'plymouth.initcpio_install'
-	'arch-logo.png'
-	'system-release')
-md5sums=('e59b4f04816fcbe506e9d4b725cb1e29'
-         'f9418c98f84f948ccc860c08cf4177ed'
-         'f218e7e4c6b27c5c2135a3de076d8b1a'
-         '916fb026be911d4cf9c51d44bfee0791'
-         '86c85dcf88dfdb6b895f72bdca1babd1'
-         '3f7e1a50984788082e60a82931e1a21a'
-         '9508a1adaac3641a0e6e6eb1155beb2f'
-         'ab8a557d10f74bec5c94ed6cae34729c')
-
+	'plymouth-update-initrd.patch'
+	'system-release'
+)
+sha1sums=(
+	'3bc168dd06ff3e2790f26c131209a7fb4a5ccbd7'  # arch-logo.png
+	'2d3dfa82eabe51f1addf7472f65a7588324e1c0a'  # encrypt_hook
+	'2ddf6061162b481f343ce883083b6ab3b64342e0'  # encrypt_install
+	'70e210bceb266b974fc6f313f0a460d21c29af7b'  # encrypt_hook.patch
+	'08dc7cdc5873634042052014b5250d552158dc4e'  # encrypt_install.patch
+	'01235a179d8f991a37035c15cdcc0733b581afd4'  # plymouthd.conf
+	'60a55ff2cf417bafa07cf82abcf7680e5c046e52'  # plymouth.functions
+	'39a27b5a049dc620b7820b62f351b6cb1d2a48c5'  # plymouth.initcpio_hook
+	'c74e5d25c2eadd28da4b93d86a146cea8bbe3cff'  # plymouth.initcpio_install
+	'019663ae0070163e8d6cf268e7efeaaef474e725'  # plymouth-update-initrd.patch
+	'4c31cbbfbdeb48593641ff600c8d4fb7bda2b01c'  # system-release
+)
 
 if [ -e .githash_${CARCH} ] ; then
 	_gitphash=$(cat .githash_${CARCH})
 else
 	_gitphash=""
 fi
+
 _gitroot='git://git.freedesktop.org/git/plymouth'
 _gitname='plymouth'
-_gitbranch='master'
 
 build() {
-	msg "Connecting to git.freedesktop.org GIT server...."
-	if [ -d ${_gitname} ] ; then
-		cd $_gitname && git pull origin
+	if [ -d ${srcdir}/${_gitname}/.git ] ; then
+		( cd ${srcdir}/${_gitname} && git pull origin )
 		msg "The local files are updated."
 	else
-		git clone $_gitroot $_gitname
+		( git clone --depth 1 ${_gitroot} ${_gitname} )
 	fi
-	msg "GIT checkout done or server timeout. Preparing sources..."
+	msg "GIT checkout done or server timeout"
 
-	cd ${srcdir}/${_gitname}
+	cd ${_gitname}
 	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
 
+	msg "creating build directory"
 	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
+	cp -a ${_gitname} ${_gitname}-build
 
-	git clone ${_gitname} ${_gitname}-build
+	msg "Applying Patches..."
+	patch -p0 -i encrypt_hook.patch
+	patch -p0 -i encrypt_install.patch
+
+	cd ${_gitname}-build
+	patch -p0 -i "${srcdir}/plymouth-update-initrd.patch"
+
+	sed -e 's:png_set_gray_1_2_4_to_8:png_set_expand_gray_1_2_4_to_8:g' \
+		-i src/libply-splash-graphics/ply-image.c
 
 	msg "Starting make..."
-	cd ${srcdir}/${_gitname}-build
 
-	sed -e 's:png_set_gray_1_2_4_to_8:png_set_expand_gray_1_2_4_to_8:g' -i src/libply-splash-graphics/ply-image.c
-	./autogen.sh
-	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
+	./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib \
 		--enable-tracing \
-		--enable-tests \
 		--with-system-root-install \
-		--disable-tests \
 		--enable-gdm-transition \
-		--without-rhgb-compat-link \
+		--with-gdm-autostart-file=no \
 		--with-logo=/usr/share/plymouth/arch-logo.png \
 		--with-background-start-color-stop=0x000000 \
 		--with-background-end-color-stop=0x4D4D4D
@@ -79,20 +99,16 @@ build() {
 
 package() {
 	cd ${_gitname}-build
-	make DESTDIR=$pkgdir install
 
-	cd $pkgdir
+	make DESTDIR="${pkgdir}" install
 
-	find . -name "*.orig" -delete
-
-	cd ${srcdir}/${_gitname}-build
-	install -Dm644 $srcdir/plymouth.initcpio_install ${pkgdir}/lib/initcpio/install/plymouth
-	install -Dm644 $srcdir/plymouth.initcpio_hook ${pkgdir}/lib/initcpio/hooks/plymouth
-	install -Dm644 $srcdir/plymouth-encrypt.initcpio_install ${pkgdir}/lib/initcpio/install/plymouth-encrypt
-	install -Dm644 $srcdir/plymouth-encrypt.initcpio_hook ${pkgdir}/lib/initcpio/hooks/plymouth-encrypt
-	install -Dm644 $srcdir/plymouth.functions ${pkgdir}/etc/rc.d/functions.d/plymouth.functions
-	install -Dm644 $srcdir/arch-logo.png ${pkgdir}/usr/share/plymouth/arch-logo.png
-	install -Dm644 $srcdir/system-release ${pkgdir}/etc/system-release
+	install -Dm644 "${srcdir}/plymouth.initcpio_install" "${pkgdir}/lib/initcpio/install/plymouth"
+	install -Dm644 "${srcdir}/plymouth.initcpio_hook" "${pkgdir}/lib/initcpio/hooks/plymouth"
+	install -Dm644 "${srcdir}/encrypt_install" "${pkgdir}/lib/initcpio/install/plymouth-encrypt"
+	install -Dm644 "${srcdir}/encrypt_hook" "${pkgdir}/lib/initcpio/hooks/plymouth-encrypt"
+	install -Dm644 "${srcdir}/plymouth.functions" "${pkgdir}/etc/rc.d/functions.d/plymouth.functions"
+	install -Dm644 "${srcdir}/arch-logo.png" "${pkgdir}/usr/share/plymouth/arch-logo.png"
+	install -Dm644 "${srcdir}/system-release" "${pkgdir}/etc/system-release"
+	install -Dm644 "${srcdir}/plymouthd.conf" "${pkgdir}/etc/plymouth/plymouthd.conf"
 	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
-
