@@ -158,5 +158,5 @@ package() {
 	install -m755 "${srcdir}/catalyst.sh" "${pkgdir}/etc/profile.d/" 
 
 	# License
-	install -m644 "${srcdir}/archive_files/ATI_LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/" 
+	install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/" 
 }
