@@ -9,8 +9,8 @@
 _kernver='3.0-BEDE'
 
 pkgname=catalyst-bede
-pkgver=11.7
-pkgrel=6
+pkgver=11.8
+pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -26,8 +26,10 @@ source=(
 	makefile_compat.patch
 )
 
-md5sums=('acebb812d4c057766828df0bf572e8ae'
-	'3e1b82bd69774ea808da69c983d6a43b')
+md5sums=(
+	'f97a884c3b3c6263091a3035a7046318'
+	'3e1b82bd69774ea808da69c983d6a43b'
+)
 
 build() {
 	## Unpack archive
