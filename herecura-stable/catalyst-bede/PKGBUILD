@@ -93,7 +93,7 @@ package() {
 
 	## License
 	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
-	install -m644 "${srcdir}/archive_files/ATI_LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+	install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
 
 	# gzip all modules
 	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
