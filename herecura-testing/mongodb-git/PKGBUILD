@@ -2,19 +2,22 @@
 #Contributor: Sebastian Friedel <sef@voxelbrain.com>
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
-pkgver=20110818
+pkgver=20110819
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
 license=('AGPL')
 makedepends=('git' 'scons' 'boost')
-depends=('boost-libs' 'js' 'pcre')
+depends=('boost-libs' 'v8' 'pcre')
 provides=('mongodb')
 conflicts=('mongodb')
-backup=('etc/mongodb.conf')
-source=('mongodb.rc' 'mongodb.conf')
 install=${pkgname}.install
+backup=('etc/mongodb.conf')
+source=(
+	'mongodb.rc'
+	'mongodb.conf'
+)
 sha256sums=(
 	'5ba40a3c2d1c67f7617f010e660e2a0c609dcf5c5e7c897d7ac6843167d8329f'
 	'f3fc037c704d67c68c7d69c46878af3d8a601e48ca51105835f740cddb1b2b2e'
@@ -48,20 +51,20 @@ build() {
 
 	msg "Starting make..."
 	cd ${_gitname}-build
+
+	sed -i 's|lib64|lib|g' SConstruct
+	sed -i '/-Werror/d' SConstruct
+
 	export SCONSFLAGS="${MAKEFLAGS}"
-	scons --pch all --full
+	scons --pch all --usev8 --full
 }
 
 package() {
 	cd ${_gitname}-build
-	scons --pch install --full --prefix="${startdir}/pkg/usr"
+	scons --pch install --usev8 --full --prefix="${startdir}/pkg/usr"
 	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
 	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
 	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
-
-	if [ -d "${pkgdir}/usr/lib64" ] ; then
-		mv "${pkgdir}/usr/lib64" "${pkgdir}/usr/lib"
-	fi
 
 	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
