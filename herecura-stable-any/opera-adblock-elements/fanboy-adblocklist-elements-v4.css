@@ -1,7 +1,7 @@
 /*
-! Checksum: xN0dC246unL2E3kGhod+4A
+! Checksum: iF+XHZ9WOWD24CHz21QYtw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Aug 2011
+! Version: V4 Updated: 20 Aug 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3051,7 +3051,6 @@
 .adRemove,
 .adReportsLink,
 .adResults,
-.adRight,
 .adroot,
 .adrotate_widget,
 .adrow-post,
@@ -3275,7 +3274,6 @@
 .adstrip,
 .adStyle1,
 .adSubColPod,
-.adSummary,
 .adswidget,
 .adsYN,
 .adsystem_ad,
@@ -3710,6 +3708,7 @@
 .CommentGoogleAd,
 .conductor_ad,
 .confirm_ad_left,
+.sponsor-ad-wrapper,
 .confirm_ad_right,
 .confirm_leader_ad,
 .consoleAd,
