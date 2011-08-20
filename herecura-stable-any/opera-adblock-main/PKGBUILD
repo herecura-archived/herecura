@@ -17,4 +17,4 @@ package() {
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-main/}
 	install -m644 urlfilter-main.ini ${pkgdir}/usr/share/${pkgname/-main/}/urlfilter-main.ini
 }
-sha256sums=('c425e88b57db6af5ea7bf962cf0403427dea67edbaa3a2f857e8418deff0f913')
+sha256sums=('b5bb67f161dc9bdeea859bd54ebd3e424afd9f364d9e75e812fd491c7627edbd')
