@@ -17,4 +17,4 @@ package() {
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-stat/}
 	install -m644 urlfilter-stat.ini ${pkgdir}/usr/share/${pkgname/-stat/}/urlfilter-stat.ini
 }
-sha256sums=('4d716efc2a352b60b47dc297c1077cbd16b16baba36c6fbee20ac6475ab989e4')
+sha256sums=('ab3077b6a23b426307aa16057832004662cb0430ebe6d64e49e42af2b1681b7a')
