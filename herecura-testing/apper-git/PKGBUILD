@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=apper-git
-pkgver=20110824
+pkgver=20110825
 pkgrel=1
 pkgdesc="Apper - Application to get and manage software in KDE"
 arch=('i686' 'x86_64')
