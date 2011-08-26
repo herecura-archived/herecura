@@ -25,7 +25,7 @@ license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
-source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/Opera/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
+source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
 md5sums=('06520e05c047628c470de55ac1a09ada')
 [ "$CARCH" = "x86_64" ] && md5sums=('1c58b067710fd4f14eb12dbca7bc8f8a')
 
