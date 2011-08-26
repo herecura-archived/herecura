@@ -6,8 +6,8 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=5
-pkgdesc="XBMC Media Center Dharma branch"
+pkgrel=6
+pkgdesc="XBMC software media player and entertainment hub for digital media"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
 replaces=('xbmc-dharma')
