@@ -1,7 +1,7 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krusader-git
-pkgver=20110825
+pkgver=20110826
 pkgrel=1
 pkgdesc="Krusader - Twin Panel File Management For Your Desktop - GIT version"
 arch=('i686' 'x86_64')
@@ -34,7 +34,10 @@ build() {
 	msg "GIT checkout done or server timeout"
 
 	cd ${_gitname}
-	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
+	if [ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ]; then
+		msg "Git hash is the same as previous build"
+		return 1
+	fi
 
 	msg "creating build directory"
 	cd ${srcdir}

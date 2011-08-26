@@ -35,7 +35,10 @@ build() {
 	msg "GIT checkout done or server timeout"
 
 	cd ${_gitname}
-	[ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ] && return 1
+	if [ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ]; then
+		msg "Git hash is the same as previous build"
+		return 1
+	fi
 
 	msg "creating build directory"
 	cd ${srcdir}
