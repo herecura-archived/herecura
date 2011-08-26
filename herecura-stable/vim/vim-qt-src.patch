@@ -14443,17 +14443,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-08-26 17:29:17.763646246 +0200
-+++ vim-qt-src/src/configure.in	2011-08-26 17:29:17.916648169 +0200
-@@ -796,7 +796,7 @@
- AC_MSG_RESULT($enable_pythoninterp)
- if test "$enable_pythoninterp" = "yes" -o "$enable_pythoninterp" = "dynamic"; then
-   dnl -- find the python executable
--  AC_PATH_PROG(vi_cv_path_python, python22)
-+  AC_PATH_PROG(vi_cv_path_python, python2)
-   if test "X$vi_cv_path_python" != "X"; then
- 
-     dnl -- get its version number
+--- vim-src/src/configure.in	2011-08-26 17:51:25.524384227 +0200
++++ vim-qt-src/src/configure.in	2011-08-26 17:51:25.829387605 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14729,8 +14720,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-08-26 17:29:17.744646006 +0200
-+++ vim-qt-src/src/feature.h	2011-08-26 17:29:17.907648055 +0200
+--- vim-src/src/feature.h	2011-08-26 17:51:25.516384138 +0200
++++ vim-qt-src/src/feature.h	2011-08-26 17:51:25.820387505 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
