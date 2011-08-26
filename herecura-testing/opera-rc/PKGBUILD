@@ -5,9 +5,9 @@
 # Contributor: totoloco
 pkgname=opera-rc # Set to opera if you want to install as your main/stable build
 _bigrelease=11.51
-_buildver=1084
-_randomizer=rc1
-_rcver=1
+_buildver=1087
+_randomizer=rc2
+_rcver=2
 pkgver=${_bigrelease}_rc${_rcver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Release Candidate version."
@@ -26,8 +26,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/Opera/opera-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-md5sums=('598b48a3faed7df09cb58ef06885a393')
-[ "$CARCH" = "x86_64" ] && md5sums=('7b2c69ec0b8e6bd9f33335ad82e82e6e')
+md5sums=('06520e05c047628c470de55ac1a09ada')
+[ "$CARCH" = "x86_64" ] && md5sums=('1c58b067710fd4f14eb12dbca7bc8f8a')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
 _opdistro="Arch Linux"
