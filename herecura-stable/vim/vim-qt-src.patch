@@ -14443,8 +14443,17 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-08-17 19:39:18.002844370 +0200
-+++ vim-qt-src/src/configure.in	2011-08-17 19:39:18.333852678 +0200
+--- vim-src/src/configure.in	2011-08-26 17:29:17.763646246 +0200
++++ vim-qt-src/src/configure.in	2011-08-26 17:29:17.916648169 +0200
+@@ -796,7 +796,7 @@
+ AC_MSG_RESULT($enable_pythoninterp)
+ if test "$enable_pythoninterp" = "yes" -o "$enable_pythoninterp" = "dynamic"; then
+   dnl -- find the python executable
+-  AC_PATH_PROG(vi_cv_path_python, python22)
++  AC_PATH_PROG(vi_cv_path_python, python2)
+   if test "X$vi_cv_path_python" != "X"; then
+ 
+     dnl -- get its version number
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14720,8 +14729,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-08-17 19:39:17.994844169 +0200
-+++ vim-qt-src/src/feature.h	2011-08-17 19:39:18.325852478 +0200
+--- vim-src/src/feature.h	2011-08-26 17:29:17.744646006 +0200
++++ vim-qt-src/src/feature.h	2011-08-26 17:29:17.907648055 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14954,8 +14963,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-08-10 18:24:48.000000000 +0200
-@@ -0,0 +1,1459 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-08-26 17:28:32.000000000 +0200
+@@ -0,0 +1,1462 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15212,8 +15221,11 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	QFontMetrics metric( *qf );
 +
-+	if ( metric.averageCharWidth() != metric.maxWidth() ) {
++	if ( VimWrapper::isFakeMonospace(*qf) || getenv("QVIM_DRAW_STRING_SLOW") ) {
 +		qDebug() << "Warning, fake monospace font?";
++		vimshell->setSlowStringDrawing( true );
++	} else {
++		vimshell->setSlowStringDrawing( false );
 +	}
 +
 +	gui.norm_font = qf;
@@ -16903,29 +16915,29 @@ diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 +};
 +
 +#endif
-Binary files vim-src/src/qt/icons/document-open-folder.png and vim-qt-src/src/qt/icons/document-open-folder.png differ
-Binary files vim-src/src/qt/icons/document-open.png and vim-qt-src/src/qt/icons/document-open.png differ
-Binary files vim-src/src/qt/icons/document-print.png and vim-qt-src/src/qt/icons/document-print.png differ
-Binary files vim-src/src/qt/icons/document-save-all.png and vim-qt-src/src/qt/icons/document-save-all.png differ
-Binary files vim-src/src/qt/icons/document-save-as.png and vim-qt-src/src/qt/icons/document-save-as.png differ
-Binary files vim-src/src/qt/icons/document-save.png and vim-qt-src/src/qt/icons/document-save.png differ
-Binary files vim-src/src/qt/icons/edit-copy.png and vim-qt-src/src/qt/icons/edit-copy.png differ
-Binary files vim-src/src/qt/icons/edit-cut.png and vim-qt-src/src/qt/icons/edit-cut.png differ
-Binary files vim-src/src/qt/icons/edit-find-replace.png and vim-qt-src/src/qt/icons/edit-find-replace.png differ
-Binary files vim-src/src/qt/icons/edit-paste.png and vim-qt-src/src/qt/icons/edit-paste.png differ
-Binary files vim-src/src/qt/icons/edit-redo.png and vim-qt-src/src/qt/icons/edit-redo.png differ
-Binary files vim-src/src/qt/icons/edit-undo.png and vim-qt-src/src/qt/icons/edit-undo.png differ
-Binary files vim-src/src/qt/icons/go-jump.png and vim-qt-src/src/qt/icons/go-jump.png differ
-Binary files vim-src/src/qt/icons/go-next.png and vim-qt-src/src/qt/icons/go-next.png differ
-Binary files vim-src/src/qt/icons/go-previous.png and vim-qt-src/src/qt/icons/go-previous.png differ
-Binary files vim-src/src/qt/icons/help-contents.png and vim-qt-src/src/qt/icons/help-contents.png differ
-Binary files vim-src/src/qt/icons/help-contextual.png and vim-qt-src/src/qt/icons/help-contextual.png differ
-Binary files vim-src/src/qt/icons/run-build-clean.png and vim-qt-src/src/qt/icons/run-build-clean.png differ
-Binary files vim-src/src/qt/icons/run-build.png and vim-qt-src/src/qt/icons/run-build.png differ
-Binary files vim-src/src/qt/icons/system-run.png and vim-qt-src/src/qt/icons/system-run.png differ
-Binary files vim-src/src/qt/icons/table.png and vim-qt-src/src/qt/icons/table.png differ
-Binary files vim-src/src/qt/icons/tab-new.png and vim-qt-src/src/qt/icons/tab-new.png differ
-Binary files vim-src/src/qt/icons/vim-qt.png and vim-qt-src/src/qt/icons/vim-qt.png differ
+Binaire bestanden vim-src/src/qt/icons/document-open-folder.png en vim-qt-src/src/qt/icons/document-open-folder.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/document-open.png en vim-qt-src/src/qt/icons/document-open.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/document-print.png en vim-qt-src/src/qt/icons/document-print.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/document-save-all.png en vim-qt-src/src/qt/icons/document-save-all.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/document-save-as.png en vim-qt-src/src/qt/icons/document-save-as.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/document-save.png en vim-qt-src/src/qt/icons/document-save.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-copy.png en vim-qt-src/src/qt/icons/edit-copy.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-cut.png en vim-qt-src/src/qt/icons/edit-cut.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-find-replace.png en vim-qt-src/src/qt/icons/edit-find-replace.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-paste.png en vim-qt-src/src/qt/icons/edit-paste.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-redo.png en vim-qt-src/src/qt/icons/edit-redo.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-undo.png en vim-qt-src/src/qt/icons/edit-undo.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/go-jump.png en vim-qt-src/src/qt/icons/go-jump.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/go-next.png en vim-qt-src/src/qt/icons/go-next.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/go-previous.png en vim-qt-src/src/qt/icons/go-previous.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/help-contents.png en vim-qt-src/src/qt/icons/help-contents.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/help-contextual.png en vim-qt-src/src/qt/icons/help-contextual.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/run-build-clean.png en vim-qt-src/src/qt/icons/run-build-clean.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/run-build.png en vim-qt-src/src/qt/icons/run-build.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/system-run.png en vim-qt-src/src/qt/icons/system-run.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/table.png en vim-qt-src/src/qt/icons/table.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/tab-new.png en vim-qt-src/src/qt/icons/tab-new.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/vim-qt.png en vim-qt-src/src/qt/icons/vim-qt.png zijn verschillend
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
 +++ vim-qt-src/src/qt/icons.qrc	2011-06-27 16:28:02.000000000 +0200
@@ -17217,8 +17229,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-08-10 18:24:48.000000000 +0200
-@@ -0,0 +1,1307 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-08-26 17:28:32.000000000 +0200
+@@ -0,0 +1,1300 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17229,7 +17241,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +QVimShell::QVimShell(QWidget *parent)
 +:QWidget(parent), m_encoding_utf8(true),
-+	m_lastClickEvent(-1), m_tooltip(0)
++	m_lastClickEvent(-1), m_tooltip(0), m_slowStringDrawing(false)
 +{
 +	// IM Tooltip
 +	m_tooltip = new QLabel(this);
@@ -17403,12 +17415,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	event->ignore();
 +}
 +
-+bool QVimShell::isFakeMonospace(const QFont& f)
-+{
-+	QFontMetrics fm(f);
-+	return ( fm.averageCharWidth() != VimWrapper::charWidth() );
-+}
-+
 +/*
 + * @Deprecated
 + *
@@ -17559,10 +17565,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			break;
 +		case DRAWSTRING:
 +			painter.setClipRect(op.rect);
-+			if ( getenv("QVIM_DRAW_STRING_SLOW") || op.str.length() != VimWrapper::stringCellWidth(op.str) ) {
++			if ( m_slowStringDrawing ) {
 +				drawStringSlow(op, painter);
-+			} else if ( isFakeMonospace(op.font) ) {
-+				qDebug() << __func__ << "Font size mismatch a.k.a. this is not a proper monospace font";
++			} else if ( op.str.length() != VimWrapper::stringCellWidth(op.str) ) {
 +				drawStringSlow(op, painter);
 +			} else {
 +				drawString(op, painter);
@@ -18528,8 +18533,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2011-08-10 18:24:48.000000000 +0200
-@@ -0,0 +1,151 @@
++++ vim-qt-src/src/qt/qvimshell.h	2011-08-26 17:28:32.000000000 +0200
+@@ -0,0 +1,152 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -18571,6 +18576,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	void setEncodingUtf8(bool);
 +	static void setupColorMap();
 +	virtual QVariant inputMethodQuery(Qt::InputMethodQuery);
++	void setSlowStringDrawing(bool slow) {m_slowStringDrawing = slow;}
 +
 +public slots:
 +	void setBackground(const QColor);
@@ -18611,7 +18617,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	void dropEvent(QDropEvent *);
 +
 +	void tooltip(const QString& );
-+	bool isFakeMonospace(const QFont &);
 +private:
 +	QColor m_background;
 +	int m_charWidth;
@@ -18632,6 +18637,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	static QHash<QString, QColor> m_colorMap;
 +	VimWrapper vim;
++	bool m_slowStringDrawing;
 +};
 +
 +struct special_key
@@ -19053,8 +19059,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,332 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2011-08-26 17:28:32.000000000 +0200
+@@ -0,0 +1,368 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -19249,6 +19255,42 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	return len;
 +}
 +
++bool VimWrapper::isFakeMonospace(QFont f)
++{
++	QFontMetrics fm_normal(f);
++	f.setItalic(true);
++	QFontMetrics fm_italic(f);
++	f.setBold(true);
++	QFontMetrics fm_boldit(f);
++	f.setItalic(false);
++	QFontMetrics fm_bold(f);
++
++	if ( fm_normal.averageCharWidth() != fm_normal.maxWidth() ) {
++		return true;
++	}
++
++	if ( fm_italic.averageCharWidth() != fm_italic.maxWidth() ) {
++		return true;
++	}
++
++	if ( fm_boldit.averageCharWidth() != fm_boldit.maxWidth() ) {
++		return true;
++	}
++
++	if ( fm_bold.averageCharWidth() != fm_bold.maxWidth() ) {
++		return true;
++	}
++
++	if ( fm_normal.maxWidth() != fm_italic.maxWidth() || 
++		fm_normal.maxWidth() != fm_boldit.maxWidth() || 
++		fm_normal.maxWidth() != fm_bold.maxWidth()) {
++		return true;
++	}
++
++	return false;
++}
++
++
 +QIcon VimWrapper::iconFromTheme(const QString& name)
 +{
 +	QIcon icon;
@@ -19389,8 +19431,8 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +
 diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 --- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.h	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,101 @@
++++ vim-qt-src/src/qt/vimwrapper.h	2011-08-26 17:28:32.000000000 +0200
+@@ -0,0 +1,102 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
 +
@@ -19442,6 +19484,7 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +
 +	static int stringCellWidth(const QString&);
 +	static int charCellWidth(const QChar&);
++	static bool isFakeMonospace(QFont );
 +
 +	/**
 +	 * Load icons
