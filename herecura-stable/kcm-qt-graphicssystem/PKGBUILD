@@ -1,9 +1,9 @@
 # Contributor: Mladen Pejakovic <pejakm@gmail.com>
 
 pkgname=kcm-qt-graphicssystem
-pkgver=1.2
+pkgver=1.3
 pkgdesc="This KCM allows you to easily configure the standard Qt graphics system."
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php?content=129817"
 license=(GPL)
@@ -11,7 +11,7 @@ makedepends=('cmake' 'automoc4')
 depends=('kdebase-workspace')
 options=()
 source=(http://kde-apps.org/CONTENT/content-files/129817-${pkgname}-${pkgver}.tar.xz)
-md5sums=('aef872cb2e892891a813026b0a8156f5')
+sha256sums=('c6dac4bfcdc32014566ee0ff73b3be7dafadd00136605d5f2b7f61d7cff32387')
 
 build(){	
 	cd ${srcdir}/${pkgname}-${pkgver}
