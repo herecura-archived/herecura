@@ -5,7 +5,7 @@
 # for his xbmc-vdpau-vdr PKGBUILD at https://archvdr.svn.sourceforge.net/svnroot/archvdr/trunk/archvdr/xbmc-vdpau-vdr/PKGBUILD
 
 pkgname=xbmc-git
-pkgver=20110831
+pkgver=20110901
 pkgrel=1
 pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
@@ -14,29 +14,32 @@ replaces=('xbmc-svn')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=('bzip2' 'faac' 'faad2' 'fribidi' 'glew' 'jasper' 'libass' 'libcdio' 'libgl' 'libmad' 'libmicrohttpd' 
-         'libmodplug' 'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libxtst' 'lzo2' 'python2' 'libplist'
-         'sdl_image>=1.2.10' 'sdl_mixer' 'smbclient' 'unzip' 'wavpack' 'mesa-demos' 'xorg-xdpyinfo' 'yajl')
+depends=('pcre' 'hicolor-icon-theme' 'libx11' 'freetype2' 'libjpeg-turbo' 'smbclient' 'libtiff' 'dbus-core' 'libpng' 'python2'
+	'libgl' 'glew' 'libmysqlclient' 'libass' 'libmpeg2' 'libmad' 'libsamplerate' 'libmodplug' 'lzo2' 'yajl' 'fribidi' 'libcdio' 'sdl_mixer' 'jasper' 'sdl_image' 'libplist' 'libmicrohttpd' 'unzip' 'libssh' 'mesa-demos' 'xorg-xdpyinfo'
+	'ffmpeg'
+	)
+#depends=('faac' 'faad2' 'fribidi' 'glew' 'jasper' 'libass' 'libcdio' 'libgl' 'libmad' 'libmicrohttpd' 
+#         'libmodplug' 'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libxtst' 'lzo2' 'python2' 'libplist' 'ffmpeg'
+#         'sdl_image>=1.2.10' 'sdl_mixer' 'smbclient' 'unzip' 'wavpack' 'mesa-demos' 'xorg-xdpyinfo' 'yajl')
 makedepends=('boost' 'cmake' 'git' 'gperf' 'nasm' 'libxinerama' 'libxrandr'
              # 'crystalhd-snapshot'
-             'zip'
-			 'libvdpau' 'libva')
+			 'libbluray'
+			 'zip')
 
 optdepends=(
             'gdb: for meaningful backtraces in case of trouble - STRONGLY RECOMMENDED' 
             'libcrystalhd: Broadcom CrystalHD kernel module'
             'libssh: support for sshfs'
-            'vdpau-video: accelerated video playback for nvidia cards' 
-            'libva: accelerated video playback for nvidia, ati/amd and some intel cards'
+            'xvba-video: accelerated video playback for amd cards' 
             'lirc: remote controller support' 
             'pulseaudio: pulseaudio support'
             'udisks: automount external drives' 
             'upower: used to trigger suspend functionality' 
             'unrar: access compressed files without unpacking them')
 install=("${pkgname}.install")
-source=( "FEH.sh" )
-sha256sums=('a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede')
-options=('strip' 'makeflags')
+source=()
+sha256sums=()
+options=()
 
 _prefix='/usr'
 
@@ -82,9 +85,6 @@ build() {
     # fix lsb_release dependency
     sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/arch-release:' xbmc/utils/SystemInfo.cpp
 
-	# remove "--as-needed" from LDFLAGS
-	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu"
-
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
 
@@ -115,12 +115,8 @@ package() {
 	msg2 "Running make install" 
 	make DESTDIR=${pkgdir} install
 
-	# Replace FEH.py with FEH.sh (and thus remove external python dependency)
-	msg2 "Replace FEH.py with FEH.sh (and thus remove external python dependency)"
-	install -Dm755 ${srcdir}/FEH.sh \
-		${pkgdir}${_prefix}/share/xbmc/FEH.sh
-	sed -i -e 's/^python \(.*\)FEH.py \(.*\)$/\1FEH.sh \2/' \
-		${pkgdir}${_prefix}/bin/xbmc
+	# run feh with python2
+    sed -i -e 's/python/python2/g' ${pkgdir}${_prefix}/bin/xbmc
 
 	# Tools
 	msg2 "Tools"
@@ -138,7 +134,6 @@ package() {
 	#cleanup some stuff
 	msg2 "cleanup unneeded files"
 	rm -rf ${pkgdir}/usr/share/xsessions
-	rm -f ${pkgdir}/usr/share/xbmc/FEH.py
 	# its not very usefull, and broken at the moment
 	rm -f ${pkgdir}/usr/bin/xbmc-standalone
 	# didnt we built --disable-xrandr ?
