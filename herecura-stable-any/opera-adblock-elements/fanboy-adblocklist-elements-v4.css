@@ -1,7 +1,7 @@
 /*
-! Checksum: Uvl+GRlha3ndtrjDG0PHAw
+! Checksum: pnUezhmEjd9udHmX2YE7/Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Sep 2011
+! Version: V4 Updated: 2 Sep 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1899,6 +1899,7 @@
 #parade_300ad,
 #parade_300ad2,
 #partner-ad,
+#partnerMedRec,
 #pb_report_ad,
 #pg-ad-item-160x600,
 #photo_ad_google,
@@ -3589,6 +3590,7 @@
 .block_ad_sb_text,
 .block_ad_sponsored_links-wrapper,
 .blockAd,
+.homeAdBox,
 .blockad,
 .blocked-ads,
 .blocsponsor,
