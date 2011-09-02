@@ -14443,8 +14443,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-08-28 17:49:15.553244164 +0200
-+++ vim-qt-src/src/configure.in	2011-08-28 17:49:18.267269279 +0200
+--- vim-src/src/configure.in	2011-09-02 19:08:05.968371846 +0200
++++ vim-qt-src/src/configure.in	2011-09-02 19:08:07.850385188 +0200
 @@ -1733,6 +1733,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
@@ -14720,8 +14720,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-08-28 17:49:15.540244043 +0200
-+++ vim-qt-src/src/feature.h	2011-08-28 17:49:18.252269140 +0200
+--- vim-src/src/feature.h	2011-09-02 19:08:05.959371783 +0200
++++ vim-qt-src/src/feature.h	2011-09-02 19:08:07.841385124 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14954,8 +14954,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-08-28 17:49:01.000000000 +0200
-@@ -0,0 +1,1462 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-09-02 19:07:56.000000000 +0200
+@@ -0,0 +1,1472 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -14974,6 +14974,15 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +static QColor foregroundColor;
 +static QColor backgroundColor;
 +static QColor specialColor;
++
++
++/*
++ * We delay Qt initialization and pass
++ * QApplication a pair of fake arguments
++ */
++int __argc = 1;
++char *__argv[] = {"qvim", NULL};
++
 +
 +/**
 + * Raise application window
@@ -15392,6 +15401,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_init()
 +{
 +
++#ifdef Q_WS_X11
++	bool useGUI = getenv("DISPLAY") != 0;
++#else
++	bool useGUI = true;
++#endif
++	QApplication *app = new QApplication(__argc, __argv, useGUI);
++
++
 +	window = new MainWindow(&gui);
 +
 +	// Load qVim settings
@@ -15458,13 +15475,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_prepare(int *argc, char **argv)
 +{
-+#ifdef Q_WS_X11
-+	bool useGUI = getenv("DISPLAY") != 0;
-+#else
-+	bool useGUI = true;
-+#endif
-+	QApplication *app = new QApplication(*argc, argv, useGUI);
-+
 +
 +#ifdef Q_WS_X11
 +	QColor::setAllowX11ColorNames(true);
