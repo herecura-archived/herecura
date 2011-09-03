@@ -7,7 +7,7 @@
 # Contributor: Cilyan Olowen <gaknar@gmail.com>
 
 pkgname=plymouth-git
-pkgver=20110902
+pkgver=20110903
 pkgrel=1
 pkgdesc="A graphical boot splash screen with kernel mode-setting support (Git version)"
 arch=('i686' 'x86_64')
