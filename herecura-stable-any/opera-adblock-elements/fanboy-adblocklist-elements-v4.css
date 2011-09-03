@@ -1,7 +1,7 @@
 /*
-! Checksum: pnUezhmEjd9udHmX2YE7/Q
+! Checksum: yDauCaCdj/U9fneJIgNCMA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Sep 2011
+! Version: V4 Updated: 3 Sep 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3108,7 +3108,6 @@
 .ads160,
 .ads2,
 .ads3,
-.bxad,
 .ads300,
 .ads300x250,
 .ads315,
@@ -3463,6 +3462,7 @@
 .adwrapper-lrec,
 .adwrapper948,
 .adzone,
+.adZoneRight,
 .AffAD,
 .affiliate-sidebar,
 .affiliate_header_ads,
@@ -3590,7 +3590,6 @@
 .block_ad_sb_text,
 .block_ad_sponsored_links-wrapper,
 .blockAd,
-.homeAdBox,
 .blockad,
 .blocked-ads,
 .blocsponsor,
@@ -3672,6 +3671,7 @@
 .buzzAd,
 .bx_ad,
 .bx_ad_right,
+.bxad,
 .cA-adStack,
 .cA-adStrap,
 .calloutAd,
@@ -3963,6 +3963,7 @@
 .home_advert,
 .homeAd1,
 .homeAd2,
+.homeAdBox,
 .homeadnews,
 .homeAdSection,
 .HomeContentAd,
@@ -4776,7 +4777,6 @@
 .width-ad-slug,
 .wikia-ad,
 .wikia_ad_placeholder,
-.adZoneRight,
 .wingadblock,
 .withAds,
 .wl-ad,
