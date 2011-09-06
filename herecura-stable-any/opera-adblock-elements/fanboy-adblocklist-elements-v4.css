@@ -1,7 +1,7 @@
 /*
-! Checksum: 8DjseOik4rah2A86qmiD+A
+! Checksum: lfVjun1IF+IeHnzOl2Z8NA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 5 Sep 2011
+! Version: V4 Updated: 6 Sep 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1207,6 +1207,7 @@
 #BottomAd,
 #bottomAd300,
 #bottomadbanner,
+#bottom-ad-tray,
 #bottomAds,
 #bottomads,
 #bottomadsense,
@@ -3268,6 +3269,7 @@
 .adSpot-textBoxGraphicRight,
 .adspot.mrec,
 .adSquare,
+.adssquare2,
 .adsrecnode,
 .adsRight,
 .adsskyscraper,
@@ -3666,6 +3668,9 @@
 .btm_ad_container,
 .btn-ad,
 .btn_ad,
+.buysellAdsSmall,
+.buysellAds,
+.gAds,
 .button_ad,
 .button_ads,
 .buzz_ad_wrap,
@@ -4445,6 +4450,7 @@
 .sideads,
 .sideAdTall,
 .sideadvert,
+.hide_ad,
 .sideAdWide,
 .sidebar-ad,
 .sidebar-ad-rect,
