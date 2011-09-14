@@ -72,8 +72,8 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/configure	2011-07-20 21:11:13.000000000 +0200
-@@ -1,10 +1,14361 @@
++++ vim-qt-src/src/configure	2011-09-14 17:04:51.000000000 +0200
+@@ -1,10 +1,14365 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -1537,7 +1537,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --enable-hangulinput    Include Hangul input support.
 +  --enable-xim            Include XIM input support.
 +  --enable-fontset        Include X fontset output support.
-+  --enable-gui=OPTS     X11 GUI default=auto OPTS=auto/no/gtk2/gnome2/motif/athena/neXtaw/photon/carbon
++  --enable-gui=OPTS     X11 GUI default=auto OPTS=auto/no/gtk2/gnome2/motif/athena/neXtaw/photon/carbon/qt
 +  --enable-gtk2-check     If auto-select GUI, check for GTK+ 2 default=yes
 +  --enable-gnome-check    If GTK GUI, check for GNOME default=no
 +  --enable-motif-check    If auto-select GUI, check for Motif default=yes
@@ -5751,7 +5751,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +eof
 +                    eval "`cd ${PYTHON3_CONFDIR} && make -f "${tmp_mkf}" __ | sed '/ directory /d'`"
 +          rm -f -- "${tmp_mkf}"
-+          vi_cv_path_python3_plibs="-L${PYTHON3_CONFDIR} -lpython${vi_cv_var_python3_version}"
++	  vi_cv_path_python3_plibs="-L${PYTHON3_CONFDIR} -lpython${vi_cv_var_python3_version}${vi_cv_var_python3_abiflags}"
 +          vi_cv_path_python3_plibs="${vi_cv_path_python3_plibs} ${python3_BASEMODLIBS} ${python3_LIBS} ${python3_SYSLIBS}"
 +                    vi_cv_path_python3_plibs=`echo $vi_cv_path_python3_plibs | sed s/-ltermcap//`
 +          vi_cv_path_python3_plibs=`echo $vi_cv_path_python3_plibs | sed s/-lffi//`
@@ -7785,7 +7785,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  fi
 +fi
 +
-+test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" && enable_gui=no
++echo "$enable_gui"
++test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" -a "x$enable_gui" != "xqt" && enable_gui=no
 +
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking --enable-gui argument" >&5
 +$as_echo_n "checking --enable-gui argument... " >&6; }
@@ -9053,7 +9054,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +# Check whether --with-qt-dir was given.
 +if test "${with_qt_dir+set}" = set; then :
-+  withval=$with_qt_dir; QT_DIR=("$withval")
++  withval=$with_qt_dir; QT_DIR="$withval"
 +fi
 +
 +
@@ -9173,7 +9174,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    fi
 +
 +
-+    # One last desperate attempt - for Gentoo
++    # One last desperate attempt - for Gentoo/Ubuntu
 +    if test "$QT_FOUND" = "no" ; then
 +        QT_FOUND="yes"
 +        QT_LIBDIR="/usr/lib/qt4"
@@ -9190,9 +9191,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
 +  test $ac_status = 0; }
 +        if test x"$ac_status" != x0; then
++		QT_FOUND="no"
 +		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
 +$as_echo "$QT_FOUND" >&6; }
-+		QT_FOUND="no"
 +        fi
 +
 +        # test Compile
@@ -9203,16 +9204,19 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
 +  test $ac_status = 0; }
 +        if test x"$ac_status" != x0; then
++		QT_FOUND="no"
 +                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
 +$as_echo "$QT_FOUND" >&6; }
-+		QT_FOUND="no"
 +        fi
 +
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
++$as_echo "$QT_FOUND" >&6; }
 +    fi
 +
 +    if test "$QT_FOUND" = "no" ; then
 +        as_fn_error $? "Could not locate Qt4" "$LINENO" 5
 +    fi
++
 +
 +
 +
@@ -14443,9 +14447,24 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-09-02 19:08:05.968371846 +0200
-+++ vim-qt-src/src/configure.in	2011-09-02 19:08:07.850385188 +0200
-@@ -1733,6 +1733,7 @@
+--- vim-src/src/configure.in	2011-09-14 17:05:15.540199750 +0200
++++ vim-qt-src/src/configure.in	2011-09-14 17:05:17.233222007 +0200
+@@ -1714,11 +1714,12 @@
+   fi
+ fi
+ 
+-test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" && enable_gui=no
++echo "$enable_gui"
++test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" -a "x$enable_gui" != "xqt" && enable_gui=no
+ 
+ AC_MSG_CHECKING(--enable-gui argument)
+ AC_ARG_ENABLE(gui,
+- [  --enable-gui[=OPTS]     X11 GUI [default=auto] [OPTS=auto/no/gtk2/gnome2/motif/athena/neXtaw/photon/carbon]], , enable_gui="auto")
++ [  --enable-gui[=OPTS]     X11 GUI [default=auto] [OPTS=auto/no/gtk2/gnome2/motif/athena/neXtaw/photon/carbon/qt]], , enable_gui="auto")
+ 
+ dnl Canonicalize the --enable-gui= argument so that it can be easily compared.
+ dnl Do not use character classes for portability with old tools.
+@@ -1733,6 +1734,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
  SKIP_CARBON=YES
@@ -14453,7 +14472,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  GUITYPE=NONE
  
  if test "x$QNX" = "xyes" -a "x$with_x" = "xno" ; then
-@@ -1770,7 +1771,8 @@
+@@ -1770,7 +1772,8 @@
  		SKIP_MOTIF=
  		SKIP_ATHENA=
  		SKIP_NEXTAW=
@@ -14463,7 +14482,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
      gtk2)	AC_MSG_RESULT(GTK+ 2.x GUI support)
  		SKIP_GTK2=;;
      gnome2)	AC_MSG_RESULT(GNOME 2.x GUI support)
-@@ -1782,6 +1784,8 @@
+@@ -1782,6 +1785,8 @@
  		SKIP_ATHENA=;;
      nextaw)	AC_MSG_RESULT(neXtaw GUI support)
  		SKIP_NEXTAW=;;
@@ -14472,7 +14491,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
      *)		AC_MSG_RESULT([Sorry, $enable_gui GUI is not supported]) ;;
    esac
  
-@@ -1855,6 +1859,17 @@
+@@ -1855,6 +1860,17 @@
    fi
  fi
  
@@ -14490,7 +14509,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  
  if test "x$MACOSX" = "xyes" -a -z "$SKIP_CARBON" -a "x$CARBON" = "xyes"; then
    AC_MSG_CHECKING(for Carbon GUI)
-@@ -1886,7 +1901,8 @@
+@@ -1886,7 +1902,8 @@
    SKIP_ATHENA=YES;
    SKIP_NEXTAW=YES;
    SKIP_PHOTON=YES;
@@ -14500,7 +14519,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  fi
  
  dnl define an autoconf function to check for a specified version of GTK, and
-@@ -2096,6 +2112,7 @@
+@@ -2096,6 +2113,7 @@
        SKIP_ATHENA=YES
        SKIP_NEXTAW=YES
        SKIP_MOTIF=YES
@@ -14508,7 +14527,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
        GUITYPE=GTK
        AC_SUBST(GTK_LIBNAME)
      fi
-@@ -2204,6 +2221,7 @@
+@@ -2204,6 +2222,7 @@
  if test -z "$SKIP_MOTIF"; then
    SKIP_ATHENA=YES
    SKIP_NEXTAW=YES
@@ -14516,7 +14535,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2305,6 +2323,178 @@
+@@ -2305,6 +2324,180 @@
    CPPFLAGS=$cppflags_save
  fi
  
@@ -14565,7 +14584,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    # --with-qt-dir overrides everything else
 +    AC_ARG_WITH([qt-dir], AC_HELP_STRING([--with-qt-dir=PATH],
 +					[to specify the Qt4 base prefix]),
-+				[QT_DIR=("$withval")],
++				[QT_DIR="$withval"],
 +				)
 +
 +    if test -n "$QT_DIR" ; then
@@ -14652,7 +14671,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    fi
 +
 +
-+    # One last desperate attempt - for Gentoo
++    # One last desperate attempt - for Gentoo/Ubuntu
 +    if test "$QT_FOUND" = "no" ; then
 +        QT_FOUND="yes"
 +        QT_LIBDIR="/usr/lib/qt4"
@@ -14664,23 +14683,25 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
 +        AC_TRY_EVAL(moc_try)
 +        if test x"$ac_status" != x0; then
-+		AC_MSG_RESULT($QT_FOUND)
 +		QT_FOUND="no"
++		AC_MSG_RESULT($QT_FOUND)
 +        fi
 +    
 +        # test Compile
 +        qt_try="$CXX $CXXFLAGS -I$QT_INCDIR -L$QT_LIBDIR -lQtGui qttest.cpp -o qttest"
 +        AC_TRY_EVAL(qt_try)
 +        if test x"$ac_status" != x0; then
-+                AC_MSG_RESULT($QT_FOUND)
 +		QT_FOUND="no"
++                AC_MSG_RESULT($QT_FOUND)
 +        fi
-+    
++
++	AC_MSG_RESULT($QT_FOUND)
 +    fi
 +
 +    if test "$QT_FOUND" = "no" ; then
 +        AC_MSG_ERROR(Could not locate Qt4)
 +    fi
++
 +
 +    AC_SUBST(QT_MOC)
 +    AC_SUBST(QT_LIBDIR)
@@ -14720,8 +14741,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-09-02 19:08:05.959371783 +0200
-+++ vim-qt-src/src/feature.h	2011-09-02 19:08:07.841385124 +0200
+--- vim-src/src/feature.h	2011-09-14 17:05:15.531199632 +0200
++++ vim-qt-src/src/feature.h	2011-09-14 17:05:17.224221889 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14954,7 +14975,7 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-09-02 19:07:56.000000000 +0200
++++ vim-qt-src/src/gui_qt.cpp	2011-09-14 17:04:51.000000000 +0200
 @@ -0,0 +1,1472 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
@@ -14980,8 +15001,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 + * We delay Qt initialization and pass
 + * QApplication a pair of fake arguments
 + */
-+int __argc = 1;
-+char *__argv[] = {"qvim", NULL};
++static int __argc = 1;
++static char *__argv[] = {"qvim", NULL};
 +
 +
 +/**
@@ -17230,7 +17251,7 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-08-26 17:28:32.000000000 +0200
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-09-14 17:04:51.000000000 +0200
 @@ -0,0 +1,1300 @@
 +#include "qvimshell.moc"
 +
@@ -17244,6 +17265,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +:QWidget(parent), m_encoding_utf8(true),
 +	m_lastClickEvent(-1), m_tooltip(0), m_slowStringDrawing(false)
 +{
++
 +	// IM Tooltip
 +	m_tooltip = new QLabel(this);
 +	m_tooltip->setVisible(false);
@@ -17257,6 +17279,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	setAttribute(Qt::WA_OpaquePaintEvent, true);
 +	setAttribute(Qt::WA_PaintOnScreen, true);
 +	setAcceptDrops(true);
++	setMouseTracking(true);
 +}
 +
 +void QVimShell::setBackground(const QColor color)
@@ -17625,7 +17648,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::mousePressEvent(QMouseEvent *ev)
 +{
 +	int but;
-+	setMouseTracking(true);
 +
 +	switch( ev->button() ) {
 +	case Qt::LeftButton:
@@ -17662,7 +17684,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +{
 +	vim.guiSendMouseEvent(MOUSE_RELEASE, ev->pos().x(),
 +					  ev->pos().y(), FALSE, 0);
-+	setMouseTracking(false);
 +}
 +
 +void QVimShell::wheelEvent(QWheelEvent *ev)
