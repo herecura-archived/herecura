@@ -1,7 +1,7 @@
 /*
-! Checksum: JCVo54+2WNWJdXhpQesOGg
+! Checksum: 0d1zel7ye/PmbozCENzXEQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 16 Sep 2011
+! Version: V4 Updated: 19 Sep 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -279,6 +279,7 @@
 #ad_130x250_inhouse,
 #ad_160_600,
 #ad_160_600_2,
+.adspot-title,
 #ad_160x160,
 #ad_160x600,
 #ad_190x90,
@@ -2091,6 +2092,7 @@
 #sidebar2-ads,
 #sidebar_ad,
 #sidebar_ads_180,
+.cbs-ad,
 #sidebar_box_add,
 #sidebar_topad,
 #sideBarAd,
@@ -2497,7 +2499,6 @@
 .ad-container-300x250,
 .ad-container-728x90,
 .ad-context,
-.ad-details,
 .ad-disclaimer,
 .ad-display,
 .ad-div,
@@ -2584,7 +2585,6 @@
 .ad-text-links,
 .ad-textG01,
 .ad-tile,
-.ad-title,
 .ad-top       ,
 .ad-top-300x250,
 .ad-unit-300-wrapper,
@@ -4412,6 +4412,7 @@
 .search-sponsor,
 .search_ad_box,
 .search_results_ad,
+.advertBox,
 .searchAd,
 .searchAds,
 .searchads,
@@ -4429,6 +4430,7 @@
 .showAd_No,
 .showAd_Yes,
 .ShowAdDisplay,
+.item-ads,
 .showcaseAd,
 .side-ad,
 .side-ad-120-bottom,
