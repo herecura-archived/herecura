@@ -1,20 +1,21 @@
+# Maintainer: BlackEagle <ike DOT devolder AT gmail DOT com>
 # Contributor: Piotr Husiatyński <phusiatynski@gmail.com>
 # Contributor: lp76 <l.peduto@gmail.com>
 
-pkgname=python-pymongo
+pkgname=python2-pymongo
 _pkgname=pymongo
-pkgver=1.11
+pkgver=2.0.1
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
 url="http://pypi.python.org/pypi/pymongo/"
 depends=('python2')
 arch=('i686' 'x86_64')
-makedepends=('setuptools')
+makedepends=('python2-distribute')
+replaces=('python-pymongo')
 source=(http://pypi.python.org/packages/source/p/${_pkgname}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('3969282dbf4616de48ebb3ced00844f86dd7e99bc7b738c2ef78af4b448f8b38')
 
-build() {
+package() {
   cd $srcdir/${_pkgname}-${pkgver}
   python2 setup.py install --root=$pkgdir
 }
