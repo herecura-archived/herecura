@@ -1,7 +1,7 @@
 # Contributor : Anish Bhatt <anish[removethis][at]gatech[dot]edu>
 
 pkgname=flashplugin-labs
-pkgver=11.0.1.98
+pkgver=11.0.1.129
 pkgrel=1
 
 pkgdesc='Adobe Flash Player 11 Labs'
@@ -9,19 +9,19 @@ url='http://labs.adobe.com/technologies/flashplatformruntimes/flashplayer11/'
 arch=('i686' 'x86_64')
 
 source=(
-	'http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_b2_install_lin_32_080811.tar.gz'
+	'http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_rc1_install_lin_32_090611.tar.g'
 	'mms.cfg'
 	'LICENSE'
 )
 md5sums=(
-	'285d585fd6bbf6bdaf16d404dceaa761'
+	'2a780926255d88f39f3b007f3d342e0d'
 	'df30781e4c9b789e2d7f6cdbd9f47d6b'
 	'05ccdb2de8f04af6641675975a807cf5'
 )
 
 if [[ $CARCH == x86_64 ]]; then
-source[0]=http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_b2_install_lin_64_080811.tar.gz
-md5sums[0]=87ccb674fbcf94739f82cc6089634623
+source[0]=http://download.macromedia.com/pub/labs/flashplatformruntimes/flashplayer11/flashplayer11_rc1_install_lin_64_090611.tar.gz
+md5sums[0]=fd9bea881552223ddd73ccd84d2cd459
 fi
 
 depends=('mozilla-common' 'libxt' 'gtk2' 'nss' 'curl')
