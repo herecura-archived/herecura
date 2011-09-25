@@ -1,7 +1,7 @@
 /*
-! Checksum: kHMmODC9na65PppLL+IYNw
+! Checksum: BAoYV1mIjo3OSf/WFFybZw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 23 Sep 2011
+! Version: V4 Updated: 24 Sep 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1260,6 +1260,7 @@
 #clickforad,
 #clientAds,
 #closeable-ad,
+.ads_topbanner,
 #closeAdsDiv,
 #cnnCMAd,
 #cnnSponsoredPods,
@@ -2386,6 +2387,7 @@
 #WindowAdHolder,
 #WNAd1,
 #WNAd20,
+#ad_overlay_countdown,
 #WNAd41,
 #WNAd43,
 #WNAd52,
@@ -3593,6 +3595,7 @@
 .block-openx,
 .block-sponsored-links,
 .block-thirdage-ads,
+.ad-google-contextual,
 .block-zagat_ads,
 .block_ad,
 .block_ad_sb_text,
@@ -4564,11 +4567,13 @@
 .sponsorArea,
 .sponsored-ad-ob,
 .sponsored-ads,
+#secondad,
 .sponsored-b,
 .sponsored-header,
 .sponsored-links,
 .sponsored-links-col,
 .sponsored-links-holder,
+#overlayadd,
 .sponsored-links-tbl,
 .sponsored-results,
 .sponsored-rule,
@@ -4583,6 +4588,7 @@
 .sponsored_links_container,
 .sponsored_results,
 .sponsored_ss,
+#ad_banner_300x250,
 .SponsoredAdTitle,
 .sponsoredFeature,
 .sponsoredLink,
