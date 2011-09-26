@@ -13,7 +13,6 @@ depends=('bash' 'zlib')
 options=('!libtool' '!makeflags')
 install="$pkgname.install"
 source=("http://download.httrack.com/$pkgname-$pkgver.tar.gz")
-md5sums=('7aaf56913388adfdba506c346c2ca020')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -28,3 +27,4 @@ package() {
 
   make DESTDIR="$pkgdir/" install
 }
+sha256sums=('af95a730eff665d8275770951e8816bb29def5dc66d9faeaad91f93f686c9ddd')
