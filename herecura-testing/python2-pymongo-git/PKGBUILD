@@ -3,7 +3,7 @@
 
 pkgname=python2-pymongo-git
 pkgver=20110929
-pkgrel=1
+pkgrel=2
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
 url="http://pypi.python.org/pypi/pymongo/"
