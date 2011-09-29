@@ -10,16 +10,16 @@ license=('BSD')
 depends=('python2')
 makedepends=('python2-distribute')
 provides=('python-gflags')
-source=("http://${pkgname}.googlecode.com/files/${pkgname}-${pkgver}.tar.gz")
+source=("http://${pkgname}.googlecode.com/files/${pkgname/python2/python}-${pkgver}.tar.gz")
 sha256sums=('2727d3a1c9d7a3b28c64550d6c653fcf66fa6927023edcec3b58dcbeab50185f')
 
 build() {
-	cd ${pkgname}-${pkgver}
+	cd ${pkgname/python2/python}-${pkgver}
 	python2 setup.py build
 }
 
 package() {
-	cd ${pkgname}-${pkgver}
+	cd ${pkgname/python2/python}-${pkgver}
 	python2 setup.py install --root=${pkgdir}
 	chmod +r ${pkgdir}/* -R
 	#install -dm755 ${pkgdir}/usr/share/licenses/${pkgname}
