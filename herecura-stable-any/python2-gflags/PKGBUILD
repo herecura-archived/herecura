@@ -10,7 +10,7 @@ license=('BSD')
 depends=('python2')
 makedepends=('python2-distribute')
 provides=('python-gflags')
-source=("http://${pkgname}.googlecode.com/files/${pkgname/python2/python}-${pkgver}.tar.gz")
+source=("http://${pkgname/python2/python}.googlecode.com/files/${pkgname/python2/python}-${pkgver}.tar.gz")
 
 build() {
 	cd ${pkgname/python2/python}-${pkgver}
