@@ -1,7 +1,7 @@
 /*
-! Checksum: n5E++rCQ23rGqpf80In/xQ
+! Checksum: YNdiLEfW8eAteOHJ8orHIw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Sep 2011
+! Version: V4 Updated: 28 Sep 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2998,6 +2998,7 @@
 .adintro,
 .adkicker,
 .adkit-advert,
+#header_adsense,
 .adkit-lb-footer,
 .adLabel,
 .adlabel,
@@ -4547,8 +4548,10 @@
 .spons-link,
 .spons-wrap,
 .spons_link_header,
+#bottom_ads,
 .sponsBox,
 .sponser-link,
+#memberad,
 .sponserLink,
 .sponserlink,
 .sponslink,
@@ -5288,6 +5291,8 @@ div[class="w460 clr"],
 #bizbox_flyout,
 #bizbox_links_bottom,
 #bizbox_links_right_rail,
+/* lurkmore.ru */
+a[href^="http://lurkmore.ru/adbl?"],
 /* sltrib.com */
 .adElement,
 /* smh.com.au */
