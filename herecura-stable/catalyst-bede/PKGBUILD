@@ -9,7 +9,7 @@
 _kernver='3.0-BEDE'
 
 pkgname=catalyst-bede
-pkgver=11.8
+pkgver=11.9
 pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
@@ -18,7 +18,6 @@ license=('custom')
 makedepends=("catalyst-utils=${pkgver}" 'linux-bede-headers>=3.0' 'linux-bede-headers<3.1')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
-replaces=('catalyst-bemm')
 install=${pkgname}.install
 
 source=(
@@ -27,7 +26,7 @@ source=(
 )
 
 md5sums=(
-	'f97a884c3b3c6263091a3035a7046318'
+	'2c6af8691b4d68709d0e0e04b96d0a3e'
 	'3e1b82bd69774ea808da69c983d6a43b'
 )
 
