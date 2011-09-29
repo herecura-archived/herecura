@@ -8,6 +8,7 @@ pkgdesc="Python driver for MongoDB"
 license=("APACHE")
 url="http://pypi.python.org/pypi/pymongo/"
 depends=('python2') 
+provides=('python2-pymongo')
 makedepends=('python2-distribute' 'git')
 source=()
 arch=('i686' 'x86_64')
