@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=6
+pkgrel=7
 pkgdesc="XBMC software media player and entertainment hub for digital media"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -15,7 +15,7 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper sqlite3 rtmpdump fontconfig enca)
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video' 'gcc45')
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video')
 optdepends=(
 	'lirc: remote controller support' 
 	'vdpau-video: for nvidia hardware accelleration'
@@ -25,9 +25,17 @@ optdepends=(
 	'lcms'
 )
 install=("${pkgname}.install")
-source=( "http://mirrors.xbmc.org/releases/source/${pkgname}-${pkgver}.tar.gz" "FEH.sh" )
-sha256sums=('3403195b7eb1d076523f2394793b7f050df00743892b031f6fea86b998559d8a'
-            'a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede')
+source=(
+	"http://mirrors.xbmc.org/releases/source/${pkgname}-${pkgver}.tar.gz"
+	'FEH.sh'
+	'xbmcplugin_int_format.patch'
+)
+
+sha256sums=(
+	'3403195b7eb1d076523f2394793b7f050df00743892b031f6fea86b998559d8a'
+	'a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede'
+	'5e21ea32c86ec04d2c86d56e6294cf2fe52c90c8a31199982c75adf77ac45fc5'
+)
 options=(strip)
 
 _prefix='/usr'
@@ -46,7 +54,10 @@ build() {
 	# undefined symbols at runtime:
 	# /usr/lib/xbmc/system/players/dvdplayer/avcodec-52-i486-linux.so:
 	#  undefined symbol: NeAACDecOpen
-	unset LDFLAGS; LDFLAGS="-Wl,--hash-style=gnu"
+	unset LDFLAGS; LDFLAGS="-Wl,-O1,--sort-common,-z,relro,--hash-style=gnu"
+
+	# Python parse had wrong native type
+	(cd xbmc/lib/libPython/xbmcmodule && patch -p5 < ${srcdir}/xbmcplugin_int_format.patch)
 
 	# fix linking issue with gcc 4.5, see git 6ea61fce78q
 	sed -i 's: --soname,: -Wl,--soname,:' \
@@ -54,9 +65,6 @@ build() {
 
 	# fix lsb_release dependency
 	sed -i -e 's:/usr/bin/lsb_release -d:cat /etc/arch-release:' xbmc/utils/SystemInfo.cpp
-
-	export CC=gcc-4.5
-	export CXX=g++-4.5
 
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
