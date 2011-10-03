@@ -3,7 +3,7 @@
 # Contributor: chochem <chochem@gmail.com>
 
 pkgname=xmlstarlet
-pkgver=1.2.1
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="A set of tools to transform, query, validate, and edit XML documents"
 arch=('i686' 'x86_64')
@@ -31,4 +31,4 @@ package() {
   cp Copyright $pkgdir/usr/share/licenses/$pkgname/COPYING
   ln -s /usr/bin/xml ${pkgdir}/usr/bin/xmlstarlet
 }
-sha256sums=('ac63b75c6175d37f1097d1d9b257adffb7e004e3de536e47ce6478559bc07fe0')
+sha256sums=('81ebdcd81cd44f908d85fc5fb3acf9dd174eb48ef866f826fbd6afbf25f31343')
