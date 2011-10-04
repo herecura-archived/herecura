@@ -1,7 +1,7 @@
 /*
-! Checksum: VRnjTa/GuKHAoDipI/kzrQ
+! Checksum: vE3BBtAplX+8x7MN0+NXkQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Oct 2011
+! Version: V4 Updated: 3 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2178,6 +2178,7 @@
 #sponsoredLinks,
 #sponsoredlinks,
 #sponsoredlinks_cntr,
+#ad2-home,
 #sponsoredLinksBox,
 #sponsoredresults_top,
 #sponsoredresultsBottom_body,
@@ -3309,6 +3310,7 @@
 .adtech-boxad,
 .adtext_gray,
 .adtext_white,
+.ad-column,
 .adTextPmpt,
 .adtile,
 .adTileWrap,
