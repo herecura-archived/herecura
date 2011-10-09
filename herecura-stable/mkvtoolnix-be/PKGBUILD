@@ -3,7 +3,7 @@
 # Contributor: 03/08/04 <lefungus@altern.org>
 
 pkgname=mkvtoolnix-be
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files, with gui's"
 arch=('i686' 'x86_64')
@@ -34,4 +34,4 @@ package () {
 
   ./drake DESTDIR="${pkgdir}" install
 }
-sha256sums=('48ba62de06e0c0e318c5484c57e71fa8d1e4ed10aa54442c7f608466a894d969')
+sha256sums=('eecc48d17c0583b6b071e710bfe88ae09439bd99bb90c694a2fed0651bb08f19')
