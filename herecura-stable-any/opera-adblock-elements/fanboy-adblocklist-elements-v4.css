@@ -1,7 +1,7 @@
 /*
-! Checksum: yW8TZ3woqncQpQS4DkJs+A
+! Checksum: EBjU/g03tGYfbm6vAlwLlQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 8 Oct 2011
+! Version: V4 Updated: 10 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -4876,7 +4876,6 @@
 #psmpopup,
 .credited_ad.
 .vidadtext,
-#[id^="YFBMSN"],
 #im_popupFixed,
 a[href^="http://c.actiondesk.com/"],
 a[href^="http://www.fleshlight.com/"],
