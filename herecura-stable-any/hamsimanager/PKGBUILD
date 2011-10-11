@@ -1,6 +1,6 @@
 pkgname=hamsimanager
 _realname=HamsiManager
-pkgver=0.9.72
+pkgver=0.9.73
 pkgrel=1
 pkgdesc="Hamsi Manager is a file manager,renamer,id3 tagger,information changer ,.... tool."
 arch=('any')
@@ -14,9 +14,6 @@ optdepends=(
 source=("https://downloads.sourceforge.net/project/hamsimanager/$_realname-$pkgver.tar.gz"
 	'hamsi.launcher'
 	'compile.py')
-sha256sums=('fb005260b641628e8cf4595115dfc031b9f2018381e32e912f56a555717a233b'
-            '579745bfbe0f5ec06a34f8b87702f23d95a8ba06c907e35248a215a569511079'
-            '595bcb1e158c3ab4cf12e0ee1ad8a0627f5980ab7be4eeb33fc1f7d93aa073e6')
 
 _destdir="/usr/lib"
 
@@ -51,3 +48,6 @@ package() {
 	install -dm755 ${pkgdir}${_destdir}
 	cp -a ${_realname} ${pkgdir}${_destdir}/${pkgname}
 }
+sha256sums=('0826dbb9469d001d4392e87dfc4ed0ff80f0bd1c4d88b252428edf7171c8f6c5'
+            '579745bfbe0f5ec06a34f8b87702f23d95a8ba06c907e35248a215a569511079'
+            '595bcb1e158c3ab4cf12e0ee1ad8a0627f5980ab7be4eeb33fc1f7d93aa073e6')
