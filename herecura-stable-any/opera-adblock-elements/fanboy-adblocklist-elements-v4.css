@@ -1,7 +1,7 @@
 /*
-! Checksum: EBjU/g03tGYfbm6vAlwLlQ
+! Checksum: /T2Kz+c6Lnt7n/K1O+Us9g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Oct 2011
+! Version: V4 Updated: 11 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2169,6 +2169,8 @@
 #sponsor_div,
 #sponsor_header,
 #sponsor_partner_single,
+.adsense-links2,
+.adsense-links,
 #sponsorBanners32,
 #sponsored-links,
 #sponsored-links-list,
@@ -3253,6 +3255,7 @@
 .adSky,
 .adSky600,
 .adSkyscaper,
+#ad-160,
 .adSkyscraper,
 .adSkyscraperHolder,
 .adsleaderboard,
@@ -3430,6 +3433,7 @@
 .advertisement-space,
 .advertisement-sponsor,
 .advertisement-text,
+.squareads,
 .advertisement-top,
 .advertisement-txt,
 .advertisement300x250,
@@ -3475,6 +3479,8 @@
 .advfrm,
 .advhere,
 .Advman_Widget,
+.adPlaceholder35,
+.adPlaceholder54,
 .advt-block,
 .advt300,
 .advt720,
@@ -3503,6 +3509,9 @@
 .amAdvert,
 .anchorAd,
 .annonce_textads,
+#adInstoryOneWrap,
+#adInstoryTwoWrap,
+.adBGcolor,
 .annonstext,
 .ap_str_ad,
 .apiAdMarkerAbove,
@@ -3947,6 +3956,7 @@
 .gr-adcast,
 .gradientAd,
 .graphic_ad,
+#ad-block,
 .grev-ad,
 .grey-ad-line,
 .gridAd,
@@ -4005,6 +4015,9 @@
 .homepage-footer-ads,
 .homepage-sponsoredlinks-container,
 .homepage_middle_right_ad,
+.buySellAdsContainer,
+.ad-300-250,
+.ad-468,
 .homepageAd,
 .homepageMPU,
 .hor_ad,
@@ -4580,6 +4593,7 @@
 .sponsorad,
 .sponsoradlabel,
 .sponsorAds,
+#advertorial_block_3,
 .sponsorads,
 .sponsoradtitle,
 .sponsorArea,
@@ -4592,6 +4606,8 @@
 .sponsored-links-holder,
 .sponsored-links-tbl,
 .sponsored-results,
+#sidebaradcontainer,
+.adPlaceholder,
 .sponsored-rule,
 .sponsored-text,
 .sponsored_ad,
