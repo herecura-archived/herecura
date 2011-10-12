@@ -9,7 +9,7 @@ true && pkgname=("linux${_kernelname}" "linux${_kernelname}-headers")
 _basekernel=3.0
 _patchver=6
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -22,14 +22,16 @@ source=(
 	"config-${_basekernel}-server.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux${_kernelname}.preset"
+	# besrv patches, coming from suse
+	"http://www.herecura.be/files/linux/patches-besrv-${_basekernel}-1.tar.gz"
 )
 sha256sums=(
 	'64b0228b54ce39b0b2df086109a7b737cde58e3df4f779506ddcaccee90356a0'
-	'2796f997b9736981203a334f43475cb00e4f110e5dd9cedb54f8e740dff17a58'
-	'f79ffd6e644740ca6cf0c584943c07f24ba10cc756d78c4b083d3e5e51e28ced'
+	'f8baee4f5373671562f19d58355e0276a7ff31dededa67d00f803d974f771bdf'
+	'234995dcceac0270ee0d8b97d55dca735a9b0a947faf3a99647692265d2aa54f'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
+	'44d5cb5bf4f5da496bf1d7d90964a3686aa1f1968de25fc4f80d28fd7b792632'
 )
-
 # revision patches
 if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
@@ -74,6 +76,13 @@ build() {
 		patch -Np1 -i ${srcdir}/${_patchname}
 	fi
 
+	# besrv patch
+	( cd ${srcdir}/patches-besrv; sha256sum -c checksums.sha256 )
+	for besrvpatch in $(ls ${srcdir}/patches-besrv -I checksums.sha256); do
+		msg2 "apply ${besrvpatch}"
+		patch -Np1 -i ${srcdir}/patches-besrv/${besrvpatch}
+	done
+
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
 		msg2 "apply ${patch}"
@@ -113,7 +122,7 @@ build() {
 	####################
 	# yes "" | make config
 	# build!
-	make ${MAKEFLAGS} bzImage modules
+	make ${MAKEFLAGS}
 }
 
 package_linux-besrv() {
@@ -143,7 +152,7 @@ package_linux-besrv() {
 	_kernver=$(make kernelrelease)
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=${pkgdir} modules_install
 	cp System.map ${pkgdir}/boot/System.map${_kernelname}
-	cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz${_kernelname}
+	cp arch/$KARCH/boot/vmlinuz ${pkgdir}/boot/vmlinuz${_kernelname}
 
 	# install fallback mkinitcpio.conf file and preset file for kernel
 	install -m644 -D ${srcdir}/${pkgname}.preset ${pkgdir}/etc/mkinitcpio.d/${pkgname}.preset
