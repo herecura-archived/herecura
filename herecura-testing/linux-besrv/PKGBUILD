@@ -9,7 +9,7 @@ true && pkgname=("linux${_kernelname}" "linux${_kernelname}-headers")
 _basekernel=3.0
 _patchver=6
 pkgver=${_basekernel}
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -79,6 +79,8 @@ build() {
 		patch -Np1 -i ${srcdir}/${patch}
 	done
 
+	# set configuration
+	msg2 "copy configuration"
 	if [ "$CARCH" = "x86_64" ]; then
 		cat ../config-${_basekernel}-server.x86_64 >./.config
 	else
@@ -88,15 +90,24 @@ build() {
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U${_kernelname}\"|g" ./.config
 	fi
 
-	# remove the sublevel from Makefile
-	# this ensures our kernel version is always 3.X-BEDE
-	# this way, minor kernel updates will not break external modules
-	sed -ri 's|^(SUBLEVEL =).*|\1|' Makefile
-
 	# hack to prevent output kernel from being marked as dirty or git
+	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > ${srcdir}/linux-${_basekernel}/.scmversion
 
+	# set buildnumber
+	msg2 "apply buildnr"
+	__buildnr=$(expr ${pkgrel} - 1)
+	if [ $? -eq 0 ]; then
+		if [ ${__buildnr} -le 0 ]; then
+			__buildnr=0
+		fi
+	else
+		__buildnr=0
+	fi
+	echo ${__buildnr} > ${srcdir}/linux-${_basekernel}/.version
+
 	# get kernel version
+	msg2 "prepare"
 	make prepare
 	# load configuration
 	# Configure the kernel. Replace the line below with one of your choice.
@@ -112,24 +123,25 @@ build() {
 	####################
 	# yes "" | make config
 	# build!
+	msg2 "build"
 	make ${MAKEFLAGS} bzImage modules
 }
 
 package_linux-besrv() {
 	pkgdesc="The Linux Kernel and modules, BlackEagle Server Edition"
 	groups=('base')
-	provides=('linux')
+	provides=('linux' 'linux-firmware')
 	backup=(
 		"etc/mkinitcpio.d/${pkgname}.preset"
 	)
 	depends=('coreutils' 'module-init-tools>=3.12-2' 'mkinitcpio>=0.7')
 	optdepends=(
 		'crda: to set the correct wireless channels of your country'
-		'linux-firmware: when having some hardware needing special firmware'
 	)
 	replaces=(
 		'nouveau-drm' 'kernel26-slk' "kernel26${_kernelname}" "linux-bemm"
 	)
+	conflicts=('linux-firmware')
 
 	install=${pkgname}.install
 
@@ -162,9 +174,6 @@ package_linux-besrv() {
 
 	# remove build and source links
 	rm -f ${pkgdir}/lib/modules/${_kernver}/{source,build}
-
-	# remove the firmware
-	rm -rf ${pkgdir}/lib/firmware
 
 	# gzip all modules
 	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
