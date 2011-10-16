@@ -1,7 +1,7 @@
 /*
-! Checksum: spNe094e4Mk6+aC400+lGQ
+! Checksum: 8jPtZYWGc8KrlhwNlx4lYw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 Oct 2011
+! Version: V4 Updated: 15 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1299,6 +1299,7 @@
 #container-ad-topright,
 #containerSqAd,
 #content-ad,
+#advertisementDIV2,
 #content-header-ad,
 #content_ad_block,
 #content_ad_top,
@@ -2614,6 +2615,7 @@
 .ad-sp,
 .ad-space,
 .ad-space-topbanner,
+#bottom_ad_box,
 .ad-spot,
 .ad-square2-container,
 .ad-squares,
@@ -2734,6 +2736,11 @@
 .ad_3,
 .ad_300,
 .ad_300_120,
+.ads_up,
+.ads_post_start_code,
+.ads_post_end_code,
+.ads_post_start,
+.ads_post_end,
 .Ad_300_250,
 .ad_300_250,
 .ad_300_250_wrapper,
@@ -3530,7 +3537,6 @@
 .adwordsHeader,
 .adWrap,
 .adwrap,
-.adWrapper,
 .adwrapper-lrec,
 .adwrapper948,
 .adzone,
@@ -5141,6 +5147,11 @@ div[id$="_adcontent"],
 .pad9px_right,
 /* detnews.com */
 .bannerSpace.clearfix,
+/* demonoid.me */
+#bnrtcontainer,
+#bnrrcontainer,
+#torrentbanner,
+#bannersquare,
 /* deviantart.com */
 #adso-magnifico,
 .ad-blocking-makes-fella-confused,
