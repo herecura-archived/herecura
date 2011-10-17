@@ -1,7 +1,7 @@
 /*
-! Checksum: 8jPtZYWGc8KrlhwNlx4lYw
+! Checksum: TvEcBpUHu3jTGqdXVcrvIA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 15 Oct 2011
+! Version: V4 Updated: 16 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1413,6 +1413,8 @@
 #featured_sponsor_cnt,
 #featuredAds,
 #featuredAdWidget,
+#sidebarTextAds,
+#smxTextAd,
 #featuredSponsors,
 #ffsponsors,
 #first-300-ad,
@@ -3851,6 +3853,7 @@
 .dfrads,
 .diggable-ad-sponsored,
 .DisplayAd,
+.newadsky-wrapper,
 .displayAd,
 .displayAdUnit,
 .div_advertisement,
