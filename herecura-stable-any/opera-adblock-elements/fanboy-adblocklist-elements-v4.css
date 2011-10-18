@@ -1,7 +1,7 @@
 /*
-! Checksum: TvEcBpUHu3jTGqdXVcrvIA
+! Checksum: 8bqbD0rIs53U4BH+vP/yRw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 16 Oct 2011
+! Version: V4 Updated: 17 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1304,6 +1304,7 @@
 #content_ad_block,
 #content_ad_top,
 #content_ads_content,
+#content_right_area_ads,
 #content_box_adright300_google,
 #contentAd,
 #contentad,
@@ -2490,6 +2491,7 @@
 .ad-160x600x1,
 .ad-160x600x2,
 .ad-160x600x3,
+.adBox250,
 .ad-2,
 .ad-250,
 .ad-300,
@@ -4101,6 +4103,7 @@
 .inlineAd_content,
 .inlineAdNotice,
 .inlineSideAd,
+#content_ads,
 .inlist-ad,
 .inner-ad,
 .inner-advt-banner-3,
@@ -5197,8 +5200,15 @@ div[id="leaderboard"],
 #home_sponsor_nile,
 .UIWashFrame_SidebarAds,
 .UIStandardFrame_SidebarAds,
-.ego_unit.ego_spo,
+.ego_spo,
 .fbEmu,
+.UIWashFrame_SidebarAds,
+.fbEmuBlock,
+.fbPhotoSnowboxAds,
+.fbEmuEgoUnit,
+.fbTimelineSideAds,
+.fbEmuLink,
+.fbPhotoAdsCol,
 /* forbes.com */
 #colAd,
 /* forums.somethingawful.com */
