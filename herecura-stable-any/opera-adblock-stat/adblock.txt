@@ -1,0 +1,6 @@
+;extra adblock
+*adjuggler.net*
+*kozmetikcerrahi.jpg
+*sacekimi.jpg
+*findppc.net*
+*yesadvertising.com*

@@ -2,7 +2,7 @@
 
 pkgname=opera-adblock-stat
 pkgver=20111020
-pkgrel=1
+pkgrel=2
 pkgdesc="Fanboy's Main AdBlock Filterset for Opera"
 arch=('any')
 url="http://www.fanboy.co.nz/adblock/opera/"
@@ -10,11 +10,12 @@ license=('cc-by-3.0')
 conflicts=('opera-adblock' 'opera-adblock-complete')
 replaces=('opera-adblock-complete')
 install=${pkgname}.install
-source=('urlfilter-stat.ini')
+source=('urlfilter-stat.ini' 'adblock.txt')
 
 package() {
 	depends=('opera')
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-stat/}
 	install -m644 urlfilter-stat.ini ${pkgdir}/usr/share/${pkgname/-stat/}/urlfilter-stat.ini
+	cat ${srcdir}/adblock.txt >> ${pkgdir}/usr/share/${pkgname/-stat/}/urlfilter-stat.ini
 }
-sha256sums=('87e0ddde1049e9764536ebff6cf78a9e9e2e332a2f4adeaabc572af6029a2856')
+sha256sums=('87e0ddde1049e9764536ebff6cf78a9e9e2e332a2f4adeaabc572af6029a2856' '590987ddd0890014261ebb8dec2ee9373da22d88feaa4ba53fb9794dc7db526e')
