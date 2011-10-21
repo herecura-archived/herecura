@@ -1,7 +1,7 @@
 /*
-! Checksum: qQ8d/Zx7w/Vfa04N8+RdTw
+! Checksum: sywe+LjX/Aw+240dlBbgjg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Oct 2011
+! Version: V4 Updated: 20 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3099,6 +3099,7 @@
 .adPageBorderR,
 .adPanel,
 .adplace,
+#ad_leaderboard_flex,
 .adplace_center,
 .AdPlaceHolder,
 .adPlaceholder,
@@ -3535,6 +3536,18 @@
 .Advman_Widget,
 .adVplaceholder,
 .advt-block,
+.adsLibrary,
+.adslibraryArticle,
+#ad-300x250-2,
+#ad-300x40-1,
+#ad-728x90-1,
+#ad-240x400-2,
+#ad-220x90-1,
+#ad-240x400-1,
+#ad-180x150-1,
+#ad-120x600-other,
+#ad-120x600-1,
+.contextualAds,
 .advt300,
 .advt720,
 .adWidget,
