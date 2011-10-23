@@ -4,13 +4,17 @@
 
 pkgname=mkvtoolnix-be
 pkgver=5.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Set of tools to create, edit and inspect Matroska files, with gui's"
 arch=('i686' 'x86_64')
 license=('GPL')
 url="http://www.bunkus.org/videotools/mkvtoolnix/index.html"
-depends=('libmatroska' 'flac' 'libvorbis' 'file' 'wxgtk' 'boost-libs' 'lzo2' 'xdg-utils')
-makedepends=('boost' 'ruby')
+depends=('libmatroska' 'flac' 'libvorbis' 'file' 'boost-libs' 'lzo2')
+makedepends=('boost' 'ruby' 'qt' 'wxgtk')
+optdepends=(
+	'wxgtk: gtk gui for mkvinfo and mmg'
+	'qt: qt gui for mkvinfo and mmg'
+)
 conflicts=('mkvtoolnix' 'mkvmerge-gui')
 install=mkvtoolnix.install
 source=("http://www.bunkus.org/videotools/${pkgname/-be/}/sources/${pkgname/-be/}-${pkgver}.tar.bz2")
@@ -25,7 +29,8 @@ build() {
 
   ./configure --prefix=/usr \
               --with-boost-libdir=/usr/lib \
-			  --enable-gui
+			  --enable-gui \
+			  --enable-qt
   ./drake
 }
 
