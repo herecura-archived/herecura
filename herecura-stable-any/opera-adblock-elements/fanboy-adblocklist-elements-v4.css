@@ -1,7 +1,7 @@
 /*
-! Checksum: xvjcaVnjp623j8aZqxFgDA
+! Checksum: Dm8yT+cUJAWVDvjdjmx5uA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 21 Oct 2011
+! Version: V4 Updated: 22 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2453,6 +2453,7 @@
 #wrapper_sponsoredlinks,
 #wrapperAdsTopLeft,
 #wrapperAdsTopRight,
+#ad-300x40-2,
 #wrapperRightAds,
 #xColAds,
 #y-ad-units,
@@ -4414,6 +4415,7 @@
 .pulse360ad,
 .pushdownAd,
 .pxz-taskbar-anchor,
+#adDiv0,
 .quigo,
 .quigo-ad,
 .quigoAdCenter,
