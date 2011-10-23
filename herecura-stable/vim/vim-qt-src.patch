@@ -59,21 +59,21 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +target_link_libraries(qvim -lm -lncurses -lacl -lgpm ${QT_LIBRARIES})
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
 --- vim-src/src/config.mk.in	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/config.mk.in	2011-06-27 16:28:02.000000000 +0200
++++ vim-qt-src/src/config.mk.in	2011-10-20 16:41:07.000000000 +0200
 @@ -156,6 +156,9 @@
  GUI_X_LIBS	= @GUI_X_LIBS@
  MOTIF_LIBNAME	= @MOTIF_LIBNAME@
  GTK_LIBNAME	= @GTK_LIBNAME@
 +QT_MOC		= @QT_MOC@
-+QT_LIBDIR	= @QT_LIBDIR@
-+QT_INCDIR	= @QT_INCDIR@
++QT_LIBS		= @QT_LIBS@
++QT_INCPATH	= @QT_INCPATH@
  
  ### Any OS dependent extra source and object file
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/configure	2011-09-14 17:04:51.000000000 +0200
-@@ -1,10 +1,14365 @@
++++ vim-qt-src/src/configure	2011-10-23 10:44:33.000000000 +0200
+@@ -1,10 +1,14605 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -694,9 +694,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +GUITYPE
 +GUI_LIB_LOC
 +GUI_INC_LOC
-+QT_INCDIR
-+QT_LIBDIR
++QT_INCPATH
++QT_LIBS
 +QT_MOC
++QMAKE
 +ac_ct_CXX
 +CXXFLAGS
 +CXX
@@ -878,7 +879,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +enable_athena_check
 +enable_nextaw_check
 +enable_carbon_check
-+enable_qt_check
 +enable_gtktest
 +with_gnome_includes
 +with_gnome_libs
@@ -1544,7 +1544,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --enable-athena-check   If auto-select GUI, check for Athena default=yes
 +  --enable-nextaw-check   If auto-select GUI, check for neXtaw default=yes
 +  --enable-carbon-check   If auto-select GUI, check for Carbon default=yes
-+  --enable-qt-check   If auto-select GUI, check for Qt default=yes
 +  --disable-gtktest       Do not try to compile and run a test GTK program
 +  --disable-largefile     omit support for large files
 +  --disable-acl           Don't check for ACL support.
@@ -1577,7 +1576,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --with-gnome-libs=DIR   Specify location of GNOME libs
 +  --with-gnome            Specify prefix for GNOME files
 +  --with-motif-lib=STRING   Library for Motif
-+  --with-qt-dir=PATH      to specify the Qt4 base prefix
++  --with-qt-dir=PATH   Qt prefix path (ex: /usr/ or /usr/lib/qt4)
 +  --with-tlib=library     terminal library to be used
 +
 +Some influential environment variables:
@@ -5873,7 +5872,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  cflags_save=$CFLAGS
 +  CFLAGS="$CFLAGS $PYTHON_CFLAGS"
 +  ldflags_save=$LDFLAGS
-+  LDFLAGS="$LDFLAGS -ldl"
++    LDFLAGS="-ldl $LDFLAGS"
 +  if test "$cross_compiling" = yes; then :
 +  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
 +$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
@@ -5938,7 +5937,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  cflags_save=$CFLAGS
 +  CFLAGS="$CFLAGS $PYTHON3_CFLAGS"
 +  ldflags_save=$LDFLAGS
-+  LDFLAGS="$LDFLAGS -ldl"
++    LDFLAGS="-ldl $LDFLAGS"
 +  if test "$cross_compiling" = yes; then :
 +  { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
 +$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
@@ -7785,7 +7784,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  fi
 +fi
 +
-+echo "$enable_gui"
 +test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" -a "x$enable_gui" != "xqt" && enable_gui=no
 +
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking --enable-gui argument" >&5
@@ -7988,24 +7986,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    SKIP_CARBON=YES
 +  fi
 +fi
-+
-+if test "x$SKIP_QT" != "xYES" -a "$enable_gui_canon" != "qt"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether or not to look for Qt" >&5
-+$as_echo_n "checking whether or not to look for Qt... " >&6; }
-+  # Check whether --enable-qt-check was given.
-+if test "${enable_qt_check+set}" = set; then :
-+  enableval=$enable_qt_check;
-+else
-+  enable_qt_check="yes"
-+fi
-+
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enable_qt_check" >&5
-+$as_echo "$enable_qt_check" >&6; }
-+  if test "x$enable_qt_check" = "xno"; then
-+    SKIP_QT=YES
-+  fi
-+fi
-+
 +
 +if test "x$MACOSX" = "xyes" -a -z "$SKIP_CARBON" -a "x$CARBON" = "xyes"; then
 +  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Carbon GUI" >&5
@@ -9015,27 +8995,412 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +
 +    QT_FOUND="no"
 +
-+#    # Candidate paths for Qt4
-+#    QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4 $prefix"
-+#
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking --with-qt-dir argument" >&5
++$as_echo_n "checking --with-qt-dir argument... " >&6; }
++
++# Check whether --with-qt-dir was given.
++if test "${with_qt_dir+set}" = set; then :
++  withval=$with_qt_dir;  QT_DIR="${withval}"
++fi
 +
 +
-+cat > qttest_c.h << EOF
-+#include <Qt/QtGui>
-+class QtTest: public QWidget {
-+    Q_OBJECT
-+public:
-+    QtTest(QWidget *p=0 );
-+};
-+EOF
++    if test -n "$QT_DIR"; then
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_DIR" >&5
++$as_echo "$QT_DIR" >&6; }
 +
-+cat > qttest_c.cpp << EOF
-+#include "qttest_c.h"
-+QtTest::QtTest(QWidget* p)
-+:QWidget(p) {}
-+EOF
++        #
++	# Use the prefix given by --with-qt-dir
++	#
++	QMAKE="$QT_DIR/bin/qmake"
++	QT_MOC="$QT_DIR/bin/moc"
 +
-+cat > qttest.cpp << EOF
++    	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $QMAKE" >&5
++$as_echo_n "checking for $QMAKE... " >&6; }
++	if test ! -x "$QMAKE"; then
++            as_fn_error $? "\"Unable to find qmake\"" "$LINENO" 5
++	fi
++
++    	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $QT_MOC" >&5
++$as_echo_n "checking for $QT_MOC... " >&6; }
++	if test ! -x "$QT_MOC"; then
++            as_fn_error $? "\"Unable to find moc\"" "$LINENO" 5
++	fi
++    else
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++
++        #
++        # Find qmake
++        # 1. First look for "qmake4" in the PATH - some systems use the name qmake(Qt3) and qmake4(Qt4)
++        # 2. If qmake4 is not found then look for qmake-qt4 in the PATH
++	# 3. Look for qmake in the PATH
++        # 4. Look for "qmake", outside the path, in the following locations
++        QT_BIN_PATH="/usr/lib64/qt4/bin:/usr/local/lib64/qt4/bin:/usr/lib/qt4/bin:/usr/local/lib/qt4/bin"
++
++        # Extract the first word of "qmake4", so it can be a program name with args.
++set dummy qmake4; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QMAKE+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QMAKE in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QMAKE="$QMAKE" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QMAKE="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QMAKE=$ac_cv_path_QMAKE
++if test -n "$QMAKE"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QMAKE" >&5
++$as_echo "$QMAKE" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        if test -z "$QMAKE"; then
++            # Extract the first word of "qmake-qt4", so it can be a program name with args.
++set dummy qmake-qt4; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QMAKE+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QMAKE in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QMAKE="$QMAKE" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QMAKE="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QMAKE=$ac_cv_path_QMAKE
++if test -n "$QMAKE"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QMAKE" >&5
++$as_echo "$QMAKE" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        fi
++
++        if test -z "$QMAKE"; then
++            # Extract the first word of "qmake", so it can be a program name with args.
++set dummy qmake; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QMAKE+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QMAKE in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QMAKE="$QMAKE" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QMAKE="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QMAKE=$ac_cv_path_QMAKE
++if test -n "$QMAKE"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QMAKE" >&5
++$as_echo "$QMAKE" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        fi
++
++        if test -z "$QMAKE"; then
++            # Extract the first word of "qmake", so it can be a program name with args.
++set dummy qmake; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QMAKE+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QMAKE in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QMAKE="$QMAKE" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $QT_BIN_PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QMAKE="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QMAKE=$ac_cv_path_QMAKE
++if test -n "$QMAKE"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QMAKE" >&5
++$as_echo "$QMAKE" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        fi
++
++        if test -z "$QMAKE"; then
++            as_fn_error $? "\"Unable to find qmake\"" "$LINENO" 5
++        fi
++
++        #
++        # Find moc
++        # - Exactly the same as previous case with qmake
++        #
++        # Extract the first word of "moc4", so it can be a program name with args.
++set dummy moc4; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QT_MOC+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QT_MOC in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QT_MOC=$ac_cv_path_QT_MOC
++if test -n "$QT_MOC"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
++$as_echo "$QT_MOC" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        if test -z "$QT_MOC"; then
++            # Extract the first word of "moc-qt4", so it can be a program name with args.
++set dummy moc-qt4; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QT_MOC+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QT_MOC in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QT_MOC=$ac_cv_path_QT_MOC
++if test -n "$QT_MOC"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
++$as_echo "$QT_MOC" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        fi
++
++        if test -z "$QT_MOC"; then
++            # Extract the first word of "moc", so it can be a program name with args.
++set dummy moc; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QT_MOC+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QT_MOC in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QT_MOC=$ac_cv_path_QT_MOC
++if test -n "$QT_MOC"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
++$as_echo "$QT_MOC" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        fi
++
++        if test -z "$QT_MOC"; then
++            # Extract the first word of "moc", so it can be a program name with args.
++set dummy moc; ac_word=$2
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
++$as_echo_n "checking for $ac_word... " >&6; }
++if ${ac_cv_path_QT_MOC+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  case $QT_MOC in
++  [\\/]* | ?:[\\/]*)
++  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
++  ;;
++  *)
++  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
++for as_dir in $QT_BIN_PATH
++do
++  IFS=$as_save_IFS
++  test -z "$as_dir" && as_dir=.
++    for ac_exec_ext in '' $ac_executable_extensions; do
++  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
++    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
++    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
++    break 2
++  fi
++done
++  done
++IFS=$as_save_IFS
++
++  ;;
++esac
++fi
++QT_MOC=$ac_cv_path_QT_MOC
++if test -n "$QT_MOC"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
++$as_echo "$QT_MOC" >&6; }
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++$as_echo "no" >&6; }
++fi
++
++
++        fi
++
++        if test -z "$QT_MOC"; then
++            as_fn_error $? "\"Unable to find moc\"" "$LINENO" 5
++        fi
++    fi
++
++    #
++    # Call qmake to generate bogus project
++    #
++    # What we do here is call qmake to generate a valid Makefile and
++    # then extract the Qt compiler flags from the generated Makefile
++    #
++    TMPDIR=/tmp
++    tmp=`(umask 077 && mktemp -d -q "$TMPDIR/test-vim-qt-XXXXXXXX") 2>/dev/null`;
++    if test -z "$tmp" -a -d "$tmp"; then
++	as_fn_error $? "Unable to create temporary directory" "$LINENO" 5
++    fi
++
++cat > $tmp/qttest.cpp << EOF
 +#include <Qt/QtGui>
 +int main(int ac, char **av) {
 +    QApplication app(ac, av);
@@ -9043,181 +9408,50 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +}
 +EOF
 +
-+    #
-+    # Here are the rules for finding Qt
-+    # 1. If --with-qt-dir is used, use that or fail immediatly
-+    # 2. Try building with no special flags, just system defaults
-+    # 3. Try to guess, use some hardcoded paths
-+    #
-+
-+    # --with-qt-dir overrides everything else
-+
-+# Check whether --with-qt-dir was given.
-+if test "${with_qt_dir+set}" = set; then :
-+  withval=$with_qt_dir; QT_DIR="$withval"
-+fi
-+
-+
-+    if test -n "$QT_DIR" ; then
-+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt4 in $QT_DIR" >&5
-+$as_echo_n "checking Qt4 in $QT_DIR... " >&6; }
-+        QT_FOUND="yes"
-+	QT_MOC="$QT_DIR/bin/moc"
-+	QT_LIBDIR="$QT_DIR/lib"
-+	QT_INCDIR="$QT_DIR/include"
-+
-+        # Test moc
-+        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
-+        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
-+  (eval $moc_try) 2>&5
-+  ac_status=$?
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; }
-+        if test x"$ac_status" != x0; then
-+            as_fn_error $? "no moc available" "$LINENO" 5
-+        fi
-+
-+        # test Compile
-+        qt_try="$CXX $CXXFLAGS  -I$QT_INCDIR qttest.cpp -o qttest -L$QT_LIBDIR -lQtGui"
-+        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
++    # Generate qmake project
++    qmake_try=`cd $tmp; $QMAKE -project -o test.pro`
++    { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
 +  (eval $qt_try) 2>&5
 +  ac_status=$?
 +  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
 +  test $ac_status = 0; }
-+        if test x"$ac_status" != x0; then
-+            as_fn_error $? "unable to build" "$LINENO" 5
-+        fi
-+
-+	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
++    if test x"$ac_status" != x0; then
++        as_fn_error $? "qmake failed" "$LINENO" 5
 +    fi
 +
-+    # Cross your fingers - hope for the best
-+    if test "$QT_FOUND" = "no" ; then
-+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking system wide Qt4" >&5
-+$as_echo_n "checking system wide Qt4... " >&6; }
-+        QT_FOUND="yes"
++    # add options
++    echo "QT += network" >> $tmp/test.pro
 +
-+        # Test moc
-+        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
-+        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
-+  (eval $moc_try) 2>&5
-+  ac_status=$?
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; }
-+        if test x"$ac_status" != x0; then
-+            QT_FOUND="no"
-+        fi
-+
-+        # test Compile
-+        qt_try="$CXX $CXXFLAGS qttest.cpp -o qttest -lQtGui"
-+        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
++    # generate Makefile
++    qmake_try=`cd $tmp; $QMAKE`
++    { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
 +  (eval $qt_try) 2>&5
 +  ac_status=$?
 +  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
 +  test $ac_status = 0; }
-+        if test x"$ac_status" != x0; then
-+            QT_FOUND="no"
-+        fi
-+
-+	QT_MOC="moc"
-+	QT_LIBDIR="."
-+	QT_INCDIR="."
-+	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
++    if test x"$ac_status" != x0; then
++        as_fn_error $? "qmake failed" "$LINENO" 5
 +    fi
 +
-+    # Hardcoded paths
-+    if test "$QT_FOUND" = "no" ; then
-+	QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4"
-+        for x in $QTPATHS; do
-+            { $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt4 in $x" >&5
-+$as_echo_n "checking Qt4 in $x... " >&6; }
-+
-+            if test -d $x ; then
-+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
-+	        continue;
-+            fi
-+    	    # Test moc
-+    	    moc_try="$x/bin/moc qttest_c.h -o moc_qttest_c.cpp"
-+            { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
-+  (eval $moc_try) 2>&5
-+  ac_status=$?
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; }
-+            if test x"$ac_status" != x0; then
-+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
-+    	        continue;
-+            fi
-+
-+    	    # test Compile
-+    	    qt_try="$CXX $CXXFLAGS -I$x/include qttest.cpp -o qttest -L$x/lib -lQtGui"
-+            { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
-+  (eval $qt_try) 2>&5
-+  ac_status=$?
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; }
-+            if test x"$ac_status" != x0; then
-+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
-+    	        continue;
-+            fi
-+
-+            QT_FOUND="yes"
-+    	    QT_MOC="$x/bin/moc"
-+    	    QT_LIBDIR="$x/lib/"
-+    	    QT_INCDIR="$x/include/"
-+    	    break;
-+        done
++    # LIBS
++    QT_LIBS=`grep LIBS.*= $tmp/Makefile | awk '{sub(/^LIBS +=/, ""); print}'`
++    if test -z "$QT_LIBS"; then
++        as_fn_error $? "Unable to find Qt libraries" "$LINENO" 5
 +    fi
 +
-+
-+    # One last desperate attempt - for Gentoo/Ubuntu
-+    if test "$QT_FOUND" = "no" ; then
-+        QT_FOUND="yes"
-+        QT_LIBDIR="/usr/lib/qt4"
-+        QT_INCDIR="/usr/include/qt4"
-+        QT_MOC="moc"
-+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt4 in Gentoo locations" >&5
-+$as_echo_n "checking Qt4 in Gentoo locations... " >&6; }
-+
-+        # Test moc
-+        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
-+        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$moc_try\""; } >&5
-+  (eval $moc_try) 2>&5
-+  ac_status=$?
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; }
-+        if test x"$ac_status" != x0; then
-+		QT_FOUND="no"
-+		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
-+        fi
-+
-+        # test Compile
-+        qt_try="$CXX $CXXFLAGS -I$QT_INCDIR -L$QT_LIBDIR -lQtGui qttest.cpp -o qttest"
-+        { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$qt_try\""; } >&5
-+  (eval $qt_try) 2>&5
-+  ac_status=$?
-+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-+  test $ac_status = 0; }
-+        if test x"$ac_status" != x0; then
-+		QT_FOUND="no"
-+                { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
-+        fi
-+
-+	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_FOUND" >&5
-+$as_echo "$QT_FOUND" >&6; }
++    # Include directives
++    QT_INCPATH=`grep INCPATH.*= $tmp/Makefile | awk '{sub(/^INCPATH +=/, ""); print}'`
++    if test -z "$QT_LIBS"; then
++        as_fn_error $? "Unable to find Qt include path" "$LINENO" 5
 +    fi
 +
-+    if test "$QT_FOUND" = "no" ; then
-+        as_fn_error $? "Could not locate Qt4" "$LINENO" 5
++    # LFLAGS
++    QT_LFLAGS=`grep LFLAGS.*= $tmp/Makefile | awk '{sub(/^LFLAGS +=/, ""); print}'`
++    if test -z "$QT_LFLAGS"; then
++        as_fn_error $? "Unable to find Qt link flags" "$LINENO" 5
 +    fi
 +
-+
++    LDFLAGS="$LDFLAGS $QT_LFLAGS"
 +
 +
 +
@@ -9227,6 +9461,12 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 +ac_compiler_gnu=$ac_cv_c_compiler_gnu
 +
++
++    # Remove temp directory
++    rm $tmp/Makefile
++    rm $tmp/qttest.cpp
++    rm $tmp/test.pro
++    rmdir $tmp
 +fi
 +
 +if test -z "$SKIP_QT"; then
@@ -14447,14 +14687,13 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-10-12 16:44:07.857252229 +0200
-+++ vim-qt-src/src/configure.in	2011-10-12 16:44:09.355262116 +0200
-@@ -1716,11 +1716,12 @@
+--- vim-src/src/configure.in	2011-10-23 10:44:53.991612998 +0200
++++ vim-qt-src/src/configure.in	2011-10-23 10:44:56.419629722 +0200
+@@ -1716,11 +1716,11 @@
    fi
  fi
  
 -test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" && enable_gui=no
-+echo "$enable_gui"
 +test "x$with_x" = xno -a "x$MACOSX" != "xyes" -a "x$QNX" != "xyes" -a "x$enable_gui" != "xqt" && enable_gui=no
  
  AC_MSG_CHECKING(--enable-gui argument)
@@ -14464,7 +14703,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  
  dnl Canonicalize the --enable-gui= argument so that it can be easily compared.
  dnl Do not use character classes for portability with old tools.
-@@ -1735,6 +1736,7 @@
+@@ -1735,6 +1735,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
  SKIP_CARBON=YES
@@ -14472,7 +14711,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  GUITYPE=NONE
  
  if test "x$QNX" = "xyes" -a "x$with_x" = "xno" ; then
-@@ -1772,7 +1774,8 @@
+@@ -1772,7 +1773,8 @@
  		SKIP_MOTIF=
  		SKIP_ATHENA=
  		SKIP_NEXTAW=
@@ -14482,7 +14721,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
      gtk2)	AC_MSG_RESULT(GTK+ 2.x GUI support)
  		SKIP_GTK2=;;
      gnome2)	AC_MSG_RESULT(GNOME 2.x GUI support)
-@@ -1784,6 +1787,8 @@
+@@ -1784,6 +1786,8 @@
  		SKIP_ATHENA=;;
      nextaw)	AC_MSG_RESULT(neXtaw GUI support)
  		SKIP_NEXTAW=;;
@@ -14491,25 +14730,15 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
      *)		AC_MSG_RESULT([Sorry, $enable_gui GUI is not supported]) ;;
    esac
  
-@@ -1857,6 +1862,17 @@
+@@ -1857,7 +1861,6 @@
    fi
  fi
  
-+if test "x$SKIP_QT" != "xYES" -a "$enable_gui_canon" != "qt"; then
-+  AC_MSG_CHECKING(whether or not to look for Qt)
-+  AC_ARG_ENABLE(qt-check,
-+	[  --enable-qt-check   If auto-select GUI, check for Qt [default=yes]],
-+	, enable_qt_check="yes")
-+  AC_MSG_RESULT($enable_qt_check)
-+  if test "x$enable_qt_check" = "xno"; then
-+    SKIP_QT=YES
-+  fi
-+fi
-+
- 
+-
  if test "x$MACOSX" = "xyes" -a -z "$SKIP_CARBON" -a "x$CARBON" = "xyes"; then
    AC_MSG_CHECKING(for Carbon GUI)
-@@ -1888,7 +1904,8 @@
+   dnl already did the check, just give the message
+@@ -1888,7 +1891,8 @@
    SKIP_ATHENA=YES;
    SKIP_NEXTAW=YES;
    SKIP_PHOTON=YES;
@@ -14519,7 +14748,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  fi
  
  dnl define an autoconf function to check for a specified version of GTK, and
-@@ -2098,6 +2115,7 @@
+@@ -2098,6 +2102,7 @@
        SKIP_ATHENA=YES
        SKIP_NEXTAW=YES
        SKIP_MOTIF=YES
@@ -14527,7 +14756,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
        GUITYPE=GTK
        AC_SUBST(GTK_LIBNAME)
      fi
-@@ -2206,6 +2224,7 @@
+@@ -2206,6 +2211,7 @@
  if test -z "$SKIP_MOTIF"; then
    SKIP_ATHENA=YES
    SKIP_NEXTAW=YES
@@ -14535,7 +14764,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2307,6 +2326,180 @@
+@@ -2307,6 +2313,158 @@
    CPPFLAGS=$cppflags_save
  fi
  
@@ -14546,27 +14775,92 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    AC_PROG_CXX
 +    QT_FOUND="no"
 +
-+#    # Candidate paths for Qt4
-+#    QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4 $prefix"
-+#
++    AC_MSG_CHECKING(--with-qt-dir argument)
++    AC_ARG_WITH(qt-dir,
++    [  --with-qt-dir=PATH   Qt prefix path (ex: /usr/ or /usr/lib/qt4)],
++    [ QT_DIR="${withval}" ] )
 +
++    if test -n "$QT_DIR"; then
++        AC_MSG_RESULT($QT_DIR)
 +
-+cat > qttest_c.h << EOF
-+#include <Qt/QtGui>
-+class QtTest: public QWidget {
-+    Q_OBJECT
-+public:
-+    QtTest(QWidget *p=0 );
-+};
-+EOF
++        #
++	# Use the prefix given by --with-qt-dir
++	#
++	QMAKE="$QT_DIR/bin/qmake"
++	QT_MOC="$QT_DIR/bin/moc"
 +
-+cat > qttest_c.cpp << EOF
-+#include "qttest_c.h"
-+QtTest::QtTest(QWidget* p)
-+:QWidget(p) {}
-+EOF
++    	AC_MSG_CHECKING(for $QMAKE)
++	if test ! -x "$QMAKE"; then
++            AC_MSG_ERROR("Unable to find qmake")
++	fi
 +
-+cat > qttest.cpp << EOF
++    	AC_MSG_CHECKING(for $QT_MOC)
++	if test ! -x "$QT_MOC"; then
++            AC_MSG_ERROR("Unable to find moc")
++	fi
++    else
++        AC_MSG_RESULT(no)
++
++        #
++        # Find qmake
++        # 1. First look for "qmake4" in the PATH - some systems use the name qmake(Qt3) and qmake4(Qt4) 
++        # 2. If qmake4 is not found then look for qmake-qt4 in the PATH
++	# 3. Look for qmake in the PATH
++        # 4. Look for "qmake", outside the path, in the following locations
++        QT_BIN_PATH="/usr/lib64/qt4/bin:/usr/local/lib64/qt4/bin:/usr/lib/qt4/bin:/usr/local/lib/qt4/bin"
++    
++        AC_PATH_PROG(QMAKE, qmake4)
++        if test -z "$QMAKE"; then
++            AC_PATH_PROG(QMAKE, qmake-qt4)
++        fi
++ 
++        if test -z "$QMAKE"; then
++            AC_PATH_PROG(QMAKE, qmake)
++        fi
++
++        if test -z "$QMAKE"; then
++            AC_PATH_PROG(QMAKE, qmake, , $QT_BIN_PATH)
++        fi
++    
++        if test -z "$QMAKE"; then
++            AC_MSG_ERROR("Unable to find qmake")
++        fi
++    
++        #
++        # Find moc
++        # - Exactly the same as previous case with qmake
++        # 
++        AC_PATH_PROG(QT_MOC, moc4)
++        if test -z "$QT_MOC"; then
++            AC_PATH_PROG(QT_MOC, moc-qt4)
++        fi
++ 
++        if test -z "$QT_MOC"; then
++            AC_PATH_PROG(QT_MOC, moc)
++        fi
++
++        if test -z "$QT_MOC"; then
++            AC_PATH_PROG(QT_MOC, moc, , $QT_BIN_PATH)
++        fi
++    
++        if test -z "$QT_MOC"; then
++            AC_MSG_ERROR("Unable to find moc")
++        fi
++    fi
++
++    #
++    # Call qmake to generate bogus project
++    #
++    # What we do here is call qmake to generate a valid Makefile and
++    # then extract the Qt compiler flags from the generated Makefile
++    #
++    TMPDIR=/tmp
++    tmp=`(umask 077 && mktemp -d -q "$TMPDIR/test-vim-qt-XXXXXXXX") 2>/dev/null`;
++    if test -z "$tmp" -a -d "$tmp"; then
++	AC_MSG_ERROR(Unable to create temporary directory)
++    fi
++
++cat > $tmp/qttest.cpp << EOF
 +#include <Qt/QtGui>
 +int main(int ac, char **av) {
 +    QApplication app(ac, av);
@@ -14574,139 +14868,52 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +}
 +EOF
 +
-+    #
-+    # Here are the rules for finding Qt
-+    # 1. If --with-qt-dir is used, use that or fail immediatly
-+    # 2. Try building with no special flags, just system defaults
-+    # 3. Try to guess, use some hardcoded paths
-+    #
-+
-+    # --with-qt-dir overrides everything else
-+    AC_ARG_WITH([qt-dir], AC_HELP_STRING([--with-qt-dir=PATH],
-+					[to specify the Qt4 base prefix]),
-+				[QT_DIR="$withval"],
-+				)
-+
-+    if test -n "$QT_DIR" ; then
-+        AC_MSG_CHECKING(Qt4 in $QT_DIR)
-+        QT_FOUND="yes"
-+	QT_MOC="$QT_DIR/bin/moc"
-+	QT_LIBDIR="$QT_DIR/lib"
-+	QT_INCDIR="$QT_DIR/include"
-+
-+        # Test moc
-+        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
-+        AC_TRY_EVAL(moc_try)
-+        if test x"$ac_status" != x0; then
-+            AC_MSG_ERROR(no moc available)
-+        fi
-+    
-+        # test Compile
-+        qt_try="$CXX $CXXFLAGS  -I$QT_INCDIR qttest.cpp -o qttest -L$QT_LIBDIR -lQtGui"
-+        AC_TRY_EVAL(qt_try)
-+        if test x"$ac_status" != x0; then
-+            AC_MSG_ERROR(unable to build)
-+        fi
-+    
-+	AC_MSG_RESULT($QT_FOUND)
++    # Generate qmake project
++    qmake_try=`cd $tmp; $QMAKE -project -o test.pro`
++    AC_TRY_EVAL(qt_try)
++    if test x"$ac_status" != x0; then
++        AC_MSG_ERROR(qmake failed)
 +    fi
 +
-+    # Cross your fingers - hope for the best
-+    if test "$QT_FOUND" = "no" ; then
-+        AC_MSG_CHECKING(system wide Qt4)
-+        QT_FOUND="yes"
++    # add options
++    echo "QT += network" >> $tmp/test.pro
 +
-+        # Test moc
-+        moc_try="moc qttest_c.h -o moc_qttest_c.cpp"
-+        AC_TRY_EVAL(moc_try)
-+        if test x"$ac_status" != x0; then
-+            QT_FOUND="no"
-+        fi
-+    
-+        # test Compile
-+        qt_try="$CXX $CXXFLAGS qttest.cpp -o qttest -lQtGui"
-+        AC_TRY_EVAL(qt_try)
-+        if test x"$ac_status" != x0; then
-+            QT_FOUND="no"
-+        fi
-+    
-+	QT_MOC="moc"
-+	QT_LIBDIR="."
-+	QT_INCDIR="."
-+	AC_MSG_RESULT($QT_FOUND)
++    # generate Makefile
++    qmake_try=`cd $tmp; $QMAKE`
++    AC_TRY_EVAL(qt_try)
++    if test x"$ac_status" != x0; then
++        AC_MSG_ERROR(qmake failed)
 +    fi
 +
-+    # Hardcoded paths
-+    if test "$QT_FOUND" = "no" ; then
-+	QTPATHS="/usr/lib64/qt4 /usr/local/lib64/qt4 /usr/lib/qt4 /usr/local/lib/qt4"
-+        for x in $QTPATHS; do
-+            AC_MSG_CHECKING(Qt4 in $x)
-+
-+            if test -d $x ; then
-+                AC_MSG_RESULT($QT_FOUND)
-+	        continue;
-+            fi
-+    	    # Test moc
-+    	    moc_try="$x/bin/moc qttest_c.h -o moc_qttest_c.cpp"
-+            AC_TRY_EVAL(moc_try)
-+            if test x"$ac_status" != x0; then
-+                AC_MSG_RESULT($QT_FOUND)
-+    	        continue;
-+            fi
-+    
-+    	    # test Compile
-+    	    qt_try="$CXX $CXXFLAGS -I$x/include qttest.cpp -o qttest -L$x/lib -lQtGui"
-+            AC_TRY_EVAL(qt_try)
-+            if test x"$ac_status" != x0; then
-+                AC_MSG_RESULT($QT_FOUND)
-+    	        continue;
-+            fi
-+    
-+            QT_FOUND="yes"
-+    	    QT_MOC="$x/bin/moc"
-+    	    QT_LIBDIR="$x/lib/"
-+    	    QT_INCDIR="$x/include/"
-+    	    break;
-+        done
++    # LIBS
++    QT_LIBS=`grep LIBS.*= $tmp/Makefile | awk '{sub(/^LIBS +=/, ""); print}'`
++    if test -z "$QT_LIBS"; then
++        AC_MSG_ERROR(Unable to find Qt libraries)
 +    fi
 +
-+
-+    # One last desperate attempt - for Gentoo/Ubuntu
-+    if test "$QT_FOUND" = "no" ; then
-+        QT_FOUND="yes"
-+        QT_LIBDIR="/usr/lib/qt4"
-+        QT_INCDIR="/usr/include/qt4"
-+        QT_MOC="moc"
-+	AC_MSG_CHECKING(Qt4 in Gentoo locations)
-+
-+        # Test moc
-+        moc_try="$QT_MOC qttest_c.h -o moc_qttest_c.cpp"
-+        AC_TRY_EVAL(moc_try)
-+        if test x"$ac_status" != x0; then
-+		QT_FOUND="no"
-+		AC_MSG_RESULT($QT_FOUND)
-+        fi
-+    
-+        # test Compile
-+        qt_try="$CXX $CXXFLAGS -I$QT_INCDIR -L$QT_LIBDIR -lQtGui qttest.cpp -o qttest"
-+        AC_TRY_EVAL(qt_try)
-+        if test x"$ac_status" != x0; then
-+		QT_FOUND="no"
-+                AC_MSG_RESULT($QT_FOUND)
-+        fi
-+
-+	AC_MSG_RESULT($QT_FOUND)
++    # Include directives
++    QT_INCPATH=`grep INCPATH.*= $tmp/Makefile | awk '{sub(/^INCPATH +=/, ""); print}'`
++    if test -z "$QT_LIBS"; then
++        AC_MSG_ERROR(Unable to find Qt include path)
 +    fi
 +
-+    if test "$QT_FOUND" = "no" ; then
-+        AC_MSG_ERROR(Could not locate Qt4)
++    # LFLAGS
++    QT_LFLAGS=`grep LFLAGS.*= $tmp/Makefile | awk '{sub(/^LFLAGS +=/, ""); print}'`
++    if test -z "$QT_LFLAGS"; then
++        AC_MSG_ERROR(Unable to find Qt link flags)
 +    fi
 +
-+
++    LDFLAGS="$LDFLAGS $QT_LFLAGS"
++    AC_SUBST(QT_LIBS)
 +    AC_SUBST(QT_MOC)
-+    AC_SUBST(QT_LIBDIR)
-+    AC_SUBST(QT_INCDIR)
++    AC_SUBST(QT_INCPATH)
 +    AC_LANG_POP(C++)
++
++    # Remove temp directory
++    rm $tmp/Makefile
++    rm $tmp/qttest.cpp
++    rm $tmp/test.pro
++    rmdir $tmp
 +fi
 +
 +if test -z "$SKIP_QT"; then
@@ -14741,8 +14948,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-10-12 16:44:07.848252169 +0200
-+++ vim-qt-src/src/feature.h	2011-10-12 16:44:09.346262056 +0200
+--- vim-src/src/feature.h	2011-10-23 10:44:53.982612936 +0200
++++ vim-qt-src/src/feature.h	2011-10-23 10:44:56.410629660 +0200
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -14975,8 +15182,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-10-12 16:41:08.000000000 +0200
-@@ -0,0 +1,1486 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-10-20 16:41:07.000000000 +0200
+@@ -0,0 +1,1504 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15028,6 +15235,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	if ( name == NULL ) { // Fallback font
 +		font.setFamily("Monospace");
++		font.setFixedPitch(true);
 +		font.setPointSize(10);
 +		font.setKerning(false);
 +		return new QFont(font);
@@ -15043,25 +15251,38 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		font.setRawName((char*)name);
 +	}
 +
++	font.setBold(false);
++	font.setItalic(false);
++	font.setKerning(false);
++
 +	//
 +	// When you ask for a font you may get a different font. This happens
 +	// when the font system does some form of substitution (such as as virtual fonts).
 +	// This bit of code checks if the font that is requested is the font that is returned.
 +	//
 +	// In a nutshell this is what is done:
-+	// - If giveErrorIfMissing is FALSE and the font does not match ignore the error and proceed
-+	// - If giveErrorIfMissing is TRUE fail with an error message
-+	// * I expected QFont::exactMatch to do all this - but I was wrong
++	// - If the font exists and has fixed width, load it
++	// - If the font does not exist or is not monospace, don't load the font
++	// + If giveErrorIfMissing is true, throw an error message, otherwise fail silently
++	// * We open an exception for the Monospace font, we ALWAYS load the monospace font
 +	//
-+	if ( QFontInfo(font).family() != font.family() && giveErrorIfMissing ) {
-+		EMSG2(e_font, name);
++	QFontInfo fi(font);
++
++	if ( fi.family().compare(font.family(), Qt::CaseInsensitive) != 0 && 
++		font.family().compare("Monospace", Qt::CaseInsensitive) != 0) {
++
++		if ( giveErrorIfMissing ) {
++			EMSG2(e_font, name);
++		}
 +		return NOFONT;
 +	}
 +
-+	font.setFixedPitch(true);
-+	font.setBold(false);
-+	font.setItalic(false);
-+	font.setKerning(false);
++	if ( !fi.fixedPitch() ) {
++		if ( giveErrorIfMissing ) {
++			EMSG2(e_font, name);
++		}
++		return NOFONT;
++	}
 +
 +	return new QFont(font);
 +}
@@ -15722,6 +15943,10 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +{
 +
 +	QClipboard *clip = QApplication::clipboard();
++	if ( clip->text((QClipboard::Mode)cbd->clipboardMode).size() == 0 ) {
++		return;
++	}
++
 +	QByteArray text = VimWrapper::convertTo(clip->text( (QClipboard::Mode)cbd->clipboardMode));
 +
 +	char_u	*buffer;
@@ -16477,7 +16702,7 @@ diff -urN vim-src/src/main.c vim-qt-src/src/main.c
  #ifdef FEAT_GUI
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/Makefile	2011-06-30 21:01:01.000000000 +0200
++++ vim-qt-src/src/Makefile	2011-10-20 16:41:07.000000000 +0200
 @@ -1232,6 +1232,31 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
@@ -16485,10 +16710,10 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +### Qt
 +# We use the following to build
 +# - QT_MOC
-+# - QT_LIBDIR
-+# - QT_INCDIR
++# - QT_LIBS
++# - QT_INCPATH
 +MOC		= $(QT_MOC)
-+QT_LIBS1	= -L$(QT_LIBDIR) -lQtGui -lQtCore -lstdc++
++QT_LIBS1	= $(QT_LIBS)
 +QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
 +			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
 +			qt/fontdialog.cpp qt/scrollarea.cpp \
@@ -16499,7 +16724,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +			objects/vimscrollbar.o objects/fontdialog.o objects/scrollarea.o objects/vimwrapper.o \
 +			objects/tabbar.o
 +
-+QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. -I$(QT_INCDIR)
++QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. $(QT_INCPATH)
 +QT_IPATH	= $(GUI_INC_LOC)
 +QT_LIBS_DIR = $(GUI_LIB_LOC)
 +
@@ -16570,6 +16795,23 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  objects/gui_beval.o: gui_beval.c
  	$(CCC) -o $@ gui_beval.c
  
+diff -urN vim-src/src/Make_ming.mak vim-qt-src/src/Make_ming.mak
+--- vim-src/src/Make_ming.mak	2011-10-12 16:55:39.000000000 +0200
++++ vim-qt-src/src/Make_ming.mak	2011-10-12 16:41:08.000000000 +0200
+@@ -108,10 +108,10 @@
+ # on NT, it's here:
+ PERLLIB=$(PERL)/lib
+ PERLLIBS=$(PERLLIB)/Core
+-XSUBPPTRY=$(PERLLIB)/ExtUtils/xsubpp
+-XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPPTRY)'")
++XSUBPP=$(PERLLIB)/ExtUtils/xsubpp
++XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPP)'")
+ ifeq "$(XSUBPP_EXISTS)" ""
+-XSUBPP=perl $(XSUBPPTRY)
++XSUBPP=perl $(XSUBPP)
+ else
+ XSUBPP=xsubpp
+ endif
 diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
 --- vim-src/src/menu.c	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/menu.c	2011-06-16 16:58:04.000000000 +0200
@@ -19609,6 +19851,18 @@ diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
  /*
   * Translate window coordinates to buffer position without any side effects
   */
+diff -urN vim-src/src/version.c vim-qt-src/src/version.c
+--- vim-src/src/version.c	2011-10-12 16:55:39.000000000 +0200
++++ vim-qt-src/src/version.c	2011-10-12 16:41:08.000000000 +0200
+@@ -710,8 +710,6 @@
+ static int included_patches[] =
+ {   /* Add new patch number below this line */
+ /**/
+-    334,
+-/**/
+     333,
+ /**/
+     332,
 diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
 --- vim-src/src/vim.h	2011-08-17 18:26:27.000000000 +0200
 +++ vim-qt-src/src/vim.h	2011-08-17 18:23:57.000000000 +0200

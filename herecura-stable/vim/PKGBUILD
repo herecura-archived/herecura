@@ -11,7 +11,7 @@ _patchlevel=346
 pkgver=${_basever}.${_patchlevel}
 #__hgrev=v${pkgver//./-}
 __hgrev=37ecb8ff4560
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -32,7 +32,7 @@ sha256sums=(
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'64f6f92c9af165ea4a2b4e88172a3a742d17d09bb19ea0f91de7fef917fdf408'
+	'da146af85d005afc0e3f4a2fc3442b03f5d3ceabf7b7cce762ed7ca0afa42321'
 	'85ba69714f0c991836070b8f5922fd344bad14e7cbf3a9a38baa0732e3b61684'
 )
 
