@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=opera-adblock-stat
-pkgver=20111023
+pkgver=20111024
 pkgrel=2
 pkgdesc="Fanboy's Main AdBlock Filterset for Opera"
 arch=('any')
