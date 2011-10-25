@@ -7,9 +7,9 @@ pkgbase="linux${_kernelname}"
 pkgname="linux${_kernelname}"
 true && pkgname=("linux${_kernelname}" "linux${_kernelname}-headers")
 _basekernel=3.0
-_patchver=6
+_patchver=8
 pkgver=${_basekernel}
-pkgrel=4
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -34,11 +34,10 @@ if [ ${_patchver} -ne 0 ]; then
 	pkgver=${_basekernel}.${_patchver}
 	_patchname="patch-${pkgver}"
 	source=( "${source[@]}"
-		#"http://www.kernel.org/pub/linux/kernel/v3.0/${_patchname}.gz"
-		"http://www.herecura.be/files/linux/${_patchname}.gz"
+		"http://www.kernel.org/pub/linux/kernel/v3.0/${_patchname}.gz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'9e2a9b763e86546ab77271a196b91f1c1808a889831c0d3c1733a46d9f1cb3de'
+		'e063823ca2f9deafe969b942823dc087909d1be07305edd4f3faadb19b0acf14'
 	)
 fi
 
@@ -90,21 +89,13 @@ build() {
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U${_kernelname}\"|g" ./.config
 	fi
 
+	# set extraversion to pkgrel
+	msg2 "set extraversion to ${pkgrel}"
+	sed -ri "s|^(EXTRAVERSION =).*|\1 -${pkgrel}|" Makefile
+
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > ${srcdir}/linux-${_basekernel}/.scmversion
-
-	# set buildnumber
-	msg2 "apply buildnr"
-	__buildnr=$(expr ${pkgrel} - 1)
-	if [ $? -eq 0 ]; then
-		if [ ${__buildnr} -le 0 ]; then
-			__buildnr=0
-		fi
-	else
-		__buildnr=0
-	fi
-	echo ${__buildnr} > ${srcdir}/linux-${_basekernel}/.version
 
 	# get kernel version
 	msg2 "prepare"
@@ -152,7 +143,11 @@ package_linux-besrv() {
 
 	# get kernel version
 	_kernver=$(make kernelrelease)
+
+	# install modules
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH=${pkgdir} modules_install
+
+	# copy System.map and bzImage
 	cp System.map ${pkgdir}/boot/System.map${_kernelname}
 	cp arch/$KARCH/boot/bzImage ${pkgdir}/boot/vmlinuz${_kernelname}
 
@@ -174,6 +169,13 @@ package_linux-besrv() {
 
 	# remove build and source links
 	rm -f ${pkgdir}/lib/modules/${_kernver}/{source,build}
+
+	_fldkernelname=$(echo ${_kernelname} | tr "[:lower:]" "[:upper:]")
+	# make room for external modules
+	ln -s "../${_basekernel}${_fldkernelname}-external" "${pkgdir}/lib/modules/${_kernver}/external"
+	# add real version for building modules and running depmod from post_install/upgrade
+	mkdir -p "${pkgdir}/lib/modules/${_basekernel}${_fldkernelname}-external"
+	echo "${_kernver}" > "${pkgdir}/lib/modules/${_basekernel}${_fldkernelname}-external/version"
 
 	# gzip all modules
 	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
