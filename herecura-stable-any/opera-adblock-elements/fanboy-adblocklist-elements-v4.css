@@ -1,7 +1,7 @@
 /*
-! Checksum: KdaL5FEU9hjrNmXA4Q/ZVg
+! Checksum: 0IFVa1ztoDYSsyc6iX6/Yg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 23 Oct 2011
+! Version: V4 Updated: 24 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2154,6 +2154,7 @@
 #sidebarad,
 #SidebarAdContainer,
 #sidebaradcontainer,
+.google_afc,
 #SidebarAds,
 #sidebaradver_advertistxt,
 #sidebargooglead,
@@ -2165,6 +2166,9 @@
 #single_ad_above_content,
 #singlead,
 #singleAdsContainer,
+.ad-300x75,
+.ad-270x100,
+.smAdText_r,
 #site-leaderboard-ads,
 #site_top_ad,
 #skcolAdSky,
@@ -2173,6 +2177,7 @@
 #sky-right,
 #SkyAd,
 #skyAd,
+.googleAdDiv,
 #skyadwrap,
 #skyline_ad,
 #skyscrapeAd,
@@ -2335,10 +2340,15 @@
 #top_adv-v2,
 #top_advert,
 #top_google_ads,
+#GOOGLE_ADS_16,
+#AD_CONTROL_17,
 #top_right_ad,
 #top_span_ad,
 #top_sponsor_ads,
+#tdGoogleAds,
 #top_wide_ad,
+.adSTHomePage,
+#GOOGLE_ADS_1,
 #TopAd,
 #topAD,
 #topAd,
@@ -2725,6 +2735,7 @@
 .ad468_60,
 .ad468x60,
 .ad468x60Wrap,
+.block-gg_ads,
 .ad5,
 .ad530,
 .ad590,
