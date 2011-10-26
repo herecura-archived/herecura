@@ -1,5 +1,4 @@
-
-KERNEL_VERSION=3.0-BEDE
+EXTRAMODULES='3.1-BEDE-external'
 
 
 whisperer(){
@@ -29,18 +28,18 @@ remove_hook(){
 }
 
 post_install() {
-    depmod $KERNEL_VERSION
+	depmod $(cat /lib/modules/$EXTRAMODULES/version)
     whisperer
 }
 
 post_upgrade() {
     remove_hook
-    depmod $KERNEL_VERSION
+	depmod $(cat /lib/modules/$EXTRAMODULES/version)
     whisperer
 }
 
 post_remove() {
-    depmod $KERNEL_VERSION
+	depmod $(cat /lib/modules/$EXTRAMODULES/version)
     echo "----------------------------------------------------------------"
     echo "Don't forget to remove fglrx from MODULES array of /etc/rc.conf"
     echo "----------------------------------------------------------------"

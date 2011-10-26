@@ -6,16 +6,17 @@
 # Contributor: DestroyFX
 # Contributor: Rip-Rip
 
-_kernver='3.0-BEDE'
-
-pkgname=catalyst-bede
+_pkgname=catalyst
+pkgname=${_pkgname}-bede
 pkgver=11.9
-pkgrel=2
+_extramodules=3.2-BEDE-external
+_kernver="$(cat /lib/modules/${_extramodules}/version)"
+pkgrel=2.2
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-makedepends=("catalyst-utils=${pkgver}" 'linux-bede-headers>=3.0' 'linux-bede-headers<3.1')
+makedepends=("catalyst-utils=${pkgver}" 'linux-bede>=3.1' 'linux-bede<3.2' 'linux-bede-headers>=3.1' 'linux-bede-headers<3.2')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
 install=${pkgname}.install
@@ -85,10 +86,10 @@ build() {
 }
 
 package() {
-	depends=('linux-bede>=3.0' 'linux-bede<3.1' "catalyst-utils=${pkgver}")
+	depends=('linux-bede>=3.1' 'linux-bede<3.2' "catalyst-utils=${pkgver}")
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
-	install -m755 -d "${pkgdir}/lib/modules/${_kernver}/video/"
-	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_kernver}/video/"
+	install -m755 -d "${pkgdir}/lib/modules/${_extramodules}/${_pkgname}/"
+	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_extramodules}/${_pkgname}/"
 
 	## License
 	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
@@ -97,5 +98,5 @@ package() {
 	# gzip all modules
 	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
 
-	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/" $startdir/*.install
+	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" ${startdir}/*.install
 }
