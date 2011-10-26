@@ -1,7 +1,7 @@
 /*
-! Checksum: 0IFVa1ztoDYSsyc6iX6/Yg
+! Checksum: jTxJFmU9RAQn6t5QMdVFTw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 Oct 2011
+! Version: V4 Updated: 25 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1377,6 +1377,7 @@
 #dartad16,
 #dartad17,
 #dartad19,
+.widget_ad_boxes_widget,
 #dartad25,
 #dartad28,
 #DartAd300x250,
@@ -3403,7 +3404,6 @@
 .adtext_gray,
 .adtext_white,
 .adTextPmpt,
-.adtile,
 .adTileWrap,
 .adtips,
 .adtips1,
