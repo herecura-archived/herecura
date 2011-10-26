@@ -4,12 +4,13 @@
 pkgbase='lirc-bede'
 pkgname=('lirc-bede' 'lirc-bede-utils')
 pkgver=0.9.0
-pkgrel=14
+pkgrel=14.2
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
-_kernver=3.0-BEDE
-makedepends=('linux-bede-headers>=3.0' 'linux-bede-headers<3.1'
+_extramodules=3.1-BEDE-external
+_kernver="$(cat /lib/modules/${_extramodules}/version)"
+makedepends=('linux-bede>=3.1' 'linux-bede<3.2' 'linux-bede-headers>=3.1' 'linux-bede-headers<3.2'
 	'help2man' 'alsa-lib' 'libx11' 'libsm' 'python2' 'libftdi' 'libirman')
 options=('!strip' '!makeflags')
 source=(
@@ -71,20 +72,20 @@ build() {
 
 package_lirc-bede() {
 	pkgdesc="Linux Infrared Remote Control kernel modules for BEDE kernel"
-	depends=("lirc-bede-utils>=${pkgver}" 'linux-bede>=3.0' 'linux-bede<3.1')
+	depends=("lirc-bede-utils>=${pkgver}" 'linux-bede>=3.1' 'linux-bede<3.2')
 	install=lirc.install
 	provides=('lirc')
 	replaces=('lirc+pctv' 'lirc-bemm')
 
 	cd lirc-${pkgver}
 	cd drivers
-	make DESTDIR=${pkgdir} install
+	make DESTDIR=${pkgdir} moduledir="/lib/modules/${_extramodules}/lirc" install
 
 	# gzip all modules
 	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
 
 	# set the kernel version in install script
-	sed -i -e "s/KERNEL_VERSION=.*/KERNEL_VERSION=${_kernver}/g" \
+	sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES=${_extramodules}/g" \
 		${startdir}/lirc.install
 }
 
