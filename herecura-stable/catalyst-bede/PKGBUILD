@@ -10,7 +10,6 @@ _pkgname=catalyst
 pkgname=${_pkgname}-bede
 pkgver=11.9
 _extramodules=3.2-BEDE-external
-_kernver="$(cat /lib/modules/${_extramodules}/version)"
 pkgrel=2.2
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
@@ -32,6 +31,8 @@ md5sums=(
 )
 
 build() {
+	_kernver="$(cat /lib/modules/${_extramodules}/version)"
+
 	## Unpack archive
 	msg "Unpacking archive ..."
 	/bin/sh ./ati-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
