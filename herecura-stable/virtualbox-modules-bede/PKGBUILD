@@ -22,12 +22,13 @@ md5sums=(
 )
 
 _extramodules=3.1-BEDE-external
-_kernver="$(cat /lib/modules/${_extramodules}/version)"
-
-export KERN_DIR=/lib/modules/${_kernver}/build
-export KERN_INCL=/usr/src/linux-${_kernver}/include/
 
 build() {
+	_kernver="$(cat /lib/modules/${_extramodules}/version)"
+
+	export KERN_DIR=/lib/modules/${_kernver}/build
+	export KERN_INCL=/usr/src/linux-${_kernver}/include/
+
     cd ${srcdir}/VirtualBox-${pkgver}_OSE
 
     cp ${srcdir}/LocalConfig.kmk .
