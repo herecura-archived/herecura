@@ -2,9 +2,10 @@
 # Contributor: Paul Mattal <paul@archlinux.org>
 
 pkgbase='lirc-bede'
-pkgname=('lirc-bede' 'lirc-bede-utils')
+pkgname='lirc-bede'
+true && pkgname=('lirc-bede' 'lirc-bede-utils')
 pkgver=0.9.0
-pkgrel=15
+pkgrel=16
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -121,3 +122,4 @@ package_lirc-bede-utils() {
 	# remove built modules
 	rm -r "${pkgdir}/lib/"
 }
+pkgdesc="Linux Infrared Remote Control kernel modules and utils for BEDE kernel"
