@@ -5,7 +5,6 @@ _pkgname=nvidia
 pkgname=${_pkgname}-bede
 pkgver=285.05.09
 _extramodules=3.1-BEDE-external
-_kernver="$(cat /lib/modules/${_extramodules}/version)"
 pkgrel=3
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
@@ -37,6 +36,7 @@ elif [ "$CARCH" = "x86_64" ]; then
 fi
 
 build() {
+	_kernver="$(cat /lib/modules/${_extramodules}/version)"
 	cd $srcdir
 	sh ${_pkg}.run --extract-only
 	cd ${_pkg}/kernel
