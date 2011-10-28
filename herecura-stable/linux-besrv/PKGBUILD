@@ -9,7 +9,7 @@ true && pkgname=("linux${_kernelname}" "linux${_kernelname}-headers")
 _basekernel=3.0
 _patchver=8
 pkgver=${_basekernel}
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -25,8 +25,8 @@ source=(
 )
 sha256sums=(
 	'64b0228b54ce39b0b2df086109a7b737cde58e3df4f779506ddcaccee90356a0'
-	'0df23d14eb97a6f7a36d057212614d6032627b6a9580e73c9ba90bcbb2f076b5'
-	'ceca58ef436f2272a0af63363cc9ddcd0c1db7335855d9f3e7cf829cc4919ff0'
+	'b79b0f14a3352c3bb457a7da685265504f0d6e4e321d974fd4e5a82ca7640b17'
+	'7bd76bc5b5c4a21f0a778cccf2ade3ed0be4d05834a1b21bf781682fabc03d00'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 # revision patches
@@ -43,8 +43,10 @@ fi
 
 # extra patches
 _extrapatches=(
+	"http://grsecurity.net/test/pax-linux-3.0.8-test41.patch"
 )
 _extrapatchessums=(
+	'1261781de11ce3474d92b57a8d674b6a1de37e6995465e2b7b7f6ac5d5676c30'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -74,6 +76,7 @@ build() {
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
+		patch=$(basename ${patch})
 		msg2 "apply ${patch}"
 		patch -Np1 -i ${srcdir}/${patch}
 	done
