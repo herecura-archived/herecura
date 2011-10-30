@@ -1,7 +1,7 @@
 /*
-! Checksum: QG+PMx81GHh0prq9b1/Qag
+! Checksum: //pI1ljjegRc6WNSN+jbiQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 Oct 2011
+! Version: V4 Updated: 29 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -4257,6 +4257,7 @@
 .main-advert,
 .main-column-ad,
 .main-tabs-ad-block,
+#sideads_container,
 .main_ad,
 .main_ad_bg,
 .main_intro_ad,
@@ -4381,6 +4382,7 @@
 .ocp-sponsor,
 .ody-sponsor,
 .oi_horz_ad_container,
+#ad_thread_first_post_content,
 .oio-banner-zone,
 .omnitureAdImpression,
 .onethirdadholder,
