@@ -1,7 +1,7 @@
 /*
-! Checksum: //pI1ljjegRc6WNSN+jbiQ
+! Checksum: iPcO49dUW2j8ymSKp4XWSA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 29 Oct 2011
+! Version: V4 Updated: 30 Oct 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1474,6 +1474,7 @@
 #footerads,
 #footerAdverts,
 #footerleaderboard,
+#ad_comps_top,
 #forumlist-ad,
 #free_ad,
 #frmRightnavAd,
@@ -2937,6 +2938,7 @@
 .ad_text_links,
 .ad_textlink_box,
 .ad_thumbnail_header,
+.adbox300,
 .ad_title,
 .ad_top,
 .ad_top_banner,
@@ -3036,6 +3038,7 @@
 .AdContainerBottom,
 .AdContainerBox308,
 .AdContainerModule,
+.bottom-ad-placeholder,
 .adContent,
 .adContour,
 .adCopy,
@@ -3043,6 +3046,7 @@
 .adCreative,
 .add-wrapper,
 .add_300_250,
+#ad_container_300x250,
 .addContainer,
 .adDialog,
 .adds,
@@ -3264,6 +3268,7 @@
 .ads_title,
 .ads_top,
 .ads_top_both,
+#adverti,
 .ads_top_promo,
 .ads_topbanner,
 .ads_topleft,
@@ -4301,7 +4306,6 @@
 .middleAdRight,
 .mini-ad,
 .miniAd,
-.miniad,
 .miniads,
 .mlaAd,
 .mmcAd_Iframe,
