@@ -1,7 +1,7 @@
 /*
-! Checksum: TLg+a4Xkmkm54WjPuZIZug
+! Checksum: w5R51GNO+OgK8JBdDEsCUw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Nov 2011
+! Version: V4 Updated: 3 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -268,6 +268,7 @@
 #ad600,
 #ad7,
 #ad728,
+.ad_728Home,
 #ad728Bottom,
 #ad728Box,
 #ad728BoxBtm,
@@ -320,6 +321,7 @@
 #ad_940,
 #Ad_976x105,
 #ad_984,
+#ad_adsense,
 #ad_anchor,
 #ad_area,
 #ad_article_btm,
@@ -1308,6 +1310,7 @@
 #column2-145x145-ad,
 #column4-google-ads,
 #columnAd,
+#common_right_adspace,
 #common_right_lower_adspace,
 #common_right_lower_player_adspace,
 #common_right_right_adspace,
@@ -1678,6 +1681,7 @@
 #homepageadvert,
 #homepageFooterAd,
 #hometop_234x60ad,
+#home_top_right_ad,
 #homeTopRightAd,
 #hor_ad,
 #horadslot,
@@ -3675,6 +3679,7 @@
 .BannerAd,
 .bannerAd,
 .bannerad,
+.bannerAds,
 .bannerAd3,
 .bannerAd300x250,
 .bannerAd_rdr,
@@ -4120,6 +4125,7 @@
 .homeadnews,
 .homeAdSection,
 .HomeContentAd,
+#footer_adsense_ad,
 .homepage-advertisement,
 .homepage-footer-ads,
 .homepage-sponsoredlinks-container,
