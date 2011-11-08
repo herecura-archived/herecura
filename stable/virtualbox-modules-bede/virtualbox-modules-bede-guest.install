@@ -9,6 +9,7 @@ EOF
 
 post_upgrade() {
     depmod $(cat /lib/modules/$EXTRAMODULES/version)
+	echo "in order to use the updated modules, reload all guest modules"
 }
 
 post_remove() {
