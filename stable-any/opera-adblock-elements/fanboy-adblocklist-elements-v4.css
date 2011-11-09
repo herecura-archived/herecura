@@ -1,7 +1,7 @@
 /*
-! Checksum: +msLHK5a+gOygovghGJTTQ
+! Checksum: hvaJoCYO2AVFv48TPQZsIQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 7 Nov 2011
+! Version: V4 Updated: 8 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -671,6 +671,7 @@
 #adLeaderboard,
 #adleaderboard,
 #adleaderboard_flex,
+.single_advert,
 #adleaderboardb,
 #adleaderboardb_flex,
 #AdLeaderboardBottom,
@@ -1304,6 +1305,7 @@
 #closeAdsDiv,
 #cnnCMAd,
 #cnnSponsoredPods,
+#headad,
 #cnnTopAd,
 #cnnTowerAd,
 #column-ads-bg,
@@ -1562,6 +1564,7 @@
 #google_ads_frame5,
 #google_ads_frame5_anchor,
 #google_ads_frame6,
+.top_advert,
 #google_ads_frame6_anchor,
 #google_ads_frame7,
 #google_adsense,
@@ -2446,7 +2449,6 @@
 #vertad1,
 #vertical_ad,
 #video_ads_overdiv,
-#videoAd,
 #videoAdvert,
 #view-photo-ad,
 #viewAd1,
