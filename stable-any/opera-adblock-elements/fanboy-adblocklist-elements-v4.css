@@ -1,7 +1,7 @@
 /*
-! Checksum: 1ifJwxXIgiKmvTdNb5JeKg
+! Checksum: wDwBfWj6Qv7jAnh0wC56Kg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 Nov 2011
+! Version: V4 Updated: 11 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1403,8 +1403,6 @@
 #detail_page_vid_topads,
 #devil-ad,
 #dItemBox_ads,
-#div-gpt-ad-1,
-#div-gpt-ad-4,
 #div_ad_holder,
 #div_content_mid_lft_ads,
 #div_googlead,
@@ -2598,6 +2596,7 @@
 .ad-feedback,
 .ad-flag,
 .ad-flex,
+#ad728foot,
 .ad-footer,
 .ad-footer-empty,
 .ad-footer-leaderboard,
@@ -3048,6 +3047,8 @@
 .adContainer1,
 .AdContainer160x600,
 .adContainer_125x125,
+#google_ads_div_header2,
+#google_ads_div_header1,
 .adContainer_728x90,
 .AdContainerBottom,
 .AdContainerBox308,
@@ -4507,6 +4508,7 @@
 .right-col-ad,
 .right-navAdBox,
 .right-rail-ad,
+.engagement_ad,
 .right-sidebar-box-ads,
 .right-top-ad,
 .Right300x250AD,
