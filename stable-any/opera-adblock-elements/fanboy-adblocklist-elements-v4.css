@@ -1,7 +1,7 @@
 /*
-! Checksum: iaYm/2bsqg2ypjnKZ1d3gA
+! Checksum: vnCr77C/uxnfmQUtvsweGw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 12 Nov 2011
+! Version: V4 Updated: 13 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1297,6 +1297,8 @@
 #cb-ad,
 #cb_medrect1_div,
 #cellAd,
+#aboveGbAd,
+#ad_squares,
 #center-ads-72980,
 #central-ads,
 #channel_ads,
@@ -2098,6 +2100,8 @@
 #rtm_div_562,
 #rtm_html_226,
 #rtm_html_274,
+#OAS_AD_TOPRIGHT,
+.adNote,
 #rtm_html_920,
 #rtmod_ad,
 #rubicsTextAd,
@@ -2107,6 +2111,8 @@
 #sdac_footer_ads_widget-3,
 #sdac_skyscraper_ad_widget-3,
 #sdac_top_ad_widget-3,
+.googleAd_160x600,
+.googleAd_728x90,
 #SE20-ad-container,
 #search-ad,
 #search-sponsor,
@@ -3339,6 +3345,7 @@
 .adsenseBox,
 .adsenseContainer,
 .adsensecontainer,
+#sideadscol,
 .AdsenseDownload,
 .AdsenseForum,
 .adsenseGreenBox,
@@ -3545,6 +3552,7 @@
 .advertisement-space,
 .advertisement-sponsor,
 .advertisement-text,
+#headeradblock,
 .advertisement-top,
 .advertisement-txt,
 .advertisement300x250,
@@ -4016,7 +4024,6 @@
 .gm-ad-lrec,
 .go-ads-widget-ads-wrap,
 .googad,
-.google-ad,
 .google-ad-container,
 .google-ads,
 .google-ads-boxout,
@@ -4137,11 +4144,14 @@
 .homepage-footer-ads,
 .homepage-sponsoredlinks-container,
 .homepage_middle_right_ad,
+.google_728x90,
 .homepageAd,
 .homepageMPU,
 .hor_ad,
 .horizontalAd,
 .horizontaltextadbox,
+#rightAdsDiv,
+.ads-box-border,
 .horizsponsoredlinks,
 .house-ads,
 .housead,
@@ -5659,7 +5669,6 @@ DIV[id="textlinkWrapper"],
 /* yahoo.com */
 #LREC,
 #MREC,
-div.ads,
 #ybf-ads,
 #YSLUG,
 .ysmsponsor,
