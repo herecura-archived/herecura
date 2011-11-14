@@ -1,7 +1,7 @@
 /*
-! Checksum: vnCr77C/uxnfmQUtvsweGw
+! Checksum: 4Lgh+ejrjgAUsukqgD4XVg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 Nov 2011
+! Version: V4 Updated: 14 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -196,7 +196,6 @@
 #ad-trailerboard-spot,
 #ad-typ1,
 #ad-uprrail1,
-#ad-west,
 #ad-wrap,
 #ad-wrap-right,
 #ad-wrapper,
@@ -1104,6 +1103,7 @@
 #agi-ad300x250overlay,
 #analytics_banner,
 #anchorAd,
+#squareads,
 #ap_adtext,
 #apiTopAdWrap,
 #apt-homebox-ads,
@@ -4532,6 +4532,7 @@
 .right_content_ad_16,
 .right_image_ad,
 .right_picAd,
+.ads-fieldset,
 .right_side_ads,
 .rightAD,
 .rightAd,
@@ -4540,6 +4541,7 @@
 .rightad250,
 .rightAd_bottom_fmt,
 .rightAd_top_fmt,
+#adtab-feedback2,
 .rightadblock,
 .rightAdBox,
 .rightads,
@@ -4569,6 +4571,8 @@
 .RR_ad,
 .rr_ads,
 .rside_adbox,
+#quidgetad,
+#yahooads,
 .rt_ad_300x250,
 .rt_advert_name,
 .rtAdFtr,
@@ -4762,6 +4766,7 @@
 .sponsored_box,
 .sponsored_box_search,
 .sponsored_link,
+#adSpotIslandLarge,
 .sponsored_links,
 .sponsored_links_box,
 .sponsored_links_container,
@@ -4917,6 +4922,7 @@
 .topbannerad,
 .topic_inad,
 .topleader,
+#adsense-end-300,
 .topLeaderboardAd,
 .topRightAd,
 .tower-ad,
