@@ -8,7 +8,7 @@
 
 _pkgname=catalyst
 pkgname=${_pkgname}-bede
-pkgver=11.10
+pkgver=11.11
 _extramodules=3.1-BEDE-external
 pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
@@ -26,7 +26,7 @@ source=(
 )
 
 md5sums=(
-	'd33cada9b3a23726fbd41ffd02636358'
+	'7196077aacfbaf7234a705f5352a1111'
 	'3e1b82bd69774ea808da69c983d6a43b'
 )
 
