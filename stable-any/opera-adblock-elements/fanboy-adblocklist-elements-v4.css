@@ -1,7 +1,7 @@
 /*
-! Checksum: t4nC3MzRO603LNTYRNN+1g
+! Checksum: zscoH7dWN9yekAncI+J3kw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 16 Nov 2011
+! Version: V4 Updated: 17 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -27,7 +27,6 @@
 #acAdContainer,
 #ad-1,
 #ad-120x600-1,
-#ad-120x600-other,
 #ad-120x600-other,
 #ad-120x600-sidebar,
 #ad-120x60Div,
@@ -1649,8 +1648,11 @@
 #headerads,
 #HeaderAdsBlock,
 #headeradsbox,
+#HeaderAd,
+.ad-tag,
 #HeaderAdSidebar,
 #headeradspace,
+.ad_sidebar_bigbox,
 #headeradvertholder,
 #headerAdWrap,
 #headeradwrap,
@@ -2019,6 +2021,7 @@
 #recommendedAdContainer,
 #rectAd,
 #rectangle_ad,
+#ad_300x600,
 #rectangle_ad_smallgame,
 #refine-300-ad,
 #refine-ad,
@@ -2451,10 +2454,16 @@
 #view-photo-ad,
 #viewAd1,
 #viewads,
+#adbg_ad_0,
+#adbg_ad_1,
 #viewportAds,
 #viewvid_ad300x250,
+.header-adsense,
 #VM-footer-adwrap,
 #VM-header-adspace,
+.cnbcHeaderAd,
+.cnbcRailAd,
+.railadspace,
 #VM-header-adwrap,
 #VM-MPU-adspace,
 #weather-ad,
@@ -2820,7 +2829,6 @@
 .ad_728_90,
 .ad_728_90b,
 .ad_728_top,
-.ad_728Home,
 .Ad_728x90,
 .Ad_728x90_holder,
 .ad_728x90_top,
@@ -4094,6 +4102,7 @@
 .grev-ad,
 .grey-ad-line,
 .gridAd,
+.ad-container-160x600,
 .gridAdRow,
 .group_ad,
 .gsAd,
@@ -4751,6 +4760,7 @@
 .sponsor_units,
 .sponsorad,
 .sponsoradlabel,
+#category_sponsorship_ad,
 .sponsorAds,
 .sponsorads,
 .sponsoradtitle,
