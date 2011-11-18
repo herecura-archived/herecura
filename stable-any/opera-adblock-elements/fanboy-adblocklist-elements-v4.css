@@ -1,7 +1,7 @@
 /*
-! Checksum: zscoH7dWN9yekAncI+J3kw
+! Checksum: IYs2GkUqur2Qnw73zVMO6A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 17 Nov 2011
+! Version: V4 Updated: 18 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1066,6 +1066,7 @@
 #advertSection,
 #advertsingle,
 #advertspace,
+.right_ad_innercont,
 #AdvertText,
 #adverttext,
 #advertTower,
@@ -1073,6 +1074,7 @@
 #advRectangle,
 #advt-right-skyscraper,
 #advWrapper,
+.jobkeywordads,
 #adwidget,
 #adwidget1,
 #adwidget2,
@@ -2022,6 +2024,8 @@
 #rectAd,
 #rectangle_ad,
 #ad_300x600,
+.adLargeRec,
+.ad_300x60,
 #rectangle_ad_smallgame,
 #refine-300-ad,
 #refine-ad,
@@ -2754,6 +2758,7 @@
 .ad300x250b,
 .ad300x250box,
 .ad300x250Module,
+.mp-ad,
 .ad300x250Top,
 .ad300x40,
 .ad300x50-right,
@@ -3087,6 +3092,7 @@
 .adflag,
 .adfoot,
 .adFrame,
+.adframe,
 .adframe2,
 .adFrameContainer,
 .AdFrameLB,
@@ -3647,6 +3653,7 @@
 .ap_str_ad,
 .apiAdMarkerAbove,
 .apiAds,
+#GamePageAdDiv,
 .apiButtonAd,
 .apxContentAd,
 .area1_2_ad1,
@@ -3701,7 +3708,12 @@
 .banner_ad,
 .banner_ad_728x90,
 .banner_ad_footer,
+.adAlert,
 .banner_ad_leaderboard,
+#comp_AdsLeaderboardTop,
+#containerAds980,
+#adPosOne,
+.largeRectangleAd,
 .BannerAd,
 .bannerAd,
 .bannerad,
@@ -3710,6 +3722,7 @@
 .bannerAd_rdr,
 .bannerAds,
 .bannerAdTower,
+#taboola-ad,
 .bannerAdWrapper300x250,
 .bannerAdWrapper730x86,
 .bannerGAd,
@@ -4033,6 +4046,9 @@
 .generic_300x250_ad,
 .GetRightAds,
 .gl_ad,
+.centered_wide_ad,
+.double_adsense,
+.bottom-ad-large,
 .glamsquaread,
 .global_banner_ad,
 .gm-ad-lrec,
