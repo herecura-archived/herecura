@@ -1,7 +1,7 @@
 /*
-! Checksum: IYs2GkUqur2Qnw73zVMO6A
+! Checksum: JBxBgxZ1T1kSa9zgrNt3rA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Nov 2011
+! Version: V4 Updated: 19 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3857,6 +3857,8 @@
 .buzz_ad_wrap,
 .buzzAd,
 .bx_ad,
+#homeAdLeft,
+.textAdBlock,
 .bx_ad_right,
 .bxad,
 .cA-adStack,
