@@ -1,7 +1,7 @@
 /*
-! Checksum: JBxBgxZ1T1kSa9zgrNt3rA
+! Checksum: m7LptNuj0WHok3eeNNfc+w
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Nov 2011
+! Version: V4 Updated: 20 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -5701,6 +5701,9 @@ DIV[id="textlinkWrapper"],
 .leaderBoardWrapper,
 /* wibiyatoolbar */
 #wibiyaToolbar,
+/* wired.com */
+.widget_WiredWidgetsGoogleAds,
+.widget_WiredWidgetsDartAds,
 /* xconomy.com */
 .large_ad,
 /* xe.com */
