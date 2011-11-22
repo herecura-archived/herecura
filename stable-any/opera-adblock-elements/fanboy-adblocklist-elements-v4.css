@@ -1,7 +1,7 @@
 /*
-! Checksum: FW/ASk+wnYocYVK6nCx0LQ
+! Checksum: e7QuSEAndQV9dfCfnRFcGQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 21 Nov 2011
+! Version: V4 Updated: 22 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1975,6 +1975,7 @@
 #OverrideAdArea,
 #p360_ad_unit,
 #page-header-ad,
+.adsDef,
 #page_content_top_ad,
 #page_top_ad,
 #pageAdDiv,
@@ -2804,6 +2805,7 @@
 .Ad_120x600,
 .Ad_120x600_holder,
 .ad_120x90,
+#boxad300,
 .ad_125,
 .ad_130x90,
 .ad_160_600,
@@ -2933,15 +2935,18 @@
 .ad_mr,
 .ad_mrec,
 .ad_mrect,
+.ads-above-comments,
 .ad_notice,
 .ad_pagebody,
 .ad_panel,
+.content-header-ad,
 .ad_partner,
 .ad_partners,
 .ad_perma-panorama,
 .ad_pic,
 .ad_placeholder,
 .ad_placement,
+.pane-openx,
 .ad_plus,
 .ad_policy_link_br,
 .ad_position,
@@ -4152,6 +4157,8 @@
 .header-adsense,
 .header-advert,
 .header_ad_2,
+.RightRailAdbg,
+.RightRailAdtext,
 .header_ad_div,
 .header_ads,
 .header_adsense_banner,
@@ -4259,6 +4266,8 @@
 .l-bottom-ads,
 .l300x250ad,
 .l_ad_sub,
+#advertisment-horizontal,
+.widget_advertisment,
 .labelads,
 .labeled_ad,
 .large-btn-ad,
@@ -4754,6 +4763,7 @@
 .specials_ads,
 .speedyads,
 .spl_ad,
+#ads-mpu,
 .spl_ad2,
 .spl_ad_plus,
 .spLinks,
