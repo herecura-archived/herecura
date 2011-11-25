@@ -1,7 +1,7 @@
 /*
-! Checksum: fOZKHfaonKQ6KC+qQqqgLw
+! Checksum: ICp0xagL8zwQOVM/vCgquA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 23 Nov 2011
+! Version: V4 Updated: 25 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -643,6 +643,7 @@
 #AdFoxDiv,
 #adFps,
 #adFrame,
+#adSet,
 #adframe,
 #AdFrame2,
 #AdFrame4,
@@ -866,6 +867,8 @@
 #adsenseheader,
 #adsensepo,
 #adsensepos,
+.showAdContainer,
+#ctl00_Content_skyAd,
 #adsensetopplay,
 #adsenseWrap,
 #adshowbtm,
@@ -2942,9 +2945,12 @@
 .ads-above-comments,
 .ad_notice,
 .ad_pagebody,
+.right-ad-block,
 .ad_panel,
 .content-header-ad,
 .ad_partner,
+.Sitewide_AdLabel,
+#sponsorsBox,
 .ad_partners,
 .ad_perma-panorama,
 .ad_pic,
@@ -4524,6 +4530,7 @@
 .premium_ad_container,
 .pricead-border,
 .promo-ad,
+.right-adsense,
 .promo_border,
 .promoad,
 .promoboxAd,
@@ -4602,6 +4609,8 @@
 .rightAdBox,
 .rightads,
 .rightAdvert,
+.ad-promo,
+.bannerAdWrap,
 .rightbox_content_ads,
 .rightboxad,
 .rightboxads,
@@ -4777,6 +4786,8 @@
 .spnsrCntnr,
 .spon-links,
 .spon125,
+#top-right-ad,
+#top-left-ad,
 .spon_link,
 .sponlinkbox,
 .spons-link,
@@ -4837,6 +4848,8 @@
 .sponsoredProduct,
 .sponsoredresults,
 .sponsoredShowcasePanel,
+#ad_2,
+.widget_adsensewidget,
 .sponsorheader,
 .SponsorIsland,
 .sponsorLabel,
@@ -4858,6 +4871,7 @@
 .square_banner_ad,
 .SquareAd,
 .squareAd,
+#global-banner-ad,
 .squaread,
 .squareAdd,
 .squareAddtwo,
@@ -4931,6 +4945,7 @@
 .top-ads,
 .top-adsense-banner,
 .top-banner-468,
+#adComponent,
 .top-banner-ad,
 .top-banner-ad-wrapper,
 .top-banner-add,
@@ -4938,9 +4953,12 @@
 .top_Ad,
 .top_ad,
 .top_ad1,
+#docmainad,
 .top_ad_728,
+.adType2,
 .top_ad_728_90,
 .top_ad_holder,
+#leaderboard_ad_main,
 .top_ad_list,
 .top_ad_long,
 .top_ad_post,
