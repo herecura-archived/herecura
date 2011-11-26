@@ -1,7 +1,7 @@
 /*
-! Checksum: ICp0xagL8zwQOVM/vCgquA
+! Checksum: jc1NZwMNLlf9ye7NFVahng
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 25 Nov 2011
+! Version: V4 Updated: 26 Nov 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2400,6 +2400,7 @@
 #topad1,
 #topad2,
 #topAd728x90,
+.topBoxAdvertisement,
 #topad_left,
 #topad_right,
 #topAdBanner,
@@ -2841,8 +2842,10 @@
 .ad_336,
 .ad_336x280,
 .ad_336x90,
+#movieads,
 .ad_350x250,
 .ad_468,
+.ad-150,
 .ad_468x60,
 .ad_600,
 .ad_640x90,
@@ -3963,6 +3966,8 @@
 .custom-ad-container,
 .custom_ads,
 .custom_banner_ad,
+.LeaderAdvertisement,
+.gamepageadBox,
 .cxAdvertisement,
 .darla_ad,
 .dart-ad,
@@ -4197,6 +4202,8 @@
 .homeAd1,
 .homeAd2,
 .homeAdBox,
+.HeaderAdvert,
+.SidebarAdvert,
 .homeadnews,
 .homeAdSection,
 .HomeContentAd,
@@ -4862,11 +4869,13 @@
 .sponsorsbig,
 .sponsorship_ad,
 .sponsorshipContainer,
+.linkAD,
 .SponsorshipText,
 .sponsorText,
 .sponsWrap,
 .spotlightAd,
 .sqAd2,
+.left_300_ad,
 .square-ad-1,
 .square_banner_ad,
 .SquareAd,
