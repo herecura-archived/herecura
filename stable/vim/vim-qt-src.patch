@@ -57,6 +57,122 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 +add_executable(qvim ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES})
 +target_link_libraries(qvim -lm -lncurses -lacl -lgpm ${QT_LIBRARIES})
+diff -urN vim-src/src/Make_ming.mak vim-qt-src/src/Make_ming.mak
+--- vim-src/src/Make_ming.mak	2011-10-12 16:55:39.000000000 +0200
++++ vim-qt-src/src/Make_ming.mak	2011-10-12 16:41:08.000000000 +0200
+@@ -108,10 +108,10 @@
+ # on NT, it's here:
+ PERLLIB=$(PERL)/lib
+ PERLLIBS=$(PERLLIB)/Core
+-XSUBPPTRY=$(PERLLIB)/ExtUtils/xsubpp
+-XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPPTRY)'")
++XSUBPP=$(PERLLIB)/ExtUtils/xsubpp
++XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPP)'")
+ ifeq "$(XSUBPP_EXISTS)" ""
+-XSUBPP=perl $(XSUBPPTRY)
++XSUBPP=perl $(XSUBPP)
+ else
+ XSUBPP=xsubpp
+ endif
+diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
+--- vim-src/src/Makefile	2011-06-16 17:00:46.000000000 +0200
++++ vim-qt-src/src/Makefile	2011-12-01 21:30:11.000000000 +0100
+@@ -1232,6 +1232,35 @@
+ NEXTAW_TESTTARGET = gui
+ NEXTAW_BUNDLE	=
+ 
++### Qt
++# We use the following to build
++# - QT_MOC
++# - QT_LIBS
++# - QT_INCPATH
++MOC		= $(QT_MOC)
++QT_LIBS1	= $(QT_LIBS)
++QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
++			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
++			qt/fontdialog.cpp qt/scrollarea.cpp \
++			qt/vimwrapper.cpp qt/tabbar.cpp
++QT_OBJ	= objects/gui.o objects/gui_qt.o \
++			objects/pty.o objects/gui_beval.o \
++			objects/mainwindow.o objects/qvimshell.o objects/vimaction.o objects/qtresources.o \
++			objects/vimscrollbar.o objects/fontdialog.o objects/scrollarea.o objects/vimwrapper.o \
++			objects/tabbar.o
++
++QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. $(QT_INCPATH)
++QT_IPATH	= $(GUI_INC_LOC)
++QT_LIBS_DIR = $(GUI_LIB_LOC)
++
++QT_INSTALL  = install_normal install_gui_extra
++
++# Qt needs to be linked using the c++ compiler
++ifdef QT_LIBS
++	CClink=$(CXX)
++endif
++
++
+ ### (J)  Sun OpenWindows 3.2 (SunOS 4.1.x) or earlier that produce these ld
+ #	 errors:  ld: Undefined symbol
+ #		      _get_wmShellWidgetClass
+@@ -1276,7 +1305,7 @@
+ CARBONGUI_TESTARG = VIMPROG=../$(APPDIR)/Contents/MacOS/$(VIMTARGET)
+ 
+ # All GUI files
+-ALL_GUI_SRC  = gui.c gui_gtk.c gui_gtk_f.c gui_motif.c gui_xmdlg.c gui_xmebw.c gui_athena.c gui_gtk_x11.c gui_x11.c gui_at_sb.c gui_at_fs.c pty.c
++ALL_GUI_SRC  = gui.c gui_gtk.c gui_gtk_f.c gui_motif.c gui_xmdlg.c gui_xmebw.c gui_athena.c gui_gtk_x11.c gui_x11.c gui_at_sb.c gui_at_fs.c pty.c gui_qt_cpp qt/qvimshell.cpp qt/mainwindow.cpp qt/vimgui.cpp qt/fontdialog.cpp
+ ALL_GUI_PRO  = gui.pro gui_gtk.pro gui_motif.pro gui_xmdlg.pro gui_athena.pro gui_gtk_x11.pro gui_x11.pro gui_w16.pro gui_w32.pro gui_photon.pro
+ 
+ # }}}
+@@ -2495,6 +2524,50 @@
+ objects/gui_athena.o: gui_athena.c
+ 	$(CCC) -o $@ gui_athena.c
+ 
++## Qt objects
++objects/gui_qt.o: gui_qt.cpp
++	$(CXX) $(ALL_CFLAGS) -o $@ -c gui_qt.cpp
++
++objects/mainwindow.o: qt/mainwindow.cpp
++	$(MOC) qt/mainwindow.h > mainwindow.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/mainwindow.cpp
++
++objects/qvimshell.o: qt/qvimshell.cpp
++	$(MOC) qt/qvimshell.h > qvimshell.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/qvimshell.cpp
++
++objects/vimaction.o: qt/vimaction.cpp
++	$(MOC) qt/vimaction.h > vimaction.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimaction.cpp
++
++objects/qtresources.o: qt/icons.qrc
++	rcc -no-compress qt/icons.qrc -o qtresources.cpp
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qtresources.cpp
++
++objects/vimscrollbar.o: qt/vimscrollbar.cpp
++	$(MOC) qt/vimscrollbar.h > vimscrollbar.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimscrollbar.cpp
++
++objects/vimgui.o: qt/vimgui.cpp
++	$(MOC) qt/vimgui.h > vimgui.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimgui.cpp
++
++objects/fontdialog.o: qt/fontdialog.cpp
++	$(MOC) qt/fontdialog.h > fontdialog.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/fontdialog.cpp
++
++objects/scrollarea.o: qt/scrollarea.cpp
++	$(MOC) qt/scrollarea.h > scrollarea.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/scrollarea.cpp
++
++objects/vimwrapper.o: qt/vimwrapper.cpp
++	$(MOC) qt/vimwrapper.h > vimwrapper.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimwrapper.cpp
++
++objects/tabbar.o: qt/tabbar.cpp
++	$(MOC) qt/tabbar.h > tabbar.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/tabbar.cpp
++
+ objects/gui_beval.o: gui_beval.c
+ 	$(CCC) -o $@ gui_beval.c
+ 
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
 --- vim-src/src/config.mk.in	2011-06-16 17:00:46.000000000 +0200
 +++ vim-qt-src/src/config.mk.in	2011-10-20 16:41:07.000000000 +0200
@@ -72,7 +188,7 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/configure	2011-10-23 10:44:33.000000000 +0200
++++ vim-qt-src/src/configure	2011-12-01 21:30:11.000000000 +0100
 @@ -1,10 +1,14605 @@
  #! /bin/sh
 -# run the automatically generated configure script
@@ -9451,7 +9567,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +        as_fn_error $? "Unable to find Qt link flags" "$LINENO" 5
 +    fi
 +
-+    LDFLAGS="$LDFLAGS $QT_LFLAGS"
++    LDFLAGS="$LDFLAGS $QT_LFLAGS -lstdc++"
 +
 +
 +
@@ -14687,8 +14803,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-10-23 10:44:53.991612998 +0200
-+++ vim-qt-src/src/configure.in	2011-10-23 10:44:56.419629722 +0200
+--- vim-src/src/configure.in	2011-12-01 21:30:48.477123290 +0100
++++ vim-qt-src/src/configure.in	2011-12-01 21:30:50.234149127 +0100
 @@ -1716,11 +1716,11 @@
    fi
  fi
@@ -14903,7 +15019,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +        AC_MSG_ERROR(Unable to find Qt link flags)
 +    fi
 +
-+    LDFLAGS="$LDFLAGS $QT_LFLAGS"
++    LDFLAGS="$LDFLAGS $QT_LFLAGS -lstdc++"
 +    AC_SUBST(QT_LIBS)
 +    AC_SUBST(QT_MOC)
 +    AC_SUBST(QT_INCPATH)
@@ -14948,8 +15064,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-10-23 10:44:53.982612936 +0200
-+++ vim-qt-src/src/feature.h	2011-10-23 10:44:56.410629660 +0200
+--- vim-src/src/feature.h	2011-12-01 21:30:48.468123158 +0100
++++ vim-qt-src/src/feature.h	2011-12-01 21:30:50.225148995 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15182,8 +15298,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-10-20 16:41:07.000000000 +0200
-@@ -0,0 +1,1504 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-12-01 21:30:11.000000000 +0100
+@@ -0,0 +1,1507 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -16272,7 +16388,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	if ( menu_is_popup(menu->name) ) {
 +		menu->qmenu = new QMenu(VimWrapper::convertFrom((char*)menu->name), vimshell);
-+		return;
 +	} else if ( menu_is_toolbar(menu->name) ) {
 +		menu->qmenu = window->toolBar();
 +	} else if ( menu->parent == NULL ) {
@@ -16359,14 +16474,18 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	if ( menu->qmenu != NULL ) {
 +		QMenu *m = (QMenu*)menu->qmenu;
++
 +		if ( parent ) {
 +			parent->removeAction(m->menuAction());
++		} else {
++			window->menuBar()->removeAction(m->menuAction());
 +		}
 +		menu->qmenu->deleteLater();
 +	}
 +
 +	if ( menu->qaction != NULL ) {
 +		QAction *a = (QAction*)menu->qaction;
++
 +		if ( parent ) {
 +			parent->removeAction(a);
 +		}
@@ -16700,118 +16819,6 @@ diff -urN vim-src/src/main.c vim-qt-src/src/main.c
      {
  	main_start_gui();
  #ifdef FEAT_GUI
-diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
---- vim-src/src/Makefile	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/Makefile	2011-10-20 16:41:07.000000000 +0200
-@@ -1232,6 +1232,31 @@
- NEXTAW_TESTTARGET = gui
- NEXTAW_BUNDLE	=
- 
-+### Qt
-+# We use the following to build
-+# - QT_MOC
-+# - QT_LIBS
-+# - QT_INCPATH
-+MOC		= $(QT_MOC)
-+QT_LIBS1	= $(QT_LIBS)
-+QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
-+			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
-+			qt/fontdialog.cpp qt/scrollarea.cpp \
-+			qt/vimwrapper.cpp qt/tabbar.cpp
-+QT_OBJ	= objects/gui.o objects/gui_qt.o \
-+			objects/pty.o objects/gui_beval.o \
-+			objects/mainwindow.o objects/qvimshell.o objects/vimaction.o objects/qtresources.o \
-+			objects/vimscrollbar.o objects/fontdialog.o objects/scrollarea.o objects/vimwrapper.o \
-+			objects/tabbar.o
-+
-+QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. $(QT_INCPATH)
-+QT_IPATH	= $(GUI_INC_LOC)
-+QT_LIBS_DIR = $(GUI_LIB_LOC)
-+
-+QT_INSTALL  = install_normal install_gui_extra
-+
-+
-+
- ### (J)  Sun OpenWindows 3.2 (SunOS 4.1.x) or earlier that produce these ld
- #	 errors:  ld: Undefined symbol
- #		      _get_wmShellWidgetClass
-@@ -1276,7 +1301,7 @@
- CARBONGUI_TESTARG = VIMPROG=../$(APPDIR)/Contents/MacOS/$(VIMTARGET)
- 
- # All GUI files
--ALL_GUI_SRC  = gui.c gui_gtk.c gui_gtk_f.c gui_motif.c gui_xmdlg.c gui_xmebw.c gui_athena.c gui_gtk_x11.c gui_x11.c gui_at_sb.c gui_at_fs.c pty.c
-+ALL_GUI_SRC  = gui.c gui_gtk.c gui_gtk_f.c gui_motif.c gui_xmdlg.c gui_xmebw.c gui_athena.c gui_gtk_x11.c gui_x11.c gui_at_sb.c gui_at_fs.c pty.c gui_qt_cpp qt/qvimshell.cpp qt/mainwindow.cpp qt/vimgui.cpp qt/fontdialog.cpp
- ALL_GUI_PRO  = gui.pro gui_gtk.pro gui_motif.pro gui_xmdlg.pro gui_athena.pro gui_gtk_x11.pro gui_x11.pro gui_w16.pro gui_w32.pro gui_photon.pro
- 
- # }}}
-@@ -2495,6 +2520,50 @@
- objects/gui_athena.o: gui_athena.c
- 	$(CCC) -o $@ gui_athena.c
- 
-+## Qt objects
-+objects/gui_qt.o: gui_qt.cpp
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c gui_qt.cpp
-+
-+objects/mainwindow.o: qt/mainwindow.cpp
-+	$(MOC) qt/mainwindow.h > mainwindow.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/mainwindow.cpp
-+
-+objects/qvimshell.o: qt/qvimshell.cpp
-+	$(MOC) qt/qvimshell.h > qvimshell.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/qvimshell.cpp
-+
-+objects/vimaction.o: qt/vimaction.cpp
-+	$(MOC) qt/vimaction.h > vimaction.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimaction.cpp
-+
-+objects/qtresources.o: qt/icons.qrc
-+	rcc -no-compress qt/icons.qrc -o qtresources.cpp
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qtresources.cpp
-+
-+objects/vimscrollbar.o: qt/vimscrollbar.cpp
-+	$(MOC) qt/vimscrollbar.h > vimscrollbar.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimscrollbar.cpp
-+
-+objects/vimgui.o: qt/vimgui.cpp
-+	$(MOC) qt/vimgui.h > vimgui.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimgui.cpp
-+
-+objects/fontdialog.o: qt/fontdialog.cpp
-+	$(MOC) qt/fontdialog.h > fontdialog.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/fontdialog.cpp
-+
-+objects/scrollarea.o: qt/scrollarea.cpp
-+	$(MOC) qt/scrollarea.h > scrollarea.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/scrollarea.cpp
-+
-+objects/vimwrapper.o: qt/vimwrapper.cpp
-+	$(MOC) qt/vimwrapper.h > vimwrapper.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimwrapper.cpp
-+
-+objects/tabbar.o: qt/tabbar.cpp
-+	$(MOC) qt/tabbar.h > tabbar.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/tabbar.cpp
-+
- objects/gui_beval.o: gui_beval.c
- 	$(CCC) -o $@ gui_beval.c
- 
-diff -urN vim-src/src/Make_ming.mak vim-qt-src/src/Make_ming.mak
---- vim-src/src/Make_ming.mak	2011-10-12 16:55:39.000000000 +0200
-+++ vim-qt-src/src/Make_ming.mak	2011-10-12 16:41:08.000000000 +0200
-@@ -108,10 +108,10 @@
- # on NT, it's here:
- PERLLIB=$(PERL)/lib
- PERLLIBS=$(PERLLIB)/Core
--XSUBPPTRY=$(PERLLIB)/ExtUtils/xsubpp
--XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPPTRY)'")
-+XSUBPP=$(PERLLIB)/ExtUtils/xsubpp
-+XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPP)'")
- ifeq "$(XSUBPP_EXISTS)" ""
--XSUBPP=perl $(XSUBPPTRY)
-+XSUBPP=perl $(XSUBPP)
- else
- XSUBPP=xsubpp
- endif
 diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
 --- vim-src/src/menu.c	2011-06-16 17:00:47.000000000 +0200
 +++ vim-qt-src/src/menu.c	2011-06-16 16:58:04.000000000 +0200
@@ -17213,8 +17220,8 @@ Binaire bestanden vim-src/src/qt/icons/help-contextual.png en vim-qt-src/src/qt/
 Binaire bestanden vim-src/src/qt/icons/run-build-clean.png en vim-qt-src/src/qt/icons/run-build-clean.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/run-build.png en vim-qt-src/src/qt/icons/run-build.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/system-run.png en vim-qt-src/src/qt/icons/system-run.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/table.png en vim-qt-src/src/qt/icons/table.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/tab-new.png en vim-qt-src/src/qt/icons/tab-new.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/table.png en vim-qt-src/src/qt/icons/table.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/vim-qt.png en vim-qt-src/src/qt/icons/vim-qt.png zijn verschillend
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
@@ -17507,8 +17514,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-09-14 17:04:51.000000000 +0200
-@@ -0,0 +1,1300 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-12-01 21:30:11.000000000 +0100
+@@ -0,0 +1,1304 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17904,6 +17911,10 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::mousePressEvent(QMouseEvent *ev)
 +{
 +	int but;
++
++	if ( !hasFocus() ) {
++		setFocus(Qt::MouseFocusReason);
++	}
 +
 +	switch( ev->button() ) {
 +	case Qt::LeftButton:
