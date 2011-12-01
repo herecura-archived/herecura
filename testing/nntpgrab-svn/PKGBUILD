@@ -2,7 +2,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=nntpgrab-svn
-pkgver=1908
+pkgver=1912
 pkgrel=1
 pkgdesc="NNTPGrab is an open source usenet download program"
 arch=('i686' 'x86_64')
