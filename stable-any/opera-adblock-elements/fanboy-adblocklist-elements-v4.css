@@ -1,7 +1,7 @@
 /*
-! Checksum: 44cwrLznZ5O5/hLyjjtFNg
+! Checksum: mzwhJLjgjUnjlO0Qo5bSjg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 29 Nov 2011
+! Version: V4 Updated: 1 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -27,6 +27,7 @@
 #abovepostads,
 #acAdContainer,
 #ad-1,
+#ad-120-left,
 #ad-120x600-1,
 #ad-120x600-other,
 #ad-120x600-sidebar,
@@ -818,6 +819,7 @@
 #ads_bottom_outer,
 #ads_button,
 #ads_by_google,
+#ads_campaign,
 #ads_catDiv,
 #ads_dynamicShowcase,
 #ads_footer,
@@ -1199,6 +1201,7 @@
 #bbccom_leaderboard_container,
 #bbContentAds,
 #bbo_ad1,
+#bcaster-ad,
 #below_content_ad_container,
 #belowad,
 #belowheaderad,
@@ -1335,6 +1338,7 @@
 #channel_ads,
 #chatAdv2,
 #circ_ad,
+#circ_ad_300x100,
 #city_House_Ad_300x137,
 #clickforad,
 #clientAds,
@@ -1896,6 +1900,7 @@
 #mainAdUnit,
 #mainAdvert,
 #maker-rect-ad,
+#marquee_ad,
 #mastAd,
 #mastad,
 #mastAdvert,
@@ -1955,6 +1960,7 @@
 #mpuAd,
 #mpuad,
 #mpuholder,
+#mpuInContent,
 #mpuSlot,
 #mpuWrapperAd,
 #mr_banner_topad,
@@ -2366,6 +2372,7 @@
 #synch-ad,
 #t7ad,
 #taboola-ad,
+#takeover-ad,
 #takeoverad,
 #tbl_googlead,
 #tbo_headerads,
@@ -2780,6 +2787,7 @@
 .ad04,
 .ad1,
 .ad10,
+.ad1000,
 .ad1001,
 .ad100x100,
 .ad120,
@@ -3175,6 +3183,7 @@
 .AdFrameLB,
 .adgoogle,
 .adGoogle,
+.adgoogle_block,
 .AdGraph,
 .adhead,
 .adhead_h_wide,
@@ -3437,9 +3446,11 @@
 .adsense_block,
 .adsense_box01,
 .adsense_full_width,
+.adsense_leader,
 .adsense_left_lu,
 .adsense_mainbox01,
 .adsense_menu,
+.adsense_small_square,
 .adsense_top_ad,
 .adsense_top_lu,
 .adsense_x88,
@@ -3667,6 +3678,7 @@
 .advertisement300x250,
 .advertisement468,
 .advertisement_caption,
+.advertisement_container,
 .advertisement_flag,
 .advertisement_flag_sky,
 .advertisement_g,
@@ -4255,6 +4267,7 @@
 .header_ad_2,
 .header_ad_div,
 .header_ads,
+.header_ads_promotional,
 .header_adsense_banner,
 .header_advertisement,
 .header_advertisement_text,
@@ -4728,6 +4741,7 @@
 .rnav_ad,
 .rngtAd,
 .rot_ads,
+.rotating-ad,
 .rotatingAdvertisement,
 .round_box_advert,
 .roundedboxesgoogle,
