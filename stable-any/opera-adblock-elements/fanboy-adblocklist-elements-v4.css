@@ -1,7 +1,7 @@
 /*
-! Checksum: mzwhJLjgjUnjlO0Qo5bSjg
+! Checksum: CcQx96c63eukCb7CNh/50A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Dec 2011
+! Version: V4 Updated: 2 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1378,6 +1378,7 @@
 #contentAd,
 #contentad,
 #ContentAdPlaceHolder1,
+#contentads,
 #contentAds300x200,
 #contentAds300x250,
 #contentarea-ad,
@@ -1518,6 +1519,7 @@
 #footerAd,
 #footerad,
 #FooterAdBlock,
+#footerAdBottom,
 #FooterAdContainer,
 #footerAdContainer,
 #footerAdDiv,
@@ -1752,6 +1754,7 @@
 #horizontalads,
 #HouseAd,
 #houseAd,
+#HouseAdInsert,
 #hp_ad300x250,
 #hpV2_300x250Ad,
 #hpV2_googAds,
@@ -1909,6 +1912,7 @@
 #masthead_topad,
 #MastheadAd,
 #matchFooterAd,
+#md_adLoader,
 #media_ad,
 #mediaAdLeaderboard,
 #mediaplayer_adburner,
@@ -1917,6 +1921,7 @@
 #mediumRectangleAd,
 #medrectad,
 #medrectangle_banner,
+#Meebo\:AdElement\.Root,
 #memberad,
 #menuad,
 #menuAds,
@@ -1959,6 +1964,7 @@
 #mpu_text_ad,
 #mpuAd,
 #mpuad,
+#mpuContainer,
 #mpuholder,
 #mpuInContent,
 #mpuSlot,
@@ -2002,6 +2008,7 @@
 #OAS_AD_TOPRIGHT,
 #oas_Right2,
 #OAS_Top,
+#oas_wide_skyscraper,
 #ofie_ad,
 #onespot-ads,
 #onpageads,
@@ -2928,6 +2935,7 @@
 .ad_banner,
 .ad_banner2,
 .ad_banner_border,
+.ad_banner_div,
 .ad_bar,
 .ad_bg,
 .ad_biz,
@@ -3553,7 +3561,6 @@
 .adTileWrap,
 .adtips,
 .adtips1,
-.adtitle,
 .AdTop,
 .adtop,
 .adTopboxright,
@@ -4050,6 +4057,7 @@
 .darla_ad,
 .dart-ad,
 .dart_ad,
+.dartad,
 .dartAd491,
 .dartadbanner,
 .dartAdImage,
@@ -4750,6 +4758,7 @@
 .RR_ad,
 .rr_ads,
 .rside_adbox,
+.rt_ad,
 .rt_ad_300x250,
 .rt_advert_name,
 .rtAdFtr,
@@ -4776,6 +4785,7 @@
 .searchAd,
 .searchAds,
 .searchads,
+.searchAdTop,
 .searchSponsorItem,
 .sec-ad,
 .section-ad,
@@ -4930,6 +4940,7 @@
 .sponsoradtitle,
 .sponsorArea,
 .sponsorBlock,
+.sponsorBox,
 .sponsored-ad-ob,
 .sponsored-ads,
 .sponsored-b,
@@ -5005,6 +5016,7 @@
 .subheadAdPanel,
 .subtitle-ad-container,
 .supp-ads,
+.syAd,
 .t10ad,
 .tab_ad_area,
 .tabAd,
@@ -5081,6 +5093,7 @@
 .TopAd,
 .topad-bar,
 .topad2,
+.topAdBanner,
 .topadblock,
 .topadbox,
 .topAdCenter,
@@ -5499,6 +5512,7 @@ div[id="leaderboard"],
 .fbTimelineSideAds,
 .fbEmuLink,
 .fbPhotoAdsCol,
+.fbEmuEgo,
 /* forbes.com */
 #colAd,
 /* forums.somethingawful.com */
