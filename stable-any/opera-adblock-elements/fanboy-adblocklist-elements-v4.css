@@ -1,7 +1,7 @@
 /*
-! Checksum: CcQx96c63eukCb7CNh/50A
+! Checksum: 2fuGoz98FFbww3nDqPzRLw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Dec 2011
+! Version: V4 Updated: 3 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -622,6 +622,7 @@
 #adContainer_3,
 #adContainerCC,
 #adcontainerRight,
+#adcontainerTop,
 #AdContainerTop,
 #adcontainsm,
 #AdContentModule_F,
@@ -1068,6 +1069,7 @@
 #advertblock,
 #advertborder,
 #advertBoxRight,
+#advertBoxSquare,
 #advertContainer,
 #adverti,
 #advertise_top,
@@ -1595,6 +1597,8 @@
 #GOOGLE_ADS_365,
 #GOOGLE_ADS_44,
 #GOOGLE_ADS_48,
+#GOOGLE_ADS_49,
+#GOOGLE_ADS_558,
 #google_ads_div_Blog_300,
 #google_ads_div_Front-160x600,
 #google_ads_div_header1,
@@ -2923,6 +2927,8 @@
 .ad_728_90b,
 .ad_728_top,
 .Ad_728x90,
+.ad_728x90-1,
+.ad_728x90-2,
 .Ad_728x90_holder,
 .ad_728x90_top,
 .ad_954-60,
@@ -3232,7 +3238,6 @@
 .AdLeftbarBorderStyle,
 .adLine,
 .adline,
-.adlist,
 .adlist1,
 .adlist2,
 .adListB,
@@ -3304,8 +3309,10 @@
 .ads-250,
 .ads-300,
 .ads-300-250,
+.ads-300x250,
 .Ads-300x250,
 .ads-300x300,
+.ads-300x80,
 .ads-336-197-qu,
 .ads-468x60-bordered,
 .ads-728x90-wrap,
@@ -3357,6 +3364,7 @@
 .ads315,
 .ads468,
 .ads468x60,
+.ads728,
 .ads728_90,
 .ads728x90,
 .ads_120x60_index,
@@ -3983,6 +3991,7 @@
 .cdAdContainer,
 .center_ad,
 .center_ads,
+.center_adsense,
 .centerads,
 .centered_wide_ad,
 .cg_ad_slug,
