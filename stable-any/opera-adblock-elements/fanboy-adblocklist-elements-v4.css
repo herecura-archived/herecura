@@ -1,7 +1,7 @@
 /*
-! Checksum: jDSEXSsj2228mUbn7XHpJg
+! Checksum: A+PKRKdjhx6IiqDwhKEy2Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 7 Dec 2011
+! Version: V4 Updated: 8 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -736,6 +736,7 @@
 #adnews,
 #adNshareWrap,
 #adP,
+#adPageContainer,
 #adPanelAjaxUpdate,
 #AdPanelBigBox,
 #AdPanelLogo,
@@ -3177,6 +3178,8 @@
 .adboxlong,
 .adboxo,
 .adBoxSingle,
+.AdBoxStyle,
+.AdBoxStyleHome,
 .adboxVert,
 .adBrandpanel,
 .adbreak,
@@ -3229,6 +3232,7 @@
 .adframe2,
 .adFrameContainer,
 .AdFrameLB,
+.adFrames,
 .adgoogle,
 .adGoogle,
 .adgoogle_block,
@@ -3507,6 +3511,7 @@
 .adsense_mainbox01,
 .adsense_menu,
 .adsense_small_square,
+.adsense_top,
 .adsense_top_ad,
 .adsense_top_lu,
 .adsense_x88,
@@ -3686,6 +3691,7 @@
 .advert_banner,
 .advert_block,
 .advert_box,
+.advert_div,
 .advert_google_content,
 .advert_google_title,
 .advert_leaderboard,
@@ -3819,6 +3825,7 @@
 .apiAds,
 .apiButtonAd,
 .apxContentAd,
+.archive-ad,
 .area1_2_ad1,
 .area5_ad,
 .areaAd,
@@ -3967,6 +3974,7 @@
 .bottom-ads,
 .bottom_ad,
 .bottom_ad_block,
+.bottom_ads,
 .bottom_adsense,
 .bottom_bar_ads,
 .bottom_sponsor,
@@ -4047,6 +4055,7 @@
 .change_AdContainer,
 .classifiedAdSplit,
 .cmAd,
+.cmAdSponsoredLinksBox,
 .cms-Advert,
 .cnbc_badge_banner_ad_area,
 .cnbcHeaderAd,
@@ -4112,6 +4121,7 @@
 .custom-ad-container,
 .custom_ads,
 .custom_banner_ad,
+.cwAdvert,
 .cxAdvertisement,
 .darla_ad,
 .dart-ad,
@@ -5134,6 +5144,7 @@
 .thirdAdHead,
 .thisIsAnAd,
 .tibu_ad,
+.tile_ad_container,
 .tileAdWrap,
 .title-ad,
 .tmnAdsenseContainer,
