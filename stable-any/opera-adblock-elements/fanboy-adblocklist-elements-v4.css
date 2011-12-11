@@ -1,5 +1,5 @@
 /*
-! Checksum: +rNr36liMmWWvGz2XKimCA
+! Checksum: KgwT0YM45xZszUG5yL2LUQ
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 10 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -1581,6 +1581,7 @@
 #game_profile_ad_300_250,
 #gameAdMiddle,
 #GamePageAdDiv,
+#gameplay_ad,
 #gasense,
 #gbl_topmost_ad,
 #gBnrAd,
@@ -1647,6 +1648,7 @@
 #google_ads_frame6,
 #google_ads_frame6_anchor,
 #google_ads_frame7,
+#google_ads_wide,
 #google_adsense,
 #Google_Adsense_Main,
 #google_textlinks,
@@ -2598,6 +2600,8 @@
 #wh_ad_4,
 #whitepaper-ad,
 #whoisRightAdContainer,
+#wibiyaAdRotation,
+#wibiyaToolbarAdUnitFlash,
 #wide_ad_unit_2,
 #wide_ad_unit_top,
 #wide_right_ad,
@@ -2838,6 +2842,7 @@
 .ad-tile,
 .ad-top-300x250,
 .ad-top-728,
+.ad-top2,
 .ad-unit-300-wrapper,
 .ad-unit-anchor,
 .ad-unit-mpu,
@@ -3179,6 +3184,9 @@
 .adBgTop,
 .adBillboard,
 .adBlock,
+.adblock-240-400,
+.adblock-300-300,
+.adblock-600-120,
 .adblock-wide,
 .adBlock160x600Spot1,
 .adblock300x250Spot1,
@@ -3461,6 +3469,7 @@
 .ads_h,
 .ads_header,
 .ads_holder,
+.ads_infoBtns,
 .ads_inside2,
 .ads_leaderboard,
 .ads_mpu,
@@ -4287,6 +4296,7 @@
 .google-ads-obj,
 .google-ads-rodape,
 .google-ads-slim,
+.google-ads-wrapper,
 .google-adsense,
 .google-indiv-box2,
 .google-right-ad,
@@ -4571,6 +4581,7 @@
 .m-sponsored,
 .m4-adsbygoogle,
 .macAd,
+.mad_adcontainer,
 .madison_ad,
 .main-ad,
 .main-ads,
@@ -4641,6 +4652,7 @@
 .module_header_sponsored,
 .moduleAd,
 .moduleAdSpot,
+.moduleAdvert,
 .moduleAdvertContent,
 .modulegad,
 .moduletable-advert,
@@ -6088,5 +6100,4 @@ div.lrec,
 .dirListSuperSpons,
 /* zdnet.com.au */
 #mpu,
-#promo-power-centre
-{ display: none !important }
+#promo-power-centre { display: none !important }
