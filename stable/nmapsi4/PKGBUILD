@@ -1,7 +1,7 @@
 # Maintainer: Jeff Meldrum <jeffmeld(AT)lightspeed(DOT)ca>
 
 pkgname=nmapsi4
-pkgver=0.2.1
+pkgver=0.3
 pkgrel=1
 pkgdesc="Qt-based Gui nmap interface."
 arch=('i686' 'x86_64')
@@ -10,8 +10,7 @@ license=('GPL2')
 conflicts=()
 depends=('qt' 'nmap')
 makedepends=('cmake>=2.6')
-source=(http://nmapsi4.googlecode.com/files/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4e7589b920473c0efa3aee3e818bd491ff271664fd1695c549b38dbcb5251c2e')
+source=("http://nmapsi4.googlecode.com/files/${pkgname}-${pkgver}.tar.bz2")
 
 build() {
 	cd ${pkgname}-${pkgver}
@@ -31,3 +30,4 @@ package() {
 	make DESTDIR=${pkgdir} install
 	chmod +x ${pkgdir}/usr/bin/*
 }
+sha256sums=('51aa7e5e16577c318478b10ab3d533a15ea9e4d8cb7b7fb19a52e9b47f8b201d')
