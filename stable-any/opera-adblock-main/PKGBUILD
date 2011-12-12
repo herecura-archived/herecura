@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=opera-adblock-main
-pkgver=20111211
+pkgver=20111212
 pkgrel=1
 pkgdesc="Fanboy's Main AdBlock Filterset for Opera"
 arch=('any')
@@ -17,4 +17,4 @@ package() {
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-main/}
 	install -m644 urlfilter-main.ini ${pkgdir}/usr/share/${pkgname/-main/}/urlfilter-main.ini
 }
-sha256sums=('725f69876beddb8423e2d7927866f5d3556581cfaeefd9995cf6adbd13d1f2c2')
+sha256sums=('74b762059a098420cdd95dc31a2c23f3cd12d4bbca5de894240d60eadf9d3b2a')
