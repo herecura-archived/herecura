@@ -14,8 +14,8 @@ optdepends=(
 	'qt: to run ATi Catalyst Control Center (amdcccle)'
 	'libxxf86vm: to run ATi Catalyst Control Center (amdcccle)'
 )
-conflicts=('catalyst-test' 'nvidia-utils' 'libgl')
-provides=('libgl' "libatical=${pkgver}")
+conflicts=('catalyst-test' 'nvidia-utils' 'libgl' 'libcl')
+provides=('libgl' 'libcl' "libatical=${pkgver}")
 install=${pkgname}.install
 
 source=(
@@ -25,7 +25,7 @@ source=(
 	'atieventsd.sh'
 )
 md5sums=(
-	'7196077aacfbaf7234a705f5352a1111'
+	'15c8148f916b2b9d37a5cbb189c6dda6'
 	'bdafe749e046bfddee2d1c5e90eabd83'
 	'4efa8414a8fe9eeb50da38b5522ef81d'
 	'f729bf913613f49b0b9759c246058a87'
@@ -44,6 +44,7 @@ package() {
 	install -m755 -d "${pkgdir}/etc/profile.d"
 	install -m755 -d "${pkgdir}/etc/acpi/events"
 	install -m755 -d "${pkgdir}/etc/security/console.apps"
+	install -m755 -d "${pkgdir}/etc/OpenCL/vendors"  # since 11.11
 
 	install -m755 -d "${pkgdir}/usr/lib/xorg/modules/dri"
 	install -m755 -d "${pkgdir}/usr/lib/xorg/modules/drivers"
@@ -120,13 +121,9 @@ package() {
 	ln -snf /usr/lib/xorg/modules/dri/fglrx_dri.so ${pkgdir}/usr/lib/dri/fglrx_dri.so
 	ln -snf libfglrx_dm.so.1.0 "${pkgdir}/usr/lib/libfglrx_dm.so.1"
 	ln -snf libfglrx_dm.so.1.0 "${pkgdir}/usr/lib/libfglrx_dm.so"
-	#ln -sf libfglrx_pp.so.1.0 "${pkgdir}/usr/lib/libfglrx_pp.so.1"
-	#ln -sf libfglrx_tvout.so.1.0 "${pkgdir}/usr/lib/libfglrx_tvout.so.1"
-	#ln -sf libfglrx_gamma.so.1.0 "${pkgdir}/usr/lib/libfglrx_gamma.so.1"
-	#ln -sf libGL.so.1.2 "${pkgdir}/usr/lib/libGL.so.1" #before 11.4
-	#ln -sf libGL.so.1.2 "${pkgdir}/usr/lib/libGL.so" #before 11.4
 	ln -snf libatiuki.so.1.0 "${pkgdir}/usr/lib/libatiuki.so.1"
 	ln -snf libatiuki.so.1.0 "${pkgdir}/usr/lib/libatiuki.so"
+	ln -snf libOpenCL.so.1 "${pkgdir}/usr/lib/libOpenCL.so" # since 11.11
 
 
 	cd "${srcdir}"/archive_files/common
@@ -159,4 +156,19 @@ package() {
 
 	# License
 	install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/" 
+
+	# since 11.11 : opencl files
+	if [ "${CARCH}" = "i686" ]; then
+		cd "${srcdir}/archive_files/arch/x86"
+		_arc=32
+	elif [ "${CARCH}" = "x86_64" ]; then
+		cd "${srcdir}/archive_files/arch/x86_64"
+		_arc=64
+	fi
+
+	# since 11.11: amd's vendor file for it's opencl library
+	install -m644 etc/OpenCL/vendors/amdocl${_arc}.icd "${pkgdir}/etc/OpenCL/vendors/"
+
+	# since 11.11: clinfo binary
+	install -m755 usr/bin/clinfo "${pkgdir}/usr/bin/"
 }
