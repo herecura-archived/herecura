@@ -1,7 +1,7 @@
 /*
-! Checksum: kGvW1Y2v/fKtZ96ogSWy1Q
+! Checksum: Il4hCFTyITRGpjUUlXUkzQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 Dec 2011
+! Version: V4 Updated: 16 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -213,6 +213,7 @@
 #ad-wrapper1,
 #ad-yahoo-simple,
 #ad01,
+#ad02,
 #Ad1,
 #ad1-home,
 #ad1006,
@@ -329,6 +330,7 @@
 #ad_468_60,
 #ad_5,
 #ad_728,
+#ad_728_90,
 #ad_728_foot,
 #ad_728x90,
 #ad_728x90_container,
@@ -470,6 +472,7 @@
 #ad_mrcontent,
 #ad_new,
 #ad_NorthBanner,
+#ad_one,
 #ad_overlay,
 #ad_overlay_countdown,
 #ad_overture,
@@ -542,6 +545,7 @@
 #ad_top_holder,
 #Ad_TopLeaderboard,
 #ad_topnav,
+#ad_two,
 #ad_txt,
 #ad_vertical,
 #ad_video_large,
@@ -567,6 +571,7 @@
 #adBanner160x610,
 #adBanner336x280,
 #adBanner728,
+#adBanner728_bot,
 #AdBanner_F1,
 #AdBanner_S,
 #adbannerleft,
@@ -754,6 +759,7 @@
 #AdPanelBigBox,
 #AdPanelLogo,
 #adPlaceHolderRight,
+#adplacement,
 #adPlacer,
 #adposition-C,
 #adposition-FPMM,
@@ -1463,6 +1469,7 @@
 #ctl00_tc_ctl14_AdControl,
 #ctl00_tc_ctl19_AdControl,
 #ctl00_TopAd,
+#ctl00_topAd,
 #ctl00_TowerAd,
 #ctrlsponsored,
 #cube_ads,
@@ -1528,6 +1535,7 @@
 #downloadAd,
 #dynamicAdWinDiv,
 #ear_ad,
+#eastAds,
 #embedAD,
 #eshopad-728x90,
 #featAds,
@@ -1577,6 +1585,7 @@
 #footerad,
 #FooterAdBlock,
 #footerAdBottom,
+#footerAdBox,
 #FooterAdContainer,
 #footerAdContainer,
 #footerAdDiv,
@@ -1716,6 +1725,7 @@
 #gpt-ad-skyscraper,
 #gpt_unit_videoAdSlot1_0,
 #grid_ad,
+#gsyadrectangleload,
 #H_Ad_728x90,
 #hd_ad,
 #hdr-banner-ad,
@@ -3277,6 +3287,7 @@
 .adbox_300x600,
 .adbox_cont,
 .adBoxBody,
+.adBoxContent,
 .adboxlong,
 .adboxo,
 .adBoxSingle,
@@ -3326,6 +3337,7 @@
 .adds,
 .adds2,
 .addtitle,
+.addwide,
 .adEmployment,
 .adfbox,
 .adFender3,
@@ -3648,6 +3660,7 @@
 .adsHeaderFlog,
 .adshowcase,
 .adside,
+.adSide,
 .adSidetileplus,
 .adsInsideResults_v3,
 .adsize728,
@@ -4468,6 +4481,7 @@
 .gutter-ad-left,
 .gutter-ad-right,
 .h-ad-728x90-bottom,
+.h-top-ad,
 .h_ad,
 .h_Ads,
 .half_ad_box,
@@ -4808,6 +4822,7 @@
 .normalAds,
 .northad,
 .note-advertisement,
+.noTitleAdBox,
 .nrcAd,
 .nsAdRow,
 .nscr300Ad,
@@ -4881,6 +4896,7 @@
 .publicidadSuperior,
 .pulse360ad,
 .pushdownAd,
+.pxz-ad-widget,
 .pxz-taskbar-anchor,
 .quigo,
 .quigo-ad,
@@ -5013,6 +5029,7 @@
 .scanAd,
 .scoopads,
 .search-ad,
+.search-results-ad,
 .search-sponsor,
 .search_ad_box,
 .search_results_ad,
@@ -5940,6 +5957,10 @@ div[class="w460 clr"],
 .mpMPU,
 /* newsweek.com */
 .homepageFlexAdOuter,
+/* gamersyde.com */
+#gsyadrectangleload,
+/* codeproject.com */
+.lqm_ad,
 /* newsonjapan.com */
 #squarebanner300x250,
 /* newsminer.com */
@@ -6194,6 +6215,8 @@ div.lrec,
 /* yourtv.com.au */
 #preheader-ninemsn-container,
 #msnmd_div,
+/* vindy.com */
+.v5rc_336x280ad,
 /* youtube.com */
 #search-pva,
 #watch-channel-brand-div,
