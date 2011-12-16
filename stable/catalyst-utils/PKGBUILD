@@ -3,7 +3,7 @@
 # Contributor: csslayer
 
 pkgname=catalyst-utils
-pkgver=11.11
+pkgver=11.12
 pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers utilities and libraries."
 arch=('i686' 'x86_64')
