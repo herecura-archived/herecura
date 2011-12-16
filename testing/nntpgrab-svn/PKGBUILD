@@ -2,7 +2,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=nntpgrab-svn
-pkgver=1908
+pkgver=1913
 pkgrel=1
 pkgdesc="NNTPGrab is an open source usenet download program"
 arch=('i686' 'x86_64')
@@ -12,7 +12,7 @@ groups=()
 depends=('gtk2' 'libsoup' 'networkmanager')
 optdepends=('par2cmdline: for automatic repair'
 'unrar: for automatic extraction')
-makedepends=('subversion' 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool' 'gobject-introspection' 'gconf')
+makedepends=('subversion' 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool' 'gobject-introspection' 'gconf' 'libpeas')
 provides=('nntpgrab')
 conflicts=('nntpgrab')
 replaces=()
