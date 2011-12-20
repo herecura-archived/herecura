@@ -1,7 +1,7 @@
 /*
-! Checksum: t5bmNqCw5s7AwVyU5OkICw
+! Checksum: t++908d/JAyI0HjklPQbsA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Dec 2011
+! Version: V4 Updated: 20 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -330,7 +330,6 @@
 #ad_468_60,
 #ad_5,
 #ad_728,
-#ad_728_90,
 #ad_728_foot,
 #ad_728x90,
 #ad_728x90_container,
@@ -1198,6 +1197,7 @@
 #articleLeftAdColumn,
 #articleSideAd,
 #articleview_ad,
+#artist-ad-container,
 #aside_ad,
 #asinglead,
 #atlasAdDivGame,
@@ -1483,7 +1483,6 @@
 #d4_ad_google02,
 #d_AdLink,
 #dap300x250,
-#dart-container-728x90,
 #dart_160x600,
 #dart_ad_block,
 #dartad11,
@@ -1539,6 +1538,7 @@
 #eastAds,
 #embedAD,
 #eshopad-728x90,
+#externalAd,
 #featAds,
 #feature_gad,
 #featuread,
@@ -1618,6 +1618,7 @@
 #game_header_ad,
 #game_profile_ad_300_250,
 #gameAdMiddle,
+#GameMediumRectangleAD,
 #GamePageAdDiv,
 #gameplay_ad,
 #games-mpu-container,
@@ -1727,6 +1728,7 @@
 #gpt_unit_videoAdSlot1_0,
 #grid_ad,
 #gsyadrectangleload,
+#gtv_tabSponsor,
 #H_Ad_728x90,
 #hd_ad,
 #hdr-banner-ad,
@@ -2008,6 +2010,7 @@
 #MastheadAd,
 #matchFooterAd,
 #md_adLoader,
+#med-rect-ad,
 #media_ad,
 #mediaAdLeaderboard,
 #mediaplayer_adburner,
@@ -2655,6 +2658,7 @@
 #upperad,
 #upperMpu,
 #upperRightAds,
+#usa_ad_728x90,
 #vdiAd,
 #vert-ads,
 #vert_ad,
@@ -3075,7 +3079,6 @@
 .ad_728_90,
 .ad_728_90b,
 .ad_728_top,
-.ad_728Home,
 .Ad_728x90,
 .ad_728x90-1,
 .ad_728x90-2,
@@ -3088,6 +3091,7 @@
 .ad_area,
 .ad_article_top_left,
 .ad_avu_300x250,
+.ad_back,
 .ad_banner,
 .ad_banner2,
 .ad_banner_border,
@@ -4872,6 +4876,7 @@
 .OSOasAdModule,
 .otj_adspot,
 .outbrain_ad_li,
+.outbrain_dual_ad_class,
 .outbrain_ul_ad_top,
 .outerAd_300x250_1,
 .outside_ad,
@@ -5290,6 +5295,7 @@
 .sponsWrap,
 .spotlightAd,
 .sqAd2,
+.square-ad,
 .square-ad-1,
 .square_banner_ad,
 .SquareAd,
@@ -6138,6 +6144,8 @@ a[href^="http://lurkmore.ru/fkup?"],
 #COMMERCE_TOP,
 /* thepiratebay.org */
 img[src="http://static.thepiratebay.org/img/agb.gif"],
+/* thenextweb.com */
+#fmpub_2620_1,
 /* thepressnews.co.uk */
 #want-to-advertise,
 /* thestar.com */
