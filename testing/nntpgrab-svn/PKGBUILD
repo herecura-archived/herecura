@@ -1,27 +1,15 @@
 # Archlinux buildscript for nntpgrab-svn
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
-pkgname=nntpgrab-svn
+pkgbase=nntpgrab-svn
 pkgver=1913
+pkgname=('nntpgrab-svn-cli' 'nntpgrab-svn-gtk' 'nntpgrab-svn-qt')
 pkgrel=1
-pkgdesc="NNTPGrab is an open source usenet download program"
 arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license=('GPL2')
-groups=()
-depends=('gtk2' 'libsoup' 'networkmanager')
-optdepends=('par2cmdline: for automatic repair'
-'unrar: for automatic extraction')
-makedepends=('subversion' 'pkgconfig' 'gtk-doc' 'par2cmdline' 'intltool' 'gobject-introspection' 'gconf' 'libpeas')
-provides=('nntpgrab')
-conflicts=('nntpgrab')
-replaces=()
-backup=()
+makedepends=('gtk3' 'qt' 'networkmanager' 'libpeas' 'curl' 'subversion' 'gtk-doc' 'par2cmdline' 'intltool')
 options=(!libtool)
-install=
-source=()
-noextract=()
-md5sums=() #generate with 'makepkg -g'
 
 _svntrunk='http://svn.openftd.org/svn/nntpgrab/trunk'
 _svnmod='nntpgrab'
@@ -41,15 +29,105 @@ build()
 
 	cp -a ${_svnmod} ${_svnmod}-build
 
-	cd ${_svnmod}-build
+	# cli build with qt build added
+	cd ${srcdir}/${_svnmod}-build
+	# fix for curl because curl removed curl/types.h
+	sed -e '/curl\/types\.h/d' -i client/gui/info.c
+
 	./autogen.sh
 	msg2 "configure"
-	./configure --prefix=/usr
-	msg2 "make"
+	./configure\
+		--enable-introspection=no \
+		--enable-gtk-doc=no \
+		--enable-gtk-doc-html=no \
+		--enable-gtk-doc-pdf=no \
+		--prefix=/usr
+	msg2 "make cli and gtk"
 	make
+	# qt stuff
+	msg2 "make qt"
+	pushd client/gui_qt
+		qmake gui_qt.pro -o Makefile
+		make
+	popd
+
+	pushd server_qt
+		qmake server_qt.pro -o Makefile
+		make
+	popd
+
+	msg2 "configure for cli"
+	./configure\
+		--enable-introspection=no \
+		--enable-gtk-doc=no \
+		--enable-gtk-doc-html=no \
+		--enable-gtk-doc-pdf=no \
+		--disable-gui \
+		--prefix=/usr
+
 }
 
-package() {
+package_nntpgrab-svn-cli() {
+	pkgdesc="NNTPGrab is an open source usenet download program cli version"
+	depends=('networkmanager' 'gnutls')
+	optdepends=('par2cmdline: for automatic repair'
+		'unrar: for automatic extraction')
 	cd ${_svnmod}-build
-	make DESTDIR=$startdir/pkg install
+	make DESTDIR=${pkgdir} install
+
+	# install pixmap
+	install -Dm 0644 client/gui/nntpgrab.png ${pkgdir}/usr/share/pixmaps/nntpgrab.png
 }
+
+package_nntpgrab-svn-gtk() {
+	pkgdesc="NNTPGrab is an open source usenet download program gtk version"
+	depends=('nntpgrab-svn-cli' 'libpeas' 'curl' 'desktop-file-utils')
+	install='nntpgrab.install'
+	provides=('nntpgrab-gtk')
+	conflicts=('nntpgrab-gtk')
+
+	cd ${_svnmod}-build
+
+	# install binaries
+	install -Dm 0755 client/gui/nntpgrab_gui ${pkgdir}/usr/bin/nntpgrab_gui
+	install -Dm 0755 server/nntpgrab_server_gtk ${pkgdir}/usr/bin/nntpgrab_server_gtk
+
+	# install libs
+	install -Dm 0644 gui_base/.libs/libnntpgrab_gui_base.so.0.0.0 ${pkgdir}/usr/lib/libnntpgrab_gui_base.so.0.0.0
+	install -Dm 0644 client/gui/plugins/counter/.libs/libnntpgrab_plugin_counter_gtk.so ${pkgdir}/usr/lib/nntpgrab/gtk/libnntpgrab_plugin_counter_gtk.so
+	install -Dm 0644 client/gui/plugins/counter/nntpgrab_plugin_counter_gtk.plugin ${pkgdir}/usr/lib/nntpgrab/gtk/nntpgrab_plugin_counter_gtk.plugin
+
+	# install in desktop files
+	install -Dm 0644 client/gui/nntpgrab.desktop ${pkgdir}/usr/share/applications/nntpgrab.desktop
+	install -Dm 0644 server/nntpgrab_server_gtk.desktop ${pkgdir}/usr/share/applications/nntpgrab_server_gtk.desktop
+
+	# install gtk ui files
+	install -Dm 0644 client/gui/nntpgrab_gui.ui ${pkgdir}/usr/share/nntpgrab/nntpgrab_gui.ui
+	install -Dm 0644 server/nntpgrab_server.ui ${pkgdir}/usr/share/nntpgrab/nntpgrab_server.ui
+	install -Dm 0644 client/gui/plugins/counter/counter_plugin_gtk.ui ${pkgdir}/usr/share/nntpgrab/plugins/counter_plugin_gtk.ui
+}
+
+package_nntpgrab-svn-qt() {
+	pkgdesc="NNTPGrab is an open source usenet download program qt version"
+	depends=('nntpgrab-svn-cli' 'qt' 'desktop-file-utils')
+	install='nntpgrab.install'
+	provides=('nntpgrab-qt')
+	conflicts=('nntpgrab-qt')
+
+	cd ${_svnmod}-build
+
+	# install binaries
+	install -Dm 0755 client/gui_qt/nntpgrab_gui_qt ${pkgdir}/usr/bin/nntpgrab_gui_qt
+	install -Dm 0755 server_qt/nntpgrab_server_qt ${pkgdir}/usr/bin/nntpgrab_server_qt
+
+	# install translations
+	install -dm 0755 ${pkgdir}/usr/share/nntpgrab/translations
+	for translation in client/gui_qt/translations/*.qm; do
+		install -Dm 0644 ${translation} ${pkgdir}/usr/share/nntpgrab/translations
+	done
+
+	# install desktop files
+	install -Dm 0644 client/gui_qt/nntpgrab_qt.desktop ${pkgdir}/usr/share/applications/nntpgrab_qt.desktop
+	install -Dm 0644 server_qt/nntpgrab_server_qt.desktop ${pkgdir}/usr/share/applications/nntpgrab_server_qt.desktop
+}
+
