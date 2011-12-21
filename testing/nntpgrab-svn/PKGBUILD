@@ -4,7 +4,7 @@
 pkgbase=nntpgrab-svn
 pkgver=1915
 pkgname=('nntpgrab-svn-cli' 'nntpgrab-svn-gtk' 'nntpgrab-svn-qt')
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license=('GPL2')
@@ -74,6 +74,7 @@ package_nntpgrab-svn-cli() {
 	mv ${pkgdir}/usr/bin/nntpgrab_server_gtk ${_gtktarget}/usr/bin/nntpgrab_server_gtk
 	mkdir -p ${_gtktarget}/usr/lib/nntpgrab/gtk
 	mv ${pkgdir}/usr/lib/libnntpgrab_gui_base.so.0.0.0 ${_gtktarget}/usr/lib/libnntpgrab_gui_base.so.0.0.0
+	rm ${pkgdir}/usr/lib/libnntpgrab_gui_base.so*
 	mv ${pkgdir}/usr/lib/nntpgrab/gtk/libnntpgrab_plugin_counter_gtk.so ${_gtktarget}/usr/lib/nntpgrab/gtk/libnntpgrab_plugin_counter_gtk.so
 	mv ${pkgdir}/usr/lib/nntpgrab/gtk/nntpgrab_plugin_counter_gtk.plugin ${_gtktarget}/usr/lib/nntpgrab/gtk/nntpgrab_plugin_counter_gtk.plugin
 	mkdir -p ${_gtktarget}/usr/share/applications
