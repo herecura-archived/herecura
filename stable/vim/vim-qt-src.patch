@@ -1,5 +1,5 @@
 diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
---- vim-src/runtime/menu.vim	2011-06-16 17:00:46.000000000 +0200
+--- vim-src/runtime/menu.vim	2011-12-23 21:44:31.000000000 +0100
 +++ vim-qt-src/runtime/menu.vim	2011-06-16 16:58:04.000000000 +0200
 @@ -381,7 +381,7 @@
    endif
@@ -57,27 +57,10 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 +add_executable(qvim ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES})
 +target_link_libraries(qvim -lm -lncurses -lacl -lgpm ${QT_LIBRARIES})
-diff -urN vim-src/src/Make_ming.mak vim-qt-src/src/Make_ming.mak
---- vim-src/src/Make_ming.mak	2011-10-12 16:55:39.000000000 +0200
-+++ vim-qt-src/src/Make_ming.mak	2011-10-12 16:41:08.000000000 +0200
-@@ -108,10 +108,10 @@
- # on NT, it's here:
- PERLLIB=$(PERL)/lib
- PERLLIBS=$(PERLLIB)/Core
--XSUBPPTRY=$(PERLLIB)/ExtUtils/xsubpp
--XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPPTRY)'")
-+XSUBPP=$(PERLLIB)/ExtUtils/xsubpp
-+XSUBPP_EXISTS=$(shell perl -e "print 1 unless -e '$(XSUBPP)'")
- ifeq "$(XSUBPP_EXISTS)" ""
--XSUBPP=perl $(XSUBPPTRY)
-+XSUBPP=perl $(XSUBPP)
- else
- XSUBPP=xsubpp
- endif
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
---- vim-src/src/Makefile	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/Makefile	2011-12-01 21:30:11.000000000 +0100
-@@ -1232,6 +1232,35 @@
+--- vim-src/src/Makefile	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/Makefile	2011-12-23 21:34:59.000000000 +0100
+@@ -1237,6 +1237,35 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
  
@@ -113,7 +96,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ### (J)  Sun OpenWindows 3.2 (SunOS 4.1.x) or earlier that produce these ld
  #	 errors:  ld: Undefined symbol
  #		      _get_wmShellWidgetClass
-@@ -1276,7 +1305,7 @@
+@@ -1281,7 +1310,7 @@
  CARBONGUI_TESTARG = VIMPROG=../$(APPDIR)/Contents/MacOS/$(VIMTARGET)
  
  # All GUI files
@@ -122,7 +105,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ALL_GUI_PRO  = gui.pro gui_gtk.pro gui_motif.pro gui_xmdlg.pro gui_athena.pro gui_gtk_x11.pro gui_x11.pro gui_w16.pro gui_w32.pro gui_photon.pro
  
  # }}}
-@@ -2495,6 +2524,50 @@
+@@ -2502,6 +2531,50 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
  
@@ -174,7 +157,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  	$(CCC) -o $@ gui_beval.c
  
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
---- vim-src/src/config.mk.in	2011-06-16 17:00:46.000000000 +0200
+--- vim-src/src/config.mk.in	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/config.mk.in	2011-10-20 16:41:07.000000000 +0200
 @@ -156,6 +156,9 @@
  GUI_X_LIBS	= @GUI_X_LIBS@
@@ -187,9 +170,9 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  ### Any OS dependent extra source and object file
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
---- vim-src/src/configure	2011-06-16 17:00:46.000000000 +0200
-+++ vim-qt-src/src/configure	2011-12-01 21:30:11.000000000 +0100
-@@ -1,10 +1,14605 @@
+--- vim-src/src/configure	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/configure	2011-12-23 21:34:59.000000000 +0100
+@@ -1,10 +1,14640 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -952,6 +935,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +ac_subst_files=''
 +ac_user_opts='
 +enable_option_checking
++enable_fail_if_missing
 +enable_darwin
 +with_mac_arch
 +with_developer_dir
@@ -1634,6 +1618,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --disable-option-checking  ignore unrecognized --enable/--with options
 +  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
 +  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
++  --enable-fail-if-missing    Fail if dependencies on additional features
++     specified on the command line are missing.
 +  --disable-darwin        Disable Darwin (Mac OS X) support.
 +  --disable-selinux	  Don't check for SELinux support.
 +  --disable-xsmp          Disable XSMP session management
@@ -4205,6 +4191,19 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +fi
 +
 +
++
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking --enable-fail-if-missing argument" >&5
++$as_echo_n "checking --enable-fail-if-missing argument... " >&6; }
++# Check whether --enable-fail_if_missing was given.
++if test "${enable_fail_if_missing+set}" = set; then :
++  enableval=$enable_fail_if_missing; fail_if_missing="yes"
++else
++  fail_if_missing="no"
++fi
++
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $fail_if_missing" >&5
++$as_echo "$fail_if_missing" >&6; }
++
 +if test -z "$CFLAGS"; then
 +  CFLAGS="-O"
 +  test "$GCC" = yes && CFLAGS="-O2 -fno-strength-reduce -Wall"
@@ -4982,6 +4981,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +      LUA_CFLAGS="-DDYNAMIC_LUA_DLL=\\\"liblua${vi_cv_version_lua}.so$LUA_SONAME\\\" $LUA_CFLAGS"
 +    fi
 +  fi
++  if test "$fail_if_missing" = "yes" -a -z "$LUA_SRC"; then
++    as_fn_error $? "could not configure lua" "$LINENO" 5
++  fi
 +
 +
 +
@@ -5395,6 +5397,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +      PERL_CFLAGS="-DDYNAMIC_PERL_DLL=\\\"$libperl\\\" $PERL_CFLAGS"
 +    fi
 +  fi
++
++  if test "$fail_if_missing" = "yes" -a "$perl_ok" != "yes"; then
++    as_fn_error $? "could not configure perl" "$LINENO" 5
++  fi
 +fi
 +
 +
@@ -5683,6 +5689,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +      { $as_echo "$as_me:${as_lineno-$LINENO}: result: too old" >&5
 +$as_echo "too old" >&6; }
 +    fi
++  fi
++
++  if test "$fail_if_missing" = "yes" -a "$python_ok" != "yes"; then
++    as_fn_error $? "could not configure python" "$LINENO" 5
 +  fi
 +fi
 +
@@ -6471,6 +6481,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +$as_echo "too old; need Tcl version 8.0 or later" >&6; }
 +    fi
 +  fi
++  if test "$fail_if_missing" = "yes" -a -z "$TCL_SRC"; then
++    as_fn_error $? "could not configure Tcl" "$LINENO" 5
++  fi
 +fi
 +
 +
@@ -6607,6 +6620,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +      { $as_echo "$as_me:${as_lineno-$LINENO}: result: too old; need Ruby version 1.6.0 or later" >&5
 +$as_echo "too old; need Ruby version 1.6.0 or later" >&6; }
 +    fi
++  fi
++
++  if test "$fail_if_missing" = "yes" -a -z "$RUBY_OBJ"; then
++    as_fn_error $? "could not configure Ruby" "$LINENO" 5
 +  fi
 +fi
 +
@@ -12774,7 +12791,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking uint32_t is 32 bits" >&5
 +$as_echo_n "checking uint32_t is 32 bits... " >&6; }
 +if test "$cross_compiling" = yes; then :
-+  as_fn_error $? "could not compile program using uint32_t." "$LINENO" 5
++  { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: cannot check uint32_t when cross-compiling." >&5
++$as_echo "$as_me: WARNING: cannot check uint32_t when cross-compiling." >&2;}
 +else
 +  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 +/* end confdefs.h.  */
@@ -13480,10 +13498,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
 +  fi
-+        { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether we need -D_FORTIFY_SOURCE=1" >&5
++          { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether we need -D_FORTIFY_SOURCE=1" >&5
 +$as_echo_n "checking whether we need -D_FORTIFY_SOURCE=1... " >&6; }
 +  if test "$gccmajor" -gt "3"; then
-+    CFLAGS=`echo "$CFLAGS" | sed -e 's/-Wp,-D_FORTIFY_SOURCE=.//g' -e 's/-D_FORTIFY_SOURCE=.//g' -e 's/$/ -D_FORTIFY_SOURCE=1/'`
++    CFLAGS=`echo "$CFLAGS" | sed -e 's/-Wp,-D_FORTIFY_SOURCE=.//g' -e 's/-D_FORTIFY_SOURCE=.//g' -e 's/$/ -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=1/'`
 +    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 +$as_echo "yes" >&6; }
 +  else
@@ -14803,9 +14821,9 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-12-01 21:30:48.477123290 +0100
-+++ vim-qt-src/src/configure.in	2011-12-01 21:30:50.234149127 +0100
-@@ -1716,11 +1716,11 @@
+--- vim-src/src/configure.in	2011-12-23 21:44:43.998542728 +0100
++++ vim-qt-src/src/configure.in	2011-12-23 21:44:44.314546058 +0100
+@@ -1744,11 +1744,11 @@
    fi
  fi
  
@@ -14819,7 +14837,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  
  dnl Canonicalize the --enable-gui= argument so that it can be easily compared.
  dnl Do not use character classes for portability with old tools.
-@@ -1735,6 +1735,7 @@
+@@ -1763,6 +1763,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
  SKIP_CARBON=YES
@@ -14827,7 +14845,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  GUITYPE=NONE
  
  if test "x$QNX" = "xyes" -a "x$with_x" = "xno" ; then
-@@ -1772,7 +1773,8 @@
+@@ -1800,7 +1801,8 @@
  		SKIP_MOTIF=
  		SKIP_ATHENA=
  		SKIP_NEXTAW=
@@ -14837,7 +14855,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
      gtk2)	AC_MSG_RESULT(GTK+ 2.x GUI support)
  		SKIP_GTK2=;;
      gnome2)	AC_MSG_RESULT(GNOME 2.x GUI support)
-@@ -1784,6 +1786,8 @@
+@@ -1812,6 +1814,8 @@
  		SKIP_ATHENA=;;
      nextaw)	AC_MSG_RESULT(neXtaw GUI support)
  		SKIP_NEXTAW=;;
@@ -14846,7 +14864,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
      *)		AC_MSG_RESULT([Sorry, $enable_gui GUI is not supported]) ;;
    esac
  
-@@ -1857,7 +1861,6 @@
+@@ -1885,7 +1889,6 @@
    fi
  fi
  
@@ -14854,7 +14872,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  if test "x$MACOSX" = "xyes" -a -z "$SKIP_CARBON" -a "x$CARBON" = "xyes"; then
    AC_MSG_CHECKING(for Carbon GUI)
    dnl already did the check, just give the message
-@@ -1888,7 +1891,8 @@
+@@ -1916,7 +1919,8 @@
    SKIP_ATHENA=YES;
    SKIP_NEXTAW=YES;
    SKIP_PHOTON=YES;
@@ -14864,7 +14882,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  fi
  
  dnl define an autoconf function to check for a specified version of GTK, and
-@@ -2098,6 +2102,7 @@
+@@ -2126,6 +2130,7 @@
        SKIP_ATHENA=YES
        SKIP_NEXTAW=YES
        SKIP_MOTIF=YES
@@ -14872,7 +14890,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
        GUITYPE=GTK
        AC_SUBST(GTK_LIBNAME)
      fi
-@@ -2206,6 +2211,7 @@
+@@ -2234,6 +2239,7 @@
  if test -z "$SKIP_MOTIF"; then
    SKIP_ATHENA=YES
    SKIP_NEXTAW=YES
@@ -14880,7 +14898,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2307,6 +2313,158 @@
+@@ -2335,6 +2341,158 @@
    CPPFLAGS=$cppflags_save
  fi
  
@@ -15040,9 +15058,9 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  if test -z "$SKIP_ATHENA" -o -z "$SKIP_NEXTAW" -o -z "$SKIP_MOTIF" -o -z "$SKIP_GTK2"; then
    dnl Check for X11/xpm.h and X11/Sunkeysym.h with the GUI include path
 diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
---- vim-src/src/eval.c	2011-10-12 16:43:45.000000000 +0200
-+++ vim-qt-src/src/eval.c	2011-10-12 16:41:08.000000000 +0200
-@@ -11990,6 +11990,9 @@
+--- vim-src/src/eval.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/eval.c	2011-12-23 21:34:59.000000000 +0100
+@@ -12010,6 +12010,9 @@
  #ifdef FEAT_GUI_W32
  	"gui_win32",
  #endif
@@ -15053,9 +15071,9 @@ diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
  	"hangul_input",
  #endif
 diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
---- vim-src/src/ex_docmd.c	2011-10-12 16:43:45.000000000 +0200
-+++ vim-qt-src/src/ex_docmd.c	2011-10-12 16:41:08.000000000 +0200
-@@ -6924,6 +6924,7 @@
+--- vim-src/src/ex_docmd.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/ex_docmd.c	2011-12-23 21:34:59.000000000 +0100
+@@ -6922,6 +6922,7 @@
  	|| (defined(FEAT_GUI_GTK) && defined(FEAT_DND)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -15064,8 +15082,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-12-01 21:30:48.468123158 +0100
-+++ vim-qt-src/src/feature.h	2011-12-01 21:30:50.225148995 +0100
+--- vim-src/src/feature.h	2011-12-23 21:44:43.989542633 +0100
++++ vim-qt-src/src/feature.h	2011-12-23 21:44:44.303545942 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15142,7 +15160,7 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  
  /*
   * XSMP - X11 Session Management Protocol
-@@ -1107,7 +1112,7 @@
+@@ -1120,7 +1125,7 @@
  /*
   * +dnd		Drag'n'drop support.  Always used for the GTK+ GUI.
   */
@@ -15151,7 +15169,7 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  # define FEAT_DND
  #endif
  
-@@ -1149,7 +1154,7 @@
+@@ -1162,7 +1167,7 @@
  # endif
  # if defined(FEAT_GUI_W32) || defined(FEAT_GUI_W16) || defined(FEAT_GUI_MOTIF) \
  	|| defined(FEAT_GUI_ATHENA) || defined(FEAT_GUI_GTK) \
@@ -15161,7 +15179,7 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  # endif
  #endif
 diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
---- vim-src/src/fileio.c	2011-10-12 16:43:45.000000000 +0200
+--- vim-src/src/fileio.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/fileio.c	2011-10-12 16:41:08.000000000 +0200
 @@ -6143,6 +6143,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
@@ -15172,7 +15190,7 @@ diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
  /*
   * Shorten all filenames in "fnames[count]" by current directory.
 diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
---- vim-src/src/globals.h	2011-06-16 17:00:46.000000000 +0200
+--- vim-src/src/globals.h	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/globals.h	2011-06-16 16:58:04.000000000 +0200
 @@ -1399,7 +1399,7 @@
  EXTERN char_u e_fontset[]	INIT(= N_("E234: Unknown fontset: %s"));
@@ -15184,8 +15202,8 @@ diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
  #endif
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
 diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
---- vim-src/src/gui.c	2011-10-12 16:43:45.000000000 +0200
-+++ vim-qt-src/src/gui.c	2011-10-12 16:41:08.000000000 +0200
+--- vim-src/src/gui.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/gui.c	2011-12-23 21:34:59.000000000 +0100
 @@ -161,10 +161,10 @@
      termcapinit((char_u *)"builtin_gui");
      gui.starting = recursive - 1;
@@ -15199,7 +15217,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  	Window	x11_window;
  	Display	*x11_display;
  
-@@ -776,7 +776,7 @@
+@@ -772,7 +772,7 @@
  }
  
  #if defined(FEAT_GUI_GTK) || defined(FEAT_GUI_X11) || defined(FEAT_GUI_MSWIN) \
@@ -15208,7 +15226,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  # define NEED_GUI_UPDATE_SCREEN 1
  /*
   * Called when the GUI shell is closed by the user.  If there are no changed
-@@ -1374,7 +1374,7 @@
+@@ -1370,7 +1370,7 @@
      base_height = 2 * gui.border_offset;
      if (gui.which_scrollbars[SBAR_BOTTOM])
  	base_height += gui.scrollbar_height;
@@ -15217,7 +15235,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* We can't take the sizes properly into account until anything is
       * realized.  Therefore we recalculate all the values here just before
       * setting the size. (--mdcki) */
-@@ -2326,7 +2326,7 @@
+@@ -2322,7 +2322,7 @@
      if (back != 0 && ((draw_flags & DRAW_BOLD) || (highlight_mask & HL_ITALIC)))
  	return FAIL;
  
@@ -15226,7 +15244,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* If there's no italic font, then fake it.
       * For GTK2, we don't need a different font for italic style. */
      if (hl_mask_todo & HL_ITALIC)
-@@ -5339,6 +5339,7 @@
+@@ -5335,6 +5335,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -15235,7 +15253,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  
  #ifdef FEAT_WINDOWS
 diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
---- vim-src/src/gui.h	2011-08-17 18:26:26.000000000 +0200
+--- vim-src/src/gui.h	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/gui.h	2011-08-17 18:23:57.000000000 +0200
 @@ -71,7 +71,7 @@
   * On some systems scrolling needs to be done right away instead of in the
@@ -16808,8 +16826,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +} // extern "C"
 diff -urN vim-src/src/main.c vim-qt-src/src/main.c
---- vim-src/src/main.c	2011-10-12 16:43:45.000000000 +0200
-+++ vim-qt-src/src/main.c	2011-10-12 16:41:08.000000000 +0200
+--- vim-src/src/main.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/main.c	2011-12-23 21:34:59.000000000 +0100
 @@ -1558,7 +1558,7 @@
      }
  
@@ -16820,7 +16838,7 @@ diff -urN vim-src/src/main.c vim-qt-src/src/main.c
  	main_start_gui();
  #ifdef FEAT_GUI
 diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
---- vim-src/src/menu.c	2011-06-16 17:00:47.000000000 +0200
+--- vim-src/src/menu.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/menu.c	2011-06-16 16:58:04.000000000 +0200
 @@ -272,7 +272,7 @@
  	EMSG(_(e_trailing));
@@ -16841,7 +16859,7 @@ diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
      if (gui.in_use
  	    && (gui.menu_height != old_menu_height
 diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
---- vim-src/src/normal.c	2011-10-12 16:43:45.000000000 +0200
+--- vim-src/src/normal.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/normal.c	2011-10-12 16:41:08.000000000 +0200
 @@ -2667,7 +2667,7 @@
  	     * Windows only shows the popup menu on the button up event.
@@ -16862,9 +16880,9 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  	    {
  		jump_flags = 0;
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
---- vim-src/src/option.c	2011-10-12 16:43:45.000000000 +0200
-+++ vim-qt-src/src/option.c	2011-10-12 16:41:08.000000000 +0200
-@@ -6279,7 +6279,7 @@
+--- vim-src/src/option.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/option.c	2011-12-23 21:34:59.000000000 +0100
+@@ -6304,7 +6304,7 @@
  	if (gui.in_use)
  	{
  	    p = p_guifont;
@@ -16874,8 +16892,8 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
  	     * Put up a font dialog and let the user select a new value.
  	     * If this is cancelled go back to the old value but don't
 diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
---- vim-src/src/os_unix.c	2011-10-12 16:43:45.000000000 +0200
-+++ vim-qt-src/src/os_unix.c	2011-10-12 16:41:08.000000000 +0200
+--- vim-src/src/os_unix.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/os_unix.c	2011-12-23 21:34:59.000000000 +0100
 @@ -2037,7 +2037,7 @@
      if (get_x11_windis() == OK)
  	type = 1;
@@ -16999,7 +17017,7 @@ diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
 +
 +
 diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
---- vim-src/src/proto.h	2011-06-16 17:00:47.000000000 +0200
+--- vim-src/src/proto.h	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/proto.h	2011-06-16 16:58:05.000000000 +0200
 @@ -248,6 +248,9 @@
  #  ifdef FEAT_SUN_WORKSHOP
@@ -17514,8 +17532,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-12-01 21:30:11.000000000 +0100
-@@ -0,0 +1,1304 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2011-12-23 21:34:59.000000000 +0100
+@@ -0,0 +1,1303 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17540,7 +17558,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	setAttribute(Qt::WA_KeyCompression, true);
 +	setAttribute(Qt::WA_InputMethodEnabled, true);
 +	setAttribute(Qt::WA_OpaquePaintEvent, true);
-+	setAttribute(Qt::WA_PaintOnScreen, true);
 +	setAcceptDrops(true);
 +	setMouseTracking(true);
 +}
@@ -19826,7 +19843,7 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +
 +#endif
 diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
---- vim-src/src/structs.h	2011-06-16 17:00:47.000000000 +0200
+--- vim-src/src/structs.h	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/structs.h	2011-06-16 16:58:05.000000000 +0200
 @@ -2295,6 +2295,10 @@
  
@@ -19851,7 +19868,7 @@ diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
  #else
  /* For generating prototypes when FEAT_MENU isn't defined. */
 diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
---- vim-src/src/ui.c	2011-08-17 18:26:27.000000000 +0200
+--- vim-src/src/ui.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/ui.c	2011-08-17 18:23:57.000000000 +0200
 @@ -3020,7 +3020,7 @@
  
@@ -19862,20 +19879,8 @@ diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
  /*
   * Translate window coordinates to buffer position without any side effects
   */
-diff -urN vim-src/src/version.c vim-qt-src/src/version.c
---- vim-src/src/version.c	2011-10-12 16:55:39.000000000 +0200
-+++ vim-qt-src/src/version.c	2011-10-12 16:41:08.000000000 +0200
-@@ -710,8 +710,6 @@
- static int included_patches[] =
- {   /* Add new patch number below this line */
- /**/
--    334,
--/**/
-     333,
- /**/
-     332,
 diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
---- vim-src/src/vim.h	2011-08-17 18:26:27.000000000 +0200
+--- vim-src/src/vim.h	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/vim.h	2011-08-17 18:23:57.000000000 +0200
 @@ -114,6 +114,11 @@
  # define FEAT_GUI_MAC
