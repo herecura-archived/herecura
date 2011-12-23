@@ -1,7 +1,7 @@
 /*
-! Checksum: oWZcVIY7P5jeiX6Vx7rqNw
+! Checksum: RPnhXRRavuCptHL6mpwEjQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 Dec 2011
+! Version: V4 Updated: 23 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -205,7 +205,6 @@
 #ad-trailerboard-spot,
 #ad-typ1,
 #ad-uprrail1,
-#ad-west,
 #ad-wrap,
 #ad-wrap-right,
 #ad-wrapper,
@@ -407,6 +406,7 @@
 #ad_front_three,
 #ad_fullbanner,
 #ad_gallery,
+#ad_global_300x250,
 #ad_global_above_footer,
 #ad_global_header,
 #AD_google,
@@ -822,6 +822,7 @@
 #ads2,
 #ads300,
 #ads300Bottom,
+#ads300k,
 #ads300Top,
 #ads300x250,
 #ads336Box,
@@ -1951,7 +1952,6 @@
 #left_adspace,
 #LeftAd,
 #leftAd,
-#leftad,
 #leftAd_fmt,
 #leftAd_rdr,
 #leftAdCol,
@@ -2620,6 +2620,7 @@
 #topAdvert,
 #topadvert,
 #topAdvert-09,
+#topadvertisements,
 #topadwrap,
 #topAdWrap,
 #topadzone,
@@ -3026,6 +3027,7 @@
 .ad530,
 .ad590,
 .ad6,
+.ad600,
 .ad620x70,
 .ad7,
 .ad728,
@@ -3309,9 +3311,12 @@
 .adBox-mr,
 .adbox-wrapper,
 .adbox1,
+.adbox160,
 .adBox250,
 .adbox300,
+.adbox336,
 .AdBox7,
+.adbox728,
 .adbox_300x600,
 .adbox_cont,
 .adBoxBody,
@@ -3854,6 +3859,7 @@
 .advert_google_title,
 .advert_leaderboard,
 .advert_line,
+.advert_mpu_body_hdr,
 .advert_note,
 .advert_txt,
 .advert_wrapper,
@@ -4496,6 +4502,7 @@
 .googleAdsense468x60,
 .googleAdSenseModule,
 .googleAdTopTipDetails,
+.googleadvertisemen120x600,
 .googleadvertisement,
 .googleAdWrapper,
 .googleBannerWrapper,
