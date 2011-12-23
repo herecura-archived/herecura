@@ -5,8 +5,8 @@
 # Contributor: dorphell <dorphell AT archlinux DOT org>
 # Contributor: Sigitas Mazaliauskas <sigis AT gmail DOT com>
 pkgname=opera
-pkgver=11.60
-_buildver=1185
+pkgver=11.61
+_buildver=1222
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite."
 url="http://www.opera.com/browser/"
@@ -21,9 +21,10 @@ license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
-source=(http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('a73584938a558d1b9c6f250d1bf127b02fc6ca5c0378c4ee3009c178fe1c8a74')
-[ "$CARCH" = "x86_64" ] && sha256sums=('a3ede13b6abe92633e4728773b472c8e0571717161ced7935ac3bc7ff728c642')
+source=("http://snapshot.opera.com/unix/lillejulaften_11.61-1222/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz")
+#source=(http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz)
+sha256sums=('f536f15dc242faf7fb55a1992f2baaa339652cc3f669b532b784845e8fddfa00')
+[ "$CARCH" = "x86_64" ] && sha256sums=('0b4f14774ac9f0731a692475f92ef325c35bef13feb959b4d5ca82221baf47e1')
 
 build() {
 	opera-${pkgver}-${_buildver}.${_arch}.linux/install --prefix /usr --repackage ${pkgdir}/usr
