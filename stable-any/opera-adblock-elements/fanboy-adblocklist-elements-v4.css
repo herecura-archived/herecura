@@ -1,7 +1,7 @@
 /*
-! Checksum: RPnhXRRavuCptHL6mpwEjQ
+! Checksum: R01TCi0Vu2sFVjhfiDyr0g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 23 Dec 2011
+! Version: V4 Updated: 24 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -854,6 +854,7 @@
 #ads_horizontal,
 #ads_html2,
 #ads_insert_container,
+#ads_layout_bottom,
 #ads_lb_frame,
 #ads_leaderbottom,
 #ads_mads_r1,
@@ -1965,6 +1966,7 @@
 #leftcolAd,
 #leftcolumnad,
 #leftframeAD,
+#leftTopAdWrapper,
 #lg-banner-ad,
 #link_ads,
 #linkads,
@@ -2120,6 +2122,7 @@
 #onpageads,
 #onpageadstext,
 #openx_iframe,
+#OpenXAds,
 #osads_300,
 #outbrain-paid,
 #outerAd300,
@@ -3280,6 +3283,9 @@
 .adbannerright,
 .adbannertop,
 .ADBAR,
+.adBarCenter,
+.adBarLeft,
+.adBarRight,
 .adbbox,
 .adbckgrnd,
 .adBgBottom,
@@ -3981,6 +3987,7 @@
 .affiliateAdvertText,
 .afs_ads,
 .after_ad,
+.afterpostadbox,
 .agi-adtop,
 .aisle-ad,
 .aisoad,
@@ -4392,6 +4399,7 @@
 .footerad,
 .footerAdModule,
 .footerAds,
+.footeradspace,
 .footerTextAd,
 .four-six-eight-ad,
 .four_button_threeone_ad,
@@ -4621,10 +4629,12 @@
 .inline-ad,
 .inline-adblock,
 .inline_ad,
+.inline_ad_container,
 .inlineAd,
 .inlinead,
 .inlinead-tagtop,
 .inlineAd_content,
+.inlineAdNotice,
 .inlineAdNotice,
 .inlineSideAd,
 .inlist-ad,
@@ -4725,6 +4735,7 @@
 .list-ad,
 .listingAd,
 .listings-bottom-ad-w,
+.little_vid_ads,
 .live-search-list-ad-container,
 .ljad,
 .llsAdContainer,
@@ -5018,6 +5029,7 @@
 .right_content_ad_16,
 .right_google_ads,
 .right_image_ad,
+.right_long_ad,
 .right_picAd,
 .right_side_ads,
 .rightAD,
@@ -5048,6 +5060,7 @@
 .RightRailAdbg,
 .RightRailAdtext,
 .RightRailTop300x250Ad,
+.rightTopAdWrapper,
 .RightTowerAd,
 .rnav_ad,
 .rngtAd,
@@ -5073,6 +5086,8 @@
 .s_ad_300x250,
 .sa_AdAnnouncement,
 .savvyad_unit,
+.sb-ad2,
+.sb-ad3,
 .sb_ad,
 .sb_ad_holder,
 .sb_adsN,
