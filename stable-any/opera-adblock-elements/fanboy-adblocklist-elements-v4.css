@@ -1,7 +1,7 @@
 /*
-! Checksum: OEHCqn10OdlxkMBwhlCciA
+! Checksum: ofVcIpiTkLaw1dyDDl9LXg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Dec 2011
+! Version: V4 Updated: 28 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -544,6 +544,7 @@
 #ad_top,
 #ad_Top2,
 #ad_top_728x90,
+#ad_top_bar,
 #ad_top_holder,
 #Ad_TopLeaderboard,
 #ad_topnav,
@@ -810,6 +811,7 @@
 #ads-bottom,
 #ads-by-google,
 #ads-category,
+#ads-footer-inner,
 #ads-header,
 #ads-indextext,
 #ads-leaderboard1,
@@ -3418,6 +3420,7 @@
 .adhi,
 .adhide,
 .adHolder,
+.adholder-300,
 .adHome300x250,
 .adHorisontalNoBorder,
 .adhoriz,
@@ -3963,7 +3966,9 @@
 .advertisewithus,
 .AdvertiseWithUs,
 .advertising,
+.advertising-aside-top,
 .advertising-banner,
+.advertising-block,
 .advertising-leaderboard,
 .advertising-local-links,
 .advertising2,
@@ -6093,6 +6098,7 @@ div[class="w460 clr"],
 #adxMiddle5,
 #adxSponLink2,
 #adxSponLinkA,
+#adxToolSponsor,
 /* nzcity.co.nz */
 .page_skyscraper,
 /* nzherald.co.nz */
