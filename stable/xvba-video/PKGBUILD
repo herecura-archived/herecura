@@ -28,5 +28,5 @@ package() {
 	install -m755 xvba_drv_video.so ${pkgdir}/usr/lib/dri
 
 	install -dm755 ${pkgdir}/etc/profile.d
-	install -m755 ${srcdir}/xvba.sh" "${pkgdir}/etc/profile.d/
+	install -m755 ${srcdir}/xvba.sh ${pkgdir}/etc/profile.d/
 }
