@@ -2,12 +2,12 @@
 
 pkgname=xvba-video
 pkgver=0.8.0
-pkgrel=2
-pkgdesc="AMDs XvBA backend for VA-API, hardware video acceleration on RadeonHD cards"
+pkgrel=3
+pkgdesc="AMDs XvBA backend for VA API"
 arch=('i686' 'x86_64')
 url="http://www.splitted-desktop.com/~gbeauchesne/xvba-video/"
 license=('GPL2')
-depends=('catalyst' 'libva' 'libx11')
+depends=('libva')
 options=('!libtool' 'strip')
 source=(
 "http://www.splitted-desktop.com/~gbeauchesne/xvba-video/xvba-video-${pkgver}.bin.tar.gz"
@@ -23,10 +23,10 @@ package() {
 	_BINFOLDER='x86'
 	[ "$CARCH" = "x86_64" ] && _BINFOLDER='x64'
 	cd "${srcdir}/xvba-video-${pkgver}.bin/${_BINFOLDER}"
-	install -dm644 ${pkgdir}/usr/lib/dri
+	install -dm755 ${pkgdir}/usr/lib/dri
 	install -m755 fglrx_drv_video.so ${pkgdir}/usr/lib/dri
 	install -m755 xvba_drv_video.so ${pkgdir}/usr/lib/dri
 
-	install -m755 -d "${pkgdir}/etc/profile.d"
-	install -m755 "${srcdir}/xvba.sh" "${pkgdir}/etc/profile.d/"
+	install -dm755 ${pkgdir}/etc/profile.d
+	install -m755 ${srcdir}/xvba.sh" "${pkgdir}/etc/profile.d/
 }
