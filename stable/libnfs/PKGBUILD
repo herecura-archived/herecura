@@ -2,8 +2,8 @@
 
 pkgname=libnfs
 pkgver=1.2.0
-pkgrel=1
-pkgdesc="Pulse-Eight's libcec for the Pulse-Eight USB-CEC adapter"
+pkgrel=2
+pkgdesc="client library for accessing NFS shares"
 arch=('i686' 'x86_64')
 url="https://github.com/sahlberg/libnfs"
 license=('GPL')
