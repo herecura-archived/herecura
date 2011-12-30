@@ -14821,8 +14821,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-12-23 21:44:43.998542728 +0100
-+++ vim-qt-src/src/configure.in	2011-12-23 21:44:44.314546058 +0100
+--- vim-src/src/configure.in	2011-12-30 23:08:24.390809069 +0100
++++ vim-qt-src/src/configure.in	2011-12-30 23:08:26.014811053 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15082,8 +15082,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-12-23 21:44:43.989542633 +0100
-+++ vim-qt-src/src/feature.h	2011-12-23 21:44:44.303545942 +0100
+--- vim-src/src/feature.h	2011-12-30 23:08:24.381809058 +0100
++++ vim-qt-src/src/feature.h	2011-12-30 23:08:26.005811042 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15316,8 +15316,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-12-01 21:30:11.000000000 +0100
-@@ -0,0 +1,1507 @@
++++ vim-qt-src/src/gui_qt.cpp	2011-12-30 23:07:53.000000000 +0100
+@@ -0,0 +1,1519 @@
 +#include <Qt/QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -16083,6 +16083,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	QByteArray text = VimWrapper::convertTo(clip->text( (QClipboard::Mode)cbd->clipboardMode));
 +
++	if ( text.isEmpty() ) {
++		// This should not happen, but if it does vim
++		// behaves badly so lets be extra carefull
++		return;
++	}
++
 +	char_u	*buffer;
 +	buffer = lalloc( text.size(), TRUE);
 +	if (buffer == NULL)
@@ -16813,6 +16819,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		QFont f =  dialog->selectedFont();
 +		QByteArray text = VimWrapper::convertTo( QString("%1 %2").arg(f.family()).arg(f.pointSize()) );
 +
++		if ( text.isEmpty() ) {
++			// This should not happen, but if it does vim
++			// behaves badly so lets be extra carefull
++			return NULL;
++		}
++
 +		char_u *buffer;
 +		buffer = lalloc( text.size(), TRUE);
 +		for (int i = 0; i < text.size(); ++i) {
@@ -17031,8 +17043,8 @@ diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
  # ifdef FEAT_OLE
 diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 --- vim-src/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.cpp	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,153 @@
++++ vim-qt-src/src/qt/fontdialog.cpp	2011-12-30 23:07:53.000000000 +0100
+@@ -0,0 +1,157 @@
 +#include "fontdialog.moc"
 +
 +/**
@@ -17114,6 +17126,7 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +	QStringList sizes;
 +
 +	QListWidgetItem *current = fontList->currentItem();
++
 +	if ( current == NULL ) {
 +		return;
 +	}
@@ -17121,6 +17134,9 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +	QList<int> fsizes = fontDatabase.smoothSizes(current->text(), "Normal");
 +	if ( fsizes.isEmpty() ) {
 +		fsizes = fontDatabase.pointSizes(current->text(), "Normal");
++	}
++	if ( fsizes.isEmpty() ) {
++		fsizes = fontDatabase.standardSizes();
 +	}
 +
 +	foreach ( int points, fsizes ) {
@@ -17273,8 +17289,8 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2011-08-10 18:24:48.000000000 +0200
-@@ -0,0 +1,190 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2011-12-30 23:07:53.000000000 +0100
+@@ -0,0 +1,215 @@
 +#include "mainwindow.moc"
 +
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
@@ -17316,6 +17332,11 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	tabbar->setExpanding(false);
 +	tabbar->setFocusPolicy(Qt::NoFocus);
 +	tabbar->setDrawBase(false);
++	tabbar->setMovable(true);
++	connect(tabbar, SIGNAL(tabMoved(int, int)),
++			this, SLOT(tabMoved(int, int)));
++
++
 +	tabbar->addTab("VIM"); // One tab must always exist
 +
 +	tabtoolbar->addWidget(tabbar);
@@ -17327,6 +17348,26 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +			this, SLOT(switchTab(int)));
 +	connect( newTab, SIGNAL(triggered()),
 +			this, SLOT(openNewTab()));
++}
++
++void MainWindow::tabMoved(int from, int to)
++{
++	//
++	// 1. In some cases Qt will not drag the tab you expect
++	// for example if you have two tabs (1,2) and drag 
++	// tab 1 to place 2 -> Qt might trigger the reverse
++	// event i.e. move tab 2 to place 1
++	//
++	// 2. It also seems that QTabbar::currentIndex() always 
++	// returns the current tab, i.e. after the movement event
++	// it returns the destination position - which is exactly
++	// what we want.
++	//
++	// 3. Also, both tabpage_move and Qt use 0-indexed tab positions
++	//
++
++	qDebug() << __func__ << "(current: " << tabbar->currentIndex() << ") from: " << from << "to:" << to;
++	tabpage_move(tabbar->currentIndex());
 +}
 +
 +void MainWindow::updateTabOrientation()
@@ -17467,8 +17508,8 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,61 @@
++++ vim-qt-src/src/qt/mainwindow.h	2011-12-30 23:07:53.000000000 +0100
+@@ -0,0 +1,62 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
@@ -17514,6 +17555,7 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +
 +protected slots:
 +	void updateTabOrientation();
++	void tabMoved(int from, int to);
 +
 +private:
 +	QToolBar *toolbar;
@@ -19366,8 +19408,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2011-08-26 17:28:32.000000000 +0200
-@@ -0,0 +1,368 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2011-12-30 23:07:53.000000000 +0100
+@@ -0,0 +1,373 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -19472,10 +19514,15 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +}
 +void VimWrapper::slot_guiHandleDrop(int x, int y, unsigned int mod, const QList<QUrl> urls)
 +{
++	if ( urls.size() == 0 ) {
++		return;
++	}
++
 +	char_u **fnames = (char_u**)alloc( urls.size() * sizeof(char_u*));
 +	int i;
 +	for (i=0; i<urls.size(); i++) {
 +		QByteArray encoded = convertTo(urls.at(i).toString());
++
 +		char *s = (char*)alloc(encoded.size()*sizeof(char)+1);
 +		int j;
 +		for (j=0; j<encoded.size(); j++) {
