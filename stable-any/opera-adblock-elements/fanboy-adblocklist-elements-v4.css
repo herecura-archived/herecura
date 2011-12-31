@@ -1,7 +1,7 @@
 /*
-! Checksum: 6f9PKfhimwMtBI6GH7EkxQ
+! Checksum: 7qmONhOlZMMustyhYtCb4Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 30 Dec 2011
+! Version: V4 Updated: 31 Dec 2011
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -247,6 +247,7 @@
 #ad300-title,
 #ad300_250,
 #ad300_x_250,
+#ad300IndexBox,
 #ad300text,
 #ad300x100Middle,
 #ad300x150,
@@ -844,6 +845,7 @@
 #ads72890top,
 #ads728bottom,
 #ads_160,
+#ADS_2,
 #ads_300,
 #ads_728,
 #ads_banner_header,
@@ -1820,6 +1822,7 @@
 #home-ad,
 #home-ad-block,
 #home-advertise,
+#home-page-listing-ad,
 #home-side-ad,
 #Home_AdSpan,
 #home_bottom_ad,
@@ -1958,6 +1961,7 @@
 #leaderboardAd,
 #leaderboardad,
 #leaderboardAdArea,
+#leaderboardAdArea2,
 #leaderboardAdSibling,
 #leaderboardAdTop,
 #leaderboardn,
@@ -2182,6 +2186,7 @@
 #populate_ad_left,
 #populate_ad_textupper,
 #populate_ad_textupper_textlink,
+#popupadunit,
 #post-ad-layer,
 #post5_adbox,
 #post_ad,
@@ -2898,6 +2903,7 @@
 .ad-island,
 .ad-label,
 .ad-lable,
+.ad-leaderboard-container,
 .ad-links,
 .ad-lrec,
 .ad-MediumRectangle,
@@ -3318,6 +3324,7 @@
 .adBgMId,
 .adBgTop,
 .adBillboard,
+.adBkgd,
 .adBlock,
 .adblock-240-400,
 .adblock-300-300,
@@ -4968,6 +4975,7 @@
 .panel-ad,
 .panel_ad,
 .partner-ad,
+.partner_ads,
 .PencilAd,
 .performancingads_region,
 .pg-ad-block,
@@ -5426,6 +5434,7 @@
 .td_topads,
 .teaserAdHeadline,
 .text-ad,
+.text-ad-links2,
 .text-ads,
 .text-advertisement,
 .text-g-advertisement,
@@ -5583,6 +5592,7 @@
 .widget-ad,
 .widget-ad-zone,
 .widget-ad300x250,
+.widget-ads,
 .widget-adsense,
 .widget-advertisement,
 .widget-entry-ads-160,
