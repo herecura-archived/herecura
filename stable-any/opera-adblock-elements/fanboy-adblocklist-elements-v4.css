@@ -1,7 +1,7 @@
 /*
-! Checksum: 26f0eJBeaLP4QzFcAmzNaA
+! Checksum: jfnVue722YT7dtoN34RETg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Jan 2012
+! Version: V4 Updated: 2 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -615,6 +615,7 @@
 #adbottom,
 #adbottomgao,
 #AdBottomLeader,
+#AdBox,
 #adbox-topbanner,
 #adbox1,
 #AdBox160,
@@ -915,6 +916,7 @@
 #adsense_300x250,
 #adsense_article_bottom,
 #adsense_article_left,
+#adsense_bottom_ad,
 #adsense_box,
 #adsense_box_video,
 #adsense_inline,
@@ -2213,6 +2215,8 @@
 #preroll_compainion_ad,
 #PreRollAd,
 #prime-ad-space,
+#privateadbox,
+#privateads,
 #product-adsense,
 #proj-bottom-ad,
 #promo_ads,
@@ -2548,6 +2552,7 @@
 #story-ad-wrap,
 #story-leaderboard-ad,
 #story-sponsoredlinks,
+#story_ads,
 #storyAd,
 #storyad2,
 #storyAdWrap,
@@ -4078,6 +4083,7 @@
 .article-ad-300x250,
 .article-ads,
 .article-content-adwrap,
+.article-share-top,
 .article_ad,
 .article_bottom_ad,
 .article_mpu_box,
@@ -4693,6 +4699,7 @@
 .imgur-ad,
 .imuBox,
 .in-between-ad,
+.in-node-ad-300x250,
 .in-page-ad,
 .in-story-ads,
 .InArticleAd,
