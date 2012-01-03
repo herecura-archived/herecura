@@ -5,7 +5,7 @@
 # for his xbmc-vdpau-vdr PKGBUILD at https://archvdr.svn.sourceforge.net/svnroot/archvdr/trunk/archvdr/xbmc-vdpau-vdr/PKGBUILD
 
 pkgname=xbmc-git
-pkgver=20120102
+pkgver=20120103
 pkgrel=1
 pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
@@ -14,29 +14,22 @@ replaces=('xbmc-svn')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=('pcre' 'hicolor-icon-theme' 'libx11' 'freetype2' 'libjpeg-turbo' 'smbclient' 'libtiff' 'dbus-core' 'libpng' 'python2'
-	'libgl' 'glew' 'libmysqlclient' 'libass' 'libmpeg2' 'libmad' 'libsamplerate' 'libmodplug' 'lzo2' 'yajl' 'fribidi' 'libcdio' 'sdl_mixer' 'jasper' 'sdl_image' 'libplist' 'libmicrohttpd' 'unzip' 'libssh' 'mesa-demos' 'xorg-xdpyinfo'
-	'ffmpeg'
-	)
-#depends=('faac' 'faad2' 'fribidi' 'glew' 'jasper' 'libass' 'libcdio' 'libgl' 'libmad' 'libmicrohttpd' 
-#         'libmodplug' 'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libxtst' 'lzo2' 'python2' 'libplist' 'ffmpeg'
-#         'sdl_image>=1.2.10' 'sdl_mixer' 'smbclient' 'unzip' 'wavpack' 'mesa-demos' 'xorg-xdpyinfo' 'yajl')
-makedepends=('boost' 'cmake' 'git' 'gperf' 'nasm' 'libxinerama' 'libxrandr'
-             # 'crystalhd-snapshot'
-			 'libbluray'
-			 'zip')
+depends=('libpulse' 'hicolor-icon-theme' 'fribidi' 'lzo2' 'smbclient' 'libtiff' 'libva' 'libpng' 'libcdio' 'yajl' 'libmysqlclient' 'libjpeg-turbo' 'libsamplerate' 'glew' 'libssh' 'libmicrohttpd' 'libxrandr' 'sdl_mixer' 'sdl_image' 'python2' 'libass' 'libmpeg2' 'libmad' 'libmodplug' 'jasper' 'rtmpdump' 'unzip' 'mesa-demos' 'xorg-xdpyinfo' 'libbluray' 'libnfs' 'afpfs-ng')
+makedepends=('boost' 'cmake' 'git' 'gperf' 'nasm' 'libxinerama' 'zip' 'xvba-video' 'vdpau-video' 'libcec' 'udisks' 'upower')
 
 optdepends=(
-            'gdb: for meaningful backtraces in case of trouble - STRONGLY RECOMMENDED' 
+            'gdb: for meaningful backtraces in case of trouble - STRONGLY RECOMMENDED'
             'libcrystalhd: Broadcom CrystalHD kernel module'
-            'libssh: support for sshfs'
-            'xvba-video: accelerated video playback for amd cards' 
-            'lirc: remote controller support' 
+			'libcec: support for Pulse-Eight USB-CEC adapter'
+			'vdpau-video: accelerated video playback for nvidia cards'
+            'xvba-video: accelerated video playback for amd cards'
             'pulseaudio: pulseaudio support'
-            'udisks: automount external drives' 
-            'upower: used to trigger suspend functionality' 
-            'unrar: access compressed files without unpacking them')
-install=("${pkgname}.install")
+            'lirc: remote controller support'
+            'udisks: automount external drives'
+            'upower: used to trigger suspend functionality'
+            'unrar: access compressed files without unpacking them'
+)
+install=${pkgname}.install
 source=()
 sha256sums=()
 options=()
@@ -88,22 +81,39 @@ build() {
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
 
-	msg2 "Configuring XBMC" 
+	msg2 "Configuring XBMC"
     export PYTHON_VERSION=2  # external python v2
 	./configure --prefix=${_prefix} --exec-prefix=${_prefix} \
 		--enable-debug \
 		--enable-optimizations \
 		--enable-gl \
-		--enable-vdpau \
+		--enable-sdl \
 		--enable-vaapi \
-		--disable-profiling \
+		--enable-vdpau \
+		--enable-xvba \
 		--enable-joystick \
-		--enable-external-libraries \
-		--disable-external-ffmpeg \
-		--disable-xrandr \
-		--disable-pulse \
+		--enable-xrandr \
+		--enable-rsxs \
+		--enable-projectm \
+		--enable-x11 \
+		--enable-pulse \
+		--enable-rtmp \
+		--enable-samba \
+		--enable-nfs \
+		--enable-afpclient \
+		--enable-ffmpeg-libvorbis \
+		--enable-dvdcss \
 		--disable-hal \
-		--disable-avahi
+		--disable-avahi \
+		--enable-webserver \
+		--enable-optical-drive \
+		--enable-libbluray \
+		--enable-texturepacker \
+		--enable-udev \
+		--enable-libusb \
+		--enable-libcec \
+		--enable-external-libraries \
+		--disable-external-ffmpeg
 
 	# Now (finally) build
 	msg2 "Running make" 
@@ -134,12 +144,6 @@ package() {
 	#cleanup some stuff
 	msg2 "cleanup unneeded files"
 	rm -rf ${pkgdir}/usr/share/xsessions
-	# its not very usefull, and broken at the moment
-	rm -f ${pkgdir}/usr/bin/xbmc-standalone
-	# didnt we built --disable-xrandr ?
-	rm -f ${pkgdir}/usr/lib/xbmc/xbmc-xrandr
-	# remove icon theme cache
-    rm -f ${pkgdir}/usr/share/icons/hicolor/icon-theme.cache
 
 	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
