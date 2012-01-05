@@ -9,13 +9,13 @@
 _pkgname=catalyst
 pkgname=${_pkgname}-bede
 pkgver=11.12
-_extramodules=3.1-BEDE-external
-pkgrel=1
+_extramodules=3.2-BEDE-external
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-makedepends=("catalyst-utils=${pkgver}" 'linux-bede>=3.1' 'linux-bede<3.2' 'linux-bede-headers>=3.1' 'linux-bede-headers<3.2')
+makedepends=("catalyst-utils=${pkgver}" 'linux-bede>=3.2' 'linux-bede<3.3' 'linux-bede-headers>=3.2' 'linux-bede-headers<3.3')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
 install=${pkgname}.install
@@ -87,7 +87,7 @@ build() {
 }
 
 package() {
-	depends=('linux-bede>=3.1' 'linux-bede<3.2' "catalyst-utils=${pkgver}")
+	depends=('linux-bede>=3.2' 'linux-bede<3.3' "catalyst-utils=${pkgver}")
 	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
 	install -m755 -d "${pkgdir}/lib/modules/${_extramodules}/${_pkgname}/"
 	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_extramodules}/${_pkgname}/"
