@@ -1,5 +1,5 @@
 /*
-! Checksum: 5UsZa8h5pgcX+2suquMmaA
+! Checksum: LinqvUTkxDI4bHyszP4xDQ
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 4 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -1153,6 +1153,7 @@
 #advertising-728x90,
 #advertising-banner,
 #advertising2,
+#advertising3,
 #advertising_column,
 #advertising_header,
 #advertising_iab,
@@ -2221,6 +2222,7 @@
 #post5_adbox,
 #post_ad,
 #post_adspace,
+#post_advert,
 #post_id_ad_bot,
 #postAd,
 #postNavigationAd,
@@ -2884,6 +2886,8 @@
 .ad-bigboxSub,
 .ad-bline,
 .ad-block,
+.ad-block-big,
+.ad-block-wide,
 .ad-blogads,
 .ad-body,
 .ad-boombox,
@@ -3067,6 +3071,7 @@
 .ad250-h2,
 .ad250c,
 .ad250x250,
+.ad2content_box,
 .ad300,
 .ad3001,
 .ad300250,
@@ -3444,6 +3449,7 @@
 .AdContainerBox308,
 .AdContainerModule,
 .adContent,
+.adcontent_box,
 .adContour,
 .adCopy,
 .adcopy,
@@ -4261,6 +4267,7 @@
 .bot_ads,
 .bot_banner,
 .botAd,
+.botad2,
 .botRectAd,
 .bottom-ad-large,
 .bottom-ad-placeholder,
@@ -4406,6 +4413,8 @@
 .contentAd,
 .contentad,
 .contentAds,
+.contentads1,
+.contentads2,
 .contentAdsCommon,
 .contentleftad,
 .contentwellad,
