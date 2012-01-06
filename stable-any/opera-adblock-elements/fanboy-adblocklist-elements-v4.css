@@ -1,7 +1,7 @@
 /*
-! Checksum: LinqvUTkxDI4bHyszP4xDQ
+! Checksum: VJvAe+42aK250HR0vrSOmw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 4 Jan 2012
+! Version: V4 Updated: 6 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -917,6 +917,7 @@
 #adsense-end-300,
 #adsense-header,
 #adsense-post,
+#adsense-right,
 #adsense-tag,
 #adsense-text,
 #AdSense2,
@@ -1163,6 +1164,7 @@
 #advertisingRightColumn,
 #advertisment-block-1,
 #advertisment-horizontal,
+#advertistop_td,
 #advertleft,
 #advertorial,
 #advertorial_block_3,
@@ -1918,6 +1920,7 @@
 #indiv_adsense,
 #influads_block,
 #inline-story-ad,
+#inline_ad,
 #inline_ad_section,
 #inlineAd,
 #inlinead,
@@ -2643,6 +2646,7 @@
 #Top468x60AD,
 #top_ad_area,
 #top_ad_banner,
+#top_ad_block,
 #top_ad_parent,
 #top_ad_td,
 #top_ad_wrapper,
@@ -2674,6 +2678,7 @@
 #topAdBlock,
 #topadblock,
 #topAdBox,
+#topAdbox,
 #topAdContainer,
 #topAdcontainer,
 #TopAdDiv,
@@ -3559,6 +3564,7 @@
 .adops.textlinks,
 .adOverlay,
 .adp-AdPrefix,
+.adpacks,
 .adpad300,
 .adpad300spacer,
 .adPageBorderL,
@@ -3665,6 +3671,7 @@
 .ads_120x60_index,
 .ads_180,
 .ads_300,
+.ads_300250_wrapper,
 .ads_300x250,
 .ads_330,
 .ads_337x280,
@@ -4068,6 +4075,7 @@
 .advertismentText,
 .advertize,
 .AdvertMidPage,
+.advertnotice,
 .advertorial,
 .advertRight,
 .adverts,
@@ -4756,6 +4764,7 @@
 .InArticleAd,
 .inArticleAdInner,
 .index_728_ad,
+.index_right_ad,
 .indexad,
 .indie-sidead,
 .industrybrains,
@@ -4905,6 +4914,7 @@
 .marketing-ad,
 .marketplaceAd,
 .marketplaceAdShell,
+.masthead_ad_banner,
 .matador_sidebar_ad_600,
 .md-adv,
 .MD_adZone,
@@ -4923,6 +4933,7 @@
 .medrect,
 .medrect_ad,
 .medrectadv4,
+.member_ad_banner,
 .meme_adwrap,
 .messageBoardAd,
 .meta_ad,
@@ -5066,6 +5077,8 @@
 .photo-ad,
 .placeholderAd,
 .plainAd,
+.playAds1,
+.playAds2,
 .player_ad,
 .player_ad_box,
 .player_hover_ad,
@@ -5446,6 +5459,7 @@
 .SponsoredLinks,
 .sponsoredlinks,
 .sponsoredLinks2,
+.sponsoredlinksbox,
 .SponsoredLinksGrayBox,
 .sponsoredLinksHeader,
 .SponsoredLinksPanel,
