@@ -1,6 +1,6 @@
 pkgname=hamsimanager
 _realname=HamsiManager
-pkgver=0.9.74
+pkgver=1.0
 pkgrel=1
 pkgdesc="Hamsi Manager is a file manager,renamer,id3 tagger,information changer ,.... tool."
 arch=('any')
@@ -48,6 +48,6 @@ package() {
 	install -dm755 ${pkgdir}${_destdir}
 	cp -a ${_realname} ${pkgdir}${_destdir}/${pkgname}
 }
-sha256sums=('286cda8607ab9c17601e9fcb682f838d82b81be95a5d3a35ca4411799863671c'
+sha256sums=('33b983a11e89f1767f7f84bf524eeb92333684867b7e8e87bdc184fa67e677ef'
             '579745bfbe0f5ec06a34f8b87702f23d95a8ba06c907e35248a215a569511079'
             '595bcb1e158c3ab4cf12e0ee1ad8a0627f5980ab7be4eeb33fc1f7d93aa073e6')
