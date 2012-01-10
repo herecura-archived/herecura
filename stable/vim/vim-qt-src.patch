@@ -14821,8 +14821,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2011-12-30 23:08:24.390809069 +0100
-+++ vim-qt-src/src/configure.in	2011-12-30 23:08:26.014811053 +0100
+--- vim-src/src/configure.in	2012-01-10 17:53:52.522507240 +0100
++++ vim-qt-src/src/configure.in	2012-01-10 17:53:54.485528088 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15082,8 +15082,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2011-12-30 23:08:24.381809058 +0100
-+++ vim-qt-src/src/feature.h	2011-12-30 23:08:26.005811042 +0100
+--- vim-src/src/feature.h	2012-01-10 17:53:52.513507144 +0100
++++ vim-qt-src/src/feature.h	2012-01-10 17:53:54.476527992 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -17259,8 +17259,8 @@ Binaire bestanden vim-src/src/qt/icons/table.png en vim-qt-src/src/qt/icons/tabl
 Binaire bestanden vim-src/src/qt/icons/vim-qt.png en vim-qt-src/src/qt/icons/vim-qt.png zijn verschillend
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/icons.qrc	2011-06-27 16:28:02.000000000 +0200
-@@ -0,0 +1,26 @@
++++ vim-qt-src/src/qt/icons.qrc	2012-01-10 17:53:27.000000000 +0100
+@@ -0,0 +1,27 @@
 + <!DOCTYPE RCC><RCC version="1.0">
 + <qresource>
 +     <file>icons/document-open.png</file>
@@ -17285,6 +17285,7 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 +     <file>icons/help-contextual.png</file>
 +     <file>icons/vim-qt.png</file>
 +     <file>icons/tab-new.png</file>
++     <file>icons/system-run.png</file>
 + </qresource>
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
@@ -19408,8 +19409,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2011-12-30 23:07:53.000000000 +0100
-@@ -0,0 +1,373 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-01-10 17:53:27.000000000 +0100
+@@ -0,0 +1,369 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -19644,9 +19645,18 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	return false;
 +}
 +
-+
-+QIcon VimWrapper::iconFromTheme(const QString& name)
++/**
++ * Get an icon for a given name
++ *
++ * Icons are loaded in the following order:
++ * 1. If the name is a Vim icon name - map it into a theme name
++ * 2. If the system theme has the icon - use it
++ * 3. If not - load the icon from icons.qrc
++ * 4. As last resort - use a Qt standard icon
++ */
++QIcon VimWrapper::icon(const QString& name)
 +{
++
 +	QIcon icon;
 +
 +	// Theme icons
@@ -19711,28 +19721,15 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +				QIcon(":/icons/help-contextual.png"));
 +	}
 +
-+	if ( icon.isNull() ) { // last resort
-+		icon = QIcon::fromTheme(name.toLower());
++	if ( icon.isNull() ) { // Load from system theme
++		icon = QIcon::fromTheme(name.toLower(), QIcon(":/icons/" + name + ".png"));
 +	}
-+
-+	return icon;
-+}
-+
-+/**
-+ * Get an icon for a given name
-+ *
-+ */
-+QIcon VimWrapper::icon(const QString& name)
-+{
-+	QIcon icon = iconFromTheme(name);
-+
 +	if ( icon.isNull() ) {
 +		return QApplication::style()->standardIcon(QStyle::SP_FileLinkIcon);
 +	}
 +
 +	return icon;
 +}
-+
 +
 +QColor
 +VimWrapper::fromColor(long color)
@@ -19785,8 +19782,8 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +
 diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 --- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.h	2011-08-26 17:28:32.000000000 +0200
-@@ -0,0 +1,102 @@
++++ vim-qt-src/src/qt/vimwrapper.h	2012-01-10 17:53:27.000000000 +0100
+@@ -0,0 +1,101 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
 +
@@ -19843,7 +19840,6 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +	/**
 +	 * Load icons
 +	 */
-+	static QIcon iconFromTheme(const QString&);
 +	static QIcon icon(const QString&);
 +
 +	static QColor fromColor(long);
