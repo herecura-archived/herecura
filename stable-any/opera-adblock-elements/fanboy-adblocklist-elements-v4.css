@@ -1,7 +1,7 @@
 /*
-! Checksum: TADHgzstDZ5GGjDkv32i8g
+! Checksum: 4H5b0RJpSSEIEuNKE3q3dg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Jan 2012
+! Version: V4 Updated: 11 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1496,6 +1496,7 @@
 #contest-ads,
 #contextual-ads-block,
 #contextualad,
+#ConversationDivAd,
 #ctl00_adFooter,
 #ctl00_AdWords,
 #ctl00_atop_bt,
@@ -2981,6 +2982,7 @@
 .ad-label,
 .ad-lable,
 .ad-leaderboard-container,
+.ad-link,
 .ad-links,
 .ad-lrec,
 .ad-marker,
@@ -3392,6 +3394,7 @@
 .adArticleRecommend,
 .adArticleSidetile,
 .adArticleTopText,
+.adback,
 .adban-hold-narrow,
 .adBanner,
 .adbanner1,
@@ -3536,6 +3539,7 @@
 .adHome300x250,
 .adHorisontalNoBorder,
 .adhoriz,
+.adHorizontalTextAlt,
 .adhref_box_ads,
 .adiframe,
 .adIMm,
@@ -3798,6 +3802,7 @@
 .adsense-mod-border,
 .adsense-overlay,
 .adsense-post,
+.adsense-review,
 .adsense-reviews-float,
 .adsense-title,
 .adsense-topics-detail,
@@ -3957,6 +3962,7 @@
 .adv-300,
 .adv-700,
 .adv-label,
+.adv-mpu,
 .adv-search-ad,
 .adv2,
 .adv_1,
@@ -5161,6 +5167,7 @@
 .Post9ad,
 .post_ad,
 .post_sponsor_unit,
+.postads,
 .poster_ad,
 .ppp_interior_ad,
 .prebodyads,
@@ -5731,6 +5738,7 @@
 .ve2_post_adsense,
 .vert-ad,
 .vertical-adsense,
+.vertical_ad,
 .verticalAd,
 .video-adtech-mpu-ad,
 .video_ad,
