@@ -1,7 +1,7 @@
 /*
-! Checksum: 4H5b0RJpSSEIEuNKE3q3dg
+! Checksum: E0y0j/jDo+vrLNkFyS1buw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 11 Jan 2012
+! Version: V4 Updated: 12 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -393,6 +393,7 @@
 #ad_container_side,
 #ad_container_sidebar,
 #ad_container_top,
+#ad_content_primary,
 #ad_content_top,
 #ad_content_wrap,
 #ad_creative_2,
@@ -5201,6 +5202,7 @@
 .recent_ad_holder,
 .recentAds,
 .rect-ad,
+.rect_ad,
 .rect_ad_module,
 .rect_advert,
 .rectangle-ad,
