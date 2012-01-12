@@ -86,6 +86,7 @@ build() {
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
+		patch=$(basename ${patch} | sed -e 's/\.\(gz\|bz2\|xz\)//')
 		msg2 "apply ${patch}"
 		patch -Np1 -i ${srcdir}/${patch}
 	done
