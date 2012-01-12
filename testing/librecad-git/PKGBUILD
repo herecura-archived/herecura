@@ -52,7 +52,7 @@ build() {
 		-e "s|SimpleSpaceMask<n>::mask;|SimpleSpaceMask<static_cast<unsigned int>(n)>::mask;|" \
 		-i "fparser/fparser.cc"
 
-	qmake
+	qmake librecad.pro
 	make
 }
 
