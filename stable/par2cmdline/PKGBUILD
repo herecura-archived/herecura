@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=par2cmdline
-pkgver=0.5
-pkgrel=2
+pkgver=0.5.2
+pkgrel=1
 pkgdesc="A file verification and repair tool"
 url="https://github.com/eMPee584/par2cmdline"
 license="GPL"
@@ -9,22 +9,30 @@ depends=('gcc-libs')
 makedepends=()
 arch=('i686' 'x86_64')
 source=(
-	"https://github.com/downloads/eMPee584/par2cmdline/${pkgname}-${pkgver}.tar.xz"
+	"http://herecura.be/files/${pkgname}-${pkgver}.tar.xz"
 )
 sha256sums=(
-	'44a54d81959d802af767e0c530a89c448fffd98921245e27652e5a0faff366aa'
+	'cbb0f53332536ccf63fdfbd98b862181ab3569511a0dd7d6699fd47e21ee5cf9'
 )
 
 build() {
-	msg "fix version"
-	sed -e 's/0\.4/0\.5/' -i configure.ac
-	autoreconf
+	cd ${pkgname}-${pkgver}
+	msg "Automake"
+	aclocal
+	automake --add-missing
+	autoconf
 	msg "Configure"
 	./configure --prefix=/usr
 	msg "Make"
 	make
 }
 
+check() {
+	cd ${pkgname}-${pkgver}
+	make check
+}
+
 package() {
+	cd ${pkgname}-${pkgver}
 	make DESTDIR=$startdir/pkg install
 }
