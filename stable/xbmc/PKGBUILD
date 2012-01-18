@@ -24,7 +24,7 @@ optdepends=(
 	'upower: used to trigger suspend functionality'
 	'lcms'
 )
-install=("${pkgname}.install")
+install="${pkgname}.install"
 source=(
 	"http://mirrors.xbmc.org/releases/source/${pkgname}-${pkgver}.tar.gz"
 	'FEH.sh'
