@@ -1,7 +1,7 @@
 /*
-! Checksum: 4mN7lM5YUXzBigrgIPsMTQ
+! Checksum: 37Gmy8a3X4e/ymxhY8efzA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 17 Jan 2012
+! Version: V4 Updated: 18 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1737,24 +1737,6 @@
 #google_ad,
 #google_ad_test,
 #google_ads,
-#GOOGLE_ADS_1,
-#GOOGLE_ADS_104,
-#GOOGLE_ADS_104,
-#GOOGLE_ADS_117,
-#GOOGLE_ADS_15,
-#GOOGLE_ADS_16,
-#GOOGLE_ADS_197,
-#GOOGLE_ADS_2,
-#GOOGLE_ADS_21,
-#GOOGLE_ADS_279,
-#GOOGLE_ADS_294,
-#GOOGLE_ADS_339,
-#GOOGLE_ADS_365,
-#GOOGLE_ADS_44,
-#GOOGLE_ADS_46,
-#GOOGLE_ADS_48,
-#GOOGLE_ADS_49,
-#GOOGLE_ADS_558,
 #google_ads_div_Blog_300,
 #google_ads_div_Front-160x600,
 #google_ads_div_header1,
@@ -3243,6 +3225,7 @@
 .ad_728_90,
 .ad_728_90b,
 .ad_728_top,
+.ad_728Home,
 .Ad_728x90,
 .ad_728x90-1,
 .ad_728x90-2,
@@ -5910,6 +5893,7 @@
 .youradhere,
 .yrail_ads,
 .yui3-ad,
+[id^="GOOGLE_ADS_"],
 advertbox2,
 .AdBox,
 .ad-content,
