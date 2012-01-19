@@ -1,6 +1,6 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=par2cmdline
-pkgver=0.5.2
+pkgver=0.5.3
 pkgrel=1
 pkgdesc="A file verification and repair tool"
 url="https://github.com/eMPee584/par2cmdline"
