@@ -11,9 +11,7 @@ arch=('i686' 'x86_64')
 source=(
 	"http://herecura.be/files/${pkgname}-${pkgver}.tar.xz"
 )
-sha256sums=(
-	'cbb0f53332536ccf63fdfbd98b862181ab3569511a0dd7d6699fd47e21ee5cf9'
-)
+sha256sums=('4218e8188803f0e8c877c28536c58bf671dc62acd8c93dab4a3c8cd3d4fb61e3')
 
 build() {
 	cd ${pkgname}-${pkgver}
