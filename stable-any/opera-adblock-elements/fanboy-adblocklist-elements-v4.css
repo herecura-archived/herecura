@@ -1,7 +1,7 @@
 /*
-! Checksum: sYBnlEeetYQIbqF7uCb7og
+! Checksum: Ae6uKuI1UZNAuF5as7yUMA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Jan 2012
+! Version: V4 Updated: 20 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -363,6 +363,7 @@
 #ad_bellow_post,
 #ad_bg,
 #ad_bigbox,
+#ad_bigbox_companion,
 #Ad_Block,
 #ad_block,
 #ad_block_1,
@@ -1074,6 +1075,7 @@
 #adTile,
 #AdTop,
 #adTop,
+#adtop_dfp,
 #adTOPBANNER,
 #adTopBanner1,
 #AdTopBlock,
@@ -1237,6 +1239,7 @@
 #araHealthSponsorAd,
 #area13ads,
 #area1ads,
+#article-bottom-ad,
 #article-box-ad,
 #article-island-ad,
 #article-sponspred-content,
@@ -1888,6 +1891,7 @@
 #homeAdLeft,
 #homeArticlesAd,
 #homeheaderad,
+#homepage-sidebar-ads,
 #homepage_ad,
 #homepage_right_ad,
 #homepage_right_ad_container,
@@ -2448,6 +2452,8 @@
 #side_sky_ad,
 #side_skyscraper_ad,
 #side_sponsors,
+#sideABlock,
+#sideABlockHeader,
 #sideAd,
 #sidead,
 #sidead1,
@@ -3226,7 +3232,6 @@
 .ad_728_90,
 .ad_728_90b,
 .ad_728_top,
-.ad_728Home,
 .Ad_728x90,
 .ad_728x90-1,
 .ad_728x90-2,
@@ -3877,6 +3882,7 @@
 .adshowcase,
 .adside,
 .adSide,
+.adsidebar,
 .adSidetileplus,
 .adsInsideResults_v3,
 .adsitem,
@@ -5098,6 +5104,7 @@
 .moduleAdvert,
 .moduleAdvertContent,
 .modulegad,
+.moduletable-adsponsor,
 .moduletable-advert,
 .moduletable-googleads,
 .moduletable_ad-right,
@@ -5190,6 +5197,7 @@
 .pane-tw-ad-master-ad-300x250a,
 .panel-ad,
 .panel_ad,
+.paneladvert,
 .partner-ad,
 .partner_ads,
 .PencilAd,
@@ -5444,6 +5452,7 @@
 .sideBannerAdsLarge,
 .sideBannerAdsSmall,
 .sidebar-ad,
+.sidebar-ad-container,
 .sidebar-ad-rect,
 .sidebar-ads,
 .sidebar-block-adsense,
@@ -5844,6 +5853,7 @@
 .widget_adrotate_widgets,
 .widget_ads,
 .widget_adsensewidget,
+.widget_advertisements,
 .widget_advertisment,
 .widget_island_ad,
 .widget_maxbannerads,
