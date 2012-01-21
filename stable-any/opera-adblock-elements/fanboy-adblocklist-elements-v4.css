@@ -1,7 +1,7 @@
 /*
-! Checksum: Ae6uKuI1UZNAuF5as7yUMA
+! Checksum: cG0es5tlIgCjL9DCcyLlLQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 20 Jan 2012
+! Version: V4 Updated: 21 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2336,6 +2336,7 @@
 #right-ads,
 #right-ads-3,
 #right-box-ad,
+#right-col-ad-600,
 #right-featured-ad,
 #Right-Skyscraper,
 #right-wide-skyscraper,
@@ -3839,6 +3840,7 @@
 .adsense-review,
 .adsense-reviews-float,
 .adsense-title,
+.adsense-top,
 .adsense-topics-detail,
 .adsense-unit,
 .adsense-wide-background,
@@ -4143,6 +4145,7 @@
 .advertisementonblue,
 .advertisementonwhite,
 .advertisementPanel,
+.advertisementRotate,
 .advertisementText,
 .AdvertisementTextTag,
 .advertisespace_div,
@@ -4326,6 +4329,7 @@
 .bizCardAd,
 .bizDetailAds,
 .block-ad_injector,
+.block-ads_top,
 .block-adsense,
 .block-adspace-full,
 .block-bf_ads,
@@ -4642,6 +4646,7 @@
 .footer_bottomad,
 .footerAd,
 .footerad,
+.FooterAdContainer,
 .footerAdModule,
 .footerAds,
 .footeradspace,
@@ -4841,6 +4846,7 @@
 .home_advert,
 .homeAd,
 .homeAd1,
+.HomeAd1Label,
 .homeAd2,
 .homeAdBox,
 .homeadnews,
