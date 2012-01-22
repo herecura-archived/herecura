@@ -19,4 +19,4 @@ package() {
 	cat ${srcdir}/adblock.txt >> ${pkgdir}/usr/share/${pkgname/-stat/}/urlfilter-stat.ini
 }
 sha256sums=('80dd646e1583c02c5758e0273da9ad07a3cb639368d8a23531d1f7914227b372'
-            '590987ddd0890014261ebb8dec2ee9373da22d88feaa4ba53fb9794dc7db526e')
+            '4c8821537d210a7f1265bae4e9397d9bbf0d5ff9c0c4b73a985adf74a54e73f3')
