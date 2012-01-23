@@ -6,8 +6,8 @@
 # Contributor: Sigitas Mazaliauskas <sigis AT gmail DOT com>
 pkgname=opera
 pkgver=11.61
-_buildver=1236
-pkgrel=3
+_buildver=1250
+pkgrel=4
 pkgdesc="A fast and secure web browser and Internet suite."
 url="http://www.opera.com/browser/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -20,11 +20,11 @@ options=(!strip !zipman)
 license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
-[ "$CARCH" = "x86_64" ] && _arch=x86_64 && _buildver=1237
-source=("http://snapshot.opera.com/unix/jason_${pkgver}-1236/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz")
+[ "$CARCH" = "x86_64" ] && _arch=x86_64
+source=("http://snapshot.opera.com/unix/plunger_${pkgver}-${_buildver}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz")
 #source=(http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz)
-sha256sums=('46eedc14fecd608056a64e886760929d3f377d75263452c318bebb72bf43a95d')
-[ "$CARCH" = "x86_64" ] && sha256sums=('ca9bc43003a8aed4b904f6527b9fe42b35daa7afaf6c7f4a724d86e1dd0a2fa1')
+sha256sums=('cc4b814cd23c20e076a579b74ade72eb49c3b5e236ebd3cd95ca04251a2c853d')
+[ "$CARCH" = "x86_64" ] && sha256sums=('e5a7de9bc0092fcd8213e50d887c127b0933127dcc167d1848720f07d4085f91')
 
 build() {
 	opera-${pkgver}-${_buildver}.${_arch}.linux/install --prefix /usr --repackage ${pkgdir}/usr
