@@ -7,7 +7,7 @@
 pkgname=opera
 pkgver=11.61
 _buildver=1250
-pkgrel=4
+pkgrel=5
 pkgdesc="A fast and secure web browser and Internet suite."
 url="http://www.opera.com/browser/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
@@ -21,12 +21,11 @@ license=('custom:opera')
 arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
-source=("http://snapshot.opera.com/unix/plunger_${pkgver}-${_buildver}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz")
-#source=(http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz)
+source=(http://ftp.opera.com/pub/opera/linux/${pkgver/./}/opera-${pkgver}-${_buildver}.${_arch}.linux.tar.xz)
 sha256sums=('cc4b814cd23c20e076a579b74ade72eb49c3b5e236ebd3cd95ca04251a2c853d')
 [ "$CARCH" = "x86_64" ] && sha256sums=('e5a7de9bc0092fcd8213e50d887c127b0933127dcc167d1848720f07d4085f91')
 
-build() {
+package() {
 	opera-${pkgver}-${_buildver}.${_arch}.linux/install --prefix /usr --repackage ${pkgdir}/usr
 	install -D -m 644 ${pkgdir}/usr/share/${pkgname}/defaults/license.txt ${pkgdir}/usr/share/licenses/${pkgname}/license.txt
 }
