@@ -59,12 +59,12 @@ build() {
 	sed -i '/-Werror/d' SConstruct
 
 	export SCONSFLAGS="${MAKEFLAGS}"
-	scons --pch all --usev8 --full
+	scons all --usev8 --full
 }
 
 package() {
 	cd ${_gitname}-build
-	scons --pch install --usev8 --full --prefix="${startdir}/pkg/usr"
+	scons install --usev8 --full --prefix="${startdir}/pkg/usr"
 	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
 	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
 	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
