@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=415
+_patchlevel=418
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 #__hgrev=ba708ee8d6
@@ -16,7 +16,7 @@ _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-makedepends=('gpm' 'perl' 'python2' 'ruby' 'lua' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif')
 options=()
 source=(
@@ -32,7 +32,7 @@ sha256sums=(
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'fde8d843eba2a9cfbbed5ca28b1b09ec934d814e79725e9b13db5ff544b4be4c'
+	'c12ae1d0a4fbd1af0851b086f802381004ecaa48082f1c0f05718c38113b6804'
 	'd790f1504b7a5930ca64fb230c440617ed938b158f12b7b5da9e125f4f5800e8'
 )
 
@@ -100,8 +100,10 @@ build() {
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=no \
 		--disable-gui --enable-multibyte --enable-cscope \
-		--disable-netbeans --enable-perlinterp --enable-pythoninterp \
-		--enable-rubyinterp --enable-luainterp=yes
+		--disable-netbeans --enable-perlinterp=dynamic \
+		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
+		--enable-luainterp=dynamic --disable-rubyinterp
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic # ruby dynamic is failing
 	make
 
 	msg2 'Building vim-gvim-gtk'
@@ -111,8 +113,10 @@ build() {
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
-		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
-		--enable-rubyinterp --enable-luainterp=yes
+		--enable-netbeans  --enable-perlinterp=dynamic \
+		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
+		--enable-luainterp=dynamic --disable-rubyinterp
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-x11'
@@ -122,8 +126,10 @@ build() {
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=athena --enable-multibyte --enable-cscope \
-		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
-		--enable-rubyinterp --enable-luainterp=yes
+		--enable-netbeans  --enable-perlinterp=dynamic \
+		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
+		--enable-luainterp=dynamic --disable-rubyinterp
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-motif'
@@ -133,8 +139,10 @@ build() {
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=motif --enable-multibyte --enable-cscope \
-		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
-		--enable-rubyinterp --enable-luainterp=yes
+		--enable-netbeans  --enable-perlinterp=dynamic \
+		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
+		--enable-luainterp=dynamic --disable-rubyinterp
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-qt'
@@ -142,14 +150,14 @@ build() {
 	patch -Np1 -i ${srcdir}/vim-qt-src.patch
 	(cd src && autoconf)
 	(cd src/qt && tar -zxf ${srcdir}/qt-icons.tar.gz)
-	#export CFLAGS="-g -O0"
-	#export CXXFLAGS="-g -O0"
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=qt --enable-multibyte --enable-cscope \
-		--enable-netbeans --enable-perlinterp --enable-pythoninterp \
-		--enable-rubyinterp --enable-luainterp=yes
+		--enable-netbeans  --enable-perlinterp=dynamic \
+		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
+		--enable-luainterp=dynamic --disable-rubyinterp
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 }
 
@@ -158,7 +166,6 @@ build() {
 package_vim-tiny() {
 	pkgdesc='Vi Improved, tiny edition'
 	conflicts=('vi' 'vim')
-	replaces=('vim-slim')
 	provides=('vim')
 
 	cd ${srcdir}/vim-build-tn
@@ -175,7 +182,14 @@ package_vim-tiny() {
 
 package_vim-cli() {
 	pkgdesc='Vi Improved, cli'
-	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'perl' 'python2' 'ruby' 'lua')
+	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm')
+	optdepends=(
+		'perl: vim perl binding'
+		'python2: vim python2 binding'
+		'python: vim python3 binding'
+		'lua: vim lua binding'
+		#'ruby: vim ruby binding'
+	)
 	conflicts=('vi' 'vim')
 	provides=('vim')
 

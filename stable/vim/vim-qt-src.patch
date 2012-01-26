@@ -1,3 +1,107 @@
+diff -urN vim-src/README.md vim-qt-src/README.md
+--- vim-src/README.md	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/README.md	2012-01-26 19:03:27.000000000 +0100
+@@ -0,0 +1,48 @@
++This is README for the Qt GUI - if you want the VIM README check README.txt
++
++# Compiling VIM with the Qt gui
++
++## Building on Linux/BSD systems
++
++For the most part you can build it as you would build vim with support for another gui, just issue the following commands:
++
++    $ ./configure --enable-gui=qt
++    $ make  
++    $ sudo make install
++
++All the regular configure options apply. Just don’t forget, you need libqt and libqt4-devel now. Usually you'll want to pass in something like:
++
++    ./configure --prefix=/usr/ --with-features=huge --enable-gui=qt
++
++
++If configure is unable to find Qt, try passing in the Qt base dir as follows:
++
++    ./configure --enable-gui=qt --with-qt-dir=/usr/lib/qt4
++
++
++## Building on Windows
++
++As of commit c0956732b437 we have some initial support to build vim-Qt in windows. You can build vim-Qt for windows provided that you have Qt, CMake and an adequate compiler(Mingw or Visual Studio).
++
++Naturally you need to have Qt installed. The best way to do this depends on your setup - check the Qt website for more details and keep in mind that you need to match your Qt library version with your compiler.
++
++
++### Visual Studio 2010
++
++From the VS console:
++
++    $ cmake -G NMake Makefiles PATH_TO_QTVIM\src
++    $ nmake
++
++This will generate a binary, qvim.exe. Keep the runtime folder in the same folder as qvim.exe, otherwise vim will not have access to menus and configuration files.
++
++
++### MinGW
++
++Make sure all mingw tools are in your path (i.e. gcc, mingw32-make), and then from your console:
++
++    $ cmake -G MinGW Makefiles PATH_TO_QTVIM\src
++    $ mingw32-make
++
++
++
+diff -urN vim-src/README_qt.txt vim-qt-src/README_qt.txt
+--- vim-src/README_qt.txt	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/README_qt.txt	2012-01-26 19:03:27.000000000 +0100
+@@ -0,0 +1,48 @@
++This is README for the Qt GUI - if you want the VIM README check README.txt
++
++# Compiling VIM with the Qt gui
++
++## Building on Linux/BSD systems
++
++For the most part you can build it as you would build vim with support for another gui, just issue the following commands:
++
++    $ ./configure --enable-gui=qt
++    $ make  
++    $ sudo make install
++
++All the regular configure options apply. Just don’t forget, you need libqt and libqt4-devel now. Usually you'll want to pass in something like:
++
++    ./configure --prefix=/usr/ --with-features=huge --enable-gui=qt
++
++
++If configure is unable to find Qt, try passing in the Qt base dir as follows:
++
++    ./configure --enable-gui=qt --with-qt-dir=/usr/lib/qt4
++
++
++## Building on Windows
++
++As of commit c0956732b437 we have some initial support to build vim-Qt in windows. You can build vim-Qt for windows provided that you have Qt, CMake and an adequate compiler(Mingw or Visual Studio).
++
++Naturally you need to have Qt installed. The best way to do this depends on your setup - check the Qt website for more details and keep in mind that you need to match your Qt library version with your compiler.
++
++
++### Visual Studio 2010
++
++From the VS console:
++
++    $ cmake -G NMake Makefiles PATH_TO_QTVIM\src
++    $ nmake
++
++This will generate a binary, qvim.exe. Keep the runtime folder in the same folder as qvim.exe, otherwise vim will not have access to menus and configuration files.
++
++
++### MinGW
++
++Make sure all mingw tools are in your path (i.e. gcc, mingw32-make), and then from your console:
++
++    $ cmake -G MinGW Makefiles PATH_TO_QTVIM\src
++    $ mingw32-make
++
++
++
 diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
 --- vim-src/runtime/menu.vim	2011-12-23 21:44:31.000000000 +0100
 +++ vim-qt-src/runtime/menu.vim	2011-06-16 16:58:04.000000000 +0200
@@ -12,8 +116,8 @@ diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
  
 diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 --- vim-src/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/CMakeLists.txt	2011-06-16 16:58:04.000000000 +0200
-@@ -0,0 +1,43 @@
++++ vim-qt-src/src/CMakeLists.txt	2012-01-26 19:03:27.000000000 +0100
+@@ -0,0 +1,112 @@
 +cmake_minimum_required(VERSION 2.8)
 +
 +find_package(Qt4 REQUIRED)
@@ -22,41 +126,110 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 +include_directories(${CMAKE_CURRENT_BINARY_DIR})
 +include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-+include_directories(proto auto .)
-+
-+#configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
++include_directories(proto auto . qt)
 +
 +# pathdef
 +configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pathdef.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/auto/pathdef.c)
-+
-+# osdef
-+# add_custom_command( OUTPUT auto/osdef.h 
-+#	COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/osdef.sh 
-+#	ARGS srcdir="${CMAKE_CURRENT_SOURCE_DIR}"  
-+#	COMMENT "Generating osdef.h"
-+#	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-+#	)
-+
-+#add_custom_target( osdef
-+#	DEPENDS auto/osdef.h
-+#	)
-+
 +
 +#
 +# Vim executable
 +#
 +
-+set(VIM_SOURCES buffer.c blowfish.c charset.c diff.c digraph.c edit.c eval.c ex_cmds.c ex_cmds2.c ex_docmd.c ex_eval.c ex_getln.c fileio.c fold.c getchar.c hardcopy.c hashtab.c  if_cscope.c if_xcmdsrv.c main.c mark.c memfile.c memline.c menu.c message.c misc1.c misc2.c move.c mbyte.c normal.c ops.c option.c os_unix.c popupmnu.c quickfix.c regexp.c screen.c search.c sha256.c spell.c syntax.c  tag.c term.c ui.c undo.c window.c gui.c  netbeans.c pty.c version.c auto/pathdef.c)
++set(VIM_SOURCES buffer.c 
++		blowfish.c 
++		charset.c 
++		diff.c 
++		digraph.c 
++		edit.c 
++		eval.c 
++		ex_cmds.c 
++		ex_cmds2.c 
++		ex_docmd.c 
++		ex_eval.c 
++		ex_getln.c 
++		fileio.c 
++		fold.c 
++		getchar.c 
++		hardcopy.c 
++		hashtab.c 
++		if_cscope.c 
++		if_xcmdsrv.c 
++		main.c 
++		mark.c 
++		memfile.c 
++		memline.c 
++		menu.c 
++		message.c 
++		misc1.c 
++		misc2.c 
++		move.c 
++		mbyte.c 
++		normal.c 
++		ops.c 
++		option.c 
++		popupmnu.c 
++		quickfix.c 
++		regexp.c 
++		screen.c 
++		search.c 
++		sha256.c 
++		spell.c 
++		syntax.c 
++		tag.c 
++		term.c 
++		ui.c 
++		undo.c 
++		window.c 
++		gui.c 
++		netbeans.c 
++		version.c 
++		auto/pathdef.c)
 +
-+set(GUI_SOURCES gui_qt.cpp)
-+set(MOC_SOURCES qvimshell.cpp mainwindow.cpp vimaction.cpp)
++set(GUI_SOURCES gui_qt.cpp )
++set(MOC_SOURCES qt/qvimshell.cpp 
++		qt/mainwindow.cpp 
++		qt/vimaction.cpp 
++		qt/scrollarea.cpp 
++		qt/tabbar.cpp 
++		qt/vimaction.cpp 
++		qt/vimscrollbar.cpp 
++		qt/vimwrapper.cpp 
++		qt/fontdialog.cpp)
++
++set(QVIM_RCS qt/icons.qrc)
++QT4_ADD_RESOURCES( QVIM_RC_SRCS ${QVIM_RCS} )
 +
 +qt4_automoc(${MOC_SOURCES})
 +
-+add_definitions(-DHAVE_CONFIG_H -DNO_X11_INCLUDES -DFEAT_GUI_QT -UHAVE_X11 -DFEAT_HUGE -DFEAT_MBYTE -DFEAT_TITLE)
 +
-+add_executable(qvim ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES})
-+target_link_libraries(qvim -lm -lncurses -lacl -lgpm ${QT_LIBRARIES})
++if(MSVC OR MINGW)
++	set(VIM_SOURCES ${VIM_SOURCES} 
++			os_win32.c 
++			os_mswin.c)
++
++	add_definitions(-DWIN32
++			-DNO_X11_INCLUDES
++			-DFEAT_GUI_QT
++			-UHAVE_X11
++			-DFEAT_HUGE
++			-DFEAT_MBYTE
++			-UFEAT_SIGN
++			-D__func__=__FUNCTION__
++			-D_CRT_SECURE_NO_WARNINGS)
++
++	if (MSVC)
++		add_definitions(-wd4099)
++	endif (MSVC)
++
++	add_executable(qvim WIN32 ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES} ${QVIM_RC_SRCS})
++
++	target_link_libraries(qvim ${QT_QTMAIN_LIBRARY} # Link to qtmain.lib to avoid WinMain()
++				   ${QT_LIBRARIES} )	# Link to Qt
++else(MSVC OR MINGW)
++	message(FATAL_ERROR "Could not find Visual Studio or Mingw - are they on the path? This is Windows, right?")
++endif(MSVC OR MINGW)
++
++
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/Makefile	2011-12-23 21:34:59.000000000 +0100
@@ -14821,8 +14994,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-01-10 17:53:52.522507240 +0100
-+++ vim-qt-src/src/configure.in	2012-01-10 17:53:54.485528088 +0100
+--- vim-src/src/configure.in	2012-01-26 19:04:13.072623873 +0100
++++ vim-qt-src/src/configure.in	2012-01-26 19:04:14.979639836 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15082,8 +15255,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-01-10 17:53:52.513507144 +0100
-+++ vim-qt-src/src/feature.h	2012-01-10 17:53:54.476527992 +0100
+--- vim-src/src/feature.h	2012-01-26 19:04:13.062623788 +0100
++++ vim-qt-src/src/feature.h	2012-01-26 19:04:14.970639761 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15178,6 +15351,15 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_MOUSESHAPE
  # endif
  #endif
+@@ -1243,7 +1248,7 @@
+ # if ((defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_ATHENA)) \
+ 		&& defined(HAVE_X11_XPM_H)) \
+ 	|| defined(FEAT_GUI_GTK) \
+-	|| (defined(WIN32) && defined(FEAT_GUI))
++	|| (defined(WIN32) && defined(FEAT_GUI) && !defined(FEAT_GUI_QT))
+ #  define FEAT_SIGN_ICONS
+ # endif
+ #endif
 diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
 --- vim-src/src/fileio.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/fileio.c	2011-10-12 16:41:08.000000000 +0200
@@ -15203,7 +15385,7 @@ diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
 diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
 --- vim-src/src/gui.c	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/gui.c	2011-12-23 21:34:59.000000000 +0100
++++ vim-qt-src/src/gui.c	2012-01-26 19:03:27.000000000 +0100
 @@ -161,10 +161,10 @@
      termcapinit((char_u *)"builtin_gui");
      gui.starting = recursive - 1;
@@ -15235,6 +15417,15 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* We can't take the sizes properly into account until anything is
       * realized.  Therefore we recalculate all the values here just before
       * setting the size. (--mdcki) */
+@@ -1531,7 +1531,7 @@
+     if (!gui.shell_created)
+ 	return;
+ 
+-#if defined(MSWIN) || defined(FEAT_GUI_GTK)
++#if (defined(MSWIN) || defined(FEAT_GUI_GTK)) && !defined(FEAT_GUI_QT)
+     /* If not setting to a user specified size and maximized, calculate the
+      * number of characters that fit in the maximized window. */
+     if (!mustset && gui_mch_maximized())
 @@ -2322,7 +2322,7 @@
      if (back != 0 && ((draw_flags & DRAW_BOLD) || (highlight_mask & HL_ITALIC)))
  	return FAIL;
@@ -15316,9 +15507,9 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2011-12-30 23:07:53.000000000 +0100
++++ vim-qt-src/src/gui_qt.cpp	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,1519 @@
-+#include <Qt/QtGui>
++#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
 +#include "vimaction.h"
@@ -15342,8 +15533,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 + * We delay Qt initialization and pass
 + * QApplication a pair of fake arguments
 + */
-+static int __argc = 1;
-+static char *__argv[] = {"qvim", NULL};
++static int dummy_argc = 1;
++static char *dummy_argv[] = {"qvim", NULL};
 +
 +
 +/**
@@ -15788,7 +15979,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +#else
 +	bool useGUI = true;
 +#endif
-+	QApplication *app = new QApplication(__argc, __argv, useGUI);
++	QApplication *app = new QApplication(dummy_argc, dummy_argv, useGUI);
 +
 +
 +	window = new MainWindow(&gui);
@@ -16818,12 +17009,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	if ( dialog->exec() == QDialog::Accepted ) {
 +		QFont f =  dialog->selectedFont();
 +		QByteArray text = VimWrapper::convertTo( QString("%1 %2").arg(f.family()).arg(f.pointSize()) );
-+
 +		if ( text.isEmpty() ) {
 +			// This should not happen, but if it does vim
 +			// behaves badly so lets be extra carefull
 +			return NULL;
 +		}
++		text.append('\0');
 +
 +		char_u *buffer;
 +		buffer = lalloc( text.size(), TRUE);
@@ -16870,6 +17061,27 @@ diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
      /* If the menubar height changed, resize the window */
      if (gui.in_use
  	    && (gui.menu_height != old_menu_height
+diff -urN vim-src/src/message.c vim-qt-src/src/message.c
+--- vim-src/src/message.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/message.c	2012-01-26 19:03:27.000000000 +0100
+@@ -3796,7 +3796,7 @@
+ 	    filter = BROWSE_FILTER_DEFAULT;
+ 	if (flags & BROWSE_DIR)
+ 	{
+-#  if defined(FEAT_GUI_GTK) || defined(WIN3264)
++#  if defined(FEAT_GUI_GTK) || defined(WIN3264) && !defined(FEAT_GUI_QT)
+ 	    /* For systems that have a directory dialog. */
+ 	    fname = gui_mch_browsedir(title, initdir);
+ #  else
+@@ -3804,7 +3804,7 @@
+ 	     * remove the file name. */
+ 	    fname = gui_mch_browse(0, title, dflt, ext, initdir, (char_u *)"");
+ #  endif
+-#  if !defined(FEAT_GUI_GTK)
++#  if !defined(FEAT_GUI_GTK) && !defined(FEAT_GUI_QT)
+ 	    /* Win32 adds a dummy file name, others return an arbitrary file
+ 	     * name.  GTK+ 2 returns only the directory, */
+ 	    if (fname != NULL && *fname != NUL && !mch_isdir(fname))
 diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
 --- vim-src/src/normal.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/normal.c	2011-10-12 16:41:08.000000000 +0200
@@ -16893,7 +17105,7 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  		jump_flags = 0;
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
 --- vim-src/src/option.c	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/option.c	2011-12-23 21:34:59.000000000 +0100
++++ vim-qt-src/src/option.c	2012-01-26 19:03:27.000000000 +0100
 @@ -6304,7 +6304,7 @@
  	if (gui.in_use)
  	{
@@ -16903,6 +17115,45 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
  	    /*
  	     * Put up a font dialog and let the user select a new value.
  	     * If this is cancelled go back to the old value but don't
+@@ -7793,7 +7793,7 @@
+ 	p_wiv = (*T_XS != NUL);
+     }
+ 
+-#ifdef FEAT_BEVAL
++#if defined(FEAT_BEVAL) && !defined(FEAT_GUI_QT) 
+     else if ((int *)varp == &p_beval)
+     {
+ 	if (p_beval && !old_value)
+diff -urN vim-src/src/os_mswin.c vim-qt-src/src/os_mswin.c
+--- vim-src/src/os_mswin.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/os_mswin.c	2012-01-26 19:03:27.000000000 +0100
+@@ -147,7 +147,7 @@
+ extern char g_szOrigTitle[];
+ #endif
+ 
+-#ifdef FEAT_GUI
++#if defined(FEAT_GUI) && !defined(FEAT_GUI_QT)
+ extern HWND s_hwnd;
+ #else
+ static HWND s_hwnd = 0;	    /* console window handle, set by GetConsoleHwnd() */
+@@ -1034,7 +1034,7 @@
+ 
+ #endif /* FEAT_MBYTE */
+ 
+-#ifdef FEAT_CLIPBOARD
++#if defined(FEAT_CLIPBOARD) && !defined(FEAT_GUI_QT)
+ /*
+  * Clipboard stuff, for cutting and pasting text to other windows.
+  */
+@@ -1472,7 +1472,7 @@
+ 	GlobalFree(hMemVim);
+ }
+ 
+-#endif /* FEAT_CLIPBOARD */
++#endif /* FEAT_CLIPBOARD && !FEAT_GUI_QT */
+ 
+ #if defined(FEAT_MBYTE) || defined(PROTO)
+ /*
 diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
 --- vim-src/src/os_unix.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/os_unix.c	2011-12-23 21:34:59.000000000 +0100
@@ -17204,12 +17455,12 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +
 diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 --- vim-src/src/qt/fontdialog.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.h	2011-06-16 16:58:05.000000000 +0200
++++ vim-qt-src/src/qt/fontdialog.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,28 @@
 +#ifndef __VIM_QT_FONTDIALOG__
 +#define __VIM_QT_FONTDIALOG__
 +
-+#include <Qt/QtGui>
++#include <QtGui>
 +
 +class FontDialog: public QDialog
 +{
@@ -17509,12 +17760,12 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2011-12-30 23:07:53.000000000 +0100
++++ vim-qt-src/src/qt/mainwindow.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,62 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
-+#include <Qt/QtGui>
++#include <QtGui>
 +#include "qvimshell.h"
 +#include "scrollarea.h"
 +#include "tabbar.h"
@@ -17575,8 +17826,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2011-12-23 21:34:59.000000000 +0100
-@@ -0,0 +1,1303 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-01-26 19:03:27.000000000 +0100
+@@ -0,0 +1,1341 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17748,6 +17999,11 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +		} else {
 +			add_to_input_buf( (char_u *) VimWrapper::convertTo(ev->text()).data(), ev->count() );
 +		}
++	}
++
++	// mousehide - conceal mouse pointer when typing
++	if (p_mh && underMouse() ) {
++		QApplication::setOverrideCursor(Qt::BlankCursor);
 +	}
 +}
 +
@@ -17959,7 +18215,10 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +// FIXME: not handling modifiers
 +
 +void QVimShell::mouseMoveEvent(QMouseEvent *ev)
-+{	
++{
++	// mousehide - show mouse pointer
++	restoreCursor();
++
 +	if ( ev->buttons() ) {
 +		vim.guiSendMouseEvent(MOUSE_DRAG, ev->pos().x(),
 +					  ev->pos().y(), FALSE, 0);
@@ -17971,6 +18230,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::mousePressEvent(QMouseEvent *ev)
 +{
 +	int but;
++
++	// mousehide - show mouse pointer
++	restoreCursor();
 +
 +	if ( !hasFocus() ) {
 +		setFocus(Qt::MouseFocusReason);
@@ -18123,9 +18385,24 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::focusInEvent(QFocusEvent *ev)
 +{
++	// mousehide - show mouse pointer
++	restoreCursor();
++
 +	vim.guiFocusChanged(TRUE);
 +	QWidget::focusInEvent(ev);
 +	update();
++}
++
++void QVimShell::leaveEvent(QEvent *ev)
++{
++	restoreCursor();
++	QWidget::leaveEvent(ev);
++}
++
++void QVimShell::enterEvent(QEvent *ev)
++{
++	restoreCursor();
++	QWidget::leaveEvent(ev);
 +}
 +
 +void QVimShell::focusOutEvent(QFocusEvent *ev)
@@ -18190,6 +18467,18 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	m_tooltip->setMinimumWidth( QFontMetrics(m_tooltip->font()).width(text) );
 +	m_tooltip->setMaximumWidth( QFontMetrics(m_tooltip->font()).width(text) );
 +	m_tooltip->update();
++}
++
++/*
++ * If the cursor is invisible, make it visible again
++ *
++ */
++void QVimShell::restoreCursor()
++{
++	QCursor *cursor = QApplication::overrideCursor();
++	if ( cursor && cursor->shape() == Qt::BlankCursor ) {
++		QApplication::restoreOverrideCursor();
++	}
 +}
 +
 +/*
@@ -18882,12 +19171,12 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2011-08-26 17:28:32.000000000 +0200
-@@ -0,0 +1,152 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-01-26 19:03:27.000000000 +0100
+@@ -0,0 +1,156 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
-+#include <Qt/QtGui>
++#include <QtGui>
 +#include "vimwrapper.h"
 +
 +
@@ -18966,6 +19255,10 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	void dropEvent(QDropEvent *);
 +
 +	void tooltip(const QString& );
++	void restoreCursor();
++
++	virtual void leaveEvent(QEvent *ev);
++	virtual void enterEvent(QEvent *ev);
 +private:
 +	QColor m_background;
 +	int m_charWidth;
@@ -19168,12 +19461,12 @@ diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
 +
 diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
 --- vim-src/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.h	2011-06-27 16:28:02.000000000 +0200
++++ vim-qt-src/src/qt/scrollarea.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,38 @@
 +#ifndef __GUI_QT_SCROLLAREA__
 +#define __GUI_QT_SCROLLAREA__
 +
-+#include <Qt/QtGui>
++#include <QtGui>
 +#include "vimscrollbar.h"
 +
 +class ScrollArea: public QWidget
@@ -19236,12 +19529,12 @@ diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
 +
 diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
 --- vim-src/src/qt/tabbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/tabbar.h	2011-06-30 21:01:01.000000000 +0200
++++ vim-qt-src/src/qt/tabbar.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,17 @@
 +#ifndef __GUI_QT_TABBAR__
 +#define __GUI_QT_TABBAR__
 +
-+#include <Qt/QtGui>
++#include <QtGui>
 +
 +class TabBar: public QTabBar
 +{
@@ -19370,14 +19663,14 @@ diff -urN vim-src/src/qt/vimscrollbar.cpp vim-qt-src/src/qt/vimscrollbar.cpp
 +
 diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 --- vim-src/src/qt/vimscrollbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimscrollbar.h	2011-06-27 16:28:02.000000000 +0200
++++ vim-qt-src/src/qt/vimscrollbar.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,35 @@
 +#ifndef __GUI_QT_VIMSCROLLBAR__
 +#define __GUI_QT_VIMSCROLLBAR__
 +
 +#include "qvimshell.h"
 +
-+#include <QtGui/QScrollBar>
++#include <QScrollBar>
 +
 +class VimScrollBar: public QScrollBar
 +{
@@ -19782,12 +20075,12 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +
 diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 --- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.h	2012-01-10 17:53:27.000000000 +0100
++++ vim-qt-src/src/qt/vimwrapper.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,101 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
 +
-+#include <Qt/QtGui>
++#include <QtGui>
 +
 +extern "C" {
 +#include "vim.h"
@@ -19910,6 +20203,18 @@ diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
  };
  #else
  /* For generating prototypes when FEAT_MENU isn't defined. */
+diff -urN vim-src/src/term.c vim-qt-src/src/term.c
+--- vim-src/src/term.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/term.c	2012-01-26 19:03:27.000000000 +0100
+@@ -5689,7 +5689,7 @@
+ }
+ #endif
+ 
+-#if (defined(WIN3264) && !defined(FEAT_GUI)) || defined(PROTO)
++#if (defined(WIN3264) && !defined(FEAT_GUI)) || defined(PROTO) || (defined(WIN3264) && defined(FEAT_GUI_QT))
+ static char ksme_str[20];
+ static char ksmr_str[20];
+ static char ksmd_str[20];
 diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
 --- vim-src/src/ui.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/ui.c	2011-08-17 18:23:57.000000000 +0200
