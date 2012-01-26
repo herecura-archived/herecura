@@ -8,9 +8,9 @@
 
 _pkgname=catalyst
 pkgname=${_pkgname}-bede
-pkgver=11.12
+pkgver=12.1
 _extramodules=3.2-BEDE-external
-pkgrel=2
+pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -21,12 +21,12 @@ provides=('catalyst')
 install=${pkgname}.install
 
 source=(
-	http://www2.ati.com/drivers/linux/ati-driver-installer-${pkgver/./-}-x86.x86_64.run
-	makefile_compat.patch
+	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
+	'makefile_compat.patch'
 )
 
 md5sums=(
-	'15c8148f916b2b9d37a5cbb189c6dda6'
+	'6396d0f6f70b89d605bac896feb2b7c9'
 	'3e1b82bd69774ea808da69c983d6a43b'
 )
 
@@ -35,7 +35,7 @@ build() {
 
 	## Unpack archive
 	msg "Unpacking archive ..."
-	/bin/sh ./ati-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
+	/bin/sh ./amd-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
 
 	if [ "${CARCH}" = "x86_64" ]; then
 		BUILDARCH=x86_64
@@ -57,7 +57,7 @@ build() {
 	def_smp=-D__SMP__
 
 	# ==============================================================
-	# resolve whether we need to set PAGE_ATTR_FIX 
+	# resolve whether we need to set PAGE_ATTR_FIX
 	PAGE_ATTR_FIX=0
 
 	# ==============================================================
