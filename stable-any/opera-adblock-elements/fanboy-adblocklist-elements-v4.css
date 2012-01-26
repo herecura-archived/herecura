@@ -1,7 +1,7 @@
 /*
-! Checksum: TZgmOcYaFojWJ3OUE7bcAg
+! Checksum: ntY6OlAIYKe7/7m3vRoISw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 25 Jan 2012
+! Version: V4 Updated: 26 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1841,6 +1841,7 @@
 #header-ad-rectangle-container,
 #header-ads,
 #header-adsense,
+#header-adspace,
 #header-advert,
 #header-advertisement,
 #header-adverts,
@@ -3774,6 +3775,7 @@
 .ads_330,
 .ads_337x280,
 .ads_468,
+.ads_468x60,
 .ads_672,
 .ads_728x90,
 .ads_big,
