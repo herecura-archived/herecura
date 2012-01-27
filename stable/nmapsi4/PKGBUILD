@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 url="http://nmapsi.sourceforge.net/"
 license=('GPL2')
 conflicts=()
-depends=('qt' 'nmap')
+depends=('qt' 'qtwebkit' 'nmap')
 makedepends=('cmake>=2.6')
 source=("http://nmapsi4.googlecode.com/files/${pkgname}-${pkgver}.tar.bz2")
 
@@ -18,9 +18,9 @@ build() {
 	cd tools
 	./cmake_verbose_script.sh
 
-	cd ../build  
-	# Change package location to /usr from /usr/local	
-	sed -i 's_/usr/local_/usr_' ./cmake_install.cmake 
+	cd ../build
+	# Change package location to /usr from /usr/local
+	sed -i 's_/usr/local_/usr_' ./cmake_install.cmake
 
 	make
 }
