@@ -1,7 +1,7 @@
 # Maintainer: Jeff Meldrum <jeffmeld(AT)lightspeed(DOT)ca>
 
 pkgname=nmapsi4
-pkgver=0.3
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="Qt-based Gui nmap interface."
 arch=('i686' 'x86_64')
@@ -30,4 +30,4 @@ package() {
 	make DESTDIR=${pkgdir} install
 	chmod +x ${pkgdir}/usr/bin/*
 }
-sha256sums=('51aa7e5e16577c318478b10ab3d533a15ea9e4d8cb7b7fb19a52e9b47f8b201d')
+sha256sums=('21fe5b03111fedeae4bbfe028250faa090aa974d5a1bfc96e8a5f0b13c1e061e')
