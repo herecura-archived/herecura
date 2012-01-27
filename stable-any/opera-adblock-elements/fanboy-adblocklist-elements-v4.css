@@ -1,7 +1,7 @@
 /*
-! Checksum: ntY6OlAIYKe7/7m3vRoISw
+! Checksum: knsp9pbAFNSRpLIaJZqqLg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 26 Jan 2012
+! Version: V4 Updated: 27 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -378,6 +378,8 @@
 #ad_box,
 #ad_box160a,
 #ad_box_2,
+#ad_box_ad_0,
+#ad_box_ad_1,
 #ad_box_colspan,
 #ad_box_top,
 #ad_branding,
@@ -867,6 +869,7 @@
 #ads300k,
 #ads300Top,
 #ads300x250,
+#ads300x250_single,
 #ads336Box,
 #ads336x280,
 #Ads470by50,
@@ -3130,6 +3133,7 @@
 .ad125x125a,
 .ad125x125b,
 .ad160,
+.ad160x160,
 .ad160x600,
 .ad160x600box,
 .ad160x600GrayBorder,
