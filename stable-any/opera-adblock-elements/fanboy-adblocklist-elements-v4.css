@@ -1,7 +1,7 @@
 /*
-! Checksum: knsp9pbAFNSRpLIaJZqqLg
+! Checksum: Y04okF9uuNMOm2iJ9azraA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Jan 2012
+! Version: V4 Updated: 28 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -364,7 +364,6 @@
 #ad_banner_top,
 #ad_bar,
 #ad_bellow_post,
-#ad_bg,
 #ad_bigbox,
 #ad_bigbox_companion,
 #Ad_Block,
@@ -521,6 +520,8 @@
 #ad_right,
 #Ad_Right1,
 #ad_right3,
+#ad_right_content_article_page,
+#ad_right_content_home,
 #ad_right_main,
 #ad_right_rail_flex,
 #ad_right_rail_top,
@@ -2953,6 +2954,7 @@
 .ad-728x90-top,
 .ad-728x90-top0,
 .ad-768,
+.ad-88-60,
 .ad-90x600,
 .ad-adcode,
 .ad-background,
@@ -4271,6 +4273,8 @@
 .aroundAdUnit,
 .artAdInner,
 .article-ad-300x250,
+.article-ad-left,
+.article-ad-main,
 .article-ads,
 .article-content-adwrap,
 .article-share-top,
@@ -4462,6 +4466,7 @@
 .boxad,
 .boxad120,
 .boxadcont,
+.boxads,
 .boxadv,
 .boxadvertisement,
 .BoxSponsorBottom,
@@ -4884,6 +4889,7 @@
 .home-sticky-ad,
 .home_ad,
 .home_ad_300x100,
+.home_ad_300x250,
 .home_ad_bottom,
 .home_ad_large,
 .home_adblock,
@@ -5053,6 +5059,7 @@
 .lightad,
 .link_advertise,
 .linkAD,
+.linkad,
 .list-ad,
 .listingAd,
 .listings-bottom-ad-w,
@@ -5889,6 +5896,8 @@
 .webad-cnt,
 .webads336x280,
 .wide-ad,
+.wide-ad-container,
+.wide-ad-outer,
 .wide-advert,
 .wide-skyscraper-ad,
 .wide_ad,
