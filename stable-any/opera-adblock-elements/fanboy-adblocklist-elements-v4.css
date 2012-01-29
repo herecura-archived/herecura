@@ -1,7 +1,7 @@
 /*
-! Checksum: Y04okF9uuNMOm2iJ9azraA
+! Checksum: nWE+qXwPkHMK0j1sdGOHzw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 Jan 2012
+! Version: V4 Updated: 29 Jan 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -351,7 +351,6 @@
 #ad_area,
 #ad_article_btm,
 #ad_Banner,
-#ad_banner,
 #ad_banner_1,
 #ad_banner_120x600,
 #ad_banner_125x300,
@@ -815,6 +814,7 @@
 #adPosOne,
 #adpostloader,
 #adpromo,
+#adprovider-default,
 #adRContain,
 #AdRectangle,
 #Adrectangle,
@@ -965,6 +965,7 @@
 #adsenseDiv,
 #adsenseheader,
 #adsensehorizontal,
+#adsenseOne,
 #adsensepo,
 #adsensepos,
 #adsensequadr,
@@ -1728,6 +1729,7 @@
 #GamePageAdDiv,
 #gameplay_ad,
 #games-mpu-container,
+#gameSquareAd,
 #gasense,
 #gbl_topmost_ad,
 #gBnrAd,
@@ -2208,6 +2210,7 @@
 #news_left_ad,
 #news_right_ad,
 #newTopAds,
+#newuser_ad,
 #nlrightsponsorad,
 #noresults_ad_container,
 #NormalAdModule,
@@ -2947,6 +2950,7 @@
 .ad-300x70,
 .ad-300x75,
 .ad-468,
+.ad-544x250,
 .ad-600,
 .ad-728,
 .ad-728x90,
@@ -3271,6 +3275,7 @@
 .ad_954-60,
 .ad_adblade,
 .ad_adInfo,
+.ad_adsense_spacer,
 .AD_area,
 .ad_area,
 .ad_article_top_left,
@@ -3335,7 +3340,9 @@
 .ad_info,
 .ad_info_block,
 .ad_inline,
+.ad_island2_spacer,
 .ad_island_feedback,
+.ad_island_spacer,
 .ad_keywords_bot,
 .ad_keywords_bot_r,
 .Ad_Label,
@@ -3383,6 +3390,7 @@
 .ad_power,
 .ad_primary,
 .ad_promo1,
+.ad_promo_spacer,
 .ad_rec,
 .ad_rectangle,
 .ad_regular1,
@@ -3539,7 +3547,6 @@
 .adcolumn_wrapper,
 .adComponent,
 .adcontainer,
-.adContainer,
 .adContainer1,
 .AdContainer160x600,
 .adContainer_125x125,
@@ -4053,6 +4060,7 @@
 .adv-mpu,
 .adv-search-ad,
 .adv2,
+.adv300x70,
 .adv_1,
 .adv_2,
 .adv_box_narrow,
@@ -4233,6 +4241,7 @@
 .ADwidget,
 .adWithTab,
 .adwordListings,
+.adwords_in_content,
 .adwordsHeader,
 .adWrap,
 .adwrap,
