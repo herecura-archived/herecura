@@ -1,7 +1,7 @@
 /*
-! Checksum: Zof146oWkM0xK8TAxVQagA
+! Checksum: 76sY6lIqRjquRJxVuaUkdA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 3 Feb 2012
+! Version: V4 Updated: 4 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1428,6 +1428,7 @@
 #BottomAd,
 #bottomAd300,
 #bottomadbanner,
+#bottomadholder,
 #BottomAds,
 #bottomAds,
 #bottomads,
@@ -3373,6 +3374,7 @@
 .ad_link_area,
 .ad_link_label_vert,
 .ad_linkunit,
+.ad_lnks,
 .ad_loc,
 .ad_lrec,
 .ad_main,
@@ -4056,6 +4058,8 @@
 .AdUnit,
 .adUnit,
 .adunit,
+.adunit125,
+.adunit160,
 .AdUnit300,
 .AdUnit300x250,
 .adunit_210x509,
