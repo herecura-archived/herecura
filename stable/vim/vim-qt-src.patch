@@ -14994,8 +14994,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-01-26 19:04:13.072623873 +0100
-+++ vim-qt-src/src/configure.in	2012-01-26 19:04:14.979639836 +0100
+--- vim-src/src/configure.in	2012-02-04 22:20:28.982253765 +0100
++++ vim-qt-src/src/configure.in	2012-02-04 22:20:30.856257408 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15255,8 +15255,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-01-26 19:04:13.062623788 +0100
-+++ vim-qt-src/src/feature.h	2012-01-26 19:04:14.970639761 +0100
+--- vim-src/src/feature.h	2012-02-04 22:20:28.973253748 +0100
++++ vim-qt-src/src/feature.h	2012-02-04 22:20:30.847257391 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15507,7 +15507,7 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-01-26 19:03:27.000000000 +0100
++++ vim-qt-src/src/gui_qt.cpp	2012-02-04 22:20:12.000000000 +0100
 @@ -0,0 +1,1519 @@
 +#include <QtGui>
 +#include "qvimshell.h"
@@ -16848,7 +16848,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		dir = (char*)initdir;
 +	}
 +
-+	QString file = QFileDialog::getOpenFileName(window, (char*)title, dir, ".*");
++	QString file = QFileDialog::getOpenFileName(window, (char*)title, dir);
 +	if ( file.isEmpty() ) {
 +		return NULL;
 +	}
@@ -17826,8 +17826,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-01-26 19:03:27.000000000 +0100
-@@ -0,0 +1,1341 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-02-04 22:20:12.000000000 +0100
+@@ -0,0 +1,1345 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -17838,7 +17838,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +QVimShell::QVimShell(QWidget *parent)
 +:QWidget(parent), m_encoding_utf8(true),
-+	m_lastClickEvent(-1), m_tooltip(0), m_slowStringDrawing(false)
++	m_lastClickEvent(-1), m_tooltip(0), m_slowStringDrawing(false),
++	m_mouseHidden(false)
 +{
 +
 +	// IM Tooltip
@@ -18002,8 +18003,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	}
 +
 +	// mousehide - conceal mouse pointer when typing
-+	if (p_mh && underMouse() ) {
++	if (p_mh && !m_mouseHidden ) {
 +		QApplication::setOverrideCursor(Qt::BlankCursor);
++		m_mouseHidden = true;
 +	}
 +}
 +
@@ -18476,8 +18478,10 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::restoreCursor()
 +{
 +	QCursor *cursor = QApplication::overrideCursor();
-+	if ( cursor && cursor->shape() == Qt::BlankCursor ) {
++
++	if ( cursor && m_mouseHidden ) {
 +		QApplication::restoreOverrideCursor();
++		m_mouseHidden = false;
 +	}
 +}
 +
@@ -19171,8 +19175,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-01-26 19:03:27.000000000 +0100
-@@ -0,0 +1,156 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-02-04 22:20:12.000000000 +0100
+@@ -0,0 +1,157 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -19280,6 +19284,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	static QHash<QString, QColor> m_colorMap;
 +	VimWrapper vim;
 +	bool m_slowStringDrawing;
++	bool m_mouseHidden;
 +};
 +
 +struct special_key
