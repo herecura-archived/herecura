@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=7
+pkgrel=8
 pkgdesc="XBMC software media player and entertainment hub for digital media"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
@@ -15,9 +15,9 @@ arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
 depends=(libgl libmpeg2 fribidi lzo2 smbclient sdl_image libva libxtst sdl_mixer libmicrohttpd libcdio libmms libmysqlclient libsamplerate glew wavpack libssh mesa-demos xorg-xdpyinfo libmad libmodplug faac faad2 jasper sqlite3 rtmpdump fontconfig enca)
-makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video')
+makedepends=('boost' 'cmake' 'gperf' 'nasm' 'yasm' 'zip' 'unzip' 'libxrandr' 'libxinerama' 'vdpau-video' 'dos2unix')
 optdepends=(
-	'lirc: remote controller support' 
+	'lirc: remote controller support'
 	'vdpau-video: for nvidia hardware accelleration'
 	'unrar: access compressed files without unpacking them'
 	'udisks: automount external drives'
@@ -29,12 +29,16 @@ source=(
 	"http://mirrors.xbmc.org/releases/source/${pkgname}-${pkgver}.tar.gz"
 	'FEH.sh'
 	'xbmcplugin_int_format.patch'
+	'xbmc-evdev-power.patch'
+	'xbmc-10.1-libpng-1.5.patch'
 )
 
 sha256sums=(
 	'3403195b7eb1d076523f2394793b7f050df00743892b031f6fea86b998559d8a'
 	'a7e5f2114fe19640fc24300b7c69686f37d63df901b2f95bfbbc6cf9ae1c3ede'
 	'5e21ea32c86ec04d2c86d56e6294cf2fe52c90c8a31199982c75adf77ac45fc5'
+	'ea9b88e996cffaf7fe769c5bdb41c9e872a65ff27b975fadd2bc3a34d118989a'
+	'1a0985b91ee9862a538a43689d005dc88d49bf5a70d917896fb69ee416369ff7'
 )
 options=(strip)
 
@@ -56,6 +60,12 @@ build() {
 	#  undefined symbol: NeAACDecOpen
 	unset LDFLAGS; LDFLAGS="-Wl,-O1,--sort-common,-z,relro,--hash-style=gnu"
 
+	# fix evdev power
+	patch -Np1 -i ${srcdir}/xbmc-evdev-power.patch
+
+	# fix libpng 1.5
+	patch -Np1 -i ${srcdir}/xbmc-10.1-libpng-1.5.patch
+
 	# Python parse had wrong native type
 	(cd xbmc/lib/libPython/xbmcmodule && patch -p5 < ${srcdir}/xbmcplugin_int_format.patch)
 
@@ -69,7 +79,7 @@ build() {
 	msg2 "Bootstrapping XBMC"
 	./bootstrap
 
-	msg2 "Configuring XBMC" 
+	msg2 "Configuring XBMC"
 	./configure --prefix=${_prefix} --exec-prefix=${_prefix} \
 		--disable-debug \
 		--enable-optimizations \
@@ -85,16 +95,16 @@ build() {
 		--disable-avahi
 
 	# Now (finally) build
-	msg2 "Running make" 
+	msg2 "Running make"
 	make
-	msg2 "building python modules" 
+	msg2 "building python modules"
 	make -C lib/addons/script.module.pil
 	make -C lib/addons/script.module.pysqlite
 }
 
 package() {
 	cd ${pkgname}-${pkgver}
-	msg2 "Running make install" 
+	msg2 "Running make install"
 	make DESTDIR=${pkgdir} install
 
 	# Replace FEH.py with FEH.sh (and thus remove external python dependency)
