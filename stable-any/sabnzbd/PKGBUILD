@@ -1,5 +1,5 @@
 pkgname=sabnzbd
-pkgver=0.6.15
+pkgver=0.6.14
 pkgrel=1
 pkgdesc="A web-interface based binary newsgrabber with NZB file support"
 arch=('any')
@@ -34,7 +34,7 @@ package() {
         # Fix for issues with Python 3
         find ${pkgdir}/opt/sabnzbd -type f -exec sed -i 's/python/python2/g' {} \;
 }
-sha256sums=('a1f6cd461123b7787d99d87d509c08a9607f3d01d447af3d0f3826b760bf2eb6'
+sha256sums=('74084bfa4bf3133086647c85953be5dacddb8e8cad721dda8f0175f7a79e54c2'
             'f17b424a09f9aa76a57f6dd6640797bc5a0abf6cdf464401c982c8de4842e1f6'
             '8cac283c22b65a199c6bece0a04949d332b163ea6fbfc1411d85700a32cc4f09'
             '8f23c7052a61d65576bd132352bd00a7bff2481472c8b4d84fc6e5c748385652'
