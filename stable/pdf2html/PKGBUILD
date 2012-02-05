@@ -28,7 +28,7 @@ build() {
 
 	patch -Np0 -i ${srcdir}/pbm2png.diff
 	patch -Np0 -i ${srcdir}/index.html.diff
-	patch -Np1 -i ${srcdir}/pdf2html-1.4-libpng15.patch
+	patch -Np0 -i ${srcdir}/pdf2html-1.4-libpng15.patch
 
 	make
 }
