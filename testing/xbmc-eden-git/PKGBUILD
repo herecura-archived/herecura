@@ -66,6 +66,9 @@ build() {
 	msg "Starting make..."
 	cd ${_gitname}-build
 
+	# libpng 1.5 patch
+	patch -Np1 -i ${srcdir}/xbmc-11.0-libpng-1.5.patch
+
 	# Configure XBMC
 	#
 	# Note on external-libs:
