@@ -1,7 +1,7 @@
 /*
-! Checksum: 76sY6lIqRjquRJxVuaUkdA
+! Checksum: Url362DAVOuS/QC5q7mF8g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 4 Feb 2012
+! Version: V4 Updated: 5 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -938,6 +938,7 @@
 #adsDiv0,
 #adsDiv1,
 #adsDiv2,
+#adsdiv468,
 #adsdiv_close,
 #AdSection,
 #AdSense,
@@ -1674,6 +1675,7 @@
 #footAds,
 #footer-ad,
 #footer-ad-col,
+#footer-ad-shadow,
 #footer-ad-unit,
 #footer-ads,
 #footer-adspace,
@@ -2816,6 +2818,7 @@
 #turnAD,
 #tut_ads,
 #txt_link_ads,
+#txtAdcontainer2,
 #txtads,
 #ugly-ad,
 #ui-about-these-ads-img,
@@ -3693,6 +3696,7 @@
 .adpad300spacer,
 .adPageBorderL,
 .adPageBorderR,
+.AdPanel,
 .adPanel,
 .adplace,
 .adplace_center,
@@ -4950,6 +4954,8 @@
 .hp2-adtag,
 .hp_320-250-ad,
 .hpa-ad1,
+.hpPollQuestionSponsor,
+.hpPriceBoardSponsor,
 .HPRoundedAd,
 .hr-ads,
 .IABAdSpace,
@@ -5546,6 +5552,7 @@
 .sidebar-ad-rect,
 .sidebar-ads,
 .sidebar-block-adsense,
+.sidebar-skyscraper-ad,
 .sidebar-text-ad,
 .sidebar300adblock,
 .sidebar_ad,
@@ -5574,6 +5581,7 @@
 .sideBoxAd,
 .sideBySideAds,
 .sideskyad,
+.single-ad,
 .single-ads,
 .single_advert,
 .singleAd,
