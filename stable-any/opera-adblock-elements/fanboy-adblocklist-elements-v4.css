@@ -1,7 +1,7 @@
 /*
-! Checksum: Hnc2nNnItQc1UIt2HkgBEQ
+! Checksum: XDSU6LpxD8aBFxxP0gj+xw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 6 Feb 2012
+! Version: V4 Updated: 7 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -910,6 +910,7 @@
 #ads_mads_r1,
 #ads_mads_r2,
 #ads_medrect,
+#ads_place,
 #ads_player,
 #ads_postdownload,
 #ads_right,
@@ -3073,6 +3074,7 @@
 .ad-place-active,
 .ad-place-holder,
 .ad-placeholder,
+.AD-POST,
 .ad-poster,
 .ad-postText,
 .ad-promo,
@@ -3866,6 +3868,7 @@
 .ads_tr,
 .ads_up,
 .ads_wide,
+.ads_without_height,
 .ads_wrapper,
 .adsBelowHeadingNormal,
 .adsbg300,
@@ -5495,7 +5498,6 @@
 .search_results_ad,
 .searchAd,
 .searchAds,
-.searchads,
 .searchAdTop,
 .searchSponsorItem,
 .sec-ad,
