@@ -1,7 +1,7 @@
 /*
-! Checksum: EjKattooq2ZhF3gwjSeeMA
+! Checksum: qjAi3DnZBGJ0LNo78YBIeg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 8 Feb 2012
+! Version: V4 Updated: 9 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3540,6 +3540,7 @@
 .adboxbg,
 .adBoxBody,
 .adBoxContent,
+.adboxes,
 .adboxlong,
 .adboxo,
 .adBoxSingle,
@@ -5274,6 +5275,7 @@
 .oi_horz_ad_container,
 .oio-banner-zone,
 .omnitureAdImpression,
+.oneColumnAd,
 .onethirdadholder,
 .openx-ad,
 .openx_frame,
@@ -5365,6 +5367,7 @@
 .rect_advert,
 .rectangle-ad,
 .rectangle-ad-container,
+.rectangle-embed-ad,
 .RectangleAd,
 .rectangleAd,
 .rectanglead,
@@ -5405,6 +5408,7 @@
 .right-top-ad,
 .Right300x250AD,
 .right_ad,
+.right_ad_160,
 .right_ad_innercont,
 .right_ad_text,
 .right_ads,
@@ -6289,6 +6293,7 @@ div[id="leaderboard"],
 .ego_spo,
 .fbEmu,
 .UIWashFrame_SidebarAds,
+#fbPhotoSnowliftAdsSide,
 .fbEmuBlock,
 .fbPhotoSnowboxAds,
 .fbEmuEgoUnit,
