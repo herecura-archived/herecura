@@ -232,7 +232,7 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/Makefile	2011-12-23 21:34:59.000000000 +0100
++++ vim-qt-src/src/Makefile	2012-02-11 23:05:57.000000000 +0100
 @@ -1237,6 +1237,35 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
@@ -278,6 +278,15 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  ALL_GUI_PRO  = gui.pro gui_gtk.pro gui_motif.pro gui_xmdlg.pro gui_athena.pro gui_gtk_x11.pro gui_x11.pro gui_w16.pro gui_w32.pro gui_photon.pro
  
  # }}}
+@@ -1475,7 +1504,7 @@
+ 	$(WORKSHOP_SRC) \
+ 	$(WSDEBUG_SRC)
+ 
+-TAGS_SRC = *.c *.cpp if_perl.xs
++TAGS_SRC = *.c *.cpp if_perl.xs qt/*.cpp
+ 
+ EXTRA_SRC = hangulin.c if_lua.c if_mzsch.c auto/if_perl.c if_perlsfio.c \
+ 	    if_python.c if_python3.c if_tcl.c if_ruby.c if_sniff.c \
 @@ -2502,6 +2531,50 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
@@ -14994,8 +15003,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-02-04 22:20:28.982253765 +0100
-+++ vim-qt-src/src/configure.in	2012-02-04 22:20:30.856257408 +0100
+--- vim-src/src/configure.in	2012-02-11 23:06:12.750046573 +0100
++++ vim-qt-src/src/configure.in	2012-02-11 23:06:14.774059758 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15255,8 +15264,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-02-04 22:20:28.973253748 +0100
-+++ vim-qt-src/src/feature.h	2012-02-04 22:20:30.847257391 +0100
+--- vim-src/src/feature.h	2012-02-11 23:06:12.739046501 +0100
++++ vim-qt-src/src/feature.h	2012-02-11 23:06:14.764059690 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15373,7 +15382,16 @@ diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
   * Shorten all filenames in "fnames[count]" by current directory.
 diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
 --- vim-src/src/globals.h	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/globals.h	2011-06-16 16:58:04.000000000 +0200
++++ vim-qt-src/src/globals.h	2012-02-11 23:05:57.000000000 +0100
+@@ -506,7 +506,7 @@
+ 
+ #ifdef FEAT_CLIPBOARD
+ EXTERN VimClipboard clip_star;	/* PRIMARY selection in X11 */
+-# ifdef FEAT_X11
++# if defined(FEAT_X11) || defined(FEAT_GUI_QT)
+ EXTERN VimClipboard clip_plus;	/* CLIPBOARD selection in X11 */
+ # else
+ #  define clip_plus clip_star	/* there is only one clipboard */
 @@ -1399,7 +1399,7 @@
  EXTERN char_u e_fontset[]	INIT(= N_("E234: Unknown fontset: %s"));
  #endif
@@ -15507,8 +15525,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-02-04 22:20:12.000000000 +0100
-@@ -0,0 +1,1519 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-02-11 23:05:57.000000000 +0100
+@@ -0,0 +1,1536 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15816,7 +15834,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_getmouse(int *x, int *y)
 +{
-+	QPoint pos = window->mapFromGlobal( QCursor::pos() );
++	QPoint pos = vimshell->mapFromGlobal( QCursor::pos() );
 +	*x = pos.x();
 +	*y = pos.y();
 +}
@@ -15827,7 +15845,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_setmouse(int x, int y)
 +{
-+	QPoint pos = window->mapToGlobal(QPoint(x, y));
++	QPoint pos = vimshell->mapToGlobal(QPoint(x, y));
 +	QCursor::setPos(pos.x(), pos.y());
 +}
 +
@@ -16002,13 +16020,9 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		styleFile.close();
 +	}
 +
-+	// Clipboard - the order matters, for safety
-+	clip_plus.clipboardMode = QClipboard::Selection;
-+	clip_star.clipboardMode = QClipboard::Clipboard;
-+
-+	QObject::connect(QApplication::clipboard(), SIGNAL(changed(QClipboard::Mode)),
-+			vimshell, SLOT(clipboardChanged(QClipboard::Mode)));
-+
++	// Clipboard - order matters, for safety
++	clip_star.clipboardMode = QClipboard::Selection;
++	clip_plus.clipboardMode = QClipboard::Clipboard;
 +
 +	display_errors();
 +
@@ -16235,7 +16249,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +clip_mch_lose_selection(VimClipboard *cbd)
 +{
-+	qDebug() << __func__;
 +}
 +
 +/**
@@ -16244,13 +16257,19 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +clip_mch_set_selection(VimClipboard *cbd)
 +{
-+
 +	int type;
 +	long size;
 +	char_u *str = NULL;
 +
-+	type = clip_convert_selection(&str, (long_u *)&size, cbd);
++	if (!cbd->owned) {
++		return;
++	}
 +
++	cbd->owned = TRUE;
++	clip_get_selection(cbd);
++	cbd->owned = FALSE;
++
++	type = clip_convert_selection(&str, (long_u *)&size, cbd);
 +	if (type >= 0) {
 +		QClipboard *clip = QApplication::clipboard();
 +		clip->setText( VimWrapper::convertFrom((char *)str, size), (QClipboard::Mode)cbd->clipboardMode);
@@ -16266,7 +16285,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +clip_mch_request_selection(VimClipboard *cbd)
 +{
-+
 +	QClipboard *clip = QApplication::clipboard();
 +	if ( clip->text((QClipboard::Mode)cbd->clipboardMode).size() == 0 ) {
 +		return;
@@ -16848,7 +16866,11 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		dir = (char*)initdir;
 +	}
 +
++	window->setEnabled(false);
 +	QString file = QFileDialog::getOpenFileName(window, (char*)title, dir);
++	window->setEnabled(true);
++	vimshell->setFocus();
++
 +	if ( file.isEmpty() ) {
 +		return NULL;
 +	}
@@ -16863,7 +16885,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +int
 +gui_mch_dialog(int type, char_u *title, char_u *message, char_u *buttons, int dfltbutton, char_u *textfield, int ex_cmd)
 +{
-+	QMessageBox msgBox;
++	QMessageBox msgBox(window);
 +	msgBox.setText( (char*)message );
 +	msgBox.setWindowTitle( (char*)title );
 +	
@@ -16911,7 +16933,13 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		}
 +	}
 +
++	window->setEnabled(false);
++	msgBox.setEnabled(true);
++
 +	msgBox.exec();
++
++	window->setEnabled(true);
++	vimshell->setFocus();
 +
 +	if ( msgBox.clickedButton() == 0 ) {
 +		return 0;
@@ -17000,19 +17028,22 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +{
 +	QFont *oldfont = gui_mch_get_font(oldval, 0);
 +
++	char_u *rval = NULL;
 +	bool ok;
-+	static FontDialog *dialog = new FontDialog();
++	static FontDialog *dialog = new FontDialog(window);
 +	if ( oldfont != NULL ) {
 +		dialog->selectCurrentFont(*oldfont);
 +	}
 +
++	window->setEnabled(false);
++	dialog->setEnabled(true);
 +	if ( dialog->exec() == QDialog::Accepted ) {
 +		QFont f =  dialog->selectedFont();
 +		QByteArray text = VimWrapper::convertTo( QString("%1 %2").arg(f.family()).arg(f.pointSize()) );
 +		if ( text.isEmpty() ) {
 +			// This should not happen, but if it does vim
 +			// behaves badly so lets be extra carefull
-+			return NULL;
++			goto out;
 +		}
 +		text.append('\0');
 +
@@ -17021,10 +17052,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		for (int i = 0; i < text.size(); ++i) {
 +			buffer[i] = text[i];
 +		}
-+		return buffer;
++		rval = buffer;
 +	}
 +
-+	return NULL;
++out:
++	window->setEnabled(true);
++	vimshell->setFocus();
++
++	return rval;
 +}
 +
 +} // extern "C"
@@ -17103,6 +17138,42 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  	    if (gui.in_use)
  	    {
  		jump_flags = 0;
+diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
+--- vim-src/src/ops.c	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/ops.c	2012-02-11 23:05:57.000000000 +0100
+@@ -29,7 +29,7 @@
+ #define DELETION_REGISTER	36
+ #ifdef FEAT_CLIPBOARD
+ # define STAR_REGISTER		37
+-#  ifdef FEAT_X11
++#  if defined(FEAT_X11) || defined(FEAT_GUI_QT)
+ #   define PLUS_REGISTER	38
+ #  else
+ #   define PLUS_REGISTER	STAR_REGISTER	    /* there is only one */
+@@ -2869,7 +2869,7 @@
+     char_u		*p;
+     char_u		*pnew;
+     struct block_def	bd;
+-#if defined(FEAT_CLIPBOARD) && defined(FEAT_X11)
++#if defined(FEAT_CLIPBOARD) && ( defined(FEAT_X11) || defined(FEAT_GUI_QT) )
+     int			did_star = FALSE;
+ #endif
+ 
+@@ -3154,12 +3154,12 @@
+ 
+ 	clip_own_selection(&clip_star);
+ 	clip_gen_set_selection(&clip_star);
+-# ifdef FEAT_X11
++# if defined(FEAT_X11) || defined(FEAT_GUI_QT)
+ 	did_star = TRUE;
+ # endif
+     }
+ 
+-# ifdef FEAT_X11
++# if defined(FEAT_X11) || defined(FEAT_GUI_QT)
+     /*
+      * If we were yanking to the '+' register, send result to selection.
+      * Also copy to the '*' register, in case auto-select is off.
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
 --- vim-src/src/option.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/option.c	2012-01-26 19:03:27.000000000 +0100
@@ -17826,8 +17897,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-02-04 22:20:12.000000000 +0100
-@@ -0,0 +1,1345 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-02-11 23:05:57.000000000 +0100
+@@ -0,0 +1,1329 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18247,7 +18318,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	case Qt::RightButton:
 +		but = MOUSE_RIGHT;
 +		break;
-+	case Qt::MiddleButton:
++	case Qt::MidButton:
 +		but = MOUSE_MIDDLE;
 +		break;
 +	default:
@@ -18482,22 +18553,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	if ( cursor && m_mouseHidden ) {
 +		QApplication::restoreOverrideCursor();
 +		m_mouseHidden = false;
-+	}
-+}
-+
-+/*
-+ * Mark the given clipboard has not owned by Vim
-+ *
-+ */
-+void QVimShell::clipboardChanged(QClipboard::Mode mode)
-+{
-+	switch(mode) {
-+	case QClipboard::Clipboard:
-+		clip_star.owned = FALSE;
-+		break;
-+	case QClipboard::Selection:
-+		clip_plus.owned = FALSE;
-+		break;
 +	}
 +}
 +
@@ -19175,8 +19230,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-02-04 22:20:12.000000000 +0100
-@@ -0,0 +1,157 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-02-11 23:05:57.000000000 +0100
+@@ -0,0 +1,156 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -19229,7 +19284,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	void switchTab(int idx);
 +	void closeTab(int idx);
-+	void clipboardChanged(QClipboard::Mode);
 +
 +protected:
 +	void flushPaintOps();
@@ -19707,8 +19761,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-01-10 17:53:27.000000000 +0100
-@@ -0,0 +1,369 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-02-11 23:05:57.000000000 +0100
+@@ -0,0 +1,373 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -19820,7 +19874,12 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	char_u **fnames = (char_u**)alloc( urls.size() * sizeof(char_u*));
 +	int i;
 +	for (i=0; i<urls.size(); i++) {
-+		QByteArray encoded = convertTo(urls.at(i).toString());
++		QByteArray encoded;
++		if ( urls.at(i).scheme() == "file" ) {
++			encoded = convertTo(urls.at(i).toLocalFile());
++		} else {
++			encoded = convertTo(urls.at(i).toString());
++		}
 +
 +		char *s = (char*)alloc(encoded.size()*sizeof(char)+1);
 +		int j;
@@ -19828,7 +19887,6 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +			s[j] = encoded.at(j);
 +		}
 +		s[j]='\0';
-+
 +		fnames[i] = (char_u *) s;
 +	}
 +	gui_handle_drop(x, y, 0, fnames, urls.size());
