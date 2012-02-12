@@ -1,7 +1,7 @@
 /*
-! Checksum: 9vY4tUs/e+AFOw/YS1eRFg
+! Checksum: itIuhpHmQyzt72IY4ATXDQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 11 Feb 2012
+! Version: V4 Updated: 12 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1127,6 +1127,9 @@
 #adver2,
 #adver3,
 #adver4,
+#adver5,
+#adver6,
+#adver7,
 #advert-1,
 #advert-120,
 #advert-ahead,
@@ -1956,6 +1959,7 @@
 #houseAd,
 #HouseAdInsert,
 #hp_ad300x250,
+#HP_adUnits,
 #ibt_local_ad728,
 #icePage_SearchResults_ads0_SponsoredLink,
 #icePage_SearchResults_ads1_SponsoredLink,
@@ -2166,6 +2170,8 @@
 #mochila-column-right-ad-300x250,
 #mochila-column-right-ad-300x250-1,
 #mod_ad,
+#module-ad-300x250,
+#module-ad-728x90,
 #Module-From_Advertisers,
 #module-google_ads,
 #module_ad,
@@ -3896,6 +3902,7 @@
 .adsDiv,
 .adsection_a2,
 .adsection_c2,
+.adsection_c3,
 .AdSectionHeader,
 .AdSense,
 .adSense,
@@ -4779,6 +4786,7 @@
 .gn_ads,
 .go-ads-widget-ads-wrap,
 .googad,
+.google-ad-728-90,
 .google-ad-container,
 .google-ads,
 .google-ads-boxout,
@@ -5901,6 +5909,7 @@
 .trueads,
 .ts-ad_unit_bigbox,
 .ts-featured_ad,
+.TTButtAd,
 .tucadtext,
 .two_ads,
 .twoadcoll,
