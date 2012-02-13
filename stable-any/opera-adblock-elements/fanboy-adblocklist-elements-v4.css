@@ -1,7 +1,7 @@
 /*
-! Checksum: itIuhpHmQyzt72IY4ATXDQ
+! Checksum: TYa4woYRVOYUwhuVuI2LKw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 12 Feb 2012
+! Version: V4 Updated: 13 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -90,6 +90,7 @@
 #ad-block-bottom,
 #ad-bottom,
 #ad-bottom-300x250,
+#ad-bottom-banner,
 #ad-bottom-wrapper,
 #ad-box,
 #ad-box-second,
@@ -943,6 +944,7 @@
 #adsdiv_close,
 #AdSection,
 #AdSense,
+#adSense,
 #adsense-2,
 #adsense-468x60,
 #adsense-area,
@@ -3337,6 +3339,7 @@
 .ad_cheat,
 .ad_claim,
 .ad_cont,
+.ad_cont_footer,
 .ad_container,
 .ad_content,
 .ad_content_wide,
@@ -3470,6 +3473,7 @@
 .ad_v2,
 .ad_v3,
 .ad_w_us_a300,
+.ad_warn,
 .ad_warning,
 .ad_wide,
 .ad_word,
@@ -4737,6 +4741,7 @@
 .footer_bottomad,
 .footerAd,
 .footerad,
+.footerAdContainer,
 .FooterAdContainer,
 .footerAdModule,
 .footerAds,
