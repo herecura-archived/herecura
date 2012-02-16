@@ -1,7 +1,7 @@
 /*
-! Checksum: S/44N04TolNX9kMGDFPEHw
+! Checksum: sTh/kiaDQm6FqyWdQef4AA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 Feb 2012
+! Version: V4 Updated: 16 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -211,7 +211,6 @@
 #ad-uprrail1,
 #ad-wrap,
 #ad-wrap-right,
-#ad-wrapper,
 #ad-wrapper-728x90,
 #ad-wrapper1,
 #ad-yahoo-simple,
@@ -670,6 +669,7 @@
 #adComponent,
 #adcontainer,
 #adcontainer125px,
+#adcontainer5,
 #adContainer_1,
 #adContainer_2,
 #adContainer_3,
@@ -1153,7 +1153,6 @@
 #advert-wrapper,
 #advert1,
 #advert1hp,
-#advert2,
 #advert234_container,
 #advert_01,
 #advert_04,
@@ -1272,6 +1271,7 @@
 #araHealthSponsorAd,
 #area13ads,
 #area1ads,
+#article-ad,
 #article-bottom-ad,
 #article-box-ad,
 #article-island-ad,
@@ -1352,6 +1352,8 @@
 #big_ad_label,
 #bigAd,
 #bigad,
+#bigAd1,
+#bigAd2,
 #bigad300outer,
 #bigadbox,
 #bigadframe,
@@ -1369,6 +1371,7 @@
 #block-adsense_managed-0,
 #block-ex_dart-ex_dart_sidebar_ad_block_bottom,
 #block-ex_dart-ex_dart_sidebar_ad_block_top,
+#block-google-ads,
 #block-localcom-localcom-ads,
 #block-openads-1,
 #block-openads-13,
@@ -1502,6 +1505,7 @@
 #clientAds,
 #closeable-ad,
 #closeAdsDiv,
+#cltAd,
 #cnnAboveFoldBelowAd,
 #cnnCMAd,
 #cnnSponsoredPods,
@@ -2782,6 +2786,7 @@
 #topads,
 #topads-spacer,
 #topAdsContainer,
+#topAdsDiv,
 #topadsense,
 #topAdSenseDiv,
 #topAdShow,
@@ -3069,6 +3074,7 @@
 .ad-MediumRectangle,
 .ad-medrec,
 .ad-medrect,
+.ad-mobile,
 .Ad-MPU,
 .ad-mpu,
 .ad-msgunit,
@@ -3295,7 +3301,6 @@
 .ad_728_90b,
 .ad_728_top,
 .ad_728_v2,
-.ad_728Home,
 .Ad_728x90,
 .ad_728x90-1,
 .ad_728x90-2,
@@ -3384,7 +3389,6 @@
 .ad_leaderboard,
 .ad_leaderboard_top,
 .ad_Left,
-.ad_left,
 .ad_line,
 .ad_line2,
 .ad_link,
@@ -5738,7 +5742,6 @@
 .sponsoredLinksHeader,
 .SponsoredLinksPanel,
 .sponsoredProduct,
-.sponsoredResults,
 .sponsoredResults,
 .sponsoredresults,
 .sponsoredShowcasePanel,
