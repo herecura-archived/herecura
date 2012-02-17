@@ -1,7 +1,7 @@
 /*
-! Checksum: sTh/kiaDQm6FqyWdQef4AA
+! Checksum: 2J45RJMhBCgx0wVJS4//kg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 16 Feb 2012
+! Version: V4 Updated: 17 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -950,6 +950,7 @@
 #adsense-end-300,
 #adsense-header,
 #adsense-link,
+#adsense-new,
 #adsense-post,
 #adsense-right,
 #adsense-tag,
@@ -1222,6 +1223,7 @@
 #advertorial_block_3,
 #advertorial_links,
 #adverts,
+#adverts_right,
 #AdvertsBottom,
 #AdvertsBottomR,
 #advertSection,
@@ -1980,6 +1982,7 @@
 #iframe_container300x250,
 #ignad_medrec,
 #ii_banner_ads,
+#imgad1,
 #imu,
 #imu_ad_module,
 #in-story-ad-wrapper,
@@ -3404,6 +3407,7 @@
 .ad_medium_rectangle,
 .ad_medrec,
 .ad_medrect,
+.AD_mid300,
 .ad_module,
 .ad_mpu,
 .ad_mr,
@@ -4661,6 +4665,8 @@
 .cxAdvertisement,
 .darla_ad,
 .dart-ad,
+.dart-leaderboard,
+.dart-medsquare,
 .dart_ad,
 .dartad,
 .dartAd491,
@@ -5882,6 +5888,7 @@
 .top_right_ad,
 .top_rightad,
 .top_sponsor,
+.topAD,
 .TopAd,
 .topad-bar,
 .topad2,
