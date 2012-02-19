@@ -1,7 +1,7 @@
 /*
-! Checksum: VciJpDhq0pAx7LNCzdXH1A
+! Checksum: GSbDha0kiFAtBxOMBmt5Ig
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Feb 2012
+! Version: V4 Updated: 19 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -217,6 +217,7 @@
 #ad01,
 #ad02,
 #Ad1,
+#ad1-468x400,
 #ad1-home,
 #ad1006,
 #ad120x600,
@@ -1201,6 +1202,7 @@
 #advertisementArea,
 #advertisementDIV2,
 #advertisements,
+#advertisements_sidebar,
 #advertiserLinks,
 #advertising-160x600,
 #advertising-300x250,
@@ -1217,6 +1219,7 @@
 #advertisingRightColumn,
 #advertisment-block-1,
 #advertisment-horizontal,
+#advertisment_panel,
 #AdvertismentHomeTopRight,
 #advertistop_td,
 #advertleft,
@@ -1285,6 +1288,7 @@
 #article_ad_w,
 #article_adholder,
 #article_advert,
+#article_banner_ad,
 #article_bottom_ad01,
 #article_box_ad,
 #article_left_ad01,
@@ -1914,6 +1918,7 @@
 #headerTopAdWide,
 #headGoogleAffiliateLinkblock,
 #headingAd,
+#headline-sponsor,
 #headline_ad,
 #headlinesAdBlock,
 #hi5-ad-1,
@@ -3221,6 +3226,7 @@
 .ad300x250b,
 .ad300x250box,
 .ad300x250Module,
+.ad300x250s,
 .ad300x250Top,
 .ad300x40,
 .ad300x50-right,
@@ -3243,6 +3249,7 @@
 .ad5_container,
 .ad6,
 .ad600,
+.ad612x80,
 .ad620x70,
 .ad7,
 .ad728,
@@ -3549,6 +3556,7 @@
 .ADbox,
 .adbox-box,
 .adBox-mr,
+.adbox-title,
 .adbox-wrapper,
 .adbox1,
 .adbox160,
@@ -3832,6 +3840,7 @@
 .ads_180,
 .ads_300,
 .ads_300250_wrapper,
+.ads_300x239,
 .ads_300x250,
 .ads_330,
 .ads_337x280,
@@ -4394,6 +4403,7 @@
 .bannerAd3,
 .bannerAd300x250,
 .bannerAd_rdr,
+.bannerAdRectangle,
 .bannerAds,
 .bannerAdTower,
 .bannerAdWrap,
@@ -5366,6 +5376,7 @@
 .prebodyads,
 .premium_ad_container,
 .pricead-border,
+.primary-advertisment,
 .primary_sidebar_ad,
 .promo-ad,
 .promo_border,
@@ -5538,6 +5549,7 @@
 .searchAdTop,
 .searchSponsorItem,
 .sec-ad,
+.secondary-advertisment,
 .secondaryAd,
 .secondaryAdModule,
 .section-ad,
