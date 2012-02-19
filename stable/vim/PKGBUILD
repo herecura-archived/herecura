@@ -7,10 +7,10 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=444
+_patchlevel=445
 pkgver=${_basever}.${_patchlevel}
-#__hgrev=v${pkgver//./-}
-__hgrev=b37888de59
+__hgrev=v${pkgver//./-}
+#__hgrev=b37888de59
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
@@ -32,7 +32,7 @@ sha256sums=(
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'72ff3442ac8b4fe662167d01e6af379bf58fe9bd3186fe2c38109267a1119178'
+	'9e2f6ad2167ba0492c8a4abc56e10432b4bb66551affdb8f76c767188d7c6061'
 	'd790f1504b7a5930ca64fb230c440617ed938b158f12b7b5da9e125f4f5800e8'
 )
 

@@ -15003,8 +15003,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-02-11 23:06:12.750046573 +0100
-+++ vim-qt-src/src/configure.in	2012-02-11 23:06:14.774059758 +0100
+--- vim-src/src/configure.in	2012-02-19 19:28:06.572060424 +0100
++++ vim-qt-src/src/configure.in	2012-02-19 19:28:08.571076642 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15264,8 +15264,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-02-11 23:06:12.739046501 +0100
-+++ vim-qt-src/src/feature.h	2012-02-11 23:06:14.764059690 +0100
+--- vim-src/src/feature.h	2012-02-19 19:28:06.563060351 +0100
++++ vim-qt-src/src/feature.h	2012-02-19 19:28:08.562076569 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15369,6 +15369,14 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_SIGN_ICONS
  # endif
  #endif
+@@ -1316,3 +1321,7 @@
+ #ifdef FEAT_NORMAL
+ # define FEAT_PERSISTENT_UNDO
+ #endif
++
++#if defined(FEAT_GUI_QT)
++#define FEAT_FULLSCREEN
++#endif
 diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
 --- vim-src/src/fileio.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/fileio.c	2011-10-12 16:41:08.000000000 +0200
@@ -15525,8 +15533,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-02-11 23:05:57.000000000 +0100
-@@ -0,0 +1,1536 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-02-19 19:27:55.000000000 +0100
+@@ -0,0 +1,1576 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15554,6 +15562,33 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +static int dummy_argc = 1;
 +static char *dummy_argv[] = {"qvim", NULL};
 +
++/**
++ * If vim calls for a fullscreen window
++ * before the window is created we have to
++ * store this state.
++ *
++ * This is checked in gui_mch_init when creaating the GUI
++ */
++static bool start_fullscreen = false;
++
++void gui_mch_enter_fullscreen()
++{
++	if (!window) {
++		start_fullscreen = true;
++		return;
++	}
++
++	window->setWindowState( window->windowState() | Qt::WindowFullScreen );
++}
++
++void gui_mch_leave_fullscreen()
++{
++	if (!window) {
++		return;
++	}
++
++	window->setWindowState( window->windowState() & ~Qt::WindowFullScreen );
++}
 +
 +/**
 + * Raise application window
@@ -16020,6 +16055,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		styleFile.close();
 +	}
 +
++	//
++	// Hide the tab/menu/tool-bars, if needed they will become visible later.
++	// Otherwise the use might see these items when Vim is loading
++	//
++	window->showMenu(false);
++	window->showToolbar(false);
++	window->showTabline(false);
++
 +	// Clipboard - order matters, for safety
 +	clip_star.clipboardMode = QClipboard::Selection;
 +	clip_plus.clipboardMode = QClipboard::Clipboard;
@@ -16043,6 +16086,10 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	// Background color hint
 +	vimshell->setBackground(VimWrapper::backgroundColor() );
++
++	if ( start_fullscreen ) {
++		gui_mch_enter_fullscreen();
++	}
 +
 +	return OK;
 +}
@@ -16318,6 +16365,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_open()
 +{
 +	if ( window != NULL ) {
++
 +		window->show();
 +		return OK;
 +	}
@@ -17176,8 +17224,26 @@ diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
       * Also copy to the '*' register, in case auto-select is off.
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
 --- vim-src/src/option.c	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/option.c	2012-01-26 19:03:27.000000000 +0100
-@@ -6304,7 +6304,7 @@
++++ vim-qt-src/src/option.c	2012-02-19 19:27:55.000000000 +0100
+@@ -1219,6 +1219,17 @@
+ 			    {(char_u *)FALSE, (char_u *)0L}
+ #endif
+ 			    SCRIPTID_INIT},
++
++    {"fullscreen",    "fu", P_BOOL|P_NO_MKRC,
++#ifdef FEAT_FULLSCREEN
++			    (char_u *)&p_fullscreen, PV_NONE,
++			    {(char_u *)FALSE, (char_u *)0L}
++#else
++			    (char_u *)NULL, PV_NONE,
++			    {(char_u *)FALSE, (char_u *)0L}
++#endif
++			    SCRIPTID_INIT},
++
+     {"gdefault",    "gd",   P_BOOL|P_VI_DEF|P_VIM,
+ 			    (char_u *)&p_gd, PV_NONE,
+ 			    {(char_u *)FALSE, (char_u *)0L} SCRIPTID_INIT},
+@@ -6304,7 +6315,7 @@
  	if (gui.in_use)
  	{
  	    p = p_guifont;
@@ -17186,7 +17252,26 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
  	    /*
  	     * Put up a font dialog and let the user select a new value.
  	     * If this is cancelled go back to the old value but don't
-@@ -7793,7 +7793,7 @@
+@@ -7696,6 +7707,18 @@
+ 	set_fileformat(curbuf->b_p_tx ? EOL_DOS : EOL_UNIX, opt_flags);
+     }
+ 
++#ifdef FEAT_FULLSCREEN
++    else if ((int *)varp == &p_fullscreen && (gui.in_use || gui.starting))
++    {
++	if ( p_fullscreen && !old_value )
++	{
++	    gui_mch_enter_fullscreen();
++	} else if ( !p_fullscreen && old_value ) {
++	    gui_mch_leave_fullscreen();
++	}
++    }
++#endif
++
+     /* when 'textauto' is set or reset also change 'fileformats' */
+     else if ((int *)varp == &p_ta)
+ 	set_string_option_direct((char_u *)"ffs", -1,
+@@ -7793,7 +7816,7 @@
  	p_wiv = (*T_XS != NUL);
      }
  
@@ -17195,6 +17280,19 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
      else if ((int *)varp == &p_beval)
      {
  	if (p_beval && !old_value)
+diff -urN vim-src/src/option.h vim-qt-src/src/option.h
+--- vim-src/src/option.h	2011-12-23 21:44:32.000000000 +0100
++++ vim-qt-src/src/option.h	2012-02-19 19:27:55.000000000 +0100
+@@ -477,6 +477,9 @@
+ #ifdef HAVE_FSYNC
+ EXTERN int	p_fs;		/* 'fsync' */
+ #endif
++#ifdef FEAT_FULLSCREEN
++EXTERN int	p_fullscreen;	/* fullscreen gui window */
++#endif
+ EXTERN int	p_gd;		/* 'gdefault' */
+ #ifdef FEAT_PRINTER
+ EXTERN char_u	*p_pdev;	/* 'printdevice' */
 diff -urN vim-src/src/os_mswin.c vim-qt-src/src/os_mswin.c
 --- vim-src/src/os_mswin.c	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/os_mswin.c	2012-01-26 19:03:27.000000000 +0100
