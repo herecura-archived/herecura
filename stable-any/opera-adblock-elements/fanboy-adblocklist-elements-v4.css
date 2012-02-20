@@ -1,7 +1,7 @@
 /*
-! Checksum: GSbDha0kiFAtBxOMBmt5Ig
+! Checksum: xZD5Hb66ARDr+EjQka8bzg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Feb 2012
+! Version: V4 Updated: 20 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1275,6 +1275,7 @@
 #apiTopAdWrap,
 #apt-homebox-ads,
 #araHealthSponsorAd,
+#area-adcenter,
 #area13ads,
 #area1ads,
 #article-ad,
@@ -3204,6 +3205,7 @@
 .ad250c,
 .ad250x250,
 .ad2content_box,
+.ad300-hp-top,
 .ad3001,
 .ad300250,
 .ad300_2,
@@ -4384,6 +4386,8 @@
 .banner-leaderboard,
 .banner-rectangleMedium,
 .banner1-728x90,
+.banner120x600,
+.banner125x125,
 .banner160x600,
 .banner300,
 .banner300x100,
@@ -4391,6 +4395,7 @@
 .banner468,
 .Banner468X60,
 .banner468x60,
+.banner728x90,
 .banner_300x250,
 .banner_728x90,
 .banner_ad,
