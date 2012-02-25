@@ -6,7 +6,7 @@
 
 pkgname=xbmc
 pkgver=10.1
-pkgrel=9
+pkgrel=10
 pkgdesc="XBMC software media player and entertainment hub for digital media"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse')
