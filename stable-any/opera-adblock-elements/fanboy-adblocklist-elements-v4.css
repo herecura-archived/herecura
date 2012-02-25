@@ -1,5 +1,5 @@
 /*
-! Checksum: UIgrGPLxe/+KJgbNfcEJ6A
+! Checksum: sviSTH1ykdb6mWYXTzqb/A
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 24 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -3426,6 +3426,7 @@
 .ad_mr,
 .ad_mrec,
 .ad_mrect,
+.ad_msg,
 .ad_notice,
 .ad_pagebody,
 .ad_panel,
@@ -5874,6 +5875,7 @@
 .tile_ad_container,
 .tileAdWrap,
 .title-ad,
+.TmnAdsense,
 .tmnAdsenseContainer,
 .toolbar-ad,
 .toolsAd,
