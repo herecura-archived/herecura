@@ -1,7 +1,7 @@
 /*
-! Checksum: sviSTH1ykdb6mWYXTzqb/A
+! Checksum: OSiN/e0hpLd2lRFIYFh3fg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 Feb 2012
+! Version: V4 Updated: 26 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1723,6 +1723,7 @@
 #footerAds,
 #footerads,
 #footerAdverts,
+#footerGoogleAd,
 #footerleaderboard,
 #forumlist-ad,
 #free_ad,
@@ -2171,6 +2172,7 @@
 #mid-table-ad,
 #mid_ad_title,
 #mid_mpu,
+#midadd,
 #midbarad,
 #middle-story-ad-container,
 #middle_ad,
@@ -4008,6 +4010,7 @@
 .adsLabel,
 .adsleaderboard,
 .adsleaderboardbox,
+.adsleft,
 .adsLibrary,
 .adslibraryArticle,
 .adSlice,
@@ -4793,6 +4796,7 @@
 .full_width_ad,
 .fulladblock,
 .fullSizeAd,
+.g-ad,
 .g-adblock3,
 .g_ad336,
 .g_ggl_ad,
@@ -5063,6 +5067,7 @@
 .internalAdSection,
 .interstitial-ad600,
 .interstitial_ad_wrapper,
+.ipsAd,
 .isad_box,
 .island_ad,
 .IslandAd,
@@ -5611,6 +5616,7 @@
 .sideBannerAdsLarge,
 .sideBannerAdsSmall,
 .sidebar-ad,
+.sidebar-ad-300,
 .sidebar-ad-container,
 .sidebar-ad-rect,
 .sidebar-ads,
@@ -5736,6 +5742,7 @@
 .sponsorBannerWrapper,
 .sponsorBlock,
 .sponsorBox,
+.sponsored-ad,
 .sponsored-ad-ob,
 .sponsored-ads,
 .sponsored-b,
@@ -5797,6 +5804,7 @@
 .square-ad,
 .square-ad-1,
 .square-advt,
+.square-sponsorship,
 .square_ad,
 .square_banner_ad,
 .square_button_ads,
