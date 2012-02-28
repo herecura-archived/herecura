@@ -1,7 +1,7 @@
 /*
-! Checksum: olkQkyr4eKXZgf+raRVTZg
+! Checksum: V2Iap3lwRybufIPzm0ggDQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Feb 2012
+! Version: V4 Updated: 28 Feb 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3251,15 +3251,12 @@
 .ad468_60,
 .ad468x60,
 .ad468x60Wrap,
-.ad5,
 .ad530,
 .ad590,
 .ad5_container,
-.ad6,
 .ad600,
 .ad612x80,
 .ad620x70,
-.ad7,
 .ad728,
 .ad728_90,
 .ad728x90,
@@ -3269,7 +3266,6 @@
 .ad728x90box,
 .ad728x90WithLabel,
 .ad768x90,
-.ad8,
 .ad954x60,
 .ad960,
 .ad980x50box,
@@ -3499,6 +3495,7 @@
 .ad_unit_rail,
 .ad_v2,
 .ad_v3,
+.ad_vertisement,
 .ad_w_us_a300,
 .ad_warn,
 .ad_warning,
@@ -3604,6 +3601,7 @@
 .adClose,
 .adCMRight,
 .adCMSlide,
+.adcode,
 .adColBgBottom,
 .adColumn,
 .adcolumn,
@@ -3724,6 +3722,7 @@
 .adMpu,
 .admpu,
 .admpu-small,
+.adMpuHolder,
 .AdMultiPage,
 .adNone,
 .adNoOutline,
@@ -5862,6 +5861,7 @@
 .text_ad,
 .text_ads,
 .text_ads_2,
+.textAd,
 .TextAd,
 .textAd3,
 .textad_headline,
