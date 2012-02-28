@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # vim:syntax=sh
 pkgname=closure-linter
-pkgver=2.3.4
+pkgver=2.3.5
 pkgrel=1
 pkgdesc="A JavaScript style checker and style fixer"
 arch=('any')
@@ -24,4 +24,4 @@ package() {
 		#chmod u=rw,og=r *
 	#fi
 }
-sha256sums=('c634d3793b67e8803a38db3d9b735fceff4ad53f87c480464fc27619a69ca0f1')
+sha256sums=('3c5fc9d3eb7c62f6d203a136a8bc37e89b80c467603c37dbc5a2626145abd93d')
