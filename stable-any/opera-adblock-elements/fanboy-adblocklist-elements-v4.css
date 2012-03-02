@@ -1,7 +1,7 @@
 /*
-! Checksum: IqDaN4HqtaYr3AAHrjKfKQ
+! Checksum: Vwsd9IfzYvqybiXochdaJg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 29 Feb 2012
+! Version: V4 Updated: 2 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1637,6 +1637,8 @@
 #DivAdB,
 #divAdBox,
 #divAdHere,
+#divAdLeft,
+#divAdRight,
 #divAds,
 #divAdSpecial,
 #divFooterAds,
@@ -3911,7 +3913,6 @@
 .ads_up,
 .ads_wide,
 .ads_without_height,
-.ads_wrapper,
 .adsBelowHeadingNormal,
 .adsbg300,
 .adsblock,
@@ -4937,6 +4938,7 @@
 .h_Ads,
 .half-ad,
 .half_ad_box,
+.halfpage_ad_container,
 .halfPageAd,
 .hbPostAd,
 .hd_advert,
@@ -5791,6 +5793,7 @@
 .sponsormsg,
 .sponsorPanel,
 .sponsors,
+.sponsors_box_container,
 .sponsors_fieldset,
 .sponsors_links,
 .sponsorsBanners,
@@ -5872,7 +5875,6 @@
 .textadbox,
 .TextAdds,
 .textAds,
-.textads,
 .textadscontainer,
 .textadsds,
 .textSponsor,
