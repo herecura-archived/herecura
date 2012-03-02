@@ -10,7 +10,7 @@ _pkgname=catalyst
 pkgname=${_pkgname}-bede
 pkgver=12.1
 _extramodules=3.2-BEDE-external
-pkgrel=3
+pkgrel=4
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -23,11 +23,13 @@ install=${pkgname}.install
 source=(
 	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
 	'makefile_compat.patch'
+	'3.2.8.patch'
 )
 
 md5sums=(
 	'6396d0f6f70b89d605bac896feb2b7c9'
 	'3e1b82bd69774ea808da69c983d6a43b'
+	'32c8142c73dcfed5db426f494feda9e3'
 )
 
 build() {
@@ -49,6 +51,7 @@ build() {
 	cd "${srcdir}/archive_files/"
 
 	patch -Np1 -i ${srcdir}/makefile_compat.patch
+	patch -Np1 -i ${srcdir}/3.2.8.patch
 
 	###--- cut ---### ati's code from their make.sh file
 
