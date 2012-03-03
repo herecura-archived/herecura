@@ -1,7 +1,7 @@
 /*
-! Checksum: Vwsd9IfzYvqybiXochdaJg
+! Checksum: Ho9BHRynmCD3l2f5MAAmcA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Mar 2012
+! Version: V4 Updated: 3 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -312,6 +312,7 @@
 #ad_120_sidebar,
 #ad_120x600,
 #ad_130x250_inhouse,
+#AD_160,
 #ad_160_600,
 #ad_160_600_2,
 #ad_160_sidebar,
@@ -322,6 +323,7 @@
 #ad_250,
 #ad_250x250,
 #ad_300,
+#AD_300,
 #ad_300_250,
 #ad_300_250_1,
 #ad_300_250_inline,
@@ -783,6 +785,7 @@
 #AdMiddle,
 #admiddle3,
 #admiddle3left,
+#adMiddle_imgAd,
 #adMiniPremiere,
 #AdMobileLink,
 #admod2,
@@ -1310,6 +1313,7 @@
 #b5_ad_footer,
 #b5_ad_sidebar1,
 #b5_ad_top,
+#b5ad300,
 #banner-ad-container,
 #banner-ads,
 #banner-lg-ad,
@@ -3090,6 +3094,7 @@
 .ad-marker,
 .ad-MediumRectangle,
 .ad-medrec,
+.ad-medRec,
 .ad-medrect,
 .ad-mobile,
 .Ad-MPU,
@@ -4055,6 +4060,7 @@
 .adspot-title,
 .adspot.mrec,
 .adspot1,
+.Adspottop,
 .adSquare,
 .adsrecnode,
 .adsRight,
@@ -5424,6 +5430,7 @@
 .recent_ad_holder,
 .recentAds,
 .rect-ad,
+.rect-ad-1,
 .rect_ad,
 .rect_ad_module,
 .rect_advert,
@@ -5819,6 +5826,7 @@
 .squareAdd,
 .squareAddtwo,
 .squareads,
+.Squareadspot,
 .squared_ad,
 .sr-adsense,
 .src_parts_gen_ad,
