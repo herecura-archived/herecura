@@ -3,7 +3,7 @@
 # Contributor: Cyril Lashkevich <notorca at gmail dot com>
 
 pkgname=split2flac-git
-pkgver=20120216
+pkgver=20120303
 pkgrel=1
 pkgdesc="Split flac/ape/wv/wav + cue sheet into separate tracks"
 arch=('any')
@@ -39,17 +39,13 @@ _gitroot="git://github.com/ftrvxmtrx/split2flac.git"
 _gitname="split2flac"
 
 build () {
-	cd "$srcdir"
-
-	msg "Connecting to GIT server..."
-
-	if [ -d "$srcdir/$_gitname" ]; then
-		cd $_gitname && git pull origin
+	if [ -d ${srcdir}/${_gitname}/.git ] ; then
+		( cd ${srcdir}/${_gitname} && git pull origin )
 		msg "The local files are updated."
 	else
-		git clone $_gitroot
+		( git clone --depth 1 ${_gitroot} ${_gitname} )
 	fi
-	msg "GIT checkout done or server timeout"
+	msg2 "GIT checkout done or server timeout"
 
 	cd ${_gitname}
 	if [ "${_gitphash}" = "$(git show | grep -m 1 commit | sed 's/commit //')" ]; then
@@ -59,14 +55,17 @@ build () {
 }
 
 package () {
-	cd "$srcdir/$_gitname"
+	cd ${_gitname}
 
 	install -Dm 755 split2flac "${pkgdir}/usr/bin/split2flac"
 
-	cd "${pkgdir}/usr/bin/"
-	ln -s split2flac split2mp3
-	ln -s split2flac split2ogg
-	ln -s split2flac split2m4a
-	ln -s split2flac split2wav
+	(
+		cd "${pkgdir}/usr/bin/"
+		ln -s split2flac split2mp3
+		ln -s split2flac split2ogg
+		ln -s split2flac split2m4a
+		ln -s split2flac split2wav
+	)
+
 	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
