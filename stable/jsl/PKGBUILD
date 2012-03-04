@@ -11,7 +11,7 @@ md5sums=('2b94ffa4fab07acabe0c5e73cd49bcdf')
 
 build() {
   cd "$pkgname-$pkgver/src/"
-  BUILD_OPT=1 make -f Makefile.ref
+  MAKEFLAGS='-j1' BUILD_OPT=1 make -f Makefile.ref
 }
 
 package() {
