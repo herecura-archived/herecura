@@ -104,7 +104,7 @@ package_lirc-bede-utils() {
 	cd lirc-$pkgver
 	make DESTDIR="$pkgdir" install
 	install -d "$pkgdir/usr/share/lirc" "$pkgdir/etc/rc.d"
-	cp "$srcdir"/lircd,lircmd,irexecd "$pkgdir/etc/rc.d"
+	cp "$srcdir"/{lircd,lircmd,irexecd} "$pkgdir/etc/rc.d"
 	cp -rp remotes "$pkgdir/usr/share/lirc"
 	chmod -R go-w "$pkgdir/usr/share/lirc/"
 
