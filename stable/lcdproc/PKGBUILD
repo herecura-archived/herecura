@@ -38,7 +38,7 @@ package() {
 	cd "$pkgname-$pkgver"
 	make DESTDIR="$pkgdir" install
 	sed -e "s/server\/drivers\//\/usr\/lib\/lcdproc\//g" -i "$pkgdir/etc/LCDd.conf"
-	install -Dm755 "$srcdir/lcdd" "$pkgdir/etc/rc.d/"
+	install -Dm755 "$srcdir/lcdd" "$pkgdir/etc/rc.d/lcdd"
 }
 sha256sums=('b136b47d7bf585a003334f432d8730a36ef5ed1cd520084b919667d825e48d42'
             'b43dfd02e38f0149a02396cdc355e5ca2b51217b2da6092de56d426490abfcab')
