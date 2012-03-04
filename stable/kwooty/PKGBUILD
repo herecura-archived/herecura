@@ -2,7 +2,7 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=kwooty
 pkgver=0.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A friendly nzb usenet binary downloader for KDE4."
 arch=('i686' 'x86_64')
 url="http://kwooty.sourceforge.net/"
@@ -10,17 +10,17 @@ license=('GPL')
 depends=('kdebase-workspace>=4.2')
 makedepends=('cmake' 'automoc4')
 optdepends=('unrar: automatic RAR-archive extraction' 'p7zip: automatic zip and 7z archive extraction' 'par2cmdline: automatic file repairing')
-install="${pkgname}.install"
-source=("${pkgname}-${pkgver}.tar.gz::http://sourceforge.net/projects/kwooty/files/${pkgname}-${pkgver}.tar.gz/download")
+install="$pkgname.install"
+source=("$pkgname-$pkgver.tar.gz::http://sourceforge.net/projects/kwooty/files/$pkgname-$pkgver.tar.gz/download")
 
 build() {
-	cd ${pkgname}-${pkgver}/build
+	cd "$pkgname-$pkgver/build"
 	cmake .. -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix`
 	make
 }
 
 package() {
-	cd ${pkgname}-${pkgver}/build
-	make DESTDIR="$pkgdir/" install
+	cd "$pkgname-$pkgver/build"
+	make DESTDIR="$pkgdir" install
 }
 sha256sums=('f50b994be357962d7aba14c0ffb10f0461d52cb35f6fda577388813e25f8a1ff')
