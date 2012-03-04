@@ -36,8 +36,9 @@ build() {
 package() {
 	cd $pkgname-$pkgver
 
+	install -dm755 "$pkgdir/usr/share/$pkgname"
 	install -Dm644 *.png index.html "$pkgdir/usr/share/$pkgname"
-
 	echo "cp /usr/share/pdf2html/*.png ." >> pdf2html
+	install -dm755 "$pkgdir/usr/bin"
 	install -Dm755 pbm2png pbm2eps9 pdf2html ps2eps9 "$pkgdir/usr/bin"
 }
