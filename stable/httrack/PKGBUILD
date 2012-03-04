@@ -15,7 +15,7 @@ install="$pkgname.install"
 source=("http://download.httrack.com/$pkgname-$pkgver.tar.gz")
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
 
   ./configure --prefix=/usr \
               --enable-static=no
@@ -23,8 +23,8 @@ build() {
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
 
-  make DESTDIR="$pkgdir/" install
+  make DESTDIR="$pkgdir" install
 }
 sha256sums=('172a873db42b83b6694ac53714743246aeaf0faed514b3a1b517ba1609b5e403')
