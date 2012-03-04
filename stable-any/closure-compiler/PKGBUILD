@@ -2,7 +2,7 @@
 # Contributor: Bram Schoenmakers <me@bramschoenmakers.nl>
 pkgname=closure-compiler
 pkgver=20120123
-pkgrel=1
+pkgrel=2
 pkgdesc="Performs checking, instrumentation and optimizations on Javascript code."
 arch=('any')
 url="http://code.google.com/closure"
