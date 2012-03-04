@@ -56,6 +56,7 @@ package_nntpgrab-qt() {
 	install='nntpgrab.install'
 	cd $pkgbase-$pkgver
 	install -Dm755 client/gui_qt/nntpgrab_gui_qt "$pkgdir/usr/bin/nntpgrab_gui_qt"
+	install -dm755 "$pkgdir/usr/share/nntpgrab/translations/"
 	install -Dm644 client/gui_qt/translations/*.qm "$pkgdir/usr/share/nntpgrab/translations/"
 	install -Dm644 client/gui_qt/nntpgrab_qt.desktop "$pkgdir/usr/share/applications/nntpgrab_qt.desktop"
 	install -Dm755 server_qt/nntpgrab_server_qt "$pkgdir/usr/bin/nntpgrab_server_qt"
