@@ -2,11 +2,11 @@
 
 pkgname=turbotail
 pkgver=0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="A drop-in replacement for the original (GNU-)tail program whick uses the SGI FAM daemon."
 arch=('i686' 'x86_64')
 depends=('fam')
-source=(http://www.vanheusden.com/turbotail/$pkgname-$pkgver.tgz)
+source=("http://www.vanheusden.com/turbotail/$pkgname-$pkgver.tgz")
 url="http://www.vanheusden.com/turbotail/"
 md5sums=('a4eecdd0cae9552f17cb1c540a08f6f2')
 
@@ -18,5 +18,5 @@ build() {
 
 package() {
 	cd $pkgname-$pkgver
-	install -D -m755 $startdir/src/$pkgname-$pkgver/turbotail $startdir/pkg/usr/bin/turbotail
+	install -Dm755 "$srcdir/$pkgname-$pkgver/turbotail" "$pkgdir/usr/bin/turbotail"
 }
