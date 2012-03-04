@@ -2,7 +2,7 @@
 
 pkgname=pdf2html
 pkgver=1.4
-pkgrel=5
+pkgrel=6
 pkgdesc="Converts pdf files to html files."
 arch=('i686' 'x86_64')
 url="ftp://atrey.karlin.mff.cuni.cz/pub/local/clock/pdf2html/pdf2html-1.4/README"
@@ -24,21 +24,20 @@ md5sums=(
 )
 
 build() {
-	cd ${srcdir}/$pkgname-$pkgver
+	cd $pkgname-$pkgver
 
-	patch -Np0 -i ${srcdir}/pbm2png.diff
-	patch -Np0 -i ${srcdir}/index.html.diff
-	patch -Np0 -i ${srcdir}/pdf2html-1.4-libpng15.patch
+	patch -Np0 -i "$srcdir/pbm2png.diff"
+	patch -Np0 -i "$srcdir/index.html.diff"
+	patch -Np0 -i "$srcdir/pdf2html-1.4-libpng15.patch"
 
 	make
 }
 
 package() {
-	cd ${srcdir}/$pkgname-$pkgver
+	cd $pkgname-$pkgver
 
-	install -d ${pkgdir}/usr/share/$pkgname ${pkgdir}/usr/bin
-	install -m644 *.png index.html ${pkgdir}/usr/share/$pkgname
+	install -Dm644 *.png index.html "$pkgdir/usr/share/$pkgname"
 
 	echo "cp /usr/share/pdf2html/*.png ." >> pdf2html
-	install -m755 pbm2png pbm2eps9 pdf2html ps2eps9 ${pkgdir}/usr/bin
+	install -Dm755 pbm2png pbm2eps9 pdf2html ps2eps9 "$pkgdir/usr/bin"
 }
