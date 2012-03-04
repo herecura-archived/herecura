@@ -1,4 +1,4 @@
-# Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Maintainer: BlackIkeEagle < ike DOT devolder AT gmail DOT com >
 # Maintainer: Vi0L0 <vi0l093@gmail.com>
 # Great Contributor: Eduardo "kensai" Romero (previous maintainer)
 # Contributor: aidanlinz
@@ -7,18 +7,18 @@
 # Contributor: Rip-Rip
 
 _pkgname=catalyst
-pkgname=${_pkgname}-bede
+pkgname=$_pkgname-bede
 pkgver=12.1
 _extramodules=3.2-BEDE-external
-pkgrel=4
+pkgrel=5
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-makedepends=("catalyst-utils=${pkgver}" 'linux-bede>=3.2' 'linux-bede<3.3' 'linux-bede-headers>=3.2' 'linux-bede-headers<3.3')
+makedepends=("catalyst-utils=$pkgver" 'linux-bede>=3.2' 'linux-bede<3.3' 'linux-bede-headers>=3.2' 'linux-bede-headers<3.3')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
-install=${pkgname}.install
+install=$pkgname.install
 
 source=(
 	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
@@ -33,25 +33,25 @@ md5sums=(
 )
 
 build() {
-	_kernver="$(cat /lib/modules/${_extramodules}/version)"
+	_kernver="$(cat /lib/modules/$_extramodules/version)"
 
 	## Unpack archive
 	msg "Unpacking archive ..."
 	/bin/sh ./amd-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
 
-	if [ "${CARCH}" = "x86_64" ]; then
+	if [ "$CARCH" = "x86_64" ]; then
 		BUILDARCH=x86_64
 		_archdir=x86_64
 	fi
-	if [ "${CARCH}" = "i686" ]; then
+	if [ "$CARCH" = "i686" ]; then
 		BUILDARCH=i386
 		_archdir=x86
 	fi
 
-	cd "${srcdir}/archive_files/"
+	cd "$srcdir/archive_files/"
 
-	patch -Np1 -i ${srcdir}/makefile_compat.patch
-	patch -Np1 -i ${srcdir}/3.2.8.patch
+	patch -Np1 -i "$srcdir/makefile_compat.patch"
+	patch -Np1 -i "$srcdir/3.2.8.patch"
 
 	###--- cut ---### ati's code from their make.sh file
 
@@ -78,29 +78,29 @@ build() {
 	###--- cut ---###
 
 
-	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
-	cp "${srcdir}/archive_files/arch/${_archdir}/lib/modules/fglrx/build_mod/libfglrx_ip.a" ./
+	cd "$srcdir/archive_files/common/lib/modules/fglrx/build_mod"
+	cp "$srcdir/archive_files/arch/$_archdir/lib/modules/fglrx/build_mod/libfglrx_ip.a" ./
 	cp 2.6.x/Makefile ./
 
 
 	## Compiling module
-	make -C /lib/modules/${_kernver}/build SUBDIRS="`pwd`" ARCH=${BUILDARCH} \
+	make -C "/lib/modules/$_kernver/build" SUBDIRS="`pwd`" ARCH=$BUILDARCH \
 		MODFLAGS="-DMODULE -DATI -DFGL -DPAGE_ATTR_FIX=$PAGE_ATTR_FIX -DCOMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE $def_smp $def_modversions" \
 		PAGE_ATTR_FIX=$PAGE_ATTR_FIX COMPAT_ALLOC_USER_SPACE=$COMPAT_ALLOC_USER_SPACE modules
 }
 
 package() {
-	depends=('linux-bede>=3.2' 'linux-bede<3.3' "catalyst-utils=${pkgver}")
-	cd "${srcdir}/archive_files/common/lib/modules/fglrx/build_mod"
-	install -m755 -d "${pkgdir}/lib/modules/${_extramodules}/${_pkgname}/"
-	install -m644 fglrx.ko "${pkgdir}/lib/modules/${_extramodules}/${_pkgname}/"
+	depends=('linux-bede>=3.2' 'linux-bede<3.3' "catalyst-utils=$pkgver")
+	cd "$srcdir/archive_files/common/lib/modules/fglrx/build_mod"
+	install -m755 -d "$pkgdir/lib/modules/$_extramodules/$_pkgname/"
+	install -m644 fglrx.ko "$pkgdir/lib/modules/$_extramodules/$_pkgname/"
 
 	## License
-	install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
-	install -m644 "${srcdir}/archive_files/LICENSE.TXT" "${pkgdir}/usr/share/licenses/${pkgname}/"
+	install -m755 -d "$pkgdir/usr/share/licenses/$pkgname"
+	install -m644 "$srcdir/archive_files/LICENSE.TXT" "$pkgdir/usr/share/licenses/$pkgname/"
 
 	# gzip all modules
-	find ${pkgdir} -name '*.ko' -exec gzip -9 {} \;
+	find $pkgdir -name '*.ko' -exec gzip -9 {} \;
 
-	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" ${startdir}/*.install
+	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir"/*.install
 }
