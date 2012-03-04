@@ -17,11 +17,11 @@ build() {
 
 	[ -e build ] && rm -rf build
 	mkdir build && cd build
-	cmake -DCMAKE_INSTALL_PREFIX=$KDEDIR ..
+	cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 	make
 }
 
 package() {
 	cd "$pkgname-$pkgver/build"
-	make DESTDIR="$pkgdir/usr/" install
+	make DESTDIR="$pkgdir" install
 }
