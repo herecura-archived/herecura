@@ -2,27 +2,27 @@
 
 pkgname=kps
 pkgver=0.9.5
-pkgrel=1
+pkgrel=2
 pkgdesc="KDE interface to the 'ps' command."
 arch=('i686' 'x86_64')
 url="http://www.kde-apps.org/content/show.php/KPS?content=110732"
 license=('GPL')
 depends=('kdebase-workspace')
 makedepends=('cmake' 'automoc4')
-source=(http://www.binro.org/$pkgname-$pkgver.tar.bz2)
+source=("http://www.binro.org/$pkgname-$pkgver.tar.bz2")
 sha256sums=('142bffec08648317e55dfea11e644b98438410fd420a7f2e048481ea17490ac3')
 
 build() {
-	cd $srcdir/$pkgname-$pkgver
-	
+	cd "$pkgname-$pkgver"
+
 	[ -e build ] && rm -rf build
 	mkdir build && cd build
 
-	cmake -DCMAKE_INSTALL_PREFIX=$KDEDIR ..
+	cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 	make
 }
 
 package() {
-	cd $srcdir/$pkgname-$pkgver/build
-	make DESTDIR=$pkgdir/usr/ install
+	cd "$pkgname-$pkgver/build"
+	make DESTDIR="$pkgdir" install
 }
