@@ -3,7 +3,7 @@
 # Contributor: Dylon Edwards <deltaecho@archlinux.us>
 pkgname=kcm-touchpad
 pkgver=0.3.1
-pkgrel=4
+pkgrel=5
 url='http://www.kde-apps.org/content/show.php/kcm_touchpad?content=113335'
 pkgdesc='Synaptics driver based touchpads kcontrol module'
 license=('GPL2')
@@ -22,7 +22,7 @@ build(){
 
 package() {
   cd mishaaq-${pkgname/-/_}-00370b5
-  make DESTDIR="${pkgdir}" install
+  make DESTDIR="$pkgdir" install
 }
 
 # vim:set ts=2 sw=2 ft=sh et:
