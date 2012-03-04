@@ -26,8 +26,8 @@ build() {
 
 package(){
   cd $pkgname-$pkgver
-  install -Dm755 "release/$_gcc_linux/$pkgname"   "$pkgdir/usr/bin/"
-  install -Dm755 "release/$_gcc_linux/mkcleanreg" "$pkgdir/usr/bin/"
-  install -Dm755 "release/$_gcc_linux/mkWDclean"  "$pkgdir/usr/bin/"
+  install -Dm755 "release/$_gcc_linux/$pkgname"   "$pkgdir/usr/bin/$pkgname"
+  install -Dm755 "release/$_gcc_linux/mkcleanreg" "$pkgdir/usr/bin/mkcleanreg"
+  install -Dm755 "release/$_gcc_linux/mkWDclean"  "$pkgdir/usr/bin/mkWDclean"
 }
 sha256sums=('6e81a7522ef47ddfefb4ae1f5d9bee217190741b6660f5240dba85bc4faf4a44')
