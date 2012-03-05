@@ -1,7 +1,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=opera-adblock-elements
-pkgver=20120304
+pkgver=20120305
 pkgrel=1
 pkgdesc="Fanboy's Main AdBlock Filterset for Opera"
 arch=('any')
@@ -15,4 +15,4 @@ package() {
 	install -dm755 ${pkgdir}/usr/share/${pkgname/-elements/}
 	install -m644 fanboy-adblocklist-elements-v4.css ${pkgdir}/usr/share/${pkgname/-elements/}/adblock-elements.css
 }
-sha256sums=('0c0e75d2fa881ee482ffdbe9c5761ce4ec4c395d338855ae5c93a3d0955a7084')
+sha256sums=('d0a666323cb5b6ccd35f3363704a1c7950af925aaf0af7e4e2bb9f2ac4b314a1')
