@@ -1,7 +1,7 @@
 /*
-! Checksum: s5A9Y+LUCBM9TrkRGWnFMQ
+! Checksum: f6LX77PMNrfgtJyWBia6Sw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 5 Mar 2012
+! Version: V4 Updated: 6 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -671,7 +671,6 @@
 #adcolumn,
 #adcolumnwrapper,
 #adCompanionBanner,
-#adComponent,
 #adcontainer,
 #adcontainer125px,
 #adcontainer5,
@@ -1103,6 +1102,7 @@
 #AdTaily_Widget_Container,
 #AdTargetControl1_iframe,
 #adtech_0,
+#adtech_1,
 #adtech_2,
 #adtechbanner728,
 #adText,
@@ -2240,7 +2240,6 @@
 #mtSponsor,
 #multibar-ads,
 #multiLinkAdContainer,
-#myAd,
 #n_sponsor_ads,
 #na_adblock,
 #narrow_ad_unit,
@@ -2642,6 +2641,7 @@
 #sponsorAd,
 #sponsorAd1,
 #sponsorBanners32,
+#sponsorBar,
 #sponsored-links,
 #sponsored-links-list,
 #sponsored-listings,
@@ -3010,7 +3010,9 @@
 .ad-300x70,
 .ad-300x75,
 .ad-319x128,
+.ad-336x280B,
 .ad-468,
+.ad-468x60,
 .ad-544x250,
 .ad-600,
 .ad-728,
@@ -5289,6 +5291,7 @@
 .moduletable-adsponsor,
 .moduletable-advert,
 .moduletable-googleads,
+.moduletable-rectangleads,
 .moduletable_ad-right,
 .moduletable_ad160x600_center,
 .moduletable_ad300x250,
