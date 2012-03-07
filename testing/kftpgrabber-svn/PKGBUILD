@@ -1,7 +1,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kftpgrabber-svn
-pkgver=1277613
+pkgver=1283914
 pkgrel=1
 pkgdesc="A graphical FTP client for KDE"
 url="http://kftp.org"
