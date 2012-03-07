@@ -52,7 +52,7 @@ fi
 # some stuff for the AUR parser :p
 if [ "aur" == "there" ]; then
 	source=(
-		"http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz"
+		"http://www.kernel.org/pub/linux/kernel/v3.x/testing/linux-$_basekernel-rc$_rcver.tar.bz2"
 		# the main kernel config files
 		"config-$_basekernel-desktop.i686"
 		"config-$_basekernel-desktop.x86_64"
@@ -69,7 +69,7 @@ build() {
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
-		patch=$(basename $patch | sed -e 's/\.\(gz\|bz2\|xz\)//')
+		patch="$(basename "$patch" | sed -e 's/\.\(gz\|bz2\|xz\)//')"
 		msg2 "apply $patch"
 		patch -Np1 -i "$srcdir/$patch"
 	done
@@ -252,7 +252,7 @@ package_linux-bede-mainline-headers() {
 			*application/x-executable*) # Binaries
 				/usr/bin/strip $STRIP_BINARIES "$binary"
 			;;
-		esac 
+		esac
 	done
 
 	chown -R root.root "$pkgdir/usr/src/linux-$_kernver"
