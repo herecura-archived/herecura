@@ -9,7 +9,7 @@ true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.3
 _rcver=6
 pkgver=${_basekernel}_rc${_rcver}
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -87,7 +87,7 @@ build() {
 
 	# set extraversion to pkgrel
 	msg2 "set extraversion to $pkgrel"
-	sed -ri "s|^(EXTRAVERSION =).*|\1 rc$_rcver-$pkgrel|" Makefile
+	sed -ri "s|^(EXTRAVERSION =).*|\1 -rc$_rcver-$pkgrel|" Makefile
 
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
