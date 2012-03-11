@@ -1,5 +1,5 @@
 /*
-! Checksum: 0RR7m6odzZM6tSEdD3C6AQ
+! Checksum: 9sZi+bbp/Uywr0PxuCN6Kg
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 10 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -1876,6 +1876,7 @@
 #head-ad-1,
 #head-banner468,
 #head_ad,
+#head_ads,
 #headad,
 #headAd,
 #header-ad,
@@ -2225,6 +2226,7 @@
 #mpu_text_ad,
 #mpuAd,
 #mpuad,
+#MPUAdSpace,
 #mpuContainer,
 #mpuholder,
 #mpuInContent,
@@ -3936,6 +3938,7 @@
 .adsbg300,
 .adsblock,
 .adsborder,
+.adsBot,
 .adsbottom,
 .adsBox,
 .adsbox,
@@ -4701,6 +4704,7 @@
 .context-ads,
 .contextual_ad_unit,
 .contextualAds,
+.copy-adChoices,
 .cornerBoxInnerWhiteAd,
 .cp_ad,
 .cpaAdPosition,
@@ -5371,6 +5375,7 @@
 .onethirdadholder,
 .openx-ad,
 .openx_frame,
+.openxbuttons,
 .osan-ads,
 .OSOasAdModule,
 .otj_adspot,
@@ -5613,6 +5618,7 @@
 .sepContentAd,
 .series-ad,
 .serp_sponsored,
+.set_ad,
 .sfsp_adadvert,
 .shortads,
 .showAd_No,
@@ -5826,6 +5832,7 @@
 .SponsorIsland,
 .sponsorLabel,
 .sponsorlink,
+.sponsorlinks,
 .sponsorLinks,
 .sponsormsg,
 .sponsorPanel,
@@ -6132,6 +6139,7 @@
 .yui3-ad,
 [id^="GOOGLE_ADS_"],
 advertbox2,
+esuperficial.com###river-container,
 .AdBox,
 .ad-content,
 #adLayer,
