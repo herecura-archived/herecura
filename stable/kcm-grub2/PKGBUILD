@@ -3,7 +3,7 @@
 pkgname=kcm-grub2
 pkgver=0.5.5
 pkgdesc="This Kcm module manages the most common settings of Grub2."
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 _kdeapps=139643
 url="http://kde-apps.org/content/show.php?content=$_kdeapps"
