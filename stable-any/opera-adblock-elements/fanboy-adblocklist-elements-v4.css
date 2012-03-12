@@ -1,7 +1,7 @@
 /*
-! Checksum: 9sZi+bbp/Uywr0PxuCN6Kg
+! Checksum: 3pkWpP70PFwlROJatU15NA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Mar 2012
+! Version: V4 Updated: 12 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3403,6 +3403,7 @@
 .ad_frame,
 .ad_framed,
 .ad_front_promo,
+.ad_grid,
 .ad_hat_banner_300,
 .ad_hat_top,
 .ad_help_link,
@@ -3621,6 +3622,7 @@
 .adCentertile,
 .adchange,
 .adChoice,
+.adChoiceLogo,
 .adClose,
 .adCMRight,
 .adCMSlide,
@@ -3787,6 +3789,7 @@
 .adRemove,
 .adReportsLink,
 .adResults,
+.adright300,
 .adroot,
 .adrotate_widget,
 .adrow,
@@ -4555,6 +4558,7 @@
 .bottom_ads,
 .bottom_adsense,
 .bottom_bar_ads,
+.bottom_right_ad,
 .bottom_rightad,
 .bottom_sponsor,
 .bottomAd,
@@ -4706,6 +4710,7 @@
 .contextualAds,
 .copy-adChoices,
 .cornerBoxInnerWhiteAd,
+.cosmo-ads,
 .cp_ad,
 .cpaAdPosition,
 .create_ad,
