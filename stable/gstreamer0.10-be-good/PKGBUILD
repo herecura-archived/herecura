@@ -2,15 +2,15 @@
 # Maintainer: Jan de Groot <jgc@archlinux.org>
 
 pkgname='gstreamer0.10-be-good-plugins'
-pkgver=0.10.30
-pkgrel=2
+pkgver=0.10.31
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('LGPL')
 makedepends=('intltool' 'pkgconfig' 'gstreamer0.10-base>=0.10.34' 'libavc1394' 'libiec61883' 'aalib' 'libshout' 'libdv' 'flac' 'wavpack' 'taglib' 'libsoup-gnome' 'v4l-utils' 'libcaca' 'bzip2' 'gdk-pixbuf2' 'libpulse' 'jack' 'udev')
 url="http://gstreamer.freedesktop.org/"
 options=(!libtool !emptydirs)
 source=(${url}/src/gst-plugins-good/gst-plugins-good-${pkgver}.tar.bz2)
-sha256sums=('b12cba90b27d8423cd0a808939098d19db3996cfb9bf528507c6321782e095f6')
+sha256sums=('7e27840e40a7932ef2dc032d7201f9f41afcaf0b437daf5d1d44dc96d9e35ac6')
 
 build() {
   cd "${srcdir}/gst-plugins-good-${pkgver}"
