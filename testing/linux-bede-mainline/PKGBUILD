@@ -7,9 +7,9 @@ pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.3
-_rcver=6
+_rcver=7
 pkgver=${_basekernel}_rc${_rcver}
-pkgrel=3
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -27,7 +27,7 @@ source=(
 	"sysctl-desktop.x86_64"
 )
 sha256sums=(
-	'40a906833771895bf9582522815d354daebccd244814dad90f9a38a060493006'
+	'c4bcc100e2e57ea979b1f4b3ac246e3e9d72c679da2f604593bda6e87c9ecdf1'
 	'82e8b43bb867de052395f33efe88866ce2a55c244dc219330adc5e268ab18411'
 	'9db4bf2ffa83521c1d4d902bd34222517e7ac001c6b29ba55b0fd981b4a9ce2b'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
