@@ -3,8 +3,8 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=4.1.8
-pkgrel=6
+pkgver=4.1.10
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -16,7 +16,7 @@ source=(
 	'60-vboxguest.rules'
 )
 md5sums=(
-	'2092bba46baa62fab5520d67dee2ece8'
+	'263e495ef3a7ab75943af28d446ee702'
 	'4c88bd122677a35f68abd76eb01b378b'
 	'ed1341881437455d9735875ddf455fbe'
 )
@@ -29,9 +29,9 @@ build() {
 	export KERN_DIR=/lib/modules/${_kernver}/build
 	export KERN_INCL=/usr/src/linux-${_kernver}/include/
 
-    cd ${srcdir}/VirtualBox-${pkgver}_OSE
+    cd "$srcdir/VirtualBox-${pkgver}"
 
-    cp ${srcdir}/LocalConfig.kmk .
+    cp "$srcdir/LocalConfig.kmk" .
 
     ./configure \
         --with-linux=/usr/src/linux-${_kernver} \
@@ -49,8 +49,8 @@ build() {
     source ./env.sh
     kmk all
 
-    make -C ${srcdir}/VirtualBox-${pkgver}_OSE/out/linux.$BUILD_PLATFORM_ARCH/release/bin/src
-    make -C ${srcdir}/VirtualBox-${pkgver}_OSE/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions/src
+    make -C "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/src"
+    make -C "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions/src"
 }
 
 package_virtualbox-modules-bede-host(){
@@ -60,17 +60,17 @@ package_virtualbox-modules-bede-host(){
     depends=('linux-bede>=3.2' 'linux-bede<3.3')
 	provides=('virtualbox-modules')
 
-    source ${srcdir}/VirtualBox-${pkgver}_OSE/env.sh
+    source "$srcdir/VirtualBox-${pkgver}/env.sh"
 
 
-    cd ${srcdir}/VirtualBox-${pkgver}_OSE/out/linux.$BUILD_PLATFORM_ARCH/release/bin/src
+    cd "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/src"
 
     for module in vboxdrv.ko vboxnetadp.ko vboxnetflt.ko vboxpci.ko; do
         install -D -m644 ${module} \
             "$pkgdir/lib/modules/${_extramodules}/vbox/${module}"
     done
 
-    find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "$startdir/virtualbox-modules-bede-host.install"
 }
@@ -82,9 +82,9 @@ package_virtualbox-modules-bede-guest(){
     depends=('linux-bede>=3.2' 'linux-bede<3.3')
 	provides=('virtualbox-archlinux-modules')
 
-    source "$srcdir/VirtualBox-${pkgver}_OSE/env.sh"
+    source "$srcdir/VirtualBox-${pkgver}/env.sh"
 
-    cd "$srcdir/VirtualBox-${pkgver}_OSE/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions/src"
+    cd "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions/src"
 
     for module in vboxguest.ko vboxsf.ko vboxvideo.ko; do
         install -D -m644 ${module} \
@@ -94,7 +94,7 @@ package_virtualbox-modules-bede-guest(){
     install -D -m 0644 "$srcdir/60-vboxguest.rules" \
         "$pkgdir/lib/udev/rules.d/60-vboxguest-bede.rules"
 
-    find "${pkgdir}" -name '*.ko' -exec gzip -9 {} \;
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "$startdir/virtualbox-modules-bede-guest.install"
 }
