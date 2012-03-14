@@ -1,7 +1,7 @@
 /*
-! Checksum: SxSPK70eVwyVplZN2WT79g
+! Checksum: v0uveMi6Tm2gDrH+/Txqzg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 Mar 2012
+! Version: V4 Updated: 14 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1204,6 +1204,7 @@
 #advertiseheretop,
 #advertiseLink,
 #advertisement160x600,
+#advertisement2,
 #advertisement728x90,
 #advertisement_label,
 #advertisement_notice,
@@ -2511,6 +2512,9 @@
 #sensis_island_ad_2_column,
 #sensis_island_ad_3,
 #sensis_island_ad_3_column,
+#serveAd1,
+#serveAd2,
+#serveAd3,
 #servfail-ads,
 #sew-ad1,
 #show-player-right-ad,
@@ -3262,6 +3266,7 @@
 .ad300x40,
 .ad300x50-right,
 .ad300x600,
+.ad300x90,
 .ad310,
 .ad315,
 .ad320x250,
@@ -4827,6 +4832,7 @@
 .footeradspace,
 .footerAdverts,
 .footerTextAd,
+.footertextadbox,
 .four-six-eight-ad,
 .four_button_threeone_ad,
 .fp_ad_text,
@@ -5588,6 +5594,7 @@
 .RW_ad300,
 .s2k_ad,
 .s_ad_300x250,
+.s_ads,
 .sa_AdAnnouncement,
 .savvyad_unit,
 .sb-ad2,
