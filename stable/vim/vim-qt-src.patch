@@ -15003,8 +15003,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-02-19 19:28:06.572060424 +0100
-+++ vim-qt-src/src/configure.in	2012-02-19 19:28:08.571076642 +0100
+--- vim-src/src/configure.in	2012-03-16 19:47:44.819547224 +0100
++++ vim-qt-src/src/configure.in	2012-03-16 19:47:46.733563082 +0100
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15264,8 +15264,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-02-19 19:28:06.563060351 +0100
-+++ vim-qt-src/src/feature.h	2012-02-19 19:28:08.562076569 +0100
+--- vim-src/src/feature.h	2012-03-16 19:47:44.810547150 +0100
++++ vim-qt-src/src/feature.h	2012-03-16 19:47:46.724563006 +0100
 @@ -631,7 +631,7 @@
   * Disabled for EBCDIC:
   * Multibyte support doesn't work on z/OS Unix currently.
@@ -15360,16 +15360,15 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_MOUSESHAPE
  # endif
  #endif
-@@ -1243,7 +1248,7 @@
+@@ -1243,6 +1248,7 @@
  # if ((defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_ATHENA)) \
  		&& defined(HAVE_X11_XPM_H)) \
  	|| defined(FEAT_GUI_GTK) \
--	|| (defined(WIN32) && defined(FEAT_GUI))
-+	|| (defined(WIN32) && defined(FEAT_GUI) && !defined(FEAT_GUI_QT))
++	|| defined(FEAT_GUI_QT) \
+ 	|| (defined(WIN32) && defined(FEAT_GUI))
  #  define FEAT_SIGN_ICONS
  # endif
- #endif
-@@ -1316,3 +1321,7 @@
+@@ -1316,3 +1322,7 @@
  #ifdef FEAT_NORMAL
  # define FEAT_PERSISTENT_UNDO
  #endif
@@ -15533,8 +15532,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-02-19 19:27:55.000000000 +0100
-@@ -0,0 +1,1576 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-03-16 19:47:32.000000000 +0100
+@@ -0,0 +1,1651 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -17110,6 +17109,81 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	return rval;
 +}
 +
++/**
++ * Draw an icon in the shell widget
++ * 
++ */
++void
++gui_mch_drawsign(int row, int col, int typenr)
++{
++	QIcon *icon = (QIcon *)sign_get_image(typenr);
++	if ( !icon ) {
++		return;
++	}
++
++	QPoint pos = VimWrapper::mapText(row, col);
++	PaintOperation op;
++	op.type = DRAWSIGN;
++	op.pos = pos;
++	op.sign = icon->pixmap( VimWrapper::charWidth()*2, VimWrapper::charHeight() );
++	op.rect = QRect(pos, QSize(VimWrapper::charWidth()*2, VimWrapper::charHeight()));
++
++	if (op.sign.isNull()) {
++		// FIXME: this should not happen
++		return;
++	}
++	vimshell->queuePaintOp(op);
++}
++
++
++/*
++ * Free memory associated with the sign
++ */
++void
++gui_mch_destroy_sign(void *sign)
++{
++	if ( sign ) {
++		delete (QIcon*)sign;
++	}
++}
++
++/**
++ * Register an icon with the given name
++ *
++ * The name can be:
++ *  1. A file path to an icon
++ *  1. A theme icon name
++ *
++ */
++void *
++gui_mch_register_sign(char_u *signfile)
++{
++	if ( !signfile || !signfile[0] ) {
++		return NULL;
++	}
++
++	QString name = VimWrapper::convertFrom((char*)signfile);
++	QIcon icon(name);
++
++	//
++	// FIXME: QIcon::isNull may be false even the icon cannot
++	// provide a pixmap, so far this is the best alternative I
++	// have
++	if ( icon.availableSizes().isEmpty() ) {
++		icon = QIcon(QIcon::fromTheme(name));
++		if ( icon.availableSizes().isEmpty() ) {
++			EMSG(e_signdata);
++			return NULL;
++		}
++	}
++	
++	if ( icon.availableSizes().isEmpty() ) {
++		return NULL;
++	}
++
++	return new QIcon(icon);
++}
++
 +} // extern "C"
 diff -urN vim-src/src/main.c vim-qt-src/src/main.c
 --- vim-src/src/main.c	2011-12-23 21:44:32.000000000 +0100
@@ -17995,8 +18069,8 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +#endif
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-02-11 23:05:57.000000000 +0100
-@@ -0,0 +1,1329 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-03-16 19:47:32.000000000 +0100
+@@ -0,0 +1,1332 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18347,6 +18421,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +				drawString(op, painter);
 +			}
 +
++			break;
++		case DRAWSIGN:
++			painter.drawPixmap( op.pos, op.sign);
 +			break;
 +		case INVERTRECT:
 +			painter.setCompositionMode( QPainter::RasterOp_SourceXorDestination );
@@ -19328,8 +19405,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-02-11 23:05:57.000000000 +0100
-@@ -0,0 +1,156 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-03-16 19:47:32.000000000 +0100
+@@ -0,0 +1,158 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -19338,7 +19415,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +
 +
-+typedef enum { CLEARALL, FILLRECT, DRAWSTRING, DRAWRECT, INVERTRECT, SCROLLRECT} PaintOperationType;
++typedef enum { CLEARALL, FILLRECT, DRAWSTRING, DRAWRECT, INVERTRECT, SCROLLRECT, DRAWSIGN} PaintOperationType;
 +class PaintOperation {
 +public:
 +	PaintOperationType type;
@@ -19349,6 +19426,8 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	QString str;
 +	bool undercurl;
 +	QColor curlcolor;
++	// SIGN
++	QPixmap sign;
 +	// SCROLL
 +	QPoint pos;
 +};
