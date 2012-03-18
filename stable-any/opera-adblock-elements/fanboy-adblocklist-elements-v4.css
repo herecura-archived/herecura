@@ -1,5 +1,5 @@
 /*
-! Checksum: 3CHXzXgI0vw5lQn0Kep/rw
+! Checksum: rDSmuav8cJBZtbjD1u8f7A
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 17 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -428,6 +428,7 @@
 #ad_global_300x250,
 #ad_global_above_footer,
 #ad_global_header,
+#ad_global_header1,
 #AD_google,
 #ad_googlebanner_160x600LH,
 #ad_grp1,
@@ -539,6 +540,7 @@
 #ad_rside,
 #ad_rside_link,
 #ad_sec,
+#ad_sense,
 #ad_short,
 #Ad_Sidebar,
 #ad_sidebar,
@@ -3588,6 +3590,7 @@
 .adboard,
 .AdBorder,
 .adborder,
+.adBorders,
 .adbot,
 .adBottom,
 .adbottom,
@@ -3745,6 +3748,7 @@
 .admessage,
 .admiddle,
 .admiddlesidebar,
+.adMod,
 .admodule,
 .AdModule,
 .adModule300,
@@ -4371,6 +4375,7 @@
 .affiliateAdvertText,
 .afs_ads,
 .after_ad,
+.after_post_ad,
 .afterpostadbox,
 .agi-adtop,
 .aisle-ad,
@@ -4776,6 +4781,7 @@
 .dropdownAds,
 .dualAds,
 .dynamic-ads,
+.dynamicLeadAd,
 .eb_ad280,
 .ec-ads,
 .editor_ad,
@@ -4874,6 +4880,7 @@
 .gen_side_ad,
 .generic_300x250_ad,
 .GetRightAds,
+.gfp-banner,
 .gl_ad,
 .glamsquaread,
 .global_banner_ad,
@@ -5877,6 +5884,7 @@
 .SquareAd,
 .squareAd,
 .squaread,
+.squaread-container,
 .squareAdd,
 .squareAddtwo,
 .squareads,
