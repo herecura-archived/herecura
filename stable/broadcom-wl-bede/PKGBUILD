@@ -3,13 +3,13 @@
 
 pkgname=broadcom-wl-bede
 pkgver=5.100.82.112
-pkgrel=4
+pkgrel=5
 pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver'
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 arch=('i686' 'x86_64')
 license=('custom')
-depends=('linux-bede>=3.2' 'linux-bede<3.3')
-makedepends=('linux-bede-headers>=3.2' 'linux-bede-headers<3.3')
+depends=('linux-bede>=3.3' 'linux-bede<3.4')
+makedepends=('linux-bede-headers>=3.3' 'linux-bede-headers<3.4')
 
 [[ $CARCH = x86_64 ]] && ARCH=x86_64 || ARCH=x86_32
 source=("http://www.broadcom.com/docs/linux_sta/hybrid-portsrc_$ARCH-v${pkgver//./_}.tar.gz"
@@ -30,7 +30,7 @@ sha1sums=('01aa32f9e85621253a3f15cf4361bb80d41da3e8'
 #backup=('lib/modprobe.d/broadcom-wl.conf')
 install=install
 
-_extramodules=3.2-BEDE-external
+_extramodules=3.3-BEDE-external
 
 build() {
 	cd "$srcdir"
