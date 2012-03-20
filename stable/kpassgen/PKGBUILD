@@ -3,7 +3,7 @@
 
 pkgname=kpassgen
 pkgver=1.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Random password generator"
 arch=('i686' 'x86_64')
 url="http://www.kde-apps.org/content/show.php/KPassGen?content=108673"
