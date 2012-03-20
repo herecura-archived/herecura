@@ -3,7 +3,7 @@
 pkgname=kcm-qt-graphicssystem
 pkgver=1.3
 pkgdesc="This KCM allows you to easily configure the standard Qt graphics system."
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php?content=129817"
 license=('GPL')
