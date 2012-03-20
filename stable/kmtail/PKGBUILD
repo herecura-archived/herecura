@@ -2,7 +2,7 @@
 
 pkgname=kmtail
 pkgver=0.9.1
-pkgrel=2
+pkgrel=3
 pkgdesc="KDE tail tool"
 arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php/KmTail?content=124134"
