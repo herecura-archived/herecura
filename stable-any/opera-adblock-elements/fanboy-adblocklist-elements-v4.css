@@ -1,5 +1,5 @@
 /*
-! Checksum: SrBtI/vY+6ZJbY88uF/PGw
+! Checksum: iARSz9yoOWj+hn9Yy8qzbg
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 20 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -278,6 +278,7 @@
 #ad375x85,
 #Ad3Left,
 #Ad3Right,
+#ad3small,
 #Ad3TextAd,
 #ad4,
 #ad468_hidden,
@@ -2883,6 +2884,7 @@
 #ugly-ad,
 #ui-about-these-ads-img,
 #undergameAd,
+#uploadMrecAd,
 #upper_adbox,
 #upper_advertising,
 #upperad,
@@ -4435,6 +4437,7 @@
 .ban-720-container,
 .banmanad,
 .banner-300,
+.banner-300x250,
 .banner-468x60,
 .banner-ad,
 .banner-ad-row,
@@ -5011,6 +5014,8 @@
 .header-ads,
 .header-adsense,
 .header-advert,
+.header15-ad,
+.header728-ad,
 .header_ad_2,
 .header_ad_div,
 .header_ads,
