@@ -1,7 +1,7 @@
 /*
-! Checksum: iARSz9yoOWj+hn9Yy8qzbg
+! Checksum: 04U87qCEFgt1g4wGdQZgxA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 20 Mar 2012
+! Version: V4 Updated: 22 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -379,6 +379,7 @@
 #ad_Bottom,
 #ad_bottom,
 #ad_bottom_another,
+#ad_bottom_article_text,
 #ad_box,
 #ad_box160a,
 #ad_box_2,
@@ -559,6 +560,7 @@
 #ad_small,
 #ad_space_728,
 #ad_sponsored,
+#ad_sponsorship_2,
 #ad_squares,
 #ad_stck,
 #ad_strip,
@@ -1325,6 +1327,7 @@
 #b5_ad_sidebar1,
 #b5_ad_top,
 #b5ad300,
+#banner-728adtag,
 #banner-ad-container,
 #banner-ads,
 #banner-lg-ad,
@@ -4011,6 +4014,7 @@
 .adsense_left_lu,
 .adsense_mainbox01,
 .adsense_menu,
+.adsense_single,
 .adsense_small_square,
 .adsense_top,
 .adsense_top_ad,
@@ -4024,6 +4028,7 @@
 .adsensecontainer,
 .AdsenseDownload,
 .AdsenseForum,
+.adsenseframe,
 .adsenseGreenBox,
 .adsenseLargeRectangle,
 .adsenseleaderboard,
@@ -5525,7 +5530,6 @@
 .rgt_ad,
 .rhs-ad,
 .rhsadvert,
-.right-ad,
 .right-ad-300x250,
 .right-ad-block,
 .right-ad-holder,
