@@ -1,5 +1,5 @@
 /*
-! Checksum: 04U87qCEFgt1g4wGdQZgxA
+! Checksum: Q4v4m/Ih/04cxWMFgPyjEQ
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 22 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -2091,6 +2091,7 @@
 #leaderAdContainer,
 #leaderadvert,
 #leaderboard-ad,
+#leaderboard-ad-container,
 #leaderboard-bottom-ad,
 #leaderboard-sticky,
 #leaderboard_728x90,
@@ -2309,6 +2310,7 @@
 #OverrideAdArea,
 #overtureSponsoredLinks,
 #p360_ad_unit,
+#page-advertising,
 #page-header-ad,
 #page-top-ad,
 #page_content_top_ad,
@@ -5154,7 +5156,6 @@
 .item-ad-leaderboard,
 .item-ads,
 .item-container-ad,
-.job_ad,
 .jobkeywordads,
 .jobs-ad-box,
 .jobs-ad-marker,
@@ -6068,6 +6069,7 @@
 .ukAds,
 .undertimyads,
 .uniAds,
+.uniblue-text-ad,
 .unSponsored,
 .us-advertisement,
 .vAd_160x600,
