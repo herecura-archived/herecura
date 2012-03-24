@@ -1,7 +1,7 @@
 /*
-! Checksum: Q4v4m/Ih/04cxWMFgPyjEQ
+! Checksum: BkSvfs/8DKCGXAAGj4XnCg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 Mar 2012
+! Version: V4 Updated: 24 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -201,6 +201,7 @@
 #ad-target-Leaderbord,
 #ad-teaser,
 #ad-text,
+#ad-three,
 #ad-top-300x250,
 #ad-top-banner,
 #ad-top-banner-placeholder,
@@ -209,6 +210,7 @@
 #ad-tower,
 #ad-tower1,
 #ad-trailerboard-spot,
+#ad-two,
 #ad-typ1,
 #ad-uprrail1,
 #ad-wrap,
@@ -532,6 +534,7 @@
 #ad_right_content_article_page,
 #ad_right_content_home,
 #ad_right_main,
+#ad_right_rail_bottom,
 #ad_right_rail_flex,
 #ad_right_rail_top,
 #ad_right_skyscraper,
@@ -2319,6 +2322,7 @@
 #pageAds,
 #pageads,
 #pageBannerAd,
+#pagebottomAd,
 #PageLeaderAd,
 #pagelet_adbox,
 #pagelet_netego_ads,
@@ -2829,6 +2833,7 @@
 #topAdContainer,
 #topAdcontainer,
 #TopAdDiv,
+#topAdDropdown,
 #topaddwide,
 #topAds,
 #topads,
@@ -2960,6 +2965,7 @@
 #yahoo_sponsor_links,
 #yahoo_sponsor_links_title,
 #yahooad-tbl,
+#YahooAdParentContainer,
 #yahooads,
 #YahooAdsContainer,
 #YahooAdsContainerPowerSearch,
@@ -3272,6 +3278,7 @@
 .ad300x250a,
 .ad300x250b,
 .ad300x250box,
+.ad300x250GrayBorder,
 .ad300x250Module,
 .ad300x250s,
 .ad300x250Top,
@@ -3363,6 +3370,7 @@
 .Ad_728x90_holder,
 .ad_728x90_top,
 .ad_954-60,
+.ad_ad_300,
 .ad_adblade,
 .ad_adInfo,
 .ad_adsense_spacer,
@@ -3824,6 +3832,7 @@
 .ads-125,
 .ads-160-head,
 .ads-250,
+.ads-290,
 .ads-300,
 .ads-300-250,
 .ads-300x250,
@@ -4345,6 +4354,7 @@
 .advertising_widget,
 .advertisingTable,
 .Advertisment,
+.advertisment-module,
 .advertisment_bar,
 .advertisment_full,
 .advertisment_two,
@@ -4384,6 +4394,7 @@
 .affiliate-sidebar,
 .affiliate_header_ads,
 .affiliate_header_ads_container,
+.AffiliateAds,
 .affiliateAdvertText,
 .afs_ads,
 .after_ad,
@@ -4715,6 +4726,7 @@
 .container-rectangle-ad,
 .containerSqAd,
 .content-header-ad,
+.content-item-ad-top,
 .content_ad,
 .content_ad_728,
 .content_ad_head,
