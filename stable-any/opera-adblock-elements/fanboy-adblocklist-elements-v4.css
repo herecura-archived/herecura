@@ -1,7 +1,7 @@
 /*
-! Checksum: BkSvfs/8DKCGXAAGj4XnCg
+! Checksum: OzIqUHsybEtyomiNAyR03A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 Mar 2012
+! Version: V4 Updated: 25 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -415,6 +415,7 @@
 #ad_creative_3,
 #ad_creative_5,
 #ad_cyborg,
+#ad_div,
 #ad_div_bottom,
 #ad_div_top,
 #ad_feature,
@@ -508,6 +509,7 @@
 #ad_play_300,
 #ad_plugs,
 #ad_Position1,
+#ad_poster,
 #ad_publicidad,
 #ad_R1,
 #ad_rail,
@@ -1665,6 +1667,7 @@
 #divAdSpecial,
 #divFooterAds,
 #DividerAd,
+#divRightNavAdsLoader,
 #divupperrightad,
 #divWNAdHeader,
 #dni-advertising-skyscraper-wrapper,
@@ -3130,6 +3133,7 @@
 .ad-links,
 .ad-lrec,
 .ad-marker,
+.ad-marketswidget,
 .ad-MediumRectangle,
 .ad-medrec,
 .ad-medRec,
@@ -3756,6 +3760,7 @@
 .adListB,
 .adLoaded,
 .adLocal,
+.adLocation,
 .admain,
 .adman,
 .adMarker,
@@ -4105,6 +4110,7 @@
 .adsplat,
 .AdsPlayRight_list,
 .adSponsor,
+.adSponsorText,
 .adspost,
 .adSpot,
 .adspot,
@@ -5300,6 +5306,7 @@
 .medrectadv4,
 .member_ad_banner,
 .meme_adwrap,
+.menu-ad,
 .messageBoardAd,
 .meta_ad,
 .mf-ad300-container,
@@ -5654,6 +5661,7 @@
 .searchAd,
 .searchAds,
 .searchAdTop,
+.searchResultAd,
 .searchSponsorItem,
 .sec-ad,
 .secondary-advertisment,
