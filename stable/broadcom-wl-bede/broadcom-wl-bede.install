@@ -1,0 +1,14 @@
+EXTRAMODULES='3.3-BEDE-external'
+
+post_install() {
+	depmod $(cat /lib/modules/$EXTRAMODULES/version)
+}
+
+post_upgrade() {
+	post_install
+	rmmod wl || echo 'In order to use the new nvidia module, exit Xserver and unload it manually.'
+}
+
+post_remove() {
+	post_install
+}
