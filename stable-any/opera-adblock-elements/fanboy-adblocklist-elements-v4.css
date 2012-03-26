@@ -1,7 +1,7 @@
 /*
-! Checksum: OzIqUHsybEtyomiNAyR03A
+! Checksum: ta+wXvQys3T6FGdr6Oc5dQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 25 Mar 2012
+! Version: V4 Updated: 26 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -103,7 +103,6 @@
 #ad-col,
 #ad-colB-1,
 #ad-column,
-#ad-container,
 #ad-container-inner,
 #ad-container-outer,
 #ad-contentad,
@@ -1840,6 +1839,7 @@
 #google_adsense,
 #Google_Adsense_Main,
 #google_textlinks,
+#googlead,
 #GoogleAd,
 #googleAd,
 #googleAD,
@@ -2819,6 +2819,7 @@
 #TopAd,
 #topAD,
 #topAd,
+#topad-728x90,
 #topad1,
 #topad2,
 #topAd728x90,
@@ -3836,6 +3837,7 @@
 .ads-1,
 .ads-125,
 .ads-160-head,
+.ads-160x600,
 .ads-250,
 .ads-290,
 .ads-300,
@@ -4872,6 +4874,7 @@
 .footerAds,
 .footeradspace,
 .footerAdverts,
+.footerFullAd,
 .footerTextAd,
 .footertextadbox,
 .four-six-eight-ad,
@@ -5261,6 +5264,7 @@
 .logoAds,
 .longad,
 .LoungeAdsBottomLinks,
+.lower_ad,
 .lowerAds,
 .lr-ad,
 .lr_skyad,
@@ -5566,6 +5570,7 @@
 .Right300x250AD,
 .right_ad,
 .right_ad_160,
+.right_ad_common_block,
 .right_ad_innercont,
 .right_ad_text,
 .right_ads,
