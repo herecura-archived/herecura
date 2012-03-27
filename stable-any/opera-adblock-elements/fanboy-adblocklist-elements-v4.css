@@ -1,7 +1,7 @@
 /*
-! Checksum: ta+wXvQys3T6FGdr6Oc5dQ
+! Checksum: UpzdJ92bNT7qmk0uVpAwBw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 26 Mar 2012
+! Version: V4 Updated: 27 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -817,6 +817,7 @@
 #adPlaceHolderRight,
 #adplacement,
 #adPlacer,
+#adPopover,
 #adposition-C,
 #adposition-FPMM,
 #adposition-inner-REM1,
@@ -1427,6 +1428,7 @@
 #block_ad_container,
 #block_advert,
 #block_timeout_sponsored_0,
+#blockAds,
 #blog-advert,
 #blog-header-ad,
 #blog_ad_area,
@@ -2245,6 +2247,7 @@
 #mpu_text_ad,
 #mpuAd,
 #mpuad,
+#mpuAdspace,
 #MPUAdSpace,
 #mpuContainer,
 #mpuholder,
@@ -2403,6 +2406,7 @@
 #rectangle-ad,
 #rectangle_ad,
 #rectangle_ad_smallgame,
+#rectangleAd,
 #redirect-ad,
 #refine-300-ad,
 #refine-ad,
