@@ -1,5 +1,5 @@
 /*
-! Checksum: UFfkClG/j2xMdTGBm9YuvQ
+! Checksum: 73f3kfXoqjb7R97tMBTHWg
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 28 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -940,7 +940,6 @@
 #ads_space,
 #ads_space_header,
 #ads_title,
-#ads_top,
 #ads_top2,
 #ads_top_right,
 #ads_topbanner,
@@ -1429,6 +1428,7 @@
 #block_advert,
 #block_timeout_sponsored_0,
 #blockAds,
+#blog-ad,
 #blog-advert,
 #blog-header-ad,
 #blog_ad_area,
@@ -1506,6 +1506,7 @@
 #boxad300,
 #boxad4,
 #boxad5,
+#boxadcontainer,
 #boxAdContainer,
 #boxads,
 #bps-header-ad-container,
@@ -1937,6 +1938,7 @@
 #HeaderAdBlock,
 #headeradblock,
 #headeradbox,
+#headeradcontainer,
 #headerAds,
 #headerads,
 #HeaderAdsBlock,
@@ -3139,6 +3141,7 @@
 .ad-lrec,
 .ad-marker,
 .ad-marketswidget,
+.ad-med,
 .ad-MediumRectangle,
 .ad-medrec,
 .ad-medRec,
@@ -3215,7 +3218,6 @@
 .ad-top-rectangle,
 .ad-top2,
 .ad-tower,
-.ad-unit-300-wrapper,
 .ad-unit-anchor,
 .ad-unit-mpu,
 .ad-unit-top,
@@ -4863,6 +4865,7 @@
 .fold-ads,
 .foot-ad,
 .foot-advertisement,
+.footer-300-ad,
 .footer-ad,
 .footer-ad-section,
 .footer-ads,
