@@ -3,7 +3,7 @@
 
 pkgname=broadcom-wl-bede
 pkgver=5.100.82.112
-pkgrel=6
+pkgrel=7
 pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver'
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 arch=('i686' 'x86_64')
@@ -54,4 +54,6 @@ package() {
 
 	install -D -m 644 lib/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 	install -D -m 644 modprobe.d "$pkgdir/lib/modprobe.d/broadcom-wl.conf"
+
+	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/$pkgname.install"
 }

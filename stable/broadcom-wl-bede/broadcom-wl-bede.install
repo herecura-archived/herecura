@@ -6,7 +6,7 @@ post_install() {
 
 post_upgrade() {
 	post_install
-	rmmod wl || echo 'In order to use the new nvidia module, exit Xserver and unload it manually.'
+	rmmod wl || echo 'In order to use the new wl module reload manually'
 }
 
 post_remove() {
