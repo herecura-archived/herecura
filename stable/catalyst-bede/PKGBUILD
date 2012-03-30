@@ -5,21 +5,23 @@
 # Contributor: Spasswolf
 # Contributor: DestroyFX
 # Contributor: Rip-Rip
+# Contributor: OvsInc
 
 _pkgname=catalyst
 _extramodules=3.3-BEDE-external
 
 pkgname=$_pkgname-bede
-pkgver=12.2
-pkgrel=2
+pkgver=12.3
+pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
+depends=('linux-bede>=3.3' 'linux-bede<3.4' "catalyst-utils=$pkgver")
 makedepends=("catalyst-utils=$pkgver" 'linux-bede>=3.3' 'linux-bede<3.4' 'linux-bede-headers>=3.3' 'linux-bede-headers<3.4')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
-install=$pkgname.install
+install="$pkgname.install"
 
 source=(
 	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
@@ -28,7 +30,7 @@ source=(
 )
 
 md5sums=(
-	'7764bd0343ed542a8e0ebed05e347865'
+	'7c7b82f0d87a7ce9ee816b7d77212faa'
 	'3e1b82bd69774ea808da69c983d6a43b'
 	'32c8142c73dcfed5db426f494feda9e3'
 )
@@ -91,7 +93,6 @@ build() {
 }
 
 package() {
-	depends=('linux-bede>=3.3' 'linux-bede<3.4' "catalyst-utils=$pkgver")
 	cd "$srcdir/archive_files/common/lib/modules/fglrx/build_mod"
 	install -m755 -d "$pkgdir/lib/modules/$_extramodules/$_pkgname/"
 	install -m644 fglrx.ko "$pkgdir/lib/modules/$_extramodules/$_pkgname/"
