@@ -1,5 +1,5 @@
 /*
-! Checksum: aOgJMen2jfbwkCX3DnMSSg
+! Checksum: I3WRvk5S6hdQE7voqGhcng
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 30 Mar 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -547,6 +547,7 @@
 #ad_rside,
 #ad_rside_link,
 #ad_sec,
+#ad_secondary,
 #ad_sense,
 #ad_short,
 #Ad_Sidebar,
@@ -1481,6 +1482,7 @@
 #bottomAdSenseDiv,
 #bottomAdvert,
 #BottomAdWrapper,
+#bottomBannerAd,
 #bottomleaderboardad,
 #bottomMPU,
 #bottommpuSlot,
@@ -3225,7 +3227,6 @@
 .ad-vert,
 .ad-vertical,
 .ad-widget,
-.ad-wrap,
 .ad-zone-s-q-l,
 .ad01,
 .ad02,
@@ -3571,6 +3572,7 @@
 .ad_wrapper_fixed,
 .ad_wrapper_top,
 .ad_wrp,
+.ad_zone,
 .adAgate,
 .adAlert,
 .adArea,
@@ -4797,6 +4799,7 @@
 .DetachedAd,
 .detail_ad,
 .devil-ad-spot,
+.dfp-ad-widget,
 .dfp_ad,
 .dfrads,
 .diggable-ad-sponsored,
@@ -5557,6 +5560,7 @@
 .RelatedAds,
 .relatedAds,
 .relatesearchad,
+.remove-ads,
 .rev_square_side_door,
 .reviewMidAdvertAlign,
 .reviewpage_ad2,
