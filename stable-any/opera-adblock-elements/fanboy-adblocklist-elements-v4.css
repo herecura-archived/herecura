@@ -1,7 +1,7 @@
 /*
-! Checksum: wpC1VKcWFCQ05vX16fHYWQ
+! Checksum: c2jBjqjvvDzvlp3icxdDxQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Apr 2012
+! Version: V4 Updated: 2 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3175,6 +3175,7 @@
 .ad-rect-top-right,
 .ad-rectangle,
 .ad-rectangle-text,
+.ad-rectangle-wide,
 .ad-region-delay-load,
 .ad-right,
 .ad-right-txt,
@@ -3746,6 +3747,7 @@
 .adIMm,
 .AdIndicator,
 .adinfo,
+.adInteractive,
 .adintro,
 .adkicker,
 .adkit-advert,
@@ -4299,6 +4301,7 @@
 .advertise_here,
 .advertise_link,
 .advertise_link_sidebar,
+.advertise_links,
 .advertise_txt,
 .advertiseBlack,
 .advertisedBy,
@@ -4370,6 +4373,7 @@
 .advertising2,
 .advertising_block,
 .advertising_widget,
+.advertisingLrec,
 .advertisingTable,
 .Advertisment,
 .advertisment-module,
@@ -5149,6 +5153,7 @@
 .industrybrains,
 .indy_googleads,
 .inhousead,
+.inhouseAdUnit,
 .inline-ad,
 .inline-adblock,
 .inline_ad,
@@ -5189,6 +5194,8 @@
 .item-ad-leaderboard,
 .item-ads,
 .item-container-ad,
+.item-housead,
+.item-housead-last,
 .jobkeywordads,
 .jobs-ad-box,
 .jobs-ad-marker,
@@ -5580,6 +5587,7 @@
 .right-rail-ad,
 .right-rail-ad-banner,
 .right-rail-broker-ads,
+.right-side-ad,
 .right-sidebar-box-ads,
 .right-top-ad,
 .Right300x250AD,
@@ -5626,6 +5634,7 @@
 .rightcoltowerad,
 .rightColumnRectAd,
 .RightGoogleAFC,
+.rightmenu_ad,
 .rightrail_ads,
 .rightRailAd,
 .RightRailAdbg,
@@ -5890,6 +5899,7 @@
 .sponsored_links_container,
 .sponsored_results,
 .sponsored_ss,
+.sponsoredAdLine,
 .SponsoredAdTitle,
 .sponsoredFeature,
 .sponsoredLabel,
