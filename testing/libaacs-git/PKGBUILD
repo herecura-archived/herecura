@@ -1,7 +1,7 @@
 # Maintainer: Dirk Berg <dberg1981@googlemail.com>
 
 pkgname=libaacs-git
-pkgver=20120401
+pkgver=20120403
 pkgrel=1
 pkgdesc="Blu-Ray aacs library"
 arch=('i686' 'x86_64')
