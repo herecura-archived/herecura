@@ -196,9 +196,5 @@ package() {
 			${pkgdir}${_prefix}/share/licenses/${pkgname}
 	done
 
-	#cleanup some stuff
-	msg2 "cleanup unneeded files"
-	rm -rf $pkgdir/usr/share/xsessions
-
 	git show | grep -m 1 commit | sed 's/commit //' > $startdir/.githash_$CARCH
 }
