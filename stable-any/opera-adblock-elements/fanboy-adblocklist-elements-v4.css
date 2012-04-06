@@ -1,7 +1,7 @@
 /*
-! Checksum: m9ejiwSrkf6IVyJyV1f7xw
+! Checksum: 75f34toRL/2PaXLGnfgfgg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 4 Apr 2012
+! Version: V4 Updated: 6 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1873,6 +1873,7 @@
 #googleAdsenseAdverts,
 #googleAdsenseBanner,
 #googleAdsenseBannerBlog,
+#googleAdsFrame,
 #googleadsrc,
 #googleAdView,
 #googleAdwordsModule,
@@ -3091,6 +3092,7 @@
 .ad-box3,
 .ad-boxes,
 .ad-break,
+.ad-bt,
 .ad-btn,
 .ad-btn-heading,
 .ad-bug-300w,
