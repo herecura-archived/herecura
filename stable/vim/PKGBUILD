@@ -7,10 +7,10 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=492
+_patchlevel=494
 pkgver=${_basever}.${_patchlevel}
-#__hgrev=v${pkgver//./-}
-__hgrev=4dde9b516e72
+__hgrev=v${pkgver//./-}
+#__hgrev=4dde9b516e72
 pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
@@ -102,8 +102,7 @@ build() {
 		--disable-gui --enable-multibyte --enable-cscope \
 		--disable-netbeans --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=no --disable-rubyinterp
-		#--enable-luainterp=dynamic --disable-rubyinterp # lua dynamic is failing
+		--enable-luainterp=dynamic --disable-rubyinterp
 		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic # ruby dynamic is failing
 	make
 
@@ -116,8 +115,7 @@ build() {
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=no --disable-rubyinterp
-		#--enable-luainterp=dynamic --disable-rubyinterp
+		--enable-luainterp=dynamic --disable-rubyinterp
 		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
@@ -130,8 +128,7 @@ build() {
 		--enable-gui=athena --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=no --disable-rubyinterp
-		#--enable-luainterp=dynamic --disable-rubyinterp
+		--enable-luainterp=dynamic --disable-rubyinterp
 		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
@@ -144,8 +141,7 @@ build() {
 		--enable-gui=motif --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=no --disable-rubyinterp
-		#--enable-luainterp=dynamic --disable-rubyinterp
+		--enable-luainterp=dynamic --disable-rubyinterp
 		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
@@ -160,8 +156,7 @@ build() {
 		--enable-gui=qt --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=no --disable-rubyinterp
-		#--enable-luainterp=dynamic --disable-rubyinterp
+		--enable-luainterp=dynamic --disable-rubyinterp
 		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 }
