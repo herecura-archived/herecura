@@ -1,7 +1,7 @@
 /*
-! Checksum: SDDLAdLiF679DJqixhs2Zw
+! Checksum: KQhEllBtri6t1RVYSnKHuw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 6 Apr 2012
+! Version: V4 Updated: 7 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1562,12 +1562,14 @@
 #column_adverts,
 #columnAd,
 #comment_ad_zone,
+#commentAdWrapper,
 #common_right_adspace,
 #common_right_lower_adspace,
 #common_right_lower_player_adspace,
 #common_right_right_adspace,
 #common_top_adspace,
 #CommonHeaderAd,
+#community_ads,
 #comp_AdsLeaderboardTop,
 #companion-ad,
 #companion_Ad,
@@ -2650,6 +2652,7 @@
 #skyscraper_ad,
 #skyscraper_advert,
 #skyscraperAd,
+#skyscraperadblock,
 #skyscraperAdContainer,
 #skyscraperAds,
 #skyscraperAdWrap,
@@ -3147,6 +3150,7 @@
 .ad-header,
 .ad-heading,
 .ad-here,
+.ad-hold,
 .ad-holder,
 .ad-home-right,
 .ad-homeleaderboard,
@@ -3489,6 +3493,7 @@
 .ad_island2_spacer,
 .ad_island_feedback,
 .ad_island_spacer,
+.ad_isolation,
 .ad_keywords_bot,
 .ad_keywords_bot_r,
 .Ad_Label,
@@ -3594,6 +3599,7 @@
 .ad_warn,
 .ad_warning,
 .ad_wide,
+.ad_widget,
 .ad_word,
 .ad_wrap,
 .ad_wrapper,
@@ -4556,6 +4562,7 @@
 .bb-adv-160x600,
 .bb-adv-300x250,
 .bbccom-advert,
+.BCA_Advertisement,
 .beauty_ads,
 .belt_ad,
 .between_page_ads,
@@ -4679,6 +4686,7 @@
 .boxad,
 .boxad120,
 .boxadcont,
+.boxAdMrec,
 .boxads,
 .boxadv,
 .boxadvertisement,
@@ -4937,6 +4945,7 @@
 .fullSizeAd,
 .g-ad,
 .g-adblock3,
+.g2-adsense,
 .g_ad336,
 .g_ggl_ad,
 .ga-ads,
@@ -4975,6 +4984,7 @@
 .google-ads-boxout,
 .google-ads-obj,
 .google-ads-rodape,
+.google-ads-sidebar,
 .google-ads-slim,
 .google-ads-wrapper,
 .google-adsense,
@@ -5123,6 +5133,7 @@
 .hn-ads,
 .home-ads-container,
 .home-ads-container1,
+.home-body-ads,
 .home-sidebar-ad-300,
 .home-sticky-ad,
 .home_ad,
