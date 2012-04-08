@@ -12,7 +12,7 @@ _extramodules=3.3-BEDE-external
 
 pkgname=$_pkgname-bede
 pkgver=12.3
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
