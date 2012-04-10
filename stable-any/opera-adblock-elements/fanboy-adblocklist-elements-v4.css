@@ -1,7 +1,7 @@
 /*
-! Checksum: MHPQdVVXzJIk07XgSIrlNA
+! Checksum: mZhzlEJI+DscWwm+5WRugg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 8 Apr 2012
+! Version: V4 Updated: 9 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3817,6 +3817,7 @@
 .adMarker,
 .adMediaMiddle,
 .admedrec,
+.admeldBoxAd,
 .adMeldGuts,
 .admessage,
 .admiddle,
@@ -3971,6 +3972,7 @@
 .ads_468x60,
 .ads_672,
 .ads_728x90,
+.ads_admeld,
 .ads_big,
 .ads_big-half,
 .ads_block,
@@ -5273,6 +5275,7 @@
 .layer_text_ad,
 .lazyload_ad,
 .LazyLoadAd,
+.lb-ad,
 .leader-ad,
 .leader_ad,
 .leader_aol,
@@ -5306,6 +5309,7 @@
 .left_advertisement_block,
 .left_col_ad,
 .left_google_add,
+.leftAd,
 .leftad,
 .leftAd_bottom_fmt,
 .leftAd_top_fmt,
@@ -6257,6 +6261,7 @@
 .wpadvert,
 .wpn_ad_content,
 .wrap-ads,
+.ws-ad,
 .wsSearchResultsRightSponsoredLinks,
 .wsTopSposoredLinks,
 .x01-ad,
