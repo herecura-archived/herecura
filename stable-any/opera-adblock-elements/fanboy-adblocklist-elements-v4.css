@@ -1,7 +1,7 @@
 /*
-! Checksum: mZhzlEJI+DscWwm+5WRugg
+! Checksum: ckxZ5VVbnTuUi5yAHNOmEg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 Apr 2012
+! Version: V4 Updated: 10 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -342,6 +342,7 @@
 #ad_300x250_content_column,
 #ad_300x600,
 #ad_300x90,
+#ad_4,
 #ad_468_60,
 #ad_5,
 #ad_728,
@@ -2295,6 +2296,7 @@
 #nationalAd_secondary_top,
 #nav_ad_728_mid,
 #navAdBanner,
+#navads-container,
 #navi_banner_ad_780,
 #navigation-ad,
 #nba300Ad,
@@ -4837,6 +4839,7 @@
 .cxAdvertisement,
 .darla_ad,
 .dart-ad,
+.dart-ad-grid,
 .dart-leaderboard,
 .dart-medsquare,
 .dart_ad,
