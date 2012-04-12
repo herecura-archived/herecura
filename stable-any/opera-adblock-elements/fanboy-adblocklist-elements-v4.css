@@ -1,7 +1,7 @@
 /*
-! Checksum: ckxZ5VVbnTuUi5yAHNOmEg
+! Checksum: PO/qLv9UDcKPVhuFn78ayw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Apr 2012
+! Version: V4 Updated: 11 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1160,7 +1160,6 @@
 #adver3,
 #adver4,
 #adver5,
-#adver6,
 #adver6,
 #adver7,
 #advert-1,
@@ -2369,6 +2368,7 @@
 #photo_ad_google,
 #PhotoAd1,
 #phxcms_top_leaderboard,
+#picad_div,
 #player_ad,
 #player_ads,
 #player_middle_ad,
@@ -2949,6 +2949,8 @@
 #vert_ad,
 #vert_ad_placeholder,
 #vertad1,
+#VertAdBox,
+#VertAdBox0,
 #vertical_ad,
 #video_ads_overdiv,
 #videoAdvert,
@@ -4174,7 +4176,6 @@
 .adSpot-textBox,
 .adSpot-textBoxGraphicRight,
 .adspot-title,
-.adspot.mrec,
 .adspot1,
 .Adspottop,
 .adSquare,
@@ -4427,6 +4428,8 @@
 .advertismentText,
 .advertize,
 .advertleft,
+.advertLink,
+.advertLink1,
 .AdvertMidPage,
 .advertnotice,
 .advertorial,
