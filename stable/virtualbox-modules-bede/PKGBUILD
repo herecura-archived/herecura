@@ -4,7 +4,7 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.1.12
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -92,7 +92,7 @@ package_virtualbox-modules-bede-guest(){
     done
 
     install -D -m 0644 "$srcdir/60-vboxguest.rules" \
-        "$pkgdir/lib/udev/rules.d/60-vboxguest-bede.rules"
+        "$pkgdir/usr/lib/udev/rules.d/60-vboxguest-bede.rules"
 
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 
