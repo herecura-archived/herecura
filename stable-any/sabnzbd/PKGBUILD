@@ -1,11 +1,11 @@
 pkgname=sabnzbd
 pkgver=0.6.15
-pkgrel=1
+pkgrel=2
 pkgdesc="A web-interface based binary newsgrabber with NZB file support"
 arch=('any')
 url="http://www.sabnzbd.org/"
 license=('GPL')
-depends=('par2cmdline' 'python2' 'python2-cheetah' 'python2-feedparser' 'python2-yenc' 'python2-pyopenssl' 'unrar' 'unzip' 'sqlite3' 'curl')
+depends=('par2cmdline' 'python2' 'python2-cheetah' 'python2-feedparser' 'python2-yenc' 'python2-pyopenssl' 'unrar' 'unzip' 'sqlite' 'curl')
 install=sabnzbd.install
 backup=('etc/conf.d/sabnzbd' 'opt/sabnzbd/sabnzbd.ini')
 source=("http://downloads.sourceforge.net/sabnzbdplus/SABnzbd-$pkgver-src.tar.gz"
