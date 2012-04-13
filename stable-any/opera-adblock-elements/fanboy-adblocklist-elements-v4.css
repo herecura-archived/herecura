@@ -1,7 +1,7 @@
 /*
-! Checksum: PO/qLv9UDcKPVhuFn78ayw
+! Checksum: IwBSzewu9EwB2kNqOyFWNw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 11 Apr 2012
+! Version: V4 Updated: 12 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -571,6 +571,7 @@
 #ad_sponsorship_2,
 #ad_squares,
 #ad_stck,
+#ad_strapad,
 #ad_strip,
 #ad_term_bottom_place,
 #ad_text,
@@ -2235,6 +2236,7 @@
 #middle_bannerad_section,
 #middleads,
 #middleads2,
+#middleRightColumnAdvert,
 #midpost_ad,
 #midrect_ad,
 #midRightAds,
@@ -4013,6 +4015,7 @@
 .ads_sc_ls_i,
 .ads_sc_tb,
 .ads_sc_tl_i,
+.ads_sep,
 .ads_show_if,
 .ads_side,
 .ads_sideba,
@@ -4815,6 +4818,7 @@
 .contentads1,
 .contentads2,
 .contentAdsCommon,
+.contentAdvertisement,
 .contentleftad,
 .contentwellad,
 .contest_ad,
@@ -5387,6 +5391,7 @@
 .medium_ad,
 .medium_rectangle_ad_container,
 .mediumad,
+.mediumRectangleAdvert,
 .medo-ad-section,
 .medRecContainer,
 .medRect,
@@ -6246,6 +6251,7 @@
 .widget_adsensewidget,
 .widget_advertisements,
 .widget_advertisment,
+.widget_ione-dart-ad,
 .widget_island_ad,
 .widget_maxbannerads,
 .widget_sdac_bottom_ad_widget,
