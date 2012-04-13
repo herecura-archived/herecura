@@ -1,0 +1,181 @@
+From c34af29f458a35b6cf0fbec8574425516be62859 Mon Sep 17 00:00:00 2001
+From: Boudewijn Rempt <boud@valdyas.org>
+Date: Sun, 8 Apr 2012 12:21:50 +0200
+Subject: [PATCH] Hide rdf in more places
+
+We shouldn't use KoDocumentRdf unless hedged with SHOULD_BUILD_RDF
+
+Ok to backport?
+---
+ libs/main/KoDocument.cpp           |    2 +-
+ libs/main/KoDocument.h             |    2 +-
+ libs/main/KoDocumentInfoDlg.cpp    |    8 +++++---
+ libs/main/KoDocumentInfoDlg.h      |    4 ++--
+ words/part/KWOdfLoader.cpp         |    3 ++-
+ words/part/KWView.cpp              |    6 +++---
+ words/part/dockers/KWRdfDocker.cpp |    6 +++---
+ 7 files changed, 17 insertions(+), 14 deletions(-)
+
+diff --git a/libs/main/KoDocument.cpp b/libs/main/KoDocument.cpp
+index 2fedde7..775c2c6 100644
+--- a/libs/main/KoDocument.cpp
++++ b/libs/main/KoDocument.cpp
+@@ -812,7 +812,7 @@ KoDocumentInfo *KoDocument::documentInfo() const
+     return d->docInfo;
+ }
+ 
+-KoDocumentRdf *KoDocument::documentRdf() const
++KoDocumentRdfBase *KoDocument::documentRdf() const
+ {
+ #ifdef SHOULD_BUILD_RDF
+     if (d->docRdf && d->docRdf->model()) {
+diff --git a/libs/main/KoDocument.h b/libs/main/KoDocument.h
+index d69e15c..7cc8cd5 100644
+--- a/libs/main/KoDocument.h
++++ b/libs/main/KoDocument.h
+@@ -595,7 +595,7 @@ public:
+      * the RDF system and needs full access to the KoDocumentRdf object.
+      * @see KoDocumentRdf
+      */
+-    KoDocumentRdf *documentRdf() const;
++    KoDocumentRdfBase *documentRdf() const;
+ 
+     /**
+      * Replace the current rdf document with the given rdf document. The existing RDF document
+diff --git a/libs/main/KoDocumentInfoDlg.cpp b/libs/main/KoDocumentInfoDlg.cpp
+index 23ae08e..1781e34 100644
+--- a/libs/main/KoDocumentInfoDlg.cpp
++++ b/libs/main/KoDocumentInfoDlg.cpp
+@@ -26,8 +26,10 @@
+ #include "KoDocumentInfo.h"
+ #include "KoDocument.h"
+ #include "KoMainWindow.h"
++
+ #include "rdf/KoDocumentRdfEditWidgetBase.h"
+ #ifdef SHOULD_BUILD_RDF
++#include "rdf/KoDocumentRdf.h"
+ #include "rdf/KoDocumentRdfEditWidget.h"
+ #endif
+ 
+@@ -68,7 +70,7 @@ public:
+     QList<KPageWidgetItem*> m_pages;
+     Ui::KoDocumentInfoAboutWidget* m_aboutUi;
+     Ui::KoDocumentInfoAuthorWidget* m_authorUi;
+-    KoDocumentRdf* m_rdf;
++    KoDocumentRdfBase* m_rdf;
+ #ifdef SHOULD_BUILD_RDF
+     KoDocumentRdfEditWidget* m_rdfEditWidget;
+ #else
+@@ -80,7 +82,7 @@ public:
+ };
+ 
+ 
+-KoDocumentInfoDlg::KoDocumentInfoDlg(QWidget* parent, KoDocumentInfo* docInfo, KoDocumentRdf* docRdf)
++KoDocumentInfoDlg::KoDocumentInfoDlg(QWidget* parent, KoDocumentInfo* docInfo, KoDocumentRdfBase* docRdf)
+         : KPageDialog(parent)
+         , d(new KoDocumentInfoDlgPrivate)
+ {
+@@ -136,7 +138,7 @@ KoDocumentInfoDlg::KoDocumentInfoDlg(QWidget* parent, KoDocumentInfo* docInfo, K
+         d->m_rdfEditWidget = 0;
+ 
+ #ifdef SHOULD_BUILD_RDF
+-        d->m_rdfEditWidget = new KoDocumentRdfEditWidget(this, d->m_rdf);
++        d->m_rdfEditWidget = new KoDocumentRdfEditWidget(this, (KoDocumentRdf*)d->m_rdf);
+         page = new KPageWidgetItem(d->m_rdfEditWidget->widget(), i18n("Rdf"));
+         page->setHeader(i18n("Rdf"));
+         page->setIcon(KIcon("text-rdf"));
+diff --git a/libs/main/KoDocumentInfoDlg.h b/libs/main/KoDocumentInfoDlg.h
+index 9d3e6eb..733f126 100644
+--- a/libs/main/KoDocumentInfoDlg.h
++++ b/libs/main/KoDocumentInfoDlg.h
+@@ -24,7 +24,7 @@
+ #include <kpagedialog.h>
+ 
+ class KoDocumentInfo;
+-class KoDocumentRdf;
++class KoDocumentRdfBase;
+ class KPageWidgetItem;
+ 
+ /**
+@@ -55,7 +55,7 @@ public:
+      * @param parent a pointer to the parent widget
+      * @param docInfo a pointer to the shown KoDocumentInfo
+      */
+-    KoDocumentInfoDlg(QWidget *parent, KoDocumentInfo* docInfo, KoDocumentRdf* docRdf = 0);
++    KoDocumentInfoDlg(QWidget *parent, KoDocumentInfo* docInfo, KoDocumentRdfBase* docRdf = 0);
+ 
+     /** The destructor */
+     virtual ~KoDocumentInfoDlg();
+diff --git a/words/part/KWOdfLoader.cpp b/words/part/KWOdfLoader.cpp
+index 9900102..238c7fe 100644
+--- a/words/part/KWOdfLoader.cpp
++++ b/words/part/KWOdfLoader.cpp
+@@ -46,8 +46,9 @@
+ #include <KoProgressUpdater.h>
+ #include <KoVariableManager.h>
+ #include <KoInlineTextObjectManager.h>
++#ifdef SHOULD_BUILD_RDF
+ #include <KoDocumentRdf.h>
+-
++#endif
+ // KDE + Qt includes
+ #include <QTextCursor>
+ #include <KDebug>
+diff --git a/words/part/KWView.cpp b/words/part/KWView.cpp
+index 0ac5285..53f7da5 100644
+--- a/words/part/KWView.cpp
++++ b/words/part/KWView.cpp
+@@ -163,7 +163,7 @@ KWView::KWView(const QString &viewMode, KWDocument *document, QWidget *parent)
+     connect(m_zoomController, SIGNAL(zoomChanged(KoZoomMode::Mode, qreal)), this, SLOT(zoomChanged(KoZoomMode::Mode, qreal)));
+ 
+ #ifdef SHOULD_BUILD_RDF
+-    if (KoDocumentRdf *rdf = m_document->documentRdf()) {
++    if (KoDocumentRdf *rdf = dynamic_cast<KoDocumentRdf*>(m_document->documentRdf())) {
+         connect(rdf, SIGNAL(semanticObjectViewSiteUpdated(KoRdfSemanticItem*, const QString&)),
+                 this, SLOT(semanticObjectViewSiteUpdated(KoRdfSemanticItem*, const QString&)));
+     }
+@@ -303,7 +303,7 @@ void KWView::setupActions()
+     action->setWhatsThis(i18n("Stylesheets are used to format contact, event, and location information which is stored in Rdf"));
+     connect(action, SIGNAL(triggered()), this, SLOT(editSemanticStylesheets()));
+ 
+-    if (KoDocumentRdf* rdf = m_document->documentRdf()) {
++    if (KoDocumentRdf* rdf = dynamic_cast<KoDocumentRdf*>(m_document->documentRdf())) {
+         KAction* createRef = rdf->createInsertSemanticObjectReferenceAction(canvasBase());
+         actionCollection()->addAction("insert_semanticobject_ref", createRef);
+         KActionMenu *subMenu = new KActionMenu(i18n("Create"), this);
+@@ -708,7 +708,7 @@ void KWView::pageSettingsDialogFinished()
+ void KWView::editSemanticStylesheets()
+ {
+ #ifdef SHOULD_BUILD_RDF
+-    if (KoDocumentRdf *rdf = m_document->documentRdf()) {
++    if (KoDocumentRdf *rdf = dynamic_cast<KoDocumentRdf*>(m_document->documentRdf())) {
+         KoSemanticStylesheetsEditor *dia = new KoSemanticStylesheetsEditor(this, rdf);
+         dia->show();
+         // TODO this leaks memory
+diff --git a/words/part/dockers/KWRdfDocker.cpp b/words/part/dockers/KWRdfDocker.cpp
+index 0fbf85b..969977b 100644
+--- a/words/part/dockers/KWRdfDocker.cpp
++++ b/words/part/dockers/KWRdfDocker.cpp
+@@ -93,8 +93,8 @@ void KWRdfDocker::setCanvas(KoCanvasBase *canvas)
+         }
+         
+         m_document = newDoc;
+-        widgetDocker.semanticView->setDocumentRdf(m_document->documentRdf());
+-        connect(m_document->documentRdf(), SIGNAL(semanticObjectAdded(KoRdfSemanticItem*)),
++        widgetDocker.semanticView->setDocumentRdf(static_cast<KoDocumentRdf*>(m_document->documentRdf()));
++        connect(static_cast<KoDocumentRdf*>(m_document->documentRdf()), SIGNAL(semanticObjectAdded(KoRdfSemanticItem*)),
+                 this, SLOT(semanticObjectAdded(KoRdfSemanticItem*)));
+         connect(m_document->documentRdf(), SIGNAL(semanticObjectUpdated(KoRdfSemanticItem*)),
+                 this, SLOT(semanticObjectUpdated(KoRdfSemanticItem*)));
+@@ -168,7 +168,7 @@ void KWRdfDocker::updateData()
+ 
+     // TODO try to get rid of 'editor' here by remembering the position in the resourceChanged()
+     KoTextEditor *editor = KoTextEditor::getTextEditorFromCanvas(m_canvas);
+-    KoDocumentRdf *rdf = m_document->documentRdf();
++    KoDocumentRdf *rdf = dynamic_cast<KoDocumentRdf*>(m_document->documentRdf());
+     if (editor && rdf)
+     {
+         //kDebug(30015) << "m_lastCursorPosition:" << m_lastCursorPosition;
+-- 
+1.7.9.2
+
