@@ -1,7 +1,7 @@
 /*
-! Checksum: RzhsMU/0ytZHEnQjjL56pg
+! Checksum: Lvj3X7RwntSZ95USTNdUrg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 16 Apr 2012
+! Version: V4 Updated: 18 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -675,6 +675,7 @@
 #adButton,
 #AdC,
 #adcenter,
+#adCENTRAL,
 #adChoices,
 #adCirc300X200,
 #adCirc_620_100,
@@ -984,6 +985,7 @@
 #adsense-right,
 #adsense-tag,
 #adsense-text,
+#adsense1,
 #AdSense2,
 #adsense2,
 #adsense2pos,
@@ -3944,6 +3946,7 @@
 .ads-header,
 .ads-holder,
 .ads-horizontal-banner,
+.ads-inarticle,
 .ads-item,
 .ads-left,
 .ads-list,
@@ -4856,6 +4859,8 @@
 .cpaAdPosition,
 .create_ad,
 .cse_ads,
+.ct-ad-article,
+.ct-ads,
 .ctn-advertising,
 .cube-ad,
 .cube_ads,
@@ -5482,6 +5487,7 @@
 .moduletable_ad-right,
 .moduletable_ad160x600_center,
 .moduletable_ad300x250,
+.moduletable_adtop,
 .monsterad,
 .moreAdBlock,
 .mos-ad,
