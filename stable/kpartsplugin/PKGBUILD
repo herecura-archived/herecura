@@ -1,8 +1,8 @@
 # Maintainer: Frikilinux <frikilinux at frikilinux.com.ar>
 
 pkgname=kpartsplugin
-pkgver=20110823
-pkgrel=2
+pkgver=20120419
+pkgrel=1
 pkgdesc="This plugin uses KDE's KParts to embed file viewers into non-KDE browsers"
 url="http://www.unix-ag.uni-kl.de/~fischer/kpartsplugin/"
 license=('GPL3')
@@ -11,7 +11,6 @@ depends=('kdelibs')
 makedepends=('automoc4' 'cmake')
 conflicts=()
 source=("${url}$pkgname-$pkgver.tar.bz2")
-sha256sums=('4df24395ba67271330ba358b16e3f3dd0968f558d913671c48858e5addd95f63')
 
 build() {
 	cd "$pkgname-$pkgver/src"
@@ -24,3 +23,4 @@ package() {
 	cd "$pkgname-$pkgver/src"
 	make DESTDIR="$pkgdir" install
 }
+sha256sums=('528aa17f414d7952f3c641a829b4b65eb98de33676a2d0c8a2f92491fe1c5c80')
