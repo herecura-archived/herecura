@@ -1,7 +1,7 @@
 /*
-! Checksum: d8w1H57nwAwgRlql9V4pfg
+! Checksum: IkYHZIfTaVm+3xh6nBS7OQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Apr 2012
+! Version: V4 Updated: 19 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2285,6 +2285,7 @@
 #mpuad,
 #mpuAdspace,
 #MPUAdSpace,
+#mpuAdvert,
 #mpuContainer,
 #mpuholder,
 #mpuInContent,
@@ -4391,6 +4392,7 @@
 .advertisement-banner,
 .advertisement-block,
 .advertisement-BottomRight,
+.advertisement-caption,
 .advertisement-header,
 .advertisement-label,
 .advertisement-label-up-white,
@@ -5040,7 +5042,6 @@
 .google-adsense,
 .google-indiv-box2,
 .google-right-ad,
-.google-sponsored,
 .google-sponsored-ads,
 .google-text-ads,
 .google-user-ad,
