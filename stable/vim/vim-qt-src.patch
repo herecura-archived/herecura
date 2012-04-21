@@ -15003,8 +15003,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-04-05 17:33:40.919059987 +0200
-+++ vim-qt-src/src/configure.in	2012-04-05 17:33:42.400072015 +0200
+--- vim-src/src/configure.in	2012-04-21 23:30:56.178798742 +0200
++++ vim-qt-src/src/configure.in	2012-04-21 23:30:57.823810156 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15264,8 +15264,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-04-05 17:33:40.910059914 +0200
-+++ vim-qt-src/src/feature.h	2012-04-05 17:33:42.390071932 +0200
+--- vim-src/src/feature.h	2012-04-21 23:30:56.169798679 +0200
++++ vim-qt-src/src/feature.h	2012-04-21 23:30:57.814810089 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15452,8 +15452,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-04-05 17:31:22.000000000 +0200
-@@ -0,0 +1,1649 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-04-21 23:29:37.000000000 +0200
+@@ -0,0 +1,1688 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15529,6 +15529,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	QString family = (char*)name;
 +	QFont font;
 +	font.setStyleHint(QFont::TypeWriter);
++	font.setStyleStrategy(QFont::StyleStrategy(QFont::PreferDefault | QFont::ForceIntegerMetrics) );
 +
 +	if ( name == NULL ) { // Fallback font
 +		font.setFamily("Monospace");
@@ -15767,7 +15768,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	QFontMetrics metric( *qf );
 +
 +	if ( VimWrapper::isFakeMonospace(*qf) || getenv("QVIM_DRAW_STRING_SLOW") ) {
-+		qDebug() << "Warning, fake monospace font?";
 +		vimshell->setSlowStringDrawing( true );
 +	} else {
 +		vimshell->setSlowStringDrawing( false );
@@ -15960,7 +15960,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	QSettings settings("Vim", "qVim");
 +	settings.beginGroup("mainwindow");
 +	window->restoreState( settings.value("state").toByteArray() );
-+	window->resize( settings.value("size", QSize(400, 400)).toSize() );
 +	settings.endGroup();
 +
 +	vimshell = window->vimShell();
@@ -16028,7 +16027,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_prepare(int *argc, char **argv)
 +{
-+
 +#ifdef Q_WS_X11
 +	QColor::setAllowX11ColorNames(true);
 +#endif
@@ -16042,11 +16040,48 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_set_shellsize(int width, int height, int min_width, int min_height,
 +		    int base_width, int base_height, int direction)
 +{
++	// We actually resize the window, not the shell, i.e. we resize the window
++	// to the new dimensions plus the difference between the window and the shell.
++	// This does not ensure the final size is what Vim requested.
 +	//
-+	// We don't actually resize the shell here, instead we
-+	// call Qt to do it for us.
++	// The actual resize size must take into consideration
++	// - The new shell widget size
++	// - The toolbar/menubar/etc size
 +	//
++	// New size <= shell size - window size + new size
++	//
++	if ( !window->isVisible() ) {
++		// We can't resize properly if the window is not
++		// visible
++		return;
++	}
++
++	int decoWidth = (window->frameGeometry().width() - window->width());
++	int decoHeight = (window->frameGeometry().height() - window->height());
++	int frameWidth = (window->size().width() - vimshell->size().width());
++	int frameHeight = (window->size().height() - vimshell->size().height());
++
++	int new_width = frameWidth + width;
++	int new_height = frameHeight + height;
++
++	QDesktopWidget *dw = QApplication::desktop();
++	QSize desktopSize = dw->availableGeometry(window).size();
++
++	// If the given dimenstions are too large,
++	// cap them at available desktop dimensions minus the window decorations
++	if ( new_width + decoWidth > desktopSize.width() - decoWidth ) {
++		new_width = desktopSize.width() - decoWidth;
++	}
++	if ( new_height + decoWidth > desktopSize.height() - decoHeight ) {
++		new_height = desktopSize.height() - decoHeight;
++	}
++
++	window->resize( new_width, new_height );
 +	gui_resize_shell(vimshell->size().width(), vimshell->size().height());
++
++	// SHOCKING: it seems gui_get_shellsize() updates the proper values for
++	// the columns and rows, after a resize.
++	gui_get_shellsize();
 +}
 +
 +/**
@@ -16055,6 +16090,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_new_colors()
 +{
++	vimshell->setBackground(VimWrapper::backgroundColor() );
 +}
 +
 +/**
@@ -16177,7 +16213,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	QSettings settings("Vim", "qVim");
 +	settings.beginGroup("mainwindow");
 +	settings.setValue("state", window->saveState());
-+	settings.setValue("size", window->size());
 +	settings.endGroup();
 +
 +	QApplication::quit();
@@ -16283,13 +16318,17 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +int
 +gui_mch_open()
 +{
-+	if ( window != NULL ) {
-+
-+		window->show();
-+		return OK;
++	if ( window == NULL ) {
++		return FAIL;
 +	}
 +
-+	return FAIL;
++	window->show();
++    	if (gui_win_x != -1 && gui_win_y != -1) {
++		gui_mch_set_winpos(gui_win_x, gui_win_y);
++	}
++	gui_set_shellsize(FALSE, FALSE, RESIZE_BOTH);
++
++	return OK;
 +}
 +
 +/**
@@ -17702,8 +17741,8 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2012-04-05 17:31:22.000000000 +0200
-@@ -0,0 +1,223 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2012-04-21 23:29:37.000000000 +0200
+@@ -0,0 +1,222 @@
 +#include "mainwindow.moc"
 +
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
@@ -17779,7 +17818,6 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	// 3. Also, both tabpage_move and Qt use 0-indexed tab positions
 +	//
 +
-+	qDebug() << __func__ << "(current: " << tabbar->currentIndex() << ") from: " << from << "to:" << to;
 +	tabpage_move(tabbar->currentIndex());
 +}
 +
@@ -19889,8 +19927,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-04-05 17:31:22.000000000 +0200
-@@ -0,0 +1,380 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-04-21 23:29:37.000000000 +0200
+@@ -0,0 +1,406 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -20096,33 +20134,59 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +
 +bool VimWrapper::isFakeMonospace(QFont f)
 +{
++
++	QFont fi(f);
++	fi.setItalic(true);
++	QFont fb(f);
++	fb.setBold(true);
++	QFont fbi(fb);
++	fbi.setItalic(false);
++
 +	QFontMetrics fm_normal(f);
-+	f.setItalic(true);
-+	QFontMetrics fm_italic(f);
-+	f.setBold(true);
-+	QFontMetrics fm_boldit(f);
-+	f.setItalic(false);
-+	QFontMetrics fm_bold(f);
++	QFontMetrics fm_italic(fi);
++	QFontMetrics fm_boldit(fbi);
++	QFontMetrics fm_bold(fb);
 +
++	// Regular
 +	if ( fm_normal.averageCharWidth() != fm_normal.maxWidth() ) {
++		QFontInfo info(f);
++		qDebug() << __func__ << f.family() 
++			<< "Average and Maximum font width mismatch for Regular font; QFont::exactMatch() is" << f.exactMatch()
++			<< "Real font is " << info.family() << info.pointSize();
 +		return true;
 +	}
 +
-+	if ( fm_italic.averageCharWidth() != fm_italic.maxWidth() ) {
++	// Italic
++	if ( fm_italic.averageCharWidth() != fm_italic.maxWidth() ||
++			fm_italic.maxWidth()*2 != fm_italic.width("MM") ) {
++		QFontInfo info(fi);
++		qDebug() << __func__ << fi.family() << "Average and Maximum font width mismatch for Italic font; QFont::exactMatch() is" << fi.exactMatch()
++			<< "Real font is " << info.family() << info.pointSize();
 +		return true;
 +	}
 +
-+	if ( fm_boldit.averageCharWidth() != fm_boldit.maxWidth() ) {
++	// Bold
++	if ( fm_bold.averageCharWidth() != fm_bold.maxWidth() ||
++			fm_bold.maxWidth()*2 != fm_bold.width("MM") ) {
++		QFontInfo info(fb);
++		qDebug() << __func__ << fb.family() << "Average and Maximum font width mismatch for Bold font; QFont::exactMatch() is" << fb.exactMatch()
++			<< "Real font is " << info.family() << info.pointSize();
 +		return true;
 +	}
 +
-+	if ( fm_bold.averageCharWidth() != fm_bold.maxWidth() ) {
++	// Bold+Italic
++	if ( fm_boldit.averageCharWidth() != fm_boldit.maxWidth() ||
++			fm_boldit.maxWidth()*2 != fm_boldit.width("MM") ) {
++		QFontInfo info(fbi);
++		qDebug() << __func__ << fbi.family() << "Average and Maximum font width mismatch for Bold+Italic font; QFont::exactMatch() is" << fbi.exactMatch()
++			<< "Real font is " << info.family() << info.pointSize();
 +		return true;
 +	}
 +
 +	if ( fm_normal.maxWidth() != fm_italic.maxWidth() || 
 +		fm_normal.maxWidth() != fm_boldit.maxWidth() || 
 +		fm_normal.maxWidth() != fm_bold.maxWidth()) {
++		qDebug() << __func__ << f.family() << "Average and Maximum font width mismatch between font types";
 +		return true;
 +	}
 +
