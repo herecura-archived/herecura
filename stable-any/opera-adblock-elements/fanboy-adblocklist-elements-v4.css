@@ -1,7 +1,7 @@
 /*
-! Checksum: IkYHZIfTaVm+3xh6nBS7OQ
+! Checksum: GPQhFuMznu4TuJxCfFpvZw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Apr 2012
+! Version: V4 Updated: 20 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1590,6 +1590,7 @@
 #companionAdDiv,
 #conduitAdPopupWrapper,
 #container-ad-topright,
+#container_ad,
 #containerAds980,
 #containerMrecAd,
 #containerSqAd,
@@ -1869,6 +1870,7 @@
 #google_ads_frame7,
 #google_ads_wide,
 #google_adsense,
+#google_adsense_ad,
 #Google_Adsense_Main,
 #google_textlinks,
 #googlead,
@@ -2318,6 +2320,7 @@
 #nbcAd300x250,
 #nbcShowcaseAds,
 #network_header_ad_1,
+#new-ad-sidetop,
 #new_topad,
 #newadmpu,
 #news_left_ad,
@@ -2363,6 +2366,7 @@
 #page_content_top_ad,
 #page_top_ad,
 #pageAdDiv,
+#pageAdds,
 #pageAds,
 #pageads,
 #pageBannerAd,
@@ -4248,6 +4252,7 @@
 .adTileWrap,
 .adtips,
 .adtips1,
+.adTitleR,
 .AdTop,
 .adtop,
 .adTopboxright,
@@ -4256,6 +4261,7 @@
 .adtops,
 .adTout,
 .adtower,
+.adTower,
 .adtravel,
 .adTxt,
 .adtxt,
@@ -4876,6 +4882,7 @@
 .custom-ad-container,
 .custom_ads,
 .custom_banner_ad,
+.custom_footer_ad,
 .cwAdvert,
 .cxAdvertisement,
 .darla_ad,
@@ -6087,6 +6094,7 @@
 .subad,
 .subheadAdPanel,
 .subjects_ad,
+.subNavAd,
 .subtitle-ad-container,
 .supp-ads,
 .syAd,
