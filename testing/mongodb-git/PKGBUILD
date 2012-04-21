@@ -2,7 +2,7 @@
 #Contributor: Sebastian Friedel <sef@voxelbrain.com>
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
-pkgver=20120324
+pkgver=20120421
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
@@ -64,7 +64,8 @@ build() {
 
 package() {
 	cd ${_gitname}-build
-	scons install --usev8 --full --prefix="${startdir}/pkg/usr"
+	#scons install --usev8 --full --prefix="${startdir}/pkg/usr"
+	scons install --prefix="${startdir}/pkg/usr"
 	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
 	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
 	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
