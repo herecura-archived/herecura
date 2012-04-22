@@ -1,7 +1,7 @@
 # Maintainer: nqn1976 @ gmail.com
 
 pkgname=knights
-pkgver=2.4.1
+pkgver=2.4.2
 pkgrel=1
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('i686' 'x86_64')
@@ -14,7 +14,6 @@ replaces=('kchess' 'knights-kde4')
 conflicts=('knights-kde4')
 install=${pkgname}.install
 source=("http://dl.dropbox.com/u/2888238/Knights/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('934554f2ec61f85918270c8c5fdbf989')
 
 build() {
   cd ${srcdir}/${pkgname}-${pkgver}
@@ -28,3 +27,4 @@ package() {
   cd ${srcdir}/${pkgname}-${pkgver}/build
   make DESTDIR="${pkgdir}" install
 }
+sha256sums=('1ad0c4092b62ced2ba14b33dbca72fbaba171603f31d0e49556391ec3a0a3ec7')
