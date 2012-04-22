@@ -2,9 +2,9 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgbase=nntpgrab-svn
-pkgver=1915
+pkgver=1920
 pkgname=('nntpgrab-svn-cli' 'nntpgrab-svn-gtk' 'nntpgrab-svn-qt')
-pkgrel=3
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license=('GPL2')
