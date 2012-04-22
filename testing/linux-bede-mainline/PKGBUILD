@@ -6,8 +6,8 @@ _kernelname=-bede-mainline
 pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.4
-_rcver=4
+_basekernel=3.3
+_rcver=7
 pkgver=${_basekernel}_rc${_rcver}
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -27,9 +27,9 @@ source=(
 	"sysctl-desktop.x86_64"
 )
 sha256sums=(
-	'288ef4c15a176104f1274e9e815aab3564490eb1c8086efe94a3c7fbc73c6057'
-	'b960e58739769a7762c8d899f77f493a0366e6dab3ce0b62831250244226f677'
-	'af10ab753c54f08cc023b5946a2437fba94260f27c0da1ea289aacf98e477481'
+	'c4bcc100e2e57ea979b1f4b3ac246e3e9d72c679da2f604593bda6e87c9ecdf1'
+	'82e8b43bb867de052395f33efe88866ce2a55c244dc219330adc5e268ab18411'
+	'9db4bf2ffa83521c1d4d902bd34222517e7ac001c6b29ba55b0fd981b4a9ce2b'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'cce2cd65f49ef30e9f2c977210fcb3f21707b53088615eb737e2bb53c67ca7c9'
 	'5d59b290f2ec7354048e24cc52048e104fa91a3ac4c393adbb0e268c129d03e2'
