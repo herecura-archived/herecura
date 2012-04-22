@@ -1,7 +1,7 @@
 /*
-! Checksum: GPQhFuMznu4TuJxCfFpvZw
+! Checksum: xrN4/xZRwUe3Yq/fHC7GTw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 20 Apr 2012
+! Version: V4 Updated: 21 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -4271,6 +4271,7 @@
 .AdUnit,
 .adUnit,
 .adunit,
+.adunit-active,
 .adunit125,
 .adunit160,
 .AdUnit300,
@@ -4651,6 +4652,7 @@
 .block-featured-sponsors,
 .block-gg_ads,
 .block-google_admanager,
+.block-google_admanager2,
 .block-inner-adds,
 .block-openads,
 .block-openadstream,
@@ -5570,6 +5572,7 @@
 .oneColumnAd,
 .onethirdadholder,
 .openx-ad,
+.openx_ad,
 .openx_frame,
 .openxbuttons,
 .osan-ads,
