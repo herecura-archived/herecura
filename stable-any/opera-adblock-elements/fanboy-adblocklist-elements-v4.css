@@ -1,7 +1,7 @@
 /*
-! Checksum: xrN4/xZRwUe3Yq/fHC7GTw
+! Checksum: x12TNzyODIDQrniFffF75g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 21 Apr 2012
+! Version: V4 Updated: 22 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -465,6 +465,7 @@
 #ad_interestmatch,
 #ad_interestmatch400,
 #ad_island,
+#ad_island_incontent,
 #ad_keywrods,
 #ad_label,
 #ad_large,
@@ -2323,6 +2324,8 @@
 #new-ad-sidetop,
 #new_topad,
 #newadmpu,
+#news_article_ad_mrec,
+#news_article_ad_mrec_right,
 #news_left_ad,
 #news_right_ad,
 #newTopAds,
@@ -3691,6 +3694,7 @@
 .adblocks-topright,
 .adBlockSpacer,
 .adboard,
+.adBodyBlockBottom,
 .AdBorder,
 .adborder,
 .adBorders,
@@ -4111,6 +4115,7 @@
 .adsense-unit,
 .adsense-wide-background,
 .adsense-widget-horizontal,
+.adsense728,
 .adsense_200x200,
 .adsense_block,
 .adsense_box01,
@@ -4340,6 +4345,7 @@
 .advert5,
 .advert728x90,
 .advert8,
+.advert_300x250,
 .advert_336,
 .advert_468x60,
 .advert_back_160x600,
@@ -6176,6 +6182,7 @@
 .top_ad_post,
 .top_ad_seperate,
 .top_ad_short,
+.top_ad_wrap,
 .top_adbox1,
 .top_adbox2,
 .top_adsense,
