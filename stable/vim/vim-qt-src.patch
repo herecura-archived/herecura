@@ -15003,8 +15003,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-04-21 23:30:56.178798742 +0200
-+++ vim-qt-src/src/configure.in	2012-04-21 23:30:57.823810156 +0200
+--- vim-src/src/configure.in	2012-04-25 16:45:17.332943226 +0200
++++ vim-qt-src/src/configure.in	2012-04-25 16:45:19.825969921 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15264,8 +15264,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-04-21 23:30:56.169798679 +0200
-+++ vim-qt-src/src/feature.h	2012-04-21 23:30:57.814810089 +0200
+--- vim-src/src/feature.h	2012-04-25 16:45:17.323943129 +0200
++++ vim-qt-src/src/feature.h	2012-04-25 16:45:19.815969814 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15452,8 +15452,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #endif
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-04-21 23:29:37.000000000 +0200
-@@ -0,0 +1,1688 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-04-25 16:45:04.000000000 +0200
+@@ -0,0 +1,1699 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15775,8 +15775,9 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	gui.norm_font = qf;
 +	gui.char_width = metric.width("M");
-+	gui.char_height = metric.height();
-+	gui.char_ascent = metric.ascent();
++	// The actual linespace plus Vim's fake linespace
++	gui.char_height = metric.lineSpacing() + p_linespace;
++	gui.char_ascent = metric.ascent() + p_linespace/2;
 +	vimshell->setCharWidth(gui.char_width);
 +
 +	return OK;
@@ -16050,9 +16051,21 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	//
 +	// New size <= shell size - window size + new size
 +	//
++
++	QDesktopWidget *dw = QApplication::desktop();
++	QSize desktopSize = dw->availableGeometry(window).size();
++
 +	if ( !window->isVisible() ) {
 +		// We can't resize properly if the window is not
-+		// visible
++		// visible just resize the window to the intended size
++		if ( width > desktopSize.width() ) {
++			width = desktopSize.width();
++		}
++		if ( height > desktopSize.height() ) {
++			height = desktopSize.height();
++		}
++
++		window->resize(width, height);
 +		return;
 +	}
 +
@@ -16064,15 +16077,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	int new_width = frameWidth + width;
 +	int new_height = frameHeight + height;
 +
-+	QDesktopWidget *dw = QApplication::desktop();
-+	QSize desktopSize = dw->availableGeometry(window).size();
-+
 +	// If the given dimenstions are too large,
 +	// cap them at available desktop dimensions minus the window decorations
-+	if ( new_width + decoWidth > desktopSize.width() - decoWidth ) {
++	if ( new_width + decoWidth > desktopSize.width() ) {
 +		new_width = desktopSize.width() - decoWidth;
 +	}
-+	if ( new_height + decoWidth > desktopSize.height() - decoHeight ) {
++	if ( new_height + decoWidth > desktopSize.height() ) {
 +		new_height = desktopSize.height() - decoHeight;
 +	}
 +
@@ -16139,8 +16149,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +{
 +	QFontMetrics metric( *gui.norm_font );
 +
-+	gui.char_height = metric.height();
-+	gui.char_ascent = metric.ascent();
++	gui.char_height = metric.lineSpacing() + p_linespace;
++	gui.char_ascent = metric.ascent() + p_linespace/2;
 +
 +	return OK;
 +}
@@ -16326,7 +16336,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +    	if (gui_win_x != -1 && gui_win_y != -1) {
 +		gui_mch_set_winpos(gui_win_x, gui_win_y);
 +	}
-+	gui_set_shellsize(FALSE, FALSE, RESIZE_BOTH);
 +
 +	return OK;
 +}
@@ -16427,10 +16436,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		vimshell->queuePaintOp(op);
 +	}
 +
++	// Remove upper linespace from rect
++	QRect rect_text( pos.x(), pos.y() + p_linespace/2, gui.char_width*cellwidth, gui.char_height);
 +	PaintOperation op;
 +	op.type = DRAWSTRING;
 +	op.font = f;
-+	op.rect = rect;
++	op.rect = rect_text;
 +	op.str = str;
 +	op.color = foregroundColor;
 +	op.undercurl = flags & DRAW_UNDERC;
@@ -18058,8 +18069,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-03-16 19:47:32.000000000 +0100
-@@ -0,0 +1,1332 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-04-25 16:45:04.000000000 +0200
+@@ -0,0 +1,1330 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18328,9 +18339,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +		}
 +
 +		if ( c != ' ' ) {
-+			painter.drawText(rect, 
-+				Qt::TextSingleLine | Qt::AlignCenter | Qt::AlignTop, 
-+				c);
++			painter.drawText(rect, Qt::TextSingleLine, c);
 +		}
 +		rect.moveTo( rect.x() + rect.width(), rect.y() );
 +	}
