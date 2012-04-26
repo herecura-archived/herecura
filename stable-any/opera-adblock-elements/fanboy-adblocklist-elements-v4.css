@@ -1,7 +1,7 @@
 /*
-! Checksum: a8O9PFgVXU/NydTRUf6UIw
+! Checksum: DCBVwj9NdpUa7c2b+Ihy9Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 Apr 2012
+! Version: V4 Updated: 25 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -119,6 +119,7 @@
 #ad-front-sponsoredlinks,
 #ad-fullwidth,
 #ad-giftext,
+#ad-google-chrome-sidebar,
 #ad-googleAdSense,
 #ad-halfpage,
 #ad-header-left,
@@ -169,6 +170,7 @@
 #ad-rbkua,
 #ad-recommend,
 #ad-rectangle,
+#ad-region-1,
 #ad-rian,
 #ad-right,
 #ad-right-skyscraper-container,
@@ -2095,6 +2097,7 @@
 #internalAdvert,
 #interruptor,
 #interstitial_ad,
+#interstitial_ad_container,
 #ip-ad-leaderboard,
 #ip-ad-skyscraper,
 #ir-sidebar-ad,
@@ -2188,6 +2191,7 @@
 #logo_ad,
 #logoAd,
 #logoAd2,
+#long-ad,
 #long-ad-box,
 #long-ad-space,
 #long-bottom-ad-wrapper,
@@ -3145,6 +3149,7 @@
 .ad-body,
 .ad-boombox,
 .ad-border,
+.ad-bordered,
 .ad-bottom,
 .ad-box,
 .ad-box-container,
@@ -3357,6 +3362,7 @@
 .Ad300x,
 .ad300x100,
 .ad300x150,
+.ad300X250,
 .Ad300x250,
 .ad300x250,
 .ad300x250-1,
@@ -3813,6 +3819,7 @@
 .adHed,
 .AdHere,
 .adhere,
+.adherebox,
 .adhi,
 .adhide,
 .AdHolder,
@@ -5103,6 +5110,7 @@
 .googleAd_728x90,
 .googlead_iframe,
 .googleAdBox,
+.googleadcontainer,
 .googleadd,
 .googleAdd,
 .googleAdDiv,
@@ -5141,6 +5149,7 @@
 .greyad,
 .gridAd,
 .gridAdRow,
+.GridHouseAdRight,
 .group_ad,
 .gsAd,
 .gt_ad,
@@ -5699,6 +5708,7 @@
 .related-guide-adsense,
 .RelatedAds,
 .relatedAds,
+.relatedContentAd,
 .relatesearchad,
 .remove-ads,
 .rev_square_side_door,
@@ -5949,7 +5959,6 @@
 .skyscraper_banner_ad,
 .skyscraper_bannerAdHome,
 .SkyScraperAd,
-.skyscraperAd,
 .sl-header-ad,
 .slide-ad,
 .slide_ad,
@@ -6059,6 +6068,7 @@
 .sponsorheader,
 .SponsorIsland,
 .sponsorLabel,
+.sponsorLink,
 .sponsorlink,
 .sponsorlinks,
 .sponsorLinks,
