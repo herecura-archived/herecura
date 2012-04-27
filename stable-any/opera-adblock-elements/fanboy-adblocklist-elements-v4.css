@@ -1,7 +1,7 @@
 /*
-! Checksum: DCBVwj9NdpUa7c2b+Ihy9Q
+! Checksum: Iwl0G7LFkCi2CUNXDhIrZQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 25 Apr 2012
+! Version: V4 Updated: 26 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2627,7 +2627,6 @@
 #side_sponsors,
 #sideABlock,
 #sideABlockHeader,
-#sideAd,
 #sidead,
 #sidead1,
 #sideAdLarge,
@@ -3212,6 +3211,7 @@
 .ad-island,
 .ad-label,
 .ad-lable,
+.ad-leader,
 .ad-leaderboard-container,
 .ad-link,
 .ad-links,
@@ -3504,6 +3504,7 @@
 .ad_center,
 .ad_cheat,
 .ad_claim,
+.ad_column,
 .ad_cont,
 .ad_cont_footer,
 .ad_contain,
@@ -3565,6 +3566,7 @@
 .ad_lnks,
 .ad_loc,
 .ad_lrec,
+.ad_lt,
 .ad_main,
 .ad_med,
 .ad_medium_rectangle,
@@ -4041,6 +4043,7 @@
 .ads_holder,
 .ads_infoBtns,
 .ads_inside2,
+.ads_leader,
 .ads_leaderboard,
 .ads_left,
 .ads_mpu,
@@ -6132,6 +6135,7 @@
 .table_ad_bg,
 .tablebordersponsor,
 .tallAd,
+.tangential-ad,
 .tbl_ad,
 .tblTopAds,
 .td-Adholder,
