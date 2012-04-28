@@ -1,7 +1,7 @@
 /*
-! Checksum: Iwl0G7LFkCi2CUNXDhIrZQ
+! Checksum: 5InOJou/VUuMotVLFb0wmQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 26 Apr 2012
+! Version: V4 Updated: 27 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3831,6 +3831,7 @@
 .adHorisontalNoBorder,
 .adhoriz,
 .adHorizontalTextAlt,
+.adHplaceholder,
 .adhref_box_ads,
 .adiframe,
 .adIMm,
@@ -4038,6 +4039,7 @@
 .ads_footer,
 .Ads_forum,
 .ads_frame_wrapper,
+.ads_google,
 .ads_h,
 .ads_header,
 .ads_holder,
