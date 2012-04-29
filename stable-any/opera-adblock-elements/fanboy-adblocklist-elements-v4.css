@@ -1,7 +1,7 @@
 /*
-! Checksum: 5InOJou/VUuMotVLFb0wmQ
+! Checksum: 4wc3/R/k9HioLcmI8Ziu6g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Apr 2012
+! Version: V4 Updated: 28 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1245,6 +1245,9 @@
 #advertisement_label,
 #advertisement_notice,
 #advertisementArea,
+#advertisementblock1,
+#advertisementblock2,
+#advertisementblock3,
 #advertisementDIV2,
 #advertisements,
 #advertisements_sidebar,
@@ -1747,6 +1750,7 @@
 #flex_sponsored_links,
 #flexiad,
 #flipbookAd,
+#floatads,
 #floating_ad_container,
 #floatingAd,
 #foot-ad-1,
@@ -5258,6 +5262,7 @@
 .house-ads,
 .housead,
 .hover_300ad,
+.hp-ss-service-ad,
 .hp2-adtag,
 .hp_320-250-ad,
 .hpa-ad1,
