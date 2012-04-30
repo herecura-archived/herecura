@@ -1,7 +1,7 @@
 /*
-! Checksum: 4wc3/R/k9HioLcmI8Ziu6g
+! Checksum: ByPGBUAwF/wSpWLILCkG7A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 Apr 2012
+! Version: V4 Updated: 29 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1242,6 +1242,7 @@
 #advertisement160x600,
 #advertisement2,
 #advertisement728x90,
+#advertisement_block,
 #advertisement_label,
 #advertisement_notice,
 #advertisementArea,
@@ -1558,6 +1559,7 @@
 #cb-ad,
 #cb_medrect1_div,
 #cellAd,
+#center-ad-group,
 #center-ads-72980,
 #central-ads,
 #channel_ads,
@@ -2013,6 +2015,7 @@
 #home-advertise,
 #home-page-listing-ad,
 #home-side-ad,
+#home_ad,
 #Home_AdSpan,
 #home_bottom_ad,
 #home_feature_ad,
@@ -2212,6 +2215,7 @@
 #main-ad160x600-img,
 #main-ad728x90,
 #main-bottom-ad,
+#main-bottom-ad-tray,
 #main-header-ad-wrap,
 #main-header-ad-wrap-home,
 #main_AD,
@@ -3175,6 +3179,7 @@
 .ad-container-160x600,
 .ad-container-300x250,
 .ad-container-728x90,
+.ad-container-tool,
 .ad-context,
 .ad-CUSTOM,
 .ad-disclaimer,
@@ -4288,6 +4293,7 @@
 .adtower,
 .adTower,
 .adtravel,
+.adTwo,
 .adTxt,
 .adtxt,
 .adtxtlinks,
@@ -4444,6 +4450,7 @@
 .advertisement300x250,
 .advertisement468,
 .advertisement_below_news_article,
+.advertisement_block_234_60,
 .advertisement_caption,
 .advertisement_container,
 .advertisement_flag,
@@ -4817,6 +4824,7 @@
 .cbzadvert_block,
 .cdAdContainer,
 .cdo-ad,
+.center-ad-banner,
 .center_ad,
 .center_ads,
 .center_adsense,
@@ -5181,6 +5189,7 @@
 .hd_advert,
 .hdTopAdContainer,
 .head_ad,
+.head_ad_wrapper,
 .headAd,
 .headad,
 .header-ad,
@@ -6094,6 +6103,7 @@
 .sponsorshipContainer,
 .SponsorshipText,
 .sponsorText,
+.sponsorTxt,
 .sponsorwrapper,
 .sponsWrap,
 .spotlightAd,
@@ -6349,6 +6359,7 @@
 .widget_sdac_top_ad_widget,
 .widget_sponsored_content,
 .widgetads,
+.widgetYahooAds,
 .width-ad-slug,
 .wikia-ad,
 .wikia_ad_placeholder,
