@@ -1,7 +1,7 @@
 /*
-! Checksum: ByPGBUAwF/wSpWLILCkG7A
+! Checksum: dI2de4s8Q+WvyfAwYw9oGg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 29 Apr 2012
+! Version: V4 Updated: 30 Apr 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2265,6 +2265,7 @@
 #middle_ad,
 #middle_bannerad,
 #middle_bannerad_section,
+#middle_sponsor_ads,
 #middleads,
 #middleads2,
 #middleRightColumnAdvert,
@@ -2439,6 +2440,7 @@
 #preroll_compainion_ad,
 #PreRollAd,
 #prime-ad-space,
+#print_ads,
 #privateadbox,
 #privateads,
 #product-adsense,
@@ -3732,6 +3734,7 @@
 .adbox-wrapper,
 .adbox1,
 .adbox160,
+.adBox2,
 .adBox250,
 .adbox300,
 .adbox336,
@@ -4208,6 +4211,7 @@
 .adSlot,
 .adslot,
 .adslothead,
+.adslug,
 .adSlug,
 .adsmedrect,
 .adsmedrectright,
@@ -4431,6 +4435,7 @@
 .advertisement-728x90,
 .advertisement-banner,
 .advertisement-block,
+.advertisement-bottom,
 .advertisement-BottomRight,
 .advertisement-caption,
 .advertisement-header,
@@ -4473,6 +4478,7 @@
 .advertisementonwhite,
 .advertisementPanel,
 .advertisementRotate,
+.advertisementSmall,
 .advertisementText,
 .AdvertisementTextTag,
 .advertisespace_div,
@@ -4488,6 +4494,7 @@
 .advertising-leaderboard,
 .advertising-local-links,
 .advertising2,
+.advertising_banner,
 .advertising_block,
 .advertising_widget,
 .advertisingLrec,
@@ -4807,6 +4814,7 @@
 .bx_ad,
 .bx_ad_right,
 .bxad,
+.bz-ad,
 .cA-adStack,
 .cA-adStrap,
 .calloutAd,
@@ -5735,6 +5743,7 @@
 .reviewpage_ad2,
 .rgt_ad,
 .rhs-ad,
+.rhsAd,
 .rhsadvert,
 .right-ad-300x250,
 .right-ad-block,
