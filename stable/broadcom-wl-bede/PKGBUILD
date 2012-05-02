@@ -3,7 +3,7 @@
 
 pkgname=broadcom-wl-bede
 pkgver=5.100.82.112
-pkgrel=10
+pkgrel=11
 pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver'
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 arch=('i686' 'x86_64')
@@ -28,8 +28,6 @@ sha1sums=('01aa32f9e85621253a3f15cf4361bb80d41da3e8'
 		  '229f41b7c371842bf9c1c81b03f34ee32fcb3310')
 [[ $CARCH = x86_64 ]] && sha1sums[0]='5bd78c20324e6a4aa9f3fafdc6f0155e884d5131'
 
-#backup=('lib/modprobe.d/broadcom-wl.conf')
-
 _extramodules=3.3-BEDE-external
 
 build() {
@@ -52,7 +50,7 @@ package() {
 	gzip "$pkgdir/lib/modules/$_extramodules/broadcom-wl/wl.ko"
 
 	install -D -m 644 lib/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-	install -D -m 644 modprobe.d "$pkgdir/lib/modprobe.d/broadcom-wl.conf"
+	install -D -m 644 modprobe.d "$pkgdir/usr/lib/modprobe.d/broadcom-wl.conf"
 
 	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/$pkgname.install"
 }
