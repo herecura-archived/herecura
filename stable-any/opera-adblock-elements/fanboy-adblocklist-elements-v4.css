@@ -1,7 +1,7 @@
 /*
-! Checksum: dI2de4s8Q+WvyfAwYw9oGg
+! Checksum: a9axVsLNTSi429E7o55hXg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 30 Apr 2012
+! Version: V4 Updated: 1 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -963,6 +963,7 @@
 #ads_wide,
 #adsBannerFrame,
 #adsBar,
+#adsbottombluesleft,
 #adsbox,
 #AdsCarouselBoxArea,
 #adscolumn,
@@ -2841,6 +2842,7 @@
 #textads,
 #textads_right_container,
 #textsponsor,
+#tf_page_ad_content_bottom,
 #tgAD_imu_2,
 #tgAD_imu_3,
 #tgAD_imu_4,
@@ -2876,6 +2878,7 @@
 #top-right-ad,
 #top-search-ad-wrapper,
 #top-sky,
+#top300x250ad,
 #Top468x60AD,
 #top_ad_area,
 #top_ad_banner,
@@ -3175,6 +3178,7 @@
 .ad-call-300x250,
 .ad-caption,
 .ad-codes,
+.ad-col,
 .ad-column,
 .ad-comment,
 .ad-container,
@@ -3699,6 +3703,7 @@
 .adbase,
 .adbbox,
 .adbckgrnd,
+.adbetween,
 .adBgBottom,
 .adBGcolor,
 .adBgMId,
@@ -4657,6 +4662,7 @@
 .bbccom-advert,
 .BCA_Advertisement,
 .beauty_ads,
+.before-comment-ad,
 .belt_ad,
 .between_page_ads,
 .bex_ad,
@@ -4686,6 +4692,7 @@
 .block-ads2,
 .block-ads_top,
 .block-adsense,
+.block-adsense_managed,
 .block-adspace-full,
 .block-bf_ads,
 .block-doubleclick_ads,
@@ -4880,6 +4887,7 @@
 .confirm_ad_right,
 .confirm_leader_ad,
 .consoleAd,
+.cont-ad,
 .contads_middle,
 .container-adwords,
 .container-rectangle-ad,
@@ -5071,6 +5079,7 @@
 .gamezebo_ad_info,
 .gbl_adstruct,
 .gbl_advertisement,
+.geeky_ad,
 .gen_side_ad,
 .generic_300x250_ad,
 .GetRightAds,
@@ -6193,6 +6202,7 @@
 .textadscontainer,
 .textadsds,
 .textSponsor,
+.tf_page_ad_search,
 .theAdvert,
 .theleftad,
 .thirdAd160Cont,
