@@ -1,7 +1,7 @@
 /*
-! Checksum: a9axVsLNTSi429E7o55hXg
+! Checksum: DlQx6YaGH3LZ9OZSjgXL7Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 May 2012
+! Version: V4 Updated: 2 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -311,6 +311,7 @@
 #ad728x90asme,
 #ad728x90box,
 #ad76890topContainer,
+#ad768top1,
 #ad8,
 #Ad990,
 #ad_02,
@@ -1373,6 +1374,7 @@
 #banner975_container,
 #banner_280_240,
 #banner_ad,
+#banner_ad_bottom,
 #banner_ad_div_fw,
 #banner_ad_footer,
 #banner_ad_module,
@@ -2027,6 +2029,7 @@
 #HomeAd1,
 #homeAdLeft,
 #homeArticlesAd,
+#HomeBannerAd,
 #homeheaderad,
 #homepage-sidebar-ads,
 #homepage_ad,
@@ -2362,6 +2365,7 @@
 #oas_Right2,
 #OAS_Top,
 #oas_wide_skyscraper,
+#oba_message,
 #oem_ad,
 #ofie_ad,
 #onespot-ads,
@@ -4286,6 +4290,7 @@
 .adtech-boxad,
 .adtext_gray,
 .adtext_white,
+.adtextleft,
 .adTextPmpt,
 .adtextright,
 .adTileWrap,
@@ -4485,6 +4490,7 @@
 .advertisementRotate,
 .advertisementSmall,
 .advertisementText,
+.AdvertisementText,
 .AdvertisementTextTag,
 .advertisespace_div,
 .advertiseText,
@@ -6000,6 +6006,8 @@
 .slide-ad,
 .slide_ad,
 .slideshow-advertisement-note,
+.slot_728_ad,
+.slot_integrated_ad,
 .slpBigSlimAdUnit,
 .slpSquareAdUnit,
 .smAdText_r,
