@@ -1,7 +1,7 @@
 /*
-! Checksum: 3KSQN35PrJyIHCHEOp26Tw
+! Checksum: /Lqd+F0+wdpHv7Kp/8F/8Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 3 May 2012
+! Version: V4 Updated: 4 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2088,6 +2088,7 @@
 #indexSquareAd,
 #indiv_adsense,
 #influads_block,
+#inline-ad,
 #inline-story-ad,
 #inline_ad,
 #inline_ad_section,
@@ -3548,6 +3549,7 @@
 .ad_framed,
 .ad_front_promo,
 .ad_grid,
+.ad_hat_728,
 .ad_hat_banner_300,
 .ad_hat_top,
 .ad_header_lb,
@@ -5690,6 +5692,7 @@
 .Post5ad,
 .Post9ad,
 .post_ad,
+.post_advert,
 .post_sponsor_unit,
 .postads,
 .poster_ad,
