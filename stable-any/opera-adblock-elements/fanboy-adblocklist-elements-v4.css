@@ -1,7 +1,7 @@
 /*
-! Checksum: srwQElGUbE2z8mCo6iJonQ
+! Checksum: zd2z/wlulWadx2IUiiZGWw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 7 May 2012
+! Version: V4 Updated: 8 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1058,6 +1058,7 @@
 #adspace-300x250,
 #adspace-one,
 #adspace-panorama,
+#adspace-top,
 #adSpace0,
 #adSpace1,
 #adSpace2,
@@ -4985,6 +4986,7 @@
 .doubleclick-ad,
 .DoubleClickRefreshable,
 .downloadAds,
+.drop-ad,
 .dropdownAds,
 .dualAds,
 .dynamic-ads,
@@ -5311,6 +5313,7 @@
 .ibm_ad_text,
 .ibt-top-ad,
 .iframe-ad,
+.iframe-ads,
 .iframeAd,
 .im-topAds,
 .imgur-ad,
@@ -5900,6 +5903,7 @@
 .servedAdlabel,
 .set_ad,
 .sfsp_adadvert,
+.shareToolsItemAd,
 .shortads,
 .showAd_No,
 .showAd_Yes,
