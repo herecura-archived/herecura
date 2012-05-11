@@ -1,7 +1,7 @@
 /*
-! Checksum: 7exuRI299qX4Jid2pJ0UGw
+! Checksum: 1Ja55GAbBe3lpmzz3v2ffA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 May 2012
+! Version: V4 Updated: 11 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1551,6 +1551,7 @@
 #btmad,
 #btnads,
 #burn_header_ad,
+#button-ads,
 #button-ads-horizontal,
 #ButtonAd,
 #buysellads-4x1,
@@ -1736,6 +1737,7 @@
 #ear_ad,
 #eastAds,
 #embedAD,
+#embeded_ad_content_container,
 #eshopad-728x90,
 #externalAd,
 #featAds,
@@ -2348,6 +2350,8 @@
 #new-ad-sidetop,
 #new_topad,
 #newadmpu,
+#newPostProfileAd,
+#newPostProfileVerticalAd,
 #news_article_ad_mrec,
 #news_article_ad_mrec_right,
 #news_left_ad,
@@ -3021,6 +3025,7 @@
 #VM-header-adwrap,
 #VM-MPU-adspace,
 #weather-ad,
+#WelcomeAd,
 #wg_ads,
 #wh_ad_4,
 #whitepaper-ad,
@@ -3874,6 +3879,7 @@
 .adLabel300x250,
 .adlabelleft,
 .adLabelLine,
+.adlarge,
 .adLargeRec,
 .adLeader,
 .adLeaderboard,
@@ -4774,6 +4780,7 @@
 .bottom_sponsor,
 .bottomAd,
 .bottomad,
+.bottomad-bg,
 .BottomAdContainer,
 .bottomAds,
 .BottomAds,
@@ -5194,6 +5201,7 @@
 .grev-ad,
 .grey-ad-line,
 .greyad,
+.grid-advertisement,
 .gridAd,
 .gridAdRow,
 .GridHouseAdRight,
@@ -5687,6 +5695,7 @@
 .playerAd,
 .pm-ad,
 .pmg-sponsoredlinks,
+.pn-ad,
 .pnp_ad,
 .pod-ad-box,
 .popadtext,
@@ -6032,6 +6041,7 @@
 .smallsideadpane,
 .smallsponsorad,
 .smart_ads_bom_title,
+.social-ad,
 .southad,
 .spaceAdds,
 .specialAd175x90,
@@ -6274,6 +6284,7 @@
 .topAD,
 .TopAd,
 .topad-bar,
+.topad-bg,
 .topad2,
 .topAdBanner,
 .topadblock,
@@ -6445,6 +6456,7 @@
 .yrail_ads,
 .yui3-ad,
 [id^="GOOGLE_ADS_"],
+ad-indicator-horiz,
 .AdBox,
 .ad-content,
 #adLayer,
