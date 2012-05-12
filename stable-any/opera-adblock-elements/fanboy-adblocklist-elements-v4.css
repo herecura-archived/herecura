@@ -1,5 +1,5 @@
 /*
-! Checksum: 1Ja55GAbBe3lpmzz3v2ffA
+! Checksum: gZcEziI4hU/VJyW9Llyh1A
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 11 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -2783,6 +2783,7 @@
 #sponsorLinkDiv,
 #sponsorLinks,
 #sponsorResults,
+#sponsors-block,
 #SponsorsAds,
 #sponsorsads1,
 #sponsorsads2,
@@ -6340,6 +6341,7 @@
 .txtadvertise,
 .type_miniad,
 .tz_ad_widget,
+.uds-ad,
 .ukAds,
 .undertimyads,
 .uniAds,
@@ -6408,6 +6410,7 @@
 .widget_sdac_skyscraper_ad_widget,
 .widget_sdac_top_ad_widget,
 .widget_sponsored_content,
+.widget_uds-ads,
 .widgetads,
 .widgetYahooAds,
 .width-ad-slug,
