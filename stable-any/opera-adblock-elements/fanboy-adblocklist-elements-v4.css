@@ -1,7 +1,7 @@
 /*
-! Checksum: gZcEziI4hU/VJyW9Llyh1A
+! Checksum: S4P1MloXBMgzCipQBGOiug
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 11 May 2012
+! Version: V4 Updated: 12 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -834,6 +834,7 @@
 #adPlaceHolderRight,
 #adplacement,
 #adPlacer,
+#adplacer_preroll1,
 #adPopover,
 #adposition-C,
 #adposition-FPMM,
@@ -2484,6 +2485,7 @@
 #rectangle_ad,
 #rectangle_ad_smallgame,
 #rectangleAd,
+#rectangleAdSpace,
 #redirect-ad,
 #refine-300-ad,
 #refine-ad,
@@ -2978,6 +2980,7 @@
 #TopSideAd,
 #topsidebar-ad,
 #topsponad,
+#topsponsorads,
 #topsponsored,
 #toptextad,
 #tour300Ad,
@@ -3234,11 +3237,13 @@
 .ad-imagehold,
 .ad-index,
 .ad-index-main,
+.ad-indicator-horiz,
 .ad-internal,
 .ad-interruptor,
 .ad-island,
 .ad-label,
 .ad-lable,
+.ad-lb,
 .ad-leader,
 .ad-leaderboard-container,
 .ad-link,
@@ -4790,6 +4795,7 @@
 .box-ad,
 .box-ad-a,
 .box-ad-grey,
+.box-ad-wsr,
 .box-ads,
 .box-advert-sponsored,
 .box-adverts,
@@ -5310,6 +5316,7 @@
 .house-ads,
 .housead,
 .hover_300ad,
+.hover_ads,
 .hp-ss-service-ad,
 .hp2-adtag,
 .hp_320-250-ad,
@@ -5357,7 +5364,6 @@
 .inlist-ad,
 .inner-ad,
 .inner-advt-banner-3,
-.inner_ad,
 .innerAds,
 .inPageAd,
 .inpostad,
@@ -5436,6 +5442,7 @@
 .left-ads,
 .left-advert,
 .left-sidebar-box-ads,
+.left120X600AdHeaderText,
 .left_300_ad,
 .left_ad_160,
 .left_adlink,
@@ -5768,6 +5775,7 @@
 .related-ad,
 .related-ads,
 .related-guide-adsense,
+.relatedads,
 .RelatedAds,
 .relatedAds,
 .relatedContentAd,
@@ -6260,7 +6268,6 @@
 .top-left-nav-ad,
 .top-menu-ads,
 .top_Ad,
-.top_ad,
 .top_ad1,
 .top_ad_728,
 .top_ad_728_90,
@@ -6459,7 +6466,6 @@
 .yrail_ads,
 .yui3-ad,
 [id^="GOOGLE_ADS_"],
-ad-indicator-horiz,
 .AdBox,
 .ad-content,
 #adLayer,
@@ -6855,12 +6861,17 @@ div[id="rhs_block"],
 /* mediaite.com */
 #magnify_widget_playlist_item_companion,
 #magnify_widget_rect_content,
+/* mediafire */
+.rockmeltAdWrapper,
+#rockmeltTab,
 /* metronews.ca */
 #pullquote_adu,
 /* merriam-webster.com */
 #google_creative_1,
 /* metro.co.uk */
 .google_modtr,
+/* miamiherald.com */
+#dealSaverWidget,
 /* microsoft.com */
 .cdAdTitle,
 /* mnn.com */
