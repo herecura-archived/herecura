@@ -1,7 +1,7 @@
 /*
-! Checksum: S4P1MloXBMgzCipQBGOiug
+! Checksum: u6VLGzKmUNkEiBK4RTMIWg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 12 May 2012
+! Version: V4 Updated: 13 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -771,6 +771,7 @@
 #adimg3,
 #adimg6,
 #adInBetweenPosts,
+#AdIndexTower,
 #adInstoryOneWrap,
 #adInstoryTwoWrap,
 #ADInterest,
@@ -2087,6 +2088,7 @@
 #imu_ad_module,
 #in-story-ad-wrapper,
 #in_post_ad_middle_1,
+#inarticlead,
 #inc-ads-bigbox,
 #index-bottom-advert,
 #indexad,
@@ -2942,6 +2944,7 @@
 #topAds,
 #topads,
 #topads-spacer,
+#topadsblock,
 #topAdsContainer,
 #topAdsDiv,
 #topadsense,
@@ -3992,6 +3995,7 @@
 .ads-728x90-wrap,
 .Ads-768x90,
 .ads-above-comments,
+.ads-articlebottom,
 .ads-banner,
 .ads-beforecontent,
 .ads-block,
@@ -4439,6 +4443,7 @@
 .advertise-inquiry,
 .advertise-leaderboard,
 .advertise-link,
+.advertise-small,
 .advertise-square,
 .advertise-top,
 .advertise_ads,
