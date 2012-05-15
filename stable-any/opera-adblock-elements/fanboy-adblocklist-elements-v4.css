@@ -1,7 +1,7 @@
 /*
-! Checksum: u6VLGzKmUNkEiBK4RTMIWg
+! Checksum: RlLSucnJhkUNuCOT1EEEMA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 May 2012
+! Version: V4 Updated: 14 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1492,6 +1492,7 @@
 #bottom-ads,
 #bottom-banner-spc,
 #bottom-boxad,
+#bottom-side-ad,
 #bottom-sky,
 #bottom-sponsor-add,
 #bottom_ad,
@@ -2885,6 +2886,7 @@
 #top-adblock,
 #top-adds,
 #top-ads,
+#top-adspot,
 #top-advert,
 #top-advertisement,
 #top-banner-ad,
@@ -3196,6 +3198,7 @@
 .ad-button,
 .ad-call-300x250,
 .ad-caption,
+.ad-chartbeatwidget,
 .ad-codes,
 .ad-col,
 .ad-column,
@@ -6260,6 +6263,7 @@
 .tmnAdsenseContainer,
 .toolbar-ad,
 .toolsAd,
+.top-ad-horizontal,
 .top-ad-right,
 .top-ad-sidebar,
 .top-ads,
@@ -6361,6 +6365,7 @@
 .unSponsored,
 .us-advertisement,
 .vAd_160x600,
+.vb-ad,
 .ve2_post_adsense,
 .vert-ad,
 .vertical-adsense,
