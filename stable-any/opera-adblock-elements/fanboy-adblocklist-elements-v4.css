@@ -1,7 +1,7 @@
 /*
-! Checksum: RlLSucnJhkUNuCOT1EEEMA
+! Checksum: h0N+O+QHIBz9CyIBUbUAHg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 May 2012
+! Version: V4 Updated: 15 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -579,6 +579,7 @@
 #ad_stck,
 #ad_strapad,
 #ad_strip,
+#ad_takeover,
 #ad_term_bottom_place,
 #ad_text,
 #ad_thread_first_post_content,
@@ -2429,6 +2430,7 @@
 #player_ad,
 #player_ads,
 #player_middle_ad,
+#playerAd,
 #pof_ads_Wrapper,
 #pop_ad,
 #populate_ad_left,
@@ -4987,6 +4989,7 @@
 .deckads,
 .DetachedAd,
 .detail_ad,
+.DetailAds,
 .devil-ad-spot,
 .dfp-ad-widget,
 .dfp_ad,
@@ -5141,6 +5144,7 @@
 .google-sponsored-ads,
 .google-text-ads,
 .google-user-ad,
+.google300x250,
 .google300x250BoxFooter,
 .google300x250TextDetailMiddle,
 .google300x250TextFooter,
@@ -5549,6 +5553,7 @@
 .micro_ad,
 .mid-ad-wrapper,
 .mid_ad,
+.mid_article_ad_label,
 .mid_page_ad,
 .MidAd,
 .midad,
