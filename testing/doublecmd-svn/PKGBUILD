@@ -3,13 +3,14 @@
 
 pkgbase=doublecmd-svn
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
-pkgver=4845
+pkgver=4846
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('i686' 'x86_64')
 license=('GPL')
 install="$pkgbase.install"
-provides=("$pkgbase")
+provides=('doublecmd')
+conflicts=('doublecmd')
 makedepends=('lazarus' 'qt4pas' 'gtk2' 'subversion')
 optdepends=('lua: scripting' 'p7zip: support for 7zip archives' 'libunrar: support for rar archives' 'zip: support for zip files' 'unzip: support for zip files')
 source=()
