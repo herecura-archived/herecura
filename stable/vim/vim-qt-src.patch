@@ -50,6 +50,124 @@ diff -urN vim-src/README.md vim-qt-src/README.md
 +
 +
 +
+diff -urN vim-src/README.txt.orig vim-qt-src/README.txt.orig
+--- vim-src/README.txt.orig	2012-05-03 17:45:56.000000000 +0200
++++ vim-qt-src/README.txt.orig	1970-01-01 01:00:00.000000000 +0100
+@@ -1,114 +0,0 @@
+-README.txt for version 7.3 of Vim: Vi IMproved.
+-
+-
+-
+-WHAT IS VIM
+-
+-Vim is an almost compatible version of the UNIX editor Vi.  Many new features
+-have been added: multi-level undo, syntax highlighting, command line history,
+-on-line help, spell checking, filename completion, block operations, etc.
+-There is also a Graphical User Interface (GUI) available.  See
+-"runtime/doc/vi_diff.txt" for differences with Vi.
+-
+-This editor is very useful for editing programs and other plain text files.
+-All commands are given with normal keyboard characters, so those who can type
+-with ten fingers can work very fast.  Additionally, function keys can be
+-defined by the user, and the mouse can be used.
+-
+-Vim runs under Amiga DOS, MS-DOS, MS-Windows (95, 98, Me, NT, 2000, XP, Vista,
+-7), Atari MiNT, Macintosh, BeOS, VMS, RISC OS, OS/2 and almost all flavours of
+-UNIX.  Porting to other systems should not be very difficult.
+-
+-
+-DISTRIBUTION
+-
+-There are separate distributions for Unix, PC, Amiga and some other systems.
+-This README.txt file comes with the runtime archive.  It includes the
+-documentation, syntax files and other files that are used at runtime.  To run
+-Vim you must get either one of the binary archives or a source archive.
+-Which one you need depends on the system you want to run it on and whether you
+-want or must compile it yourself.  Check "http://www.vim.org/download.php" for
+-an overview of currently available distributions.
+-
+-
+-DOCUMENTATION
+-
+-The vim tutor is a one hour training course for beginners.  Mostly it can be
+-started as "vimtutor".  See ":help tutor" for more information.
+-
+-The best is to use ":help" in Vim.  If you don't have an executable yet, read
+-"runtime/doc/help.txt".  It contains pointers to the other documentation
+-files.  The User Manual reads like a book and is recommended to learn to use
+-Vim.  See ":help user-manual".
+-
+-
+-COPYING
+-
+-Vim is Charityware.  You can use and copy it as much as you like, but you are
+-encouraged to make a donation to help orphans in Uganda.  Please read the file
+-"runtime/doc/uganda.txt" for details (do ":help uganda" inside Vim).
+-
+-Summary of the license: There are no restrictions on using or distributing an
+-unmodified copy of Vim.  Parts of Vim may also be distributed, but the license
+-text must always be included.  For modified versions a few restrictions apply.
+-The license is GPL compatible, you may compile Vim with GPL libraries and
+-distribute it.
+-
+-
+-SPONSORING
+-
+-Fixing bugs and adding new features takes a lot of time and effort.  To show
+-your appreciation for the work and motivate Bram and others to continue
+-working on Vim please send a donation.
+-
+-Since Bram is back to a paid job the money will now be used to help children
+-in Uganda.  See runtime/doc/uganda.txt.  But at the same time donations
+-increase Bram's motivation to keep working on Vim!
+-
+-For the most recent information about sponsoring look on the Vim web site:
+-
+-	http://www.vim.org/sponsor/
+-
+-
+-COMPILING
+-
+-If you obtained a binary distribution you don't need to compile Vim.  If you
+-obtained a source distribution, all the stuff for compiling Vim is in the
+-"src" directory.  See src/INSTALL for instructions.
+-
+-
+-INSTALLATION
+-
+-See one of these files for system-specific instructions:
+-README_ami.txt		Amiga
+-README_unix.txt		Unix
+-README_dos.txt		MS-DOS and MS-Windows
+-README_os2.txt		OS/2
+-README_mac.txt		Macintosh
+-README_vms.txt		VMS
+-
+-There are more README_*.txt files, depending on the distribution you used.
+-
+-
+-INFORMATION
+-
+-The latest news about Vim can be found on the Vim home page:
+-	http://www.vim.org/
+-
+-If you have problems, have a look at the Vim FAQ:
+-	http://vimdoc.sf.net/vimfaq.html
+-
+-Send bug reports to:
+-	Bram Moolenaar <Bram@vim.org>
+-
+-There are several mailing lists for Vim, see http://www.vim.org/maillist.php.
+-
+-
+-MAIN AUTHOR
+-
+-Send any other comments, patches, flowers and suggestions to:
+-
+-	Bram Moolenaar		E-mail:	Bram@vim.org
+-	Finsterruetihof 1
+-	8134 Adliswil
+-	Switzerland
 diff -urN vim-src/README_qt.txt vim-qt-src/README_qt.txt
 --- vim-src/README_qt.txt	1970-01-01 01:00:00.000000000 +0100
 +++ vim-qt-src/README_qt.txt	2012-01-26 19:03:27.000000000 +0100
@@ -232,7 +350,7 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/Makefile	2012-04-05 17:31:22.000000000 +0200
++++ vim-qt-src/src/Makefile	2012-05-18 19:58:59.000000000 +0200
 @@ -1237,6 +1237,35 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
@@ -246,12 +364,12 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +QT_LIBS1	= $(QT_LIBS)
 +QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
 +			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
-+			qt/fontdialog.cpp qt/scrollarea.cpp \
++			qt/fontdialog.cpp \
 +			qt/vimwrapper.cpp qt/tabbar.cpp
 +QT_OBJ	= objects/gui.o objects/gui_qt.o \
 +			objects/pty.o objects/gui_beval.o \
 +			objects/mainwindow.o objects/qvimshell.o objects/vimaction.o objects/qtresources.o \
-+			objects/vimscrollbar.o objects/fontdialog.o objects/scrollarea.o objects/vimwrapper.o \
++			objects/vimscrollbar.o objects/fontdialog.o objects/vimwrapper.o \
 +			objects/tabbar.o
 +
 +QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. $(QT_INCPATH)
@@ -287,7 +405,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  
  EXTRA_SRC = hangulin.c if_lua.c if_mzsch.c auto/if_perl.c if_perlsfio.c \
  	    if_python.c if_python3.c if_tcl.c if_ruby.c if_sniff.c \
-@@ -2502,6 +2531,50 @@
+@@ -2502,6 +2531,46 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
  
@@ -322,10 +440,6 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +objects/fontdialog.o: qt/fontdialog.cpp
 +	$(MOC) qt/fontdialog.h > fontdialog.moc
 +	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/fontdialog.cpp
-+
-+objects/scrollarea.o: qt/scrollarea.cpp
-+	$(MOC) qt/scrollarea.h > scrollarea.moc
-+	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/scrollarea.cpp
 +
 +objects/vimwrapper.o: qt/vimwrapper.cpp
 +	$(MOC) qt/vimwrapper.h > vimwrapper.moc
@@ -15003,8 +15117,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-04-25 16:45:17.332943226 +0200
-+++ vim-qt-src/src/configure.in	2012-04-25 16:45:19.825969921 +0200
+--- vim-src/src/configure.in	2012-05-18 19:59:37.178200284 +0200
++++ vim-qt-src/src/configure.in	2012-05-18 19:59:37.653204002 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15264,8 +15378,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-04-25 16:45:17.323943129 +0200
-+++ vim-qt-src/src/feature.h	2012-04-25 16:45:19.815969814 +0200
+--- vim-src/src/feature.h	2012-05-18 19:59:37.167200197 +0200
++++ vim-qt-src/src/feature.h	2012-05-18 19:59:37.643203924 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15390,7 +15504,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  #ifdef FEAT_WINDOWS
 diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
 --- vim-src/src/gui.h	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/gui.h	2011-08-17 18:23:57.000000000 +0200
++++ vim-qt-src/src/gui.h	2012-05-18 19:58:59.000000000 +0200
 @@ -71,7 +71,7 @@
   * On some systems scrolling needs to be done right away instead of in the
   * main loop.
@@ -15450,10 +15564,21 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
  #  endif
  # endif
  #endif
+@@ -312,6 +328,10 @@
+ 				     * The styled font variants are not used. */
+ #endif
+ 
++#ifdef FEAT_GUI_QT
++    int		char_ul_pos;        /* underline position - distance from the baseline */
++#endif
++
+ #if defined(FEAT_MENU) && !defined(FEAT_GUI_GTK)
+ # ifdef FONTSET_ALWAYS
+     GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-04-25 16:45:04.000000000 +0200
-@@ -0,0 +1,1699 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-05-18 19:58:59.000000000 +0200
+@@ -0,0 +1,1715 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15605,7 +15730,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +void
 +gui_mch_free_font(GuiFont font)
 +{
-+	free(font);
++	delete font;
 +}
 +
 +/**
@@ -15751,6 +15876,25 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	vimshell->queuePaintOp(op);
 +}
 +
++
++/**
++ * Update Vim metrics
++ */
++static void
++update_char_metrics(const QFontMetrics& metric)
++{
++	gui.char_width = metric.width("M");
++
++	// The actual linespace plus Vim's fake linespace
++	gui.char_height = metric.lineSpacing() + p_linespace;
++	if ( metric.underlinePos() >= metric.descent() ) {
++		gui.char_height += metric.underlinePos() - metric.descent() + metric.lineWidth();
++	}
++
++	gui.char_ascent = metric.ascent() + p_linespace/2 + metric.leading();
++	gui.char_ul_pos = metric.underlinePos();
++}
++
 +/**
 + * Initialise vim to use the font "font_name".  If it's NULL, pick a default
 + * font.
@@ -15774,10 +15918,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	}
 +
 +	gui.norm_font = qf;
-+	gui.char_width = metric.width("M");
-+	// The actual linespace plus Vim's fake linespace
-+	gui.char_height = metric.lineSpacing() + p_linespace;
-+	gui.char_ascent = metric.ascent() + p_linespace/2;
++	update_char_metrics(metric);
 +	vimshell->setCharWidth(gui.char_width);
 +
 +	return OK;
@@ -16148,13 +16289,9 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_adjust_charheight()
 +{
 +	QFontMetrics metric( *gui.norm_font );
-+
-+	gui.char_height = metric.lineSpacing() + p_linespace;
-+	gui.char_ascent = metric.ascent() + p_linespace/2;
-+
++	update_char_metrics(metric);
 +	return OK;
 +}
-+
 +
 +/**
 + * Return OK if the key with the termcap name "name" is supported.
@@ -16448,6 +16585,10 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	if ( op.undercurl ) { // FIXME: Refactor PaintOperation
 +		op.curlcolor = specialColor;
 +	}
++
++	// op.pos is the text baseline
++	op.pos = rect.topLeft();
++	op.pos.setY( op.pos.y() + gui.char_ascent );
 +
 +	vimshell->queuePaintOp(op);
 +}
@@ -16829,13 +16970,13 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +	switch(sb->type) {
 +	case SBAR_RIGHT:
-+		window->addScrollbarRight(widget);
++//		window->addScrollbarRight(widget);
 +		break;
 +	case SBAR_LEFT:
-+		window->addScrollbarLeft(widget);
++//		window->addScrollbarLeft(widget);
 +		break;
 +	case SBAR_BOTTOM:
-+		window->addScrollbarBottom(widget);
++//		window->addScrollbarBottom(widget);
 +		break;
 +	}
 +}
@@ -17505,106 +17646,172 @@ diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
  # ifdef FEAT_OLE
 diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 --- vim-src/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.cpp	2011-12-30 23:07:53.000000000 +0100
-@@ -0,0 +1,157 @@
++++ vim-qt-src/src/qt/fontdialog.cpp	2012-05-18 19:58:59.000000000 +0200
+@@ -0,0 +1,222 @@
 +#include "fontdialog.moc"
++
++// some of the style names which could indicate the "regular" one
++const QRegExp FontDialog::regular_rx = QRegExp("Regular|Normal|Book|Roman|Plain|Upright|Medium|Light|Sans");
 +
 +/**
 + * Custom font dialog
 + *
 + * This custom font selection dialog allows us to do
 + * things the regular one does not:
-+ * - Enforce use of fixed Pitch fonts
-+ * - Enforce font style to "Normal"
++ * - Enforce use of fixed-pitch fonts
++ * - Enforce the selected font style to "regular" style
 + *
-+ * -----------------------------------
-+ * |                |                |
-+ * |   Family       |     Font       |
-+ * |    List        |     Sizes      |
-+ * |---------------------------------|
-+ * |          Preview font           |
-+ * |_________________________________|
-+ * |                Buttons          |
-+ * |_________________________________|
++ *  ____________________________
++ * |         |       | Styles   |
++ * | Family  | Font  | ----     |
++ * |  List   | Sizes | Scripts  |
++ * |_________|_______|__________|
++ * |                            |
++ * |   Preview font text line   |
++ * |____________________________|
++ * |          OK/Cancel buttons |
++ * |____________________________|
 + *
-+ * FIXME: The dialog could use some visual improvements,
-+ *
++ * TODO:
++ *  - list non-scalable fonts after scalable
++ *  - remove the requirement to select size each time
++ * TODO?:
++ *  - allow translation of "Styles and Scripts"
++ *  - add preview of other styles
 + */
++
 +
 +FontDialog::FontDialog(QWidget *parent)
 +:QDialog(parent)
 +{
-+	QHBoxLayout *hlayout = new QHBoxLayout();
-+	QVBoxLayout *vlayout = new QVBoxLayout(this);
++	// 1. Initialize data holders
++	// fontDatabase is declared/initialized in the header file
++	regularStyle = "";      // to store the name of the "regular" style
 +
-+	sizeList = new QListWidget(this);
-+	fontList = new QListWidget(this);
++	// 2. Construct all widgets and layouts
++	vlayout  = new QVBoxLayout(this);     //top layout
++	hlayout  = new QHBoxLayout();           //inside vlayout
++	// font family and size lists (with selectable items)
++	fontList = new QListWidget(this);     //top sub-widget 1
++	sizeList = new QListWidget(this);     //top sub-widget 2
 +
-+	// Populate fonts list
-+	foreach (const QString &family, fontDatabase.families()) {
-+		if ( !fontDatabase.isFixedPitch(family) ) {
-+			continue;
++	// style and writing info: three Labels wrapped in GroupBox and ScrollArea
++	scrollInfo   = new QScrollArea(this); //top sub-widget 3
++	groupboxInfo = new QGroupBox("Styles and Scripts", scrollInfo);
++	vlayoutInfo  = new QVBoxLayout(groupboxInfo);  //inside groupboxInfo
++
++	styleInfo     = new QLabel(groupboxInfo);
++	separatorInfo = new QLabel(groupboxInfo);
++	writingInfo   = new QLabel(groupboxInfo);
++
++	// font preview line
++	preview = new QLineEdit(this);        //top sub-widget 4
++	// dialog buttons
++	buttons = new QDialogButtonBox( QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);   //top sub-widget 5
++
++
++	// 3. Nest and connect widgets and layouts, set formatting details
++	// font family list
++	foreach (QString family, fontDatabase.families()) {
++		if ( fontDatabase.isFixedPitch(family) ) {
++			QListWidgetItem *item = new QListWidgetItem(fontList);
++			item->setText(family);
 +		}
-+
-+		QListWidgetItem *item = new QListWidgetItem(fontList);
-+		item->setText(family);
 +	}
-+	
++	fontList->setMinimumWidth(80);  // to reduce stretching
 +	connect(fontList, SIGNAL(itemSelectionChanged()),
 +			this, SLOT(updateFonts()));
-+
++	hlayout->addWidget(fontList,5);
++	// font size list (filled later in updateFonts())
++	sizeList->setMinimumWidth(40);  // to reduce stretching
++	sizeList->setMaximumWidth(60);
 +	connect(sizeList, SIGNAL(itemSelectionChanged()),
 +			this, SLOT(fontSelected()));
-+
-+
-+	// Dialog buttons
-+	buttons = new QDialogButtonBox( QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
++	hlayout->addWidget(sizeList,1);
++	// font family info: styles, separator, scripts (see updateFonts())
++	// styles
++	styleInfo->setWordWrap(true);
++	styleInfo->setAlignment(Qt::AlignTop);
++	vlayoutInfo->addWidget(styleInfo);
++	// separator
++	separatorInfo->setFrameStyle(QFrame::HLine);
++	vlayoutInfo->addWidget(separatorInfo);
++	// scripts (writing systems)
++	writingInfo->setWordWrap(true);
++	vlayoutInfo->addWidget(writingInfo);
++	groupboxInfo->setLayout(vlayoutInfo);
++	scrollInfo->setWidget(groupboxInfo);
++	scrollInfo->setWidgetResizable(true);
++	scrollInfo->setFocusPolicy(Qt::NoFocus);
++	scrollInfo->setMinimumWidth(80);  // to reduce stretching
++	hlayout->addWidget(scrollInfo,5);
++	vlayout->addLayout(hlayout);
++	// font preview line
++	preview->setText("The quick brown fox jumps over the lazy dog");
++	preview->setAlignment(Qt::AlignCenter | Qt::AlignBottom);
++	preview->setEnabled(false);
++	preview->setMinimumHeight(40);  // to reduce vertical resizing
++	vlayout->addWidget(preview);
++	// dialog OK and Cancel buttons
 +	buttons->button(QDialogButtonBox::Ok)->setEnabled(false);
 +
-+	connect( buttons->button(QDialogButtonBox::Ok), SIGNAL(clicked()), 
++	connect( buttons->button(QDialogButtonBox::Ok), SIGNAL(clicked()),
 +			this, SLOT(accept()));
-+	connect( buttons->button(QDialogButtonBox::Cancel), SIGNAL(clicked()), 
++	connect( buttons->button(QDialogButtonBox::Cancel), SIGNAL(clicked()),
 +			this, SLOT(reject()));
-+
-+	// preview
-+	preview = new QLineEdit(this);
-+	preview->setText("The quick brown fox jumps over the lazy dog");
-+	preview->setAlignment(Qt::AlignCenter);
-+	preview->setEnabled(false);
-+
-+	hlayout->addWidget(fontList);
-+	hlayout->addWidget(sizeList);
-+	vlayout->addLayout(hlayout);
-+	vlayout->addWidget(preview);
 +	vlayout->addWidget(buttons);
 +
 +	this->setLayout(vlayout);
 +}
 +
++/** update the list of sizes available for the given family
++ *  and the name of the "regular" style in regularStyle
++ *  and the styleInfo
++ */
 +
 +void FontDialog::updateFonts()
 +{
 +	sizeList->clear();
-+	QStringList sizes;
 +
-+	QListWidgetItem *current = fontList->currentItem();
-+
-+	if ( current == NULL ) {
++	QString family;
++	if ( fontList->currentItem() == NULL ) {
 +		return;
++	} else {
++		family = fontList->currentItem()->text();
 +	}
 +
-+	QList<int> fsizes = fontDatabase.smoothSizes(current->text(), "Normal");
++	QStringList styles = fontDatabase.styles(family);
++	// try to guess which of the styles is the "regular" one
++	//int match_idx = styles.indexOf(QRegExp("Regular|Normal|Book|Roman|Plain|Upright|Medium|Light|Sans"));
++	int match_idx = styles.indexOf(regular_rx);
++	regularStyle = match_idx == -1 ? styles.at(0) : styles.at(match_idx);
++
++	// offer sizes for the regular style
++	QList<int> fsizes = fontDatabase.smoothSizes(family, regularStyle);
 +	if ( fsizes.isEmpty() ) {
-+		fsizes = fontDatabase.pointSizes(current->text(), "Normal");
++		fsizes = fontDatabase.pointSizes(family, regularStyle);
 +	}
++	// or simply all sizes(?), if the above fails
 +	if ( fsizes.isEmpty() ) {
 +		fsizes = fontDatabase.standardSizes();
 +	}
 +
++	// fill the size list for the selected family
 +	foreach ( int points, fsizes ) {
 +		QListWidgetItem *item = new QListWidgetItem(sizeList);
 +		item->setText(QString::number(points));
 +	}
++
++	// scripts (writing systems) supported by the family
++	QString wsystems = "";
++	foreach ( const QFontDatabase::WritingSystem &writing, fontDatabase.writingSystems(family) ) {
++	    wsystems += fontDatabase.writingSystemName(writing) + ", ";
++	}
++	wsystems.chop(2);   // no trailing comma
++
++	// update the info widgets, buttons and preview
++	styleInfo->setText(styles.join("\n") );
++	writingInfo->setText(wsystems);
 +
 +	buttons->button(QDialogButtonBox::Ok)->setEnabled(false);
 +	preview->setEnabled(false);
@@ -17622,7 +17829,7 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +	buttons->button(QDialogButtonBox::Ok)->setEnabled(true);
 +
 +	QFont f = fontDatabase.font( currentF->text(),
-+			"Normal", currentS->text().toInt());
++			regularStyle, currentS->text().toInt());
 +	preview->setFont(f);
 +	preview->setEnabled(true);
 +}
@@ -17663,11 +17870,10 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +	}
 +}
 +
-+
 diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 --- vim-src/src/qt/fontdialog.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.h	2012-01-26 19:03:27.000000000 +0100
-@@ -0,0 +1,28 @@
++++ vim-qt-src/src/qt/fontdialog.h	2012-05-18 19:58:59.000000000 +0200
+@@ -0,0 +1,41 @@
 +#ifndef __VIM_QT_FONTDIALOG__
 +#define __VIM_QT_FONTDIALOG__
 +
@@ -17688,11 +17894,24 @@ diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 +	void fontSelected();
 +
 +private:
-+	QListWidget *fontList;
-+	QListWidget *sizeList;
++	// layouts and widgets
++	QHBoxLayout   *hlayout;
++	QVBoxLayout   *vlayout;
++	QVBoxLayout   *vlayoutInfo;
++	QListWidget   *fontList;
++	QListWidget   *sizeList;
 +	QDialogButtonBox *buttons;
-+	QLineEdit *preview;
++	QLineEdit     *preview;
++	QScrollArea   *scrollInfo;
++	QGroupBox     *groupboxInfo;
++	QLabel        *styleInfo;
++	QLabel        *writingInfo;
++	QLabel        *separatorInfo;
++	// data
 +	QFontDatabase fontDatabase;
++	QString       regularStyle;
++	// constants
++	static const  QRegExp regular_rx;
 +};
 +
 +#endif
@@ -17752,12 +17971,12 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2012-04-21 23:29:37.000000000 +0200
-@@ -0,0 +1,222 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2012-05-18 19:58:59.000000000 +0200
+@@ -0,0 +1,221 @@
 +#include "mainwindow.moc"
 +
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
-+:QMainWindow(parent), m_keepTabbar(false), scrollArea(0)
++:QMainWindow(parent), m_keepTabbar(false)
 +{
 +	setWindowIcon(QIcon(":/icons/vim-qt.png"));
 +	setContextMenuPolicy(Qt::PreventContextMenu);
@@ -17766,20 +17985,16 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	menutoolbar = addToolBar("Menu");
 +	menutoolbar->setObjectName("menu");
 +	menutoolbar->setAllowedAreas(Qt::BottomToolBarArea | Qt::TopToolBarArea);
-+	menu = new QMenuBar(menutoolbar);
++	menu = new QMenuBar();
 +	menutoolbar->addWidget(menu);
 +
 +	// Tool bar
 +	toolbar = addToolBar("ToolBar");
 +	toolbar->setObjectName("toolbar");
 +
-+	scrollArea = new ScrollArea(this);
-+	setCentralWidget( scrollArea );
-+
 +	// Vim shell
-+	vimshell = new QVimShell( scrollArea );
-+	vimshell->setFocus();
-+	scrollArea->setWidget(vimshell);
++	vimshell = new QVimShell();
++	setCentralWidget(vimshell);
 +
 +	// TabLine
 +	tabtoolbar = addToolBar("tabline");
@@ -17811,6 +18026,9 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +			this, SLOT(switchTab(int)));
 +	connect( newTab, SIGNAL(triggered()),
 +			this, SLOT(openNewTab()));
++
++
++	vimshell->setFocus();
 +}
 +
 +void MainWindow::tabMoved(int from, int to)
@@ -17978,14 +18196,13 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2012-04-05 17:31:22.000000000 +0200
-@@ -0,0 +1,63 @@
++++ vim-qt-src/src/qt/mainwindow.h	2012-05-18 19:58:59.000000000 +0200
+@@ -0,0 +1,57 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
 +#include <QtGui>
 +#include "qvimshell.h"
-+#include "scrollarea.h"
 +#include "tabbar.h"
 +
 +class MainWindow: public QMainWindow
@@ -18003,10 +18220,6 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +	bool keepTabbar();
 +
 +	bool restoreState(const QByteArray& state, int version=0);
-+
-+	void addScrollbarRight(VimScrollBar *b) { scrollArea->addScrollbarRight(b); }
-+	void addScrollbarBottom(VimScrollBar *b) { scrollArea->addScrollbarBottom(b); }
-+	void addScrollbarLeft(VimScrollBar *b) { scrollArea->addScrollbarLeft(b); }
 +
 +public slots:
 +	void showTabline(bool show);
@@ -18039,7 +18252,6 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +	QMenuBar *menu;
 +
 +	bool m_keepTabbar;
-+	ScrollArea *scrollArea;
 +};
 +
 +#endif
@@ -18069,8 +18281,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-04-25 16:45:04.000000000 +0200
-@@ -0,0 +1,1330 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-05-18 19:58:59.000000000 +0200
+@@ -0,0 +1,1314 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18323,7 +18535,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::drawStringSlow( const PaintOperation& op, QPainter &painter )
 +{
 +	QFont f = op.font;
-+	f.setUnderline(op.undercurl);
 +	painter.setFont(f);
 +	painter.setPen( op.color );
 +
@@ -18338,9 +18549,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			continue;
 +		}
 +
-+		if ( c != ' ' ) {
-+			painter.drawText(rect, Qt::TextSingleLine, c);
-+		}
++		QPoint pos = op.pos;
++		pos.setX(rect.left());
++		painter.drawText(pos, c);
 +		rect.moveTo( rect.x() + rect.width(), rect.y() );
 +	}
 +}
@@ -18352,43 +18563,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::drawString( const PaintOperation& op, QPainter &painter)
 +{
 +	painter.setPen( op.color );
-+
-+	QTextLayout l(op.str);
-+	QTextOption opt;
-+	opt.setWrapMode(QTextOption::WrapAnywhere);
-+
-+	l.setTextOption(opt);
-+	l.setFont(op.font);
-+
-+	if (op.undercurl) {
-+		QTextCharFormat charFormat;
-+		charFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-+		charFormat.setUnderlineColor(op.curlcolor);
-+
-+		QTextLayout::FormatRange format;
-+		format.start = 0;
-+		format.length = op.str.size();
-+		format.format = charFormat;
-+
-+		QList<QTextLayout::FormatRange> list;
-+		list.append(format);
-+		l.setAdditionalFormats(list);
-+	}
-+
-+	l.beginLayout();
-+	QTextLine line = l.createLine();
-+	line.setNumColumns(op.str.size());
-+	l.endLayout();
-+	l.draw(&painter, op.rect.topLeft());
-+
-+	//
-+	// An error of one pixel seems to be insignificant. We tolerate this here
-+	// but the painter is clipped anyway.
-+	int miss = l.maximumWidth() - QFontMetrics(op.font).width(op.str);
-+	if( miss  > 1 || miss < -1 ) {
-+		qDebug() << __func__ << "rect mismatch, this is serious, please poke a developer about this" 
-+			<< l.maximumWidth() << QFontMetrics(op.font).width(op.str) << op.str << op.str.size() << op.font;
-+	}
++	painter.setFont(op.font);
++	painter.drawText( op.pos, op.str);
 +}
 +
 +void QVimShell::flushPaintOps()
@@ -18411,12 +18587,32 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			break;
 +		case DRAWSTRING:
 +			painter.setClipRect(op.rect);
++
++			// Disable underline if undercurl is in place
++			if (op.undercurl && op.font.underline()) {
++				op.font.setUnderline(false);
++			}
++
 +			if ( m_slowStringDrawing ) {
 +				drawStringSlow(op, painter);
 +			} else if ( op.str.length() != VimWrapper::stringCellWidth(op.str) ) {
 +				drawStringSlow(op, painter);
 +			} else {
 +				drawString(op, painter);
++			}
++
++			// Draw undercurl
++			// FIXME: we are doing it wrong - the underlinePos needs
++			// to be stored someplace else
++			if (op.undercurl) {
++				QPoint start(op.rect.bottomLeft());
++				start.setY(op.pos.y() + 1 + gui.char_ul_pos );
++				QPoint end(start);
++				end.setX(op.rect.right());
++
++				QPen pen(op.curlcolor, 1, Qt::DashDotDotLine);
++				painter.setPen(pen);
++				painter.drawLine(QLine(start, end));
 +			}
 +
 +			break;
@@ -19560,178 +19756,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +    /* End of list marker: */
 +    {0, 0, 0}
-+};
-+
-+#endif
-diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
---- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.cpp	2011-09-30 17:24:26.000000000 +0200
-@@ -0,0 +1,126 @@
-+#include "scrollarea.moc"
-+
-+
-+/**
-+ * The scroll area is a 3x3 grid to place
-+ * multipla scrollbars around a central widget
-+ *
-+ * ----------------------
-+ * |  |     North     |  |
-+ * |--|--------------|---|
-+ * |W |               |E |
-+ * |e |               |a |
-+ * |s |               |s |
-+ * |t |               |t |
-+ * |--|---------------|--|
-+ * |  |    South      |  |
-+ * |__|_______________|__|
-+ *
-+ * Each edge is a vertical/horizontal
-+ * box layout.
-+ */
-+ScrollArea::ScrollArea(QWidget *parent)
-+:m_widget(0)
-+{
-+	// Grid layout
-+	m_layout = new QGridLayout(this);
-+	m_layout->setSpacing(0);
-+	m_layout->setContentsMargins(0, 0, 0, 0);
-+
-+	// Edge layouts
-+	north = new QHBoxLayout();
-+	north->setSpacing(0);
-+	south = new QHBoxLayout();
-+	south->setSpacing(0);
-+	west = new QVBoxLayout();
-+	west->setSpacing(0);
-+	east = new QVBoxLayout();
-+	east->setSpacing(0);
-+
-+	m_layout->addLayout(north, 0, 1);
-+	m_layout->addLayout(south, 2, 1);
-+	m_layout->addLayout(west, 1, 0);
-+	m_layout->addLayout(east, 1, 2);
-+}
-+
-+void ScrollArea::setWidget(QWidget *w)
-+{
-+	m_widget = w;
-+
-+	m_widget->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-+	m_layout->addWidget(m_widget, 1, 1);
-+}
-+
-+void ScrollArea::layoutEdge(QBoxLayout *edge)
-+{
-+	QLayoutItem *item;
-+	QLayoutItem *w;
-+	QList<VimScrollBar*> bars;
-+	int i;
-+
-+	while ( (item = edge->takeAt(0)) ) {
-+		bars.append( static_cast<VimScrollBar*>(item->widget()) );
-+		delete item;
-+	}
-+
-+	qSort(bars.begin(), bars.end(), scrollBarLessThan);
-+	foreach( VimScrollBar *b, bars ) {
-+		edge->addWidget(b, b->length());
-+	}
-+
-+	// Fix stretch for last item
-+	if ( edge->expandingDirections() == Qt::Vertical ) {
-+		edge->setStretch(-1, edge->stretch(-1) + (height() % gui.char_height ));
-+	}
-+}
-+
-+void ScrollArea::layoutEast()
-+{
-+	layoutEdge(east);
-+}
-+
-+void ScrollArea::layoutWest()
-+{
-+	layoutEdge(west);
-+}
-+
-+void ScrollArea::layoutSouth()
-+{
-+	layoutEdge(south);
-+}
-+
-+void ScrollArea::addScrollbarRight(VimScrollBar *b)
-+{
-+	connect(b, SIGNAL(indexChanged(int)),
-+			this, SLOT(layoutEast()));
-+	connect(b, SIGNAL(visibilityChanged(bool)),
-+			this, SLOT(layoutEast()));
-+	east->addWidget(b);
-+	//layoutEdge(east);
-+}
-+
-+void ScrollArea::addScrollbarBottom(VimScrollBar *b)
-+{
-+	connect(b, SIGNAL(indexChanged(int)),
-+			this, SLOT(layoutSouth()));
-+	connect(b, SIGNAL(visibilityChanged(bool)),
-+			this, SLOT(layoutSouth()));
-+	south->addWidget(b);
-+	//layoutEdge(south);
-+}
-+
-+void ScrollArea::addScrollbarLeft(VimScrollBar *b)
-+{
-+	connect(b, SIGNAL(indexChanged(int)),
-+			this, SLOT(layoutWest()));
-+	connect(b, SIGNAL(visibilityChanged(bool)),
-+			this, SLOT(layoutWest()));
-+	west->addWidget(b);
-+	//layoutEdge(west);
-+}
-+
-+bool ScrollArea::scrollBarLessThan(const VimScrollBar *b1, const VimScrollBar *b2)
-+{
-+	return (b1->index() < b2->index());
-+}
-+
-diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
---- vim-src/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.h	2012-01-26 19:03:27.000000000 +0100
-@@ -0,0 +1,38 @@
-+#ifndef __GUI_QT_SCROLLAREA__
-+#define __GUI_QT_SCROLLAREA__
-+
-+#include <QtGui>
-+#include "vimscrollbar.h"
-+
-+class ScrollArea: public QWidget
-+{
-+	Q_OBJECT
-+public:
-+	ScrollArea(QWidget *parent=0);
-+	void setWidget(QWidget *);
-+
-+	void addScrollbarRight(VimScrollBar *);
-+	void addScrollbarBottom(VimScrollBar *);
-+	void addScrollbarLeft(VimScrollBar *);
-+
-+	static bool scrollBarLessThan(const VimScrollBar *, const VimScrollBar *);
-+
-+protected slots:
-+	void layoutEast();
-+	void layoutWest();
-+	void layoutSouth();
-+
-+protected:
-+	void layoutEdge(QBoxLayout *);
-+
-+private:
-+	QWidget *m_widget;
-+	QGridLayout *m_layout;
-+
-+	QHBoxLayout *north;
-+	QHBoxLayout *south;
-+	QVBoxLayout *east;
-+	QVBoxLayout *west;
 +};
 +
 +#endif
