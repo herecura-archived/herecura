@@ -1,7 +1,7 @@
 /*
-! Checksum: zUsuGmr1fnljrcqmLua8KQ
+! Checksum: gVTx5F4vzZVmWxJX2CBxQg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 17 May 2012
+! Version: V4 Updated: 18 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -128,6 +128,7 @@
 #ad-horizontal-header,
 #ad-inner,
 #ad-label,
+#ad-label2,
 #ad-lb,
 #ad-lb-secondary,
 #ad-leader,
@@ -799,6 +800,10 @@
 #adlink,
 #adlinks,
 #adlinkws,
+#adLocation-1,
+#adLocation-2,
+#adLocation-3,
+#adLocation-4,
 #adlove,
 #adlrec,
 #adLrec,
@@ -2387,7 +2392,6 @@
 #openx_iframe,
 #OpenXAds,
 #osads_300,
-#outbrain-paid,
 #outbrain_vertical,
 #outerAd300,
 #outerTwrAd,
@@ -4082,7 +4086,6 @@
 .ads_by_tico,
 .ads_catDivRight,
 .ads_disc_skyscraper,
-.ads_div,
 .ads_entrymore,
 .ads_folat_left,
 .ads_footer,
@@ -5004,6 +5007,9 @@
 .div_advertisement,
 .div_banner468,
 .divAd,
+.divAdsBanner,
+.divAdsLeft,
+.divAdsRight,
 .divAdvTopRight,
 .divGoogleAdsTop,
 .divRepAd,
@@ -5064,6 +5070,7 @@
 .fold-ads,
 .foot-ad,
 .foot-advertisement,
+.foot_adsense,
 .footer-300-ad,
 .footer-ad,
 .footer-ad-section,
@@ -5684,8 +5691,6 @@
 .osan-ads,
 .OSOasAdModule,
 .otj_adspot,
-.outbrain_ad_li,
-.outbrain_dual_ad_class,
 .outbrain_ul_ad_top,
 .outerAd_300x250_1,
 .outside_ad,
