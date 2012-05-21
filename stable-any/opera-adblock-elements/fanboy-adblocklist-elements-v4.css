@@ -1,7 +1,7 @@
 /*
-! Checksum: lUHL7ZO9zvq9mzpWvJGB0g
+! Checksum: Ad+NGHiRARgnn2fiDawKTA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 May 2012
+! Version: V4 Updated: 20 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -382,6 +382,7 @@
 #ad_bellow_post,
 #ad_bigbox,
 #ad_bigbox_companion,
+#ad_billboard,
 #Ad_Block,
 #ad_block,
 #ad_block_1,
@@ -1565,6 +1566,8 @@
 #button-ads,
 #button-ads-horizontal,
 #ButtonAd,
+#buttonad-widget-3,
+#buttonad-widget-4,
 #buysellads-4x1,
 #c4_ad,
 #c4ad-Middle1,
@@ -2217,6 +2220,7 @@
 #link_ads,
 #linkads,
 #linkAds,
+#linkAdSingle,
 #listadholder,
 #listing-ad,
 #LittleAdvert,
@@ -2468,7 +2472,6 @@
 #premiumads,
 #premSpons,
 #preroll_compainion_ad,
-#PreRollAd,
 #prime-ad-space,
 #print_ads,
 #privateadbox,
@@ -3202,6 +3205,7 @@
 .ad-bordered,
 .ad-bottom,
 .ad-box,
+.ad-box-300x250,
 .ad-box-container,
 .ad-box1,
 .ad-box2,
@@ -4649,6 +4653,7 @@
 .articleEmbeddedAdBox,
 .articleflex-container,
 .ArticleInlineAd,
+.attachment-sidebar_ad,
 .aux-ad-widget-1,
 .aux-ad-widget-2,
 .b-ads728,
@@ -5158,6 +5163,7 @@
 .google-ads,
 .google-ads-boxout,
 .google-ads-obj,
+.google-ads-right,
 .google-ads-rodape,
 .google-ads-sidebar,
 .google-ads-slim,
@@ -5755,6 +5761,7 @@
 .post_ad,
 .post_advert,
 .post_sponsor_unit,
+.postad,
 .postads,
 .poster_ad,
 .ppp_interior_ad,
@@ -6420,6 +6427,7 @@
 .wahAd,
 .wahAdRight,
 .wantads,
+.wazi-ad-link,
 .wdp_adDiv,
 .weatherad,
 .webad-cnt,
