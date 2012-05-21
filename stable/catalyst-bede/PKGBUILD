@@ -26,7 +26,6 @@ install="$pkgname.install"
 source=(
 	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
 	'makefile_compat.patch'
-	'3.2.8.patch'
 	'34.patch'
 )
 
@@ -56,7 +55,6 @@ build() {
 	cd "$srcdir/archive_files/"
 
 	patch -Np1 -i "$srcdir/makefile_compat.patch"
-	#patch -Np1 -i "$srcdir/3.2.8.patch"
 	(
 		cd common/lib/modules/fglrx/build_mod/
 		patch -Np1 -i "$srcdir/34.patch"
