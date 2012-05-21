@@ -4,24 +4,26 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.1.14
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('libstdc++5' 'bin86' 'dev86' 'iasl' 'libxslt' 'libxml2' 'libpng' 'libidl2' 'xalan-c' 'sdl' 'linux-bede>=3.3' 'linux-bede<3.4' 'linux-bede-headers>=3.3' 'linux-bede-headers<3.4')
+makedepends=('libstdc++5' 'bin86' 'dev86' 'iasl' 'libxslt' 'libxml2' 'libpng' 'libidl2' 'xalan-c' 'sdl' 'linux-bede>=3.4' 'linux-bede<3.5' 'linux-bede-headers>=3.4' 'linux-bede-headers<3.5')
 [[ $CARCH == "x86_64" ]] && makedepends=("${makedepends[@]}" 'gcc-multilib' 'lib32-glibc')
 source=(
 	"http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}.tar.bz2"
 	'LocalConfig.kmk'
 	'60-vboxguest.rules'
+	'linux34.patch'
 )
 md5sums=(
 	'f8baa04e6d589bc6b1fb4e7079fbe414'
 	'4c88bd122677a35f68abd76eb01b378b'
 	'ed1341881437455d9735875ddf455fbe'
+	'29ae9b90c26d2ce6919710228dbc5def'
 )
 
-_extramodules=3.3-BEDE-external
+_extramodules=3.4-BEDE-external
 
 build() {
 	_kernver="$(cat /lib/modules/${_extramodules}/version)"
@@ -30,6 +32,8 @@ build() {
 	export KERN_INCL=/usr/src/linux-${_kernver}/include/
 
     cd "$srcdir/VirtualBox-${pkgver}"
+
+	patch -Np1 -i "$srcdir/linux34.patch"
 
     cp "$srcdir/LocalConfig.kmk" .
 
@@ -57,7 +61,7 @@ package_virtualbox-modules-bede-host(){
 	pkgdesc="Kernel modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
-    depends=('linux-bede>=3.3' 'linux-bede<3.4')
+    depends=('linux-bede>=3.4' 'linux-bede<3.5')
 	provides=("virtualbox-modules=${pkgver}")
 
     source "$srcdir/VirtualBox-${pkgver}/env.sh"
@@ -79,7 +83,7 @@ package_virtualbox-modules-bede-guest(){
 	pkgdesc="Additions only for Arch Linux guests (kernel modules) (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
-    depends=('linux-bede>=3.3' 'linux-bede<3.4')
+    depends=('linux-bede>=3.4' 'linux-bede<3.5')
 	provides=("virtualbox-archlinux-modules=${pkgver}")
 
     source "$srcdir/VirtualBox-${pkgver}/env.sh"
