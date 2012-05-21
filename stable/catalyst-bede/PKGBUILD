@@ -8,17 +8,17 @@
 # Contributor: OvsInc
 
 _pkgname=catalyst
-_extramodules=3.3-BEDE-external
+_extramodules=3.4-BEDE-external
 
 pkgname=$_pkgname-bede
 pkgver=12.4
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-depends=('linux-bede>=3.3' 'linux-bede<3.4' "catalyst-utils=$pkgver")
-makedepends=("catalyst-utils=$pkgver" 'linux-bede>=3.3' 'linux-bede<3.4' 'linux-bede-headers>=3.3' 'linux-bede-headers<3.4')
+depends=('linux-bede>=3.4' 'linux-bede<3.5' "catalyst-utils=$pkgver")
+makedepends=("catalyst-utils=$pkgver" 'linux-bede>=3.4' 'linux-bede<3.5' 'linux-bede-headers>=3.4' 'linux-bede-headers<3.5')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri')
 provides=('catalyst')
 install="$pkgname.install"
@@ -27,12 +27,14 @@ source=(
 	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
 	'makefile_compat.patch'
 	'3.2.8.patch'
+	'34.patch'
 )
 
 md5sums=(
 	'e57d65cb9c9fa470d6d80072d5ab2785'
 	'3e1b82bd69774ea808da69c983d6a43b'
 	'32c8142c73dcfed5db426f494feda9e3'
+	'a09e2916da3ff2b4ea9b0ad8cb52babe'
 )
 
 build() {
@@ -54,7 +56,11 @@ build() {
 	cd "$srcdir/archive_files/"
 
 	patch -Np1 -i "$srcdir/makefile_compat.patch"
-	patch -Np1 -i "$srcdir/3.2.8.patch"
+	#patch -Np1 -i "$srcdir/3.2.8.patch"
+	(
+		cd common/lib/modules/fglrx/build_mod/
+		patch -Np1 -i "$srcdir/34.patch"
+	)
 
 	###--- cut ---### ati's code from their make.sh file
 
