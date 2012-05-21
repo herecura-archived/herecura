@@ -1,0 +1,13 @@
+--- src/wl/sys/wl_linux.c	2011-10-22 18:56:55.000000000 +0200
++++ src/wl/sys/wl_linux.c.new	2012-05-21 19:54:25.655721799 +0200
+@@ -39,8 +39,9 @@
+ #include <linux/completion.h>
+ #include <linux/pci_ids.h>
+ #define WLC_MAXBSSCFG		1	
+-
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,4,0)
+ #include <asm/system.h>
++#endif
+ #include <asm/io.h>
+ #include <asm/irq.h>
+ #include <asm/pgtable.h>
