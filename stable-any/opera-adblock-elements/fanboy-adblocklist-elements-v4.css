@@ -1,7 +1,7 @@
 /*
-! Checksum: ehCACVukSesEkN7DtHefiw
+! Checksum: P+cwOD2hhrZrroTwlk2b3Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 May 2012
+! Version: V4 Updated: 23 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -699,6 +699,7 @@
 #adcode2,
 #adcode3,
 #adcode4,
+#adcol,
 #AdColumn,
 #adcolumn,
 #adcolumnwrapper,
@@ -1495,6 +1496,7 @@
 #body_728_ad,
 #body_ad,
 #botad,
+#botads2,
 #bottom-728-ad,
 #bottom-ad,
 #bottom-ad-tray,
@@ -1712,6 +1714,7 @@
 #div_ad_holder,
 #div_content_mid_lft_ads,
 #div_googlead,
+#div_prerollAd_1,
 #div_side_big_ad,
 #divAd,
 #DivAd,
@@ -2340,6 +2343,7 @@
 #mpuContainer,
 #mpuholder,
 #mpuInContent,
+#mpuSecondary,
 #mpuSlot,
 #mpuWrapperAd,
 #mpuWrapperAd2,
@@ -2478,6 +2482,7 @@
 #privateadbox,
 #privateads,
 #product-adsense,
+#profileAdHeader,
 #proj-bottom-ad,
 #promo_ads,
 #promoAds,
@@ -2485,6 +2490,7 @@
 #publicidad,
 #pulse360_1,
 #pushdown_ad,
+#pushdownAdWrapper,
 #qaSideAd,
 #quidgetad,
 #quigo,
@@ -2511,6 +2517,7 @@
 #refine-300-ad,
 #refine-ad,
 #refreshable_ad5,
+#refreshable_ad6_w,
 #region-node-advert,
 #region-top-ad,
 #reklama,
@@ -2648,6 +2655,7 @@
 #serveAd3,
 #servfail-ads,
 #sew-ad1,
+#sgAdHeader,
 #show-player-right-ad,
 #show_ads,
 #showAd,
@@ -2724,6 +2732,7 @@
 #site-leaderboard-ads,
 #site-sponsors,
 #site_top_ad,
+#siteAdHeader,
 #skcolAdSky,
 #sky-ad,
 #sky-left,
@@ -4809,6 +4818,7 @@
 .bottom-ad-placeholder,
 .bottom-ad2,
 .bottom-ads,
+.bottom-ads728,
 .bottom_ad,
 .bottom_ad_block,
 .bottom_adbreak,
@@ -5006,6 +5016,7 @@
 .dart-medsquare,
 .dart_ad,
 .dartad,
+.dartAd300,
 .dartAd491,
 .dartadbanner,
 .dartAdImage,
@@ -5589,6 +5600,7 @@
 .MidAd,
 .midad,
 .middle-ad,
+.middle-ads728,
 .middleAd,
 .MiddleAd,
 .MiddleAdContainer,
@@ -5993,6 +6005,7 @@
 .side-ads,
 .side-ads-block,
 .side-ads-wide,
+.side-ads300,
 .side-bar-ad-position1,
 .side-bar-ad-position2,
 .side_ad,
