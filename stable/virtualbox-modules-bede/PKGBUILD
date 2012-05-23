@@ -3,8 +3,8 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=4.1.14
-pkgrel=3
+pkgver=4.1.16
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -14,13 +14,13 @@ source=(
 	"http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}.tar.bz2"
 	'LocalConfig.kmk'
 	'60-vboxguest.rules'
-	'linux34.patch'
+	'modprobe-virtualbox-modules-bede-host'
 )
 md5sums=(
-	'f8baa04e6d589bc6b1fb4e7079fbe414'
+	'eacfb802ecdd6d3435228eb3d3488719'
 	'4c88bd122677a35f68abd76eb01b378b'
 	'ed1341881437455d9735875ddf455fbe'
-	'29ae9b90c26d2ce6919710228dbc5def'
+	'f2200ed91b6ec089d16cc3ada5418c73'
 )
 
 _extramodules=3.4-BEDE-external
@@ -32,8 +32,6 @@ build() {
 	export KERN_INCL=/usr/src/linux-${_kernver}/include/
 
     cd "$srcdir/VirtualBox-${pkgver}"
-
-	patch -Np1 -i "$srcdir/linux34.patch"
 
     cp "$srcdir/LocalConfig.kmk" .
 
@@ -73,6 +71,10 @@ package_virtualbox-modules-bede-host(){
         install -D -m644 ${module} \
             "$pkgdir/lib/modules/${_extramodules}/vbox/${module}"
     done
+
+	# install config file in modprobe.d for out of the box experience
+	install -Dm644 "$srcdir/modprobe-virtualbox-modules-bede-host" \
+		"$pkgdir/usr/lib/modprobe.d/virtualbox-modules-bede-host.conf"
 
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 
