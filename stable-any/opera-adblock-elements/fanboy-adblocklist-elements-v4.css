@@ -1,7 +1,7 @@
 /*
-! Checksum: 32Qmi2LytaF12CWBqC4FHA
+! Checksum: dhI7G0bM+CWy3D4LgTqRTQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 May 2012
+! Version: V4 Updated: 25 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -471,6 +471,7 @@
 #ad_img_banner,
 #ad_in_arti,
 #ad_infoboard_box,
+#ad_inplace_1,
 #ad_interestmatch,
 #ad_interestmatch400,
 #ad_island,
@@ -1124,6 +1125,7 @@
 #adsProdHighlight_wrap,
 #adSqb,
 #adsquare,
+#adsquare2,
 #adss,
 #adsSPRBlock,
 #adstext2,
@@ -5007,6 +5009,7 @@
 .custom_ads,
 .custom_banner_ad,
 .custom_footer_ad,
+.customized_ad_module,
 .cwAdvert,
 .cxAdvertisement,
 .darla_ad,
@@ -5895,6 +5898,7 @@
 .rightAdBox,
 .rightads,
 .rightAdvert,
+.rightadvertisement,
 .rightbox_content_ads,
 .rightboxad,
 .rightboxads,
