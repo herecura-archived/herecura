@@ -1,7 +1,7 @@
 /*
-! Checksum: EG/mM13Ue/49bd5xLHlLrg
+! Checksum: iweuvhO1uVXQtZwhhogUog
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 May 2012
+! Version: V4 Updated: 28 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1278,6 +1278,7 @@
 #advertisements,
 #advertisements_sidebar,
 #advertiserLinks,
+#advertisetop,
 #advertising-160x600,
 #advertising-300x250,
 #advertising-728x90,
@@ -2316,6 +2317,7 @@
 #memberad,
 #menuad,
 #menuAds,
+#mgid-container,
 #mhheader_ad,
 #mi_story_assets_ad,
 #microsoft_ad,
@@ -2558,6 +2560,7 @@
 #reklama_left_body,
 #reklama_left_up,
 #reklama_right_up,
+#related_ad,
 #related_ads,
 #related_ads_box,
 #relocation_ad_container,
@@ -3221,6 +3224,7 @@
 .ad-300x250,
 .ad-300x250-first,
 .ad-300x250-home,
+.ad-300x250-singlepost,
 .ad-300x600,
 .ad-300x70,
 .ad-300x75,
@@ -3403,6 +3407,7 @@
 .ad-stack,
 .ad-statement,
 .ad-story-top,
+.ad-strip,
 .ad-SuperBanner,
 .ad-tabs,
 .ad-tag,
@@ -4479,6 +4484,7 @@
 .advert-arch-top,
 .advert-article-bottom,
 .advert-banner-holder,
+.advert-block,
 .advert-center_468x60,
 .advert-content,
 .advert-group,
@@ -5237,6 +5243,7 @@
 .google-ad-container,
 .google-ads,
 .google-ads-boxout,
+.google-ads-long,
 .google-ads-obj,
 .google-ads-right,
 .google-ads-rodape,
@@ -5803,6 +5810,7 @@
 .OSOasAdModule,
 .OSProfileAdSenseModule,
 .otj_adspot,
+.outbrain_dual_ad_whats_class,
 .outbrain_ul_ad_top,
 .outerAd_300x250_1,
 .outgameadbox,
@@ -5981,6 +5989,7 @@
 .rightAdvert,
 .rightadvertisement,
 .rightbox_content_ads,
+.rightBoxAd,
 .rightboxad,
 .rightboxads,
 .rightcol-adbox,
@@ -6436,6 +6445,7 @@
 .top_ad_seperate,
 .top_ad_short,
 .top_ad_wrap,
+.top_ad_wrapper,
 .top_adbox1,
 .top_adbox2,
 .top_adsense,
