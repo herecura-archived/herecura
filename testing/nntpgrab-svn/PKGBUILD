@@ -2,7 +2,7 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgbase=nntpgrab-svn
-pkgver=1936
+pkgver=1938
 pkgname=('nntpgrab-svn-cli' 'nntpgrab-svn-gtk' 'nntpgrab-svn-qt')
 pkgrel=1
 arch=('i686' 'x86_64')
