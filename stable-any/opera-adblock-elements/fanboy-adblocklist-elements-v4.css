@@ -1,7 +1,7 @@
 /*
-! Checksum: TBMB/WnViH44+pWkALH5FA
+! Checksum: vmuiSRCK2rBbs/6yNRjpGQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 May 2012
+! Version: V4 Updated: 30 May 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1450,6 +1450,7 @@
 #bigadspot,
 #BigBoxAd,
 #bigBoxAd,
+#BigboxAdUnit,
 #billboard_ad,
 #BillBoardAdd,
 #block-ad_blocks-0,
@@ -1827,6 +1828,7 @@
 #FooterAd,
 #footerAd,
 #footerad,
+#footerad728,
 #FooterAdBlock,
 #footerAdBottom,
 #footerAdBox,
@@ -1977,6 +1979,7 @@
 #grid_ad,
 #gsyadrectangleload,
 #gtv_tabSponsor,
+#h-ads,
 #H_Ad_728x90,
 #HALHouseAd,
 #hd_ad,
@@ -2217,6 +2220,7 @@
 #leaderboard_ad,
 #leaderboard_ad_main,
 #leaderBoardAD,
+#LeaderBoardAd,
 #leaderboardAd,
 #leaderboardad,
 #leaderboardAdArea,
@@ -2643,6 +2647,7 @@
 #row2AdContainer,
 #rr_ad,
 #rr_gallery_ad,
+#rr_MSads,
 #rt-ad,
 #rt-ad-top,
 #rtAdvertisement,
@@ -2880,6 +2885,7 @@
 #square-ad,
 #square-ad-box,
 #square-ad-space,
+#square-ad-space_btm,
 #square-ads,
 #square-sponsors,
 #square_ad,
@@ -3884,6 +3890,7 @@
 .adCentertile,
 .adchange,
 .adChoice,
+.adchoice,
 .adChoiceLogo,
 .adClose,
 .adCMRight,
@@ -4723,6 +4730,7 @@
 .articleEmbeddedAdBox,
 .articleflex-container,
 .ArticleInlineAd,
+.atf-ad-medRect,
 .attachment-sidebar_ad,
 .aux-ad-widget-1,
 .aux-ad-widget-2,
@@ -4935,6 +4943,7 @@
 .bs-ad,
 .bsAdvert,
 .bt_ad,
+.btf-ad-medRect,
 .btm_ad_container,
 .BtmSponsAd,
 .btn-ad,
@@ -5786,6 +5795,7 @@
 .northad,
 .note-advertisement,
 .noTitleAdBox,
+.npAdGoogle,
 .nrcAd,
 .nsAdRow,
 .nscr300Ad,
