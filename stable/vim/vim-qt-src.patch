@@ -14999,8 +14999,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-05-18 19:59:37.178200284 +0200
-+++ vim-qt-src/src/configure.in	2012-05-18 19:59:37.653204002 +0200
+--- vim-src/src/configure.in	2012-06-01 20:31:46.769806692 +0200
++++ vim-qt-src/src/configure.in	2012-06-01 20:31:50.637842494 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15260,8 +15260,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-05-18 19:59:37.167200197 +0200
-+++ vim-qt-src/src/feature.h	2012-05-18 19:59:37.643203924 +0200
+--- vim-src/src/feature.h	2012-06-01 20:31:46.753806544 +0200
++++ vim-qt-src/src/feature.h	2012-06-01 20:31:50.622842356 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -18163,8 +18163,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-05-18 19:58:59.000000000 +0200
-@@ -0,0 +1,1314 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-06-01 20:31:29.000000000 +0200
+@@ -0,0 +1,1319 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18734,6 +18734,11 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	vim.guiFocusChanged(FALSE);
 +	QWidget::focusOutEvent(ev);
 +	update();
++}
++
++bool QVimShell::focusNextPrevChild(bool next)
++{
++	return false;
 +}
 +
 +void QVimShell::setCharWidth(int w)
@@ -19481,8 +19486,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-03-16 19:47:32.000000000 +0100
-@@ -0,0 +1,158 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-06-01 20:31:29.000000000 +0200
+@@ -0,0 +1,159 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -19570,6 +19575,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	virtual void leaveEvent(QEvent *ev);
 +	virtual void enterEvent(QEvent *ev);
++	bool focusNextPrevChild(bool next);
 +private:
 +	QColor m_background;
 +	int m_charWidth;
