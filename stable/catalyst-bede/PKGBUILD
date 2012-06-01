@@ -11,8 +11,8 @@ _pkgname=catalyst
 _extramodules=3.4-BEDE-external
 
 pkgname=$_pkgname-bede
-pkgver=12.4
-pkgrel=2
+pkgver=12.6
+pkgrel=1
 pkgdesc="AMD/ATI Catalyst drivers for linux-bede. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
@@ -24,24 +24,22 @@ provides=('catalyst')
 install="$pkgname.install"
 
 source=(
-	"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
+	"http://www2.ati.com/drivers/hotfix/catalyst_12.6_hotfixes/amd-driver-installer-8.98-x86.x86_64.zip"
+	#"http://www2.ati.com/drivers/linux/amd-driver-installer-${pkgver/./-}-x86.x86_64.run"
 	'makefile_compat.patch'
-	'34.patch'
+	'34b.patch'
 )
-
-md5sums=(
-	'e57d65cb9c9fa470d6d80072d5ab2785'
-	'3e1b82bd69774ea808da69c983d6a43b'
-	'32c8142c73dcfed5db426f494feda9e3'
-	'a09e2916da3ff2b4ea9b0ad8cb52babe'
-)
+md5sums=('91dcca91882f292f3c6103c369d154ae'
+         '3e1b82bd69774ea808da69c983d6a43b'
+         '2d9a19704c7eee274057cefa37610884')
 
 build() {
 	_kernver="$(cat /lib/modules/$_extramodules/version)"
 
 	## Unpack archive
 	msg "Unpacking archive ..."
-	/bin/sh ./amd-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
+	#/bin/sh ./amd-driver-installer-${pkgver/./-}-x86.x86_64.run --extract archive_files
+	/bin/sh ./amd-driver-installer-8.98-x86.x86_64.run --extract archive_files
 
 	if [ "$CARCH" = "x86_64" ]; then
 		BUILDARCH=x86_64
@@ -55,10 +53,10 @@ build() {
 	cd "$srcdir/archive_files/"
 
 	patch -Np1 -i "$srcdir/makefile_compat.patch"
-	(
-		cd common/lib/modules/fglrx/build_mod/
-		patch -Np1 -i "$srcdir/34.patch"
-	)
+    (
+            cd common/lib/modules/fglrx/build_mod/
+            patch -Np1 -i "$srcdir/34b.patch"
+    )
 
 	###--- cut ---### ati's code from their make.sh file
 
