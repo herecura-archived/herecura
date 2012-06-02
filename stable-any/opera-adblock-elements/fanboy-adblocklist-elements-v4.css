@@ -1,7 +1,7 @@
 /*
-! Checksum: h0ZA4TahoTjJgnnGthLPTA
+! Checksum: CiOXzSWlZtouU86Pf/Nosw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Mar 2011
+! Version: V4 Updated: 2 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -692,6 +692,7 @@
 #AdC,
 #adcenter,
 #adCENTRAL,
+#adchoices,
 #adChoices,
 #adChoicesIcon,
 #adCirc300X200,
@@ -3407,7 +3408,6 @@
 .ad-spacer,
 .ad-sponsored-links,
 .ad-spot,
-.ad-square,
 .ad-square2-container,
 .ad-square300,
 .ad-squares,
@@ -5679,6 +5679,7 @@
 .member_ad_banner,
 .meme_adwrap,
 .menu-ad,
+.menuAds-cage,
 .messageBoardAd,
 .meta_ad,
 .mf-ad300-container,
