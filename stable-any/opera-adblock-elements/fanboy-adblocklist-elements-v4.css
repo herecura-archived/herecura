@@ -1,7 +1,7 @@
 /*
-! Checksum: CiOXzSWlZtouU86Pf/Nosw
+! Checksum: BHqM1HiatR8/XUELqaLaNQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Jun 2012
+! Version: V4 Updated: 3 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1586,6 +1586,7 @@
 #ButtonAd,
 #buttonad-widget-3,
 #buttonad-widget-4,
+#buysellads,
 #buysellads-4x1,
 #c4_ad,
 #c4ad-Middle1,
@@ -1838,6 +1839,7 @@
 #footerAdDiv,
 #footerAds,
 #footerads,
+#footerAdvert,
 #footerAdverts,
 #footerGoogleAd,
 #footerleaderboard,
@@ -2149,6 +2151,7 @@
 #influads_block,
 #inline-ad,
 #inline-story-ad,
+#inline-story-ad2,
 #inline_ad,
 #inline_ad_section,
 #inlineAd,
@@ -2465,6 +2468,7 @@
 #pageAdds,
 #pageAds,
 #pageads,
+#pageAdvert,
 #pageBannerAd,
 #pagebottomAd,
 #PageLeaderAd,
@@ -2904,6 +2908,7 @@
 #story-ad,
 #story-ad-a,
 #story-ad-b,
+#story-ad-top,
 #story-ad-wrap,
 #story-leaderboard-ad,
 #story-sponsoredlinks,
@@ -5418,6 +5423,7 @@
 .home-body-ads,
 .home-sidebar-ad-300,
 .home-sticky-ad,
+.home-top-right-ads,
 .home_ad,
 .home_ad_300x100,
 .home_ad_300x250,
