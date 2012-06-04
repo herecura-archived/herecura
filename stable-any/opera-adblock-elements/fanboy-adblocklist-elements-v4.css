@@ -1,7 +1,7 @@
 /*
-! Checksum: BHqM1HiatR8/XUELqaLaNQ
+! Checksum: dP0XBN8nPeUWGz78V4jv6Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 3 Jun 2012
+! Version: V4 Updated: 4 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -430,6 +430,7 @@
 #ad_div,
 #ad_div_bottom,
 #ad_div_top,
+#ad_embed_300x250,
 #ad_feature,
 #ad_feedback,
 #ad_firstpost,
@@ -1300,6 +1301,7 @@
 #advertistop_td,
 #advertleft,
 #advertorial,
+#advertorial-box,
 #advertorial_block_3,
 #advertorial_links,
 #adverts,
@@ -1858,6 +1860,7 @@
 #gad3,
 #gad5,
 #gAds,
+#gads_middle,
 #galleries-tower-ad,
 #gallery-ad,
 #gallery-ad-m0,
@@ -2520,6 +2523,7 @@
 #premium_ad_inside,
 #premiumad,
 #premiumads,
+#premiumAdTop,
 #premSpons,
 #preroll_compainion_ad,
 #prime-ad-space,
@@ -2633,6 +2637,7 @@
 #rightads,
 #rightAds,
 #rightAdsDiv,
+#RightAdSpace,
 #RightAdvertisement,
 #rightbar_ad,
 #RightBottom300x250AD,
@@ -3959,7 +3964,6 @@
 .adheader401,
 .adheader416,
 .adHeaderAdbanner,
-.adHeaderblack,
 .adHeadline,
 .adHeadlineSummary,
 .adHed,
@@ -4291,6 +4295,7 @@
 .adsense_left_lu,
 .adsense_mainbox01,
 .adsense_menu,
+.adsense_results,
 .adsense_single,
 .adsense_small_square,
 .adsense_top,
@@ -5334,6 +5339,7 @@
 .googleAdv1,
 .googleadvertisemen120x600,
 .googleadvertisement,
+.googleadwrapper,
 .googleAdWrapper,
 .googleBannerWrapper,
 .googlebanwide,
@@ -6440,6 +6446,7 @@
 .tmnAdsenseContainer,
 .toolbar-ad,
 .toolsAd,
+.toolssponsor-ads,
 .top-ad-horizontal,
 .top-ad-right,
 .top-ad-sidebar,
