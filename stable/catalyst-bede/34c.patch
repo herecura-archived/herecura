@@ -1,0 +1,54 @@
+--- a/firegl_public.c
++++ b/firegl_public.c
+@@ -187,6 +187,9 @@
+ #include <linux/gfp.h>
+ #include <linux/swap.h>
+ #include "asm/i387.h"
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
++#include <asm/fpu-internal.h>
++#endif
+ 
+ #include "firegl_public.h"
+ #include "kcl_osconfig.h"
+@@ -4181,7 +4184,11 @@
+ {
+     unsigned int p;
+     KCL_DEBUG5(FN_FIREGL_KAS, "%d\n", level_init);
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
++    for_each_cpu_mask(p, cpu_possible_mask)
++#else
+     for_each_cpu_mask(p, cpu_possible_map)
++#endif
+     {
+         KCL_DEBUG1(FN_FIREGL_KAS,"Setting initial execution level for CPU # %d\n", p);
+         preempt_disable();
+@@ -5799,10 +5806,16 @@
+ #ifdef CONFIG_X86_64
+     kernel_fpu_begin();
+ #else
++#ifndef TS_USEDFPU
++    preempt_disable();
++    if (__thread_has_fpu(current))
++        __save_init_fpu(current);
++#else
+     struct thread_info *cur_task = current_thread_info();
+     preempt_disable();
+     if (cur_task->status & TS_USEDFPU)
+         __save_init_fpu(cur_task->task);
++#endif
+     else
+         clts();
+ #endif
+--- a/kcl_ioctl.c
++++ b/kcl_ioctl.c
+@@ -217,6 +217,10 @@
+  *  \param size [in] Number of bytes to allocate
+  *  \return Pointer to allocated memory
+  */
++#ifndef CONFIG_X86_X32
++DEFINE_PER_CPU(unsigned long, old_rsp);
++#endif
++
+ void* ATI_API_CALL KCL_IOCTL_AllocUserSpace32(long size)
+ {
+     void __user *ret = COMPAT_ALLOC_USER_SPACE(size);
