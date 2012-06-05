@@ -1,7 +1,7 @@
 /*
-! Checksum: dP0XBN8nPeUWGz78V4jv6Q
+! Checksum: TD4HJ+PD2o1MOjN54rzOkg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 4 Jun 2012
+! Version: V4 Updated: 5 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -809,6 +809,7 @@
 #adleft,
 #adLeft,
 #adlink,
+#adLink1,
 #adlinks,
 #adlinkws,
 #adLocation-1,
@@ -1656,6 +1657,7 @@
 #contentadcontainer,
 #ContentAdPlaceHolder1,
 #contentads,
+#contentAds,
 #contentAds300x200,
 #contentAds300x250,
 #contentarea-ad,
@@ -4008,6 +4010,7 @@
 .AdLeftbarBorderStyle,
 .adLine,
 .adline,
+.adLink,
 .adlist1,
 .adlist2,
 .adListB,
@@ -5884,7 +5887,6 @@
 .post_ad,
 .post_advert,
 .post_sponsor_unit,
-.postad,
 .postads,
 .poster_ad,
 .ppp_interior_ad,
