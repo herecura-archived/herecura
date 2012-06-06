@@ -1,7 +1,7 @@
 /*
-! Checksum: TD4HJ+PD2o1MOjN54rzOkg
+! Checksum: kNfJDWNI21s9Navh0HUxLA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 5 Jun 2012
+! Version: V4 Updated: 6 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2358,6 +2358,7 @@
 #mochila-column-right-ad-300x250-1,
 #mod_ad,
 #mod_ad_top,
+#modal_videoAd_wrapper,
 #module-ad-300x250,
 #module-ad-728x90,
 #Module-From_Advertisers,
@@ -3921,6 +3922,7 @@
 .adContainer_728x90,
 .AdContainerBottom,
 .AdContainerBox308,
+.adContainerg6,
 .AdContainerModule,
 .adContent,
 .adcontent_box,
@@ -4356,6 +4358,7 @@
 .AdSlot,
 .adSlot,
 .adslot,
+.adSlotContainer,
 .adslothead,
 .adslug,
 .adSlug,
@@ -5482,6 +5485,7 @@
 .ibm_ad_bottom,
 .ibm_ad_text,
 .ibt-top-ad,
+.iconAdChoices,
 .iframe-ad,
 .iframe-ads,
 .iframeAd,
