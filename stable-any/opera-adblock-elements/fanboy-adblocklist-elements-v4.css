@@ -1,7 +1,7 @@
 /*
-! Checksum: LluFRq417GqAvDEZt98t3Q
+! Checksum: uFO03HEw3RAnTgTAMG7CkQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 7 Jun 2012
+! Version: V4 Updated: 8 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1589,6 +1589,7 @@
 #ButtonAd,
 #buttonad-widget-3,
 #buttonad-widget-4,
+#buttonAds,
 #buysellads,
 #buysellads-4x1,
 #c4_ad,
@@ -2784,6 +2785,7 @@
 #sidebarTowerAds,
 #sideline-ad,
 #single-ad,
+#single-adblade,
 #single-mpu,
 #single_ad_above_content,
 #singlead,
@@ -3284,6 +3286,7 @@
 .ad-bordered,
 .ad-bot,
 .ad-bottom,
+.ad-bottomLeft,
 .ad-box,
 .ad-box-300x250,
 .ad-box-container,
@@ -3379,6 +3382,7 @@
 .ad-note,
 .ad-notice,
 .ad-other,
+.ad-padding,
 .ad-pagehead,
 .ad-permalink,
 .ad-place-active,
@@ -3867,6 +3871,8 @@
 .adBottomboxright,
 .ADBox,
 .ADbox,
+.adbox-300x250,
+.adbox-468x60,
 .adbox-box,
 .adBox-mr,
 .adbox-title,
@@ -4441,6 +4447,7 @@
 .adTitleR,
 .AdTop,
 .adtop,
+.adtop-border,
 .adTopboxright,
 .adTopLeft,
 .adTopRight,
@@ -5122,6 +5129,7 @@
 .DetachedAd,
 .detail_ad,
 .DetailAds,
+.detailSidebar-adPanel,
 .devil-ad-spot,
 .dfp-ad-widget,
 .dfp_ad,
@@ -5226,6 +5234,7 @@
 .freegame_bottomad,
 .frontads,
 .fs-ad-block,
+.ftr_ad,
 .full_ad_box,
 .full_width_ad,
 .fulladblock,
