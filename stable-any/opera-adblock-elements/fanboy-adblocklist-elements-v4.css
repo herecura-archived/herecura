@@ -1,7 +1,7 @@
 /*
-! Checksum: uFO03HEw3RAnTgTAMG7CkQ
+! Checksum: Tn930/TBVnA29NtK5gGrOA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 8 Jun 2012
+! Version: V4 Updated: 9 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -74,6 +74,10 @@
 #ad-728x90-leaderboard-top,
 #ad-728x90-top,
 #ad-728x90-top0,
+#ad-abs-b-0,
+#ad-abs-b-1,
+#ad-abs-b-10,
+#ad-abs-b-7,
 #ad-ads,
 #ad-advertorial,
 #ad-area,
@@ -1266,6 +1270,8 @@
 #advertiseHere,
 #advertiseheretop,
 #advertiseLink,
+#advertisement-300x250,
+#advertisement-728x90,
 #advertisement1,
 #advertisement160x600,
 #advertisement2,
@@ -2514,6 +2520,7 @@
 #post-adsense-top-banner,
 #post5_adbox,
 #post_ad,
+#post_addsense,
 #post_adspace,
 #post_advert,
 #post_id_ad_bot,
@@ -3074,6 +3081,7 @@
 #toppannonse,
 #topright-ad,
 #toprightad,
+#topRightAd,
 #toprightAdvert,
 #topRightBlockAdSense,
 #TopSideAd,
@@ -4025,6 +4033,7 @@
 .adlist2,
 .adListB,
 .adLoaded,
+.adLoader,
 .adLocal,
 .adLocation,
 .admain,
@@ -6152,6 +6161,7 @@
 .side_ad_1,
 .side_ad_2,
 .side_ad_3,
+.side_ads,
 .sideAd,
 .sidead,
 .sidead_150,
