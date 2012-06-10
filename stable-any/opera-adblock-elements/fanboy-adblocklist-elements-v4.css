@@ -1,7 +1,7 @@
 /*
-! Checksum: Tn930/TBVnA29NtK5gGrOA
+! Checksum: eWjIjyO0URZyBshuWJg00g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 Jun 2012
+! Version: V4 Updated: 10 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -414,6 +414,7 @@
 #ad_center_monster,
 #ad_channel,
 #ad_chitikabanner_120x600LH,
+#ad_circ_300_200,
 #ad_circ_300x250,
 #ad_circ_300x300,
 #ad_comps_top,
@@ -813,6 +814,7 @@
 #adleft,
 #adLeft,
 #adlink,
+#adLink,
 #adLink1,
 #adlinks,
 #adlinkws,
@@ -919,6 +921,8 @@
 #ads-mpu,
 #ads-prices,
 #ads-right,
+#ads-right-cube,
+#ads-right-skyscraper,
 #ads-right-twobottom,
 #ads-slot,
 #ads-sponsored-boxes,
@@ -1809,6 +1813,7 @@
 #flexiad,
 #flipbookAd,
 #floatads,
+#floating-ad-spacer,
 #floating_ad_container,
 #floatingAd,
 #foot-ad-1,
@@ -2802,6 +2807,7 @@
 #site_top_ad,
 #siteAdHeader,
 #skcolAdSky,
+#skin-ad,
 #sky-ad,
 #sky-left,
 #sky-right,
@@ -3072,6 +3078,7 @@
 #topbanneradtitle,
 #topbar-ad,
 #topbarAd,
+#topbarads,
 #topheader_ads,
 #topleader,
 #topleaderAd,
@@ -3480,6 +3487,7 @@
 .Ad120x600,
 .ad120x600,
 .ad125,
+.ad125x125,
 .ad125x125a,
 .ad125x125b,
 .ad160,
