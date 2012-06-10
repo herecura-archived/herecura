@@ -5,8 +5,8 @@
 # Contributor: totoloco
 pkgname=opera-next # Set to opera if you want to replace your main/stable build
 _bigrelease=12.00
-_buildver=1448
-_randomizer=cortana
+_buildver=1450
+_randomizer=next
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -14,10 +14,7 @@ url="http://my.opera.com/desktopteam/blog/"
 depends=('gcc-libs' 'libxt' 'freetype2' 'libxext')
 provides=('opera')
 replaces=('opera-devel')
-optdepends=(
-	'gstreamer0.10-base-plugins: HTML5 video support'
-	'gstreamer0.10-good: HTML5 video support'
-)
+optdepends=('gstreamer0.10-base-plugins: HTML5 Video support' 'gstreamer0.10-good: HTML5 Video support')
 install=opera-next.install
 options=(!strip !zipman)
 license=('custom:opera')
@@ -25,8 +22,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-next-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-md5sums=('60f1ee479e732917ac640b2d14a97cc1')
-[ "$CARCH" = "x86_64" ] && md5sums=('4e0445fcd1bf74ad70858a2223d93e12')
+md5sums=('a4e26bc7401bc41f48cf3629501f54a8')
+[ "$CARCH" = "x86_64" ] && md5sums=('e7f6c56632cbdbeee2e7cdea263d69ce')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
 _opdistro="Arch Linux"
