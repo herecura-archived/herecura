@@ -1,5 +1,5 @@
 /*
-! Checksum: eWjIjyO0URZyBshuWJg00g
+! Checksum: qJmX4p9P4GekJJIWZ6XpTA
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 10 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -4571,6 +4571,7 @@
 .advert_line,
 .advert_mpu_body_hdr,
 .advert_note,
+.advert_top,
 .advert_txt,
 .advert_wrapper,
 .advertBlock,
@@ -5112,6 +5113,7 @@
 .cp_ad,
 .cpaAdPosition,
 .create_ad,
+.cross_delete_ads,
 .cse_ads,
 .ct-ad-article,
 .ct-ads,
@@ -6660,7 +6662,6 @@
 .wikia_ad_placeholder,
 .wingadblock,
 .WithAds,
-.withAds,
 .wl-ad,
 .wnIframeAd,
 .wnMultiAd,
