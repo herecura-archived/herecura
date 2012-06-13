@@ -202,7 +202,7 @@ package_linux-bede() {
 	echo "$_kernver" > "$pkgdir/lib/modules/${_basekernel}$_fldkernelname-external/version"
 
 	# gzip all modules
-	find "$pkgdir" -name '*.ko' -exec gzip -9  \;
+	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 }
 
 package_linux-bede-headers() {
@@ -272,7 +272,7 @@ package_linux-bede-headers() {
 		esac
 	done
 
-	chown -R root.root "$pkgdir/usr/src/linux-$_kernver"
+	chown -R root:root "$pkgdir/usr/src/linux-$_kernver"
 	find "$pkgdir/usr/src/linux-$_kernver" -type d -exec chmod 755 {} \;
 	# remove unneeded architectures
 	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
