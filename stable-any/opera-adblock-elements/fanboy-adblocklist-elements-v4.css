@@ -1,7 +1,7 @@
 /*
-! Checksum: 2lNaKLa8vdjZWWaThAVybQ
+! Checksum: OixwvPJuWNVrrAS73JMZRA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 12 Jun 2012
+! Version: V4 Updated: 13 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1291,6 +1291,7 @@
 #advertisements,
 #advertisements_sidebar,
 #advertiserLinks,
+#advertisers-caption,
 #advertisetop,
 #advertising-160x600,
 #advertising-300x250,
@@ -1992,6 +1993,7 @@
 #googlesponsor,
 #GoogleSponsored,
 #googletextads,
+#googleTxtAD,
 #gpt-ad-halfpage,
 #gpt-ad-rectangle1,
 #gpt-ad-rectangle2,
@@ -6483,6 +6485,7 @@
 .title-ad,
 .TmnAdsense,
 .tmnAdsenseContainer,
+.tmz-dart-ad,
 .toolbar-ad,
 .toolsAd,
 .toolssponsor-ads,
