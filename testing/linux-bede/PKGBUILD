@@ -7,10 +7,10 @@ pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.4
-_patchver=1
-_rcver=3.4.2_rc1
+_patchver=2
+_rcver=3.4.3_rc1
 pkgver=$_basekernel
-pkgrel=0.1
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -44,7 +44,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'19baea7c576da53c5d0eae7462968ce180a5e7548d52683fe6fd2249adbe19ad'
+		'fc0815f1af2f0423193ae117d3bd8a47b27e747fed922786303e5005d17b41a2'
 	)
 fi
 
@@ -58,7 +58,7 @@ _extrapatches=(
 	"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/patch-${_rcver//_/-}.gz"
 )
 _extrapatchessums=(
-	'c14c997792d7e8f8977696f67c0c06c5c3e02a41e52d014d75d270d5d4865f99'
+	'c32d9c3a57dc33bbc927adaf7b1e5c77e9d76ae2132e3395248487366f4f8a71'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
