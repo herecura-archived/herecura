@@ -1,7 +1,7 @@
 /*
-! Checksum: OixwvPJuWNVrrAS73JMZRA
+! Checksum: aAd8PKBT1fd/1og7JGoSRw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 Jun 2012
+! Version: V4 Updated: 14 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -704,7 +704,6 @@
 #adCirc300X200,
 #adCirc_620_100,
 #adclear,
-#Adcode,
 #adcode1,
 #adcode10,
 #adcode2,
@@ -1522,6 +1521,7 @@
 #body-ads,
 #body_728_ad,
 #body_ad,
+#bot_ads,
 #botad,
 #botads2,
 #bottom-728-ad,
@@ -1638,6 +1638,7 @@
 #column4-google-ads,
 #column_adverts,
 #columnAd,
+#columnTwoAdContainer,
 #comment_ad_zone,
 #commentAdWrapper,
 #common_right_adspace,
@@ -1755,6 +1756,7 @@
 #DivAdB,
 #divAdBox,
 #divAdHere,
+#divAdHorizontal,
 #divAdLeft,
 #divAdRight,
 #divAds,
@@ -2273,6 +2275,7 @@
 #leftAdvert,
 #leftcolAd,
 #leftcolumnad,
+#leftColumnAdContainer,
 #leftframeAD,
 #leftTopAdWrapper,
 #lg-banner-ad,
@@ -3305,7 +3308,6 @@
 .ad-bot,
 .ad-bottom,
 .ad-bottomLeft,
-.ad-box,
 .ad-box-300x250,
 .ad-box-container,
 .ad-box1,
@@ -4873,6 +4875,7 @@
 .block-ad_injector,
 .block-ads1,
 .block-ads2,
+.block-ads3,
 .block-ads_top,
 .block-adsense,
 .block-adsense_managed,
@@ -5654,6 +5657,7 @@
 .leftbar_ad_160_600,
 .leftbarads,
 .leftbottomads,
+.leftColumnAd,
 .leftnavad,
 .leftsidebar_ad,
 .lefttopad1,
@@ -5878,6 +5882,8 @@
 .outerAd_300x250_1,
 .outgameadbox,
 .outside_ad,
+.ozadtop,
+.ozadtop3,
 .p_topad,
 .paddingBotAd,
 .page_ad,
@@ -6365,10 +6371,13 @@
 .SponsoredLinksGrayBox,
 .sponsoredLinksHeader,
 .SponsoredLinksPanel,
+.sponsoredName,
+.sponsoredname,
 .sponsoredProduct,
 .sponsoredResults,
 .sponsoredresults,
 .sponsoredShowcasePanel,
+.sponsoredStats,
 .sponsorheader,
 .SponsorIsland,
 .sponsorLabel,
@@ -6679,6 +6688,7 @@
 .ws-ad,
 .wsSearchResultsRightSponsoredLinks,
 .wsTopSposoredLinks,
+.wx-adchoices,
 .x01-ad,
 .x03-adunit,
 .x04-adunit,
