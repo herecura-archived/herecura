@@ -2,7 +2,7 @@
 #Contributor: Sebastian Friedel <sef@voxelbrain.com>
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
-pkgver=20120614
+pkgver=20120615
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
