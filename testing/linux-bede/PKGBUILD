@@ -10,7 +10,7 @@ _basekernel=3.4
 _patchver=2
 _rcver=3.4.3_rc1
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -110,9 +110,9 @@ build() {
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
 	fi
 
-	# set extraversion to pkgrel
+	# set extraversion to rc & pkgrel
 	msg2 "set extraversion to $pkgrel"
-	sed -ri "s|^(EXTRAVERSION =).*|\1 -$pkgrel|" Makefile
+	sed -ri "s|^(EXTRAVERSION =).*|\1 ${_rcver/*_/}-$pkgrel|" Makefile
 
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
