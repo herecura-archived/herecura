@@ -1,7 +1,7 @@
 /*
-! Checksum: aAd8PKBT1fd/1og7JGoSRw
+! Checksum: 9XIgn3jF8GP4pJDQ0rtAHw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 Jun 2012
+! Version: V4 Updated: 16 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -410,6 +410,7 @@
 #ad_bucket_med_rectangle_1,
 #ad_bucket_med_rectangle_2,
 #ad_cell,
+#ad_center,
 #Ad_Center1,
 #ad_center_monster,
 #ad_channel,
@@ -1353,6 +1354,7 @@
 #af_adblock,
 #affiliate_ad,
 #affinityBannerAd,
+#after-content-ad,
 #after-content-ads,
 #after-header-ads,
 #agencies_ad,
@@ -2459,6 +2461,7 @@
 #nrAds,
 #nrcAd_Top,
 #ns_ad3,
+#nuevo_ad,
 #OAS2,
 #OAS_AD_TOPRIGHT,
 #oas_Right2,
@@ -3022,6 +3025,7 @@
 #top_adblock_fix,
 #top_add,
 #TOP_ADROW,
+#top_ads_region,
 #top_adsense_cont,
 #top_adspace,
 #top_adv-v2,
@@ -5690,6 +5694,7 @@
 .lt_ad_call,
 .m-sponsored,
 .m4-adsbygoogle,
+.m_ad300,
 .macAd,
 .mad_adcontainer,
 .madison_ad,
@@ -6108,6 +6113,7 @@
 .s_ad_300x250,
 .s_ads,
 .sa_AdAnnouncement,
+.sadvert,
 .savvyad_unit,
 .sb-ad2,
 .sb-ad3,
