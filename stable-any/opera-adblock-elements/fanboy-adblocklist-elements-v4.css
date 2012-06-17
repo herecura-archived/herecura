@@ -1,7 +1,7 @@
 /*
-! Checksum: 9XIgn3jF8GP4pJDQ0rtAHw
+! Checksum: 5xIOi/vuhuJhGx2WQGW48A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 16 Jun 2012
+! Version: V4 Updated: 17 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -856,6 +856,7 @@
 #adPanelAjaxUpdate,
 #AdPanelBigBox,
 #AdPanelLogo,
+#adplaceholder_mpu01,
 #adPlaceHolderRight,
 #adplacement,
 #adPlacer,
@@ -1639,6 +1640,7 @@
 #column2-145x145-ad,
 #column4-google-ads,
 #column_adverts,
+#column_extras_ad,
 #columnAd,
 #columnTwoAdContainer,
 #comment_ad_zone,
@@ -2026,7 +2028,6 @@
 #header-ad-bottom,
 #header-ad-label,
 #header-ad-rectangle-container,
-#header-ads,
 #header-adsense,
 #header-adspace,
 #header-advert,
@@ -2578,6 +2579,7 @@
 #rail_ad,
 #rail_ad1,
 #rail_ad2,
+#railAd,
 #recommendedAdContainer,
 #rect-ad,
 #rect_ad,
@@ -3094,6 +3096,7 @@
 #topleaderAd,
 #topleaderboardad,
 #topMPU,
+#topnav-ad-shell,
 #topNavLeaderboardAdHolder,
 #toppannonse,
 #topright-ad,
@@ -3192,6 +3195,7 @@
 #wrapperRightAds,
 #x-ad-item-themed-skyscraper-placekeeper,
 #x-houseads,
+#x300_ad,
 #xColAds,
 #y-ad-units,
 #yahoo-ads-content,
@@ -4954,6 +4958,7 @@
 .bottomAd,
 .bottomad,
 .bottomad-bg,
+.bottomAdBlock,
 .BottomAdContainer,
 .bottomAds,
 .BottomAds,
