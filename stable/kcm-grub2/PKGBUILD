@@ -1,9 +1,9 @@
 # Maintainer: BlackIkeEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=kcm-grub2
-pkgver=0.5.5
+pkgver=0.5.8
 pkgdesc="This Kcm module manages the most common settings of Grub2."
-pkgrel=3
+pkgrel=1
 arch=('i686' 'x86_64')
 _kdeapps=139643
 url="http://kde-apps.org/content/show.php?content=$_kdeapps"
@@ -23,4 +23,4 @@ package(){
   cd "$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
-sha256sums=('431455d9a995e6d8f7fc01922aa658b4fa4fdfc4f234158047758fe4cd70dc41')
+sha256sums=('699883423604dd65db99cf4da35d722232b9fa0af84007b917f0456a17b4ffc5')
