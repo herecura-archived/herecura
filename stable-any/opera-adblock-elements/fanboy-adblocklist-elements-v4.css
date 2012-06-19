@@ -1,7 +1,7 @@
 /*
-! Checksum: U+bPyDSI5WiMQmm0Qi/WcQ
+! Checksum: ob1lXvMc9ygY+s1aUzqkTw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Jun 2012
+! Version: V4 Updated: 19 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -51,6 +51,7 @@
 #ad-300,
 #ad-300-additional,
 #ad-300-detail,
+#ad-300-sidebar,
 #ad-300a,
 #ad-300b,
 #ad-300x250,
@@ -345,6 +346,7 @@
 #ad_300_250,
 #ad_300_250_1,
 #ad_300_250_inline,
+#ad_300_wrapper,
 #ad_300a,
 #ad_300b,
 #ad_300c,
@@ -2325,6 +2327,7 @@
 #mainAdUnit,
 #mainAdvert,
 #mainPageAds,
+#MainSponsoredLinks,
 #maker-rect-ad,
 #marketplaceAds,
 #marquee_ad,
@@ -2546,6 +2549,7 @@
 #postpageaddiv,
 #ppcAdverts,
 #pr_ad,
+#pr_advertising,
 #pregame_header_ad,
 #premier-ad-space,
 #premium_ad_inside,
@@ -3683,6 +3687,7 @@
 .ad_callout,
 .ad_caption,
 .ad_center,
+.ad_centered,
 .ad_cheat,
 .ad_choice,
 .ad_choices,
@@ -4719,6 +4724,7 @@
 .advhere,
 .Advman_Widget,
 .adVplaceholder,
+.advt,
 .advt-block,
 .advt300,
 .advt720,
@@ -4874,6 +4880,7 @@
 .bigadleft,
 .bigadright,
 .bigads,
+.bigbox-ad,
 .bigbox_ad,
 .BigBoxAd,
 .bigboxad,
@@ -5243,6 +5250,7 @@
 .foot-ad,
 .foot-advertisement,
 .foot_adsense,
+.footad,
 .footer-300-ad,
 .footer-ad,
 .footer-ad-section,
@@ -6358,6 +6366,7 @@
 .sponsored-links-holder,
 .sponsored-links-tbl,
 .sponsored-results,
+.sponsored-right,
 .sponsored-rule,
 .sponsored-text,
 .sponsored-title,
