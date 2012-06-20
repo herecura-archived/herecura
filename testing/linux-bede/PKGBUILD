@@ -7,10 +7,10 @@ pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.4
-_patchver=2
-_rcver=3.4.3_rc1
+_patchver=3
+_rcver=3.4.4_rc1
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -29,8 +29,8 @@ source=(
 )
 sha256sums=(
 	'a797a15d0b6228381507c14ecf4eec4a6cc5c77cfd521ba3b3e1325e85b5b16d'
-	'd8040381ce600a4084f6615084cd68434163ef649f2020e490e449ad9876f6fb'
-	'6d2fe29a6a8c0e666a4ff45d181f4ae58f1d88a8bc356cb5fa334ee84724a636'
+	'b0960421ebc8cbdbe9f5dac8b51c39a3924f6fe3a46920a074cdb2834853d72b'
+	'130ec0f18554a65d97b2fdd96250bb4645dbfaaccaddbc8f84ee7ecbdd3354bf'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'cce2cd65f49ef30e9f2c977210fcb3f21707b53088615eb737e2bb53c67ca7c9'
 	'5d59b290f2ec7354048e24cc52048e104fa91a3ac4c393adbb0e268c129d03e2'
@@ -41,10 +41,10 @@ if [ $_patchver -ne 0 ]; then
 	pkgver=$_basekernel.$_patchver
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/$_patchname.xz"
+		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'fc0815f1af2f0423193ae117d3bd8a47b27e747fed922786303e5005d17b41a2'
+		'445d0f20724e2b411282ffccc988b03a3e228780e06793a58a46148f64c89d4d'
 	)
 fi
 
@@ -58,7 +58,7 @@ _extrapatches=(
 	"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/patch-${_rcver//_/-}.gz"
 )
 _extrapatchessums=(
-	'c32d9c3a57dc33bbc927adaf7b1e5c77e9d76ae2132e3395248487366f4f8a71'
+	'7bbd7ea5b76a6d3895cfc804bc8c58f785e4e0c5eb44d623d5a95b7518ec5fd5'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -169,7 +169,8 @@ package_linux-bede() {
 	# install modules
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$pkgdir" modules_install
 
-	# copy System.map and bzImage
+	# copy config, System.map and bzImage
+	install -m644 .config "$pkgdir/boot/config$_kernelname"
 	install -m644 System.map "$pkgdir/boot/System.map$_kernelname"
 	install -m644 arch/$KARCH/boot/bzImage "$pkgdir/boot/vmlinuz$_kernelname"
 
