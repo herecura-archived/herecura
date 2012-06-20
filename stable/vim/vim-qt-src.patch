@@ -116,7 +116,7 @@ diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
  
 diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 --- vim-src/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/CMakeLists.txt	2012-01-26 19:03:27.000000000 +0100
++++ vim-qt-src/src/CMakeLists.txt	2012-06-20 16:40:37.000000000 +0200
 @@ -0,0 +1,112 @@
 +cmake_minimum_required(VERSION 2.8)
 +
@@ -189,7 +189,6 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +set(MOC_SOURCES qt/qvimshell.cpp 
 +		qt/mainwindow.cpp 
 +		qt/vimaction.cpp 
-+		qt/scrollarea.cpp 
 +		qt/tabbar.cpp 
 +		qt/vimaction.cpp 
 +		qt/vimscrollbar.cpp 
@@ -203,6 +202,7 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 +
 +if(MSVC OR MINGW)
++
 +	set(VIM_SOURCES ${VIM_SOURCES} 
 +			os_win32.c 
 +			os_mswin.c)
@@ -334,6 +334,28 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  objects/gui_beval.o: gui_beval.c
  	$(CCC) -o $@ gui_beval.c
  
+diff -urN vim-src/src/Toolchain-mingw32.cmake vim-qt-src/src/Toolchain-mingw32.cmake
+--- vim-src/src/Toolchain-mingw32.cmake	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/Toolchain-mingw32.cmake	2012-06-20 16:40:37.000000000 +0200
+@@ -0,0 +1,18 @@
++
++SET(CMAKE_SYSTEM_NAME Windows)
++
++# specify the cross compiler
++SET(CMAKE_C_COMPILER   i686-w64-mingw32-gcc)
++SET(CMAKE_CXX_COMPILER i686-w64-mingw32-g++)
++SET(CMAKE_RC_COMPILER i686-w64-mingw32-windres)
++
++SET(CMAKE_FIND_ROOT_PATH /usr/i686-w64-mingw32/sys-root/mingw)
++
++SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
++SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
++SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
++
++SET(QT_QMAKE_EXECUTABLE /usr/i686-w64-mingw32/bin/qmake CACHE INTERNAL "" FORCE)
++SET(QT_MOC_EXECUTABLE /usr/i686-w64-mingw32/bin/moc CACHE INTERNAL "" FORCE)
++SET(QT_RCC_EXECUTABLE /usr/i686-w64-mingw32/bin/rcc CACHE INTERNAL "" FORCE)
++SET(QT_UIC_EXECUTABLE /usr/i686-w64-mingw32/bin/uic CACHE INTERNAL "" FORCE)
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
 --- vim-src/src/config.mk.in	2011-12-23 21:44:32.000000000 +0100
 +++ vim-qt-src/src/config.mk.in	2011-10-20 16:41:07.000000000 +0200
@@ -14999,8 +15021,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-06-01 20:31:46.769806692 +0200
-+++ vim-qt-src/src/configure.in	2012-06-01 20:31:50.637842494 +0200
+--- vim-src/src/configure.in	2012-06-20 16:44:09.664849588 +0200
++++ vim-qt-src/src/configure.in	2012-06-20 16:44:12.036867635 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15236,9 +15258,9 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  if test -z "$SKIP_ATHENA" -o -z "$SKIP_NEXTAW" -o -z "$SKIP_MOTIF" -o -z "$SKIP_GTK2"; then
    dnl Check for X11/xpm.h and X11/Sunkeysym.h with the GUI include path
 diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
---- vim-src/src/eval.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/eval.c	2012-04-05 17:31:22.000000000 +0200
-@@ -12133,6 +12133,9 @@
+--- vim-src/src/eval.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/eval.c	2012-06-20 16:40:37.000000000 +0200
+@@ -12144,6 +12144,9 @@
  #ifdef FEAT_GUI_W32
  	"gui_win32",
  #endif
@@ -15249,9 +15271,9 @@ diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
  	"hangul_input",
  #endif
 diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
---- vim-src/src/ex_docmd.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/ex_docmd.c	2012-04-05 17:31:22.000000000 +0200
-@@ -6940,6 +6940,7 @@
+--- vim-src/src/ex_docmd.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/ex_docmd.c	2012-06-20 16:40:37.000000000 +0200
+@@ -6955,6 +6955,7 @@
  	|| (defined(FEAT_GUI_GTK) && defined(FEAT_DND)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -15260,8 +15282,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-06-01 20:31:46.753806544 +0200
-+++ vim-qt-src/src/feature.h	2012-06-01 20:31:50.622842356 +0200
+--- vim-src/src/feature.h	2012-06-20 16:44:09.649849474 +0200
++++ vim-qt-src/src/feature.h	2012-06-20 16:44:12.020867512 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15293,9 +15315,9 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_GUI_DIALOG
  # else
 diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
---- vim-src/src/fileio.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/fileio.c	2012-04-05 17:31:22.000000000 +0200
-@@ -6143,6 +6143,7 @@
+--- vim-src/src/fileio.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/fileio.c	2012-06-20 16:40:37.000000000 +0200
+@@ -6141,6 +6141,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -15325,9 +15347,9 @@ diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
  #endif
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
 diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
---- vim-src/src/gui.c	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/gui.c	2012-01-26 19:03:27.000000000 +0100
-@@ -161,10 +161,10 @@
+--- vim-src/src/gui.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/gui.c	2012-06-20 16:40:37.000000000 +0200
+@@ -167,10 +167,10 @@
      termcapinit((char_u *)"builtin_gui");
      gui.starting = recursive - 1;
  
@@ -15340,7 +15362,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  	Window	x11_window;
  	Display	*x11_display;
  
-@@ -772,7 +772,7 @@
+@@ -794,7 +794,7 @@
  }
  
  #if defined(FEAT_GUI_GTK) || defined(FEAT_GUI_X11) || defined(FEAT_GUI_MSWIN) \
@@ -15349,7 +15371,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  # define NEED_GUI_UPDATE_SCREEN 1
  /*
   * Called when the GUI shell is closed by the user.  If there are no changed
-@@ -1370,7 +1370,7 @@
+@@ -1392,7 +1392,7 @@
      base_height = 2 * gui.border_offset;
      if (gui.which_scrollbars[SBAR_BOTTOM])
  	base_height += gui.scrollbar_height;
@@ -15358,7 +15380,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* We can't take the sizes properly into account until anything is
       * realized.  Therefore we recalculate all the values here just before
       * setting the size. (--mdcki) */
-@@ -1531,7 +1531,7 @@
+@@ -1553,7 +1553,7 @@
      if (!gui.shell_created)
  	return;
  
@@ -15367,7 +15389,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* If not setting to a user specified size and maximized, calculate the
       * number of characters that fit in the maximized window. */
      if (!mustset && gui_mch_maximized())
-@@ -2322,7 +2322,7 @@
+@@ -2344,7 +2344,7 @@
      if (back != 0 && ((draw_flags & DRAW_BOLD) || (highlight_mask & HL_ITALIC)))
  	return FAIL;
  
@@ -15376,7 +15398,7 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
      /* If there's no italic font, then fake it.
       * For GTK2, we don't need a different font for italic style. */
      if (hl_mask_todo & HL_ITALIC)
-@@ -5335,6 +5335,7 @@
+@@ -5357,6 +5357,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -17177,9 +17199,9 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +} // extern "C"
 diff -urN vim-src/src/main.c vim-qt-src/src/main.c
---- vim-src/src/main.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/main.c	2012-04-05 17:31:22.000000000 +0200
-@@ -1577,7 +1577,7 @@
+--- vim-src/src/main.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/main.c	2012-06-20 16:40:37.000000000 +0200
+@@ -1589,7 +1589,7 @@
      }
  
      /* "gvim" starts the GUI.  Also accept "Gvim" for MS-Windows. */
@@ -17231,8 +17253,8 @@ diff -urN vim-src/src/message.c vim-qt-src/src/message.c
  	     * name.  GTK+ 2 returns only the directory, */
  	    if (fname != NULL && *fname != NUL && !mch_isdir(fname))
 diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
---- vim-src/src/normal.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/normal.c	2012-04-05 17:31:22.000000000 +0200
+--- vim-src/src/normal.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/normal.c	2012-06-20 16:40:37.000000000 +0200
 @@ -2693,7 +2693,7 @@
  	     * Windows only shows the popup menu on the button up event.
  	     */
@@ -17252,8 +17274,8 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  	    {
  		jump_flags = 0;
 diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
---- vim-src/src/ops.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/ops.c	2012-04-05 17:31:22.000000000 +0200
+--- vim-src/src/ops.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/ops.c	2012-06-20 16:40:37.000000000 +0200
 @@ -29,7 +29,7 @@
  #define DELETION_REGISTER	36
  #ifdef FEAT_CLIPBOARD
@@ -17263,7 +17285,7 @@ diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
  #   define PLUS_REGISTER	38
  #  else
  #   define PLUS_REGISTER	STAR_REGISTER	    /* there is only one */
-@@ -2876,7 +2876,7 @@
+@@ -2884,7 +2884,7 @@
      char_u		*p;
      char_u		*pnew;
      struct block_def	bd;
@@ -17272,7 +17294,7 @@ diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
      int			did_star = FALSE;
  #endif
  
-@@ -3161,12 +3161,12 @@
+@@ -3169,12 +3169,12 @@
  
  	clip_own_selection(&clip_star);
  	clip_gen_set_selection(&clip_star);
@@ -17346,9 +17368,9 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
      {
  	if (p_beval && !old_value)
 diff -urN vim-src/src/option.h vim-qt-src/src/option.h
---- vim-src/src/option.h	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/option.h	2012-04-05 17:31:22.000000000 +0200
-@@ -477,6 +477,9 @@
+--- vim-src/src/option.h	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/option.h	2012-06-20 16:40:37.000000000 +0200
+@@ -478,6 +478,9 @@
  #ifdef HAVE_FSYNC
  EXTERN int	p_fs;		/* 'fsync' */
  #endif
@@ -17389,8 +17411,8 @@ diff -urN vim-src/src/os_mswin.c vim-qt-src/src/os_mswin.c
  #if defined(FEAT_MBYTE) || defined(PROTO)
  /*
 diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
---- vim-src/src/os_unix.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/os_unix.c	2012-04-05 17:31:22.000000000 +0200
+--- vim-src/src/os_unix.c	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/os_unix.c	2012-06-20 16:40:37.000000000 +0200
 @@ -2037,7 +2037,7 @@
      if (get_x11_windis() == OK)
  	type = 1;
@@ -17430,8 +17452,8 @@ diff -urN vim-src/src/pathdef.cmake.in vim-qt-src/src/pathdef.cmake.in
 +char_u *compiled_sys = (char_u *)"${SITE_NAME}";
 diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
 --- vim-src/src/proto/gui_qt.pro	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/proto/gui_qt.pro	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,81 @@
++++ vim-qt-src/src/proto/gui_qt.pro	2012-06-20 16:40:38.000000000 +0200
+@@ -0,0 +1,82 @@
 +
 +/* Prototypes - I am probably missing something here */
 +
@@ -17508,10 +17530,11 @@ diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
 +int gui_mch_showing_tabline __ARGS((void));
 +void gui_mch_enable_menu __ARGS((int flag));
 +void gui_mch_show_tabline __ARGS((int showit));
-+
-+
-+
-+
++void gui_mch_enter_fullscreen __ARGS((void));
++void gui_mch_leave_fullscreen __ARGS((void));
++void* gui_mch_register_sign __ARGS((char_u *signfile));
++void gui_mch_destroy_sign __ARGS((void *sign));
++void gui_mch_drawsign __ARGS((int row, int col, int typenr));
 +
 diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
 --- vim-src/src/proto.h	2011-12-23 21:44:32.000000000 +0100
@@ -17797,7 +17820,7 @@ diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 +};
 +
 +#endif
-Binaire bestanden vim-src/src/qt/icons/document-open-folder.png en vim-qt-src/src/qt/icons/document-open-folder.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/document-new.png en vim-qt-src/src/qt/icons/document-new.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/document-open.png en vim-qt-src/src/qt/icons/document-open.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/document-print.png en vim-qt-src/src/qt/icons/document-print.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/document-save-all.png en vim-qt-src/src/qt/icons/document-save-all.png zijn verschillend
@@ -17806,49 +17829,67 @@ Binaire bestanden vim-src/src/qt/icons/document-save.png en vim-qt-src/src/qt/ic
 Binaire bestanden vim-src/src/qt/icons/edit-copy.png en vim-qt-src/src/qt/icons/edit-copy.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/edit-cut.png en vim-qt-src/src/qt/icons/edit-cut.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/edit-find-replace.png en vim-qt-src/src/qt/icons/edit-find-replace.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/edit-find.png en vim-qt-src/src/qt/icons/edit-find.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/edit-paste.png en vim-qt-src/src/qt/icons/edit-paste.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/edit-redo.png en vim-qt-src/src/qt/icons/edit-redo.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/edit-undo.png en vim-qt-src/src/qt/icons/edit-undo.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/folder-new.png en vim-qt-src/src/qt/icons/folder-new.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/folder-open.png en vim-qt-src/src/qt/icons/folder-open.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/go-jump.png en vim-qt-src/src/qt/icons/go-jump.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/go-next.png en vim-qt-src/src/qt/icons/go-next.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/go-previous.png en vim-qt-src/src/qt/icons/go-previous.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/help-contents.png en vim-qt-src/src/qt/icons/help-contents.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/help-contextual.png en vim-qt-src/src/qt/icons/help-contextual.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/help-faq.png en vim-qt-src/src/qt/icons/help-faq.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/run-build-clean.png en vim-qt-src/src/qt/icons/run-build-clean.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/run-build.png en vim-qt-src/src/qt/icons/run-build.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/system-run.png en vim-qt-src/src/qt/icons/system-run.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/tab-new.png en vim-qt-src/src/qt/icons/tab-new.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/table.png en vim-qt-src/src/qt/icons/table.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/utilities-terminal.png en vim-qt-src/src/qt/icons/utilities-terminal.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/view-split-left-right.png en vim-qt-src/src/qt/icons/view-split-left-right.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/view-split-top-bottom.png en vim-qt-src/src/qt/icons/view-split-top-bottom.png zijn verschillend
 Binaire bestanden vim-src/src/qt/icons/vim-qt.png en vim-qt-src/src/qt/icons/vim-qt.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/window-close.png en vim-qt-src/src/qt/icons/window-close.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/zoom-fit-height.png en vim-qt-src/src/qt/icons/zoom-fit-height.png zijn verschillend
+Binaire bestanden vim-src/src/qt/icons/zoom-fit-width.png en vim-qt-src/src/qt/icons/zoom-fit-width.png zijn verschillend
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/icons.qrc	2012-01-10 17:53:27.000000000 +0100
-@@ -0,0 +1,27 @@
++++ vim-qt-src/src/qt/icons.qrc	2012-06-20 16:40:38.000000000 +0200
+@@ -0,0 +1,36 @@
 + <!DOCTYPE RCC><RCC version="1.0">
 + <qresource>
 +     <file>icons/document-open.png</file>
 +     <file>icons/document-save.png</file>
 +     <file>icons/document-save-all.png</file>
 +     <file>icons/document-print.png</file>
++     <file>icons/document-new.png</file>
 +     <file>icons/edit-undo.png</file>
 +     <file>icons/edit-redo.png</file>
 +     <file>icons/edit-cut.png</file>
 +     <file>icons/edit-copy.png</file>
 +     <file>icons/edit-paste.png</file>
 +     <file>icons/edit-find-replace.png</file>
++     <file>icons/edit-find.png</file>
 +     <file>icons/go-next.png</file>
 +     <file>icons/go-previous.png</file>
-+     <file>icons/document-open-folder.png</file>
++     <file>icons/folder-open.png</file>
 +     <file>icons/document-save-as.png</file>
++     <file>icons/folder-new.png</file>
 +     <file>icons/run-build-clean.png</file>
 +     <file>icons/run-build.png</file>
 +     <file>icons/table.png</file>
 +     <file>icons/go-jump.png</file>
 +     <file>icons/help-contents.png</file>
-+     <file>icons/help-contextual.png</file>
++     <file>icons/help-faq.png</file>
 +     <file>icons/vim-qt.png</file>
 +     <file>icons/tab-new.png</file>
 +     <file>icons/system-run.png</file>
++     <file>icons/view-split-left-right.png</file>
++     <file>icons/view-split-top-bottom.png</file>
++     <file>icons/window-close.png</file>
++     <file>icons/zoom-fit-height.png</file>
++     <file>icons/zoom-fit-width.png</file>
++     <file>icons/utilities-terminal.png</file>
 + </qresource>
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
@@ -19696,15 +19737,56 @@ diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
 +#endif
 diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 --- vim-src/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.cpp	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,19 @@
++++ vim-qt-src/src/qt/vimaction.cpp	2012-06-20 16:40:38.000000000 +0200
+@@ -0,0 +1,60 @@
 +#include "vimaction.moc"
++
++/**
++ * :help builtin-tools
++ */
++QStringList VimAction::iconNames = QStringList() 
++	<< "document-new"	// 00  New		open new window
++	<< "document-open"	// 01  Open		browse for file to open in current window
++	<< "document-save"	// 02  Save		write buffer to file
++	<< "edit-undo"		// 03  Undo		undo last change
++	<< "edit-redo"		// 04  Redo		redo last undone change
++	<< "edit-cut"		// 05  Cut		delete selected text to clipboard
++	<< "edit-copy"		// 06  Copy		copy selected text to clipboard
++	<< "edit-paste"		// 07  Paste		paste text from clipboard
++	<< "document-print"	// 08  Print		print current buffer
++	<< "help-contents"	// 09  Help		open a buffer on Vim's builtin help
++	<< "edit-find"		// 10  Find		start a search command
++	<< "document-save-all"	// 11  SaveAll		write all modified buffers to file
++	<< "document-save-as"	// 12  SaveSesn		write session file for current situation
++	<< "folder-new"		// 13  NewSesn		write new session file
++	<< "folder-open"	// 14  LoadSesn		load session file // FIXME
++	<< "system-run"		// 15  RunScript	browse for file to run as a Vim script
++	<< "edit-find-replace"	// 16  Replace		prompt for substitute command
++	<< "window-close"	// 17  WinClose		close current window
++	<< ""			// 18  WinMax		make current window use many lines // FIXME
++	<< ""			// 19  WinMin		make current window use few lines // FIXME
++<< "view-split-left-right"	// 20  WinSplit		split current window
++	<< "utilities-terminal"	// 21  Shell		start a shell
++	<< "go-previous"	// 22  FindPrev		search again, backward
++	<< "go-next"		// 23  FindNext		search again, forward
++	<< "help-faq"		// 24  FindHelp		prompt for word to search help for
++	<< "run-build"		// 25  Make		run make and jump to first error
++	<< "go-jump"		// 26  TagJump		jump to tag under the cursor
++	<< "table"		// 27  RunCtags		build tags for files in current directory
++<< "view-split-top-bottom"	// 28  WinVSplit	split current window vertically
++	<< "zoom-fit-height"	// 29  WinMaxWidth	make current window use many columns
++	<< "zoom-fit-width"	// 30  WinMinWidth	make current window use few columns
++	;
 +
 +VimAction::VimAction(vimmenu_T* menu, QObject *parent)
 +:QAction(parent), m_menu(menu)
 +{
 +	if ( menu_is_toolbar(menu->parent->name) ) {
-+		setIcon( VimWrapper::icon(QString::fromUtf8((char*)menu->name)) );
++		// FIXME: add support for iconfile
++		if ( menu->iconidx >= 0 && menu->iconidx <iconNames.size() ) {
++			setIcon( VimWrapper::icon(iconNames.at(menu->iconidx)) );
++		}
++
 +		setToolTip(QString::fromUtf8((char*) menu->strings[MENU_INDEX_TIP]));
 +	} else {
 +		setText( QString::fromUtf8((char*)menu->name) );
@@ -19719,8 +19801,8 @@ diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 +}
 diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 --- vim-src/src/qt/vimaction.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.h	2011-06-16 16:58:05.000000000 +0200
-@@ -0,0 +1,19 @@
++++ vim-qt-src/src/qt/vimaction.h	2012-06-20 16:40:38.000000000 +0200
+@@ -0,0 +1,20 @@
 +#ifndef __GUI_QT_VIMACTION__
 +#define __GUI_QT_VIMACTION__
 +
@@ -19737,6 +19819,7 @@ diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 +
 +private:
 +	vimmenu_T *m_menu;
++	static QStringList iconNames;
 +};
 +
 +#endif
@@ -19848,8 +19931,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-04-21 23:29:37.000000000 +0200
-@@ -0,0 +1,406 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-06-20 16:40:38.000000000 +0200
+@@ -0,0 +1,342 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -20128,71 +20211,7 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +
 +	QIcon icon;
 +
-+	// Theme icons
-+	if ( "Open" == name ) {
-+		icon = QIcon::fromTheme("document-open", 
-+				QIcon(":/icons/document-open.png"));
-+	} else if ( "Save" == name ) {
-+		icon = QIcon::fromTheme("document-save",
-+				QIcon(":/icons/document-save.png"));
-+	} else if ( "SaveAll" == name ) {
-+		icon = QIcon::fromTheme("document-save-all",
-+				QIcon(":/icons/document-save-all.png"));
-+	} else if ( "Print" == name ) {
-+		icon = QIcon::fromTheme("document-print",
-+				QIcon(":/icons/document-print.png"));
-+	} else if ( "Undo" == name ) {
-+		icon = QIcon::fromTheme("edit-undo",
-+				QIcon(":/icons/edit-undo.png"));
-+	} else if ( "Redo"== name ) {
-+		icon = QIcon::fromTheme("edit-redo",
-+				QIcon(":/icons/edit-redo.png"));
-+	} else if ( "Cut" == name ) {
-+		icon = QIcon::fromTheme("edit-cut",
-+				QIcon(":/icons/edit-cut.png"));
-+	} else if ( "Copy" == name ) {
-+		icon = QIcon::fromTheme("edit-copy",
-+				QIcon(":/icons/edit-copy.png"));
-+	} else if ( "Paste" == name ) {
-+		icon = QIcon::fromTheme("edit-paste",
-+				QIcon(":/icons/edit-paste.png"));
-+	} else if ( "Replace" == name ) {
-+		icon = QIcon::fromTheme("edit-find-replace",
-+				QIcon(":/icons/edit-find-replace.png"));
-+	} else if ( "FindNext" == name ) {
-+		icon = QIcon::fromTheme("go-next",
-+				QIcon(":/icons/go-next.png"));
-+	} else if ( "FindPrev" == name ) {
-+		icon = QIcon::fromTheme("go-previous",
-+				QIcon(":/icons/go-previous.png"));
-+	} else if ( "LoadSesn" == name ) {
-+		icon = QIcon::fromTheme("folder-open",
-+				QIcon(":/icons/document-open-folder.png"));
-+	} else if ( "SaveSesn" == name ) {
-+		icon = QIcon::fromTheme("document-save-as",
-+				QIcon(":/icons/document-save-as.png"));
-+	} else if ( "RunScript" == name ) {
-+		icon = QIcon::fromTheme("system-run",
-+				QIcon(":/icons/system-run.png"));
-+	} else if ( "Make" == name ) {
-+		icon = QIcon::fromTheme("run-build", 
-+				QIcon(":/icons/run-build.png"));
-+	} else if ( "RunCtags" == name ) {
-+		icon = QIcon(":/icons/table.png");
-+	} else if ( "TagJump" == name ) {
-+		icon = QIcon::fromTheme("go-jump",
-+				QIcon(":/icons/go-jump.png"));
-+	} else if ( "Help" == name ) {
-+		icon = QIcon::fromTheme("help-contents",
-+				QIcon(":/icons/help-contents.png"));
-+	} else if ( "FindHelp" == name ) {
-+		icon = QIcon::fromTheme("help-faq",
-+				QIcon(":/icons/help-contextual.png"));
-+	}
-+
-+	if ( icon.isNull() ) { // Load from system theme
-+		icon = QIcon::fromTheme(name.toLower(), QIcon(":/icons/" + name + ".png"));
-+	}
++	icon = QIcon::fromTheme(name.toLower(), QIcon(":/icons/" + name + ".png"));
 +	if ( icon.isNull() ) {
 +		return QApplication::style()->standardIcon(QStyle::SP_FileLinkIcon);
 +	}
@@ -20364,9 +20383,9 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +
 +#endif
 diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
---- vim-src/src/structs.h	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/structs.h	2012-04-05 17:31:22.000000000 +0200
-@@ -2295,6 +2295,10 @@
+--- vim-src/src/structs.h	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/structs.h	2012-06-20 16:40:38.000000000 +0200
+@@ -2307,6 +2307,10 @@
  
  typedef struct VimMenu vimmenu_T;
  
@@ -20377,7 +20396,7 @@ diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
  struct VimMenu
  {
      int		modes;		    /* Which modes is this menu visible for? */
-@@ -2367,6 +2371,10 @@
+@@ -2379,6 +2383,10 @@
      PtWidget_t	*id;
      PtWidget_t	*submenu_id;
  #endif
@@ -20413,8 +20432,8 @@ diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
   * Translate window coordinates to buffer position without any side effects
   */
 diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
---- vim-src/src/vim.h	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/vim.h	2012-04-05 17:31:22.000000000 +0200
+--- vim-src/src/vim.h	2012-06-20 16:43:54.000000000 +0200
++++ vim-qt-src/src/vim.h	2012-06-20 16:40:38.000000000 +0200
 @@ -114,6 +114,11 @@
  # define FEAT_GUI_MAC
  #endif
@@ -20427,7 +20446,7 @@ diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
  #if defined(FEAT_GUI_MOTIF) \
      || defined(FEAT_GUI_GTK) \
      || defined(FEAT_GUI_ATHENA) \
-@@ -1919,6 +1924,10 @@
+@@ -1923,6 +1928,10 @@
      GdkAtom     gtk_sel_atom;	/* PRIMARY/CLIPBOARD selection ID */
  # endif
  
