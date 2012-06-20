@@ -4,7 +4,7 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.1.16
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -14,7 +14,7 @@ source=(
 	"http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}.tar.bz2"
 	'LocalConfig.kmk'
 	'60-vboxguest.rules'
-	'modprobe-virtualbox-modules-bede-host'
+	'modules-load-virtualbox-bede'
 )
 md5sums=(
 	'eacfb802ecdd6d3435228eb3d3488719'
@@ -72,9 +72,9 @@ package_virtualbox-modules-bede-host(){
             "$pkgdir/lib/modules/${_extramodules}/vbox/${module}"
     done
 
-	# install config file in modprobe.d for out of the box experience
-	install -Dm644 "$srcdir/modprobe-virtualbox-modules-bede-host" \
-		"$pkgdir/usr/lib/modprobe.d/virtualbox-modules-bede-host.conf"
+	# install config file in modules-load.d for out of the box experience
+	install -Dm644 "$srcdir/modules-load-virtualbox-bede" \
+		"$pkgdir/usr/lib/modules-load.d/virtualbox-modules-bede-host.conf"
 
     find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 
