@@ -7,9 +7,9 @@ pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.2
-_patchver=20
+_patchver=21
 pkgver=$_basekernel
-pkgrel=3
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -38,16 +38,16 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'52e684dce254f1b0e22de88a9bb645b4f2443e683916ebc2f868ec11dd574381'
+		'1ac575532a1a05ced54d37c7f8b7c903a948f1fce6f258ebbc75ff44e032e320'
 	)
 fi
 
 # extra patches
 _extrapatches=(
-	'http://grsecurity.net/stable/grsecurity-2.9.1-3.2.20-201206192225.patch'
+	'http://grsecurity.net/stable/grsecurity-2.9.1-3.2.21-201206201812.patch'
 )
 _extrapatchessums=(
-	'2a0dbf087f20f2919c42602fa4668f68adc026b1580fe1bc3fcdf79d38574a0e'
+	'b84d941ab77213e10246c6996eaee1104e97aee5a27677fc20d1f71d0892fa04'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
