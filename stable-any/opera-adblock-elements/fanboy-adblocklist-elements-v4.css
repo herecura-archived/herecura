@@ -1,7 +1,7 @@
 /*
-! Checksum: 4dd0ZVmFT+avel1OWWdvDg
+! Checksum: ujaTA7kyRAZ/LasVemQQbQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Jun 2012
+! Version: V4 Updated: 21 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1831,6 +1831,7 @@
 #footad,
 #footAds,
 #footer-ad,
+#footer-ad-728,
 #footer-ad-col,
 #footer-ad-shadow,
 #footer-ad-unit,
@@ -6458,6 +6459,8 @@
 .stpro_ads,
 .strip-ad,
 .subad,
+.subAdBannerArea,
+.subAdBannerHeader,
 .subheadAdPanel,
 .subjects_ad,
 .subNavAd,
