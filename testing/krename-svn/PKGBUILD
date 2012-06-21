@@ -1,7 +1,7 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krename-svn
-pkgver=241
+pkgver=243
 pkgrel=1
 pkgdesc="KRename is a powerful batch file renamer for KDE4."
 url="http://www.krename.net/"
