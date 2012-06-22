@@ -1,7 +1,7 @@
 /*
-! Checksum: ujaTA7kyRAZ/LasVemQQbQ
+! Checksum: j7WjJSqYPW40fomqLKs2qg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 21 Jun 2012
+! Version: V4 Updated: 22 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1285,6 +1285,7 @@
 #advertisement2,
 #advertisement728x90,
 #advertisement_block,
+#advertisement_box,
 #advertisement_label,
 #advertisement_notice,
 #advertisementArea,
@@ -2526,6 +2527,7 @@
 #photoAndAdBox,
 #phxcms_top_leaderboard,
 #picad_div,
+#pixAd,
 #player_ad,
 #player_ads,
 #player_middle_ad,
@@ -2686,6 +2688,7 @@
 #rightMortgageAd,
 #rightrail-ad,
 #RightRailSponsor,
+#rightSideAd,
 #rightskyad,
 #RightSponsoredAd,
 #rockmelt-ad-top,
@@ -4815,6 +4818,7 @@
 .banner-ad,
 .banner-ad-row,
 .banner-ads,
+.banner-ads-sidebar,
 .banner-advert,
 .banner-adverts,
 .banner-buysellads,
