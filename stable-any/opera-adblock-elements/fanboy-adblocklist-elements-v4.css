@@ -1,5 +1,5 @@
 /*
-! Checksum: j7WjJSqYPW40fomqLKs2qg
+! Checksum: p7/The21ZP8h2vYlrt1ZiQ
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 22 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -3174,6 +3174,7 @@
 #wh_ad_4,
 #whitepaper-ad,
 #whoisRightAdContainer,
+#whoisRightAdContainerTop,
 #wibiyaAdRotation,
 #wibiyaToolbarAdUnitFlash,
 #wide_ad_unit_2,
@@ -3955,6 +3956,7 @@
 .adChoice,
 .adchoice,
 .adChoiceLogo,
+.adchoices-link,
 .adClose,
 .adCMRight,
 .adCMSlide,
@@ -5635,6 +5637,7 @@
 .LastAd,
 .lastAdvertorial,
 .layer_text_ad,
+.lazyad,
 .lazyload_ad,
 .LazyLoadAd,
 .lb-ad,
