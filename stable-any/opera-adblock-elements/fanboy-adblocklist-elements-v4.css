@@ -1,7 +1,7 @@
 /*
-! Checksum: p7/The21ZP8h2vYlrt1ZiQ
+! Checksum: uE335b67tODgfCFXKktaKQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 Jun 2012
+! Version: V4 Updated: 23 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1751,6 +1751,7 @@
 #defer-adright,
 #detail_page_vid_topads,
 #devil-ad,
+#disable-ads-container,
 #dItemBox_ads,
 #div_ad_holder,
 #div_content_mid_lft_ads,
@@ -2585,6 +2586,7 @@
 #r_adver,
 #RadAd_Skyscraper,
 #RadAdSkyscraper,
+#rail-ad-wrap,
 #rail_ad,
 #rail_ad1,
 #rail_ad2,
@@ -2851,6 +2853,7 @@
 #skyscraperAdWrap,
 #SkyscraperAnzeige,
 #skyscraperWrapperAd,
+#slidead,
 #slider-ad,
 #sliderAdHolder,
 #slideshow_ad_300x250,
@@ -3317,6 +3320,7 @@
 .ad-bigboxSub,
 .ad-bline,
 .ad-block,
+.ad-block-300x250,
 .ad-block-big,
 .ad-block-holder,
 .ad-block-wide,
@@ -3516,6 +3520,7 @@
 .ad125x125a,
 .ad125x125b,
 .ad160,
+.ad160_blk,
 .ad160x160,
 .ad160x600,
 .ad160x600box,
@@ -3590,6 +3595,7 @@
 .ad620x70,
 .ad728,
 .ad728_90,
+.ad728_blk,
 .ad728x90,
 .ad728x90-1,
 .ad728x90-2,
@@ -4071,7 +4077,6 @@
 .adLoader,
 .adLocal,
 .adLocation,
-.admain,
 .adman,
 .adMarker,
 .adMediaMiddle,
@@ -5905,6 +5910,7 @@
 .osan-ads,
 .OSOasAdModule,
 .OSProfileAdSenseModule,
+.other_adv2,
 .otj_adspot,
 .outbrain_dual_ad_whats_class,
 .outbrain_ul_ad_top,
@@ -6641,6 +6647,7 @@
 .vertical-adsense,
 .vertical_ad,
 .verticalAd,
+.verysmallads,
 .video-adtech-mpu-ad,
 .video_ad,
 .video_ads_overdiv,
