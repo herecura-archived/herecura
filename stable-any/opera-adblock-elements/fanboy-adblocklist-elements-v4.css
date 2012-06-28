@@ -1,7 +1,7 @@
 /*
-! Checksum: RMmn646L14VvS1qcIFXDiQ
+! Checksum: ONFr2x7row+iIxdcPGaVVw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 26 Jun 2012
+! Version: V4 Updated: 27 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1240,6 +1240,7 @@
 #advert-top,
 #advert-wrapper,
 #advert1,
+#Advert1,
 #advert1hp,
 #advert234_container,
 #advert_01,
@@ -2248,6 +2249,7 @@
 #LB_Row_Ad,
 #lbAdBar,
 #lbAdBarBtm,
+#lead_ad,
 #leader-board-ad,
 #leader_board_ad,
 #leaderAd,
@@ -2389,6 +2391,7 @@
 #midrect_ad,
 #midRightAds,
 #midstrip_ad,
+#mini_ads_inset,
 #miniAdsAd,
 #moa-ads-long,
 #mochila-column-right-ad-300x250,
@@ -4729,6 +4732,7 @@
 .advertising_banner,
 .advertising_block,
 .advertising_widget,
+.advertisingBanner,
 .advertisingLrec,
 .advertisingTable,
 .Advertisment,
