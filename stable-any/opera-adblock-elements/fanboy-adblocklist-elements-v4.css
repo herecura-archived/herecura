@@ -1,7 +1,7 @@
 /*
-! Checksum: ONFr2x7row+iIxdcPGaVVw
+! Checksum: pDr1Tyf7R6H4MzygL4O2+A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Jun 2012
+! Version: V4 Updated: 28 Jun 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2687,6 +2687,7 @@
 #rightadpat,
 #rightads,
 #rightAds,
+#rightadsarea,
 #rightAdsDiv,
 #RightAdSpace,
 #RightAdvertisement,
@@ -2809,6 +2810,7 @@
 #sidebar-long-advertise,
 #sidebar-scroll-ad-container,
 #sidebar-sponsors,
+#sidebar-top-ad,
 #sidebar2-ads,
 #sidebar_ad,
 #sidebar_ad_1,
@@ -3747,6 +3749,7 @@
 .ad_hat_banner_300,
 .ad_hat_top,
 .ad_header_lb,
+.ad_header_left,
 .ad_help_link,
 .ad_holder,
 .ad_hpm,
@@ -5620,6 +5623,7 @@
 .inlist-ad,
 .inner-ad,
 .inner-advt-banner-3,
+.inner_big_ad,
 .innerAds,
 .inPageAd,
 .inpostad,
