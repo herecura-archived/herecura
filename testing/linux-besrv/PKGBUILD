@@ -9,7 +9,7 @@ true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.2
 _patchver=21
 pkgver=$_basekernel
-pkgrel=4
+pkgrel=5
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -25,8 +25,8 @@ source=(
 )
 sha256sums=(
 	'dd96ed02b53fb5d57762e4b1f573460909de472ca588f81ec6660e4a172e7ba7'
-	'a155ee2e88b91b0fcc2aea68e4dc51b4b029b6f2233ff210b83a6b7bafd17843'
-	'5800cc08afef01a5974d200cd1c34ffc6555ae157f97f4d86f8974d7b826fdf8'
+	'529bbb2eead7de5a3f87e309fcf53ff19df2d821c09a7f88b34a0ad0825b1790'
+	'c93c7843dec807218b6a49908d52ed4144d434541e6ac225a5c89702096bb09b'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -155,7 +155,8 @@ package_linux-besrv() {
 	# install modules
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$pkgdir" modules_install
 
-	# copy System.map and bzImage
+	# copy config, System.map and bzImage
+	install -m644 .config "$pkgdir/boot/config$_kernelname"
 	install -m644 System.map "$pkgdir/boot/System.map$_kernelname"
 	install -m644 arch/$KARCH/boot/bzImage "$pkgdir/boot/vmlinuz$_kernelname"
 
