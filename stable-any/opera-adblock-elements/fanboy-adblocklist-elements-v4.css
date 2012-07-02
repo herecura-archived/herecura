@@ -1,5 +1,5 @@
 /*
-! Checksum: OCXeHs7V1FtkpORwCzhQOQ
+! Checksum: 1bOFwlUvsXWDSgP8NhJQEA
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 1 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -2920,6 +2920,7 @@
 #sponsorAd1,
 #sponsorBanners32,
 #sponsorBar,
+#sponsorContainer0,
 #sponsored-links,
 #sponsored-links-container,
 #sponsored-links-list,
@@ -7273,6 +7274,8 @@ div[class="w460 clr"],
 #sponsor_box,
 /* newscientist.com */
 .mpMPU,
+/* nydailynews.com */
+#nydn-ads,
 /* newsweek.com */
 .homepageFlexAdOuter,
 /* gamersyde.com */
