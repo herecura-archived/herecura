@@ -1,7 +1,7 @@
 /*
-! Checksum: 1bOFwlUvsXWDSgP8NhJQEA
+! Checksum: FQwZkSg2bRBwIvxHBBj7dw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Jul 2012
+! Version: V4 Updated: 2 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1036,6 +1036,9 @@
 #adsense-right,
 #adsense-tag,
 #adsense-text,
+#adsense03,
+#adsense04,
+#adsense05,
 #adsense1,
 #AdSense2,
 #adsense2,
@@ -3909,6 +3912,7 @@
 .adArticleRecommend,
 .adArticleSidetile,
 .adArticleTopText,
+.adb-728x90,
 .adback,
 .adban-hold-narrow,
 .adBanner,
@@ -6827,6 +6831,8 @@
 .yrail_ads,
 .yui3-ad,
 [id^="GOOGLE_ADS_"],
+A[href^="http://secure.hostgator.com/~affiliat/"],
+A[href^="http://www.dreamhost.com/r.cgi?"],
 .AdBox,
 .ad-content,
 #adLayer,
@@ -7547,6 +7553,7 @@ div.lrec,
 #watch-channel-brand-div,
 .searchView.list-view,
 .yva-360-bg,
+.pyv-promoted-videos,
 /* vkontakte.ru */
 .ad_box_new,
 .ad_help_link,
