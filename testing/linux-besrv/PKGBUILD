@@ -9,7 +9,7 @@ true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.2
 _patchver=21
 pkgver=$_basekernel
-pkgrel=6
+pkgrel=7
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -44,10 +44,10 @@ fi
 
 # extra patches
 _extrapatches=(
-	'http://grsecurity.net/stable/grsecurity-2.9.1-3.2.21-201206251800.patch'
+	'http://grsecurity.net/stable/grsecurity-2.9.1-3.2.21-201207021920.patch'
 )
 _extrapatchessums=(
-	'da1871b08bf07e022875a67f36e1065b7647d34c01d6d41d91f378dd58d3ba97'
+	'295dc2b7278bf0c0212457c108814e934907bc7a53fca023dbb2469fa776bad7'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
