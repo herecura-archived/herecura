@@ -3,7 +3,7 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgname='nvidia-llb-bede'
 pkgver=295.59
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -29,10 +29,10 @@ build() {
     cd "${srcdir}"
     sh "${_pkg}.run" --extract-only
 
-	_kernver="$(cat /lib/modules/$_extramodules/version)"
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 	cd $_pkg/kernel
 	sed -e '/CFLAGS="$CFLAGS/s:-I$SOURCES/arch/x86/include:& -I$OUTPUT/arch/x86/include/generated:' -i conftest.sh
- 	make SYSSRC=/lib/modules/$_kernver/build module
+ 	make SYSSRC=/usr/lib/modules/$_kernver/build module
 }
 
 package_nvidia-llb-bede() {
@@ -43,7 +43,7 @@ package_nvidia-llb-bede() {
 	install=nvidia.install
 
 	install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
-		"$pkgdir/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
+		"$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
 
 	install -dm755 "$pkgdir/usr/lib/modprobe.d"
 	echo "blacklist nouveau" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
