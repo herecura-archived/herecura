@@ -9,7 +9,7 @@ true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.2
 _patchver=21
 pkgver=$_basekernel
-pkgrel=7
+pkgrel=8
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -101,6 +101,9 @@ build() {
 	msg2 "set extraversion to $pkgrel"
 	sed -ri "s|^(EXTRAVERSION =).*|\1 -$pkgrel|" Makefile
 
+	# don't run depmod on 'make install'. We'll do this ourselves in packaging
+	sed -i '2iexit 0' scripts/depmod.sh
+
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > "$srcdir/linux-$_basekernel/.scmversion"
@@ -147,7 +150,7 @@ package_linux-besrv() {
 	KARCH=x86
 	cd "$srcdir/linux-$_basekernel"
 
-	mkdir -p "$pkgdir"/{lib/modules,lib/firmware,boot}
+	mkdir -p "$pkgdir"/{lib/modules,lib/firmware,boot,usr}
 
 	# get kernel version
 	_kernver=$(make kernelrelease)
@@ -155,8 +158,7 @@ package_linux-besrv() {
 	# install modules
 	make INSTALL_MOD_STRIP=1 INSTALL_MOD_PATH="$pkgdir" modules_install
 
-	# copy config, System.map and bzImage
-	install -m644 .config "$pkgdir/boot/config$_kernelname"
+	# copy System.map and bzImage
 	install -m644 System.map "$pkgdir/boot/System.map$_kernelname"
 	install -m644 arch/$KARCH/boot/bzImage "$pkgdir/boot/vmlinuz$_kernelname"
 
@@ -189,6 +191,12 @@ package_linux-besrv() {
 	mkdir -p "$pkgdir/lib/modules/$_basekernel$_fldkernelname-external"
 	echo "$_kernver" > "$pkgdir/lib/modules/${_basekernel}$_fldkernelname-external/version"
 
+	# move module tree /lib -> /usr/lib
+	mv "$pkgdir/lib" "$pkgdir/usr/"
+
+	# Now we call depmod...
+	depmod -b "$pkgdir" -F System.map "$_kernver"
+
 	# gzip all modules
 	find "$pkgdir" -name '*.ko' -exec gzip -9 {}  \;
 }
@@ -197,9 +205,9 @@ package_linux-besrv-headers() {
 	pkgdesc="Header files and scripts for building modules for linux$_kernelname"
 	provides=('linux-headers')
 	replaces=("kernel26$_kernelname-headers" "linux-bemm-headers")
-	mkdir -p "$pkgdir/lib/modules/$_kernver"
-	cd "$pkgdir/lib/modules/$_kernver"
-	ln -sf ../../../usr/src/linux-$_kernver build
+	install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
+	cd "$pkgdir/usr/lib/modules/$_kernver"
+	ln -sf ../../../src/linux-$_kernver build
 	cd "$srcdir/linux-$_basekernel"
 	install -D -m644 Makefile \
 		"$pkgdir/usr/src/linux-$_kernver/Makefile"
