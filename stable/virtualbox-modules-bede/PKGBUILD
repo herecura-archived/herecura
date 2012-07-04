@@ -4,7 +4,7 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.1.18
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -26,9 +26,9 @@ md5sums=(
 _extramodules=3.4-BEDE-external
 
 build() {
-	_kernver="$(cat /lib/modules/${_extramodules}/version)"
+	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
-	export KERN_DIR=/lib/modules/${_kernver}/build
+	export KERN_DIR=/usr/lib/modules/${_kernver}/build
 	export KERN_INCL=/usr/src/linux-${_kernver}/include/
 
     cd "$srcdir/VirtualBox-${pkgver}"
@@ -69,7 +69,7 @@ package_virtualbox-modules-bede-host(){
 
     for module in vboxdrv.ko vboxnetadp.ko vboxnetflt.ko vboxpci.ko; do
         install -D -m644 ${module} \
-            "$pkgdir/lib/modules/${_extramodules}/vbox/${module}"
+            "$pkgdir/usr/lib/modules/${_extramodules}/vbox/${module}"
     done
 
 	# install config file in modules-load.d for out of the box experience
@@ -94,7 +94,7 @@ package_virtualbox-modules-bede-guest(){
 
     for module in vboxguest.ko vboxsf.ko vboxvideo.ko; do
         install -D -m644 ${module} \
-            "$pkgdir/lib/modules/${_extramodules}/vbox/${module}"
+            "$pkgdir/usr/lib/modules/${_extramodules}/vbox/${module}"
     done
 
     install -D -m 0644 "$srcdir/60-vboxguest.rules" \
