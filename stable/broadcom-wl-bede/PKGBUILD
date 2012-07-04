@@ -3,7 +3,7 @@
 
 pkgname=broadcom-wl-bede
 pkgver=5.100.82.112
-pkgrel=15
+pkgrel=16
 pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver'
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 arch=('i686' 'x86_64')
@@ -40,15 +40,15 @@ build() {
 	patch -p0 src/wl/sys/wl_linux.c < "$srcdir/bc_wl_abiupdate.patch"
 	patch -Np0 -i linux34.patch
 
-	_kernver="$(cat /lib/modules/$_extramodules/version)"
-	make -C "/lib/modules/$_kernver/build" M=`pwd`
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"
+	make -C "/usr/lib/modules/$_kernver/build" M=`pwd`
 }
 
 package() {
 	cd "$srcdir"
 
-	install -D -m 755 wl.ko "$pkgdir/lib/modules/$_extramodules/broadcom-wl/wl.ko"
-	gzip "$pkgdir/lib/modules/$_extramodules/broadcom-wl/wl.ko"
+	install -D -m 755 wl.ko "$pkgdir/usr/lib/modules/$_extramodules/broadcom-wl/wl.ko"
+	gzip "$pkgdir/usr/lib/modules/$_extramodules/broadcom-wl/wl.ko"
 
 	install -D -m 644 lib/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 	install -D -m 644 modprobe.d "$pkgdir/usr/lib/modprobe.d/broadcom-wl.conf"
