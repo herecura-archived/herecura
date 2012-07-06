@@ -15021,8 +15021,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-06-20 16:44:09.664849588 +0200
-+++ vim-qt-src/src/configure.in	2012-06-20 16:44:12.036867635 +0200
+--- vim-src/src/configure.in	2012-07-06 18:20:04.923024196 +0200
++++ vim-qt-src/src/configure.in	2012-07-06 18:20:08.673024504 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15282,8 +15282,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-06-20 16:44:09.649849474 +0200
-+++ vim-qt-src/src/feature.h	2012-06-20 16:44:12.020867512 +0200
+--- vim-src/src/feature.h	2012-07-06 18:20:04.910024194 +0200
++++ vim-qt-src/src/feature.h	2012-07-06 18:20:08.660024503 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15481,8 +15481,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
      GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-05-18 19:58:59.000000000 +0200
-@@ -0,0 +1,1715 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-07-06 18:19:22.000000000 +0200
+@@ -0,0 +1,1730 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15555,7 +15555,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +GuiFont
 +gui_mch_get_font(char_u *name, int giveErrorIfMissing)
 +{
-+	QString family = (char*)name;
++	QString family = VimWrapper::convertFrom(name);
 +	QFont font;
 +	font.setStyleHint(QFont::TypeWriter);
 +	font.setStyleStrategy(QFont::StyleStrategy(QFont::PreferDefault | QFont::ForceIntegerMetrics) );
@@ -15574,8 +15574,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		QString realname = family.section(' ', 0, -2).trimmed();
 +		font.setFamily(realname);
 +		font.setPointSize(size);
-+	} else if ( !font.fromString((char*)name) ) {
-+		font.setRawName((char*)name);
++	} else if ( !font.fromString(family) ) {
++		font.setRawName(family);
 +	}
 +
 +	font.setBold(false);
@@ -16166,7 +16166,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_settitle(char_u *title, char_u *icon)
 +{
 +	if ( title != NULL ) {
-+		window->setWindowTitle( VimWrapper::convertFrom((char*)title) );
++		window->setWindowTitle( VimWrapper::convertFrom(title) );
 +	}
 +}
 +
@@ -16324,7 +16324,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	type = clip_convert_selection(&str, (long_u *)&size, cbd);
 +	if (type >= 0) {
 +		QClipboard *clip = QApplication::clipboard();
-+		clip->setText( VimWrapper::convertFrom((char *)str, size), (QClipboard::Mode)cbd->clipboardMode);
++		clip->setText( VimWrapper::convertFrom(str, size), (QClipboard::Mode)cbd->clipboardMode);
 +	}
 +
 +	vim_free(str);
@@ -16452,7 +16452,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +    int		len,
 +    int		flags)
 +{
-+	QString str = VimWrapper::convertFrom((char *)s, len);
++	QString str = VimWrapper::convertFrom(s, len);
 +	
 +	// Font
 +	QFont f = vimshell->font();
@@ -16508,7 +16508,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	if ( reqname == NULL ) {
 +		return INVALCOLOR;
 +	}
-+	QColor c = vimshell->color((char*)reqname);
++	QColor c = vimshell->color(VimWrapper::convertFrom(reqname));
 +	if ( c.isValid() ) {
 +		return VimWrapper::toColor(c);
 +	}
@@ -16680,7 +16680,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	QAction *before=NULL;
 +
 +	if ( menu_is_popup(menu->name) ) {
-+		menu->qmenu = new QMenu(VimWrapper::convertFrom((char*)menu->name), vimshell);
++		menu->qmenu = new QMenu(VimWrapper::convertFrom(menu->name), vimshell);
 +	} else if ( menu_is_toolbar(menu->name) ) {
 +		menu->qmenu = window->toolBar();
 +	} else if ( menu->parent == NULL ) {
@@ -16689,7 +16689,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +			before = actions.at(idx);
 +		}
 +
-+		QMenu *m = new QMenu(VimWrapper::convertFrom((char*)menu->name), window);
++		QMenu *m = new QMenu(VimWrapper::convertFrom(menu->name), window);
 +		window->menuBar()->insertMenu( before, m);
 +		menu->qmenu = m;
 +	} else if ( menu->parent && menu->parent->qmenu ) {
@@ -16699,7 +16699,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +			before = actions.at(idx);
 +		}
 +
-+		QMenu *m = new QMenu(VimWrapper::convertFrom((char*)menu->name), window);
++		QMenu *m = new QMenu(VimWrapper::convertFrom(menu->name), window);
 +		parent->insertMenu( before, m);
 +		menu->qmenu = m;
 +	}
@@ -16906,28 +16906,43 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 + *  ext     - Default extension to be added to files without extensions.
 + *  initdir - directory in which to open the browser (NULL = current dir)
 + *  filter  - Filter for matched files to choose from.
-+ *  Has a format like this:
-+ *  "C Files (*.c)\0*.c\0"
-+ *  "All Files\0*.*\0\0"
-+ *  If these two strings were concatenated, then a choice of two file
-+ *  filters will be selectable to the user.  Then only matching files will
-+ *  be shown in the browser.  If NULL, the default allows all files.
 + *
-+ *  *NOTE* - the filter string must be terminated with TWO nulls.
++ *  @see :h browsefilter
 + */
 +char_u *
-+gui_mch_browse(int saving, char_u *title, char_u *dflt, char_u *ext, char_u *initdir, char_u *filter)
++gui_mch_browse(int saving, char_u *title, char_u *dflt, char_u *ext, char_u *initdir, char_u *vimfilter)
 +{
++
++	QStringList res_filter ;
++	QString filters = VimWrapper::convertFrom(vimfilter);
++	filters.replace("(", "[").replace(")", "]");
++	QStringListIterator it(filters.split('\n', QString::SkipEmptyParts));
++	while (it.hasNext())
++	{
++		QString s = it.next();
++		int index = s.lastIndexOf('\t');
++		if (-1 != index)
++		{
++			QString new_str = s.mid(index+1).replace(";"," ");
++			res_filter << s.left(index) << "(" << new_str << ")" << ";;" ;
++		}
++	}
++	QString filterstr =  res_filter.join("") ;
 +
 +	QString dir;
 +	if ( initdir == NULL ) {
 +		dir = "";
 +	} else {
-+		dir = (char*)initdir;
++		dir = VimWrapper::convertFrom(initdir);
 +	}
 +
 +	window->setEnabled(false);
-+	QString file = QFileDialog::getOpenFileName(window, (char*)title, dir);
++	QString file;
++	if ( saving ) {
++		file = QFileDialog::getSaveFileName(window, VimWrapper::convertFrom(title), dir, filterstr);
++	} else {
++		file = QFileDialog::getOpenFileName(window, VimWrapper::convertFrom(title), dir, filterstr);
++	}
 +	window->setEnabled(true);
 +	vimshell->setFocus();
 +
@@ -16946,8 +16961,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +gui_mch_dialog(int type, char_u *title, char_u *message, char_u *buttons, int dfltbutton, char_u *textfield, int ex_cmd)
 +{
 +	QMessageBox msgBox(window);
-+	msgBox.setText( (char*)message );
-+	msgBox.setWindowTitle( (char*)title );
++	msgBox.setText( VimWrapper::convertFrom(message) );
++	msgBox.setWindowTitle( VimWrapper::convertFrom(title) );
 +	
 +	// Set icon
 +	QMessageBox::Icon icon;
@@ -16978,7 +16993,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	if ( buttons != NULL ) {
 +		QStringList b_string;
 +
-+		b_string = VimWrapper::convertFrom((char*)buttons).split(DLG_BUTTON_SEP);
++		b_string = VimWrapper::convertFrom(buttons).split(DLG_BUTTON_SEP);
 +
 +		QListIterator<QString> it(b_string);
 +		int bt=1;
@@ -17061,7 +17076,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +		get_tabline_label(tp, FALSE);
 +		char_u *labeltext = CONVERT_TO_UTF8(NameBuff);
-+		window->setTab( nr, VimWrapper::convertFrom((char*)labeltext));
++		window->setTab( nr, VimWrapper::convertFrom(labeltext));
 +		CONVERT_TO_UTF8_FREE(labeltext);
 +	}
 +	window->removeTabs(nr);
@@ -17175,7 +17190,7 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		return NULL;
 +	}
 +
-+	QString name = VimWrapper::convertFrom((char*)signfile);
++	QString name = VimWrapper::convertFrom(signfile);
 +	QIcon icon(name);
 +
 +	//
@@ -19737,7 +19752,7 @@ diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
 +#endif
 diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 --- vim-src/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.cpp	2012-06-20 16:40:38.000000000 +0200
++++ vim-qt-src/src/qt/vimaction.cpp	2012-07-06 18:19:22.000000000 +0200
 @@ -0,0 +1,60 @@
 +#include "vimaction.moc"
 +
@@ -19787,9 +19802,9 @@ diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 +			setIcon( VimWrapper::icon(iconNames.at(menu->iconidx)) );
 +		}
 +
-+		setToolTip(QString::fromUtf8((char*) menu->strings[MENU_INDEX_TIP]));
++		setToolTip(VimWrapper::convertFrom(menu->strings[MENU_INDEX_TIP]));
 +	} else {
-+		setText( QString::fromUtf8((char*)menu->name) );
++		setText( VimWrapper::convertFrom(menu->name) );
 +	}
 +	connect(this, SIGNAL(triggered()),
 +			this, SLOT(actionTriggered()));
@@ -19931,8 +19946,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-06-20 16:40:38.000000000 +0200
-@@ -0,0 +1,342 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-07-06 18:19:22.000000000 +0200
+@@ -0,0 +1,352 @@
 +#include "vimwrapper.moc"
 +
 +extern "C" {
@@ -20267,6 +20282,16 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	}
 +}
 +
++QString VimWrapper::convertFrom(const QByteArray& arr)
++{
++	return convertFrom( arr.data(), arr.size());
++}
++
++QString VimWrapper::convertFrom(const char_u *s, int size)
++{
++	return convertFrom( (char*)s, size);
++}
++
 +void VimWrapper::setFullscreen(bool on)
 +{
 +	if (on) {
@@ -20277,8 +20302,8 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +}
 diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 --- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.h	2012-04-05 17:31:22.000000000 +0200
-@@ -0,0 +1,103 @@
++++ vim-qt-src/src/qt/vimwrapper.h	2012-07-06 18:19:22.000000000 +0200
+@@ -0,0 +1,107 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
 +
@@ -20346,7 +20371,8 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +	static void newTab(int idx=1);
 +
 +	static QByteArray convertTo(const QString& s);
-+	static QString convertFrom(const char *, int size=-1);
++	static QString convertFrom(const char_u *, int size=-1);
++	static QString convertFrom(const QByteArray&);
 +
 +
 +	/**
@@ -20364,6 +20390,9 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +	void sendTablineMenuEvent(int, int);
 +
 +	static void setFullscreen(bool on);
++
++protected:
++	static QString convertFrom(const char *, int size=-1);
 +
 +private slots:
 +
