@@ -11,7 +11,7 @@ _patchlevel=591
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 #__hgrev=9cb3a75a20b9
-pkgrel=2
+pkgrel=3
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -212,7 +212,7 @@ package_vim-gvim-gtk() {
 	pkgdesc='Vi Improved, gtk gui'
 	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
 	conflicts=('gvim')
-	provides=('gvim' 'vim')
+	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-gtk
@@ -251,7 +251,7 @@ package_vim-gvim-x11() {
 	pkgdesc='Vi Improved, x11 (athena) gui'
 	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'libxaw')
 	conflicts=('gvim')
-	provides=('gvim' 'vim')
+	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-x11
@@ -290,7 +290,7 @@ package_vim-gvim-motif() {
 	pkgdesc='Vi Improved, motif gui'
 	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'lesstif')
 	conflicts=('gvim')
-	provides=('gvim' 'vim')
+	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-motif
@@ -329,7 +329,7 @@ package_vim-gvim-qt() {
 	pkgdesc='Vi Improved, qt gui'
 	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'qt')
 	conflicts=('gvim')
-	provides=('gvim' 'vim')
+	provides=('gvim')
 	install=gvim.install
 
 	cd ${srcdir}/gvim-build-qt
