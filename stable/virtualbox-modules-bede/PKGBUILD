@@ -4,11 +4,11 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.1.18
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('libstdc++5' 'bin86' 'dev86' 'iasl' 'libxslt' 'libxml2' 'libpng' 'libidl2' 'xalan-c' 'sdl' 'linux-bede>=3.4' 'linux-bede<3.5' 'linux-bede-headers>=3.4' 'linux-bede-headers<3.5')
+makedepends=('libstdc++5' 'bin86' 'dev86' 'iasl' 'libxslt' 'libxml2' 'libpng' 'libidl2' 'xalan-c' 'sdl' 'linux-bede>=3.4.4-3' 'linux-bede<3.5' 'linux-bede-headers>=3.4.4-3' 'linux-bede-headers<3.5')
 [[ $CARCH == "x86_64" ]] && makedepends=("${makedepends[@]}" 'gcc-multilib' 'lib32-glibc')
 source=(
 	"http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}.tar.bz2"
@@ -59,7 +59,7 @@ package_virtualbox-modules-bede-host(){
 	pkgdesc="Kernel modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
-    depends=('linux-bede>=3.4' 'linux-bede<3.5')
+    depends=('linux-bede>=3.4.4-3' 'linux-bede<3.5')
 	provides=("virtualbox-modules=${pkgver}")
 
     source "$srcdir/VirtualBox-${pkgver}/env.sh"
@@ -85,7 +85,7 @@ package_virtualbox-modules-bede-guest(){
 	pkgdesc="Additions only for Arch Linux guests (kernel modules) (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
-    depends=('linux-bede>=3.4' 'linux-bede<3.5')
+    depends=('linux-bede>=3.4.4-3' 'linux-bede<3.5')
 	provides=("virtualbox-archlinux-modules=${pkgver}")
 
     source "$srcdir/VirtualBox-${pkgver}/env.sh"
