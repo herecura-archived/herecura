@@ -9,7 +9,7 @@ true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.4
 _patchver=4
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -142,7 +142,7 @@ package_linux-bede() {
 		"etc/mkinitcpio.d/$pkgname.preset"
 		"etc/sysctl.d/sysctl-$pkgname.conf"
 	)
-	depends=('coreutils' 'kmod' 'mkinitcpio>=0.7')
+	depends=('coreutils' 'kmod>=9-2' 'mkinitcpio>=0.9')
 	optdepends=(
 		'crda: to set the correct wireless channels of your country'
 		'linux-firmware: when having some hardware needing special firmware'
@@ -207,11 +207,11 @@ package_linux-bede() {
 	# move module tree /lib -> /usr/lib
 	mv "$pkgdir/lib" "$pkgdir/usr/"
 
+	# gzip all modules
+	find "$pkgdir" -name '*.ko' -exec gzip -9 {}  \;
+
 	# Now we call depmod...
 	depmod -b "$pkgdir" -F System.map "$_kernver"
-
-	# gzip all modules
-	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
 }
 
 package_linux-bede-headers() {
