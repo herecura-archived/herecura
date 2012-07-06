@@ -3,13 +3,13 @@
 
 pkgname=broadcom-wl-bede
 pkgver=5.100.82.112
-pkgrel=16
+pkgrel=17
 pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver'
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 arch=('i686' 'x86_64')
 license=('custom')
-depends=('linux-bede>=3.4' 'linux-bede<3.5')
-makedepends=('linux-bede-headers>=3.4' 'linux-bede-headers<3.5')
+depends=('linux-bede>=3.4.4-3' 'linux-bede<3.5')
+makedepends=('linux-bede-headers>=3.4.4-3' 'linux-bede-headers<3.5')
 install="$pkgname.install"
 
 [[ $CARCH = x86_64 ]] && ARCH=x86_64 || ARCH=x86_32
