@@ -1,7 +1,7 @@
 /*
-! Checksum: vXacCA0H6+mvS568yeAK9A
+! Checksum: 7scOhrZlx6XfqwXcHloM4w
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 Jul 2012
+! Version: V4 Updated: 10 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1199,6 +1199,7 @@
 #adText,
 #adText_container,
 #adTextCustom,
+#adTextRt,
 #adTile,
 #AdTop,
 #adTop,
@@ -2034,6 +2035,7 @@
 #googleAdsenseBannerBlog,
 #googleAdsFrame,
 #googleadsrc,
+#GoogleAdTop,
 #googleAdView,
 #googleAdwordsModule,
 #googleAdYarrp,
@@ -5427,6 +5429,7 @@
 .g-ad,
 .g-adblock3,
 .g2-adsense,
+.g3-adsense,
 .g_ad336,
 .g_ggl_ad,
 .ga-ad-split,
@@ -5653,6 +5656,7 @@
 .HomeAds,
 .homeAdSection,
 .HomeContentAd,
+.homeMainAd,
 .homepage-advertisement,
 .homepage-footer-ad,
 .homepage-footer-ads,
@@ -5907,6 +5911,7 @@
 .meme_adwrap,
 .menu-ad,
 .menuAds-cage,
+.merchantAdsBoxColRight,
 .messageBoardAd,
 .meta_ad,
 .mf-ad300-container,
