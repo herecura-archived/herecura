@@ -1,5 +1,5 @@
 /*
-! Checksum: 7scOhrZlx6XfqwXcHloM4w
+! Checksum: +/R6dx7trkkEyOWvb1TOiA
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 10 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -2740,7 +2740,9 @@
 #rightColAd,
 #rightcolhouseads,
 #rightcollongad,
+#RightColumn125x125AD,
 #rightColumnAds,
+#RightColumnSkyScraperAD,
 #rightDoubleClick,
 #rightinfoad,
 #rightMortgageAd,
@@ -4050,6 +4052,7 @@
 .adColumn,
 .adcolumn,
 .adcolumn_wrapper,
+.adColumnLeft,
 .adComponent,
 .adcontainer,
 .adContainer1,
@@ -5462,6 +5465,7 @@
 .gl_ad,
 .glamsquaread,
 .global_banner_ad,
+.globalAdLargeRect,
 .gm-ad-lrec,
 .gn_ads,
 .go-ads-widget-ads-wrap,
@@ -5743,6 +5747,7 @@
 .internalAdsContainer,
 .internalAdSection,
 .interstitial-ad600,
+.interstitial468x60,
 .interstitial_ad_wrapper,
 .ione-widget-dart-ad,
 .ipsAd,
@@ -6165,7 +6170,6 @@
 .redads_cont,
 .referrerDetailAd,
 .refreshable_ad,
-.refreshAds,
 .regular_728_ad,
 .regularad,
 .reklam2,
