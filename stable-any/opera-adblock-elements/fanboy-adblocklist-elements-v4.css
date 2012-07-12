@@ -1,7 +1,7 @@
 /*
-! Checksum: +/R6dx7trkkEyOWvb1TOiA
+! Checksum: HpgWjxyTUT7WAiG1EpZ7Wg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Jul 2012
+! Version: V4 Updated: 12 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -512,6 +512,7 @@
 #ad_main,
 #ad_marker,
 #ad_mast,
+#ad_med_rect,
 #ad_medium_rectangle,
 #ad_medium_rectangular,
 #ad_mediumrectangle,
@@ -1716,6 +1717,7 @@
 #contentAds,
 #contentAds300x200,
 #contentAds300x250,
+#contentAdsCatArchive,
 #contentarea-ad,
 #contentarea-ad-widget-area,
 #contentBottomAdLeaderboard,
@@ -1878,6 +1880,7 @@
 #footer-ads,
 #footer-adspace,
 #footer-advert-area,
+#footer-advertisement,
 #footer-adverts,
 #footer-affl,
 #footer-banner-ad,
@@ -3985,6 +3988,7 @@
 .adblock-wide,
 .adBlock160x600Spot1,
 .adblock300x250Spot1,
+.adblock_primary,
 .adBlockBottom,
 .adBlockNext,
 .adblocks-topright,
@@ -4969,6 +4973,7 @@
 .bannerAd3,
 .bannerAd300x250,
 .bannerAd_rdr,
+.banneradd,
 .bannerAdLeaderboard,
 .bannerAdRectangle,
 .bannerads,
@@ -5056,6 +5061,7 @@
 .blog-ad-leader-inner,
 .blog-ads,
 .blog-ads-container,
+.blog-ads-top,
 .blog-advertisement,
 .blog_ad,
 .blog_ad_continue,
