@@ -1,5 +1,5 @@
 /*
-! Checksum: HpgWjxyTUT7WAiG1EpZ7Wg
+! Checksum: NGsxMARK7kcRSjlYVRbbHw
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 12 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -5095,6 +5095,7 @@
 .bottom-ad-wrapper,
 .bottom-ad2,
 .bottom-ads,
+.bottom-ads-wrapper,
 .bottom-ads728,
 .bottom_ad,
 .bottom_ad_block,
@@ -5120,6 +5121,7 @@
 .box-ad-grey,
 .box-ad-wsr,
 .box-ads,
+.box-advert,
 .box-advert-sponsored,
 .box-adverts,
 .box_ad,
@@ -5235,6 +5237,7 @@
 .cntrad,
 .col-line-ad,
 .col_header_ads_300x250,
+.CollisionAdMarker,
 .column-ad,
 .column_3_ad,
 .comment-ad,
@@ -5321,6 +5324,7 @@
 .DetailAds,
 .detailSidebar-adPanel,
 .devil-ad-spot,
+.dfp-ad-unit,
 .dfp-ad-widget,
 .dfp_ad,
 .dfrads,
@@ -5343,6 +5347,7 @@
 .divReklama,
 .divRepAd,
 .divSponsoredBox,
+.divSponsoredLinks,
 .dod_ad,
 .double-ad,
 .double-square-ad,
