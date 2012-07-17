@@ -1,7 +1,7 @@
 /*
-! Checksum: GS/2Rsr7vYP5BGG3jP3KaA
+! Checksum: KHvPrmHXc07/HCGqW4Ft9g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 15 Jul 2012
+! Version: V4 Updated: 17 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1641,6 +1641,7 @@
 #boxads,
 #bps-header-ad-container,
 #bq_homeMiddleAd,
+#br_ad,
 #BrokerBox-AdContainer,
 #browse-ad-container,
 #btmad,
@@ -2151,6 +2152,7 @@
 #headlinesAdBlock,
 #hi5-ad-1,
 #hide_ad_section_v2,
+#hideads,
 #hideads1,
 #hl-top-ad,
 #hldhdAds,
@@ -2493,6 +2495,7 @@
 #ms_ad,
 #msad,
 #msAds,
+#msn_header_ad,
 #mta_bar,
 #mtSponsor,
 #multibar-ads,
@@ -2975,6 +2978,7 @@
 #sponsorAd1,
 #sponsorBanners32,
 #sponsorBar,
+#sponsorBorder,
 #sponsorContainer0,
 #sponsored-links,
 #sponsored-links-container,
@@ -3400,6 +3404,7 @@
 .ad-background,
 .ad-BANNER,
 .ad-banner,
+.ad-banner-bkgd,
 .ad-bar,
 .ad-belowarticle,
 .ad-bg,
@@ -3740,8 +3745,10 @@
 .ad_336x280,
 .ad_336x90,
 .ad_350x250,
+.ad_4,
 .ad_468,
 .ad_468x60,
+.ad_5,
 .ad_600,
 .ad_640x90,
 .ad_680x15,
@@ -4835,6 +4842,8 @@
 .advertising-box-top-teaser,
 .advertising-leaderboard,
 .advertising-local-links,
+.advertising-lrec,
+.advertising-srec,
 .advertising2,
 .advertising_banner,
 .advertising_block,
@@ -5230,6 +5239,7 @@
 .change_AdContainer,
 .chitika-ad,
 .classifiedAdSplit,
+.cm-ad,
 .cmAd,
 .cmAdContainer,
 .cmAdSponsoredLinksBox,
@@ -5923,6 +5933,7 @@
 .main_right_ad,
 .main_wrapper_upper_ad_area,
 .mainad,
+.mainadWrapper,
 .marginadsthin,
 .marketing-ad,
 .marketplaceAd,
@@ -6665,6 +6676,7 @@
 .Squareadspot,
 .squared_ad,
 .sr-adsense,
+.sr-side-ad-block,
 .sr_google_ad,
 .src_parts_gen_ad,
 .standalone_txt_ad,
@@ -6761,6 +6773,7 @@
 .top-horiz-ad,
 .top-left-nav-ad,
 .top-menu-ads,
+.top300ad,
 .top_Ad,
 .top_ad1,
 .top_ad_728,
