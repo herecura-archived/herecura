@@ -3,7 +3,7 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgname='nvidia-llb-bede'
 pkgver=295.59
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
