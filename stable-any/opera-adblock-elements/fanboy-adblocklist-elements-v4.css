@@ -1,5 +1,5 @@
 /*
-! Checksum: KHvPrmHXc07/HCGqW4Ft9g
+! Checksum: fzZ4wqVGLlpixZtVxbv72Q
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 17 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -2915,6 +2915,8 @@
 #siteAdHeader,
 #skcolAdSky,
 #skin-ad,
+#skinad-left,
+#skinad-right,
 #sky-ad,
 #sky-left,
 #sky-right,
@@ -4700,6 +4702,7 @@
 .advert-banner-holder,
 .advert-block,
 .advert-center_468x60,
+.advert-competitions,
 .advert-content,
 .advert-group,
 .advert-home-380x120,
@@ -6096,6 +6099,7 @@
 .oas-ad,
 .oas_add,
 .oasInAds,
+.oba_message,
 .ocp-sponsor,
 .ody-sponsor,
 .oi_horz_ad_container,
@@ -6598,6 +6602,7 @@
 .sponsored-links-col,
 .sponsored-links-holder,
 .sponsored-links-tbl,
+.sponsored-post,
 .sponsored-results,
 .sponsored-right,
 .sponsored-rule,
