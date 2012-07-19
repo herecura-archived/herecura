@@ -1,7 +1,7 @@
 /*
-! Checksum: fzZ4wqVGLlpixZtVxbv72Q
+! Checksum: BZEUL/CQ4FEMpjv6Q7lTLQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 17 Jul 2012
+! Version: V4 Updated: 18 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -239,6 +239,7 @@
 #ad1-468x400,
 #ad1-home,
 #ad1006,
+#ad11,
 #ad120x600,
 #ad120x600container,
 #ad120x60_override,
@@ -1701,6 +1702,7 @@
 #common_top_adspace,
 #CommonHeaderAd,
 #community_ads,
+#comp_AdsLeaderboardBottom,
 #comp_AdsLeaderboardTop,
 #companion-ad,
 #companion_Ad,
@@ -2248,6 +2250,7 @@
 #inline_ad_section,
 #inlineAd,
 #inlinead,
+#inlineAdCont,
 #inlineads,
 #inlineAdtop,
 #inlineAdvertisement,
@@ -3911,6 +3914,7 @@
 .ad_regular1,
 .ad_regular2,
 .ad_regular3,
+.ad_reminder,
 .ad_report_btn,
 .Ad_Right,
 .ad_right,
@@ -4330,6 +4334,7 @@
 .ads-top,
 .ads-top-spacer,
 .ads-widget,
+.ads-widget-sponsor-gallery,
 .ads-zone,
 .ads01,
 .ads07,
@@ -5172,6 +5177,7 @@
 .boxad,
 .boxad120,
 .boxadcont,
+.boxAdContainer,
 .boxAdMrec,
 .boxads,
 .boxadv,
@@ -5246,6 +5252,7 @@
 .cmAd,
 .cmAdContainer,
 .cmAdSponsoredLinksBox,
+.cmBottomAdRight,
 .cms-Advert,
 .cmTeaseAdSponsoredLinks,
 .cnbc_badge_banner_ad_area,
@@ -5799,6 +5806,7 @@
 .interstitial468x60,
 .interstitial_ad_wrapper,
 .ione-widget-dart-ad,
+.ipm-sidebar-ad-middle,
 .ipsAd,
 .isad_box,
 .island_ad,
@@ -5815,6 +5823,7 @@
 .item_ads,
 .ja-ads,
 .jobkeywordads,
+.JobListMidAd,
 .jobs-ad-box,
 .jobs-ad-marker,
 .juicyads_300x250,
@@ -6574,6 +6583,7 @@
 .sponsor-btns,
 .Sponsor-container,
 .sponsor-links,
+.sponsor-post,
 .sponsor-text,
 .sponsor-text-container,
 .sponsor_block,
