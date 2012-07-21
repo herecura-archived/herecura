@@ -1,7 +1,7 @@
 /*
-! Checksum: ccEUTwSSs0AUqFkzyXVQcQ
+! Checksum: WJ93xwCM6X177ubeahPJwA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Jul 2012
+! Version: V4 Updated: 20 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -88,6 +88,7 @@
 #ad-banner-top,
 #ad-banner-wrap,
 #ad-bar,
+#ad-beauty,
 #ad-bg,
 #ad-big,
 #ad-bigbox,
@@ -2481,6 +2482,7 @@
 #module_sky_scraper,
 #monsterAd,
 #moogleAd,
+#more_ad,
 #most_popular_ad,
 #motionAd,
 #movieads,
@@ -3622,6 +3624,8 @@
 .ad-with-us,
 .ad-x31-full,
 .ad-zone-s-q-l,
+.ad.leaderboard,
+.ad.skyscraper,
 .ad01,
 .ad02,
 .ad03,
@@ -4186,6 +4190,7 @@
 .AdIndicator,
 .adinfo,
 .adinner,
+.adInnerLeftBottom,
 .adInteractive,
 .adintro,
 .adIsland,
@@ -4387,6 +4392,7 @@
 .ads_672,
 .ads_728x90,
 .ads_admeld,
+.ads_after_more,
 .ads_big,
 .ads_big-half,
 .ads_block,
@@ -4883,6 +4889,7 @@
 .advertisingLrec,
 .advertisingTable,
 .Advertisment,
+.advertisment-left-panal,
 .advertisment-module,
 .advertisment_bar,
 .advertisment_full,
@@ -5078,6 +5085,7 @@
 .bigadleft,
 .bigadright,
 .bigads,
+.bigAdvBanner,
 .bigbox-ad,
 .bigbox_ad,
 .BigBoxAd,
@@ -5132,6 +5140,7 @@
 .blogads,
 .blogArtAd,
 .blogBigAd,
+.blogroll-ad-img,
 .blogs_2_square_ad,
 .blox-leaderboard-container,
 .blxAdopsPlacement,
@@ -6224,6 +6233,7 @@
 .promo_border,
 .promoad,
 .promoboxAd,
+.publiboxright300,
 .publicidad,
 .publicidad_horizontal,
 .publicidade-dotted,
@@ -6815,6 +6825,7 @@
 .top-banner-ad-wrapper,
 .top-banner-add,
 .top-bar-ad-related,
+.top-header-ad,
 .top-horiz-ad,
 .top-left-nav-ad,
 .top-menu-ads,
