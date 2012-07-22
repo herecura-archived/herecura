@@ -3,15 +3,15 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgname='nvidia-llb-bede'
 pkgver=295.59
-pkgrel=5
+pkgrel=6
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
 
-makedepends=('linux-bede>=3.4.4-3' 'linux-bede<3.5' 'linux-bede-headers>=3.4.4-3' 'linux-bede-headers<3.5' "nvidia-llb-utils=${pkgver}")
+makedepends=('linux-bede>=3.5' 'linux-bede<3.6' 'linux-bede-headers>=3.5' 'linux-bede-headers<3.6' "nvidia-llb-utils=${pkgver}")
 
-_extramodules=3.4-BEDE-external
+_extramodules=3.5-BEDE-external
 
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
@@ -37,7 +37,7 @@ build() {
 
 package_nvidia-llb-bede() {
 	pkgdesc="NVIDIA drivers for linux-bede Long Lived Branch"
-	depends=('linux-bede>=3.4.4-3' 'linux-bede<3.5' "nvidia-llb-utils=${pkgver}")
+	depends=('linux-bede>=3.5' 'linux-bede<3.6' "nvidia-llb-utils=${pkgver}")
 	conflicts=('nvidia-96xx' 'nvidia-173xx')
 	provides=('nvidia')
 	install=nvidia.install
