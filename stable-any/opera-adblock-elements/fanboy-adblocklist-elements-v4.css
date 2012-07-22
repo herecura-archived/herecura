@@ -1,7 +1,7 @@
 /*
-! Checksum: WJ93xwCM6X177ubeahPJwA
+! Checksum: WJkvk2q7EYpy3ve5+5I2NQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 20 Jul 2012
+! Version: V4 Updated: 22 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2444,6 +2444,7 @@
 #mgid-container,
 #mhheader_ad,
 #mi_story_assets_ad,
+#microAdDiv,
 #microsoft_ad,
 #mid-table-ad,
 #mid_ad_title,
@@ -2999,6 +3000,7 @@
 #sponsorAd1,
 #sponsorBanners32,
 #sponsorBar,
+#SponsorBarWrap,
 #sponsorBorder,
 #sponsorContainer0,
 #sponsored-links,
@@ -3752,6 +3754,7 @@
 .ad_2,
 .ad_240,
 .ad_240x400,
+.ad_250,
 .ad_3,
 .ad_300,
 .ad_300_120,
@@ -4469,6 +4472,7 @@
 .adsbyyahoo,
 .adsc,
 .adscatalog,
+.adsCategoryIcon,
 .adsCell,
 .adscontainer,
 .adscreen,
@@ -5681,6 +5685,7 @@
 .halfPageAd,
 .hbPostAd,
 .hd_advert,
+.hdr-ad-text,
 .hdr_ad,
 .hdTopAdContainer,
 .head_ad,
@@ -6746,6 +6751,7 @@
 .storyad300,
 .storyAdvert,
 .stpro_ads,
+.streamAd,
 .strip-ad,
 .subad,
 .subAdBannerArea,
