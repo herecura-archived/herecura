@@ -35,9 +35,11 @@ build() {
 	cp -a $_svnmod $pkgbase-qt
 
 	cd "$srcdir/$pkgbase-gtk"
+	sed -e '/fPIC/d' -i "$srcdir/$pkgbase-gtk/components/doublecmd/doublecmd_common.lpk"
 	./build.sh beta gtk2
 
 	cd "$srcdir/$pkgbase-qt"
+	sed -e '/fPIC/d' -i "$srcdir/$pkgbase-qt/components/doublecmd/doublecmd_common.lpk"
 	./build.sh beta qt
 }
 
