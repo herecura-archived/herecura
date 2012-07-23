@@ -1,5 +1,5 @@
 /*
-! Checksum: WJkvk2q7EYpy3ve5+5I2NQ
+! Checksum: nyEdN8/LuvNHPBbRlzkkYA
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 22 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -395,6 +395,7 @@
 #ad_banners_content,
 #ad_bar,
 #ad_bellow_post,
+#ad_big,
 #ad_bigbox,
 #ad_bigbox_companion,
 #ad_billboard,
@@ -3970,6 +3971,7 @@
 .ad_square_top,
 .ad_story_island,
 .ad_swf,
+.ad_tag,
 .ad_text_link,
 .ad_text_links,
 .ad_textlink_box,
@@ -3981,6 +3983,7 @@
 .ad_top_leaderboard,
 .ad_top_mpu,
 .ad_top_right,
+.ad_topic_content,
 .ad_topright,
 .ad_tower,
 .ad_trailer_header,
@@ -4722,6 +4725,7 @@
 .adv_top,
 .advBottomHome,
 .advbox,
+.adver,
 .adver_cont_below,
 .adverdown,
 .adverstisement_right,
