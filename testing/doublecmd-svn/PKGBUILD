@@ -35,11 +35,17 @@ build() {
 	cp -a $_svnmod $pkgbase-qt
 
 	cd "$srcdir/$pkgbase-gtk"
-	sed -e '/fPIC/d' -i "$srcdir/$pkgbase-gtk/components/doublecmd/doublecmd_common.lpk"
+	# dont use fPIC on i686
+	if [ "$CARCH" = "i686" ]; then
+		sed -e '/fPIC/d' -i "$srcdir/$pkgbase-gtk/components/doublecmd/doublecmd_common.lpk"
+	fi
 	./build.sh beta gtk2
 
 	cd "$srcdir/$pkgbase-qt"
-	sed -e '/fPIC/d' -i "$srcdir/$pkgbase-qt/components/doublecmd/doublecmd_common.lpk"
+	# dont use fPIC on i686
+	if [ "$CARCH" = "i686" ]; then
+		sed -e '/fPIC/d' -i "$srcdir/$pkgbase-gtk/components/doublecmd/doublecmd_common.lpk"
+	fi
 	./build.sh beta qt
 }
 
