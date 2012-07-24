@@ -1,7 +1,7 @@
 /*
-! Checksum: nyEdN8/LuvNHPBbRlzkkYA
+! Checksum: 2ZITYdyGi9HR7BLojW+SmQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 Jul 2012
+! Version: V4 Updated: 24 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -67,6 +67,7 @@
 #ad-376x280,
 #ad-4-300x90,
 #ad-635x40-1,
+#ad-655,
 #ad-7,
 #ad-728,
 #ad-728-90,
@@ -1513,7 +1514,6 @@
 #big_ad,
 #big_ad_label,
 #bigAd,
-#bigad,
 #bigAd1,
 #bigAd2,
 #bigad300outer,
@@ -2328,7 +2328,6 @@
 #leaderad_section,
 #leaderAdContainer,
 #leaderadvert,
-#leaderboard-ad,
 #leaderboard-ad-container,
 #leaderboard-bottom-ad,
 #leaderboard-sticky,
@@ -3253,6 +3252,7 @@
 #txt_link_ads,
 #txtAdcontainer2,
 #txtads,
+#txtTextAd,
 #ugly-ad,
 #ui-about-these-ads-img,
 #undergameAd,
@@ -4025,7 +4025,6 @@
 .adbanneriframe,
 .adbannerright,
 .adbannertop,
-.ADBAR,
 .adBarCenter,
 .adBarLeft,
 .adBarRight,
@@ -5084,6 +5083,7 @@
 .bgadgray10px,
 .bgnavad,
 .big-ads,
+.big-box-ad,
 .big-right-ad,
 .big_ad,
 .bigAd,
@@ -5772,6 +5772,7 @@
 .homeSubAd,
 .hor_ad,
 .horizontal-ad-holder,
+.horizontalad,
 .horizontalAd,
 .horizontaltextadbox,
 .horizsponsoredlinks,
@@ -5991,6 +5992,7 @@
 .main_wrapper_upper_ad_area,
 .mainad,
 .mainadWrapper,
+.map_google_ad,
 .marginadsthin,
 .marketing-ad,
 .marketplaceAd,
