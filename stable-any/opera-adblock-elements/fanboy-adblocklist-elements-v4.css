@@ -1,5 +1,5 @@
 /*
-! Checksum: 2ZITYdyGi9HR7BLojW+SmQ
+! Checksum: lp7/F+sb/xEzpIxaiBAq0Q
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 24 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -1750,6 +1750,7 @@
 #contextual-ads-block,
 #contextualad,
 #ConversationDivAd,
+#CSpromo120x90,
 #ctl00_adFooter,
 #ctl00_AdWords,
 #ctl00_atop_bt,
@@ -4775,6 +4776,7 @@
 .advert_google_content,
 .advert_google_title,
 .advert_img,
+.advert_in_post,
 .advert_leaderboard,
 .advert_line,
 .advert_mpu_body_hdr,
@@ -5466,6 +5468,7 @@
 .feat_ads,
 .featureAd,
 .featured-ad,
+.featuredAdBox,
 .FeaturedAdIndexAd,
 .featuredboxad,
 .featuredBoxAD,
@@ -5604,6 +5607,7 @@
 .google_ads_bom_block,
 .google_ads_bom_title,
 .google_ads_content,
+.google_ads_sidebar,
 .google_adsense,
 .google_adsense1,
 .google_adsense1_footer,
@@ -5923,6 +5927,7 @@
 .left-sidebar-box-ads,
 .left120X600AdHeaderText,
 .left_300_ad,
+.left_ad,
 .left_ad_160,
 .left_adlink,
 .left_ads,
@@ -6535,6 +6540,7 @@
 .sidebar_small_ad,
 .sidebarAd,
 .sidebarad,
+.sidebarad160,
 .sidebaradbox,
 .sidebarAdNotice,
 .sidebarAds,
