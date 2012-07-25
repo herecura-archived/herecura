@@ -15021,8 +15021,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-07-06 18:20:04.923024196 +0200
-+++ vim-qt-src/src/configure.in	2012-07-06 18:20:08.673024504 +0200
+--- vim-src/src/configure.in	2012-07-25 16:37:52.791009779 +0200
++++ vim-qt-src/src/configure.in	2012-07-25 16:37:56.992010125 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15282,8 +15282,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-07-06 18:20:04.910024194 +0200
-+++ vim-qt-src/src/feature.h	2012-07-06 18:20:08.660024503 +0200
+--- vim-src/src/feature.h	2012-07-25 16:37:52.776009778 +0200
++++ vim-qt-src/src/feature.h	2012-07-25 16:37:56.979010124 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -18219,8 +18219,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-06-01 20:31:29.000000000 +0200
-@@ -0,0 +1,1319 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-07-19 19:53:26.000000000 +0200
+@@ -0,0 +1,1322 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18600,8 +18600,9 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	restoreCursor();
 +
 +	if ( ev->buttons() ) {
++		int_u vmod = vimMouseModifiers(QApplication::keyboardModifiers());
 +		vim.guiSendMouseEvent(MOUSE_DRAG, ev->pos().x(),
-+					  ev->pos().y(), FALSE, 0);
++					  ev->pos().y(), FALSE, vmod);
 +	} else {
 +		vim.guiMouseMoved(ev->pos().x(), ev->pos().y());
 +	}
@@ -18651,14 +18652,16 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::mouseReleaseEvent(QMouseEvent *ev)
 +{
++	int_u vmod = vimMouseModifiers(QApplication::keyboardModifiers());
 +	vim.guiSendMouseEvent(MOUSE_RELEASE, ev->pos().x(),
-+					  ev->pos().y(), FALSE, 0);
++					  ev->pos().y(), FALSE, vmod);
 +}
 +
 +void QVimShell::wheelEvent(QWheelEvent *ev)
 +{
++	int_u vmod = vimMouseModifiers(QApplication::keyboardModifiers());
 +	vim.guiSendMouseEvent((ev->delta() > 0) ? MOUSE_4 : MOUSE_5,
-+					    ev->pos().x(), ev->pos().y(), FALSE, 0);
++					    ev->pos().x(), ev->pos().y(), FALSE, vmod);
 +}
 +
 +/**
