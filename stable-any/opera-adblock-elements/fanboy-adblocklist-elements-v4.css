@@ -1,7 +1,7 @@
 /*
-! Checksum: JTTZUBzmDmyhrA+l5UDHJw
+! Checksum: ggiD3f0gf4vJRWFe0cjtkw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 26 Jul 2012
+! Version: V4 Updated: 27 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3454,6 +3454,7 @@
 .ad-bordered,
 .ad-bot,
 .ad-bottom,
+.ad-bottomleader,
 .ad-bottomLeft,
 .ad-box-300x250,
 .ad-box-container,
@@ -6004,6 +6005,7 @@
 .mainadWrapper,
 .map_google_ad,
 .marginadsthin,
+.MarketGid_container,
 .marketing-ad,
 .marketplaceAd,
 .marketplaceAdShell,
@@ -6147,6 +6149,7 @@
 .news-ad,
 .news_ad_box,
 .news_footer_ad_container,
+.newsads,
 .NewsAds,
 .newsletter_ad,
 .newTopAdContainer,
@@ -6596,6 +6599,7 @@
 .slide-ad,
 .slide_ad,
 .slideshow-advertisement-note,
+.slideshow_ad_300,
 .slot_728_ad,
 .slot_integrated_ad,
 .slpBigSlimAdUnit,
