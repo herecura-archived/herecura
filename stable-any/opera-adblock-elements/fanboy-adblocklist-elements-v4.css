@@ -1,7 +1,7 @@
 /*
-! Checksum: oww8bK3B/uv8cUoYWhdzEw
+! Checksum: RDTh1ZwhrdFKsESFjg9I0g
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 Jul 2012
+! Version: V4 Updated: 30 Jul 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2187,7 +2187,6 @@
 #home_feature_ad,
 #home_sidebar_ad,
 #home_top_right_ad,
-#homead,
 #homeAd,
 #HomeAd1,
 #homeAdLeft,
@@ -4271,6 +4270,7 @@
 .adnotice,
 .adNotice90,
 .adNoticeOut,
+.adOne,
 .adops.textlinks,
 .adOverlay,
 .adp-AdPrefix,
@@ -5019,7 +5019,6 @@
 .aux-ad-widget-2,
 .b-ads728,
 .b-ads_300,
-.b-advert,
 .b5-ad-pushdown,
 .b5_widget_skyscraper_ad,
 .b5ad_skyscraper,
@@ -5208,6 +5207,7 @@
 .BottomAdContainer,
 .bottomAds,
 .BottomAds,
+.bottomadtop,
 .bottomArticleAds,
 .bottomBannerAd,
 .bottomleader,
@@ -5389,6 +5389,8 @@
 .ct-ad-article,
 .ct-ads,
 .ctn-advertising,
+.ctnAdSkyscraper,
+.ctnAdSquare300,
 .cube-ad,
 .cube_ads,
 .cubead,
@@ -6709,6 +6711,7 @@
 .sponsored_ss,
 .sponsoredAdLine,
 .SponsoredAdTitle,
+.sponsoredBox,
 .sponsoredFeature,
 .sponsoredLabel,
 .sponsoredLeft,
