@@ -1,7 +1,7 @@
 /*
-! Checksum: MrDWAGr0WfKzfkmQ8B7BUQ
+! Checksum: aREnAI4BrgdKDbrxbc+KAQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Aug 2012
+! Version: V4 Updated: 2 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1680,6 +1680,7 @@
 #cellAd,
 #center-ad-group,
 #center-ads-72980,
+#center_ad-0,
 #central-ads,
 #channel_ads,
 #chatAdv2,
@@ -1870,6 +1871,7 @@
 #f_ad,
 #f_adsky,
 #featAds,
+#feature_ad,
 #feature_gad,
 #featuread,
 #featureAd,
@@ -2789,6 +2791,7 @@
 #rightinfoad,
 #rightMortgageAd,
 #rightrail-ad,
+#rightrail_ad-0,
 #RightRailSponsor,
 #rightSideAd,
 #rightskyad,
@@ -2956,6 +2959,7 @@
 #skyscraper_ad,
 #skyscraper_advert,
 #skyscraperAd,
+#skyScraperAd,
 #skyscraperadblock,
 #skyscraperAdContainer,
 #skyscraperAds,
@@ -3517,6 +3521,7 @@
 .ad-home-right,
 .ad-homeleaderboard,
 .ad-homepage,
+.ad-iab-txt,
 .ad-iframe,
 .ad-imagehold,
 .ad-index,
@@ -4230,7 +4235,6 @@
 .AdLeftbarBorderStyle,
 .adLine,
 .adline,
-.adLink,
 .adlist1,
 .adlist2,
 .adListB,
@@ -5646,6 +5650,7 @@
 .googlead_iframe,
 .googleAdBox,
 .googleadcontainer,
+.googleAdContainerSingle,
 .googleadd,
 .googleAdd,
 .googleAdDiv,
@@ -5978,7 +5983,6 @@
 .link_advertise,
 .linkAD,
 .linkad,
-.list-ad,
 .list-ads,
 .listingAd,
 .listings-bottom-ad-w,
@@ -6410,6 +6414,7 @@
 .rightcolad,
 .rightColAdBox,
 .rightcoltowerad,
+.rightColumnAdsTop,
 .rightColumnRectAd,
 .RightGoogleAFC,
 .rightmenu_ad,
@@ -6623,6 +6628,7 @@
 .sm-ad,
 .smAdText_r,
 .small_ad,
+.small_ad_bg,
 .small_ads,
 .smallad,
 .smallAd,
@@ -6687,6 +6693,7 @@
 .sponsorBox,
 .sponsorBox_right_rdr,
 .sponsored-ad,
+.sponsored-ad-label,
 .sponsored-ad-ob,
 .sponsored-ads,
 .sponsored-b,
@@ -7362,6 +7369,11 @@ div[id="leaderboard"],
 /* fastcompany.com */
 #mod_imu,
 /* facebook.com */
+#pagelet_side_ads,
+.-cx-PRIVATE-fbAdUnit__root,
+.-cx-PRIVATE-snowliftAds__root,
+.-cx-PRIVATE-fbEmu__root,
+.adsCategoryTitleLink,
 #home_sponsor_nile,
 .UIWashFrame_SidebarAds,
 .UIStandardFrame_SidebarAds,
