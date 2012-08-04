@@ -1,7 +1,7 @@
 /*
-! Checksum: cULZsypeEJYdit+cUAR1Rw
+! Checksum: MSvG32rpomowU3cGCoXPwQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 3 Aug 2012
+! Version: V4 Updated: 4 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2179,6 +2179,7 @@
 #hldhdAds,
 #hly_ad_side_bar_tower_left,
 #holder-storyad,
+#holdunderad,
 #home-ad,
 #home-ad-block,
 #home-advertise,
@@ -2971,6 +2972,7 @@
 #skyscraperWrapperAd,
 #slidead,
 #slider-ad,
+#slider_ad,
 #sliderAdHolder,
 #slideshow_ad_300x250,
 #sm-banner-ad,
@@ -3153,6 +3155,7 @@
 #top300x250ad,
 #top3_ads,
 #Top468x60AD,
+#top728ad,
 #top_ad_area,
 #top_ad_banner,
 #top_ad_block,
@@ -3570,6 +3573,7 @@
 .ad-place-active,
 .ad-place-holder,
 .ad-placeholder,
+.ad-placement,
 .AD-POST,
 .ad-poster,
 .ad-postText,
@@ -5154,6 +5158,7 @@
 .block-vh-adjuggler,
 .block-zagat_ads,
 .block_ad,
+.block_ad,
 .block_ad_sb_text,
 .block_ad_sponsored_links-wrapper,
 .blockAd,
@@ -6209,6 +6214,7 @@
 .osan-ads,
 .OSOasAdModule,
 .OSProfileAdSenseModule,
+.other-posts-ads,
 .other_adv2,
 .otj_adspot,
 .outbrain_dual_ad_whats_class,
