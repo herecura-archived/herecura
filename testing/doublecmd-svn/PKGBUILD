@@ -3,7 +3,7 @@
 
 pkgbase=doublecmd-svn
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
-pkgver=4918
+pkgver=4937
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('i686' 'x86_64')
@@ -44,7 +44,7 @@ build() {
 	cd "$srcdir/$pkgbase-qt"
 	# dont use fPIC on i686
 	if [ "$CARCH" = "i686" ]; then
-		sed -e '/fPIC/d' -i "$srcdir/$pkgbase-gtk/components/doublecmd/doublecmd_common.lpk"
+		sed -e '/fPIC/d' -i "$srcdir/$pkgbase-qt/components/doublecmd/doublecmd_common.lpk"
 	fi
 	./build.sh beta qt
 }
