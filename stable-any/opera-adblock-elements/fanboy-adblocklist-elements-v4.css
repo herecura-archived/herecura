@@ -1,7 +1,7 @@
 /*
-! Checksum: ghYafdvvPzVAteXMgx2C6g
+! Checksum: 2Ij6KNw28L5BLhC6xmFJuw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 4 Aug 2012
+! Version: V4 Updated: 6 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -38,6 +38,7 @@
 #ad-160-long,
 #ad-160x600,
 #ad-160x600-sidebar,
+#ad-170,
 #ad-180x150-1,
 #ad-2,
 #ad-2-160x600,
@@ -1848,6 +1849,9 @@
 #divAd,
 #DivAd,
 #divAD1,
+#DivAd1,
+#DivAd2,
+#DivAd3,
 #DivAdA,
 #DivAdB,
 #divAdBox,
@@ -2299,6 +2303,7 @@
 #inlineBottomAd,
 #inner-deals-ads,
 #inner-top-ads,
+#innerad,
 #innerpage-ad,
 #inside-page-ad,
 #insider_ad_wrapper,
@@ -3567,6 +3572,7 @@
 .ad-label,
 .ad-lable,
 .ad-large-game,
+.ad-layer,
 .ad-lb,
 .ad-leader,
 .ad-leaderboard-container,
@@ -3730,6 +3736,7 @@
 .ad300_250,
 .ad300banner,
 .ad300Block,
+.ad300shows,
 .ad300top,
 .ad300Wrapper,
 .Ad300x,
