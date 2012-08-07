@@ -1,7 +1,7 @@
 /*
-! Checksum: 2Ij6KNw28L5BLhC6xmFJuw
+! Checksum: L5ErHCIQxWhPYZMX48Luvg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 6 Aug 2012
+! Version: V4 Updated: 7 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2120,6 +2120,7 @@
 #gtv_tabSponsor,
 #h-ads,
 #H_Ad_728x90,
+#H_Ad_Wrap,
 #HALHouseAd,
 #hd_ad,
 #hdr-ad,
@@ -2569,6 +2570,7 @@
 #nationalAd_secondary_top,
 #nav_ad,
 #nav_ad_728_mid,
+#NavAD,
 #navAdBanner,
 #navads-container,
 #navbar_ads,
@@ -2932,6 +2934,7 @@
 #sidebar-125x125-ads,
 #sidebar-125x125-ads-below-index,
 #sidebar-ad,
+#sidebar-ad-block,
 #sidebar-ad-holdd,
 #sidebar-ad-wrap,
 #sidebar-ad1,
@@ -3428,6 +3431,7 @@
 .ad-1,
 .ad-120-600-inner,
 .ad-120x600,
+.ad-120x90,
 .ad-150,
 .ad-160,
 .ad-160-600,
@@ -5857,6 +5861,7 @@
 .homePageAds,
 .homepageFlexAdOuter,
 .homepageMPU,
+.homestream-ad,
 .homeSubAd,
 .hor_ad,
 .horizontal-ad-holder,
