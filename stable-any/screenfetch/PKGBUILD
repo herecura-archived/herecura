@@ -1,5 +1,5 @@
 pkgname=screenfetch
-pkgver=2.4.5
+pkgver=2.4.7
 pkgrel=1
 pkgdesc="Bash screenshot info grabber (DE, WM, theme, uptime, ...)"
 arch=('any')
@@ -8,7 +8,7 @@ license=('GPL')
 depends=('bash' 'xorg-xdpyinfo')
 optdepends=('scrot: To take screenshot')
 source=("http://git.silverirc.com/cgit.cgi/screenfetch-dev.git/snapshot/${pkgname}-dev-${pkgver}.tar.bz2")
-sha256sums=('ab5245e0c2a08c5ec3cc7086495b20a957391280f417479c9331b62835698c9d')
+sha256sums=('926d65af8fc57610b16f90066173660d5246f79787a0999649769ee10fad85bd')
 
 build() {
 	return 0
