@@ -6,9 +6,9 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.4
-_patchver=5
-_rcver=3.4.6_rc1
+_basekernel=3.5
+_patchver=0
+_rcver=3.5.1_rc1
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ url="http://www.kernel.org"
 options=(!strip)
 
 source=(
-	"http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.bz2"
+	"http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz"
 	# the main kernel config files
 	"config-$_basekernel-desktop.i686"
 	"config-$_basekernel-desktop.x86_64"
@@ -28,9 +28,9 @@ source=(
 	"sysctl-desktop.x86_64"
 )
 sha256sums=(
-	'a797a15d0b6228381507c14ecf4eec4a6cc5c77cfd521ba3b3e1325e85b5b16d'
-	'b0960421ebc8cbdbe9f5dac8b51c39a3924f6fe3a46920a074cdb2834853d72b'
-	'130ec0f18554a65d97b2fdd96250bb4645dbfaaccaddbc8f84ee7ecbdd3354bf'
+	'b985ce383f0cfd940d988d4c99a84899028327aca8c29b420678241f26fdb342'
+	'ee1046c7a736b52d67193cc54174da496449407149715bc63dec3be6cac3a502'
+	'c3d5c7edff06fc094260c59413b583713a34831a3b0650616cd403bc63480a12'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'cce2cd65f49ef30e9f2c977210fcb3f21707b53088615eb737e2bb53c67ca7c9'
 	'5d59b290f2ec7354048e24cc52048e104fa91a3ac4c393adbb0e268c129d03e2'
@@ -58,7 +58,7 @@ _extrapatches=(
 	"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/patch-${_rcver//_/-}.gz"
 )
 _extrapatchessums=(
-	'9399e3fb7795804ae2eee5ba78f36d1ee3c9539116ee31db7ba53a1b33b61c83'
+	'b36666bba2fb14059418f2edc7835bfdb649a993024b41996453c14f0ddd4d42'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
