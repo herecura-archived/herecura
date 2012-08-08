@@ -116,8 +116,8 @@ diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
  
 diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 --- vim-src/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/CMakeLists.txt	2012-06-20 16:40:37.000000000 +0200
-@@ -0,0 +1,112 @@
++++ vim-qt-src/src/CMakeLists.txt	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,113 @@
 +cmake_minimum_required(VERSION 2.8)
 +
 +find_package(Qt4 REQUIRED)
@@ -193,7 +193,8 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +		qt/vimaction.cpp 
 +		qt/vimscrollbar.cpp 
 +		qt/vimwrapper.cpp 
-+		qt/fontdialog.cpp)
++		qt/fontdialog.cpp
++		qt/scrollarea.cpp)
 +
 +set(QVIM_RCS qt/icons.qrc)
 +QT4_ADD_RESOURCES( QVIM_RC_SRCS ${QVIM_RCS} )
@@ -232,7 +233,7 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 --- vim-src/src/Makefile	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/Makefile	2012-05-18 19:58:59.000000000 +0200
++++ vim-qt-src/src/Makefile	2012-08-08 18:39:06.000000000 +0200
 @@ -1237,6 +1237,35 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
@@ -245,14 +246,14 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +MOC		= $(QT_MOC)
 +QT_LIBS1	= $(QT_LIBS)
 +QT_SRC	= gui.c gui_qt.cpp pty.c gui_beval.c \
-+			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/vimscrollbar.cpp \
++			qt/qvimshell.cpp qt/mainwindow.cpp qt/vimaction.cpp qt/scrollarea.cpp \
 +			qt/fontdialog.cpp \
-+			qt/vimwrapper.cpp qt/tabbar.cpp
++			qt/vimwrapper.cpp qt/tabbar.cpp qt/vimscrollbar.cpp
 +QT_OBJ	= objects/gui.o objects/gui_qt.o \
 +			objects/pty.o objects/gui_beval.o \
 +			objects/mainwindow.o objects/qvimshell.o objects/vimaction.o objects/qtresources.o \
-+			objects/vimscrollbar.o objects/fontdialog.o objects/vimwrapper.o \
-+			objects/tabbar.o
++			objects/scrollarea.o objects/fontdialog.o objects/vimwrapper.o \
++			objects/tabbar.o objects/vimscrollbar.o
 +
 +QT_DEFS	= -DFEAT_GUI_QT $(NARROW_PROTO) -Iqt -I. $(QT_INCPATH)
 +QT_IPATH	= $(GUI_INC_LOC)
@@ -287,7 +288,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  
  EXTRA_SRC = hangulin.c if_lua.c if_mzsch.c auto/if_perl.c if_perlsfio.c \
  	    if_python.c if_python3.c if_tcl.c if_ruby.c if_sniff.c \
-@@ -2502,6 +2531,46 @@
+@@ -2502,6 +2531,50 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
  
@@ -314,6 +315,10 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +objects/vimscrollbar.o: qt/vimscrollbar.cpp
 +	$(MOC) qt/vimscrollbar.h > vimscrollbar.moc
 +	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimscrollbar.cpp
++
++objects/scrollarea.o: qt/scrollarea.cpp
++	$(MOC) qt/scrollarea.h > scrollarea.moc
++	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/scrollarea.cpp
 +
 +objects/vimgui.o: qt/vimgui.cpp
 +	$(MOC) qt/vimgui.h > vimgui.moc
@@ -15021,8 +15026,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-07-25 16:37:52.791009779 +0200
-+++ vim-qt-src/src/configure.in	2012-07-25 16:37:56.992010125 +0200
+--- vim-src/src/configure.in	2012-08-08 18:39:26.806543953 +0200
++++ vim-qt-src/src/configure.in	2012-08-08 18:39:31.058544303 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15282,8 +15287,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-07-25 16:37:52.776009778 +0200
-+++ vim-qt-src/src/feature.h	2012-07-25 16:37:56.979010124 +0200
+--- vim-src/src/feature.h	2012-08-08 18:39:26.794543952 +0200
++++ vim-qt-src/src/feature.h	2012-08-08 18:39:31.045544302 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15481,8 +15486,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
      GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-07-06 18:19:22.000000000 +0200
-@@ -0,0 +1,1730 @@
++++ vim-qt-src/src/gui_qt.cpp	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,1743 @@
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -15536,6 +15541,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	}
 +
 +	window->setWindowState( window->windowState() & ~Qt::WindowFullScreen );
++}
++
++void gui_mch_update_fuoptions(char_u *optstr)
++{
++	//
++	// FIXME: We don't support fuopts at this point
++	// set fuoptions=maxvert,maxhoriz
++
 +}
 +
 +/**
@@ -16131,7 +16144,12 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +		new_height = desktopSize.height() - decoHeight;
 +	}
 +
-+	window->resize( new_width, new_height );
++	if (window->windowState() & Qt::WindowFullScreen ) {
++		// In fullscreen mode, resize the widget
++		vimshell->setMaximumSize(width, height);
++	} else {
++		window->resize( new_width, new_height );
++	}
 +	gui_resize_shell(vimshell->size().width(), vimshell->size().height());
 +
 +	// SHOCKING: it seems gui_get_shellsize() updates the proper values for
@@ -17326,8 +17344,8 @@ diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
       * Also copy to the '*' register, in case auto-select is off.
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
 --- vim-src/src/option.c	2012-04-05 17:32:58.000000000 +0200
-+++ vim-qt-src/src/option.c	2012-04-05 17:31:22.000000000 +0200
-@@ -1221,6 +1221,17 @@
++++ vim-qt-src/src/option.c	2012-08-08 18:39:06.000000000 +0200
+@@ -1221,6 +1221,28 @@
  			    {(char_u *)FALSE, (char_u *)0L}
  #endif
  			    SCRIPTID_INIT},
@@ -17342,10 +17360,21 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
 +#endif
 +			    SCRIPTID_INIT},
 +
++    {"fuoptions",  "fuopt", P_STRING|P_COMMA|P_NODUP|P_VI_DEF,
++#ifdef FEAT_FULLSCREEN
++			    (char_u *)&p_fuoptions, PV_NONE,
++			    {(char_u *)"", (char_u *)0L}
++#else
++			    (char_u *)NULL, PV_NONE,
++			    {(char_u *)NULL, (char_u *)0L}
++#endif
++			    SCRIPTID_INIT},
++
++
      {"gdefault",    "gd",   P_BOOL|P_VI_DEF|P_VIM,
  			    (char_u *)&p_gd, PV_NONE,
  			    {(char_u *)FALSE, (char_u *)0L} SCRIPTID_INIT},
-@@ -6347,7 +6358,7 @@
+@@ -6347,7 +6369,7 @@
  	if (gui.in_use)
  	{
  	    p = p_guifont;
@@ -17354,7 +17383,22 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
  	    /*
  	     * Put up a font dialog and let the user select a new value.
  	     * If this is cancelled go back to the old value but don't
-@@ -7763,6 +7774,18 @@
+@@ -6884,6 +6906,14 @@
+     }
+ #endif
+ 
++#ifdef FEAT_FULLSCREEN
++    /* 'fuoptions' */
++    else if (varp == &p_fuoptions)
++    {
++        gui_mch_update_fuoptions(p_fuoptions);
++    }
++#endif
++
+ #ifdef FEAT_VIRTUALEDIT
+     /* 'virtualedit' */
+     else if (varp == &p_ve)
+@@ -7763,6 +7793,18 @@
  	set_fileformat(curbuf->b_p_tx ? EOL_DOS : EOL_UNIX, opt_flags);
      }
  
@@ -17373,7 +17417,7 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
      /* when 'textauto' is set or reset also change 'fileformats' */
      else if ((int *)varp == &p_ta)
  	set_string_option_direct((char_u *)"ffs", -1,
-@@ -7858,7 +7881,7 @@
+@@ -7858,7 +7900,7 @@
  	p_wiv = (*T_XS != NUL);
      }
  
@@ -17384,13 +17428,14 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
  	if (p_beval && !old_value)
 diff -urN vim-src/src/option.h vim-qt-src/src/option.h
 --- vim-src/src/option.h	2012-06-20 16:43:54.000000000 +0200
-+++ vim-qt-src/src/option.h	2012-06-20 16:40:37.000000000 +0200
-@@ -478,6 +478,9 @@
++++ vim-qt-src/src/option.h	2012-08-08 18:39:06.000000000 +0200
+@@ -478,6 +478,10 @@
  #ifdef HAVE_FSYNC
  EXTERN int	p_fs;		/* 'fsync' */
  #endif
 +#ifdef FEAT_FULLSCREEN
 +EXTERN int	p_fullscreen;	/* fullscreen gui window */
++EXTERN char_u	*p_fuoptions;	/* fullscreen options */
 +#endif
  EXTERN int	p_gd;		/* 'gdefault' */
  #ifdef FEAT_PRINTER
@@ -17909,8 +17954,8 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2012-05-18 19:58:59.000000000 +0200
-@@ -0,0 +1,221 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,234 @@
 +#include "mainwindow.moc"
 +
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
@@ -17931,8 +17976,14 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	toolbar->setObjectName("toolbar");
 +
 +	// Vim shell
-+	vimshell = new QVimShell();
-+	setCentralWidget(vimshell);
++	vimshell = new QVimShell(this);
++
++	scrollarea = new ScrollArea(this);
++	scrollarea->setWidget(vimshell);
++	connect(vimshell, SIGNAL(backgroundColorChanged(QColor)),
++		scrollarea, SLOT(setBackgroundColor(QColor)) );
++
++	setCentralWidget(scrollarea);
 +
 +	// TabLine
 +	tabtoolbar = addToolBar("tabline");
@@ -18044,6 +18095,13 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +{
 +	if (ev->type() == QEvent::WindowStateChange) {
 +		VimWrapper::setFullscreen( windowState() & Qt::WindowFullScreen );
++
++		if ( ! (windowState() & Qt::WindowFullScreen) ) {
++			// Reset vimshell size policy when leaving fullscreen
++			vimshell->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
++			vimshell->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
++			vimshell->updateGeometry();
++		}
 +	}
 +	QMainWindow::changeEvent(ev);
 +}
@@ -18134,14 +18192,16 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2012-05-18 19:58:59.000000000 +0200
-@@ -0,0 +1,57 @@
++++ vim-qt-src/src/qt/mainwindow.h	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,60 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
 +#include <QtGui>
 +#include "qvimshell.h"
 +#include "tabbar.h"
++#include "scrollarea.h"
++
 +
 +class MainWindow: public QMainWindow
 +{
@@ -18182,6 +18242,7 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +private:
 +	QToolBar *toolbar;
 +
++	ScrollArea *scrollarea;
 +	QVimShell *vimshell;
 +	QToolBar *tabtoolbar;
 +	TabBar *tabbar;
@@ -18219,8 +18280,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-07-19 19:53:26.000000000 +0200
-@@ -0,0 +1,1322 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,1323 @@
 +#include "qvimshell.moc"
 +
 +extern "C" {
@@ -18234,7 +18295,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	m_lastClickEvent(-1), m_tooltip(0), m_slowStringDrawing(false),
 +	m_mouseHidden(false)
 +{
-+
++	setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 +	// IM Tooltip
 +	m_tooltip = new QLabel(this);
 +	m_tooltip->setVisible(false);
@@ -18253,6 +18314,7 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::setBackground(const QColor color)
 +{
 +	m_background = color;
++	emit backgroundColorChanged(m_background);
 +}
 +
 +void QVimShell::switchTab(int idx)
@@ -19545,8 +19607,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-06-01 20:31:29.000000000 +0200
-@@ -0,0 +1,159 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,162 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -19601,6 +19663,9 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +	void switchTab(int idx);
 +	void closeTab(int idx);
++
++signals:
++	void backgroundColorChanged(const QColor&);
 +
 +protected:
 +	void flushPaintOps();
@@ -19703,6 +19768,68 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +    /* End of list marker: */
 +    {0, 0, 0}
++};
++
++#endif
+diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
+--- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/scrollarea.cpp	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,31 @@
++#include "scrollarea.moc"
++
++#include <QtGui>
++
++ScrollArea::ScrollArea(QWidget *parent)
++:QWidget(parent), m_widget(NULL)
++{
++	setAutoFillBackground(true);
++	m_layout = new QGridLayout(this);
++	m_layout->setSpacing(0);
++	m_layout->setContentsMargins(0,0,0,0);
++	m_layout->setAlignment(Qt::AlignTop | Qt::AlignHCenter);
++}
++
++void ScrollArea::setWidget(QWidget *w)
++{
++	if ( w == m_widget || !w ) {
++		return;
++	}
++
++	m_widget = w;
++	m_layout->addWidget(m_widget, 0, 1);
++}
++
++void ScrollArea::setBackgroundColor(const QColor& c)
++{
++	QPalette p = palette();
++	p.setColor(QPalette::Window, c);
++	setPalette(p);
++}
++
+diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
+--- vim-src/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/scrollarea.h	2012-08-08 18:39:06.000000000 +0200
+@@ -0,0 +1,23 @@
++#ifndef VIM_GUI_QT_SCROLLAREA
++#define VIM_GUI_QT_SCROLLAREA
++
++#include <QWidget>
++#include <QGridLayout>
++
++class ScrollArea: public QWidget
++{
++	Q_OBJECT
++public:
++	ScrollArea(QWidget *parent=0);
++	void setWidget(QWidget *widget);
++
++public slots:
++	void setBackgroundColor(const QColor&);
++
++private:
++	QWidget *m_widget;
++	QGridLayout *m_layout;
++
 +};
 +
 +#endif
