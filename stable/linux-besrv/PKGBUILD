@@ -131,7 +131,6 @@ build() {
 
 package_linux-besrv() {
 	pkgdesc="The Linux Kernel and modules, BlackEagle Server Edition"
-	groups=('base')
 	provides=('linux')
 	backup=(
 		"etc/mkinitcpio.d/$pkgname.preset"

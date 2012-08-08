@@ -136,7 +136,6 @@ build() {
 
 package_linux-bede() {
 	pkgdesc="The Linux Kernel and modules, BlackEagle Desktop Edition"
-	groups=('base')
 	provides=('linux')
 	backup=(
 		"etc/mkinitcpio.d/$pkgname.preset"
