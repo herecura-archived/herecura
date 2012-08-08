@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=622
+_patchlevel=629
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 #__hgrev=11d40fc82f11
@@ -16,7 +16,9 @@ _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+#makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+#'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif' 'tk')
+makedepends=('gpm' 'perl' 'python2' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif')
 options=()
 source=(
@@ -36,7 +38,7 @@ sha256sums=(
 	'059ab867e564f1aad98d7a6bf69021b8c7b6d947fa5a43e1e3f2322712f32d36'
 )
 
-__hgroot='http://vim.googlecode.com/hg/'
+__hgroot='https://code.google.com/p/vim/'
 __hgrepo='vim'
 __hgbranch='default'
 
@@ -47,12 +49,16 @@ build() {
 
 	if [[ -d ${__hgrepo} ]]; then
 		cd ${__hgrepo}
-		hg pull -b ${__hgbranch}|| warning 'hg pull failed!'
-		hg update -r ${__hgrev}
-		cd ${srcdir}
+		hg pull -b ${__hgbranch}
+		#hg update -r ${__hgrev}
+		#cd ${srcdir}
 	else
-		hg clone -b ${__hgbranch} -u ${__hgrev} "${__hgroot}${__hgrepo}" ${__hgrepo}
+		#hg clone -b ${__hgbranch} -u ${__hgrev} "${__hgroot}" ${__hgrepo}
+		hg clone -b ${__hgbranch} "${__hgroot}" ${__hgrepo}
+		cd ${__hgrepo}
 	fi
+	hg update -r ${__hgrev}
+	cd ${srcdir}
 
 	# remove old build dirs if exist
 	[ -d vim-build ] && rm -rf vim-build
