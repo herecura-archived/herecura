@@ -1,7 +1,7 @@
 /*
-! Checksum: ZO313fTUTcr6txXyj+HS4Q
+! Checksum: PKjimnoA47AoaUCxr7v3Jg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 7 Aug 2012
+! Version: V4 Updated: 8 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1070,6 +1070,7 @@
 #adsense-right,
 #adsense-tag,
 #adsense-text,
+#adsense-wrap,
 #adsense03,
 #adsense04,
 #adsense05,
@@ -1100,6 +1101,7 @@
 #adsensequadr,
 #adSenseResults,
 #adsenseskyscraper,
+#adSenseTall,
 #adsensetext,
 #adsensetopplay,
 #adsenseWrap,
@@ -1842,6 +1844,7 @@
 #dfp_ad_Entry_300x250,
 #dfp_ad_Entry_728x90,
 #disable-ads-container,
+#displayad_bottom-page,
 #dItemBox_ads,
 #div_ad_holder,
 #div_content_mid_lft_ads,
@@ -1886,6 +1889,7 @@
 #dogear_promo,
 #doubleclick-island,
 #doubleClickAds3,
+#doubleClickAds_top_banner,
 #download_ad,
 #download_ads,
 #downloadAd,
@@ -3838,6 +3842,7 @@
 .ad_300x60,
 .ad_300x600,
 .AD_302x252,
+.ad_330x110,
 .ad_336,
 .ad_336x280,
 .ad_336x90,
@@ -6898,6 +6903,7 @@
 .td_topads,
 .tdAdHeader,
 .tdBannerAd,
+.tdFeaturedAdvertisers,
 .teaserAdHeadline,
 .text-ad,
 .text-ad-links2,
@@ -6984,6 +6990,7 @@
 .topad2,
 .topAdBanner,
 .topadblock,
+.topAdBox,
 .topADBOX,
 .topadbox,
 .topAdCenter,
