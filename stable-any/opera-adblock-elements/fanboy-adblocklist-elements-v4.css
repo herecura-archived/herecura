@@ -1,7 +1,7 @@
 /*
-! Checksum: PKjimnoA47AoaUCxr7v3Jg
+! Checksum: UPwwSUHWqPtp20mis5vkDg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 8 Aug 2012
+! Version: V4 Updated: 9 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2715,6 +2715,7 @@
 #promoFloatAd,
 #ps-top-ads-sponsored,
 #publicidad,
+#publicidadeLREC,
 #pulse360_1,
 #pushdown_ad,
 #pushdownAdWrapper,
@@ -4610,6 +4611,7 @@
 .adsenseBlock,
 .adsenseBox,
 .AdsenseBox,
+.AdsenseBoxCenter,
 .adsenseContainer,
 .adsensecontainer,
 .AdsenseDownload,
@@ -5825,6 +5827,7 @@
 .HeaderBannerAd,
 .HeaderLeaderAd,
 .headerTextAd,
+.heading-ad-space,
 .HeadingAdSpace,
 .hide_ad,
 .hideAdMessage,
