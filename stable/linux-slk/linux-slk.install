@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-slk
-KERNEL_VERSION=3.2.26-1-SLK
+KERNEL_VERSION=3.2.27-1-SLK
 
 post_install () {
   # updating module dependencies
