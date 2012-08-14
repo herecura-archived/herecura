@@ -1,7 +1,7 @@
 /*
-! Checksum: KYjLyMiNIa1KnkWeAOHiww
+! Checksum: L9FX/dfNUitKLQfQFM5t0Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 12 Aug 2012
+! Version: V4 Updated: 13 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -138,6 +138,7 @@
 #ad-holder,
 #ad-horizontal-header,
 #ad-inner,
+#ad-introtext,
 #ad-label,
 #ad-label2,
 #ad-lb,
@@ -1769,6 +1770,7 @@
 #contentAds,
 #contentAds300x200,
 #contentAds300x250,
+#contentAds667x100,
 #contentAdsCatArchive,
 #contentarea-ad,
 #contentarea-ad-widget-area,
@@ -2591,6 +2593,7 @@
 #nbcAd300x250,
 #nbcShowcaseAds,
 #network_header_ad_1,
+#new-ad-leaderboard,
 #new-ad-sidetop,
 #new_topad,
 #newadmpu,
@@ -3067,6 +3070,7 @@
 #SponsorBarWrap,
 #sponsorBorder,
 #sponsorContainer0,
+#sponsored-bucket,
 #sponsored-links,
 #sponsored-links-container,
 #sponsored-links-list,
@@ -5499,6 +5503,7 @@
 .ctnAdSquare300,
 .cube-ad,
 .cube_ads,
+.CubeAd,
 .cubead,
 .cubeAd,
 .cubead-widget,
@@ -5923,6 +5928,7 @@
 .hpPriceBoardSponsor,
 .HPRoundedAd,
 .hr-ads,
+.hss-ad,
 .i360ad,
 .IABAdSpace,
 .ibm_ad_bottom,
@@ -5969,6 +5975,7 @@
 .inner-advt-banner-3,
 .inner_big_ad,
 .innerAds,
+.innerContentAd,
 .inPageAd,
 .inpostad,
 .insert-advert-ver01,
@@ -6668,6 +6675,7 @@
 .sidebar-block-adsense,
 .sidebar-box-ad,
 .sidebar-skyscraper-ad,
+.sidebar-square-ad,
 .sidebar-text-ad,
 .sidebar-top-ad,
 .sidebar300adblock,
@@ -6788,11 +6796,13 @@
 .Sponsor-container,
 .sponsor-links,
 .sponsor-post,
+.sponsor-spot,
 .sponsor-text,
 .sponsor-text-container,
 .sponsor_block,
 .sponsor_div,
 .sponsor_div_title,
+.sponsor_label,
 .sponsor_links,
 .sponsor_units,
 .sponsorad,
@@ -6846,6 +6856,7 @@
 .sponsoredLinks2,
 .sponsoredlinksbox,
 .SponsoredLinksGrayBox,
+.sponsoredLinksHead,
 .sponsoredLinksHeader,
 .SponsoredLinksPanel,
 .sponsoredName,
@@ -6990,6 +7001,7 @@
 .top-ad-sidebar,
 .top-ads,
 .top-adsense-banner,
+.top-advert,
 .top-banner-468,
 .top-banner-ad,
 .top-banner-ad-wrapper,
