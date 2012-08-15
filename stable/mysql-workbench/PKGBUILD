@@ -1,0 +1,51 @@
+# Maintainer: Illarion Kovalchuk <illarion.kovalchuk@gmail.com>
+# Contributor: totoloco <totoloco at gmail _dot_com>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+
+pkgname=mysql-workbench
+pkgver=5.2.40
+pkgrel=1
+pkgdesc="A cross-platform, visual database design tool developed by MySQL"
+arch=('i686' 'x86_64')
+url="https://www.mysql.com/products/workbench/"
+license=('GPL2')
+depends=('libzip' 'libmysqlclient' 'lua' 'gtkmm' 'ctemplate'
+'libgnome-keyring' 'libgl' 'python-paramiko' 'python-pexpect'
+'pcre' 'tinyxml' 'libxml2' 'mysql-python' 'python-pysqlite' 'cairo'
+'python-cairo' 'hicolor-icon-theme' 'desktop-file-utils')
+
+makedepends=('boost' 'curl' 'mesa')
+options=('!libtool !distcc !ccache')
+
+source=(http://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQLGUITools/${pkgname}-gpl-${pkgver}-src.tar.gz)
+
+md5sums=('ac5c2058cd39c796a1c7bed2647f74b6')
+
+build() {
+	cd "${srcdir}/${pkgname}-gpl-${pkgver}-src"
+
+	# remove when http://bugs.mysql.com/bug.php?id=63898 gets fixed
+	fgrep -rlZ pkglib_DATA --include Makefile.am . | xargs -0 sed -i 's/pkglib_DATA/pkgdata_DATA/g'
+
+	sed -i -e 's/python -c/python2 -c/gi' configure.in
+	#find . \( -name "*.[hc]" -o -name "*.cpp" \) -exec sed -ir 's/#include <glib[\/\-][^\.]*\.h>/#include <glib.h>/' '{}' \;
+
+	./autogen.sh
+	./configure --prefix=/usr
+
+	make || return 1
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-gpl-${pkgver}-src"
+
+	make DESTDIR="${pkgdir}" install
+
+	cd ${pkgdir}/usr/share/mysql-workbench/
+	for i in *.py *.lua *.glade
+	do
+		ln -s /usr/share/mysql-workbench/$i ${pkgdir}/usr/lib/mysql-workbench/modules/
+	done
+
+
+}
