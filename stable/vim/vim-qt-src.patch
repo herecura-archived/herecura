@@ -376,8 +376,8 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/configure	2011-12-23 21:34:59.000000000 +0100
-@@ -1,10 +1,14640 @@
++++ vim-qt-src/src/configure	2012-08-15 19:39:10.000000000 +0200
+@@ -1,10 +1,14682 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -9739,7 +9739,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    fi
 +
 +cat > $tmp/qttest.cpp << EOF
-+#include <Qt/QtGui>
++#include <QApplication>
 +int main(int ac, char **av) {
 +    QApplication app(ac, av);
 +    return app.exec();
@@ -12517,7 +12517,47 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +rm -f core conftest.err conftest.$ac_objext \
 +    conftest$ac_exeext conftest.$ac_ext
 +
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for Solaris ACL support" >&5
++{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for acl_get in -lsec" >&5
++$as_echo_n "checking for acl_get in -lsec... " >&6; }
++if ${ac_cv_lib_sec_acl_get+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  ac_check_lib_save_LIBS=$LIBS
++LIBS="-lsec  $LIBS"
++cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++/* Override any GCC internal prototype to avoid an error.
++   Use char because int might match the return type of a GCC
++   builtin and then its argument prototype would still apply.  */
++#ifdef __cplusplus
++extern "C"
++#endif
++char acl_get ();
++int
++main ()
++{
++return acl_get ();
++  ;
++  return 0;
++}
++_ACEOF
++if ac_fn_c_try_link "$LINENO"; then :
++  ac_cv_lib_sec_acl_get=yes
++else
++  ac_cv_lib_sec_acl_get=no
++fi
++rm -f core conftest.err conftest.$ac_objext \
++    conftest$ac_exeext conftest.$ac_ext
++LIBS=$ac_check_lib_save_LIBS
++fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_sec_acl_get" >&5
++$as_echo "$ac_cv_lib_sec_acl_get" >&6; }
++if test "x$ac_cv_lib_sec_acl_get" = xyes; then :
++  LIBS="$LIBS -lsec"; $as_echo "#define HAVE_SOLARIS_ZFS_ACL 1" >>confdefs.h
++
++else
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Solaris ACL support" >&5
 +$as_echo_n "checking for Solaris ACL support... " >&6; }
 +cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 +/* end confdefs.h.  */
@@ -12544,6 +12584,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +fi
 +rm -f core conftest.err conftest.$ac_objext \
 +    conftest$ac_exeext conftest.$ac_ext
++fi
++
 +
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for AIX ACL support" >&5
 +$as_echo_n "checking for AIX ACL support... " >&6; }
@@ -15026,8 +15068,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-08-08 18:39:26.806543953 +0200
-+++ vim-qt-src/src/configure.in	2012-08-08 18:39:31.058544303 +0200
+--- vim-src/src/configure.in	2012-08-15 19:39:49.166902618 +0200
++++ vim-qt-src/src/configure.in	2012-08-15 19:39:49.973902687 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15200,7 +15242,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    fi
 +
 +cat > $tmp/qttest.cpp << EOF
-+#include <Qt/QtGui>
++#include <QApplication>
 +int main(int ac, char **av) {
 +    QApplication app(ac, av);
 +    return app.exec();
@@ -15287,8 +15329,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-08-08 18:39:26.794543952 +0200
-+++ vim-qt-src/src/feature.h	2012-08-08 18:39:31.045544302 +0200
+--- vim-src/src/feature.h	2012-08-15 19:39:49.149902618 +0200
++++ vim-qt-src/src/feature.h	2012-08-15 19:39:49.949902686 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -15486,9 +15528,22 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
      GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-08-08 18:39:06.000000000 +0200
-@@ -0,0 +1,1743 @@
-+#include <QtGui>
++++ vim-qt-src/src/gui_qt.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,1756 @@
++#include <QApplication>
++#include <QMessageBox>
++#include <QDesktopWidget>
++#include <QSettings>
++#include <QFile>
++#include <QFileInfo>
++#include <QDir>
++#include <QClipboard>
++#include <QMenu>
++#include <QMenuBar>
++#include <QToolBar>
++#include <QFileDialog>
++#include <QPushButton>
++
 +#include "qvimshell.h"
 +#include "mainwindow.h"
 +#include "vimaction.h"
@@ -17611,9 +17666,13 @@ diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
  # ifdef FEAT_OLE
 diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 --- vim-src/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.cpp	2012-05-18 19:58:59.000000000 +0200
-@@ -0,0 +1,222 @@
++++ vim-qt-src/src/qt/fontdialog.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,226 @@
 +#include "fontdialog.moc"
++
++#include <QLineEdit>
++#include <QPushButton>
++#include <QFontDialog>
 +
 +// some of the style names which could indicate the "regular" one
 +const QRegExp FontDialog::regular_rx = QRegExp("Regular|Normal|Book|Roman|Plain|Upright|Medium|Light|Sans");
@@ -17837,12 +17896,19 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +
 diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 --- vim-src/src/qt/fontdialog.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.h	2012-05-18 19:58:59.000000000 +0200
-@@ -0,0 +1,41 @@
++++ vim-qt-src/src/qt/fontdialog.h	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,48 @@
 +#ifndef __VIM_QT_FONTDIALOG__
 +#define __VIM_QT_FONTDIALOG__
 +
-+#include <QtGui>
++#include <QDialog>
++#include <QHBoxLayout>
++#include <QListWidget>
++#include <QFontDatabase>
++#include <QDialogButtonBox>
++#include <QScrollArea>
++#include <QGroupBox>
++#include <QLabel>
 +
 +class FontDialog: public QDialog
 +{
@@ -17954,9 +18020,13 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2012-08-08 18:39:06.000000000 +0200
-@@ -0,0 +1,234 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,238 @@
 +#include "mainwindow.moc"
++
++#include <QToolBar>
++#include <QMenuBar>
++#include <QEvent>
 +
 +MainWindow::MainWindow( gui_T* gui, QWidget *parent)
 +:QMainWindow(parent), m_keepTabbar(false)
@@ -18192,12 +18262,12 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2012-08-08 18:39:06.000000000 +0200
++++ vim-qt-src/src/qt/mainwindow.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,60 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
-+#include <QtGui>
++#include <QMainWindow>
 +#include "qvimshell.h"
 +#include "tabbar.h"
 +#include "scrollarea.h"
@@ -18280,9 +18350,14 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-08-08 18:39:06.000000000 +0200
-@@ -0,0 +1,1323 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,1328 @@
 +#include "qvimshell.moc"
++
++#include <QResizeEvent>
++#include <QPainter>
++#include <QApplication>
++#include <QDebug>
 +
 +extern "C" {
 +#include "proto/gui.pro"
@@ -18941,8 +19016,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	/*
 +	 * For some reason these are not in rgb.txt
 +	 */
-+	m_colorMap["lightmagenta"] = QColor(255, 224, 255);
-+	m_colorMap["lightred"] = QColor(255, 0, 0);
++	m_colorMap["lightmagenta"] = QColor(255, 160, 240);
++	m_colorMap["lightred"] = QColor(255, 160, 160);
 +
 +	/*
 +	 * DONT EDIT - auto generated from rgb.txt
@@ -19607,15 +19682,17 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-08-08 18:39:06.000000000 +0200
-@@ -0,0 +1,162 @@
++++ vim-qt-src/src/qt/qvimshell.h	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,164 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
-+#include <QtGui>
++#include <QWidget>
++#include <QQueue>
++#include <QLabel>
++#include <QTime>
++
 +#include "vimwrapper.h"
-+
-+
 +
 +typedef enum { CLEARALL, FILLRECT, DRAWSTRING, DRAWRECT, INVERTRECT, SCROLLRECT, DRAWSIGN} PaintOperationType;
 +class PaintOperation {
@@ -19773,11 +19850,12 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +#endif
 diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
 --- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.cpp	2012-08-08 18:39:06.000000000 +0200
-@@ -0,0 +1,31 @@
++++ vim-qt-src/src/qt/scrollarea.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,32 @@
 +#include "scrollarea.moc"
 +
-+#include <QtGui>
++#include <QWidget>
++#include <QGridLayout>
 +
 +ScrollArea::ScrollArea(QWidget *parent)
 +:QWidget(parent), m_widget(NULL)
@@ -19835,10 +19913,11 @@ diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
 +#endif
 diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
 --- vim-src/src/qt/tabbar.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/tabbar.cpp	2011-06-30 21:01:01.000000000 +0200
-@@ -0,0 +1,22 @@
++++ vim-qt-src/src/qt/tabbar.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,23 @@
 +#include "tabbar.moc"
 +
++#include <QMouseEvent>
 +
 +TabBar::TabBar(QWidget *parent)
 +:QTabBar(parent)
@@ -19861,12 +19940,12 @@ diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
 +
 diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
 --- vim-src/src/qt/tabbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/tabbar.h	2012-01-26 19:03:27.000000000 +0100
++++ vim-qt-src/src/qt/tabbar.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,17 @@
 +#ifndef __GUI_QT_TABBAR__
 +#define __GUI_QT_TABBAR__
 +
-+#include <QtGui>
++#include <QTabBar>
 +
 +class TabBar: public QTabBar
 +{
@@ -19946,11 +20025,12 @@ diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 +}
 diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 --- vim-src/src/qt/vimaction.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.h	2012-06-20 16:40:38.000000000 +0200
-@@ -0,0 +1,20 @@
++++ vim-qt-src/src/qt/vimaction.h	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,21 @@
 +#ifndef __GUI_QT_VIMACTION__
 +#define __GUI_QT_VIMACTION__
 +
++#include <QAction>
 +#include "qvimshell.h"
 +
 +class VimAction: public QAction
@@ -20076,9 +20156,11 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-07-06 18:19:22.000000000 +0200
-@@ -0,0 +1,352 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,354 @@
 +#include "vimwrapper.moc"
++#include <QApplication>
++#include <QStyle>
 +
 +extern "C" {
 +#include "vim.h"
@@ -20432,12 +20514,16 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +}
 diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 --- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.h	2012-07-06 18:19:22.000000000 +0200
-@@ -0,0 +1,107 @@
++++ vim-qt-src/src/qt/vimwrapper.h	2012-08-15 19:39:10.000000000 +0200
+@@ -0,0 +1,111 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
 +
-+#include <QtGui>
++#include <QObject>
++#include <QIcon>
++#include <QUrl>
++#include <QWidget>
++#include <QDebug>
 +
 +extern "C" {
 +#include "vim.h"
