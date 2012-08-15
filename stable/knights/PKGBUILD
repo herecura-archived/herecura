@@ -1,7 +1,7 @@
 # Maintainer: nqn1976 @ gmail.com
 
 pkgname=knights
-pkgver=2.4.2
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Chess board for KDE with XBoard protocol support"
 arch=('i686' 'x86_64')
@@ -27,4 +27,4 @@ package() {
   cd ${srcdir}/${pkgname}-${pkgver}/build
   make DESTDIR="${pkgdir}" install
 }
-sha256sums=('1ad0c4092b62ced2ba14b33dbca72fbaba171603f31d0e49556391ec3a0a3ec7')
+sha256sums=('6567c4203c55ebe0ae6b5a25c852d7beef8b88d4154592437bc357797da5bd28')
