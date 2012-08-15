@@ -1,7 +1,7 @@
 /*
-! Checksum: L9FX/dfNUitKLQfQFM5t0Q
+! Checksum: 5rquPskRBfHNYnNb66zXhw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 Aug 2012
+! Version: V4 Updated: 14 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1446,6 +1446,9 @@
 #anchorAd,
 #ap_adtext,
 #apiTopAdWrap,
+#app_advertising_pregame_content,
+#app_advertising_rectangle,
+#app_advertising_rectangle_ph,
 #apt-homebox-ads,
 #araHealthSponsorAd,
 #area-adcenter,
@@ -3083,6 +3086,7 @@
 #SponsoredAd,
 #sponsoredAds,
 #sponsoredAdvertisement,
+#sponsoredBottom,
 #SponsoredLinks,
 #sponsoredLinks,
 #sponsoredlinks,
@@ -3091,6 +3095,7 @@
 #sponsoredresults,
 #sponsoredresults_top,
 #sponsoredresultsBottom_body,
+#sponsoredTop,
 #sponsorLinkDiv,
 #sponsorLinks,
 #sponsorResults,
@@ -4831,6 +4836,7 @@
 .adv_box_narrow,
 .adv_flash,
 .adv_here,
+.adv_info_text,
 .adv_leaderboard,
 .adv_left,
 .adv_medium_rectangle,
@@ -5615,6 +5621,7 @@
 .floatad,
 .floated_right_ad,
 .fm-badge-ad,
+.fN-affiliateStrip,
 .fold-ads,
 .foot-ad,
 .foot-advertisement,
@@ -5673,6 +5680,7 @@
 .galleryads,
 .gam_ad_slot,
 .game-ads,
+.game__adv_containerLeaderboard,
 .GAME_Ad160x600,
 .game_right_ad,
 .game_under_ad,
@@ -5789,6 +5797,7 @@
 .googleLgRect,
 .googleSideAd,
 .googleSkyWrapper,
+.googleSubjectAd,
 .googley_ads,
 .gpAdFooter,
 .gr-adcast,
@@ -5985,6 +5994,7 @@
 .insertAd_Rectangle,
 .insertAd_TextAdBreak,
 .insideStoryAd,
+.instructionAdvHeadline,
 .interest-based-ad,
 .internalAdsContainer,
 .internalAdSection,
@@ -7226,6 +7236,8 @@
 .yan-sponsored,
 .yat-ad,
 .yellow_ad,
+.yieldads-160x600,
+.yieldads-728x90,
 .yom-ad,
 .youradhere,
 .yrail_ads,
@@ -7505,7 +7517,6 @@ div[id="leaderboard"],
 .-cx-PRIVATE-fbAdUnit__root,
 .-cx-PRIVATE-snowliftAds__root,
 .-cx-PRIVATE-fbEmu__root,
-.adsCategoryTitleLink,
 #home_sponsor_nile,
 .UIWashFrame_SidebarAds,
 .UIStandardFrame_SidebarAds,
