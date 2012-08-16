@@ -1,7 +1,7 @@
 /*
-! Checksum: 5rquPskRBfHNYnNb66zXhw
+! Checksum: zWnld/pEaasdWErFfzkDdA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 Aug 2012
+! Version: V4 Updated: 15 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -761,6 +761,7 @@
 #adcontextlinks,
 #adControl1,
 #adcontrolisland,
+#add-top,
 #add720,
 #add_160x600,
 #add_720bottom,
@@ -2462,7 +2463,6 @@
 #main_ad,
 #main_top_ad,
 #MainAd,
-#mainAd,
 #mainad,
 #MAINAD-box,
 #mainAdUnit,
@@ -3166,6 +3166,7 @@
 #text-ad,
 #text-ads,
 #text-linkAD,
+#text_ads,
 #textAd,
 #textad,
 #textad_block,
@@ -3944,6 +3945,7 @@
 .Ad_D,
 .Ad_D_Wrapper,
 .ad_default,
+.ad_description,
 .ad_descriptor,
 .ad_disclaimer,
 .Ad_E_Wrapper,
@@ -6991,6 +6993,7 @@
 .tf_page_ad_search,
 .theAdvert,
 .theleftad,
+.third-box-ad,
 .thirdAd160Cont,
 .thirdAdBot,
 .thirdAdHead,
