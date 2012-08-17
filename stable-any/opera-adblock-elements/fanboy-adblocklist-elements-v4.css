@@ -1,7 +1,7 @@
 /*
-! Checksum: zWnld/pEaasdWErFfzkDdA
+! Checksum: /37yGhoNEfKopQ8DJ0HrNA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 15 Aug 2012
+! Version: V4 Updated: 16 Aug 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -82,6 +82,7 @@
 #ad-abs-b-1,
 #ad-abs-b-10,
 #ad-abs-b-7,
+#ad-absolute-160,
 #ad-ads,
 #ad-advertorial,
 #ad-area,
@@ -689,6 +690,7 @@
 #AdBlock,
 #adBlock,
 #adblock-big,
+#adblock-jango,
 #adblock-leaderboard,
 #adblock-small,
 #adblock1,
@@ -1753,6 +1755,7 @@
 #companion_Ad,
 #companionad,
 #companionAdDiv,
+#componentAdSkyscraper,
 #conduitAdPopupWrapper,
 #container-ad-topright,
 #container_ad,
@@ -5630,7 +5633,6 @@
 .foot_adsense,
 .footad,
 .footer-300-ad,
-.footer-ad,
 .footer-ad-section,
 .footer-ads,
 .footer-adsbar,
@@ -6275,6 +6277,7 @@
 .mrec_advert,
 .ms-ads-link,
 .msnChannelAd,
+.MspAd,
 .mt-header-ads,
 .mtv-adChoicesLogo,
 .multiadwrapper,
