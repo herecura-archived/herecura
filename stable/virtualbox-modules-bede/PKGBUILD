@@ -3,8 +3,8 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=4.1.18
-pkgrel=8
+pkgver=4.1.20
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -17,7 +17,7 @@ source=(
 	'modules-load-virtualbox-bede'
 )
 md5sums=(
-	'38db0a87cba659b484af868b0c2bd3ac'
+	'5784c6dda8a9d53f8f21b2d41eba903c'
 	'4c88bd122677a35f68abd76eb01b378b'
 	'ed1341881437455d9735875ddf455fbe'
 	'f2200ed91b6ec089d16cc3ada5418c73'
