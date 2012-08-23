@@ -1,0 +1,59 @@
+# Maintainer : BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: Thomas Baechler <thomas@archlinux.org>
+
+_pkgname=nvidia
+pkgname=$_pkgname-bede-mainline
+pkgver=304.37
+_extramodules=3.6-BEDE-MAINLINE-external
+pkgrel=1
+pkgdesc="NVIDIA drivers for linux-bede-mainline"
+arch=('i686' 'x86_64')
+url="http://www.nvidia.com/"
+makedepends=('linux-bede-mainline' 'linux-bede-mainline-headers' "nvidia-utils=$pkgver")
+conflicts=('nvidia-96xx' 'nvidia-173xx')
+replaces=('nvidia-bemm')
+license=('custom')
+install=nvidia.install
+options=(!strip)
+
+if [ "$CARCH" = "i686" ]; then
+	_arch='x86'
+	_pkg="NVIDIA-Linux-$_arch-$pkgver"
+	source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run"
+	"3.6_kernel.patch")
+	md5sums=('ee3e97109201ab954c96860e28ada611'
+	'87518bc9d5980ab37ba3ede46852e5fe')
+elif [ "$CARCH" = "x86_64" ]; then
+	_arch='x86_64'
+	_pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
+	source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run"
+	"3.6_kernel.patch")
+	md5sums=('65fce562c0df3def06012db9ff6bafa1'
+	'87518bc9d5980ab37ba3ede46852e5fe')
+fi
+
+build() {
+	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"
+	cd "$srcdir"
+	sh $_pkg.run --extract-only
+	cd $_pkg/kernel
+	sed -e '/CFLAGS="$CFLAGS/s:-I$SOURCES/arch/x86/include:& -I$OUTPUT/arch/x86/include/generated:' -i conftest.sh
+	patch < "${srcdir}/3.6_kernel.patch"
+ 	make SYSSRC=/usr/lib/modules/$_kernver/build module
+}
+
+package() {
+	depends=('linux-bede-mainline' "nvidia-utils=${pkgver}")
+
+	install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
+		"$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
+
+	install -dm755 "$pkgdir/usr/lib/modprobe.d"
+	echo "blacklist nouveau" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
+	echo "blacklist nvidiafb" >> "$pkgdir/usr/lib/modprobe.d/$pkgname.conf"
+
+	# gzip all modules
+	find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+
+	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
+}
