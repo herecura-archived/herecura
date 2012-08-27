@@ -1,8 +1,8 @@
 # Maintainer: garion < garion @ mailoo.org >
 
 pkgname=mkclean
-pkgver=0.8.6
-pkgrel=2
+pkgver=0.8.7
+pkgrel=1
 pkgdesc="Clean up and optimize MKV files"
 arch=('i686' 'x86_64')
 url="http://www.matroska.org/downloads/$pkgname.html"
@@ -33,4 +33,4 @@ package(){
 	install -Dm755 "release/$_gcc_linux/mkcleanreg" "$pkgdir/usr/bin/mkcleanreg"
 	install -Dm755 "release/$_gcc_linux/mkWDclean"  "$pkgdir/usr/bin/mkWDclean"
 }
-sha256sums=('6e81a7522ef47ddfefb4ae1f5d9bee217190741b6660f5240dba85bc4faf4a44')
+sha256sums=('88713065a172d1ab7fd34c8854a42f6bf8d0e794957265340328a2f692ad46d9')
