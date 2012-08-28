@@ -3,37 +3,41 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=5.2.40
+pkgver=5.2.42
 pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
 license=('GPL2')
 depends=('libzip' 'libmysqlclient' 'lua' 'gtkmm' 'ctemplate'
-'libgnome-keyring' 'libgl' 'python-paramiko' 'python-pexpect'
-'pcre' 'tinyxml' 'libxml2' 'mysql-python' 'python-pysqlite' 'cairo'
-'python-cairo' 'hicolor-icon-theme' 'desktop-file-utils')
+	'libgnome-keyring' 'libgl' 'python-paramiko' 'python-pexpect'
+	'pcre' 'tinyxml' 'libxml2' 'mysql-python' 'python-pysqlite' 'cairo'
+	'python-cairo' 'hicolor-icon-theme' 'desktop-file-utils' 'libiodbc')
 
 makedepends=('boost' 'curl' 'mesa')
 options=('!libtool !distcc !ccache')
 
-source=(http://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQLGUITools/${pkgname}-gpl-${pkgver}-src.tar.gz)
+source=(
+	"http://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQLGUITools/${pkgname}-gpl-${pkgver}-src.tar.gz"
+	'mysql-workbench-5.2.41-glib.patch'
+)
 
-md5sums=('ac5c2058cd39c796a1c7bed2647f74b6')
+md5sums=(
+	'519d2e4bc878d79023379e1fef49b68c'
+	'91d1f1fb614de54c4c455026c73f8afb'
+)
 
 build() {
 	cd "${srcdir}/${pkgname}-gpl-${pkgver}-src"
 
-	# remove when http://bugs.mysql.com/bug.php?id=63898 gets fixed
-	fgrep -rlZ pkglib_DATA --include Makefile.am . | xargs -0 sed -i 's/pkglib_DATA/pkgdata_DATA/g'
-
 	sed -i -e 's/python -c/python2 -c/gi' configure.in
-	#find . \( -name "*.[hc]" -o -name "*.cpp" \) -exec sed -ir 's/#include <glib[\/\-][^\.]*\.h>/#include <glib.h>/' '{}' \;
+
+	patch -Np1 -i $srcdir/'mysql-workbench-5.2.41-glib.patch'
 
 	./autogen.sh
 	./configure --prefix=/usr
 
-	make || return 1
+	make
 }
 
 package() {
@@ -42,10 +46,8 @@ package() {
 	make DESTDIR="${pkgdir}" install
 
 	cd ${pkgdir}/usr/share/mysql-workbench/
-	for i in *.py *.lua *.glade
+	for i in *.py *.glade
 	do
 		ln -s /usr/share/mysql-workbench/$i ${pkgdir}/usr/lib/mysql-workbench/modules/
 	done
-
-
 }
