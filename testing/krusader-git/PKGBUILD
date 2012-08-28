@@ -1,7 +1,7 @@
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krusader-git
-pkgver=20120827
+pkgver=20120828
 pkgrel=1
 pkgdesc="Krusader - Twin Panel File Management For Your Desktop - GIT version"
 arch=('i686' 'x86_64')
