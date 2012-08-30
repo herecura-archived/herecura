@@ -14,7 +14,7 @@ replaces=('xbmc-svn')
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'LGPL')
-depends=('libpulse' 'hicolor-icon-theme' 'fribidi' 'lzo2' 'smbclient' 'libtiff' 'libva' 'libpng' 'libcdio' 'yajl' 'libmysqlclient' 'libjpeg-turbo' 'libsamplerate' 'glew' 'libssh' 'libmicrohttpd' 'libxrandr' 'sdl_mixer' 'sdl_image' 'python2' 'libass' 'libmpeg2' 'libmad' 'libmodplug' 'jasper' 'rtmpdump' 'unzip' 'mesa-demos' 'xorg-xdpyinfo' 'libbluray' 'libnfs' 'afpfs-ng' 'libshairport' 'avahi' 'bluez' 'tinyxml' 'libcap' 'pulseaudio')
+depends=('libpulse' 'hicolor-icon-theme' 'fribidi' 'lzo2' 'smbclient' 'libtiff' 'libva' 'libpng' 'libcdio' 'yajl' 'libmysqlclient' 'libjpeg-turbo' 'libsamplerate' 'glew' 'libssh' 'libmicrohttpd' 'libxrandr' 'sdl_mixer' 'sdl_image' 'python2' 'libass' 'libmpeg2' 'libmad' 'libmodplug' 'jasper' 'rtmpdump' 'unzip' 'mesa-demos' 'xorg-xdpyinfo' 'libbluray' 'libnfs' 'afpfs-ng' 'avahi' 'bluez' 'tinyxml' 'libcap' 'pulseaudio')
 makedepends=('boost' 'cmake' 'git' 'gperf' 'nasm' 'libxinerama' 'zip' 'vdpau-video' 'libcec' 'udisks' 'upower')
 
 optdepends=(
@@ -145,8 +145,6 @@ build() {
 		--enable-samba \
 		--enable-nfs \
 		--enable-afpclient \
-		--enable-airplay \
-		--enable-airtunes \
 		--enable-ffmpeg-libvorbis \
 		--enable-dvdcss \
 		--disable-hal \
@@ -160,6 +158,9 @@ build() {
 		--enable-libcec \
 		--enable-external-libraries \
 		--disable-external-ffmpeg
+
+		#--enable-airplay \
+		#--enable-airtunes \
 
 	# Now (finally) build
 	msg2 "Running make" 
