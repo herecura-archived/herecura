@@ -15085,8 +15085,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2012-08-29 19:41:08.516664561 +0200
-+++ vim-qt-src/src/configure.in	2012-08-29 19:41:38.574675271 +0200
+--- vim-src/src/configure.in	2012-08-30 20:47:06.431112136 +0200
++++ vim-qt-src/src/configure.in	2012-08-30 20:47:35.411320074 +0200
 @@ -1744,11 +1744,11 @@
    fi
  fi
@@ -15346,8 +15346,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2012-08-29 19:41:08.502664546 +0200
-+++ vim-qt-src/src/feature.h	2012-08-29 19:41:38.559675254 +0200
+--- vim-src/src/feature.h	2012-08-30 20:47:06.409111965 +0200
++++ vim-qt-src/src/feature.h	2012-08-30 20:47:35.389319904 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -20353,8 +20353,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-08-29 19:40:34.000000000 +0200
-@@ -0,0 +1,412 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2012-08-30 20:44:34.000000000 +0200
+@@ -0,0 +1,404 @@
 +#include <QApplication>
 +#include <QStyle>
 +#include <QMetaType>
@@ -20737,14 +20737,6 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +		QTime t;
 +		t.start();
 +		do {
-+			//
-+			// DONT use ::singleShot, we need to remove the timer
-+			// when leaving this scope, to ensure the slot is not
-+			// called after we exited.
-+			QTimer timer;
-+			timer.setSingleShot(true);
-+			QObject::connect(&timer, SIGNAL(timeout()), QApplication::instance(), SLOT(quit()));
-+			timer.start(wtime - t.elapsed());
 +
 +			QApplication::processEvents( QEventLoop::WaitForMoreEvents);
 +			if ( hasPendingEvents() || !vim_is_input_buf_empty() ) {
