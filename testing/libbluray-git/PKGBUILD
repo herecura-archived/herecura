@@ -1,7 +1,7 @@
 # Maintainer: Andrew Cook <ariscop@gmail.com>
 
 pkgname=libbluray-git
-pkgver=20120904
+pkgver=20120905
 pkgrel=1
 pkgdesc="Blu-Ray access library"
 arch=('i686' 'x86_64')
