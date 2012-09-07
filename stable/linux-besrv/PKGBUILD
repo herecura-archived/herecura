@@ -135,7 +135,7 @@ package_linux-besrv() {
 	backup=(
 		"etc/mkinitcpio.d/$pkgname.preset"
 	)
-	depends=('coreutils' 'kmod>=9-2' 'mkinitcpio>=0.9')
+	depends=('coreutils' 'kmod>=10' 'mkinitcpio>=0.9')
 	optdepends=(
 		'crda: to set the correct wireless channels of your country'
 		'linux-firmware: when having some hardware needing special firmware'
@@ -190,14 +190,14 @@ package_linux-besrv() {
 	mkdir -p "$pkgdir/lib/modules/$_basekernel$_fldkernelname-external"
 	echo "$_kernver" > "$pkgdir/lib/modules/${_basekernel}$_fldkernelname-external/version"
 
-	# move module tree /lib -> /usr/lib
-	mv "$pkgdir/lib" "$pkgdir/usr/"
-
 	# gzip all modules
 	find "$pkgdir" -name '*.ko' -exec gzip -9 {}  \;
 
 	# Now we call depmod...
 	depmod -b "$pkgdir" -F System.map "$_kernver"
+
+	# move module tree /lib -> /usr/lib
+	mv "$pkgdir/lib" "$pkgdir/usr/"
 }
 
 package_linux-besrv-headers() {
