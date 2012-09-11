@@ -1,7 +1,7 @@
 /*
-! Checksum: wBJmsPBS8naPmXWvKJfjWQ
+! Checksum: 4N2olNjYneUgLNqW7eCPNg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 Sep 2012
+! Version: V4 Updated: 10 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -689,6 +689,7 @@
 #adBannerTable,
 #adBannerTop,
 #adbannerwidget,
+#adBannerWrap,
 #adBannerWrapperFtr,
 #AdBar,
 #adBar,
@@ -2454,6 +2455,7 @@
 #LB_Row_Ad,
 #lbAdBar,
 #lbAdBarBtm,
+#lblAds,
 #lead_ad,
 #leader-board-ad,
 #leader_board_ad,
@@ -2812,6 +2814,7 @@
 #promoFloatAd,
 #ps-top-ads-sponsored,
 #publicidad,
+#publicidad_120,
 #publicidadeLREC,
 #pulse360_1,
 #pushdown_ad,
@@ -2979,7 +2982,9 @@
 #search-sponsor,
 #search-sponsored-links,
 #search_ads,
+#searchAd,
 #SearchAd_PlaceHolder,
+#searchAdFrame,
 #sec_adspace,
 #secondad,
 #secondary_ad_inventory,
@@ -4385,6 +4390,7 @@
 .adf_tisers,
 .adfbox,
 .adFender3,
+.adfix,
 .adflag,
 .adfloatleft,
 .adfoot,
@@ -4971,6 +4977,7 @@
 .adv-468-60,
 .adv-700,
 .adv-google,
+.adv-halfpage,
 .adv-label,
 .adv-leaderboard,
 .adv-mpu,
@@ -4982,6 +4989,7 @@
 .adv300x70,
 .adv336,
 .adv460x60,
+.Adv468,
 .adv_1,
 .adv_120x600,
 .adv_2,
@@ -5002,6 +5010,7 @@
 .adv_side1,
 .adv_side2,
 .adv_top,
+.adVar,
 .advBottom,
 .advBottomHome,
 .advbox,
@@ -7371,6 +7380,7 @@
 .video_advertisement_box,
 .videoBoxAd,
 .view-image-ads,
+.view-site-ads,
 .view_rig_ad,
 .viewContentItemAd,
 .vs-advert-300x250,
@@ -7928,6 +7938,8 @@ div[id="rhs_block"],
 #pullquote_adu,
 /* merriam-webster.com */
 #google_creative_1,
+/* megatorrents.org */
+.ksAvd,
 /* metro.co.uk */
 .google_modtr,
 /* miamiherald.com */
