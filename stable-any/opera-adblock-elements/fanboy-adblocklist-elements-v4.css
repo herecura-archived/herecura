@@ -1,7 +1,7 @@
 /*
-! Checksum: 4N2olNjYneUgLNqW7eCPNg
+! Checksum: lm3cyH+nWR7UU/P2Bx9W2w
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Sep 2012
+! Version: V4 Updated: 11 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -681,6 +681,7 @@
 #adBanner9,
 #AdBanner_F1,
 #AdBanner_S,
+#adBannerBottom,
 #adbannerdiv,
 #adbannerleft,
 #adbannerright,
@@ -3336,6 +3337,7 @@
 #top_add,
 #TOP_ADROW,
 #top_ads_region,
+#top_ads_wrap,
 #top_adsense_cont,
 #top_adspace,
 #top_adv-v2,
@@ -5354,6 +5356,7 @@
 .banner_ad_728x90,
 .banner_ad_footer,
 .banner_ad_leaderboard,
+.banner_mpu_integrated,
 .banner_reklam,
 .banner_reklam2,
 .BannerAd,
@@ -6541,6 +6544,7 @@
 .ody-sponsor,
 .oi_horz_ad_container,
 .oio-banner-zone,
+.oio-openslots,
 .omnitureAdImpression,
 .oneColumnAd,
 .onethirdadholder,
