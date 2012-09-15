@@ -1,7 +1,7 @@
 /*
-! Checksum: gRyHJZWezQoCKo41pNAL+Q
+! Checksum: sTrL0x1MLiiukSPVljRzcQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 Sep 2012
+! Version: V4 Updated: 14 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -4049,6 +4049,7 @@
 .ad_block__336_d1,
 .ad_border,
 .ad_bottom,
+.ad_bottom_728,
 .ad_bottom_leaderboard,
 .ad_bottom_mpu,
 .ad_bottomline,
@@ -4129,6 +4130,7 @@
 .ad_launchpad,
 .ad_leaderboard_top,
 .ad_Left,
+.ad_left_column,
 .ad_line,
 .ad_line2,
 .ad_link,
@@ -4153,6 +4155,7 @@
 .ad_mr,
 .ad_mrec,
 .ad_mrect,
+.ad_mrectangle,
 .ad_msg,
 .ad_no_border,
 .ad_notice,
@@ -4618,6 +4621,7 @@
 .ads-horizontal-banner,
 .ads-inarticle,
 .ads-item,
+.ads-leaderboard-border,
 .ads-left,
 .ads-list,
 .ads-margin,
@@ -4626,6 +4630,7 @@
 .ads-module,
 .ads-mpu,
 .ads-popup-corner,
+.ads-post-closing,
 .ads-profile,
 .ads-right,
 .ads-rotate,
@@ -7248,6 +7253,7 @@
 .text-ads,
 .text-advertisement,
 .text-g-advertisement,
+.text-g-sponsored-ads,
 .text_ad,
 .text_ads,
 .text_ads_2,
