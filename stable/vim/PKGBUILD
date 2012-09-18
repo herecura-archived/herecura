@@ -11,15 +11,15 @@ _patchlevel=665
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 #__hgrev=11d40fc82f11
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-#makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-#'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif' 'tk')
-makedepends=('gpm' 'perl' 'python2' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif')
+makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif' 'tk')
+#makedepends=('gpm' 'perl' 'python2' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+#'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif')
 options=()
 source=(
 	'vimrc'
@@ -108,8 +108,7 @@ build() {
 		--disable-gui --enable-multibyte --enable-cscope \
 		--disable-netbeans --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=dynamic --disable-rubyinterp
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic # ruby dynamic is failing
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-gtk'
@@ -121,8 +120,7 @@ build() {
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=dynamic --disable-rubyinterp
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-x11'
@@ -134,8 +132,7 @@ build() {
 		--enable-gui=athena --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=dynamic --disable-rubyinterp
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-motif'
@@ -147,8 +144,7 @@ build() {
 		--enable-gui=motif --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=dynamic --disable-rubyinterp
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-qt'
@@ -162,8 +158,7 @@ build() {
 		--enable-gui=qt --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-luainterp=dynamic --disable-rubyinterp
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 }
 
@@ -194,7 +189,7 @@ package_vim-cli() {
 		'python2: vim python2 binding'
 		'python: vim python3 binding'
 		'lua: vim lua binding'
-		#'ruby: vim ruby binding'
+		'ruby: vim ruby binding'
 	)
 	conflicts=('vi' 'vim')
 	provides=('vim')
