@@ -1,106 +1,78 @@
 # $Id$
-#Maintainer: Ionut Biru <ibiru@archlinux.org>
+# Maintainer: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+# Contributor: Sébastien Luttringer <seblu@aur.archlinux.org>
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=4.1.22
+pkgver=4.2.0
 pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('libstdc++5' 'bin86' 'dev86' 'iasl' 'libxslt' 'libxml2' 'libpng' 'libidl2' 'xalan-c' 'sdl' 'linux-bede>=3.5' 'linux-bede<3.6' 'linux-bede-headers>=3.5' 'linux-bede-headers<3.6')
-[[ $CARCH == "x86_64" ]] && makedepends=("${makedepends[@]}" 'gcc-multilib' 'lib32-glibc')
-source=(
-	"http://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${pkgver}.tar.bz2"
-	'LocalConfig.kmk'
-	'60-vboxguest.rules'
-	'modules-load-virtualbox-bede'
-)
-md5sums=(
-	'84c5beeead094ce52d098105897aadbb'
-	'4c88bd122677a35f68abd76eb01b378b'
-	'ed1341881437455d9735875ddf455fbe'
-	'f2200ed91b6ec089d16cc3ada5418c73'
-)
+makedepends=('linux-bede>=3.5' 'linux-bede<3.6' 'linux-bede-headers>=3.5' 'linux-bede-headers<3.6'
+    "virtualbox-host-source>=$pkgver"
+    "virtualbox-guest-source>=$pkgver")
+source=('modules-load-virtualbox-bede'
+    '60-vboxguest.rules')
+md5sums=('f2200ed91b6ec089d16cc3ada5418c73'
+    'ed1341881437455d9735875ddf455fbe')
 
 _extramodules=3.5-BEDE-external
 
 build() {
-	_kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
-	export KERN_DIR=/usr/lib/modules/${_kernver}/build
-	export KERN_INCL=/usr/src/linux-${_kernver}/include/
-
-    cd "$srcdir/VirtualBox-${pkgver}"
-
-    cp "$srcdir/LocalConfig.kmk" .
-
-    ./configure \
-        --with-linux=/usr/src/linux-${_kernver} \
-        --disable-java \
-        --disable-docs \
-        --disable-xpcom \
-        --disable-python \
-        --disable-sdl-ttf \
-        --disable-alsa \
-        --disable-pulse \
-        --disable-dbus  \
-        --disable-opengl \
-        --build-headless \
-        --nofatal
-    source ./env.sh
-    kmk all
-
-    make -C "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/src"
-    make -C "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions/src"
+    # dkms need modification to be run as user
+    cp -r /var/lib/dkms .
+    echo "dkms_tree='$srcdir/dkms'" > dkms.conf
+    # build host modules
+    msg2 'Host modules'
+    dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
+    # build guest modules
+    msg2 'Guest modules'
+    dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
 }
 
-package_virtualbox-modules-bede-host(){
-	pkgdesc="Kernel modules for VirtualBox (linux-bede)"
+package_virtualbox-modules-bede-host() {
+    pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
     depends=('linux-bede>=3.5' 'linux-bede<3.6')
-	provides=("virtualbox-modules=${pkgver}")
+    provides=("virtualbox-host-modules=$pkgver")
 
-    source "$srcdir/VirtualBox-${pkgver}/env.sh"
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
+    install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    cd "dkms/vboxhost/$pkgver/$_kernver/$CARCH/module"
+    install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
 
-    cd "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/src"
-
-    for module in vboxdrv.ko vboxnetadp.ko vboxnetflt.ko vboxpci.ko; do
-        install -D -m644 ${module} \
-            "$pkgdir/usr/lib/modules/${_extramodules}/vbox/${module}"
-    done
-
-	# install config file in modules-load.d for out of the box experience
-	install -Dm644 "$srcdir/modules-load-virtualbox-bede" \
-		"$pkgdir/usr/lib/modules-load.d/virtualbox-modules-bede-host.conf"
-
-    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
+    # install config file in modules-load.d for out of the box experience
+    install -Dm644 "$srcdir/modules-load-virtualbox-bede" \
+        "$pkgdir/usr/lib/modules-load.d/virtualbox-modules-bede-host.conf"
 
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "$startdir/virtualbox-modules-bede-host.install"
 }
 
-package_virtualbox-modules-bede-guest(){
-	pkgdesc="Additions only for Arch Linux guests (kernel modules) (linux-bede)"
+package_virtualbox-modules-bede-guest() {
+    pkgdesc="Kernel guest modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
     depends=('linux-bede>=3.5' 'linux-bede<3.6')
-	provides=("virtualbox-archlinux-modules=${pkgver}")
+    provides=("virtualbox-guest-modules=${pkgver}")
 
-    source "$srcdir/VirtualBox-${pkgver}/env.sh"
+    _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
 
-    cd "$srcdir/VirtualBox-${pkgver}/out/linux.$BUILD_PLATFORM_ARCH/release/bin/additions/src"
-
-    for module in vboxguest.ko vboxsf.ko vboxvideo.ko; do
-        install -D -m644 ${module} \
-            "$pkgdir/usr/lib/modules/${_extramodules}/vbox/${module}"
-    done
+    install -dm755 "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    cd "dkms/vboxguest/$pkgver/$_kernver/$CARCH/module"
+    install -m644 * "$pkgdir/usr/lib/modules/$_extramodules/vbox"
+    find "$pkgdir" -name '*.ko' -exec gzip -9 {} +
 
     install -D -m 0644 "$srcdir/60-vboxguest.rules" \
         "$pkgdir/usr/lib/udev/rules.d/60-vboxguest-bede.rules"
 
-    find "$pkgdir" -name '*.ko' -exec gzip -9 {} \;
-
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "$startdir/virtualbox-modules-bede-guest.install"
 }
+
+# vim:set ft=sh et:
