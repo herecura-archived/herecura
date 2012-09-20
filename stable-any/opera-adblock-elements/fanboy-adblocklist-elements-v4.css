@@ -1,7 +1,7 @@
 /*
-! Checksum: rcrzC6CQHD8zZu9gHeX13w
+! Checksum: qTxJbGMq8t+SKUP2PIpoUg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Sep 2012
+! Version: V4 Updated: 19 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -757,6 +757,7 @@
 #adChoicesIcon,
 #adChoicesLogo,
 #adCirc300X200,
+#adCirc300X250,
 #adCirc300x300,
 #adCirc620X100,
 #adCirc_620_100,
@@ -1202,6 +1203,7 @@
 #adSpace_top,
 #adspaceBox,
 #adspaceBox300,
+#adspaceBox300_150,
 #adSpacer,
 #adspaceRow,
 #adspan,
@@ -2587,6 +2589,7 @@
 #med-rect-ad,
 #media_ad,
 #mediaAdLeaderboard,
+#mediagoogleadsense,
 #mediaplayer_adburner,
 #medium-ad,
 #mediumAdContainer,
@@ -2723,6 +2726,7 @@
 #nuevo_ad,
 #OAS2,
 #OAS_AD_TOPRIGHT,
+#oas_Middle,
 #oas_Right2,
 #OAS_Top,
 #oas_wide_skyscraper,
@@ -3428,6 +3432,7 @@
 #topbarads,
 #TopGoogleCustomAd,
 #topheader_ads,
+#topicPageAdsense,
 #topleader,
 #topleaderAd,
 #topleaderboardad,
@@ -4406,6 +4411,7 @@
 .adCube,
 .add-2,
 .add-column2,
+.add-header-area,
 .add-result,
 .add-sidebar,
 .add-space,
