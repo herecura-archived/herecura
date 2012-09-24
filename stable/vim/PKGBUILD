@@ -27,7 +27,6 @@ source=(
 	'license.txt'
 	'vim-qt-src.patch'
 	'qt-icons.tar.gz'
-	'fix-ruby-dyn-7.3.662.patch'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
@@ -36,7 +35,6 @@ sha256sums=(
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
 	'174fd83074e48323e06152493419fe4c264f968ab967906005a0dc2a227516bb'
 	'059ab867e564f1aad98d7a6bf69021b8c7b6d947fa5a43e1e3f2322712f32d36'
-	'5b3effe3d920d12390afd365e87b3b4bf19049364ad6222578d7b588215b2884'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -80,9 +78,6 @@ build() {
 	# fix python name
 	sed -i -e 's|vi_cv_path_python, python|vi_cv_path_python, python2|' \
 		vim-build/src/configure.in
-
-	# patch for i686 dynamic ruby
-	(cd vim-build; patch -Np1 -i $srcdir/fix-ruby-dyn-7.3.662.patch)
 
 	msg2 'Building...'
 
