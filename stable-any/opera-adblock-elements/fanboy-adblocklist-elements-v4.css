@@ -1,7 +1,7 @@
 /*
-! Checksum: 3J7uGcOZjnuEHTyHvh4GQw
+! Checksum: JgbCCfxGwV1gIe+cJWO8EQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 23 Sep 2012
+! Version: V4 Updated: 24 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1841,6 +1841,7 @@
 #containerSqAd,
 #content-ad,
 #content_ad_block,
+#content_ad_container,
 #content_ad_top,
 #content_ads_content,
 #content_box_adright300_google,
@@ -2967,6 +2968,7 @@
 #rightAds,
 #rightadsarea,
 #rightAdsDiv,
+#rightAdSpace,
 #RightAdSpace,
 #RightAdvertisement,
 #rightbar_ad,
@@ -5948,6 +5950,7 @@
 .footerAdModule,
 .footerAds,
 .footeradspace,
+.footerAdUnit,
 .footerAdverts,
 .footerFullAd,
 .footerGoogleAdMainWarp,
@@ -7148,6 +7151,7 @@
 .spons_link_header,
 .sponsBox,
 .sponser-link,
+.sponserIABAdBottom,
 .sponserLink,
 .sponserlink,
 .sponsertop,
@@ -7213,6 +7217,7 @@
 .sponsored_ss,
 .sponsoredAdLine,
 .SponsoredAdTitle,
+.SponsoredArticleAd,
 .sponsoredBox,
 .sponsoredFeature,
 .sponsoredLabel,
