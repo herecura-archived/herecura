@@ -3,7 +3,7 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=304.43
+pkgver=304.51
 _extramodules=3.5-BEDE-external
 pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
@@ -16,16 +16,19 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 
+#source=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run"
+#"http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
+
 if [ "$CARCH" = "i686" ]; then
 	_arch='x86'
 	_pkg="NVIDIA-Linux-$_arch-$pkgver"
 	source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-	md5sums=('393260b7e8d8195e982eb718f5014c3d')
+	md5sums=('4fde294e139a31528ea7f6efd8885a09')
 elif [ "$CARCH" = "x86_64" ]; then
 	_arch='x86_64'
 	_pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
 	source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-	md5sums=('e634de31c96f7b418ed7fdc385ab049d')
+	md5sums=('2ca10e05cd3b5d2a87caaaad9fd93c06')
 fi
 
 build() {
@@ -52,3 +55,5 @@ package() {
 
 	sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
+
+# vim:set ft=sh et:
