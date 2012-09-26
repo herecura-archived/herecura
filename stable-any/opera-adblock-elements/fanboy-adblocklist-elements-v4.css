@@ -1,7 +1,7 @@
 /*
-! Checksum: JgbCCfxGwV1gIe+cJWO8EQ
+! Checksum: DgvLDv70kPWxXuC5XsJtyA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 Sep 2012
+! Version: V4 Updated: 25 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -898,6 +898,7 @@
 #adlove,
 #adlrec,
 #adLrec,
+#adMagAd,
 #admain,
 #admanager_leaderboard,
 #adMarketplace,
@@ -1688,6 +1689,7 @@
 #bottom-ad-tray,
 #bottom-ad-wrapper,
 #bottom-ads,
+#bottom-adspot,
 #bottom-banner-spc,
 #bottom-boxad,
 #bottom-side-ad,
@@ -2437,6 +2439,7 @@
 #innerad,
 #innerpage-ad,
 #inside-page-ad,
+#insideCubeAd,
 #insider_ad_wrapper,
 #instoryad,
 #instoryadtext,
@@ -2661,7 +2664,9 @@
 #monsterAd,
 #moogleAd,
 #more_ad,
+#mosBannerAd,
 #most_popular_ad,
+#mosTileAds,
 #motionAd,
 #movieads,
 #mpu-advert,
@@ -3639,6 +3644,7 @@
 .ad-160x600x2,
 .ad-160x600x3,
 .ad-2,
+.ad-200,
 .ad-200x200,
 .ad-250,
 .ad-250x300,
@@ -3881,6 +3887,7 @@
 .ad-top-728,
 .ad-top-lboard,
 .ad-top-rectangle,
+.ad-top1,
 .ad-top2,
 .ad-tower,
 .ad-unit-anchor,
@@ -3926,6 +3933,8 @@
 .ad18,
 .ad180,
 .ad19,
+.ad1_bottom,
+.ad1_top,
 .ad1b,
 .ad1Image,
 .ad1left,
@@ -4246,6 +4255,7 @@
 .ad_sidebar,
 .ad_sidebar_bigbox,
 .ad_sky,
+.ad_skyscpr,
 .ad_skyscraper,
 .ad_skyscrapper,
 .ad_slug,
@@ -6613,6 +6623,7 @@
 .nadvt300,
 .narrow_ad_unit,
 .narrow_ads,
+.nature-ad,
 .nav-ad,
 .navad,
 .navAd,
