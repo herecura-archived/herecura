@@ -1,12 +1,15 @@
-# Contributors : Ralf Barth <archlinux dot org at haggy dot org>
-# Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Maintainer: BlackIkeEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: DonVla <donvla@users.sourceforge.net>
+# Contributor: Ulf Winkelvos <ulf [at] winkelvos [dot] de>
+# Contributor: Ralf Barth <archlinux dot org at haggy dot org>
+# Contributor: B & monty - Thanks for your hints :)
 #
 # Original credits go to Edgar Hucek <gimli at dark-green dot com>
 # for his xbmc-vdpau-vdr PKGBUILD at https://archvdr.svn.sourceforge.net/svnroot/archvdr/trunk/archvdr/xbmc-vdpau-vdr/PKGBUILD
 
 pkgname=xbmc-git
 pkgver=20120928
-pkgrel=1
+pkgrel=2
 pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
 conflicts=('xbmc' 'xbmc-pulse' 'xbmc-svn')
