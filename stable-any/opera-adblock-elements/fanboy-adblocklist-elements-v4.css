@@ -1,7 +1,7 @@
 /*
-! Checksum: vWy4lvR1oZIRUXnJobSffA
+! Checksum: ZcJ0wISR1c2O0J1sItRKFg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 27 Sep 2012
+! Version: V4 Updated: 28 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1182,6 +1182,8 @@
 #adSkyscraper,
 #adskyscraper_flex,
 #AdsLeft_1,
+#adsLeftZone1,
+#adsLeftZone2,
 #adSlot,
 #adslot,
 #adSlot01,
@@ -1271,6 +1273,8 @@
 #adSuperPremiere,
 #adswidget2-quick-adsense,
 #adszed-728x90,
+#adsZone1,
+#adsZone2,
 #adsZone_1,
 #adtab,
 #adtab-feedback2,
@@ -4866,6 +4870,7 @@
 .adsense-attribution,
 .adsense-center,
 .adsense-code,
+.adsense-div,
 .adsense-float,
 .adsense-heading,
 .adsense-image-detail,
@@ -6574,6 +6579,7 @@
 .module-ads,
 .module-advert,
 .module-advertisement,
+.module-image-ad,
 .module-rectangleads,
 .module-sponsored-ads,
 .module_ad,
@@ -7588,6 +7594,7 @@
 .widget_ad_rotator,
 .widget_adrotate_widgets,
 .widget_ads,
+.widget_adsensem,
 .widget_adsensewidget,
 .widget_advertisement,
 .widget_advertisements,
