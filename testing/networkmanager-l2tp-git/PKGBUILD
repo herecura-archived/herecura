@@ -1,7 +1,7 @@
 # Contributor: Artem Alabin  <kirpicheff@yandex.ru>
 
 pkgname=networkmanager-l2tp-git
-pkgver=20120929
+pkgver=20120930
 pkgrel=1
 pkgdesc="L2TP support for NetworkManager"
 arch=('i686' 'x86_64')
