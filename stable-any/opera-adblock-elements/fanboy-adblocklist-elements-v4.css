@@ -1,7 +1,7 @@
 /*
-! Checksum: ZcJ0wISR1c2O0J1sItRKFg
+! Checksum: YBqznvFxQVfEPdz7AE+6YA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 Sep 2012
+! Version: V4 Updated: 29 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -39,6 +39,7 @@
 #ad-160-long,
 #ad-160x600,
 #ad-160x600-sidebar,
+#ad-160x600-wrapper,
 #ad-170,
 #ad-180x150-1,
 #ad-2,
@@ -62,6 +63,7 @@
 #ad-300x250-2,
 #ad-300x250-right0,
 #ad-300x250-sidebar,
+#ad-300x250-wrapper,
 #ad-300x250Div,
 #ad-300x40-1,
 #ad-300x40-2,
@@ -939,6 +941,7 @@
 #adPlacer,
 #adplacer_preroll1,
 #adPopover,
+#adpos1-leaderboard,
 #adposition-C,
 #adposition-FPMM,
 #adposition-inner-REM1,
@@ -5782,6 +5785,7 @@
 .CommentGoogleAd,
 .commentsbannerad,
 .commentsFavoritesAd,
+.common-adv-box,
 .conductor_ad,
 .confirm_ad_left,
 .confirm_ad_right,
@@ -7160,6 +7164,7 @@
 .smalladblock,
 .smallAdContainer,
 .smallads,
+.smallAdvertisments,
 .smallsideadpane,
 .smallsponsorad,
 .smart_ads_bom_title,
@@ -7565,6 +7570,7 @@
 .wdp_ad,
 .wdp_adDiv,
 .wdt_ads,
+.weather-ad-wrapper,
 .weatherad,
 .webad-cnt,
 .webads336x280,
@@ -7680,6 +7686,7 @@ A[href^="http://adserver.adtech.de/"],
 a[href^="http://adsrv.keycaptcha.com"],
 a[href^="http://affiliate.glbtracker.com/"],
 a[href^="http://bonusfapturbo.nmvsite.com/"],
+a[href^="http://bs.serving-sys.com/"],
 a[href^="http://buysellads.com/"],
 a[href^="http://data.ad.yieldmanager.net/"],
 a[href^="http://fusionads.net"],
@@ -8274,6 +8281,10 @@ a[href^="http://lurkmore.ru/fkup?"],
 /* startribune.com */
 #bottomLeaderboard,
 #topLeaderboard,
+/* search.babylon.com */
+#gRsTopLinks,
+.gRsAdw,
+.gRsSlicead,
 /* take40.com */
 #mpIslandHolder,
 #mpLeaderboard,
