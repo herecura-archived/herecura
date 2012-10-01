@@ -1,7 +1,7 @@
 /*
-! Checksum: YBqznvFxQVfEPdz7AE+6YA
+! Checksum: dU8OLcs5kAQz1rxPOeKakw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 29 Sep 2012
+! Version: V4 Updated: 30 Sep 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1357,6 +1357,7 @@
 #advert-footer-hidden,
 #advert-island,
 #advert-leaderboard,
+#advert-left,
 #advert-links-bottom,
 #advert-mpu,
 #advert-sky,
@@ -1928,6 +1929,7 @@
 #d_AdLink,
 #dap300x250,
 #dart_160x600,
+#dart_300x250,
 #dart_ad_block,
 #dartad11,
 #dartad13,
@@ -1950,6 +1952,7 @@
 #devil-ad,
 #dfp_ad_Entry_300x250,
 #dfp_ad_Entry_728x90,
+#dfp_ad_Home_728x90,
 #disable-ads-container,
 #displayad_bottom-page,
 #dItemBox_ads,
@@ -2103,6 +2106,7 @@
 #free_ad,
 #frmRightnavAd,
 #front-ad-cont,
+#front-page-advert,
 #front_mpu,
 #frontlowerad,
 #ft-ad-container,
@@ -4109,6 +4113,7 @@
 .ad_bar,
 .ad_below_content,
 .ad_bg,
+.ad_billboard,
 .ad_biz,
 .ad_block,
 .ad_block_300x250,
