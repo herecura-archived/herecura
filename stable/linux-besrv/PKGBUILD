@@ -4,10 +4,9 @@
 
 _kernelname=-besrv
 pkgbase="linux$_kernelname"
-pkgname="linux$_kernelname"
-true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.0
-_patchver=43
+pkgname=("linux$_kernelname" "linux$_kernelname-headers")
+_basekernel=3.4
+_patchver=12
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -24,9 +23,9 @@ source=(
 	"linux$_kernelname.preset"
 )
 sha256sums=(
-	'ef5e8c2dedb20a6eab01bb379e9982cd7d47cf95bd87c9ee3e872272e85c24b6'
-	'86e22c802c1da75ffdada5a3eafb7d79630df70eeca784aece8dd64b4dc929ac'
-	'e5c24234ba4d4b5fa8ac83d21fb8c974f0e91b914ddd6a79010543b2fc8ccdad'
+	'ff3dee6a855873d12487a6f4070ec2f7996d073019171361c955639664baa0c6'
+	'e8aca2e6c609e9d9088402faede13d9946fb8f6ae44d02ea0994dc007a9a2bd5'
+	'ff0d794a3e9eb9bfa9b79fe7e1d9a9118ec5f4161470b5302980b33ef4ab922a'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -38,7 +37,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'fb599a379f09cba92267578a26f90cc2f4ee9eaa9d3e26925418bf6dd2e65672'
+		'decc53eb18db67b40327ce983600a1b6dda24f0bd46aae6a285b4f445e2005aa'
 	)
 fi
 
@@ -53,16 +52,6 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 	)
 	sha256sums=( "${sha256sums[@]}"
 		"${_extrapatchessums[@]}"
-	)
-fi
-
-# some stuff for the AUR parser :p
-if [ "aur" == "there" ]; then
-	source=(
-		"http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz"
-		"config-$_basekernel-server.i686"
-		"config-$_basekernel-server.x86_64"
-		"linux$_kernelname.preset"
 	)
 fi
 
@@ -272,4 +261,5 @@ package_linux-besrv-headers() {
 	# remove unneeded architectures
 	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
-pkgdesc="The Linux Kernel and modules, BlackEagle Server Edition"
+
+# vim:set ft=sh:
