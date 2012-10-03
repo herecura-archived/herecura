@@ -1,7 +1,7 @@
 /*
-! Checksum: 2JMRuYhaT1xhD3h7iDVj9Q
+! Checksum: ub3yxHXToEBFbu+il/6pmA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Oct 2012
+! Version: V4 Updated: 2 Oct 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1915,6 +1915,7 @@
 #ctl_bottom_ad,
 #ctl_bottom_ad1,
 #ctrlsponsored,
+#cube_ad,
 #cube_ads,
 #cube_ads_inner,
 #cubeAd,
@@ -3838,6 +3839,7 @@
 .ad-other,
 .ad-padding,
 .ad-pagehead,
+.ad-pb,
 .ad-permalink,
 .ad-place-active,
 .ad-place-holder,
@@ -4662,6 +4664,7 @@
 .adReportsLink,
 .adResults,
 .adright300,
+.adrighttop,
 .adroot,
 .adrotate_widget,
 .adRow,
@@ -4717,6 +4720,7 @@
 .ads-line,
 .ads-list,
 .ads-margin,
+.ads-medium-rect,
 .ads-middle,
 .ads-middle-top,
 .ads-module,
@@ -6581,6 +6585,7 @@
 .mod-adblock,
 .mod-adcpc,
 .mod-adopenx,
+.mod-ads,
 .mod-google-ads,
 .mod-horizontal-ad,
 .mod-vertical-ad,
@@ -6807,6 +6812,7 @@
 .PushdownAd,
 .pushDownAd,
 .pushdownAd,
+.pw_wb_ad_300x250,
 .pxz-ad-widget,
 .pxz-taskbar-anchor,
 .quigo,
