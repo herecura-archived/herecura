@@ -1,7 +1,7 @@
 /*
-! Checksum: ub3yxHXToEBFbu+il/6pmA
+! Checksum: 4MwbRSmZ2PBee62mUFu5xg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 2 Oct 2012
+! Version: V4 Updated: 3 Oct 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1491,6 +1491,7 @@
 #adwin_rec,
 #adwords-4-container,
 #adWrap,
+#adWrapper1,
 #adx_ad,
 #adx_ad_bottom,
 #adzbanner,
@@ -2281,6 +2282,7 @@
 #header-ad-block,
 #header-ad-bottom,
 #header-ad-container,
+#header-ad-holder,
 #header-ad-label,
 #header-ad-rectangle-container,
 #header-adsense,
@@ -3252,6 +3254,7 @@
 #sponsored-links,
 #sponsored-links-container,
 #sponsored-links-list,
+#sponsored-links-media-ads,
 #sponsored-listings,
 #sponsored-not,
 #sponsored-text-links,
@@ -4043,6 +4046,7 @@
 .ad980x50box,
 .ad_0,
 .ad_1,
+.ad_100x100,
 .ad_120x60,
 .Ad_120x600,
 .ad_120x600,
@@ -4056,6 +4060,7 @@
 .ad_180x150,
 .ad_1day9,
 .ad_2,
+.ad_234x60,
 .ad_240,
 .ad_240x400,
 .ad_250,
@@ -4262,6 +4267,7 @@
 .ad_promo_spacer,
 .ad_rec,
 .ad_rectangle,
+.ad_rectangle_medium,
 .ad_regular1,
 .ad_regular2,
 .ad_regular3,
@@ -4486,6 +4492,7 @@
 .add-wrapper,
 .add300,
 .add300top,
+.add300x250,
 .add_300_250,
 .add_300x250,
 .add_baner,
@@ -6034,6 +6041,7 @@
 .GAME_Ad160x600,
 .game_right_ad,
 .game_under_ad,
+.gameBottomAd,
 .gamepageadBox,
 .gameplayads,
 .games-ad300,
@@ -6259,6 +6267,7 @@
 .HomeAd1Label,
 .homeAd2,
 .homeAdBox,
+.homeAddTopText,
 .homeadnews,
 .HomeAds,
 .homeAdSection,
@@ -6281,6 +6290,7 @@
 .hor_ad,
 .hori-play-page-adver,
 .horizontal-ad-holder,
+.horizontal_adblock,
 .horizontalad,
 .horizontalAd,
 .horizontaltextadbox,
@@ -7116,6 +7126,7 @@
 .sidebarAdNotice,
 .sidebarAds,
 .sidebarads,
+.sidebarAds300px,
 .SidebarAdvert,
 .sidebarBanner,
 .sidebarboxad,
@@ -7717,7 +7728,6 @@ a[href^="http://www.sfippa.com/"],
 a[href^="http://www.text-link-ads.com/"],
 a[href^="https://secure.eveonline.com/ft/?aid="],
 div[id^="ava_"][style="text-align:center;"],
-div[id^="div-gpt-ad-"],
 iframe[src^="http://ad.yieldmanager.com/"],
 .AdBox,
 .ad-content,
