@@ -1,7 +1,7 @@
 /*
-! Checksum: 4MwbRSmZ2PBee62mUFu5xg
+! Checksum: uhMPjXbMpQit4ydE1StuLA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 3 Oct 2012
+! Version: V4 Updated: 4 Oct 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2063,6 +2063,7 @@
 #footer-ad-large,
 #footer-ad-shadow,
 #footer-ad-unit,
+#footer-ad-wrapper,
 #footer-ads,
 #footer-adspace,
 #footer-adv,
@@ -3131,6 +3132,7 @@
 #sidebar-ad1,
 #sidebar-ad3,
 #sidebar-ads,
+#sideBar-ads,
 #sidebar-ads-content,
 #sidebar-left-ad,
 #sidebar-long-advertise,
@@ -5530,6 +5532,7 @@
 .bb-adv-300x250,
 .bbccom-advert,
 .BCA_Advertisement,
+.bean-bag-ad,
 .beauty_ads,
 .before-comment-ad,
 .below_game_ad,
@@ -7229,8 +7232,10 @@
 .sponsor-box,
 .sponsor-btns,
 .Sponsor-container,
+.sponsor-left,
 .sponsor-links,
 .sponsor-post,
+.sponsor-right,
 .sponsor-spot,
 .sponsor-text,
 .sponsor-text-container,
