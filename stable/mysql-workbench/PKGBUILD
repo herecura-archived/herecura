@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=5.2.42
+pkgver=5.2.44
 pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
@@ -23,7 +23,7 @@ source=(
 )
 
 md5sums=(
-	'519d2e4bc878d79023379e1fef49b68c'
+	'ea609fcd5d42333291a8ea6015627583'
 	'91d1f1fb614de54c4c455026c73f8afb'
 )
 
@@ -31,8 +31,6 @@ build() {
 	cd "${srcdir}/${pkgname}-gpl-${pkgver}-src"
 
 	sed -i -e 's/python -c/python2 -c/gi' configure.in
-
-	patch -Np1 -i $srcdir/'mysql-workbench-5.2.41-glib.patch'
 
 	./autogen.sh
 	./configure --prefix=/usr
@@ -51,3 +49,5 @@ package() {
 		ln -s /usr/share/mysql-workbench/$i ${pkgdir}/usr/lib/mysql-workbench/modules/
 	done
 }
+
+# vim:set ft=sh:
