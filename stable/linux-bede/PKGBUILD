@@ -4,8 +4,7 @@
 
 _kernelname=-bede
 pkgbase="linux$_kernelname"
-pkgname="linux$_kernelname"
-true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
+pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.6
 _patchver=2
 pkgver=$_basekernel
@@ -58,21 +57,6 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 	)
 	sha256sums=( "${sha256sums[@]}"
 		"${_extrapatchessums[@]}"
-	)
-fi
-
-# some stuff for the AUR parser :p
-if [ "aur" == "there" ]; then
-	source=(
-		"http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz"
-		# the main kernel config files
-		"config-$_basekernel-desktop.i686"
-		"config-$_basekernel-desktop.x86_64"
-		# standard config files for mkinitcpio ramdisk
-		"linux$_kernelname.preset"
-		# sysctl updates for desktop usage picked up from opensuse
-		"sysctl-desktop.i686"
-		"sysctl-desktop.x86_64"
 	)
 fi
 
@@ -285,4 +269,5 @@ package_linux-bede-headers() {
 	# remove unneeded architectures
 	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
-pkgdesc="The Linux Kernel and modules, BlackEagle Desktop Edition"
+
+# vim:set ft=sh:
