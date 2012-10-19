@@ -6,8 +6,8 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.6
-_patchver=1
-_rcver=3.6.2_rc1
+_patchver=2
+_rcver=3.6.3_rc1
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -43,7 +43,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'a1ca7064d5a17078e0f70107a38fc69fa0339e3fa478c082cff6ce1eb8940875'
+		'fa68a9c8a9885304d96851c3fd1c977437f655073492e3e94c9dc7f20286fd1b'
 	)
 fi
 
@@ -57,7 +57,7 @@ _extrapatches=(
 	"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/patch-${_rcver//_/-}.gz"
 )
 _extrapatchessums=(
-	'bc39d8d5e13223e26ae6d3bb4d3652477eab92bac45e683ee2057421b7beaeaf'
+	'3b1222996004424637df02fddda877f74e1e0e7a2436c76a5e4872796ed768f0'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -277,3 +277,5 @@ package_linux-bede-headers() {
 	# remove unneeded architectures
 	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
+
+# vim:set ft=sh:
