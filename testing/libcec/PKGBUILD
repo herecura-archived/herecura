@@ -3,16 +3,16 @@
 # Contributor: Philippe Cherel <philippe.cherel@mayenne.org>
 
 pkgname=libcec
-pkgver=2.0.0
-pkgrel=1.3
+pkgver=2.0.2
+pkgrel=1
 pkgdesc="Pulse-Eight's libcec for the Pulse-Eight USB-CEC adapter"
 arch=('i686' 'x86_64')
 url="https://github.com/Pulse-Eight/libcec"
 license=('GPL')
 depends=('udev' 'lockdev')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Pulse-Eight/libcec/tarball/$pkgname-$pkgver")
-_srcfolder=Pulse-Eight-libcec-39334ff
-sha256sums=('c622933b86956dd2c2ae670bef02d7d1729e09a8f4c12ad20abc54338abab118')
+_srcfolder=Pulse-Eight-libcec-a9ac151
+sha256sums=('a61d1b550caa5a9b744df67a002f35a06486e373f79a167cedbc8583fa9c003c')
 options=(!libtool)
 
 build() {
