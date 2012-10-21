@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=695
+_patchlevel=705
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
@@ -27,14 +27,16 @@ source=(
 	'license.txt'
 	'vim-qt-src.patch'
 	'qt-icons.tar.gz'
+	'fix-fontset.diff'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'174fd83074e48323e06152493419fe4c264f968ab967906005a0dc2a227516bb'
+	'2df8ed0e51287d0db637a121a552ab0909221dcbc214699e1d91f2cdafb64712'
 	'059ab867e564f1aad98d7a6bf69021b8c7b6d947fa5a43e1e3f2322712f32d36'
+	'ca8ebce0e78057775c79d6897080ccf2a80eb1e1c2c5bae4efb0adb0f42dbd94'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -78,6 +80,8 @@ build() {
 	# fix python name
 	sed -i -e 's|vi_cv_path_python, python|vi_cv_path_python, python2|' \
 		vim-build/src/configure.in
+	# fix fontstuff
+	(cd vim-build && patch -Np1 -i $srcdir/fix-fontset.diff)
 
 	msg2 'Building...'
 

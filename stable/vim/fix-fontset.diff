@@ -1,0 +1,11 @@
+--- a/src/syntax.c	2012-10-21 02:15:27.149892515 +0200
++++ b/src/syntax.c	2012-10-21 10:49:10.703124995 +0200
+@@ -8082,7 +8082,7 @@
+ 	|| do_tooltip
+ #  endif
+ 	    )
+-	if (free_fontset)
++	if (free_font)
+ 	    gui_mch_free_fontset(HL_TABLE()[idx].sg_fontset);
+ 	HL_TABLE()[idx].sg_fontset = fontset_name2handle(arg, 0
+ #  ifdef FONTSET_ALWAYS
