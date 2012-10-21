@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-modules-bede-mainline
 pkgname=('virtualbox-modules-bede-mainline-host' 'virtualbox-modules-bede-mainline-guest')
-pkgver=4.2.0
-pkgrel=2
+pkgver=4.2.2
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -18,7 +18,7 @@ source=('modules-load-virtualbox-bede-mainline'
 md5sums=('f2200ed91b6ec089d16cc3ada5418c73'
     'ed1341881437455d9735875ddf455fbe')
 
-_extramodules=3.6-BEDE-MAINLINE-external
+_extramodules=3.7-BEDE-MAINLINE-external
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
