@@ -1,7 +1,7 @@
 /*
-! Checksum: /2AhhirNsvk6yzkJ3wYROQ
+! Checksum: Lyrrcb2kj5WliTM6yyALHA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 20 Oct 2012
+! Version: V4 Updated: 21 Oct 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1795,6 +1795,7 @@
 #buttonAds,
 #buysellads,
 #buysellads-4x1,
+#c-adzone,
 #c4_ad,
 #c4ad-Middle1,
 #c4ad-Top-parent,
@@ -6051,6 +6052,8 @@
 .g2-adsense,
 .g3-adsense,
 .g_ad336,
+.g_ads_200,
+.g_ads_728,
 .g_ggl_ad,
 .ga-ad-split,
 .ga-ads,
@@ -6859,6 +6862,7 @@
 .quigoAdRight,
 .quigoads,
 .quigoMod,
+.quotead,
 .r_ad,
 .r_ad_box,
 .r_adbx_top,
