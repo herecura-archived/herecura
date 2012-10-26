@@ -1,7 +1,7 @@
 /*
-! Checksum: KtW4p51X0vFQ82ozMCPHmQ
+! Checksum: X3kAe1LGgoXDixycTk+zog
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 24 Oct 2012
+! Version: V4 Updated: 25 Oct 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -762,6 +762,7 @@
 #AdC,
 #adcenter,
 #adCENTRAL,
+#adChoiceFooter,
 #adchoices,
 #adChoices,
 #adchoices-icon,
@@ -5478,6 +5479,7 @@
 .articleEmbeddedAdBox,
 .articleflex-container,
 .ArticleInlineAd,
+.artist-ad-wrapper,
 .aside-ads,
 .atf-ad-medrec,
 .atf-ad-medRect,
@@ -6242,6 +6244,7 @@
 .headad,
 .header-ad,
 .header-ad-banner,
+.header-ad-space,
 .header-ad-wrap,
 .header-ads,
 .header-adsense,
@@ -6461,6 +6464,7 @@
 .lazyload_ad,
 .LazyLoadAd,
 .lb-ad,
+.lbc-ad,
 .leader-ad,
 .leader_ad,
 .leader_aol,
