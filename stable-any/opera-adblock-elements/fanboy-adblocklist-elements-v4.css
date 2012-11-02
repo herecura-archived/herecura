@@ -1,7 +1,7 @@
 /*
-! Checksum: 3ZuPsDNgR8i7nyqJiBhHPQ
+! Checksum: /2t8ZYXVznSAA8LE9HTASA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 31 Oct 2012
+! Version: V4 Updated: 1 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3621,7 +3621,6 @@
 #x-houseads,
 #x300_ad,
 #xColAds,
-#xg_ad_above_header,
 #y-ad-units,
 #yahoo-ads-content,
 #yahoo-contentmatch,
@@ -6288,6 +6287,7 @@
 .home-ads-container,
 .home-ads-container1,
 .home-body-ads,
+.home-features-ad,
 .home-sidebar-ad-300,
 .home-sticky-ad,
 .home-top-right-ads,
