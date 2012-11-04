@@ -7,12 +7,13 @@
 pkgname=byacc-noconflict
 _pkgname=byacc
 pkgver=20120526
-pkgrel=1
+pkgrel=2
 pkgdesc="Non-conflicting version of byacc not providing bison/yacc"
 arch=('i686' 'x86_64')
 url="http://invisible-island.net/byacc/"
 license=('custom')
 depends=('glibc')
+provides=('byacc')
 source=(ftp://invisible-island.net/$_pkgname/$_pkgname-$pkgver.tgz
         ftp://invisible-island.net/$_pkgname/$_pkgname-$pkgver.tgz.asc)
 md5sums=('d8a9959f784205092762eb29426bdf23'
