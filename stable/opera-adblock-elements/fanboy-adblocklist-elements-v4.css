@@ -1,7 +1,7 @@
 /*
-! Checksum: +8+jZPEdWkpcA2w5Sv7Kcg
+! Checksum: cSZpprznLVwQDM5W51+szw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 9 Nov 2012
+! Version: V4 Updated: 10 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1175,6 +1175,7 @@
 #adsenseWrap,
 #adSenseWrapper,
 #adSet,
+#adsfundo,
 #adsHeader,
 #AdShopSearch,
 #adShortTower,
@@ -3594,6 +3595,8 @@
 #view_adtop,
 #viewAd1,
 #viewads,
+#viewer-ad-bottom,
+#viewer-ad-top,
 #viewportAds,
 #viewvid_ad300x250,
 #visual-ad,
@@ -4562,6 +4565,7 @@
 .addboxRight,
 .addContainer,
 .adDialog,
+.adDivSmall,
 .addResources,
 .addRow,
 .adds,
@@ -5526,6 +5530,7 @@
 .autoshow-top-ad,
 .aux-ad-widget-1,
 .aux-ad-widget-2,
+.b-ad,
 .b-ads728,
 .b-ads_300,
 .b-aside-ads,
@@ -5646,6 +5651,7 @@
 .block-adspace-full,
 .block-advertising,
 .block-bf_ads,
+.block-boxes-ad,
 .block-doubleclick_ads,
 .block-ec_ads,
 .block-eg_adproxy,
@@ -6069,6 +6075,7 @@
 .footer-advert,
 .footer-leaderboard-ad,
 .footer_ad,
+.footer_AD,
 .footer_ads,
 .footer_advertisement,
 .footer_bottom_ad,
@@ -6484,7 +6491,6 @@
 .islandAdvert,
 .item-ad,
 .item-ad-leaderboard,
-.item-ads,
 .item-container-ad,
 .item-housead,
 .item-housead-last,
@@ -7308,6 +7314,7 @@
 .spon-links,
 .spon125,
 .spon_link,
+.sponadbox,
 .sponlinkbox,
 .spons-link,
 .spons-wrap,
@@ -7359,6 +7366,7 @@
 .sponsored-b,
 .sponsored-default,
 .sponsored-header,
+.sponsored-link,
 .sponsored-links,
 .sponsored-links-col,
 .sponsored-links-holder,
@@ -7419,6 +7427,7 @@
 .sponsors_links,
 .sponsorsBanners,
 .sponsorsbig,
+.sponsorship-container,
 .sponsorship_ad,
 .sponsorshipContainer,
 .SponsorshipText,
@@ -7561,6 +7570,7 @@
 .top-horiz-ad,
 .top-left-nav-ad,
 .top-menu-ads,
+.top-primary-sponsored,
 .top-right-ad,
 .top-treehouse-ad,
 .top300ad,
