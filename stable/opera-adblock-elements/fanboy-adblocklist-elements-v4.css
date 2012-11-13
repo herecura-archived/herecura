@@ -1,7 +1,7 @@
 /*
-! Checksum: cSZpprznLVwQDM5W51+szw
+! Checksum: A3chwj/bio2T39NEjqhQDQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 10 Nov 2012
+! Version: V4 Updated: 12 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -452,6 +452,7 @@
 #ad_center_monster,
 #ad_channel,
 #ad_chitikabanner_120x600LH,
+#ad_choices,
 #ad_circ_300_200,
 #ad_circ_300x250,
 #ad_circ_300x300,
@@ -1177,6 +1178,7 @@
 #adSet,
 #adsfundo,
 #adsHeader,
+#adsHeading,
 #AdShopSearch,
 #adShortTower,
 #adshowbtm,
@@ -6446,6 +6448,7 @@
 .inline-adblock,
 .inline_ad,
 .inline_ad_container,
+.inline_ads,
 .inlineAd,
 .inlinead,
 .inlinead-tagtop,
