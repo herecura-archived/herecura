@@ -1,7 +1,7 @@
 /*
-! Checksum: bIMvhBmPPCAfJb8al4jvPw
+! Checksum: eGTHCFd8mMkzWfvgIC0+Nw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 13 Nov 2012
+! Version: V4 Updated: 14 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -125,6 +125,7 @@
 #ad-container-outer,
 #ad-contentad,
 #ad-ear,
+#ad-five,
 #ad-five-75x50s,
 #ad-flex-first,
 #ad-footer,
@@ -1466,6 +1467,7 @@
 #advertising3,
 #advertising_column,
 #advertising_header,
+#advertising_holder,
 #advertising_iab,
 #advertisingLink,
 #advertisingModule160x600,
@@ -1756,6 +1758,7 @@
 #bottomadsense,
 #bottomAdSenseDiv,
 #bottomAdvBox,
+#bottomadvert,
 #bottomAdvert,
 #BottomAdWrapper,
 #bottomBannerAd,
@@ -4067,6 +4070,7 @@
 .ad310,
 .ad315,
 .ad320x250,
+.ad336,
 .ad336x280,
 .ad336x362,
 .ad343x290,
@@ -5517,6 +5521,7 @@
 .article_ad,
 .article_bottom_ad,
 .article_google_ads,
+.article_inline_ad,
 .article_inner_ad,
 .article_mpu_box,
 .article_page_ads_bottom,
@@ -5714,6 +5719,7 @@
 .bodyads2,
 .bodybannerad,
 .bodyrectanglead,
+.bomAd,
 .bookseller-header-advt,
 .booster-ad,
 .bostad,
@@ -5777,6 +5783,7 @@
 .boxad120,
 .boxadcont,
 .boxAdContainer,
+.boxAdFields,
 .boxAdMrec,
 .boxads,
 .boxadv,
@@ -7165,6 +7172,7 @@
 .servedAdlabel,
 .set_ad,
 .sfsp_adadvert,
+.sgAd,
 .shareToolsItemAd,
 .shortads,
 .showAd_No,
@@ -7566,6 +7574,7 @@
 .toolbar-ad,
 .toolsAd,
 .toolssponsor-ads,
+.top-ad-area,
 .top-ad-container,
 .top-ad-horizontal,
 .top-ad-right,
