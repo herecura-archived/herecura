@@ -1,7 +1,7 @@
 /*
-! Checksum: eGTHCFd8mMkzWfvgIC0+Nw
+! Checksum: ubf8SLRIj7MuWGshUK1nqQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 14 Nov 2012
+! Version: V4 Updated: 15 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -924,6 +924,7 @@
 #adMediaWidget,
 #adMediumRectangle,
 #adMeld,
+#adMessage,
 #admid,
 #adMid1,
 #adMid2,
@@ -2203,6 +2204,7 @@
 #google-ads-bottom-container,
 #google-ads-container,
 #google-adsense,
+#google-adsense-for-content,
 #google-adsense-mpusize,
 #google-adwords,
 #google-afc,
@@ -3872,6 +3874,7 @@
 .ad-leaderboard-container,
 .ad-leaderboard-marquee,
 .ad-left,
+.ad-left3,
 .ad-line,
 .ad-link,
 .ad-links,
@@ -3923,6 +3926,7 @@
 .ad-right-txt,
 .ad-right1,
 .ad-right2,
+.ad-right3,
 .ad-rotation,
 .ad-row,
 .ad-RR,
@@ -4525,6 +4529,7 @@
 .adChoiceLogo,
 .adchoices,
 .adchoices-link,
+.adChoicesLogo,
 .adClose,
 .adCMRight,
 .adCMSlide,
@@ -6274,6 +6279,7 @@
 .googleSubjectAd,
 .googley_ads,
 .gpAdFooter,
+.gpt-ad,
 .gr-adcast,
 .gradientAd,
 .graphic_ad,
@@ -7514,6 +7520,7 @@
 .table_ad_bg,
 .tablebordersponsor,
 .tallAd,
+.tallAdvert,
 .tangential-ad,
 .tbl_ad,
 .tblAds,
@@ -7654,6 +7661,8 @@
 .topArticleAds,
 .topBannerAd,
 .topbannerad,
+.topBannerAdSectionR,
+.topbar-ad-unit,
 .topBarAd,
 .topBoxAdvertisement,
 .topic_inad,
