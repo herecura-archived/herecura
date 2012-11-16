@@ -3,7 +3,7 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgbase=nvidia-utils
 pkgname=('nvidia-utils' 'nvidia-utils-opencl')
-pkgver=310.14
+pkgver=310.19
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -14,12 +14,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
     source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums=('c3616a40d2e13247939758bb648cf10a7d0fd00159a448c132194293039a7bcc')
+    sha256sums=('85d082c06a1ea07f514d22c0de4d5d2af065bcac37c377c3d755904bbf780c2f')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
     source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    sha256sums=('387341d9d7ddc8235594732f51fed1b39f73f62571038aff9a9db1c040b32e87')
+    sha256sums=('07b59edfaffb178c947af2c083d22dc6af90974aa53a61bb10792a682aaa5c72')
 fi
 
 create_links() {
@@ -54,7 +54,9 @@ package_nvidia-utils-opencl() {
 package_nvidia-utils() {
     pkgdesc="NVIDIA drivers utilities and libraries."
     depends=('xorg-server' 'libxvmc')
-    optdepends=('gtk2: nvidia-settings' 'pkg-config: nvidia-xconfig'
+    optdepends=('gtk2: nvidia-settings'
+                'pangox-compat: nvidia-settings'
+                'pkg-config: nvidia-xconfig'
                 'opencl-nvidia: OpenCL support')
     conflicts=('libgl')
     provides=('libgl')
