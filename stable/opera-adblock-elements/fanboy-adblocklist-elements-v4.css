@@ -1,7 +1,7 @@
 /*
-! Checksum: SVgqv3INfxZLZDvqkTXdjA
+! Checksum: Pysw/uaYQGlt9EmTHq0OqA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 17 Nov 2012
+! Version: V4 Updated: 18 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -380,6 +380,7 @@
 #ad_300x250,
 #ad_300x250_container,
 #ad_300x250_content_column,
+#ad_300x250_startgame,
 #ad_300x600,
 #ad_300x90,
 #ad_350_200,
@@ -1639,6 +1640,10 @@
 #baseboard-ad-wrapper,
 #bb_ad_container,
 #bbccom_leaderboard_container,
+#bbccom_mpu,
+#bbccom_sponsor_section,
+#bbccom_sponsor_section_text,
+#bbccom_storyprintsponsorship,
 #bbContentAds,
 #bbo_ad1,
 #bcaster-ad,
@@ -1711,6 +1716,8 @@
 #blog_ad_content,
 #blog_ad_opa,
 #blogad,
+#blogad_728x90_header,
+#blogad_top_300x250_sidebar,
 #blogads,
 #blogads_most_right_ad,
 #blogImgSponsor,
@@ -4504,7 +4511,6 @@
 .adBillboard,
 .adBkgd,
 .adblade,
-.adBlock,
 .adblock-240-400,
 .adblock-300-300,
 .adblock-600-120,
@@ -5630,6 +5636,7 @@
 .banner300by250,
 .banner300x100,
 .banner300x250,
+.banner350,
 .banner468,
 .Banner468X60,
 .banner468x60,
@@ -6231,6 +6238,7 @@
 .generic_300x250_ad,
 .GetRightAds,
 .gfp-banner,
+.ggadwrp,
 .gl_ad,
 .glamsquaread,
 .global_banner_ad,
