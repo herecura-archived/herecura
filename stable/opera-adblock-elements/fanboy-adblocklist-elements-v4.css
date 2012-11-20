@@ -1,7 +1,7 @@
 /*
-! Checksum: Pysw/uaYQGlt9EmTHq0OqA
+! Checksum: 1S8UxhFgsrCteF0jfcS6GA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 18 Nov 2012
+! Version: V4 Updated: 19 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1604,7 +1604,6 @@
 #banner120x600,
 #banner300-top-right,
 #banner300x250,
-#banner300x250,
 #banner468,
 #banner468x60,
 #banner600,
@@ -1639,11 +1638,8 @@
 #baseboard-ad,
 #baseboard-ad-wrapper,
 #bb_ad_container,
-#bbccom_leaderboard_container,
 #bbccom_mpu,
-#bbccom_sponsor_section,
 #bbccom_sponsor_section_text,
-#bbccom_storyprintsponsorship,
 #bbContentAds,
 #bbo_ad1,
 #bcaster-ad,
@@ -1909,7 +1905,6 @@
 #content_ad_top,
 #content_ads_content,
 #content_box_adright300_google,
-#content_mpu,
 #content_mpu,
 #content_right_area_ads,
 #content_right_side_advertisement_on_top_wrapper,
@@ -2459,6 +2454,7 @@
 #homePageBotAd,
 #homepageFooterAd,
 #homepageGoogleAds,
+#homeSideAd,
 #hometop_234x60ad,
 #hometopads,
 #homeTopRightAd,
@@ -4773,7 +4769,7 @@
 .adNoticeOut,
 .adOne,
 .adonmedianama,
-.adops.textlinks,
+.adops,
 .adOverlay,
 .adp-AdPrefix,
 .adpacks,
@@ -5493,6 +5489,7 @@
 .advertLink1,
 .AdvertMidPage,
 .advertnotice,
+.advertorial,
 .advertorial2,
 .advertorial_728x90,
 .advertplay,
@@ -5641,7 +5638,6 @@
 .Banner468X60,
 .banner468x60,
 .banner728,
-.banner728,
 .banner728-container,
 .banner728x90,
 .banner_160x600,
@@ -5736,6 +5732,7 @@
 .block-eg_adproxy,
 .block-featured-sponsors,
 .block-gg_ads,
+.block-google-admanager,
 .block-google_admanager2,
 .block-inner-adds,
 .block-ohtdisplayad,
@@ -7220,6 +7217,7 @@
 .runner-ad,
 .RW_ad300,
 .s2k_ad,
+.s_ad_160x600,
 .s_ad_300x250,
 .s_ads,
 .s_ads_label,
@@ -7777,7 +7775,6 @@
 .topBarAd,
 .topBoxAdvertisement,
 .topic_inad,
-.topleader,
 .topLeaderboardAd,
 .topNavRMAd,
 .toprightad,
@@ -7979,7 +7976,6 @@
 .zc-grid-ad,
 .zc-grid-position-ad,
 [alt="Sponsored ad"],
-[href="http://www.blogads.com"],
 [href^="http://feedads.g.doubleclick.net/"],
 [href^="http://www.adbrite.com/mb/commerce/purchase_form.php?"],
 [id="336x280Ad"],
@@ -7987,6 +7983,7 @@
 a.ad_policy,
 a[href^="/liutilities.php?id"],
 a[href^="http://ad.yieldmanager.com/"],
+a[href^="http://ads.pheedo.com/"],
 A[href^="http://adserver.adtech.de/"],
 a[href^="http://adsrv.keycaptcha.com"],
 a[href^="http://affiliate.glbtracker.com/"],
