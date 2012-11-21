@@ -1,7 +1,7 @@
 /*
-! Checksum: 1S8UxhFgsrCteF0jfcS6GA
+! Checksum: UZq6EUxWLBI5wfP/bdFpjA
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 19 Nov 2012
+! Version: V4 Updated: 20 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2650,6 +2650,7 @@
 #LittleAdvert,
 #live-ad,
 #load-adslargerect,
+#localAds,
 #logoAd,
 #logoAd2,
 #long-ad,
@@ -6067,6 +6068,7 @@
 .displayAd,
 .displayAdCode,
 .displayAdUnit,
+.div-google-adx,
 .div_adv300,
 .div_adv620,
 .div_adv728,
@@ -6970,6 +6972,7 @@
 .pg-ad-block,
 .pgAdSection_Home_MasterSponsers,
 .photo-ad,
+.photoad,
 .picto_ad,
 .pkgTemplateAdWrapper,
 .placeholderad,
@@ -7049,6 +7052,7 @@
 .r_adbx_top,
 .r_col_add,
 .rad_container,
+.rail-ad,
 .rail_ad,
 .railadspace,
 .RBboxAd,
@@ -7777,6 +7781,7 @@
 .topic_inad,
 .topLeaderboardAd,
 .topNavRMAd,
+.topPC-adWrap,
 .toprightad,
 .topRightAd,
 .tower_ad,
