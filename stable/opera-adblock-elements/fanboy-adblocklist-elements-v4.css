@@ -1,7 +1,7 @@
 /*
-! Checksum: UZq6EUxWLBI5wfP/bdFpjA
+! Checksum: C2zjUp5y2DnroM2A1mzbIg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 20 Nov 2012
+! Version: V4 Updated: 21 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1628,6 +1628,7 @@
 #bannerAd_ctr,
 #bannerAd_rdr,
 #bannerAdLInk,
+#banneradrow,
 #bannerads,
 #banneradspace,
 #bannerAdTop,
@@ -2718,6 +2719,7 @@
 #medReqAd,
 #Meebo\:AdElement\.Root,
 #memberad,
+#mens-journal-feature-ad,
 #menuad,
 #menuAds,
 #mgid-container,
@@ -4947,6 +4949,7 @@
 .ads_holder,
 .ads_infoBtns,
 .ads_inside2,
+.ads_item,
 .ads_leader,
 .ads_leaderboard,
 .ads_left,
@@ -5848,6 +5851,7 @@
 .boxAdvertisement,
 .boxadvertisement,
 .BoxAdWrap,
+.boxsponsor2,
 .BoxSponsorBottom,
 .bps-ad-wrapper,
 .bps-advertisement,
@@ -6260,6 +6264,7 @@
 .google-ads-wrapper,
 .google-ads2,
 .google-adsense,
+.google-afc-wrapper,
 .google-indiv-box2,
 .google-right-ad,
 .google-sponsored-ads,
@@ -6988,6 +6993,7 @@
 .player_hover_ad,
 .player_page_ad_box,
 .playerAd,
+.pm-banner-ad,
 .pmg-sponsoredlinks,
 .pn-ad,
 .pnp_ad,
@@ -7221,6 +7227,7 @@
 .runner-ad,
 .RW_ad300,
 .s2k_ad,
+.s_ad2,
 .s_ad_160x600,
 .s_ad_300x250,
 .s_ads,
@@ -7928,6 +7935,7 @@
 .wp125ad,
 .wp125ad_2,
 .wpadvert,
+.wpInsertInPostAd,
 .wpn_ad_content,
 .wrap-ads,
 .wrapper_ad,
