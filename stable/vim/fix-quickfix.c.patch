@@ -1,0 +1,12 @@
+diff -r f4aa43d952f5 src/quickfix.c
+--- a/src/quickfix.c	Tue Nov 20 17:55:10 2012 +0100
++++ b/src/quickfix.c	Fri Nov 23 21:42:08 2012 +0100
+@@ -2865,7 +2865,7 @@
+     {
+ 	apply_autocmds(EVENT_QUICKFIXCMDPOST, au_name,
+ 					       curbuf->b_fname, TRUE, curbuf);
+-	if (qi->qf_curlist < qi->qf_listcount)
++	if (qi != NULL && qi->qf_curlist < qi->qf_listcount)
+ 	    res = qi->qf_lists[qi->qf_curlist].qf_count;
+ 	else
+ 	    res = 0;
