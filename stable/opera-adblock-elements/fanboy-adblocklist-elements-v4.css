@@ -1,7 +1,7 @@
 /*
-! Checksum: G7ZFhBu4rL3pWZ9GxOZP/Q
+! Checksum: t+rawrsbyvtFDo6nhTiHYQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 Nov 2012
+! Version: V4 Updated: 23 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -541,6 +541,7 @@
 #ad_leaderboard_master,
 #ad_leaderboard_top,
 #ad_leaderboardtwo,
+#ad_leaderborder_container1,
 #ad_left,
 #ad_left_top,
 #ad_links_footer,
@@ -1833,6 +1834,7 @@
 #caAdLarger,
 #carbonads-container,
 #catad,
+#category-sponsor,
 #category_sponsorship_ad,
 #cb-ad,
 #cb_medrect1_div,
@@ -5052,6 +5054,7 @@
 .adsense-widget-horizontal,
 .adsense728,
 .adsense_200x200,
+.adsense_728x15_center,
 .adsense_block,
 .adsense_box01,
 .adsense_container,
@@ -5604,8 +5607,11 @@
 .aux-ad-widget-1,
 .aux-ad-widget-2,
 .b-ad,
+.b-ad-footerBanner,
+.b-ad-topBanner,
 .b-ads728,
 .b-ads_300,
+.b-advert__grid,
 .b-aside-ads,
 .b-astro-sponsored-links_horizontal,
 .b-astro-sponsored-links_vertical,
@@ -6537,6 +6543,9 @@
 .industrybrains,
 .indy_googleads,
 .info-ads,
+.info-advert-160x600,
+.info-advert-300x250,
+.info-advert-728x90-inside,
 .ingameadbox,
 .ingameboxad,
 .inhousead,
@@ -7018,6 +7027,7 @@
 .postbit_adbit_register,
 .postbit_adcode,
 .poster_ad,
+.power_by_sponsor,
 .ppp_interior_ad,
 .prebodyads,
 .premium-ad,
@@ -7029,6 +7039,8 @@
 .primary_sidebar_ad,
 .printAds,
 .prod_grid_ad,
+.profile_ad_bottom,
+.profile_ad_top,
 .promo-ad,
 .promo_border,
 .promoad,
@@ -7143,6 +7155,7 @@
 .right_ad_text,
 .right_ad_unit,
 .right_ads,
+.right_adsense_box_2,
 .right_adv,
 .right_advertise_cnt,
 .right_advertisement,
@@ -7746,6 +7759,7 @@
 .top_advertizing_cnt,
 .top_bar_ad,
 .top_container_ad,
+.top_corner_ad,
 .top_right_ad,
 .top_rightad,
 .top_sponsor,
