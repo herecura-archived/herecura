@@ -7,10 +7,10 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=728
+_patchlevel=729
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
-pkgrel=2
+pkgrel=1
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -27,7 +27,6 @@ source=(
 	'license.txt'
 	'vim-qt-src.patch'
 	'qt-icons.tar.gz'
-	'fix-if_ruby.patch'
 	'fix-quickfix_segfaults.patch'
 )
 sha256sums=(
@@ -37,7 +36,6 @@ sha256sums=(
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
 	'174fd83074e48323e06152493419fe4c264f968ab967906005a0dc2a227516bb'
 	'059ab867e564f1aad98d7a6bf69021b8c7b6d947fa5a43e1e3f2322712f32d36'
-	'a3d1a7f3f025b0602ae1a9dd378f3e04710310e12e786d7578c216e7a9f7e0bf'
 	'1f5de027e473983f0650332fb5343f4b0c1de973693e3531dbc8ef13506676f1'
 )
 
@@ -73,7 +71,6 @@ build() {
 
 	cp -a ${pkgbase} vim-build
 	(cd vim-build && rm -rf ./.hg*)
-	(cd vim-build && patch -Np1 -i $srcdir/fix-if_ruby.patch)
 	(cd vim-build && patch -Np1 -i $srcdir/fix-quickfix_segfaults.patch)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
