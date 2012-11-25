@@ -10,7 +10,7 @@ _basever=7.3
 _patchlevel=729
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -27,7 +27,7 @@ source=(
 	'license.txt'
 	'vim-qt-src.patch'
 	'qt-icons.tar.gz'
-	'fix-quickfix_segfaults.patch'
+	'quickfix_crash.diff'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
@@ -36,7 +36,7 @@ sha256sums=(
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
 	'174fd83074e48323e06152493419fe4c264f968ab967906005a0dc2a227516bb'
 	'059ab867e564f1aad98d7a6bf69021b8c7b6d947fa5a43e1e3f2322712f32d36'
-	'1f5de027e473983f0650332fb5343f4b0c1de973693e3531dbc8ef13506676f1'
+	'e343b6c25c10b106ceb21d66ae3128b1cabafac625fd007d9f22a3929fd85d4e'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -71,7 +71,7 @@ build() {
 
 	cp -a ${pkgbase} vim-build
 	(cd vim-build && rm -rf ./.hg*)
-	(cd vim-build && patch -Np1 -i $srcdir/fix-quickfix_segfaults.patch)
+	(cd vim-build && patch -Np1 -i $srcdir/quickfix_crash.diff)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
 	sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \
