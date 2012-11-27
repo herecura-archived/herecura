@@ -1,7 +1,7 @@
 /*
-! Checksum: rCoYH8KSPc70NqdUV1jlOg
+! Checksum: DaLe3oXyQK3dKA/ltsbQYQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 25 Nov 2012
+! Version: V4 Updated: 26 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -2357,6 +2357,7 @@
 #header_ad_167,
 #header_ad_728,
 #header_ad_728_90,
+#header_ad_banner,
 #header_ad_container,
 #header_ad_leaderboard,
 #header_ad_units,
@@ -5826,6 +5827,7 @@
 .bottomad,
 .bottomad-bg,
 .bottomAdBlock,
+.bottomAdContainer,
 .BottomAdContainer,
 .BottomAds,
 .bottomadtop,
@@ -6688,6 +6690,7 @@
 .leftAd_bottom_fmt,
 .leftAd_top_fmt,
 .leftAdColumn,
+.leftAdContainer,
 .leftadd,
 .leftAds,
 .leftadtag,
@@ -7187,6 +7190,7 @@
 .rightadblock,
 .rightAdBox,
 .rightAdColumn,
+.rightAdContainer,
 .rightadd,
 .rightads,
 .rightAdvert,
@@ -7780,6 +7784,7 @@
 .topADBOX,
 .topadbox,
 .topAdCenter,
+.topAdContainer,
 .topadcontainer,
 .TopAdContainer,
 .topAdd,
