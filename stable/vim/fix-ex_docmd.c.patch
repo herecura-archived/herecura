@@ -1,0 +1,14 @@
+diff -r 6e1fe64cf440 src/ex_docmd.c
+--- a/src/ex_docmd.c	Wed Nov 28 19:10:54 2012 +0100
++++ b/src/ex_docmd.c	Wed Nov 28 20:04:18 2012 +0100
+@@ -1534,7 +1534,9 @@
+      * ":endif" (could be ":if x | foo | endif").
+      */
+     if_level = 0;
+-
++#endif
++
++#ifdef FEAT_EVAL
+     did_endif = FALSE;  /* in case do_cmdline used recursively */
+ #endif
+ 
