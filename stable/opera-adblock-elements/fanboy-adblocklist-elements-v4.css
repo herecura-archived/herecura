@@ -1,7 +1,7 @@
 /*
-! Checksum: DaLe3oXyQK3dKA/ltsbQYQ
+! Checksum: mC7CJ6Dykdag1yixRoui0A
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 26 Nov 2012
+! Version: V4 Updated: 28 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -229,6 +229,7 @@
 #ad-story-bottom-in,
 #ad-story-right,
 #ad-stripe,
+#ad-tab,
 #ad-tape,
 #ad-target,
 #ad-target-Leaderbord,
@@ -932,6 +933,7 @@
 #adMiniPremiere,
 #AdMobileLink,
 #admod2,
+#admon-300x250,
 #admon-728x90,
 #adMonster1,
 #adMPU,
@@ -2867,6 +2869,8 @@
 #OAS2,
 #OAS_AD_TOPRIGHT,
 #oas_Middle,
+#OAS_posBottom,
+#OAS_posTopRight,
 #oas_Right2,
 #OAS_Top,
 #oas_wide_skyscraper,
@@ -3774,7 +3778,6 @@
 #zMSplacement6,
 #zoneAdvertisment,
 #zztextad,
-._ad,
 ._bannerAds,
 ._bottom_ad_wrapper,
 ._top_ad_wrapper,
@@ -3812,6 +3815,7 @@
 .ad-200x200,
 .ad-250,
 .ad-250x300,
+.ad-260x60,
 .ad-270x100,
 .ad-300,
 .ad-300-250,
@@ -3946,6 +3950,7 @@
 .ad-interruptor,
 .ad-island,
 .ad-label,
+.AD-label300x250,
 .ad-lable,
 .ad-large-game,
 .ad-layer,
@@ -5733,6 +5738,7 @@
 .bizDetailAds,
 .blacboard-ads-container,
 .block-ad_injector,
+.block-ads,
 .block-ads1,
 .block-ads2,
 .block-ads3,
