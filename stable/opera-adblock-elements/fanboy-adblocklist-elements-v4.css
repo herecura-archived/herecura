@@ -1,7 +1,7 @@
 /*
-! Checksum: mC7CJ6Dykdag1yixRoui0A
+! Checksum: bMqZyrUhylncmfIYc0ANXg
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 28 Nov 2012
+! Version: V4 Updated: 29 Nov 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1220,6 +1220,7 @@
 #adspace-1,
 #adspace-2,
 #adspace-300x250,
+#adspace-728,
 #adspace-728x90,
 #adspace-bottom,
 #adspace-one,
@@ -2835,6 +2836,7 @@
 #navigation-ad,
 #nba160PromoAd,
 #nba300Ad,
+#nbabot728ad,
 #nbaHeaderAds,
 #nbaHouseAnd600Ad,
 #nbaMidAds,
@@ -3063,8 +3065,6 @@
 #right-box-ad,
 #right-col-ad-600,
 #right-featured-ad,
-#Right-Skyscraper,
-#right-wide-skyscraper,
 #right160x600ads_part,
 #right_ad_2,
 #right_ad_box,
@@ -3299,7 +3299,6 @@
 #skyadwrap,
 #skyline_ad,
 #skyscrapeAd,
-#skyScraper,
 #skyscraper-ad,
 #skyscraper_ad,
 #skyscraper_advert,
@@ -3309,7 +3308,6 @@
 #skyscraperAdContainer,
 #skyscraperAds,
 #skyscraperAdWrap,
-#SkyscraperAnzeige,
 #skyscraperWrapperAd,
 #slidead,
 #slider-ad,
@@ -4031,7 +4029,6 @@
 .ad-sp,
 .ad-space,
 .ad-space-topbanner,
-.ad-spacer,
 .ad-sponsor-text,
 .ad-sponsored-links,
 .ad-spot,
@@ -4523,6 +4520,7 @@
 .adBkgd,
 .adblade,
 .adblock-240-400,
+.adBlock-300-250,
 .adblock-300-300,
 .adblock-600-120,
 .adblock-wide,
@@ -4881,6 +4879,7 @@
 .ads-middle-top,
 .ads-module,
 .ads-mpu,
+.ads-native-wrapper,
 .ads-popup-corner,
 .ads-post-closing,
 .ads-profile,
@@ -5404,6 +5403,7 @@
 .advertise_txt,
 .advertise_verRight,
 .advertiseBlack,
+.advertisebtn,
 .advertisedBy,
 .advertisehere,
 .advertiseHere,
@@ -6122,6 +6122,7 @@
 .dualAds,
 .dynamic-ads,
 .dynamicLeadAd,
+.easy-ads,
 .eb_ad280,
 .ec-ads,
 .editor_ad,
@@ -6908,6 +6909,7 @@
 .navad,
 .navAd,
 .nba728Ad,
+.nbaAdNotice,
 .nbaAroundAd2,
 .nbaTextAds,
 .nbaTVPodAd,
