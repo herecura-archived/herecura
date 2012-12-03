@@ -1,7 +1,7 @@
 /*
-! Checksum: ZcgIV5X031mK1ybNBetlew
+! Checksum: Q7CTcfHy3nKu6YP2kWTYRQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 1 Dec 2012
+! Version: V4 Updated: 2 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1132,6 +1132,7 @@
 #adsense-new,
 #adsense-post,
 #adsense-right,
+#AdSense-Skyscraper,
 #adsense-tag,
 #adsense-text,
 #adsense-wrap,
@@ -1638,7 +1639,6 @@
 #bannerAdTop,
 #BannerAdvertisement,
 #bannerGoogle,
-#bannerhead,
 #barAdWrapper,
 #baseboard-ad,
 #baseboard-ad-wrapper,
@@ -2159,7 +2159,6 @@
 #footerAdvert,
 #footerAdverts,
 #footerGoogleAd,
-#footerleaderboard,
 #forumlist-ad,
 #four_ads,
 #fpad1,
@@ -2627,7 +2626,6 @@
 #leaderboardAdTop,
 #leaderboardAdvert,
 #leaderboardAdvertFooter,
-#leaderboardn,
 #LeaderboardNav_ad_placeholder,
 #leatherboardad,
 #left-ad-skin,
@@ -2934,7 +2932,6 @@
 #photo_ad_google,
 #PhotoAd1,
 #photoAndAdBox,
-#phxcms_top_leaderboard,
 #picad_div,
 #pixAd,
 #player_ad,
@@ -3367,6 +3364,7 @@
 #SponsorBarWrap,
 #sponsorBorder,
 #sponsorContainer0,
+#sponsored-ad,
 #sponsored-bucket,
 #sponsored-features,
 #sponsored-links,
@@ -3727,7 +3725,6 @@
 #wrapAdTop,
 #wrapCommentAd,
 #wrapper_ad_Top,
-#wrapper_banner,
 #wrapper_sponsoredlinks,
 #wrapperAdsTopLeft,
 #wrapperAdsTopRight,
@@ -6673,9 +6670,6 @@
 .LeaderAdvertisement,
 .leaderboard-ad-main,
 .leaderboard-adblock,
-.leaderboard-container,
-.leaderboard-container-top,
-.leaderboard2,
 .leaderboard_ad,
 .leaderboard_ad_unit,
 .leaderboard_ad_unit_groups,
@@ -6687,7 +6681,6 @@
 .leaderboardAdContainer,
 .leaderboardAdContainerInner,
 .leaderboardadtop,
-.leaderboardbottom_wrapper,
 .leaderboardFooter_ad,
 .leaderOverallAdArea,
 .left-ad,
@@ -7036,6 +7029,7 @@
 .player_hover_ad,
 .player_page_ad_box,
 .playerAd,
+.pm-ad,
 .pm-banner-ad,
 .pmg-sponsoredlinks,
 .pn-ad,
@@ -7417,7 +7411,6 @@
 .sidebarads,
 .sidebarAds300px,
 .SidebarAdvert,
-.sidebarBanner,
 .sidebarboxad,
 .sideBarCubeAd,
 .sideBlockAd,
@@ -7925,6 +7918,9 @@
 .wAdvert,
 .wahAd,
 .wahAdRight,
+.wall_ad,
+.wall_ad_hd,
+.wallad,
 .wantads,
 .wazi-ad-link,
 .wdp_ad,
