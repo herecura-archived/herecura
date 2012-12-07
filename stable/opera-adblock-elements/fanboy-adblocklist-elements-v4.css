@@ -1,7 +1,7 @@
 /*
-! Checksum: mjwDwOx1W+GxLvXY7+vOHg
+! Checksum: P6r6Z7nE3EoDid11r+VS5Q
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 5 Dec 2012
+! Version: V4 Updated: 6 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -23,6 +23,7 @@
 #A9AdsServicesWidgetTop,
 #about_adsbottom,
 #above-comments-ad,
+#above-footer-ads,
 #aboveAd,
 #aboveGbAd,
 #aboveNodeAds,
@@ -1062,6 +1063,7 @@
 #ads_big,
 #ads_bottom_inner,
 #ads_bottom_outer,
+#ads_box,
 #ads_button,
 #ads_by_google,
 #ads_campaign,
@@ -1931,6 +1933,7 @@
 #contextualad,
 #ConversationDivAd,
 #CSpromo120x90,
+#ct-ad-lb,
 #ctl00__Content__RepeaterReplies_ctl03__AdReply,
 #ctl00_adFooter,
 #ctl00_AdWords,
@@ -4343,6 +4346,7 @@
 .ad_hpm,
 .ad_hyper_wrap,
 .ad_identifier,
+.ad_ifrwrap,
 .ad_index02,
 .ad_indicator,
 .ad_info,
@@ -5454,6 +5458,7 @@
 .advertisement_g,
 .advertisement_horizontal,
 .advertisement_post,
+.advertisement_river,
 .advertisement_sky,
 .advertisement_top,
 .advertisement_watchFooter,
@@ -5493,6 +5498,7 @@
 .advertising-srec,
 .advertising2,
 .advertising_banner,
+.advertising_box_bg,
 .advertising_widget,
 .advertisingBanner,
 .advertisingLrec,
@@ -5758,6 +5764,7 @@
 .block-doubleclick_ads,
 .block-ec_ads,
 .block-eg_adproxy,
+.block-fc_ads,
 .block-featured-sponsors,
 .block-gg_ads,
 .block-google-admanager,
