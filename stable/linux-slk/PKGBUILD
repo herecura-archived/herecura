@@ -7,7 +7,7 @@ pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.2
-_patchver=34
+_patchver=35
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -38,7 +38,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'b607c901c6ee72212c0cd68e1979c9cdf0783cb30f0163375059e17a5228e1bc'
+		'2fd1b3239dc3ba88a4bb2a62959115b09fbbbc6934a47313492232b79ca4c290'
 	)
 fi
 
@@ -265,3 +265,5 @@ package_linux-slk-headers() {
 	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
 pkgdesc="The Linux Kernel and modules, Slackware configuration"
+
+# vim:set ft=sh:
