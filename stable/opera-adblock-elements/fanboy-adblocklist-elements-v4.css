@@ -1,7 +1,7 @@
 /*
-! Checksum: UVAv31WUToeZhmFGrSYv6A
+! Checksum: aaKdYe+OBM4L+MO4UkFyDw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 7 Dec 2012
+! Version: V4 Updated: 8 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -113,6 +113,7 @@
 #ad-bottom-banner,
 #ad-bottom-wrapper,
 #ad-box,
+#ad-box-bottom,
 #ad-box-second,
 #ad-boxes,
 #ad-bs,
@@ -3543,6 +3544,7 @@
 #top_adblock_fix,
 #top_add,
 #TOP_ADROW,
+#top_ads_container,
 #top_ads_region,
 #top_ads_wrap,
 #top_adsense_cont,
@@ -3827,6 +3829,7 @@
 .ad-300-block,
 .ad-300-blog,
 .ad-300-dummy,
+.ad-300-flex,
 .ad-300x,
 .ad-300x100,
 .ad-300x200,
@@ -3957,6 +3960,7 @@
 .ad-label,
 .AD-label300x250,
 .ad-lable,
+.ad-landscape,
 .ad-large-game,
 .ad-layer,
 .ad-lb,
@@ -6203,6 +6207,7 @@
 .footer-ads,
 .footer-adsbar,
 .footer-advert,
+.footer-banner-ad,
 .footer-leaderboard-ad,
 .footer_ad,
 .footer_AD,
@@ -6648,6 +6653,7 @@
 .jumboAd,
 .kd_ads_block,
 .kdads-link,
+.keyword-ads-block,
 .knowledgehub_ad,
 .kw_advert,
 .l-bottom-ads,
@@ -7441,6 +7447,7 @@
 .singlepageleftad,
 .singlepostad,
 .singlepostadsense,
+.site-ad-block,
 .site-ads,
 .site_ad,
 .site_sponsers,
@@ -7517,6 +7524,7 @@
 .sponsLinks,
 .sponsor-ad,
 .sponsor-ad-wrapper,
+.sponsor-area,
 .sponsor-block,
 .sponsor-bottom,
 .sponsor-box,
@@ -7585,6 +7593,7 @@
 .sponsored_links_container,
 .sponsored_results,
 .sponsored_ss,
+.sponsored_text,
 .sponsoredAdLine,
 .SponsoredAdTitle,
 .SponsoredArticleAd,
