@@ -1,7 +1,7 @@
 /*
-! Checksum: aaKdYe+OBM4L+MO4UkFyDw
+! Checksum: yAtR7YNSrLTfGE/EwbTs2w
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 8 Dec 2012
+! Version: V4 Updated: 9 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -3801,6 +3801,7 @@
 .aboveCommentAdBladeWrapper,
 .aboveCommentAds,
 .aboveCommentAdsWrapper,
+.acm_ad_zones,
 .ad-1,
 .ad-120-600-inner,
 .ad-120x600,
@@ -6764,6 +6765,7 @@
 .macAd,
 .mad_adcontainer,
 .madison_ad,
+.magazine_box_ad,
 .main-ad,
 .main-ads,
 .main-advert,
