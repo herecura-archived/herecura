@@ -5,8 +5,8 @@
 _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.6
-_patchver=10
+_basekernel=3.7
+_patchver=0
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -26,9 +26,9 @@ source=(
 	"sysctl-desktop.x86_64"
 )
 sha256sums=(
-	'4ab9a6ef1c1735713f9f659d67f92efa7c1dfbffb2a2ad544005b30f9791784f'
-	'276b042ceb5246ab71ecb8e8cb694615406e1d35a5d8ba286e7c87656803713c'
-	'55cdcaa2efd4e038c7834e1d82dc6bf252109f342f4c255ca9f971042a53ed41'
+	'60a64d0bf76eeec3355f115c577935757b84629c8c129ce5b8bb02075f6b9458'
+	'e7f2f27b8289020422f1604d60de2b41f5b54412f3bfdde882638ed0b2622975'
+	'72744b9130e75fd2f3a7d070cbe52030d7e593e508179dfa2ded720ed148e5a7'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'cce2cd65f49ef30e9f2c977210fcb3f21707b53088615eb737e2bb53c67ca7c9'
 	'5d59b290f2ec7354048e24cc52048e104fa91a3ac4c393adbb0e268c129d03e2'
@@ -42,7 +42,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'99ad56f28f718d3718b8a53cd6bbb0edfdca434f96c5590db073d0edc34c0067'
+		''
 	)
 fi
 
