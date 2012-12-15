@@ -1,7 +1,7 @@
 /*
-! Checksum: /rt8femI9oQe+xvJnitafA
+! Checksum: eF95XuCtdv5bHEG5pNf9yw
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 11 Dec 2012
+! Version: V4 Updated: 14 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -6586,6 +6586,7 @@
 .info-ads,
 .info-advert-160x600,
 .info-advert-300x250,
+.info-advert-728x90,
 .info-advert-728x90-inside,
 .ingameadbox,
 .ingameboxad,
@@ -6760,6 +6761,7 @@
 .lr-ad,
 .lr_skyad,
 .lt_ad_call,
+.luxeAd,
 .m-sponsored,
 .m4-adsbygoogle,
 .m_ad300,
