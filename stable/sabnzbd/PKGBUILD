@@ -1,6 +1,6 @@
 pkgname=sabnzbd
 _pkgname=SABnzbd
-pkgver=0.7.6
+pkgver=0.7.7
 pkgrel=1
 pkgdesc="A web-interface based binary newsgrabber with NZB file support"
 url="http://www.sabnzbd.org"
@@ -42,7 +42,7 @@ package() {
 	install -Dm770 "${srcdir}/x-nzb.xml"    "${pkgdir}/opt/${pkgname}/x-nzb.xml"
 }
 
-sha256sums=('e2b3cd5c571b7bb4413693a178669b2a7fcb1b5c707b5228a818fc4c9b0ee6b8'
+sha256sums=('8f972449e6033414ac5fe10d97b31ffdc49488239e04a88c6aff4231e8d4a0b7'
             '82630edfc767a383843ffaae9d716e99010dad9e93bdee08d541faa74e694a65'
             '7027b48f0051dcba1622166de0fb8c6f972f87e4b0f13de7785381d7bf624fa3'
             'bf74d29870a062f277a9126254019291352eada34053f74ea4d0b36d39f1b596'
@@ -51,6 +51,6 @@ sha256sums=('e2b3cd5c571b7bb4413693a178669b2a7fcb1b5c707b5228a818fc4c9b0ee6b8'
             '7fec4494a04ffd6a94644c8ef499ec1c92998a613b1fde5c3a46f38c53dfbc43'
             '099d625d6efc9e69e7c6a2833221928fb19e9e356e3aa8341c36ffdc281e567d'
             'f53261d7578c67fb9fd6a639df94cd53604bcf37b9b03a926cb03e5214b496fe'
-            '6ab902bd7e958d0daedad90807f67bdc6696143f6e01c2c17acc4c52027a6e2e'
+            '0baf3cdb3dce57b47fd5b4de03bd1ebf199f22f20b488d9c042aef7bb9ed517c'
             '3fc91a1e9fd3a099dfc2477f025c0c356fa8dccc575c206251b6cdb2e60c8dc1'
             'e28b746d200d70c34316bcc6c322f613b08d60a530348bfcaac9a73932618e35')
