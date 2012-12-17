@@ -1,7 +1,7 @@
 # Contributor: HNKNTA <hnknta@gmail.com>
 
 pkgname=atunes
-pkgver=2.1.0
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="A full-featured audio player and manager"
 arch=('any')
@@ -10,13 +10,11 @@ license=('GPL')
 depends=('java-runtime>=6' 'mplayer')
 optdepends=('cdrkit: for ripping CDs via cdda2wav'
             'vorbis-tools: for ripping Ogg Vorbis via oggenc')
-source=(http://downloads.sourceforge.net/atunes/atunes_$pkgver.deb
-        atunes.desktop)
+source=("http://downloads.sourceforge.net/project/atunes/atunes/aTunes%20$pkgver/${pkgname}_$pkgver-1_all.deb")
+sha256sums=('ea79b63fdb96f4a66ec2d6c8e8760e96e49a7eabc372f2e93bc8635d5f5187b3')
 
 build() {
-  ar x $(basename ${source[0]}) || return 1
-  tar zxvf data.tar.gz || return 1
+  ar x $(basename ${source[0]})
+  tar zxvf data.tar.gz
   cp -rf usr/ "$pkgdir"/
 }
-sha256sums=('7a94eadbd0e4055e408d7a75d2c2756911e089a5637ee544246c6dfc54b1626e'
-            'e5c1d68967418882375dff9cfded137dd3b1a5e07199f71c60f68bf0855f107d')
