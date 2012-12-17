@@ -4,7 +4,7 @@
 
 pkgname=python2-pymongo
 _pkgname=pymongo
-pkgver=2.3
+pkgver=2.4.1
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 license=("APACHE")
@@ -19,4 +19,4 @@ package() {
   cd $_pkgname-$pkgver
   python2 setup.py install --root="$pkgdir"
 }
-sha256sums=('8e43fdd7ea8e2aa965791af1b6e24186248023c6fde70092d9631b1d9150b1dc')
+sha256sums=('dae8a074137ade3c854c47f76853792b69d1cbc263d9e74aaca50a02842da970')
