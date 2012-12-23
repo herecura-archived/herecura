@@ -1,10 +1,10 @@
 # $Id$
 # Maintainer : Thomas Baechler <thomas@archlinux.org>
 
-pkgname=nvidia-304xx
+pkgname=nvidia-304xx-bede
 pkgver=304.64
 _extramodules=3.7-BEDE-external
-pkgrel=2
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux, 304xx legacy branch"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
