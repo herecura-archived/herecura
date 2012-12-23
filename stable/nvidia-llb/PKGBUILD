@@ -3,23 +3,26 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgbase=nvidia-llb
 pkgname=('nvidia-llb-utils' 'nvidia-llb-opencl')
-pkgver=295.71
+pkgver=295.75
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
 
+#source=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run"
+#"http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
+
 if [ "$CARCH" = "i686" ]; then
-    _arch='x86'
-    _pkg="NVIDIA-Linux-${_arch}-${pkgver}"
-    source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-	md5sums=('80731d9e51aa52117330b791d5417624')
+	_arch='x86'
+	_pkg="NVIDIA-Linux-${_arch}-${pkgver}"
+	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+	sha256sums=('61158fcfe5e4685e69f86de1f411a6dd1ab0e33082f377ccd2bc7469fde143f9')
 elif [ "$CARCH" = "x86_64" ]; then
-    _arch='x86_64'
-    _pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
-    source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
-    md5sums=('820a6fc65e0eecf8e6f3ae7a0b96fc4f')
+	_arch='x86_64'
+	_pkg="NVIDIA-Linux-${_arch}-${pkgver}-no-compat32"
+	source=("ftp://download.nvidia.com/XFree86/Linux-${_arch}/${pkgver}/${_pkg}.run")
+	sha256sums=('f47dfcb48dd3d8646f9f1a33eff4f455571d3260ad38be625f04066c11217544')
 fi
 
 create_links() {
@@ -108,3 +111,5 @@ package_nvidia-llb-utils() {
 
     create_links
 }
+
+# vim:set ft=sh:
