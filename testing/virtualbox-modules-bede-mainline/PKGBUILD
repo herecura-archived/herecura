@@ -5,14 +5,14 @@
 
 pkgbase=virtualbox-modules-bede-mainline
 pkgname=('virtualbox-modules-bede-mainline-host' 'virtualbox-modules-bede-mainline-guest')
-pkgver=4.2.4
-pkgrel=3
+pkgver=4.2.6
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
 makedepends=('linux-bede-mainline' 'linux-bede-mainline-headers'
-    "virtualbox-host-source>=$pkgver"
-    "virtualbox-guest-source>=$pkgver")
+    "virtualbox-host-dkms>=$pkgver"
+    "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede-mainline'
     '60-vboxguest.rules')
 md5sums=('f2200ed91b6ec089d16cc3ada5418c73'
