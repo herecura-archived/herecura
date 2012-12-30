@@ -1,7 +1,7 @@
 /*
-! Checksum: XfSNpiykEU92jBnaMWWTSw
+! Checksum: /mkMJCUuZhLraygWmD06BQ
 ! Fanboy Optimised Element Blocking
-! Version: V4 Updated: 22 Dec 2012
+! Version: V4 Updated: 29 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
 ! Email: fanboyadblock@googlegroups.com - Project homepage: http://fanboy.co.nz/
 !
@@ -1850,6 +1850,7 @@
 #center_ad-0,
 #central-ads,
 #cgp-bigbox-ad,
+#ch-ads,
 #channel_ads,
 #chatAdv2,
 #cherry_ads,
@@ -4194,7 +4195,6 @@
 .ad728x90box,
 .ad728x90WithLabel,
 .ad768x90,
-.ad90,
 .ad954x60,
 .ad960,
 .ad980x50box,
@@ -4880,6 +4880,7 @@
 .ads-col,
 .ads-content,
 .ads-fieldset,
+.ads-flow,
 .ads-google,
 .ads-header,
 .ads-holder,
@@ -8382,7 +8383,7 @@ div[id="leaderboard"],
 .-cx-PRIVATE-snowliftAds__root,
 .-cx-PRIVATE-fbEmu__root,
 #home_sponsor_nile,
-div[class^="_24"],
+div[class="ego_column"],
 .UIWashFrame_SidebarAds,
 .UIStandardFrame_SidebarAds,
 .ego_spo,
@@ -8630,7 +8631,7 @@ div[class="w460 clr"],
 /* pcpro.co.uk */
 #skyScrapper,
 /* google.com */
-#div[id^="tpa"].ch,
+div[id^="tpa"].ch,
 /* pcworld.com */
 .adMkt2Colw,
 .storyList.resourceCenter,
