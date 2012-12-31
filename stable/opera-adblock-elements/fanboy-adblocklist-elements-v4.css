@@ -1,5 +1,5 @@
 /*
-! Checksum: /mkMJCUuZhLraygWmD06BQ
+! Checksum: y7lloWFqrL1djBu5K+QiFA
 ! Fanboy Optimised Element Blocking
 ! Version: V4 Updated: 29 Dec 2012
 ! License: http://creativecommons.org/licenses/by-sa/3.0/
@@ -2745,6 +2745,7 @@
 #mid_ad_title,
 #mid_left_ads,
 #mid_mpu,
+#midAD,
 #midadd,
 #midbarad,
 #midbnrad,
@@ -8394,6 +8395,9 @@ div[class="ego_column"],
 #pagelet_ego_pane_w,
 #fbPhotoSnowliftAdsSide,
 .fbEmuBlock,
+.fbAdUnit,
+._24n,
+._4u8,
 .fbPhotoSnowboxAds,
 .fbEmuComboList,
 .fbEmuEgoUnit,
