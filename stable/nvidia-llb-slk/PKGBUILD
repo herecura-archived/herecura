@@ -3,13 +3,13 @@
 # Contributor: James Rayner <iphitus@gmail.com>
 pkgname='nvidia-llb-slk'
 pkgver=295.75
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
 options=('!strip')
 
-makedepends=('linux-slk>=3.2' 'linux-slk<3.3' 'linux-slk-headers>=3.2' 'linux-slk-headers<3.3' "nvidia-llb-utils=${pkgver}")
+makedepends=('linux-slk>=3.2.36' 'linux-slk<3.3' 'linux-slk-headers>=3.2' 'linux-slk-headers<3.3' "nvidia-llb-utils=${pkgver}")
 
 _extramodules=3.2-SLK-external
 
