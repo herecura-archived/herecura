@@ -3,13 +3,13 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=5.2.44
-pkgrel=2
+pkgver=5.2.45
+pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
 license=('GPL2')
-depends=('libzip' 'libmysqlclient' 'lua' 'gtkmm' 'ctemplate'
+depends=('libzip' 'libmysqlclient' 'lua51' 'gtkmm' 'ctemplate'
 	'libgnome-keyring' 'libgl' 'python2-paramiko' 'python2-pexpect'
 	'pcre' 'tinyxml' 'libxml2' 'mysql-python' 'python2-pysqlite' 'cairo'
 	'python-cairo' 'hicolor-icon-theme' 'desktop-file-utils' 'libiodbc')
@@ -17,15 +17,9 @@ depends=('libzip' 'libmysqlclient' 'lua' 'gtkmm' 'ctemplate'
 makedepends=('boost' 'curl' 'mesa')
 options=('!libtool !distcc !ccache')
 
-source=(
-	"http://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQLGUITools/${pkgname}-gpl-${pkgver}-src.tar.gz"
-	'mysql-workbench-5.2.41-glib.patch'
-)
+source=("http://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQLGUITools/${pkgname}-gpl-${pkgver}-src.tar.gz")
 
-md5sums=(
-	'ea609fcd5d42333291a8ea6015627583'
-	'91d1f1fb614de54c4c455026c73f8afb'
-)
+md5sums=('9cb676dd11ae54e3b6b9819331050122')
 
 build() {
 	cd "${srcdir}/${pkgname}-gpl-${pkgver}-src"
