@@ -4,7 +4,7 @@
 pkgbase='lirc-slk'
 pkgname=('lirc-slk' 'lirc-slk-utils')
 pkgver=0.9.0
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -56,7 +56,9 @@ build() {
 	patch -Np1 -i "$srcdir/lirc_atiusb-kfifo.patch"
 	patch -Np1 -i "$srcdir/kernel-2.6.39.patch"
 
-	sed -i '/AC_PATH_XTRA/d' configure.ac
+	sed -e '/AC_PATH_XTRA/d' \
+		-e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' \
+		-i configure.ac
 	sed -e 's/@X_CFLAGS@//g' \
 		-e 's/@X_LIBS@//g' \
 		-e 's/@X_PRE_LIBS@//g' \
