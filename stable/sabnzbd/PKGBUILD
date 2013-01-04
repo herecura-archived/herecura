@@ -1,7 +1,7 @@
 pkgname=sabnzbd
 _pkgname=SABnzbd
-pkgver=0.7.7
-pkgrel=2
+pkgver=0.7.8
+pkgrel=1
 pkgdesc="A web-interface based binary newsgrabber with NZB file support"
 url="http://www.sabnzbd.org"
 arch=("any")
@@ -62,7 +62,7 @@ package() {
 		"${pkgdir}/opt/${pkgname}/x-nzb.xml"
 }
 
-sha256sums=('8f972449e6033414ac5fe10d97b31ffdc49488239e04a88c6aff4231e8d4a0b7'
+sha256sums=('13db9005067db757fa1883e159f60483a7c63159d8d30f0d301351805e77d851'
             '82630edfc767a383843ffaae9d716e99010dad9e93bdee08d541faa74e694a65'
             '6214a92f775888133a8f87ec69e4d0d2ecc9fafbe61387778767000e4db3ea8f'
             'baea3351a40551a63b90b4a4c32719d4c27b5fff596e74e4a91f289964960eb6'
