@@ -3,9 +3,9 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede-mainline
-pkgver=310.19
+pkgver=313.09
 _extramodules=3.8-BEDE-MAINLINE-external
-pkgrel=2
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede-mainline"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -21,14 +21,14 @@ if [ "$CARCH" = "i686" ]; then
     _pkg="NVIDIA-Linux-$_arch-$pkgver"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run"
         '3.8_kernel.patch')
-    sha256sums=('85d082c06a1ea07f514d22c0de4d5d2af065bcac37c377c3d755904bbf780c2f'
+    sha256sums=('a253510ac2eabe85626d0b3d9123fdb14282919da8da0a265210bb852bf1078f'
         'e964fd876f21d7b0a4c91f308a384df97ac7d188707533b33520ba8d328af130')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run"
         '3.8_kernel.patch')
-    sha256sums=('07b59edfaffb178c947af2c083d22dc6af90974aa53a61bb10792a682aaa5c72'
+    sha256sums=('f3ebc358d6d8e69a1e247bddc95ca7cc95cd39cdc3b1aa919817a2f4d2f97a91'
         'e964fd876f21d7b0a4c91f308a384df97ac7d188707533b33520ba8d328af130')
 fi
 
@@ -40,7 +40,6 @@ build() {
     patch -Np0 -i $srcdir/3.8_kernel.patch
     cd kernel
 	#cd $_pkg/kernel
-#	sed -e '/CFLAGS="$CFLAGS/s:-I$SOURCES/arch/x86/include:& -I$OUTPUT/arch/x86/include/generated:' -i conftest.sh
  	make SYSSRC=/usr/lib/modules/$_kernver/build module
 }
 
