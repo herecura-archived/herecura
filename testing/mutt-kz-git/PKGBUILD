@@ -34,6 +34,7 @@ build() {
 	git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
 	cd "$srcdir/$_gitname-build"
 
+	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i configure.ac
 	./prepare \
 		--prefix=/usr \
 		--sysconfdir=/etc \
