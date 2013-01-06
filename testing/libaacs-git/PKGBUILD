@@ -9,8 +9,8 @@ depends=()
 license=('LGPL')
 url="http://www.videolan.org/developers/libaacs.html"
 makedepends=('git' 'flex' 'byacc')
-source=('bison_2.6.patch')
-sha256sums=('6ab15dd4b333bd40e965b9cae17052a95a5544065794ff8a26cb9fa71ad53320')
+source=()
+sha256sums=()
 provides=('libaacs')
 conflicts=('libaacs')
 
@@ -31,9 +31,12 @@ build() {
     msg "Starting make..."
 
     cd ${srcdir}/libaacs
-	patch -Np1 -i $srcdir/bison_2.6.patch
     ./bootstrap
     ./configure --prefix=/
     make
+}
+
+package() {
+    cd ${srcdir}/libaacs
     make DESTDIR=${pkgdir}/usr install
 }
