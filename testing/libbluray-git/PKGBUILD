@@ -25,13 +25,18 @@ build() {
     else
         git clone $_gitroot
     fi
-    
+
     msg "GIT checkout done or server timeout"
     msg "Starting build..."
-	
+
     cd ${srcdir}/libbluray
+	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i configure.ac
     ./bootstrap
     ./configure --prefix=/ --with-jdk=$J2SDKDIR --enable-bdjava
-    make || return 1
-    make DESTDIR=${pkgdir}/usr install || return 1    
+    make
+}
+
+package() {
+    cd ${srcdir}/libbluray
+    make DESTDIR=${pkgdir}/usr install
 }
