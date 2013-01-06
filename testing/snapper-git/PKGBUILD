@@ -56,6 +56,7 @@ build() {
 	# rename cron scripts
 	sed -i -e 's@suse.de-@@g' scripts/Makefile.am
 
+	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i configure.in
 	aclocal
 	libtoolize --force --automake --copy
 	autoheader
