@@ -36,6 +36,7 @@ build()
 	# fix for curl because curl removed curl/types.h
 	sed -e '/curl\/types\.h/d' -i client/gui/info.c
 
+	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i plugins/par2/par2cmdline/configure.ac
 	./autogen.sh
 	msg2 "configure"
 	./configure\
