@@ -1,7 +1,7 @@
 # Maintainer: Dirk Berg <dberg1981@googlemail.com>
 
 pkgname=libaacs-git
-pkgver=20130103
+pkgver=20130106
 pkgrel=1
 pkgdesc="Blu-Ray aacs library"
 arch=('i686' 'x86_64')
@@ -31,6 +31,7 @@ build() {
     msg "Starting make..."
 
     cd ${srcdir}/libaacs
+	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i configure.ac
     ./bootstrap
     ./configure --prefix=/
     make
