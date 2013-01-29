@@ -4,7 +4,7 @@
 pkgbase='lirc-bede'
 pkgname=('lirc-bede' 'lirc-bede-utils')
 pkgver=0.9.0
-pkgrel=37
+pkgrel=38
 arch=('i686' 'x86_64')
 url="http://www.lirc.org/"
 license=('GPL')
@@ -56,11 +56,14 @@ build() {
 	patch -Np1 -i "$srcdir/lirc_atiusb-kfifo.patch"
 	patch -Np1 -i "$srcdir/kernel-2.6.39.patch"
 
-	sed -i '/AC_PATH_XTRA/d' configure.ac
+	sed -e '/AC_PATH_XTRA/d' \
+		-e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADER/' \
+		-i configure.ac
 	sed -e 's/@X_CFLAGS@//g' \
 		-e 's/@X_LIBS@//g' \
 		-e 's/@X_PRE_LIBS@//g' \
-		-e 's/@X_EXTRA_LIBS@//g' -i Makefile.am tools/Makefile.am
+		-e 's/@X_EXTRA_LIBS@//g' \
+		-i Makefile.am tools/Makefile.am
 
 	libtoolize
 	autoreconf
