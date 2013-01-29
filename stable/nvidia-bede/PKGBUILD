@@ -3,7 +3,7 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=313.09
+pkgver=313.18
 _extramodules=3.7-BEDE-external
 pkgrel=3
 pkgdesc="NVIDIA drivers for linux-bede"
@@ -23,12 +23,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-$_arch-$pkgver"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('a253510ac2eabe85626d0b3d9123fdb14282919da8da0a265210bb852bf1078f')
+    sha256sums=('58e5e2191890ace94849444f5d2de4c2921dfe02cd97825d81a128754ff4488f')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('f3ebc358d6d8e69a1e247bddc95ca7cc95cd39cdc3b1aa919817a2f4d2f97a91')
+    sha256sums=('5e1611792e801cdf86ca5d9a8387839b56b533840891ff8ab5f8b1e4c8af408b')
 fi
 
 build() {
