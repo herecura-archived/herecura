@@ -36,6 +36,7 @@ create_links() {
 
 build() {
     cd "${srcdir}"
+    [ -d "$_pkg" ] && rm -rf "$_pkg"
     sh "${_pkg}.run" --extract-only
 }
 

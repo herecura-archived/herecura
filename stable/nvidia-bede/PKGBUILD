@@ -34,6 +34,7 @@ fi
 build() {
 	_kernver="$(cat /usr/lib/modules/$_extramodules/version)"
 	cd "$srcdir"
+    [ -d "$_pkg" ] && rm -rf "$_pkg"
 	sh $_pkg.run --extract-only
 	cd $_pkg/kernel
 	sed -e '/CFLAGS="$CFLAGS/s:-I$SOURCES/arch/x86/include:& -I$OUTPUT/arch/x86/include/generated:' -i conftest.sh
