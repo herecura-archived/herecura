@@ -31,7 +31,7 @@ build() {
 	msg "Starting build..."
 
 	rm -rf "$srcdir/$_gitname-build"
-	git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+	/usr/share/git/workdir/git-new-workdir ${_gitname} ${_gitname}-build master
 	cd "$srcdir/$_gitname-build"
 
 	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i configure.ac
