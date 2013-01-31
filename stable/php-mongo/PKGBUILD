@@ -1,6 +1,6 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=php-mongo
-pkgver=1.3.3
+pkgver=1.3.4
 pkgrel=1
 pkgdesc="Officially supported PHP driver for MongoDB"
 arch=("i686" "x86_64")
@@ -20,5 +20,5 @@ package() {
 	make INSTALL_ROOT="$pkgdir" install
 	install -Dm644 "$srcdir/mongo.ini" "$pkgdir/etc/php/conf.d/mongo.ini"
 }
-sha256sums=('9f091f1306883fa4b16c656f5f75333c9e4d283e84c647e36f896a1a77e60c52'
+sha256sums=('b1f5c6e2937e631218571820e0090bc113c6013822b0b64e23a0fa9002a1bac8'
             'c89685eee842d5c3a85149a5bb8e310e62bf1a17f94183bb66401593ab2b191b')
