@@ -6,8 +6,8 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.7
-_patchver=4
-_rcver=3.7.5_rc1
+_patchver=5
+_rcver=3.7.6_rc1
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -28,8 +28,8 @@ source=(
 )
 sha256sums=(
 	'60a64d0bf76eeec3355f115c577935757b84629c8c129ce5b8bb02075f6b9458'
-	'e7f2f27b8289020422f1604d60de2b41f5b54412f3bfdde882638ed0b2622975'
-	'72744b9130e75fd2f3a7d070cbe52030d7e593e508179dfa2ded720ed148e5a7'
+	'1b6c61b8bc9074eb1d8c1f29778838348c3abb68bfd17ee094dc4f2a7da3ac3f'
+	'7ccfa896f41e5c3f11e7f9ade882d1ace644de2c00e5a269249117fd430d2440'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'cce2cd65f49ef30e9f2c977210fcb3f21707b53088615eb737e2bb53c67ca7c9'
 	'5d59b290f2ec7354048e24cc52048e104fa91a3ac4c393adbb0e268c129d03e2'
@@ -43,7 +43,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'60021b00e52a844751be6a943104b1cca93332f0dfd16c33abfa06c9b3d2e459'
+		'be045ca60a24d0faf67b2cf3cd476fcdf96726070a0553e70a69776e081db4f1'
 	)
 fi
 
@@ -57,7 +57,7 @@ _extrapatches=(
 	"http://www.kernel.org/pub/linux/kernel/v3.x/stable-review/patch-${_rcver//_/-}.gz"
 )
 _extrapatchessums=(
-	'51ba69e03271726931f2f6a8427559d004991fd8b5c6587800be75d0a926a580'
+	'd34be57499153f7f835b671f27420772dc8e68349aba1240e91b7eeb2c3a8bb0'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
