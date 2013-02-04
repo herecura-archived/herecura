@@ -8,7 +8,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.7
 _patchver=6
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -243,6 +243,12 @@ package_linux-bede-headers() {
 		cp -a $header "$pkgdir/usr/src/linux-$_kernver/$(dirname $header)"
 	done
 
+	# symlink version.h
+	(
+		cd $pkgdir/usr/src/linux-$_kernver/include/linux
+		ln -s ../../usr/include/linux/version.h
+	)
+
 	# copy in Kconfig files
 	for i in `find . -name "Kconfig*"`; do
 		mkdir -p "$pkgdir/usr/src/linux-$_kernver/$(echo $i | sed 's|/Kconfig.*||')"
@@ -267,7 +273,7 @@ package_linux-bede-headers() {
 	chown -R root:root "$pkgdir/usr/src/linux-$_kernver"
 	find "$pkgdir/usr/src/linux-$_kernver" -type d -exec chmod 755 {} \;
 	# remove unneeded architectures
-	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
+	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa,arm64,c6x,hexagon,openrisc,unicore32}
 }
 
 # vim:set ft=sh:
