@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=5.2.45
+pkgver=5.2.46
 pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
@@ -19,7 +19,6 @@ options=('!libtool !distcc !ccache')
 
 source=("http://ftp.gwdg.de/pub/misc/mysql/Downloads/MySQLGUITools/${pkgname}-gpl-${pkgver}-src.tar.gz")
 
-md5sums=('9cb676dd11ae54e3b6b9819331050122')
 
 build() {
 	cd "${srcdir}/${pkgname}-gpl-${pkgver}-src"
@@ -45,3 +44,4 @@ package() {
 }
 
 # vim:set ft=sh:
+sha256sums=('b409afe822b4959c39331630699360ccd5aa0868944ce51ed5cdf08e6b93b72b')
