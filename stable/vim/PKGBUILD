@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=800
+_patchlevel=801
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
@@ -75,9 +75,6 @@ build() {
 		vim-build/src/feature.h
 	sed -i 's|^.*\(#define VIMRC_FILE.*"\) .*$|\1|' \
 		vim-build/src/feature.h
-	# fix python name
-	sed -i -e 's|vi_cv_path_python, python|vi_cv_path_python, python2|' \
-		vim-build/src/configure.in
 
 	msg2 'Building...'
 
