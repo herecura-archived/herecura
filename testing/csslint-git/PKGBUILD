@@ -2,7 +2,7 @@
 # Contributor: rickeyski <rickeyvisinski@gmail.com>
 
 pkgname=csslint-git
-pkgver=20130118
+pkgver=20130209
 pkgrel=1
 pkgdesc="Automated linting of Cascading Stylesheets."
 url="http://csslint.net/"
