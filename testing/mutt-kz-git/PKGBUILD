@@ -1,13 +1,13 @@
 # Contributor: boyska <piuttosto@logorroici.org>
 
 pkgname=mutt-kz-git
-pkgver=20130206
+pkgver=20130209
 pkgrel=1
 pkgdesc="A small but very powerful text-based mail client + integration with notmuch"
 url="https://github.com/karelzak/mutt-kz"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('openssl>=0.9.8e' 'gdbm' 'mime-types' 'zlib' 'libsasl' 'gpgme' 'ncurses' 'notmuch')
+depends=('openssl>=0.9.8e' 'gdbm' 'mime-types' 'zlib' 'libsasl' 'gpgme' 'ncurses' 'notmuch' 'libidn')
 makedepends=('git' 'gnupg' 'libxslt')
 conflicts=('mutt')
 provides=('mutt')
@@ -17,7 +17,6 @@ _gitroot=git://github.com/karelzak/mutt-kz.git
 _gitname=muttkz
 
 build() {
-	cd "$srcdir"
 	msg "Connecting to GIT server...."
 
 	if [[ -d "$_gitname" ]]; then
@@ -26,6 +25,7 @@ build() {
 	else
 		git clone "$_gitroot" "$_gitname"
 	fi
+	cd "$srcdir"
 
 	msg "GIT checkout done or server timeout"
 	msg "Starting build..."
