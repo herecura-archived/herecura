@@ -6,9 +6,9 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.7
-_patchver=6
+_patchver=7
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 url="http://www.kernel.org"
@@ -42,7 +42,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'fd75d3ff0cc46f1f025eb2129c1e60ad305242efd4df01662668a82fee36bb2f'
+		'8c84f79faa95f77ac2890b341e658e93874540021ca44f1f32f322bfb776c0bd'
 	)
 fi
 
