@@ -1,6 +1,6 @@
 pkgname=plasma-theme-caledonia
 pkgver=1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Elegant and minimalistic dark theme for plasma"
 arch=('any')
 license=('CCPL')
@@ -13,6 +13,7 @@ package()
 {
 	install -dm 755 "$pkgdir/usr/share/apps/desktoptheme"
 	cp -a "$srcdir/Caledonia" "$pkgdir/usr/share/apps/desktoptheme/"
+	chmod u=rwX,og=rX -R "$pkgdir/usr/share/apps/desktoptheme/"
 }
 
 # vim:set ft=sh:
