@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=mysql-workbench
-pkgver=5.2.46
+pkgver=5.2.47
 pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
@@ -44,4 +44,4 @@ package() {
 }
 
 # vim:set ft=sh:
-sha256sums=('b409afe822b4959c39331630699360ccd5aa0868944ce51ed5cdf08e6b93b72b')
+sha256sums=('e6928beb157f1e0abbb8885d16544eefe4d25b05f54dc0fb75b8375d8775838c')
