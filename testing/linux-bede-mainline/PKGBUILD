@@ -7,8 +7,15 @@ pkgbase="linux$_kernelname"
 pkgname="linux$_kernelname"
 true && pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.8
-_rcver=rc7
+_rcver=
 pkgver=${_basekernel}${_rcver}
+if [ ! -z $_rcver ]; then
+	_pkgver=${_basekernel}-${_rcver}
+	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x/testing'
+else
+	_pkgver=${_basekernel}
+	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x'
+fi
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -16,7 +23,7 @@ url="http://www.kernel.org"
 options=(!strip)
 
 source=(
-	"http://www.kernel.org/pub/linux/kernel/v3.x/testing/linux-$_basekernel-$_rcver.tar.xz"
+	"$_baseurl/linux-$_pkgver.tar.xz"
 	# the main kernel config files
 	"config-$_basekernel-desktop.i686"
 	"config-$_basekernel-desktop.x86_64"
@@ -27,7 +34,7 @@ source=(
 	"sysctl-desktop.x86_64"
 )
 sha256sums=(
-	'88d25af982a9c66c4dc357319899b8673c33f810dcb000d300cb2920c7ab23d2'
+	'e070d1bdfbded5676a4f374721c63565f1c969466c5a3e214004a136b583184b'
 	'2b1c04a2002e2d0d2873ca56e63335840b276d6f9ee680da7c55c121421f23d0'
 	'3c321628df3f6724f6d129385e648fc1260aabbbfcfa31d04b2447dec1ea95d3'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
@@ -49,23 +56,8 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 	)
 fi
 
-# some stuff for the AUR parser :p
-if [ "aur" == "there" ]; then
-	source=(
-		"http://www.kernel.org/pub/linux/kernel/v3.x/testing/linux-$_basekernel-$_rcver.tar.xz"
-		# the main kernel config files
-		"config-$_basekernel-desktop.i686"
-		"config-$_basekernel-desktop.x86_64"
-		# standard config files for mkinitcpio ramdisk
-		"linux$_kernelname.preset"
-		# sysctl updates for desktop usage picked up from opensuse
-		"sysctl-desktop.i686"
-		"sysctl-desktop.x86_64"
-	)
-fi
-
 build() {
-	cd "$srcdir/linux-$_basekernel-$_rcver"
+	cd "$srcdir/linux-$_pkgver"
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
 		patch="$(basename "$patch" | sed -e 's/\.\(gz\|bz2\|xz\)//')"
@@ -86,14 +78,18 @@ build() {
 
 	# set extraversion to rc & pkgrel
 	msg2 "set extraversion to $pkgrel"
-	sed -ri "s|^(EXTRAVERSION =).*|\1 ${_rcver/*_/}-$pkgrel|" Makefile
+	if [ ! -z $_rcver ]; then
+		sed -ri "s|^(EXTRAVERSION =).*|\1 ${_rcver/*_/}-$pkgrel|" Makefile
+	else
+		sed -ri "s|^(EXTRAVERSION =).*|\1 -$pkgrel|" Makefile
+	fi
 
 	# don't run depmod on 'make install'. We'll do this ourselves in packaging
 	sed -i '2iexit 0' scripts/depmod.sh
 
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
-	echo "" > "$srcdir/linux-$_basekernel-$_rcver/.scmversion"
+	echo "" > "$srcdir/linux-$_pkgver/.scmversion"
 
 	# get kernel version
 	msg2 "prepare"
@@ -135,7 +131,7 @@ package_linux-bede-mainline() {
 	install=$pkgname.install
 
 	KARCH=x86
-	cd "$srcdir/linux-$_basekernel-$_rcver"
+	cd "$srcdir/linux-$_pkgver"
 
 	mkdir -p "$pkgdir"/{lib/modules,lib/firmware,boot,usr}
 
@@ -202,7 +198,7 @@ package_linux-bede-mainline-headers() {
 	install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
 	cd "$pkgdir/usr/lib/modules/$_kernver"
 	ln -sf ../../../src/linux-$_kernver build
-	cd "$srcdir/linux-$_basekernel-$_rcver"
+	cd "$srcdir/linux-$_pkgver"
 	install -D -m644 Makefile \
 		"$pkgdir/usr/src/linux-$_kernver/Makefile"
 	install -D -m644 kernel/Makefile \
