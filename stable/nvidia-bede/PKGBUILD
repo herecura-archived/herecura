@@ -4,12 +4,12 @@
 _pkgname=nvidia
 pkgname=$_pkgname-bede
 pkgver=313.18
-_extramodules=3.7-BEDE-external
-pkgrel=4
+_extramodules=3.8-BEDE-external
+pkgrel=5
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.7' 'linux-bede<3.8' 'linux-bede-headers>=3.7' 'linux-bede-headers<3.8' "nvidia-utils=$pkgver")
+makedepends=('linux-bede>=3.8' 'linux-bede<3.9' 'linux-bede-headers>=3.8' 'linux-bede-headers<3.9' "nvidia-utils=$pkgver")
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 replaces=('nvidia-bemm')
 license=('custom')
@@ -22,13 +22,17 @@ options=(!strip)
 if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-$_arch-$pkgver"
-    source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('58e5e2191890ace94849444f5d2de4c2921dfe02cd97825d81a128754ff4488f')
+    source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run"
+        '3.8_kernel.patch')
+    sha256sums=('58e5e2191890ace94849444f5d2de4c2921dfe02cd97825d81a128754ff4488f'
+        'e964fd876f21d7b0a4c91f308a384df97ac7d188707533b33520ba8d328af130')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
-    source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('5e1611792e801cdf86ca5d9a8387839b56b533840891ff8ab5f8b1e4c8af408b')
+    source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run"
+        '3.8_kernel.patch')
+    sha256sums=('5e1611792e801cdf86ca5d9a8387839b56b533840891ff8ab5f8b1e4c8af408b'
+        'e964fd876f21d7b0a4c91f308a384df97ac7d188707533b33520ba8d328af130')
 fi
 
 build() {
@@ -36,13 +40,14 @@ build() {
 	cd "$srcdir"
     [ -d "$_pkg" ] && rm -rf "$_pkg"
 	sh $_pkg.run --extract-only
-	cd $_pkg/kernel
-	sed -e '/CFLAGS="$CFLAGS/s:-I$SOURCES/arch/x86/include:& -I$OUTPUT/arch/x86/include/generated:' -i conftest.sh
+    cd $_pkg
+    patch -Np0 -i $srcdir/3.8_kernel.patch
+    cd kernel
  	make SYSSRC=/usr/lib/modules/$_kernver/build module
 }
 
 package() {
-	depends=('linux-bede>=3.7' 'linux-bede<3.8' "nvidia-utils=${pkgver}")
+	depends=('linux-bede>=3.8' 'linux-bede<3.9' "nvidia-utils=${pkgver}")
 
 	install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
 		"$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"

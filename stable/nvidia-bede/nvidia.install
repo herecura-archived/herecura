@@ -1,4 +1,4 @@
-EXTRAMODULES='3.7-BEDE-external'
+EXTRAMODULES='3.8-BEDE-external'
 
 post_install() {
 	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
