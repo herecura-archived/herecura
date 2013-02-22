@@ -6,11 +6,11 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.2.6
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-bede>=3.7' 'linux-bede<3.8' 'linux-bede-headers>=3.7' 'linux-bede-headers<3.8'
+makedepends=('linux-bede>=3.8' 'linux-bede<3.9' 'linux-bede-headers>=3.8' 'linux-bede-headers<3.9'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
@@ -18,7 +18,7 @@ source=('modules-load-virtualbox-bede'
 md5sums=('f2200ed91b6ec089d16cc3ada5418c73'
     'ed1341881437455d9735875ddf455fbe')
 
-_extramodules=3.7-BEDE-external
+_extramodules=3.8-BEDE-external
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -38,7 +38,7 @@ package_virtualbox-modules-bede-host() {
     pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
-    depends=('linux-bede>=3.7' 'linux-bede<3.8')
+    depends=('linux-bede>=3.8' 'linux-bede<3.9')
     provides=("virtualbox-host-modules=$pkgver")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -59,7 +59,7 @@ package_virtualbox-modules-bede-guest() {
     pkgdesc="Kernel guest modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
-    depends=('linux-bede>=3.7' 'linux-bede<3.8')
+    depends=('linux-bede>=3.8' 'linux-bede<3.9')
     provides=("virtualbox-guest-modules=${pkgver}")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
