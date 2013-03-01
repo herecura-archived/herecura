@@ -4,13 +4,13 @@
 # Contributor: GazJ Gary James <garyjames82 at gmail dot com> (CADuntu PKGBUILD)
 
 pkgname=librecad-git
-pkgver=20130228
-pkgrel=1
+pkgver=20130301
+pkgrel=2
 pkgdesc="A 2D CAD drawing tool based on the community edition of QCad."
 arch=('i686' 'x86_64')
 url="http://sourceforge.net/projects/librecad/"
 license=('GPL')
-depends=('qt' 'boost-libs')
+depends=('qt4' 'boost-libs')
 makedepends=('git' 'boost' 'muparser')
 provides=('librecad')
 replaces=('librecad-svn' 'caduntu' 'caduntu-svn')
@@ -49,7 +49,7 @@ build() {
 	msg "Starting make..."
 	cd $_gitname-build
 
-	qmake librecad.pro
+	qmake-qt4 librecad.pro
 	make
 
 	(
@@ -57,7 +57,7 @@ build() {
 		for _qtpro in $(find -name "*.pro"); do
 			sed -e 's/\/src\/plugins/\/librecad\/src\/plugins/' -i $_qtpro
 		done
-		qmake
+		qmake-qt4
 		make
 	)
 }
