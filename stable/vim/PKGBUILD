@@ -10,15 +10,15 @@ _basever=7.3
 _patchlevel=843
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
 makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif' 'tk')
+'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'lesstif' 'tk')
 #makedepends=('gpm' 'perl' 'python2' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-#'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt' 'lesstif')
+#'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'lesstif')
 options=()
 source=(
 	'vimrc'
@@ -324,7 +324,7 @@ package_vim-gvim-motif() {
 
 package_vim-gvim-qt() {
 	pkgdesc='Vi Improved, qt gui'
-	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'qt')
+	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'qt4')
 	conflicts=('gvim')
 	provides=('gvim')
 	install=gvim.install
