@@ -15,7 +15,7 @@ _buildtype="RelWithDebInfo"
 
 pkgname=jreen
 _name=lib${pkgname}
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Free and Opensource Jabber library, written in C++ using cross-platform framework Qt."
 arch=('i686' 'x86_64')
@@ -26,8 +26,8 @@ makedepends=('cmake')
 provides=('jreen')
 conflicts=('jreen-git')
 options=(!strip)
-source=(http://qutim.org/dwnl/39/${_name}-${pkgver}.tar.bz2)
-md5sums=('84d483d59976fcbaa7951dd0acfa689a')
+source=(http://qutim.org/dwnl/44/${_name}-${pkgver}.tar.bz2)
+sha256sums=('607e3521b7fe8de54e7763e958efe05c5491f50f70a7d0811bdb8dea3515b5e2')
 
 # Clean options array to strip pkg if release buildtype is chosen
 if [[ ${_buildtype} == "Release" ]] || [[ ${_buildtype} == "release" ]]; then
