@@ -14,20 +14,20 @@ _buildtype="RelWithDebInfo"
 ##############################################################
 
 pkgname=tomahawk
-pkgver=0.5.5
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A Music Player App written in C++/Qt"
 arch=('i686' 'x86_64')
 url="http://tomahawk-player.org/"
 license=('GPL3')
-depends=('phonon' 'taglib' 'boost' 'clucene' 'libechonest2' 'jreen' 'qtweetlib' 'quazip' 'attica' 'qtwebkit' 'liblastfm1')
+depends=('phonon' 'taglib' 'boost' 'clucene' 'libechonest2' 'jreen' 'qtweetlib' 'quazip' 'attica' 'qtwebkit' 'liblastfm')
 makedepends=('git' 'cmake')
 optdepends=('tomahawk-spotify-git: spotify resolver')
 provides=('tomahawk')
 conflicts=('tomahawk-git')
 options=(!strip)
 source=("http://download.tomahawk-player.org/${pkgname}-${pkgver}.tar.bz2")
-md5sums=('708602116a849c4739480cf52a98bc1a')
+sha256sums=('28ea3b1424a99879bf9457f04b3ce8e63dca9ee84e6651027a1ecad9d74ae335')
 
 install=tomahawk.install
 
