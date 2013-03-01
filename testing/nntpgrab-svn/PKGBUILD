@@ -2,13 +2,13 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgbase=nntpgrab-svn
-pkgver=1952
+pkgver=1958
 pkgname=('nntpgrab-svn-cli' 'nntpgrab-svn-gtk' 'nntpgrab-svn-qt')
 pkgrel=1
 arch=('i686' 'x86_64')
 url="http://www.nntpgrab.nl/"
 license=('GPL2')
-makedepends=('gtk3' 'qt' 'networkmanager' 'libpeas' 'curl' 'subversion' 'gtk-doc' 'par2cmdline' 'intltool')
+makedepends=('gtk3' 'qt4' 'networkmanager' 'libpeas' 'curl' 'subversion' 'gtk-doc' 'par2cmdline' 'intltool' 'php')
 options=(!libtool)
 
 _svntrunk='http://svn.openftd.org/svn/nntpgrab/trunk'
@@ -50,12 +50,12 @@ build()
 	# qt stuff
 	msg2 "make qt"
 	pushd client/gui_qt
-		qmake gui_qt.pro -o Makefile
+		qmake-qt4 gui_qt.pro -o Makefile
 		make
 	popd
 
 	pushd server_qt
-		qmake server_qt.pro -o Makefile
+		qmake-qt4 server_qt.pro -o Makefile
 		make
 	popd
 
@@ -117,7 +117,7 @@ package_nntpgrab-svn-gtk() {
 
 package_nntpgrab-svn-qt() {
 	pkgdesc="NNTPGrab is an open source usenet download program qt version"
-	depends=('nntpgrab-svn-cli' 'qt' 'desktop-file-utils')
+	depends=('nntpgrab-svn-cli' 'qt4' 'desktop-file-utils')
 	install='nntpgrab.install'
 	provides=('nntpgrab-qt')
 	conflicts=('nntpgrab-qt')
