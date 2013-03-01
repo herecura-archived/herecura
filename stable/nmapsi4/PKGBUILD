@@ -2,13 +2,13 @@
 
 pkgname=nmapsi4
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt-based Gui nmap interface."
 arch=('i686' 'x86_64')
 url="http://nmapsi.sourceforge.net/"
 license=('GPL2')
 conflicts=()
-depends=('qt' 'qtwebkit' 'nmap')
+depends=('qtwebkit' 'nmap')
 makedepends=('cmake>=2.6')
 source=("http://nmapsi4.googlecode.com/files/$pkgname-$pkgver.tar.bz2")
 
