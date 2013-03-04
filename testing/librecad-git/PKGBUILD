@@ -4,8 +4,8 @@
 # Contributor: GazJ Gary James <garyjames82 at gmail dot com> (CADuntu PKGBUILD)
 
 pkgname=librecad-git
-pkgver=20130301
-pkgrel=2
+pkgver=20130304
+pkgrel=1
 pkgdesc="A 2D CAD drawing tool based on the community edition of QCad."
 arch=('i686' 'x86_64')
 url="http://sourceforge.net/projects/librecad/"
