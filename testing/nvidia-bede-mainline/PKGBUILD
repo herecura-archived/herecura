@@ -4,7 +4,7 @@
 _pkgname=nvidia
 pkgname=$_pkgname-bede-mainline
 pkgver=313.26
-_extramodules=3.8-BEDE-MAINLINE-external
+_extramodules=3.9-BEDE-MAINLINE-external
 pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede-mainline"
 arch=('i686' 'x86_64')
