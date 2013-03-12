@@ -5,8 +5,8 @@
 _kernelname=-bede-mainline
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.8
-_rcver=
+_basekernel=3.9
+_rcver=rc2
 pkgver=${_basekernel}${_rcver}
 if [ ! -z $_rcver ]; then
 	_pkgver=${_basekernel}-${_rcver}
@@ -17,6 +17,7 @@ else
 fi
 pkgrel=1
 arch=('i686' 'x86_64')
+makedepends=('bc')
 license=('GPL2')
 url="http://www.kernel.org"
 options=(!strip)
@@ -33,9 +34,9 @@ source=(
 	"sysctl-desktop.x86_64"
 )
 sha256sums=(
-	'e070d1bdfbded5676a4f374721c63565f1c969466c5a3e214004a136b583184b'
-	'2b1c04a2002e2d0d2873ca56e63335840b276d6f9ee680da7c55c121421f23d0'
-	'3c321628df3f6724f6d129385e648fc1260aabbbfcfa31d04b2447dec1ea95d3'
+	'368e93cc7988c9b819520ccb26e44469843515bbb9d53bd3c483706d2c0956a9'
+	'31ca5d593107ccd606801d40dc686a5b1bfca7ff19be699a8dfe02e9435af441'
+	'f95f41a921a7494604d409a1a1ee1ff7db21e592db88e5db535bc03c3c19fe57'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'cce2cd65f49ef30e9f2c977210fcb3f21707b53088615eb737e2bb53c67ca7c9'
 	'5d59b290f2ec7354048e24cc52048e104fa91a3ac4c393adbb0e268c129d03e2'
