@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=861
+_patchlevel=863
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
@@ -27,6 +27,7 @@ source=(
 	'license.txt'
 	'vim-qt-src.patch'
 	'qt-icons.tar.gz'
+	'misc1.c.patch'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
@@ -35,6 +36,7 @@ sha256sums=(
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
 	'97fc906ba132d0f5de7ca7ad276316a66db994525441c08c8009088e635d908b'
 	'd6ae8e414581a8c497db87226a092380a50cf7f842476e735cffa6d4ff692fd0'
+	'6b71aecf73a25423f44c5a02c92bc4b95230a41d892cfec584ac7077948899ae'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -68,7 +70,7 @@ build() {
 	[ -d gvim-build-qt ] && rm -rf gvim-build-qt
 
 	cp -a ${pkgbase} vim-build
-	(cd vim-build && rm -rf ./.hg*)
+	(cd vim-build && rm -rf ./.hg* && patch -Np1 -i ${srcdir}/misc1.c.patch)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
 	sed -i 's|^.*\(#define SYS_.*VIMRC_FILE.*"\) .*$|\1|' \

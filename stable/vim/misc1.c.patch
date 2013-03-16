@@ -1,0 +1,13 @@
+diff -r 5c0652f455c9 src/misc1.c
+--- a/src/misc1.c	Sat Mar 16 14:33:36 2013 +0100
++++ b/src/misc1.c	Sat Mar 16 19:31:21 2013 +0100
+@@ -3405,7 +3405,9 @@
+ 	    n = TO_SPECIAL(buf[1], buf[2]);
+ 	    if (buf[1] == KS_MODIFIER
+ 		    || n == K_IGNORE
++#if defined(FEAT_MOUSE) || defined(PROTO)
+ 		    || (is_mouse_key(n) && n != K_LEFTMOUSE)
++#endif
+ #ifdef FEAT_GUI
+ 		    || n == K_VER_SCROLLBAR
+ 		    || n == K_HOR_SCROLLBAR
