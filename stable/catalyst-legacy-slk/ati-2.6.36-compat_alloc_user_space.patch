@@ -1,0 +1,14 @@
+--- kcl_ioctl.c.orig	2010-12-02 22:28:43.000000000 +0100
++++ kcl_ioctl.c	2010-12-15 17:46:29.911077419 +0100
+@@ -193,7 +193,11 @@ void ATI_API_CALL KCL_IOCTL_UnregisterCo
+  */
+ void* ATI_API_CALL KCL_IOCTL_AllocUserSpace32(long size)
+ {
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,36)
++    void __user *ret = arch_compat_alloc_user_space(size);
++#else
+     void __user *ret = COMPAT_ALLOC_USER_SPACE(size);
++#endif
+ 
+     /* prevent stack overflow */
+     if (!access_ok(VERIFY_WRITE, ret, size))
