@@ -4,7 +4,7 @@
 pkgbase=nvidia-llb
 pkgname=('nvidia-llb-utils' 'nvidia-llb-opencl')
 pkgver=295.75
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
