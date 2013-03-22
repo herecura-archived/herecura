@@ -6,7 +6,7 @@
 
 pkgname=catalyst-legacy-utils
 pkgver=13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="AMD/ATI Catalyst legacy drivers utilities and libraries with OpenCL implementation"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
