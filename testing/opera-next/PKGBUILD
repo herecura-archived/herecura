@@ -5,8 +5,8 @@
 # Contributor: totoloco
 pkgname=opera-next # Set to opera if you want to replace your main/stable build
 _bigrelease=12.15
-_buildver=1742
-_randomizer=sepr
+_buildver=1745
+_randomizer=emptsh
 pkgver=${_bigrelease}_${_buildver}
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. Alpha version."
@@ -22,8 +22,8 @@ arch=('i686' 'x86_64')
 _arch=i386
 [ "$CARCH" = "x86_64" ] && _arch=x86_64
 source=(http://snapshot.opera.com/unix/${_randomizer}_${_bigrelease}-${_buildver}/opera-next-${_bigrelease}-${_buildver}.${_arch}.linux.tar.xz)
-md5sums=('b4d1522e178c7b38a6e992d6f122ddb8')
-[ "$CARCH" = "x86_64" ] && md5sums=('1e3d49571c92adf65f06467dede5202d')
+md5sums=('63979b24c0bc31d0724aba744fa1bbfc')
+[ "$CARCH" = "x86_64" ] && md5sums=('d32ee78afabcce76a80a124c687a4752')
 
 # Uncomment the following line, if you want your User Agent to include Arch Linux.
 _opdistro="Arch Linux"
