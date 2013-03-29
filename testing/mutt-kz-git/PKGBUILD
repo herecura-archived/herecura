@@ -1,7 +1,7 @@
 # Contributor: boyska <piuttosto@logorroici.org>
 
 pkgname=mutt-kz-git
-pkgver=20130328
+pkgver=20130329
 pkgrel=1
 pkgdesc="A small but very powerful text-based mail client + integration with notmuch"
 url="https://github.com/karelzak/mutt-kz"
