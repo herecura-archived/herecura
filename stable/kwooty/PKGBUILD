@@ -1,7 +1,7 @@
 # Maintainer: Jimmy Bergström <thekwarf@gmail.com>
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=kwooty
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="A friendly nzb usenet binary downloader for KDE4."
 arch=('i686' 'x86_64')
@@ -23,4 +23,4 @@ package() {
 	cd "$pkgname-$pkgver/build"
 	make DESTDIR="$pkgdir" install
 }
-sha256sums=('5f2c8cfd33d728e910367380e464d2ec93f0e292fb98ae76338cdca68c177819')
+sha256sums=('eea22126a188642e48eb2b70353bae785c5edf686a50564c285d3a5088d31875')
