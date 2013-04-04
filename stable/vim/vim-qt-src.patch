@@ -122,8 +122,8 @@ diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
  
 diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 --- vim-src/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/CMakeLists.txt	2012-08-23 19:26:45.000000000 +0200
-@@ -0,0 +1,114 @@
++++ vim-qt-src/src/CMakeLists.txt	2013-04-04 20:11:26.000000000 +0200
+@@ -0,0 +1,122 @@
 +cmake_minimum_required(VERSION 2.8)
 +
 +find_package(Qt4 REQUIRED)
@@ -201,6 +201,7 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +		qt/vimwrapper.cpp 
 +		qt/fontdialog.cpp
 +		qt/colortable.cpp
++		qt/vimevents.cpp
 +		qt/scrollarea.cpp)
 +
 +set(QVIM_RCS qt/icons.qrc)
@@ -229,7 +230,14 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +		add_definitions(-wd4099)
 +	endif (MSVC)
 +
-+	add_executable(qvim WIN32 ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES} ${QVIM_RC_SRCS})
++	set(SOURCES ${VIM_SOURCES} ${GUI_SOURCES} ${MOC_SOURCES} ${QVIM_RC_SRCS})
++
++	if ( CMAKE_BUILD_TYPE STREQUAL "Debug" )
++		message("Building Debug version")
++		add_executable(qvim ${SOURCES})
++	else ( CMAKE_BUILD_TYPE STREQUAL "Debug" )
++		add_executable(qvim WIN32 ${SOURCES})
++	endif ( CMAKE_BUILD_TYPE STREQUAL "Debug" )
 +
 +	target_link_libraries(qvim ${QT_QTMAIN_LIBRARY} # Link to qtmain.lib to avoid WinMain()
 +				   ${QT_LIBRARIES} )	# Link to Qt
@@ -23657,8 +23665,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2013-02-08 18:47:13.710893512 +0100
-+++ vim-qt-src/src/configure.in	2013-02-08 18:47:26.378015393 +0100
+--- vim-src/src/configure.in	2013-04-04 20:12:19.687133236 +0200
++++ vim-qt-src/src/configure.in	2013-04-04 20:12:40.857291908 +0200
 @@ -1773,11 +1773,11 @@
    fi
  fi
@@ -23975,8 +23983,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2013-02-08 18:47:13.693893349 +0100
-+++ vim-qt-src/src/feature.h	2013-02-08 18:47:26.356015181 +0100
+--- vim-src/src/feature.h	2013-04-04 20:12:19.674133139 +0200
++++ vim-qt-src/src/feature.h	2013-04-04 20:12:40.845291818 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -24174,8 +24182,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
      GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2012-09-05 18:29:40.000000000 +0200
-@@ -0,0 +1,1739 @@
++++ vim-qt-src/src/gui_qt.cpp	2013-04-04 20:11:26.000000000 +0200
+@@ -0,0 +1,1749 @@
 +#include <QApplication>
 +#include <QMessageBox>
 +#include <QDesktopWidget>
@@ -24831,6 +24839,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	if (window->windowState() & Qt::WindowFullScreen ) {
 +		// In fullscreen mode, resize the widget
 +		vimshell->setMaximumSize(width, height);
++	} else if ( window->isMaximized() ) {
++		// Nothing to do here - the windows is maximized
 +	} else {
 +		window->resize( new_width, new_height );
 +	}
@@ -24839,6 +24849,14 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +	// Spin the loop to handle the resize event. This will
 +	// cause gui_resize_shell() to be called
 +	gui_mch_update();
++
++	// Seems redundant but there are cases were the shell might not
++	// call this - because its size is unchanged
++	gui_resize_shell(vimshell->width(), vimshell->height());
++
++	// SHOCKING: it seems gui_get_shellsize() updates the proper values for
++	// the columns and rows, after a resize.
++	gui_get_shellsize();
 +}
 +
 +/**
@@ -27270,38 +27288,38 @@ diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 +};
 +
 +#endif
-Binaire bestanden vim-src/src/qt/icons/document-new.png en vim-qt-src/src/qt/icons/document-new.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/document-open.png en vim-qt-src/src/qt/icons/document-open.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/document-print.png en vim-qt-src/src/qt/icons/document-print.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/document-save-all.png en vim-qt-src/src/qt/icons/document-save-all.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/document-save-as.png en vim-qt-src/src/qt/icons/document-save-as.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/document-save.png en vim-qt-src/src/qt/icons/document-save.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-copy.png en vim-qt-src/src/qt/icons/edit-copy.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-cut.png en vim-qt-src/src/qt/icons/edit-cut.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-find-replace.png en vim-qt-src/src/qt/icons/edit-find-replace.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-find.png en vim-qt-src/src/qt/icons/edit-find.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-paste.png en vim-qt-src/src/qt/icons/edit-paste.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-redo.png en vim-qt-src/src/qt/icons/edit-redo.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/edit-undo.png en vim-qt-src/src/qt/icons/edit-undo.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/folder-new.png en vim-qt-src/src/qt/icons/folder-new.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/folder-open.png en vim-qt-src/src/qt/icons/folder-open.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/go-jump.png en vim-qt-src/src/qt/icons/go-jump.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/go-next.png en vim-qt-src/src/qt/icons/go-next.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/go-previous.png en vim-qt-src/src/qt/icons/go-previous.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/help-contents.png en vim-qt-src/src/qt/icons/help-contents.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/help-faq.png en vim-qt-src/src/qt/icons/help-faq.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/run-build-clean.png en vim-qt-src/src/qt/icons/run-build-clean.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/run-build.png en vim-qt-src/src/qt/icons/run-build.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/system-run.png en vim-qt-src/src/qt/icons/system-run.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/tab-new.png en vim-qt-src/src/qt/icons/tab-new.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/table.png en vim-qt-src/src/qt/icons/table.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/utilities-terminal.png en vim-qt-src/src/qt/icons/utilities-terminal.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/view-split-left-right.png en vim-qt-src/src/qt/icons/view-split-left-right.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/view-split-top-bottom.png en vim-qt-src/src/qt/icons/view-split-top-bottom.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/vim-qt.png en vim-qt-src/src/qt/icons/vim-qt.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/window-close.png en vim-qt-src/src/qt/icons/window-close.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/zoom-fit-height.png en vim-qt-src/src/qt/icons/zoom-fit-height.png zijn verschillend
-Binaire bestanden vim-src/src/qt/icons/zoom-fit-width.png en vim-qt-src/src/qt/icons/zoom-fit-width.png zijn verschillend
+Binary files vim-src/src/qt/icons/document-new.png and vim-qt-src/src/qt/icons/document-new.png differ
+Binary files vim-src/src/qt/icons/document-open.png and vim-qt-src/src/qt/icons/document-open.png differ
+Binary files vim-src/src/qt/icons/document-print.png and vim-qt-src/src/qt/icons/document-print.png differ
+Binary files vim-src/src/qt/icons/document-save-all.png and vim-qt-src/src/qt/icons/document-save-all.png differ
+Binary files vim-src/src/qt/icons/document-save-as.png and vim-qt-src/src/qt/icons/document-save-as.png differ
+Binary files vim-src/src/qt/icons/document-save.png and vim-qt-src/src/qt/icons/document-save.png differ
+Binary files vim-src/src/qt/icons/edit-copy.png and vim-qt-src/src/qt/icons/edit-copy.png differ
+Binary files vim-src/src/qt/icons/edit-cut.png and vim-qt-src/src/qt/icons/edit-cut.png differ
+Binary files vim-src/src/qt/icons/edit-find-replace.png and vim-qt-src/src/qt/icons/edit-find-replace.png differ
+Binary files vim-src/src/qt/icons/edit-find.png and vim-qt-src/src/qt/icons/edit-find.png differ
+Binary files vim-src/src/qt/icons/edit-paste.png and vim-qt-src/src/qt/icons/edit-paste.png differ
+Binary files vim-src/src/qt/icons/edit-redo.png and vim-qt-src/src/qt/icons/edit-redo.png differ
+Binary files vim-src/src/qt/icons/edit-undo.png and vim-qt-src/src/qt/icons/edit-undo.png differ
+Binary files vim-src/src/qt/icons/folder-new.png and vim-qt-src/src/qt/icons/folder-new.png differ
+Binary files vim-src/src/qt/icons/folder-open.png and vim-qt-src/src/qt/icons/folder-open.png differ
+Binary files vim-src/src/qt/icons/go-jump.png and vim-qt-src/src/qt/icons/go-jump.png differ
+Binary files vim-src/src/qt/icons/go-next.png and vim-qt-src/src/qt/icons/go-next.png differ
+Binary files vim-src/src/qt/icons/go-previous.png and vim-qt-src/src/qt/icons/go-previous.png differ
+Binary files vim-src/src/qt/icons/help-contents.png and vim-qt-src/src/qt/icons/help-contents.png differ
+Binary files vim-src/src/qt/icons/help-faq.png and vim-qt-src/src/qt/icons/help-faq.png differ
+Binary files vim-src/src/qt/icons/run-build-clean.png and vim-qt-src/src/qt/icons/run-build-clean.png differ
+Binary files vim-src/src/qt/icons/run-build.png and vim-qt-src/src/qt/icons/run-build.png differ
+Binary files vim-src/src/qt/icons/system-run.png and vim-qt-src/src/qt/icons/system-run.png differ
+Binary files vim-src/src/qt/icons/tab-new.png and vim-qt-src/src/qt/icons/tab-new.png differ
+Binary files vim-src/src/qt/icons/table.png and vim-qt-src/src/qt/icons/table.png differ
+Binary files vim-src/src/qt/icons/utilities-terminal.png and vim-qt-src/src/qt/icons/utilities-terminal.png differ
+Binary files vim-src/src/qt/icons/view-split-left-right.png and vim-qt-src/src/qt/icons/view-split-left-right.png differ
+Binary files vim-src/src/qt/icons/view-split-top-bottom.png and vim-qt-src/src/qt/icons/view-split-top-bottom.png differ
+Binary files vim-src/src/qt/icons/vim-qt.png and vim-qt-src/src/qt/icons/vim-qt.png differ
+Binary files vim-src/src/qt/icons/window-close.png and vim-qt-src/src/qt/icons/window-close.png differ
+Binary files vim-src/src/qt/icons/zoom-fit-height.png and vim-qt-src/src/qt/icons/zoom-fit-height.png differ
+Binary files vim-src/src/qt/icons/zoom-fit-width.png and vim-qt-src/src/qt/icons/zoom-fit-width.png differ
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
 +++ vim-qt-src/src/qt/icons.qrc	2012-06-20 16:40:38.000000000 +0200
@@ -27674,8 +27692,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2012-10-22 20:08:50.000000000 +0200
-@@ -0,0 +1,694 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2013-04-04 20:11:26.000000000 +0200
+@@ -0,0 +1,709 @@
 +#include "qvimshell.moc"
 +
 +#include <QResizeEvent>
@@ -27723,7 +27741,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	setAttribute(Qt::WA_KeyCompression, true);
 +	setAttribute(Qt::WA_InputMethodEnabled, true);
 +	setAttribute(Qt::WA_OpaquePaintEvent, true);
-+	setAutoFillBackground(true);
 +	setAcceptDrops(true);
 +	setMouseTracking(true);
 +}
@@ -27731,9 +27748,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +void QVimShell::setBackground(const QColor color)
 +{
 +	m_background = color;
-+	QPalette p = palette();
-+	p.setColor(QPalette::Window, color);
-+	setPalette(p);
 +	emit backgroundColorChanged(m_background);
 +}
 +
@@ -27755,6 +27769,22 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::resizeEvent(QResizeEvent *ev)
 +{
++	if ( canvas.isNull() ) {
++		QPixmap newCanvas = QPixmap( ev->size() );
++		newCanvas.fill(background());
++		canvas = newCanvas;
++	} else {
++		// Keep old contents
++		QPixmap old = canvas.copy(QRect(QPoint(0,0), ev->size()));
++		canvas = QPixmap( ev->size() );
++		canvas.fill(background()); // FIXME: please optimise me
++
++		{
++		QPainter p(&canvas);
++		p.drawPixmap(QPoint(0,0), old);
++		}
++	}
++
 +	update();
 +
 +	//
@@ -27979,14 +28009,14 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::flushPaintOps()
 +{
-+	QPainter painter(this);
++	QPainter painter(&canvas);
 +	while ( !paintOps.isEmpty() ) {
 +		painter.save();
 +
 +		PaintOperation op = paintOps.dequeue();
 +		switch( op.type ) {
 +		case CLEARALL:
-+			painter.fillRect(rect(), op.color);
++			painter.fillRect(canvas.rect(), op.color);
 +			break;
 +		case FILLRECT:
 +			painter.fillRect(op.rect, op.color);
@@ -28035,19 +28065,16 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			painter.setCompositionMode( QPainter::CompositionMode_SourceOver );
 +			break;
 +		case SCROLLRECT:
-+			// We only support vertical scroll
-+			// i.e. op.pos.x() is ignored
++			painter.restore();
++			painter.end();
 +
-+			int top;
-+			if ( op.pos.y() >= 0 ) {
-+				top = op.rect.top();
-+			} else {
-+				top = op.rect.bottom() + op.pos.y();
-+			}
-+			QRect exposed(op.rect.left(), top, op.rect.width(), qAbs(op.pos.y()));
-+			scroll(op.pos.x(), op.pos.y(), op.rect);
-+			painter.fillRect(exposed, op.color);
-+			break;
++			QRegion exposed;
++			canvas.scroll(op.pos.x(), op.pos.y(),
++					op.rect, &exposed);
++
++			painter.begin(&canvas);
++			painter.fillRect(exposed.boundingRect(), op.color);
++			continue; // exception, skip painter restore
 +		}
 +
 +		painter.restore();
@@ -28057,8 +28084,12 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::paintEvent ( QPaintEvent *ev )
 +{
-+	QWidget::paintEvent(ev);
 +	flushPaintOps();
++
++	QPainter realpainter(this);
++	foreach(const QRect r, ev->region().rects()) {
++		realpainter.drawPixmap(r, canvas, r);
++	}
 +}
 +
 +//
@@ -28251,10 +28282,12 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	}
 +}
 +
-+QVariant QVimShell::inputMethodQuery(Qt::InputMethodQuery query)
++QVariant QVimShell::inputMethodQuery(Qt::InputMethodQuery query) const
 +{
 +	if ( query == Qt::ImFont) {
 +		return font();
++	} else if ( query == Qt::ImMicroFocus ) {
++		return QRect(VimWrapper::cursorPosition(), QSize(0, charHeight()));
 +	}
 +
 +	return QVariant();
@@ -28372,8 +28405,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2012-10-22 20:08:50.000000000 +0200
-@@ -0,0 +1,180 @@
++++ vim-qt-src/src/qt/qvimshell.h	2013-04-04 20:11:26.000000000 +0200
+@@ -0,0 +1,181 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -28417,7 +28450,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	int charWidth();
 +
 +	void setEncodingUtf8(bool);
-+	virtual QVariant inputMethodQuery(Qt::InputMethodQuery);
++	virtual QVariant inputMethodQuery(Qt::InputMethodQuery) const;
 +	void setSlowStringDrawing(bool slow) {m_slowStringDrawing = slow;}
 +
 +	void setBlinkTime(const long waittime, const long ontime, const long offtime);
@@ -28497,6 +28530,7 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	bool m_encoding_utf8;
 +
 +	QQueue<PaintOperation> paintOps;
++	QPixmap canvas;
 +
 +	QTime m_lastClick;
 +	int m_lastClickEvent;
@@ -28756,18 +28790,18 @@ diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 +#endif
 diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
 --- vim-src/src/qt/vimevents.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimevents.cpp	2012-08-29 19:40:34.000000000 +0200
++++ vim-qt-src/src/qt/vimevents.cpp	2013-04-04 20:11:26.000000000 +0200
 @@ -0,0 +1,38 @@
 +#include "vimevents.h"
 +#include "vimwrapper.h"
 +
-+VimEvent::VimEvent(VimWrapper &vim)
-+:vim(vim)
++VimEvent::VimEvent(VimWrapper &vim, EvType t)
++:vim(vim), m_type(t)
 +{
 +}
 +
 +ResizeEvent::ResizeEvent(VimWrapper &vim, int w, int h)
-+:VimEvent(vim), width(w), height(h)
++:VimEvent(vim, Resize), width(w), height(h)
 +{
 +}
 +
@@ -28777,7 +28811,7 @@ diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
 +}
 +
 +CloseEvent::CloseEvent(VimWrapper& vim)
-+:VimEvent(vim)
++:VimEvent(vim, Close)
 +{
 +}
 +
@@ -28787,7 +28821,7 @@ diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
 +}
 +
 +DropEvent::DropEvent(VimWrapper& vim, const QPoint& pos, unsigned int mod, QList<QUrl> urls)
-+:VimEvent(vim), pos(pos), mod(mod), urls(urls)
++:VimEvent(vim, Drop), pos(pos), mod(mod), urls(urls)
 +{
 +}
 +
@@ -28798,8 +28832,8 @@ diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
 +
 diff -urN vim-src/src/qt/vimevents.h vim-qt-src/src/qt/vimevents.h
 --- vim-src/src/qt/vimevents.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimevents.h	2012-08-29 19:40:34.000000000 +0200
-@@ -0,0 +1,47 @@
++++ vim-qt-src/src/qt/vimevents.h	2013-04-04 20:11:26.000000000 +0200
+@@ -0,0 +1,51 @@
 +#ifndef VIM_QT_VIMEVENT
 +#define VIM_QT_VIMEVENT
 +
@@ -28811,10 +28845,14 @@ diff -urN vim-src/src/qt/vimevents.h vim-qt-src/src/qt/vimevents.h
 +// Base class
 +class VimEvent {
 +public:
-+	VimEvent(VimWrapper& vim);
++	enum EvType {Resize, Close, Drop};
++
++	VimEvent(VimWrapper& vim, EvType t);
 +	virtual void handle()=0;
++	EvType type() { return m_type; }
 +protected:
 +	VimWrapper& vim;
++	EvType m_type;
 +};
 +
 +
@@ -28955,8 +28993,8 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2012-09-05 18:29:40.000000000 +0200
-@@ -0,0 +1,419 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2013-04-04 20:11:26.000000000 +0200
+@@ -0,0 +1,435 @@
 +#include <QApplication>
 +#include <QStyle>
 +#include <QMetaType>
@@ -28985,8 +29023,14 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 + */
 +void VimWrapper::postGuiResizeShell(int w, int h)
 +{
-+	ResizeEvent *ev = new ResizeEvent( *this, w, h);
-+	pendingEvents.append(ev);
++	ResizeEvent *new_ev = new ResizeEvent( *this, w, h);
++	foreach(VimEvent *ev, pendingEvents) {
++		if (ev->type() == VimEvent::Resize) {
++			pendingEvents.removeOne(ev);
++			delete ev;
++		}
++	}
++	pendingEvents.append(new_ev);
 +}
 +
 +/*
@@ -29098,7 +29142,12 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	}
 +}
 +
-+
++/**
++ * Map row/column into absolute pixel coordinates
++ *
++ * The returned point is the top left corner of the cell
++ *
++ */
 +QPoint VimWrapper::mapText(int row, int col) 
 +{ 
 +	return QPoint( gui.char_width*col, gui.char_height*row );
@@ -29109,12 +29158,17 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	return mapText(gui.cursor_row, gui.cursor_col);
 +}
 +
++/**
++ * Return a rect from row1/col1 to row2/col2 (inclusive)
++ *
++ * The rect coordinates are in pixels
++ */
 +QRect VimWrapper::mapBlock(int row1, int col1, int row2, int col2)
 +{
 +	QPoint tl = mapText( row1, col1 );
 +	QPoint br = mapText( row2+1, col2+1);
 +	br.setX( br.x()-1 );
-+	br.setY( br.y() );
++	br.setY( br.y()-1 );
 +
 +	return QRect(tl, br);
 +}

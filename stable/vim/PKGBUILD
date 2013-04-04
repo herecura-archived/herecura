@@ -7,7 +7,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
-_patchlevel=875
+_patchlevel=877
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
@@ -15,10 +15,9 @@ _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+#makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
+makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'lesstif' 'tk')
-#makedepends=('gpm' 'perl' 'python2' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-#'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'lesstif')
 options=()
 source=(
 	'vimrc'
@@ -33,7 +32,7 @@ sha256sums=(
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'97fc906ba132d0f5de7ca7ad276316a66db994525441c08c8009088e635d908b'
+	'4125e67ef8978d026daddbe55b556731ba90dda950e469f5034c53eb15bf23c4'
 	'd6ae8e414581a8c497db87226a092380a50cf7f842476e735cffa6d4ff692fd0'
 )
 
@@ -104,7 +103,8 @@ build() {
 		--disable-gui --enable-multibyte --enable-cscope \
 		--disable-netbeans --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-gtk'
@@ -116,7 +116,8 @@ build() {
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-x11'
@@ -128,7 +129,8 @@ build() {
 		--enable-gui=athena --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-motif'
@@ -140,7 +142,8 @@ build() {
 		--enable-gui=motif --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-qt'
@@ -148,13 +151,15 @@ build() {
 	patch -Np1 -i ${srcdir}/vim-qt-src.patch
 	(cd src && autoconf)
 	(cd src/qt && tar -zxf ${srcdir}/qt-icons.tar.gz)
+	export PATH=$PATH:/usr/lib/qt4/bin
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=qt --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 }
 
