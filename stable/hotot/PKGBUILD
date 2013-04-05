@@ -1,15 +1,15 @@
 # Maintainer: speps <speps at aur dot archlinux dot org>
+# vim:set ft=sh ts=2 sw=2 et:
 
 _uname=lyricat
 _commit=e0c78bf
 pkgbase=hotot
-pkgname=hotot
-true && pkgname=('hotot-data' 'hotot-gtk2' 'hotot-gtk3' 'hotot-qt' 'hotot-qt5')
+pkgname=('hotot-data' 'hotot-gtk2' 'hotot-gtk3' 'hotot-qt' 'hotot-qt5')
 #true && pkgname+=('hotot-kde')
 pkgver=0.9.8.13 # broken
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight & open source microblogging software (twitter identi.ca)"
-arch=('any')
+arch=('i686' 'x86_64')
 url="http://www.hotot.org/"
 license=('LGPL3')
 makedepends=('cmake' 'intltool' 'python2' 'qt5-webkit' 'qtwebkit')
@@ -34,7 +34,7 @@ build() {
 }
 
 package_hotot-data() {
-  true && depends=('hicolor-icon-theme')
+  depends=('hicolor-icon-theme')
 
   cd ${srcdir}/$_uname-Hotot-*/bld/misc
   DESTDIR="$pkgdir/" cmake -P cmake_install.cmake
@@ -48,16 +48,14 @@ package_hotot-data() {
 }
 
 package_hotot-qt() {
-  true && arch=('i686' 'x86_64')
-  true && depends=('hotot-data' 'qtwebkit')
+  depends=('hotot-data' 'qtwebkit')
   cd ${srcdir}/$_uname-Hotot-*/bld/qt
 
   DESTDIR="$pkgdir/" cmake -P cmake_install.cmake
 }
 
 package_hotot-qt5() {
-  true && arch=('i686' 'x86_64')
-  true && depends=('hotot-data' 'qt5-webkit')
+  depends=('hotot-data' 'qt5-webkit')
   cd ${srcdir}/$_uname-Hotot-*/bld/qt5
 
   DESTDIR="$pkgdir/" cmake -P cmake_install.cmake
@@ -72,9 +70,9 @@ package_hotot-qt5() {
 #}
 
 package_hotot-gtk2() {
-  true && depends=('hotot-data' 'pywebkitgtk' 'python2-notify' 'python2-pycurl'
+  depends=('hotot-data' 'pywebkitgtk' 'python2-notify' 'python2-pycurl'
                    'python2-keybinder2' 'python2-dbus' 'desktop-file-utils')
-  true && optdepends=('libappindicator: unity menubar integration')
+  optdepends=('libappindicator: unity menubar integration')
   cd ${srcdir}/$_uname-Hotot-*/bld/hotot
 
   DESTDIR="$pkgdir/" cmake -P cmake_install.cmake
@@ -89,9 +87,9 @@ package_hotot-gtk2() {
 }
 
 package_hotot-gtk3() {
-  true && depends=('hotot-data' 'python2-gobject' 'python2-dbus'
+  depends=('hotot-data' 'python2-gobject' 'python2-dbus'
                    'python2-pycurl' 'webkitgtk3' 'desktop-file-utils')
-  true && optdepends=('libappindicator3: unity menubar integration')
+  optdepends=('libappindicator3: unity menubar integration')
   cd ${srcdir}/$_uname-Hotot-*/bld/hotot-gir
 
   DESTDIR="$pkgdir/" cmake -P cmake_install.cmake
@@ -105,4 +103,3 @@ package_hotot-gtk3() {
     "$pkgdir/usr/share/applications/hotot-gtk3.desktop"
 }
 
-# vim:set ts=2 sw=2 et:
