@@ -1,11 +1,12 @@
+# vim:set ft=sh et:
 # Maintainer : BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=313.26
+pkgver=313.30
 _extramodules=3.8-BEDE-external
-pkgrel=2
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -23,12 +24,12 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-$_arch-$pkgver"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('9d4864bb954315197a955fcb348ed1eaa0ceb5cdb74aeba7afc07f58c01aaece')
+    sha256sums=('0a0f10979b1bca8e4a244e204b58aeb9a580924a9dd7b11b21d15abfe1ad49ad')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('a8c24df16ad14750d11bd066f60a3c3e35972472a59ccc3e26dc60a0fd5fdbf3')
+    sha256sums=('57da25838e4941273cf6d04e2bc1c0b3c8f7802b24397897ed2975d5551eedbd')
 fi
 
 build() {
@@ -56,4 +57,3 @@ package() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
 
-# vim:set ft=sh et:
