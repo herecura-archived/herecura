@@ -2,5 +2,3 @@ src
 pkg
 *.log
 *.log.*
-.githash_i686
-.githash_x86_64
