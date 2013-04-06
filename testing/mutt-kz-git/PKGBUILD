@@ -1,7 +1,8 @@
 # Contributor: boyska <piuttosto@logorroici.org>
 
 pkgname=mutt-kz-git
-pkgver=20130404
+_gitname=muttkz
+pkgver=20130402.29d1357
 pkgrel=1
 pkgdesc="A small but very powerful text-based mail client + integration with notmuch"
 url="https://github.com/karelzak/mutt-kz"
@@ -11,25 +12,16 @@ depends=('openssl>=0.9.8e' 'gdbm' 'mime-types' 'zlib' 'libsasl' 'gpgme' 'ncurses
 makedepends=('git' 'gnupg' 'libxslt')
 conflicts=('mutt')
 provides=('mutt')
-options=('!strip')
+#options=('!strip')
+source=("$_gitname::git://github.com/karelzak/mutt-kz.git")
+sha256sums=('SKIP')
 
-_gitroot=git://github.com/karelzak/mutt-kz.git
-_gitname=muttkz
+pkgver() {
+	cd "$srcdir/$_gitname"
+	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git describe --always )
+}
 
 build() {
-	msg "Connecting to GIT server...."
-
-	if [[ -d "$_gitname" ]]; then
-		cd "$_gitname" && git pull origin
-		msg "The local files are updated."
-	else
-		git clone "$_gitroot" "$_gitname"
-	fi
-	cd "$srcdir"
-
-	msg "GIT checkout done or server timeout"
-	msg "Starting build..."
-
 	rm -rf "$srcdir/$_gitname-build"
 	/usr/share/git/workdir/git-new-workdir ${_gitname} ${_gitname}-build master
 	cd "$srcdir/$_gitname-build"
