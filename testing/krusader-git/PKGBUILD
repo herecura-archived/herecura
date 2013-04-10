@@ -1,7 +1,9 @@
+# vim:set ft=sh:
 # Contributor: BlackEagle < ike DOT devolder AT gmail DOT com >
 
 pkgname=krusader-git
-pkgver=20130401
+_gitname='krusader'
+pkgver=20130405.v2.4.0-beta3-68-g492bdd5
 pkgrel=1
 pkgdesc="Krusader - Twin Panel File Management For Your Desktop - GIT version"
 arch=('i686' 'x86_64')
@@ -12,33 +14,15 @@ makedepends=('git' 'cmake' 'automoc4')
 provides=('krusader')
 conflicts=('krusader')
 replaces=('krusader' 'krusader-svn')
-source=()
-md5sums=()
+source=("$_gitname::git://anongit.kde.org/krusader")
+md5sums=('SKIP')
 
-if [ -e .githash_${CARCH} ] ; then
-	_gitphash=$(cat .githash_${CARCH})
-else
-	_gitphash=""
-fi
-
-_gitname="krusader"
-_gitroot="git://anongit.kde.org/krusader"
+pkgver() {
+	cd "$srcdir/$_gitname"
+	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git describe --always )
+}
 
 build() {
-	if [ -d ${srcdir}/${_gitname}/.git ] ; then
-		( cd ${srcdir}/${_gitname} && git pull origin )
-		msg "The local files are updated."
-	else
-		( git clone --depth 1 ${_gitroot} ${_gitname} )
-	fi
-	msg "GIT checkout done or server timeout"
-
-	cd ${_gitname}
-	if [ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ]; then
-		msg "Git hash is the same as previous build"
-		return 1
-	fi
-
 	msg "creating build directory"
 	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
@@ -53,5 +37,4 @@ build() {
 package() {
 	cd ${_gitname}-build
 	make DESTDIR=${pkgdir} install
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
