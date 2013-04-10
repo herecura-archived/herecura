@@ -1,10 +1,12 @@
+# vim:set ft=sh:
 # Maintainer: mickele <mimocciola at yahoo dot com>
 # Contributor: BlackEagle <ike DOT devolder AT gmail DOT com>
 # Contributor: Ilmari Repo <ilmari at gmail dot com> (librecad-svn PKGBUILD)
 # Contributor: GazJ Gary James <garyjames82 at gmail dot com> (CADuntu PKGBUILD)
 
 pkgname=librecad-git
-pkgver=20130320
+_gitname="librecad"
+pkgver=20130410.6d85a7d
 pkgrel=1
 pkgdesc="A 2D CAD drawing tool based on the community edition of QCad."
 arch=('i686' 'x86_64')
@@ -14,33 +16,15 @@ depends=('qt4' 'boost-libs')
 makedepends=('git' 'boost' 'muparser')
 provides=('librecad')
 replaces=('librecad-svn' 'caduntu' 'caduntu-svn')
-source=()
-md5sums=()
+source=("$_gitname::git://github.com/LibreCAD/LibreCAD.git")
+md5sums=('SKIP')
 
-if [ -e .githash_$CARCH ] ; then
-	_gitphash=$(cat .githash_$CARCH)
-else
-	_gitphash=""
-fi
-
-_gitname="librecad"
-_gitroot="git://github.com/LibreCAD/LibreCAD.git"
+pkgver() {
+	cd "$srcdir/$_gitname"
+	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
+}
 
 build() {
-	if [ -d $srcdir/$_gitname/.git ] ; then
-		( cd $srcdir/$_gitname && git pull origin )
-		msg "The local files are updated."
-	else
-		( git clone --depth 1 $_gitroot $_gitname )
-	fi
-	msg "GIT checkout done or server timeout"
-
-	cd $_gitname
-	if [ "$_gitphash" == $(git show | grep -m 1 commit | sed 's/commit //') ]; then
-		msg "Git hash is the same as previous build"
-		return 1
-	fi
-
 	msg "creating build directory"
 	cd "$srcdir"
 	[ -d $_gitname-build ] && rm -rf $_gitname-build
