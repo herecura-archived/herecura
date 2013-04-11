@@ -66,5 +66,3 @@ package() {
 	mkdir ${pkgdir}/etc/conf.d
 	install -D -m 644 data/sysconfig.snapper ${pkgdir}/etc/conf.d/snapper
 }
-
-# vim:set ts=2 sw=2 et:
