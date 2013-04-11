@@ -1,42 +1,27 @@
+# vim:set ft=sh:
 # Contributor: Piotr Husiatyński <phusiatynski@gmail.com>
 # Contributor: lp76 <l.peduto@gmail.com>
 
 pkgname=python2-pymongo-git
-pkgver=20130329
+_gitname="mongo-python-driver"
+pkgver=20130409.1615430
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
+arch=('i686' 'x86_64')
 license=("APACHE")
 url="http://pypi.python.org/pypi/pymongo/"
 depends=('python2') 
 provides=('python2-pymongo')
 makedepends=('python2-distribute' 'git')
-source=()
-arch=('i686' 'x86_64')
+source=("$_gitname::git://github.com/mongodb/mongo-python-driver.git")
+sha256sums=('SKIP')
 
-if [ -e .githash_${CARCH} ] ; then
-	_gitphash=$(cat .githash_${CARCH})
-else
-	_gitphash=""
-fi
-
-_gitname="mongo-python-driver"
-_gitroot="git://github.com/mongodb/mongo-python-driver.git"
+pkgver() {
+	cd "$srcdir/$_gitname"
+	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
+}
 
 build() {
-	if [ -d ${srcdir}/${_gitname}/.git ] ; then
-		( cd ${srcdir}/${_gitname} && git pull origin )
-		msg "The local files are updated."
-	else
-		( git clone --depth 1 ${_gitroot} ${_gitname} )
-	fi
-	msg "GIT checkout done or server timeout"
-
-	cd ${_gitname}
-	if [ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ]; then
-		msg "Git hash is the same as previous build"
-		return 1
-	fi
-
 	msg "creating build directory"
 	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
@@ -46,5 +31,4 @@ build() {
 package() {
 	cd ${_gitname}-build
 	python2 setup.py install --root=$pkgdir
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
