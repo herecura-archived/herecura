@@ -1,3 +1,4 @@
+# vim:set ft=sh:
 # Contributor: boyska <piuttosto@logorroici.org>
 
 pkgname=mutt-kz-git
