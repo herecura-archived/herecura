@@ -1,8 +1,10 @@
+# vim:set ft=sh:
 #Maintainer: David Lehmann <dtl@voxelbrain.com>
 #Contributor: Sebastian Friedel <sef@voxelbrain.com>
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
-pkgver=20130316
+_gitname="mongo"
+pkgver=20130411.359b0b8
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
@@ -15,38 +17,22 @@ conflicts=('mongodb')
 install=${pkgname}.install
 backup=('etc/mongodb.conf')
 source=(
+	"$_gitname::git://github.com/mongodb/mongo.git"
 	'mongodb.rc'
 	'mongodb.conf'
 )
 sha256sums=(
+	'SKIP'
 	'5ba40a3c2d1c67f7617f010e660e2a0c609dcf5c5e7c897d7ac6843167d8329f'
 	'f3fc037c704d67c68c7d69c46878af3d8a601e48ca51105835f740cddb1b2b2e'
 )
 
-if [ -e .githash_${CARCH} ] ; then
-	_gitphash=$(cat .githash_${CARCH})
-else
-	_gitphash=""
-fi
-
-_gitname="mongo"
-_gitroot="git://github.com/mongodb/mongo.git"
+pkgver() {
+	cd "$srcdir/$_gitname"
+	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
+}
 
 build() {
-	if [ -d ${srcdir}/${_gitname}/.git ] ; then
-		( cd ${srcdir}/${_gitname} && git pull origin )
-		msg "The local files are updated."
-	else
-		( git clone --depth 1 ${_gitroot} ${_gitname} )
-	fi
-	msg "GIT checkout done or server timeout"
-
-	cd ${_gitname}
-	if [ "${_gitphash}" == $(git show | grep -m 1 commit | sed 's/commit //') ]; then
-		msg "Git hash is the same as previous build"
-		return 1
-	fi
-
 	msg "creating build directory"
 	cd ${srcdir}
 	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
@@ -69,6 +55,4 @@ package() {
 	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
 	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
 	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
-
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
