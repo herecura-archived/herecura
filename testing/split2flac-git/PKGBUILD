@@ -1,9 +1,11 @@
+# vim:set ft=sh:
 # Maintainer: graysky <graysky AT archlinux DOT us>
 # Contributer: Serge Ziryukin <ftrvxmtrx@gmail.com>
 # Contributor: Cyril Lashkevich <notorca at gmail dot com>
 
 pkgname=split2flac-git
-pkgver=20121104
+_gitname="split2flac"
+pkgver=20120215.fe1f5a2
 pkgrel=1
 pkgdesc="Split flac/ape/wv/wav + cue sheet into separate tracks"
 arch=('any')
@@ -28,30 +30,12 @@ optdepends=(
 	'enca:         to automatically detect cue sheet charset'
 )
 makedepends=('git')
+source=("$_gitname::git://github.com/ftrvxmtrx/split2flac.git")
+sha256sums=('SKIP')
 
-if [ -e .githash_${CARCH} ] ; then
-	_gitphash=$(cat .githash_${CARCH})
-else
-	_gitphash=""
-fi
-
-_gitroot="git://github.com/ftrvxmtrx/split2flac.git"
-_gitname="split2flac"
-
-build () {
-	if [ -d ${srcdir}/${_gitname}/.git ] ; then
-		( cd ${srcdir}/${_gitname} && git pull origin )
-		msg "The local files are updated."
-	else
-		( git clone --depth 1 ${_gitroot} ${_gitname} )
-	fi
-	msg2 "GIT checkout done or server timeout"
-
-	cd ${_gitname}
-	if [ "${_gitphash}" = "$(git show | grep -m 1 commit | sed 's/commit //')" ]; then
-		msg "Git hash is the same as previous build"
-		return 1
-	fi
+pkgver() {
+	cd "$srcdir/$_gitname"
+	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
 }
 
 package () {
@@ -66,6 +50,4 @@ package () {
 		ln -s split2flac split2m4a
 		ln -s split2flac split2wav
 	)
-
-	git show | grep -m 1 commit | sed 's/commit //' > ${startdir}/.githash_${CARCH}
 }
