@@ -3,7 +3,7 @@
 
 pkgname=libbluray-git
 _gitname="libbluray"
-pkgver=20130412.8645255
+pkgver=20130412.7fbea70
 pkgrel=1
 pkgdesc="Blu-Ray access library"
 arch=('i686' 'x86_64')
