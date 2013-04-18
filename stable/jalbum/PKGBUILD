@@ -3,7 +3,7 @@
 
 pkgname=jalbum
 pkgver=11.1.5
-pkgrel=1
+pkgrel=2
 pkgdesc="free web photo album software and photo gallery software"
 url="http://jalbum.net/"
 license=('custom' 'lgpl')
@@ -57,6 +57,6 @@ package() {
 	install -Dm644 "$srcdir/jalbum.desktop" "$pkgdir/usr/share/applications/$pkgname.desktop"
 	install -Dm755 "$srcdir/jalbum.sh" "$pkgdir/usr/bin/jalbum"
 }
-sha256sums=('76390437ade1cbc0baa2f4b867ab972becae97f2a2348dd4fc19903f263ae12b'
+sha256sums=('25f929c3228bba270722501e4995dd3b9e08a58b3c760728ee8fbbfb6043677d'
             'e1efa97077ac34ba3473cc1440f3a1427baea61e3a807d80efa6cf95c33eaf32'
             '7a059d23bd78e18681e5d960b213ef0cd2d4f37954bee40340409b459436fb33')
