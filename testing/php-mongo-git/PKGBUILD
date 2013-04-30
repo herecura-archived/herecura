@@ -3,7 +3,7 @@
 # Maintainer: Richard Rowe <arch.richard@gmail.com>
 pkgname=php-mongo-git
 _gitname="mongo-php-driver"
-pkgver=20130426.2efdfe3
+pkgver=20130429.4ade85f
 pkgrel=1
 pkgdesc="Officially supported PHP driver for MongoDB"
 arch=("i686" "x86_64")
