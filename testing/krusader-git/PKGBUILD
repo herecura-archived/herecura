@@ -3,7 +3,7 @@
 
 pkgname=krusader-git
 _gitname='krusader'
-pkgver=20130425.3e88118
+pkgver=20130503.c8eded1
 pkgrel=1
 pkgdesc="Krusader - Twin Panel File Management For Your Desktop - GIT version"
 arch=('i686' 'x86_64')
