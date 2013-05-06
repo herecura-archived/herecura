@@ -1,5 +1,6 @@
 # $Id:
-# Maintainer: BlackIkeEagle <ike DOT devolder AT gmail DOT com>
+# Maintainer: winlu
+# Contributor: BlackIkeEagle <ike DOT devolder AT gmail DOT com>
 
 pkgname=shairplay-git
 _gitname=shairplay
@@ -8,7 +9,7 @@ pkgrel=1
 pkgdesc='Apple airplay and raop protocol server'
 arch=('i686' 'x86_64')
 url='https://github.com/juhovh/shairplay'
-license=('BSD')
+license=('GPLv3')
 depends=('libao')
 makedepends=('git')
 source=("$_gitname::git://github.com/juhovh/shairplay.git")
@@ -23,10 +24,10 @@ pkgver() {
 }
 
 build() {
-    cd $_gitname
+	cd $_gitname
 	./autogen.sh
-    ./configure --prefix=/usr/
-    make
+	./configure --prefix=/usr/
+	make
 }
 
 
