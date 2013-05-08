@@ -7,12 +7,12 @@
 
 pkgname=catalyst-legacy-slk
 pkgver=13.1
-pkgrel=5
+pkgrel=6
 pkgdesc="AMD/ATI Catalyst legacy drivers for linux. fglrx kernel module only"
 arch=('i686' 'x86_64')
 url="http://www.ati.amd.com"
 license=('custom')
-depends=('linux-slk>=3.2.43' 'linux-slk<3.6' 'catalyst-legacy-utils')
+depends=('linux-slk>=3.2.44' 'linux-slk<3.6' 'catalyst-legacy-utils')
 makedepends=('gcc-libs' 'gcc>4.0.0' 'make' 'linux-slk-headers')
 conflicts=('catalyst-test' 'nvidia' 'xf86-video-ati' 'xf86-video-radeonhd' 'ati-dri' 'catalyst-slk')
 provides=('catalyst' 'catalyst-slk')
