@@ -3,7 +3,7 @@
 
 pkgname=snapper-git
 _gitname='snapper'
-pkgver=20130304.59f16d0
+pkgver=20130503.4145ab7
 pkgrel=1
 pkgdesc="A tool for managing btrfs snapshots. It can compare snapshots and revert differences between snapshots."
 provides=('snapper')
@@ -24,43 +24,38 @@ pkgver() {
 }
 
 build() {
-	msg "creating build directory"
-	cd ${srcdir}
-	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
-	/usr/share/git/workdir/git-new-workdir ${_gitname} ${_gitname}-build master
-
 	msg "Starting make..."
-	cd ${_gitname}-build
+	cd ${_gitname}
 	# use /etc/conf.d instead of /etc/sysconfig
 	sed -i -e 's@/etc/sysconfig@/etc/conf.d@g' \
-		  snapper/SnapperDefines.h \
-		  scripts/* \
-		  doc/*
+		snapper/SnapperDefines.h \
+		scripts/* \
+		doc/*
 	# don't install zypper plugin
 	sed -i '/usr\/lib\/zypp/d' scripts/Makefile.am
 	# rename cron scripts
 	sed -i -e 's@suse.de-@@g' scripts/Makefile.am
 
-  # boost fixlets
-  # don't link against non-existant libbost_thread-mt
-  sed -i -e 's@lboost_thread-mt@lboost_thread@g' snapper/Makefile.am
-  # add -lboost_system
-  sed -E -i 's@snapperd_LDADD(.*)@snapperd_LDADD\1 \-lboost_system@g' server/Makefile.am
-  sed -E -i 's@snapper_LDADD(.*)@snapper_LDADD\1 \-lboost_system@g' client/Makefile.am
+	# boost fixlets
+	# don't link against non-existant libbost_thread-mt
+	sed -i -e 's@lboost_thread-mt@lboost_thread@g' snapper/Makefile.am
+	# add -lboost_system
+	sed -E -i 's@snapperd_LDADD(.*)@snapperd_LDADD\1 \-lboost_system@g' server/Makefile.am
+	sed -E -i 's@snapper_LDADD(.*)@snapper_LDADD\1 \-lboost_system@g' client/Makefile.am
+	sed -E -i 's@LDADD(.*)@LDADD\1 \-lboost_system@g' examples/Makefile.am
+	sed -E -i 's@LDADD(.*)@LDADD\1 \-lboost_system@g' testsuite-cmp/Makefile.am
 
-	sed -e 's/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/g' -i configure.in
 	aclocal
 	libtoolize --force --automake --copy
 	autoheader
 	automake --add-missing --copy
 	autoconf
-	export CPPFLAGS="-I/usr/include/python3.2mu"
-	./configure --prefix=/usr
+	./configure --prefix=/usr --with-conf=/etc/conf.d
 	make
 }
 
 package() {
-	cd ${_gitname}-build
+	cd ${_gitname}
 	msg2 "Running make install"
 	make DESTDIR=${pkgdir} install
 	mkdir ${pkgdir}/etc/conf.d
