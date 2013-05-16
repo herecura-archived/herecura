@@ -5,19 +5,17 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-x11' 'vim-gvim-motif' 'vim-gvim-qt' 'vim-rt')
+pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt')
 _basever=7.3
 _patchlevel=960
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-#makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'libxt' 'desktop-file-utils' 'gtk2' 'libxaw'
-'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'lesstif' 'tk')
+makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'desktop-file-utils' 'gtk2' 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4')
 options=()
 source=(
 	'vimrc'
@@ -62,8 +60,6 @@ build() {
 	[ -d vim-build ] && rm -rf vim-build
 	[ -d vim-build-tn ] && rm -rf vim-build-tn
 	[ -d gvim-build-gtk ] && rm -rf gvim-build-gtk
-	[ -d gvim-build-x11 ] && rm -rf gvim-build-x11
-	[ -d gvim-build-motif ] && rm -rf gvim-build-motif
 	[ -d gvim-build-qt ] && rm -rf gvim-build-qt
 
 	cp -a ${pkgbase} vim-build
@@ -79,8 +75,6 @@ build() {
 
 	cp -a vim-build vim-build-tn
 	cp -a vim-build gvim-build-gtk
-	cp -a vim-build gvim-build-x11
-	cp -a vim-build gvim-build-motif
 	cp -a vim-build gvim-build-qt
 
 	msg2 'Building vim-tiny'
@@ -114,32 +108,6 @@ build() {
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
-		--enable-netbeans  --enable-perlinterp=dynamic \
-		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--disable-rubyinterp --enable-luainterp=dynamic
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
-	make
-
-	msg2 'Building vim-gvim-x11'
-	cd ${srcdir}/gvim-build-x11
-	(cd src && autoconf)
-	./configure --prefix=/usr --localstatedir=/var/lib/vim \
-		--mandir=/usr/share/man --with-compiledby=BlackEagle \
-		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
-		--enable-gui=athena --enable-multibyte --enable-cscope \
-		--enable-netbeans  --enable-perlinterp=dynamic \
-		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--disable-rubyinterp --enable-luainterp=dynamic
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
-	make
-
-	msg2 'Building vim-gvim-motif'
-	cd ${srcdir}/gvim-build-motif
-	(cd src && autoconf)
-	./configure --prefix=/usr --localstatedir=/var/lib/vim \
-		--mandir=/usr/share/man --with-compiledby=BlackEagle \
-		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
-		--enable-gui=motif --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
 		--disable-rubyinterp --enable-luainterp=dynamic
@@ -212,7 +180,7 @@ package_vim-cli() {
 
 package_vim-gvim-gtk() {
 	pkgdesc='Vi Improved, gtk gui'
-	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'gtk2')
+	depends=('vim-cli' 'desktop-file-utils' 'gtk2')
 	conflicts=('gvim')
 	provides=('gvim')
 	install=gvim.install
@@ -249,87 +217,9 @@ package_vim-gvim-gtk() {
 		${pkgdir}/usr/share/licenses/vim-gvim-gtk/license.txt
 }
 
-package_vim-gvim-x11() {
-	pkgdesc='Vi Improved, x11 (athena) gui'
-	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'libxaw')
-	conflicts=('gvim')
-	provides=('gvim')
-	install=gvim.install
-
-	cd ${srcdir}/gvim-build-x11
-	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
-
-	# move vim to gvim
-	rm -f ${pkgdir}/usr/bin/gvim
-	mv ${pkgdir}/usr/bin/{vim,gvim}
-	# remove files provided by vim-cli
-	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
-	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
-	# recreate gvim symlinks
-	(
-	cd ${pkgdir}/usr/bin
-	for link in eview evim gview gvimdiff rgview rgvim; do
-		rm -f ${link}
-		ln -s gvim ${link}
-	done
-	)
-
-	# Runtime provided by runtime package
-	rm -r ${pkgdir}/usr/share/vim
-
-	# freedesktop links
-	install -Dm644 ${srcdir}/gvim.desktop \
-		${pkgdir}/usr/share/applications/gvim.desktop
-	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
-
-	# license
-	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-x11
-	install -Dm644 ${srcdir}/license.txt \
-		${pkgdir}/usr/share/licenses/vim-gvim-x11/license.txt
-}
-
-package_vim-gvim-motif() {
-	pkgdesc='Vi Improved, motif gui'
-	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'lesstif')
-	conflicts=('gvim')
-	provides=('gvim')
-	install=gvim.install
-
-	cd ${srcdir}/gvim-build-motif
-	make -j1 VIMRCLOC=/etc DESTDIR=${pkgdir} install
-
-	# move vim to gvim
-	rm -f ${pkgdir}/usr/bin/gvim
-	mv ${pkgdir}/usr/bin/{vim,gvim}
-	# remove files provided by vim-cli
-	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
-	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
-	# recreate gvim symlinks
-	(
-	cd ${pkgdir}/usr/bin
-	for link in eview evim gview gvimdiff rgview rgvim; do
-		rm -f ${link}
-		ln -s gvim ${link}
-	done
-	)
-
-	# Runtime provided by runtime package
-	rm -r ${pkgdir}/usr/share/vim
-
-	# freedesktop links
-	install -Dm644 ${srcdir}/gvim.desktop \
-		${pkgdir}/usr/share/applications/gvim.desktop
-	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
-
-	# license
-	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-motif
-	install -Dm644 ${srcdir}/license.txt \
-		${pkgdir}/usr/share/licenses/vim-gvim-motif/license.txt
-}
-
 package_vim-gvim-qt() {
 	pkgdesc='Vi Improved, qt gui'
-	depends=('vim-cli' 'libxt' 'desktop-file-utils' 'qt4')
+	depends=('vim-cli' 'desktop-file-utils' 'qt4')
 	conflicts=('gvim')
 	provides=('gvim')
 	install=gvim.install
