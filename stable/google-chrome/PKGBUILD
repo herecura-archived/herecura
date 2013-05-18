@@ -5,13 +5,13 @@
 
 pkgname=google-chrome
 pkgver=26.0.1410.63   # Check for new Linux releases in: http://googlechromereleases.blogspot.com/search/label/Stable%20updates
-pkgrel=1
+pkgrel=2
 pkgdesc="An attempt at creating a safer, faster, and more stable browser (Stable Channel)"
 arch=('i686' 'x86_64')
 url="http://www.google.com/chrome"
 license=('custom:chrome')
 depends=('alsa-lib' 'gconf' 'gtk2' 'hicolor-icon-theme' 'libpng' 'libxslt' 'libxss' 'nss' 'ttf-font' 'xdg-utils')
-optdepends=('kdebase-kdialog: needed for file dialogs in KDE' 'ttf-google-webfonts')
+optdepends=('kdebase-kdialog: needed for file dialogs in KDE' 'ttf-google-fonts-git')
 provides=("google-chrome=$pkgver")
 conflicts=('google-chrome')
 options=(!strip)
