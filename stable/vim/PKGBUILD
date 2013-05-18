@@ -11,7 +11,7 @@ _basever=7.3
 _patchlevel=967
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
-pkgrel=2
+pkgrel=3
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -239,6 +239,8 @@ package_vim-gvim-qt() {
 	# remove files provided by vim-cli
 	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
 	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
+	# move gvimtutor to qvimtutor
+	mv ${pkgdir}/usr/bin/{gvimtutor,qvimtutor}
 	# recreate gvim symlinks
 	(
 	cd ${pkgdir}/usr/bin
