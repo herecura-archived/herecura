@@ -1,3 +1,4 @@
+# vim:set ft=sh:
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # thx for the original vim pkg:
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
@@ -5,7 +6,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgbase=vim
-pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt')
+pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.3
 _patchlevel=967
 pkgver=${_basever}.${_patchlevel}
@@ -24,14 +25,18 @@ source=(
 	'license.txt'
 	'vim-qt-src.patch'
 	'qt-icons.tar.gz'
+	'qvim.desktop'
+	'qvim.png'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
 	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'4125e67ef8978d026daddbe55b556731ba90dda950e469f5034c53eb15bf23c4'
-	'd6ae8e414581a8c497db87226a092380a50cf7f842476e735cffa6d4ff692fd0'
+	'a8d7b2d4be0874ce4aa00d354f92622034055fe3d25a3145d3cc082a86f1683d'
+	'f9121acfdf0a1af93148d06236e382682450bdcf85f75d4f72685b5711d0e36e'
+	'e61684f12ec23944903e37deb9d902a072ffa71d7c00fedea32c1176d84dc9bd'
+	'c530f9d5dc6beb2cfa9e4e60dc8f74e1a26694d9f090f7ab0d40f8e963cfb280'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -180,8 +185,7 @@ package_vim-cli() {
 
 package_vim-gvim-gtk() {
 	pkgdesc='Vi Improved, gtk gui'
-	depends=('vim-cli' 'desktop-file-utils' 'gtk2')
-	conflicts=('gvim')
+	depends=('vim-cli' 'vim-gvim-common' 'desktop-file-utils' 'gtk2')
 	provides=('gvim')
 	install=gvim.install
 
@@ -206,6 +210,9 @@ package_vim-gvim-gtk() {
 	# Runtime provided by runtime package
 	rm -r ${pkgdir}/usr/share/vim
 
+	# Move the man pages for common packaging
+	mv ${pkgdir}/usr/share/man ${srcdir}/gvim-man-install
+
 	# freedesktop links
 	install -Dm644 ${srcdir}/gvim.desktop \
 		${pkgdir}/usr/share/applications/gvim.desktop
@@ -219,8 +226,7 @@ package_vim-gvim-gtk() {
 
 package_vim-gvim-qt() {
 	pkgdesc='Vi Improved, qt gui'
-	depends=('vim-cli' 'desktop-file-utils' 'qt4')
-	conflicts=('gvim')
+	depends=('vim-cli' 'vim-gvim-common' 'desktop-file-utils' 'qt4')
 	provides=('gvim')
 	install=gvim.install
 
@@ -229,14 +235,14 @@ package_vim-gvim-qt() {
 
 	# move vim to gvim
 	rm -f ${pkgdir}/usr/bin/gvim
-	mv ${pkgdir}/usr/bin/{vim,gvim}
+	mv ${pkgdir}/usr/bin/{vim,qvim}
 	# remove files provided by vim-cli
 	rm -f ${pkgdir}/usr/bin/{vimtutor,xxd,rview,rvim,view,vimdiff,ex}
 	rm -f ${pkgdir}/usr/share/man/*{,/*}/{vim*,vimtutor*,xxd*,rview*,rvim*,view*,vimdiff*,ex*}
 	# recreate gvim symlinks
 	(
 	cd ${pkgdir}/usr/bin
-	for link in eview evim gview gvimdiff rgview rgvim; do
+	for link in qview qvimdiff rqview rqvim; do
 		rm -f ${link}
 		ln -s gvim ${link}
 	done
@@ -245,10 +251,13 @@ package_vim-gvim-qt() {
 	# Move the runtime for later packaging
 	mv ${pkgdir}/usr/share/vim ${srcdir}/runtime-install
 
+	# remove the man pages for common packaging
+	rm -r ${pkgdir}/usr/share/man
+
 	# freedesktop links
-	install -Dm644 ${srcdir}/gvim.desktop \
-		${pkgdir}/usr/share/applications/gvim.desktop
-	install -Dm644 runtime/vim48x48.png ${pkgdir}/usr/share/pixmaps/gvim.png
+	install -Dm644 ${srcdir}/qvim.desktop \
+		${pkgdir}/usr/share/applications/qvim.desktop
+	install -Dm644 ${srcdir}/qvim.png ${pkgdir}/usr/share/pixmaps/qvim.png
 
 	# license
 	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-qt
@@ -293,4 +302,16 @@ package_vim-rt() {
 		${pkgdir}/usr/share/licenses/vim-rt/license.txt
 }
 
-# vim:set ft=sh:
+package_vim-gvim-common() {
+	pkgdesc='common files for gvim/qvim'
+
+	# Install the common split from gvim/qvim
+	install -dm755 ${pkgdir}/usr/share
+	mv ${srcdir}/gvim-man-install ${pkgdir}/usr/share/man
+
+	# license
+	install -dm755 ${pkgdir}/usr/share/licenses/vim-gvim-common
+	install -Dm644 ${srcdir}/license.txt \
+		${pkgdir}/usr/share/licenses/vim-gvim-common/license.txt
+}
+
