@@ -3,7 +3,7 @@
 
 pkgname=snapper-git
 _gitname='snapper'
-pkgver=20130503.4145ab7
+pkgver=20130522.6e48042
 pkgrel=1
 pkgdesc="A tool for managing btrfs snapshots. It can compare snapshots and revert differences between snapshots."
 provides=('snapper')
