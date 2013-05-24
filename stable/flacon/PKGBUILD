@@ -1,6 +1,6 @@
 # Contributor: Artem Sereda <overmind88@gmail.com>
 pkgname=flacon
-pkgver=0.7.2
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Extracts individual tracks from one big audio file containing the \
  entire album of music and saves them as separate audio files."
@@ -27,4 +27,4 @@ package() {
 	  -i flacon.py
   make DESTDIR="$pkgdir" install
 }
-sha256sums=('b10cfe6d7f99c3b64082edc5bf926c1759714719ef5ec99065f92df4c7da87ac')
+sha256sums=('d2889b364ea49b19c400ce8081d829e5a37149dfdcb82d55f6ab453b679d1f85')
