@@ -1,13 +1,13 @@
 # Contributor: Artem Sereda <overmind88@gmail.com>
 pkgname=flacon
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Extracts individual tracks from one big audio file containing the \
  entire album of music and saves them as separate audio files."
 arch=('any')
 url="http://code.google.com/p/flacon/"
 license=('GPL')
-depends=('python2-qt' 'shntool')
+depends=('python2-pyqt' 'shntool' 'python2-chardet')
 optdepends=(
   'flac: for decoding and encoding FLAC files'
   'mac: for decoding APE files'
