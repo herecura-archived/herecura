@@ -8,7 +8,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.3
-_patchlevel=1109
+_patchlevel=1119
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
@@ -28,7 +28,7 @@ source=(
 	'qvim.desktop'
 	'qvim.png'
 	'if_perl.xs.fix.patch'
-	'breakindent3.patch'
+	#'breakindent3.patch'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
@@ -40,7 +40,7 @@ sha256sums=(
 	'e61684f12ec23944903e37deb9d902a072ffa71d7c00fedea32c1176d84dc9bd'
 	'c530f9d5dc6beb2cfa9e4e60dc8f74e1a26694d9f090f7ab0d40f8e963cfb280'
 	'737824c7566469dcba0a1fd283efb578b141ca0bbd2363e4311e227860de9014'
-	'9543da6e0c741c52819e3f88ba2e9da694fdfed2054041d95ff0eb761ffbcfcd'
+	#'9543da6e0c741c52819e3f88ba2e9da694fdfed2054041d95ff0eb761ffbcfcd'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -75,7 +75,7 @@ build() {
 	(
 		cd vim-build && rm -rf ./.hg*
 		patch -Np1 -i ${srcdir}/if_perl.xs.fix.patch
-		patch -Np1 -i ${srcdir}/breakindent3.patch
+		#patch -Np1 -i ${srcdir}/breakindent3.patch
 	)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
