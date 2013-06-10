@@ -1,4 +1,6 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Contributor: Jarek Sedlacek <jareksedlacek@gmail.com>
+
 pkgname=php-mongo
 pkgver=1.4.1
 pkgrel=1
@@ -13,10 +15,14 @@ source=(
 	"mongo.ini"
 )
 
-package() {
+build() {
 	cd mongo-$pkgver
 	phpize
 	./configure --prefix=/usr --enable-mongo
+}
+
+package() {
+	cd mongo-$pkgver
 	make INSTALL_ROOT="$pkgdir" install
 	install -Dm644 "$srcdir/mongo.ini" "$pkgdir/etc/php/conf.d/mongo.ini"
 }
