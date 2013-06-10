@@ -3,7 +3,7 @@
 
 pkgname=lcdproc
 pkgver=0.5.6
-pkgrel=2
+pkgrel=3
 pkgdesc="Utility to drive one or more LCD (and LCD-like) devices"
 url="http://lcdproc.omnipotent.net/"
 license="GPL"
