@@ -3,19 +3,21 @@
 
 pkgname=snapper-git
 _gitname='snapper'
-pkgver=20130523.e881ede
+pkgver=20130607.ea70470
 pkgrel=1
-pkgdesc="A tool for managing btrfs snapshots. It can compare snapshots and revert differences between snapshots."
+pkgdesc="A tool for managing BTRFS and LVM snapshots. It can create, diff and restore snapshots and provides timelined auto-snapping."
 provides=('snapper')
 conflicts=('snapper')
 arch=('i686' 'x86_64')
 url="http://en.opensuse.org/Portal:Snapper"
 license=('GPL2')
-depends=('libxml2' 'openssl' 'pcre' 'python')
-makedepends=('git' 'boost' 'swig')
+depends=('btrfs-progs' 'libxml2' 'dbus')
+makedepends=('boost' 'lvm2' 'libxslt' 'docbook-xsl' 'pam' 'git')
 backup=('etc/conf.d/snapper')
-source=("$_gitname::git://github.com/openSUSE/snapper.git")
-sha256sums=('SKIP')
+source=("$_gitname::git://github.com/openSUSE/snapper.git"
+        'btrfs-master.patch')
+sha256sums=('SKIP'
+            'e8b441f4f8f615ea2d2bdd819105d085ec890a0f0e601dc54ea46c6abf543891')
 install=snapper.install
 
 pkgver() {
@@ -26,38 +28,43 @@ pkgver() {
 build() {
 	msg "Starting make..."
 	cd ${_gitname}
-	# use /etc/conf.d instead of /etc/sysconfig
-	sed -i -e 's@/etc/sysconfig@/etc/conf.d@g' \
-		snapper/SnapperDefines.h \
-		scripts/* \
-		doc/*
-	# don't install zypper plugin
-	sed -i '/usr\/lib\/zypp/d' scripts/Makefile.am
+
 	# rename cron scripts
 	sed -i -e 's@suse.de-@@g' scripts/Makefile.am
+	# fix config location in cron scripts
+	sed -i -e 's@/etc/sysconfig/@/etc/conf.d/@g' scripts/snapper-{daily,hourly}
 
-	# boost fixlets
-	# don't link against non-existant libbost_thread-mt
+	# boost fixlets - Arch doesn't use -mt suffix
 	sed -i -e 's@lboost_thread-mt@lboost_thread@g' snapper/Makefile.am
-	# add -lboost_system
-	sed -E -i 's@snapperd_LDADD(.*)@snapperd_LDADD\1 \-lboost_system@g' server/Makefile.am
-	sed -E -i 's@snapper_LDADD(.*)@snapper_LDADD\1 \-lboost_system@g' client/Makefile.am
-	sed -E -i 's@LDADD(.*)@LDADD\1 \-lboost_system@g' examples/Makefile.am
-	sed -E -i 's@LDADD(.*)@LDADD\1 \-lboost_system@g' testsuite-cmp/Makefile.am
+	sed -i -e 's@lboost_system-mt@lboost_system@g' snapper/Makefile.am
+
+	# fix pam plugin install location
+	sed -i -e 's@shell echo /@shell echo /usr/@g' pam/Makefile.am
+	# Arch all in /usr/bin
+	sed -i -e 's@/usr/sbin@/usr/bin@g' data/org.opensuse.Snapper.service
+
+	# https://github.com/openSUSE/snapper/issues/19
+	[[ -n `pacman -Q|grep btrfs-progs-git` ]] && patch -p1 < $srcdir/btrfs-master.patch
 
 	aclocal
 	libtoolize --force --automake --copy
 	autoheader
 	automake --add-missing --copy
 	autoconf
-	./configure --prefix=/usr --with-conf=/etc/conf.d
+	./configure --prefix=/usr \
+		--sbindir=/usr/bin \
+		--with-conf=/etc/conf.d \
+		--disable-zypp \
+		--disable-silent-rules \
+		--disable-ext4 \
+		--enable-xattrs
 	make
 }
 
 package() {
 	cd ${_gitname}
-	msg2 "Running make install"
 	make DESTDIR=${pkgdir} install
+	rm -f ${pkgdir}/usr/lib/security/pam_snapper.la ${pkgdir}/usr/lib/libsnapper.la
 	mkdir ${pkgdir}/etc/conf.d
 	install -D -m 644 data/sysconfig.snapper ${pkgdir}/etc/conf.d/snapper
 }
