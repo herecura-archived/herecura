@@ -4,10 +4,10 @@
 _uname=lyricat
 _commit=1f68d33
 pkgbase=hotot
-pkgname=('hotot-data' 'hotot-gtk2' 'hotot-gtk3' 'hotot-qt4' 'hotot-qt')
+pkgname=('hotot-data' 'hotot-gtk2' 'hotot-gtk3' 'hotot-qt4' 'hotot-qt5')
 #true && pkgname+=('hotot-kde')
 pkgver=0.9.8.14 # identi.ca broken
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight & open source microblogging software (twitter identi.ca)"
 arch=('i686' 'x86_64')
 url="http://www.hotot.org/"
@@ -54,7 +54,7 @@ package_hotot-qt4() {
   DESTDIR="$pkgdir/" cmake -P cmake_install.cmake
 }
 
-package_hotot-qt() {
+package_hotot-qt5() {
   depends=('hotot-data' 'qt5-webkit')
   cd ${srcdir}/Hotot-*/bld/qt5
 
