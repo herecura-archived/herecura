@@ -16,7 +16,7 @@ _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
 url="http://www.vim.org"
-makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'desktop-file-utils' 'gtk2' 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4')
+makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'desktop-file-utils' 'gtk2' 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'ruby')
 options=()
 source=(
 	'vimrc'
@@ -103,12 +103,12 @@ build() {
 	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
-		--with-features=huge --enable-gpm --enable-acl --with-x=no \
+		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
 		--disable-gui --enable-multibyte --enable-cscope \
 		--disable-netbeans --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--disable-rubyinterp --enable-luainterp=dynamic
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		#--disable-rubyinterp --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-gtk'
@@ -120,8 +120,8 @@ build() {
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--disable-rubyinterp --enable-luainterp=dynamic
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		#--disable-rubyinterp --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-qt'
@@ -136,8 +136,8 @@ build() {
 		--enable-gui=qt --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--disable-rubyinterp --enable-luainterp=dynamic
-		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
+		#--disable-rubyinterp --enable-luainterp=dynamic
 	make
 }
 
