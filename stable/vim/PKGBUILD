@@ -8,7 +8,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.3
-_patchlevel=1196
+_patchlevel=1200
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
@@ -27,7 +27,6 @@ source=(
 	'qt-icons.tar.gz'
 	'qvim.desktop'
 	'qvim.png'
-	'if_perl.xs.fix.patch'
 )
 sha256sums=(
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
@@ -38,7 +37,6 @@ sha256sums=(
 	'f9121acfdf0a1af93148d06236e382682450bdcf85f75d4f72685b5711d0e36e'
 	'e61684f12ec23944903e37deb9d902a072ffa71d7c00fedea32c1176d84dc9bd'
 	'c530f9d5dc6beb2cfa9e4e60dc8f74e1a26694d9f090f7ab0d40f8e963cfb280'
-	'737824c7566469dcba0a1fd283efb578b141ca0bbd2363e4311e227860de9014'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -72,7 +70,6 @@ build() {
 	cp -a ${pkgbase} vim-build
 	(
 		cd vim-build && rm -rf ./.hg*
-		patch -Np1 -i ${srcdir}/if_perl.xs.fix.patch
 	)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
