@@ -4,7 +4,7 @@
 
 pkgname=csslint-git
 _gitname="csslint"
-pkgver=20130605.646d205
+pkgver=20130616.8930035
 pkgrel=1
 pkgdesc="Automated linting of Cascading Stylesheets."
 url="http://csslint.net/"
