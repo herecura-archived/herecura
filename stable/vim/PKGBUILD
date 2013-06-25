@@ -159,7 +159,7 @@ package_vim-tiny() {
 
 package_vim-cli() {
 	pkgdesc='Vi Improved, cli'
-	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm')
+	depends=("vim-rt=${pkgver}-${pkgrel}" 'gpm' 'libxt')
 	optdepends=(
 		'perl: vim perl binding'
 		'python2: vim python2 binding'
