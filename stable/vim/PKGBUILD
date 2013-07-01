@@ -8,7 +8,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.3
-_patchlevel=1280
+_patchlevel=1281
 pkgver=${_basever}.${_patchlevel}
 __hgrev=v${pkgver//./-}
 pkgrel=1
