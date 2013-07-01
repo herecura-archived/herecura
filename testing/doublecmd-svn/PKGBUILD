@@ -2,8 +2,9 @@
 # Contributor: (sirocco AT ngs.ru)
 
 pkgbase=doublecmd-svn
+_svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
-pkgver=5043
+pkgver=5244
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('i686' 'x86_64')
@@ -12,22 +13,16 @@ install="$pkgbase.install"
 provides=('doublecmd')
 conflicts=('doublecmd')
 makedepends=('lazarus' 'qt4pas' 'gtk2' 'subversion')
-optdepends=('lua: scripting' 'p7zip: support for 7zip archives' 'libunrar: support for rar archives' 'zip: support for zip files' 'unzip: support for zip files')
-source=()
+optdepends=('lua51: scripting' 'p7zip: support for 7zip archives' 'libunrar: support for rar archives' 'zip: support for zip files' 'unzip: support for zip files')
+source=("$_svnmod::svn://svn.code.sf.net/p/doublecmd/code/trunk")
+md5sums=('SKIP')
 
-_svntrunk=http://doublecmd.svn.sourceforge.net/svnroot/doublecmd/trunk
-_svnmod=doublecmd
+pkgver() {
+	cd "$srcdir/$_svnmod"
+	svnversion | tr -d [A-z]
+}
 
 build() {
-	if [ -d $_svnmod/.svn ]; then
-		cd $_svnmod && svn up -r $pkgver
-		cd "$srcdir"
-	else
-		svn co $_svntrunk --config-dir ./ $_svnmod
-	fi
-	msg "SVN checkout done or server timeout"
-	msg "Starting make..."
-
 	[ -d $pkgbase-gtk ] && rm -rf $pkgbase-gtk
 	[ -d $pkgbase-qt  ] && rm -rf $pkgbase-qt
 
