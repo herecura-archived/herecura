@@ -3,7 +3,7 @@
 
 pkgname=google-chrome
 pkgver=28.0.1500.63   # Check for new Linux releases in: http://googlechromereleases.blogspot.com/search/label/Stable%20updates
-pkgrel=1
+pkgrel=2
 pkgdesc="An attempt at creating a safer, faster, and more stable browser (Stable Channel)"
 arch=('i686' 'x86_64')
 url="https://www.google.com/chrome"
@@ -48,4 +48,7 @@ package() {
 
   msg2 "Removing the Debian-intended cron job and duplicated images"
   rm "$pkgdir"/etc/cron.daily/google-chrome "$pkgdir"/opt/google/chrome/product_logo_*
+  
+  msg2 "Working around ~/libpeerconnection.log"
+  sed '/exec/i \# Workaround for the creation of libpeerconnection.log in $HOME\ncd /tmp\n' -i "$pkgdir"/opt/google/chrome/google-chrome
 }
