@@ -1,9 +1,12 @@
 # Maintainer: Det <nimetonmaili at gmail a-dot com>
 # Contributors: t3ddy, Lex Rivera aka x-demon, ruario
 
-pkgname=google-chrome   # Check for new Linux releases in: http://googlechromereleases.blogspot.com/search/label/Beta%20updates
-pkgver=28.0.1500.70     # or use: $ curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df |
-pkgrel=1                #           awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
+# Check for new Linux releases in: http://googlechromereleases.blogspot.com/search/label/Stable%20updates
+# or use: $ curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df | awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
+
+pkgname=google-chrome
+pkgver=28.0.1500.71
+pkgrel=1
 pkgdesc="An attempt at creating a safer, faster, and more stable browser (Stable Channel)"
 arch=('i686' 'x86_64')
 url="https://www.google.com/chrome"
@@ -20,9 +23,9 @@ _arch=i386
 [ "$CARCH" = 'x86_64' ] && _arch=amd64
 source=("google-chrome-${_channel}_${pkgver}_${_arch}.deb::https://dl.google.com/linux/direct/google-chrome-${_channel}_current_${_arch}.deb"
         "$url/intl/en/eula_text.html")
-md5sums=('4025ef771ba03c912c49112d8c51c646'
+md5sums=('19ec74343b5396760d5d6c88d7282cfb'
          '6d57da7476a4b1b7a81821d9c036425c')
-[ "$CARCH" = 'x86_64' ] && md5sums[0]='1609b9b818e0eac7cac2225b712dd73f'
+[ "$CARCH" = 'x86_64' ] && md5sums[0]='03de683b0e9b8bf77db17060c8113d4d'
 
 
 package() {
