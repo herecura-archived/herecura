@@ -10,7 +10,7 @@
 
 pkgname=xbmc-git
 _gitname='xbmc'
-pkgver=20130703.34a2157
+pkgver=20130704.868c8b0
 pkgrel=1
 pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
