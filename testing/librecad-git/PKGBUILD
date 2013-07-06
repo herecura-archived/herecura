@@ -6,7 +6,7 @@
 
 pkgname=librecad-git
 _gitname="librecad"
-pkgver=20130412.263d4f3
+pkgver=20130703.ac2ba98
 pkgrel=1
 pkgdesc="A 2D CAD drawing tool based on the community edition of QCad."
 arch=('i686' 'x86_64')
@@ -25,14 +25,10 @@ pkgver() {
 }
 
 build() {
-	msg "creating build directory"
-	cd "$srcdir"
-	[ -d $_gitname-build ] && rm -rf $_gitname-build
-	/usr/share/git/workdir/git-new-workdir ${_gitname} ${_gitname}-build master
-
 	msg "Starting make..."
-	cd $_gitname-build
+	cd $_gitname
 
+	export PATH="/usr/lib/qt4/bin:${PATH}"
 	qmake-qt4 librecad.pro
 	make
 
@@ -47,7 +43,7 @@ build() {
 }
 
 package() {
-	cd $_gitname-build
+	cd $_gitname
 	install -Dm 755 unix/librecad "$pkgdir/usr/bin/librecad"
 	install -Dm 755 unix/ttf2lff "$pkgdir/usr/bin/ttf2lff"
 	install -Dm 644 desktop/librecad.desktop "$pkgdir/usr/share/applications/librecad.desktop"
@@ -56,5 +52,4 @@ package() {
 	cp -r unix/resources/{library,patterns,fonts,qm,doc} "$pkgdir/usr/share/librecad/"
 	mkdir -p "$pkgdir/usr/lib/librecad/"
 	cp -r unix/resources/plugins "$pkgdir/usr/lib/librecad/"
-	git show | grep -m 1 commit | sed 's/commit //' > "$startdir/.githash_$CARCH"
 }
