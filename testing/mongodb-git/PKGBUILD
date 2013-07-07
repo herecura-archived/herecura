@@ -4,7 +4,7 @@
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
 _gitname="mongo"
-pkgver=20130412.ef3d06f
+pkgver=20130705.bdf9a87
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
@@ -33,25 +33,19 @@ pkgver() {
 }
 
 build() {
-	msg "creating build directory"
-	cd ${srcdir}
-	[ -d ${_gitname}-build ] && rm -rf ${_gitname}-build
-	/usr/share/git/workdir/git-new-workdir ${_gitname} ${_gitname}-build master
+	cd ${_gitname}
 
-	msg "Starting make..."
-	cd ${_gitname}-build
-
-	sed -i 's|lib64|lib|g' SConstruct
-	sed -i '/-Werror/d' SConstruct
+	#sed -i 's|lib64|lib|g' SConstruct
+	#sed -i '/-Werror/d' SConstruct
 
 	export SCONSFLAGS="${MAKEFLAGS}"
 	scons all --usev8 --full
 }
 
 package() {
-	cd ${_gitname}-build
-	#scons install --usev8 --full --prefix="${startdir}/pkg/usr"
-	scons install --prefix="${startdir}/pkg/usr"
+	cd ${_gitname}
+	scons install --usev8 --full --prefix="${startdir}/pkg/usr"
+	#scons install --prefix="${startdir}/pkg/usr"
 	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
 	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
 	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
