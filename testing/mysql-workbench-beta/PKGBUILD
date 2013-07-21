@@ -7,14 +7,14 @@
 pkgname='mysql-workbench-beta'
 _pkgname='mysql-workbench'
 pkgver=6.0.3
-pkgrel=0.2
+pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
 license=('GPL2')
 depends=('ctemplate' 'desktop-file-utils' 'gtkmm' 'hicolor-icon-theme'
 	'libgnome-keyring' 'libiodbc' 'libzip' 'lua51' 'mysql-connector-c++'
-	'python2' 'tinyxml' 'vsqlite++' 'unixodbc')
+	'python2' 'tinyxml' 'unixodbc' 'vsqlite++')
 optdepends=('gnome-keyring: store SSH/MySQL passwords in GNOME password manager')
 makedepends=('boost' 'curl' 'mesa' 'cmake')
 options=('!libtool !distcc !ccache')
