@@ -1,0 +1,50 @@
+# vim:set ft=sh:
+# Maintainer: BlackIkeEagle <ike DOT devolder AT gmail DOT com>
+# Contributor: Illarion Kovalchuk <illarion.kovalchuk@gmail.com>
+# Contributor: totoloco <totoloco at gmail _dot_com>
+# Contributor: Ionut Biru <ibiru@archlinux.org>
+
+pkgname='mysql-workbench-beta'
+_pkgname='mysql-workbench'
+pkgver=6.0.3
+pkgrel=0.2
+pkgdesc="A cross-platform, visual database design tool developed by MySQL"
+arch=('i686' 'x86_64')
+url="https://www.mysql.com/products/workbench/"
+license=('GPL2')
+depends=('ctemplate' 'desktop-file-utils' 'gtkmm' 'hicolor-icon-theme'
+	'libgnome-keyring' 'libiodbc' 'libzip' 'lua51' 'mysql-connector-c++'
+	'python2' 'tinyxml' 'vsqlite++' 'unixodbc')
+optdepends=('gnome-keyring: store SSH/MySQL passwords in GNOME password manager')
+makedepends=('boost' 'curl' 'mesa' 'cmake')
+options=('!libtool !distcc !ccache')
+provides=('mysql-workbench')
+conflicts=('mysql-workbench')
+
+source=("http://cdn.mysql.com/Downloads/MySQLGUITools/${_pkgname}-gpl-${pkgver}-src.tar.gz")
+
+build() {
+	cd "${srcdir}/${_pkgname}-gpl-${pkgver}-src"
+
+	cmake . \
+		-DPYTHON_INCLUDE_DIR=/usr/include/python2.7 \
+		-DPYTHON_LIBRARY=/usr/lib/libpython2.7.so \
+		-DLUA_INCLUDE_DIR=/usr/include/lua5.1 \
+		-DLUA_LIBRARY=/usr/lib/liblua5.1.so \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	make
+}
+
+package() {
+	cd "${srcdir}/${_pkgname}-gpl-${pkgver}-src"
+
+	make DESTDIR="${pkgdir}" install
+
+	#cd ${pkgdir}/usr/share/mysql-workbench/
+	#for i in *.py *.glade
+	#do
+		#ln -s /usr/share/mysql-workbench/$i ${pkgdir}/usr/lib/mysql-workbench/modules/
+	#done
+}
+
+sha256sums=('2f3cf0fb0ab39ac875495b65427124f131023aa2b4cd917598045d74baa4dd78')
