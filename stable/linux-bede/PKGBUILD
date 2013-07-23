@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
 _patchver=2
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc')
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
-	'a4cdf0de1f42d859c2118d0f3f3ed63e26c9907b1717cd441bec8b89c37dec45'
-	'd6b3f785e41775ed88e0ecd34bd370577294ba3f7dfd4a944a9a076539dad030'
+	'335b4d97c300d7f58a6f492d84f6ec121979065f3b93263227ab3aa6e99f601f'
+	'281fddbe00d687e6216bf64d38aad14de9aa267bf7b75b4578e7da648ca54c46'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 )
 
