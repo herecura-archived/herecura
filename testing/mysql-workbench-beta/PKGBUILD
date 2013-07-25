@@ -6,8 +6,8 @@
 
 pkgname='mysql-workbench-beta'
 _pkgname='mysql-workbench'
-pkgver=6.0.3
-pkgrel=1.4
+pkgver=6.0.4
+pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -42,4 +42,4 @@ package() {
 	make DESTDIR="${pkgdir}" install
 }
 
-sha256sums=('2f3cf0fb0ab39ac875495b65427124f131023aa2b4cd917598045d74baa4dd78')
+sha256sums=('119422f265d40693e6459f388e45d72fd59560048482be7d51c25f0d1b45733e')
