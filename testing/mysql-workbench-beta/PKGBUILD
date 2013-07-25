@@ -7,7 +7,7 @@
 pkgname='mysql-workbench-beta'
 _pkgname='mysql-workbench'
 pkgver=6.0.3
-pkgrel=1.3
+pkgrel=1.4
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
