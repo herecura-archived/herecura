@@ -7,12 +7,12 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
-_patchver=2
+_patchver=3
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
-makedepends=('bc')
+makedepends=('bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
@@ -39,7 +39,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'1ffe98282ddacfd8df1d0aa1eaf419be8f09d80cbb1aa90c805057d1f0154884'
+		'28f1bc33ec70e963a604330e1c28d356a830c1e5349bbdb5d8b9c257a6fff81c'
 	)
 fi
 
