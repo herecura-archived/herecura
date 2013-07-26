@@ -7,7 +7,7 @@
 pkgname='mysql-workbench-beta'
 _pkgname='mysql-workbench'
 pkgver=6.0.4
-pkgrel=1
+pkgrel=1.5
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -25,7 +25,9 @@ conflicts=('mysql-workbench')
 source=("http://cdn.mysql.com/Downloads/MySQLGUITools/${_pkgname}-gpl-${pkgver}-src.tar.gz")
 
 build() {
-	cd "${srcdir}/${_pkgname}-gpl-${pkgver}-src"
+	cd "$_pkgname-gpl-$pkgver-src"
+
+	[ -f MakeFile ] && make clean
 
 	cmake . \
 		-DPYTHON_INCLUDE_DIR=/usr/include/python2.7 \
@@ -37,7 +39,7 @@ build() {
 }
 
 package() {
-	cd "${srcdir}/${_pkgname}-gpl-${pkgver}-src"
+	cd "$_pkgname-gpl-$pkgver-src"
 
 	make DESTDIR="${pkgdir}" install
 }
