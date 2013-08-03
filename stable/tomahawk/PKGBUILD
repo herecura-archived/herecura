@@ -9,25 +9,24 @@
 # See http://techbase.kde.org/Development/CMake/Addons_for_KDE#Buildtypes to check what is supported.
 # Default is RelWithDebInfo to help with debugging.
 
-_buildtype="RelWithDebInfo"
+_buildtype="Release"
 
 ##############################################################
 
 pkgname=tomahawk
-pkgver=0.6.0
-pkgrel=1
+pkgver=0.7.0
+pkgrel=2
 pkgdesc="A Music Player App written in C++/Qt"
 arch=('i686' 'x86_64')
 url="http://tomahawk-player.org/"
 license=('GPL3')
 depends=('phonon' 'taglib' 'boost' 'clucene' 'libechonest2' 'jreen' 'qtweetlib' 'quazip' 'attica' 'qtwebkit' 'liblastfm')
-makedepends=('git' 'cmake')
-optdepends=('tomahawk-spotify-git: spotify resolver')
+makedepends=('cmake')
 provides=('tomahawk')
 conflicts=('tomahawk-git')
 options=(!strip)
 source=("http://download.tomahawk-player.org/${pkgname}-${pkgver}.tar.bz2")
-sha256sums=('28ea3b1424a99879bf9457f04b3ce8e63dca9ee84e6651027a1ecad9d74ae335')
+md5sums=('98b7f5bc43e017379f5cd3834f19e90d')
 
 install=tomahawk.install
 
@@ -41,7 +40,8 @@ build() {
   mkdir ${srcdir}/${pkgname}-${pkgver}-build
   cd ${srcdir}/${pkgname}-${pkgver}-build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr \
+  cmake -DBUILD_WITH_QT4=on \
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=lib \
         -DCMAKE_INSTALL_LIBEXECDIR=lib/${pkgname} \
         -DCMAKE_BUILD_TYPE=${_buildtype} \
