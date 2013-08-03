@@ -16,8 +16,8 @@ _buildtype="Release"
 
 _pkgname=libechonest
 pkgname=${_pkgname}2
-pkgver=2.0.1
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc="C++ library for interfacing with Echo Nest"
 arch=('i686' 'x86_64')
 url="https://projects.kde.org/projects/playground/libs/libechonest"
@@ -27,8 +27,8 @@ makedepends=('cmake' 'pkg-config')
 provides=('libechonest')
 conflicts=('libechonest-git' 'libechonest')
 options=(!strip)
-source=(http://pwsp.cleinias.com/${_pkgname}-${pkgver}.tar.bz2)
-md5sums=('d6dd16dd6ee28d279b4ec9fa64f67af3')
+source=("http://files.lfranchi.com/${_pkgname}-${pkgver}.tar.bz2")
+md5sums=('96d98dbc5b3b155b277a9901d1133c5e')
 
 # Clean options array to strip pkg if release buildtype is chosen
 if [[ ${_buildtype} == "Release" ]] || [[ ${_buildtype} == "release" ]]; then
@@ -36,11 +36,16 @@ if [[ ${_buildtype} == "Release" ]] || [[ ${_buildtype} == "release" ]]; then
 fi
 
 build() {
+  cd ${srcdir}/${_pkgname}-${pkgver}
+
   if [[ -e ${srcdir}/${_pkgname}-${pkgver}-build ]]; then rm -rf ${srcdir}/${_pkgname}-${pkgver}-build; fi
   mkdir ${srcdir}/${_pkgname}-${pkgver}-build
   cd ${srcdir}/${_pkgname}-${pkgver}-build
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=${_buildtype} ../${_pkgname}-${pkgver}
+  cmake -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=${_buildtype} \
+        ../${_pkgname}-${pkgver}
   make
 }
 
