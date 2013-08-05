@@ -6,8 +6,8 @@
 
 pkgname='mysql-workbench-beta'
 _pkgname='mysql-workbench'
-pkgver=6.0.4
-pkgrel=2
+pkgver=6.0.5
+pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -18,15 +18,16 @@ depends=('ctemplate' 'desktop-file-utils' 'gtkmm' 'hicolor-icon-theme'
 	'python2-paramiko' 'python2-pexpect' 'python2-pysqlite')
 optdepends=('gnome-keyring: store SSH/MySQL passwords in GNOME password manager')
 makedepends=('boost' 'curl' 'mesa' 'cmake')
+install='mysql-workbench.install'
 options=('!libtool !distcc !ccache')
 provides=('mysql-workbench')
 conflicts=('mysql-workbench')
 
-source=("http://cdn.mysql.com/Downloads/MySQLGUITools/${_pkgname}-gpl-${pkgver}-src.tar.gz")
-sha256sums=('119422f265d40693e6459f388e45d72fd59560048482be7d51c25f0d1b45733e')
+source=("http://cdn.mysql.com/Downloads/MySQLGUITools/${_pkgname}-community-${pkgver}-src.tar.gz")
+sha256sums=('1f65dc93937c49e9df3b46ce9fc8897f1545e2eb6459d857c7cbfcaa0fbe26ad')
 
 build() {
-	cd "$_pkgname-gpl-$pkgver-src"
+	cd "$_pkgname-community-$pkgver-src"
 
 	cmake . \
 		-DPYTHON_INCLUDE_DIR=/usr/include/python2.7 \
@@ -38,9 +39,9 @@ build() {
 }
 
 package() {
-	cd "$_pkgname-gpl-$pkgver-src"
+	cd "$_pkgname-community-$pkgver-src"
 
 	make DESTDIR="${pkgdir}" install
 
-	cd .. && rm -rf "$_pkgname-gpl-$pkgver-src"
+	cd .. && rm -rf "$_pkgname-community-$pkgver-src"
 }
