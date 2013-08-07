@@ -4,9 +4,9 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=319.32
+pkgver=325.15
 _extramodules=3.10-BEDE-external
-pkgrel=5
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -24,16 +24,13 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-$_arch-$pkgver"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('ee63bdb16ff8cc42c0ed487db37d1a612fffdd969fce8c0155afa6f57e8c320b')
+    sha256sums=('3d790e4bfed24641f7cc76879144ab5d52b12271012ba381b0d33aa1a2e08775')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('953dbf4979b2d81b4a66430c967878b51174ab4408556addf3641b75074646a0')
+    sha256sums=('ee0dfa35c9b4da27a85684911a11236b82d63c171e0537624cce8ceccb7056e3')
 fi
-
-source+=('nvidia-linux-3.10.patch')
-sha256sums+=('0baac0d6734c687dc5219f2df161f33d59a150c42f8522ff0e4ea7d9a4791f5a')
 
 build() {
     _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
@@ -41,7 +38,6 @@ build() {
     [ -d "$_pkg" ] && rm -rf "$_pkg"
     sh $_pkg.run --extract-only
     cd $_pkg/kernel
-    patch -Np2 -i ${srcdir}/nvidia-linux-3.10.patch
     make SYSSRC=/usr/lib/modules/$_kernver/build module
 }
 
