@@ -4,7 +4,7 @@
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
 _gitname="mongo"
-pkgver=20130813.e2f7e8e
+pkgver=20130814.c9b019d
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
