@@ -1,13 +1,13 @@
-# $Id: PKGBUILD 78820 2012-10-25 06:47:28Z foutrelis $
+# $Id$
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=closure-linter
 pkgver=2.3.11
-pkgrel=1
+pkgrel=2
 pkgdesc="A JavaScript style checker and style fixer"
 arch=('any')
 url="http://code.google.com/closure"
 license=('APACHE')
-depends=('python2' 'python2-gflags' 'python2-distribute')
+depends=('python2-gflags' 'python2-setuptools')
 source=("http://$pkgname.googlecode.com/files/${pkgname/-/_}-$pkgver.tar.gz")
 
 build() {
