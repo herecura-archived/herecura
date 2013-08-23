@@ -3,8 +3,7 @@
 pkgname=chromium-pepper-flash-stable
 pkgdesc="Google Chrome's Pepper Flash plugin for Chromium (stable version)"
 pkgver=11.8.800.115
-pkgrel=1
-epoch=1
+pkgrel=2
 _verbld=29.0.1547.57-217859
 _channel='stable'
 arch=('i686' 'x86_64')
