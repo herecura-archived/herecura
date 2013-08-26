@@ -5,26 +5,33 @@
 pkgname=shairplay-git
 _gitname=shairplay
 pkgver=20130808.c892072
-pkgrel=1
+pkgrel=2
 pkgdesc='Apple airplay and raop protocol server'
 arch=('i686' 'x86_64')
 url='https://github.com/juhovh/shairplay'
-license=('GPLv3')
+license=('custom')
 depends=('libao')
+optdepends=('avahi: to run the server')
 makedepends=('git')
-source=("$_gitname::git://github.com/juhovh/shairplay.git")
-sha256sums=('SKIP')
+source=("$_gitname::git://github.com/juhovh/shairplay.git"
+	'shairplay.service')
+sha256sums=('SKIP'
+	'f0a176539a6c5be46dc832d054be2f18c3256e5fd34c5f1416c9463bd75c82b3')
 options=(!libtool)
 provides=('libshairport')
 conflicts=('libshairport')
 
 pkgver() {
 	cd "$srcdir/$_gitname"
-	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
+	git log -1 --date=short --format="%cd.%h" | tr -d '-'
 }
 
 build() {
 	cd $_gitname
+
+	# installing airport.key to /etc/shairplay/
+	sed 's/airport.key/\/etc\/shairplay\/airport.key/' -i "$srcdir/$_gitname"/src/shairplay.c
+
 	./autogen.sh
 	./configure --prefix=/usr/
 	make
@@ -34,4 +41,16 @@ build() {
 package() {
 	cd $_gitname
 	make DESTDIR="$pkgdir" install
+
+	# install systemd service file
+	install -Dm644 "$srcdir/shairplay.service" "$pkgdir/usr/lib/systemd/system/shairplay.service"
+
+	# install key file
+	install -Dm644 airport.key "$pkgdir/etc/shairplay/airport.key"
+
+	# install license file
+	install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+	# install documentation
+	install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
 }
