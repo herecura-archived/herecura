@@ -6,11 +6,11 @@
 pkgbase=virtualbox-modules-slk
 pkgname=('virtualbox-modules-slk-host' 'virtualbox-modules-slk-guest')
 pkgver=4.2.16
-pkgrel=8
+pkgrel=9
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-slk>=3.10.9' 'linux-slk<3.11' 'linux-slk-headers>=3.10' 'linux-slk-headers<3.11'
+makedepends=('linux-slk>=3.10.10' 'linux-slk<3.11' 'linux-slk-headers>=3.10' 'linux-slk-headers<3.11'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-slk'
