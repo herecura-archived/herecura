@@ -7,7 +7,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname='mysql-workbench'
-pkgver=6.0.6
+pkgver=6.0.7
 pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
@@ -25,10 +25,6 @@ options=('!libtool !distcc !ccache')
 source=(
 	"http://cdn.mysql.com/Downloads/MySQLGUITools/${pkgname}-community-${pkgver}-src.tar.gz"
 	'arch_linux_profile.xml'
-)
-sha256sums=(
-	'729b55a68b9c104506b000bc77200c17170e57cfbcba76824350cd54627679f6'
-	'1aa3cc7bf83470e81eca766114a597fa57542316818732011c8ea67e52197c7e'
 )
 
 build() {
@@ -52,3 +48,5 @@ package() {
 	# dirty trick to clean build env
 	cd .. && rm -rf "$pkgname-community-$pkgver-src"
 }
+sha256sums=('e75c992952822dd91582e7073f4e9b2aa09fb85630b4460b86762da43909f793'
+            '1aa3cc7bf83470e81eca766114a597fa57542316818732011c8ea67e52197c7e')
