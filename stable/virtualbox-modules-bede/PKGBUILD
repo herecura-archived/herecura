@@ -5,8 +5,8 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=4.2.16
-pkgrel=11
+pkgver=4.2.18
+pkgrel=1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -14,13 +14,9 @@ makedepends=('linux-bede>=3.11' 'linux-bede<3.12' 'linux-bede-headers>=3.11' 'li
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
-    '60-vboxguest.rules'
-    'kernel_3.11_guest.patch'
-    'kernel_3.11_host.patch')
+    '60-vboxguest.rules')
 md5sums=('f2200ed91b6ec089d16cc3ada5418c73'
-    'ed1341881437455d9735875ddf455fbe'
-    'ee35534e60fe34d1a518d73be2ba01b8'
-    '7622e5e32b34c1f1283b64c6ec98503f')
+    'ed1341881437455d9735875ddf455fbe')
 
 _extramodules=3.11-BEDE-external
 
@@ -32,17 +28,8 @@ build() {
     echo "dkms_tree='$srcdir/dkms'" > dkms.conf
     # build host modules
     msg2 'Host modules'
-    (
-        cd "dkms/vboxhost/$pkgver/source/"
-        patch -Np1 -i "$srcdir/kernel_3.11_host.patch"
-    )
     dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
     # build guest modules
-    msg2 'Guest modules'
-    (
-        cd "dkms/vboxguest/$pkgver/source/"
-        patch -Np1 -i "$srcdir/kernel_3.11_guest.patch"
-    )
     dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
 }
 
