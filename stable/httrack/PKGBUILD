@@ -3,7 +3,7 @@
 # Contributor: orelien <aurelien.foret@wanadoo.fr>
 
 pkgname=httrack
-pkgver=3.47.26
+pkgver=3.47.27
 pkgrel=1
 pkgdesc="An easy-to-use offline browser utility."
 arch=('i686' 'x86_64')
@@ -27,4 +27,4 @@ package() {
 
   make DESTDIR="$pkgdir" install
 }
-sha256sums=('dd495d6fe6ce1ecf405c4f03d706a73f51f9a1c180c9265d975b86fe96946f5d')
+sha256sums=('7c96bfb63dab9e55efea89d0408e3743115e524c688545b94f9b60dc78d2f9e1')
