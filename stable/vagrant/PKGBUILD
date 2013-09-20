@@ -3,7 +3,7 @@
 # Contributor: helios <aur@wiresphere.de>
 pkgname=vagrant
 pkgver=1.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Tool for building and distributing virtualized development environments"
 arch=('i686' 'x86_64')
 url="http://vagrantup.com/"
@@ -12,8 +12,9 @@ options=(!strip)
 _git_revision='db8e7a9c79b23264da129f55cf8569167fc22415'
 source=(
 	"http://files.vagrantup.com/packages/${_git_revision}/${pkgname}_${pkgver}_${CARCH}.rpm"
-	"zsh-vagrant"
-	"bash-vagrant"
+	'zsh-vagrant'
+	'bash-vagrant'
+	'0001-Fix-invocation-of-initialize.patch'
 )
 #source=(
 	#"http://files.vagrantup.com/packages/${_git_revision}/${pkgname}_${pkgver}_i686.rpm"
@@ -22,10 +23,16 @@ source=(
 [[ "$CARCH" == "i686" ]] && md5sums=('edab3880a9b391f285f67ece6b227aab')
 [[ "$CARCH" == "x86_64" ]] && md5sums=('11956f46cefbdcd74cab12297af5ab5e')
 
-md5sums+=('dd7605a4a60732d9c1715cab9b93e120' 'c41db06a3282b89aed96ad37b76c69b2')
+md5sums+=('dd7605a4a60732d9c1715cab9b93e120' 'c41db06a3282b89aed96ad37b76c69b2' 'de1d2ee2bbb7f6d6421e912e2ee8bb0a')
 
 package() {
 	mv $srcdir/{opt,usr} $pkgdir
+
+	# apply arch patch
+	(
+		cd "$pkgdir/opt/vagrant/embedded/gems/gems/vagrant-1.3.3/"
+		patch -Np1 -i "$srcdir/0001-Fix-invocation-of-initialize.patch"
+	)
 
 	# zsh completion
 	install -dm0755 "${pkgdir}/usr/share/zsh/site-functions"
