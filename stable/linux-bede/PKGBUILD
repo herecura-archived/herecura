@@ -9,10 +9,10 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.11
 _patchver=1
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
-makedepends=('bc' 'kmod')
+makedepends=('bc' 'kmod' 'git')
 url="http://www.kernel.org"
 options=(!strip)
 
@@ -23,12 +23,14 @@ source=(
 	"config-$_basekernel-desktop.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
+	"$pkgbase-aufs3::git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs${_basekernel}"
 )
 sha256sums=(
 	'803ec8f0ad4b2ddedcb0332a590cd2b5e10dfc57c3b1c95bc9c46af81d51d7f9'
-	'8642e785980007e36fec156ba292eae8615f9986dc3088c1f1bedcbccc8993d7'
-	'ddd64964eafe71687f2ce0ac1162237c19265adc8d3c69a77a9718a533de1285'
+	'494db9bb6204f88693a2607174ef554799bd03344e5dc3a2413b52a3d6187391'
+	'7e92d3f6f3156c1cd29ee67aed0dca69a03cabe8507af68e5c87ad1c1d6b0480'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
+	'SKIP'
 )
 
 # revision patches
@@ -43,7 +45,7 @@ if [ $_patchver -ne 0 ]; then
 	)
 fi
 
-# extra patches
+## extra patches
 _extrapatches=(
 )
 _extrapatchessums=(
@@ -64,6 +66,19 @@ build() {
 		msg2 "apply $_patchname"
 		patch -Np1 -i "$srcdir/$_patchname"
 	fi
+
+	# add aufs patches
+	msg2 "apply aufs3-kbuild.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-kbuild.patch"
+	msg2 "apply aufs3-base.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-base.patch"
+	msg2 "apply aufs3-proc_map.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-proc_map.patch"
+	msg2 "apply aufs3-standalone.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-standalone.patch"
+	msg2 "copy aufs3 files in tree"
+	cp -a "$srcdir/$pkgbase-aufs3/"{Documentation,fs} ./
+	cp "$srcdir/$pkgbase-aufs3/include/uapi/linux/aufs_type.h" ./include/linux/
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
