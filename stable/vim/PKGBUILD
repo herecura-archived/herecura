@@ -15,7 +15,7 @@ else
 	pkgver=${_basever}.${_patchlevel}
 fi
 __hgrev=v${pkgver//./-}
-pkgrel=1
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -252,7 +252,7 @@ package_vim-gvim-qt() {
 	cd ${pkgdir}/usr/bin
 	for link in qview qvimdiff rqview rqvim; do
 		rm -f ${link}
-		ln -s gvim ${link}
+		ln -s qvim ${link}
 	done
 	)
 
