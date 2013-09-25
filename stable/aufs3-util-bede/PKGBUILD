@@ -1,0 +1,39 @@
+# Maintainer: Calimero <calimerotekni@free.fr>
+
+_pkgname=aufs3-util
+pkgname=$_pkgname-bede
+_gitbranch=3.2
+pkgver=20130907
+pkgrel=1
+pkgdesc="Another Unionfs Implementation that supports NFS branches"
+arch=('i686' 'x86_64')
+url="http://aufs.sourceforge.net/"
+license=('GPL2')
+makedepends=('linux-bede' 'linux-bede-headers' 'git')
+replaces=('aufs2-util')
+source=("${pkgname}::git://git.code.sf.net/p/aufs/aufs-util#branch=aufs${_gitbranch}")
+md5sums=('SKIP')
+
+_extramodules=3.11-BEDE-external
+
+pkgver() {
+	cd "${pkgname}"
+	echo "$_gitbranch_$(date -d @$(git log -n1 --pretty=format:%ct) '+%Y%m%d')"
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
+	cd "${pkgname}"
+	export CPPFLAGS=" -I/usr/lib/modules/$_kernver/build/include"
+	sed -i 's/($|\\\\.x)/($|\\\\.x|-[0-9]*$)/' ver.c
+	make
+}
+
+package() {
+	cd "${pkgname}"
+	make DESTDIR="${pkgdir}" install
+
+	#fixes for the archlinux /usr/bin move
+	mv "${pkgdir}"/sbin/* "${pkgdir}"/usr/bin/
+	rmdir "${pkgdir}"/sbin
+}
