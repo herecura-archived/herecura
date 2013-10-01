@@ -1,3 +1,4 @@
+# vim:set ft=sh:
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
@@ -6,12 +7,12 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
-_patchver=13
+_patchver=14
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
-makedepends=('bc' 'kmod')
+makedepends=('bc' 'kmod' 'git')
 url="http://www.kernel.org"
 options=(!strip)
 
@@ -22,12 +23,14 @@ source=(
 	"config-$_basekernel-server.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
+	"$pkgbase-aufs3::git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs${_basekernel}"
 )
 sha256sums=(
 	'df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
-	'2bb03834e65628cc1f9a44dfa46f84f427b478b5c5aaab0ab98fbddff7d826e1'
-	'bcf4b16171590ad7cceb23dd109911fac69e3f15f748d01f9783de28aaa61ed4'
+	'b50c223a6d1af5d77817df2a77ef1ec8850a5062fa17c59a3060c06a9a29bbec'
+	'b1ea9f515a7eca4b4ec238fd067eb79ddfd60bdc80e49678fdaca2ae438059ae'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
+	'SKIP'
 )
 
 # revision patches
@@ -38,7 +41,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'cf8ec5b47c904f66f715e7ccd5051e15fe9f931fec03847a86d552caf8848be8'
+		'fd5fac477f69b5e3c6506fa04f81157aa753538dca017ef23b26ca36e65df38e'
 	)
 fi
 
@@ -63,6 +66,25 @@ build() {
 		msg2 "apply $_patchname"
 		patch -Np1 -i "$srcdir/$_patchname"
 	fi
+
+	# add aufs patches
+	msg2 "apply aufs3-kbuild.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-kbuild.patch"
+	msg2 "apply aufs3-base.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-base.patch"
+	msg2 "apply aufs3-proc_map.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-proc_map.patch"
+	msg2 "apply aufs3-standalone.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-standalone.patch"
+	msg2 "copy aufs3 files in tree"
+	cp -a "$srcdir/$pkgbase-aufs3/"{Documentation,fs} ./
+	msg2 "copy aufs_type.h to include/linux"
+	cp "$srcdir/$pkgbase-aufs3/include/linux/aufs_type.h" ./include/linux/
+	msg2 "copy aufs_type.h to include/uapi/linux"
+	cp "$srcdir/$pkgbase-aufs3/include/uapi/linux/aufs_type.h" ./include/uapi/linux/
+	# header fix so utils can build
+	msg2 "fix aufs_type.h so utils can be build"
+	sed -i "s:__user::g" include/uapi/linux/aufs_type.h
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
@@ -262,5 +284,3 @@ package_linux-besrv-headers() {
 	# remove unneeded architectures
 	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa}
 }
-
-# vim:set ft=sh:
