@@ -7,7 +7,7 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.11
-_patchver=2
+_patchver=3
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -41,7 +41,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'8b59330272a87b7649f3d0924c3db51ff1d58612974521fb03041025877e4a1b'
+		'5aded978d2098d2a892962e5a548d631f7039b5332c6a15f62fcb354f2c377a6'
 	)
 fi
 
@@ -252,12 +252,6 @@ package_linux-bede-headers() {
 		mkdir -p "$pkgdir/usr/src/linux-$_kernver/$(dirname $header)"
 		cp -a $header "$pkgdir/usr/src/linux-$_kernver/$(dirname $header)"
 	done
-
-	# symlink version.h
-	(
-		cd $pkgdir/usr/src/linux-$_kernver/include/linux
-		ln -s ../../usr/include/linux/version.h
-	)
 
 	# copy in Kconfig files
 	for i in `find . -name "Kconfig*"`; do
