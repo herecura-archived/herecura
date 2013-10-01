@@ -1,9 +1,9 @@
 # Contributor: Hy Goldsher aka hyness <hyness-at-gmail>                
 # Maintainer: Hy Goldsher aka hyness <hyness-at-gmail>
 pkgname=davmail
-_pkgver=4.3.3
-_rev=2146
-pkgver=4.3.3.$_rev
+_pkgver=4.3.4
+_rev=2174
+pkgver=$_pkgver.$_rev
 pkgrel=1
 pkgdesc="a POP/IMAP/SMTP/Caldav/LDAP gateway for the exchange service"
 arch=('i686' 'x86_64')
@@ -13,10 +13,9 @@ makedepends=('unzip')
 depends=('java-runtime')
 [ "$CARCH" = "i686" ] && _ARCH=x86
 [ "$CARCH" = "x86_64" ] && _ARCH=x86_64
-_rev=2146
 source=(http://downloads.sourceforge.net/davmail/davmail-linux-$_ARCH-$_pkgver-$_rev.tgz davmail.desktop davmail.sh)
-[ "$CARCH" = "i686" ] && md5sums=('f66a6c8bfcf63a1d512d7756c316c145')
-[ "$CARCH" = "x86_64" ] && md5sums=('85f79607fcf4ba4d20ce1315197ec2ff')
+[ "$CARCH" = "i686" ] && md5sums=('119693e45bf6ea62a449879888e7f08b')
+[ "$CARCH" = "x86_64" ] && md5sums=('11cc6fffcef073cc968ea394df995b97')
 md5sums+=('1df37a6120d88de8df3cb735977336ba' '35e61e46eb2ef5cf14cbd3509bf09dbe')
 install=davmail.install
 
