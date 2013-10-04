@@ -3,13 +3,13 @@
 
 pkgname=snapper-git
 _gitname='snapper'
-pkgver=20130930.27fb26e
+pkgver=20131002.d32e275
 pkgrel=1
 pkgdesc="A tool for managing BTRFS and LVM snapshots. It can create, diff and restore snapshots and provides timelined auto-snapping."
 provides=('snapper')
 conflicts=('snapper')
 arch=('i686' 'x86_64')
-url="http://en.opensuse.org/Portal:Snapper"
+url="http://snapper.io"
 license=('GPL2')
 depends=('btrfs-progs' 'libxml2' 'dbus')
 makedepends=('boost' 'lvm2' 'libxslt' 'docbook-xsl' 'pam' 'git')
@@ -22,12 +22,11 @@ install=snapper.install
 
 pkgver() {
 	cd "$srcdir/$_gitname"
-	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
+	git log -1 --date=short --format="%cd.%h" | tr -d '-'
 }
 
 build() {
-	msg "Starting make..."
-	cd ${_gitname}
+	cd "$_gitname"
 
 	# rename cron scripts
 	sed -i -e 's@suse.de-@@g' scripts/Makefile.am
@@ -44,7 +43,7 @@ build() {
 	sed -i -e 's@/usr/sbin@/usr/bin@g' data/org.opensuse.Snapper.service
 
 	# https://github.com/openSUSE/snapper/issues/19
-	[[ -n `pacman -Q|grep btrfs-progs-git` ]] && patch -p1 < $srcdir/btrfs-master.patch
+	patch -p1 < "$srcdir/btrfs-master.patch"
 
 	aclocal
 	libtoolize --force --automake --copy
@@ -62,9 +61,7 @@ build() {
 }
 
 package() {
-	cd ${_gitname}
-	make DESTDIR=${pkgdir} install
-	rm -f ${pkgdir}/usr/lib/security/pam_snapper.la ${pkgdir}/usr/lib/libsnapper.la
-	mkdir ${pkgdir}/etc/conf.d
-	install -D -m 644 data/sysconfig.snapper ${pkgdir}/etc/conf.d/snapper
+	cd "$_gitname"
+	make DESTDIR="$pkgdir" install
+	install -Dm 644 data/sysconfig.snapper "$pkgdir/etc/conf.d/snapper"
 }
