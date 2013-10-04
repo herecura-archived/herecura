@@ -4,32 +4,32 @@
 #Contributor: Mathias Stearn <mathias@10gen.com>
 pkgname=mongodb-git
 _gitname="mongo"
-pkgver=20130930.257d3f5
+pkgver=20131003.d1a4564
 pkgrel=1
 pkgdesc="A high-performance, open source, schema-free document-oriented database."
 arch=('i686' 'x86_64')
 url="http://www.mongodb.org"
-license=('AGPL')
+license=('AGPL3')
 makedepends=('git' 'scons' 'boost')
-depends=('boost-libs' 'v8' 'pcre')
+depends=('boost-libs' 'pcre' 'snappy' 'openssl')
 provides=('mongodb')
 conflicts=('mongodb')
 install=${pkgname}.install
 backup=('etc/mongodb.conf')
 source=(
 	"$_gitname::git://github.com/mongodb/mongo.git"
-	'mongodb.rc'
+	'mongodb.service'
 	'mongodb.conf'
 )
 sha256sums=(
 	'SKIP'
-	'5ba40a3c2d1c67f7617f010e660e2a0c609dcf5c5e7c897d7ac6843167d8329f'
-	'f3fc037c704d67c68c7d69c46878af3d8a601e48ca51105835f740cddb1b2b2e'
+	'19f55ab28652b3817e98fc3f15cc2f6f3255a5e1dfd7b0d5a27c9ba22fd2703e'
+	'8010ce728d657524cd76b5afda7ffbc1cc389642336b12b89cec5df2b09fc0e4'
 )
 
 pkgver() {
 	cd "$srcdir/$_gitname"
-	echo $(git log -1 --format="%ci" | sed 's/.*\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\).*/\1\2\3/').$(git rev-parse --short HEAD)
+	git log -1 --date=short --format="%cd.%h" | tr -d '-'
 }
 
 build() {
@@ -39,14 +39,14 @@ build() {
 	#sed -i '/-Werror/d' SConstruct
 
 	export SCONSFLAGS="${MAKEFLAGS}"
-	scons all --usev8 --full
+	scons all --full
 }
 
 package() {
 	cd ${_gitname}
-	scons install --usev8 --full --prefix="${startdir}/pkg/usr"
-	#scons install --prefix="${startdir}/pkg/usr"
-	install -D -m755 "${startdir}/mongodb.rc" "${startdir}/pkg/etc/rc.d/mongodb"
-	install -D -m644 "${startdir}/mongodb.conf" "${startdir}/pkg/etc/mongodb.conf"
-	install -d -m700 "${startdir}/pkg/var/lib/mongodb"
+	scons install --full --prefix="$pkgdir/usr"
+	install -Dm644 "$srcdir/mongodb.service" "$pkgdir/usr/lib/systemd/system/mongodb.service"
+	install -Dm644 "$srcdir/mongodb.conf" "$pkgdir/etc/mongodb.conf"
+	install -dm700 "$pkgdir/var/lib/mongodb"
+	install -dm755 "$pkgdir/var/log/mongodb"
 }
