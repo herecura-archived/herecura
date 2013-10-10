@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.11
 _patchver=4
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod' 'git')
@@ -68,20 +68,22 @@ build() {
 	fi
 
 	# add aufs patches
-	msg2 "apply aufs3-kbuild.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-kbuild.patch"
-	msg2 "apply aufs3-base.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-base.patch"
-	msg2 "apply aufs3-proc_map.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-proc_map.patch"
-	msg2 "apply aufs3-standalone.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-standalone.patch"
 	msg2 "copy aufs3 files in tree"
 	cp -a "$srcdir/$pkgbase-aufs3/"{Documentation,fs} ./
 	msg2 "copy aufs_type.h to include/linux"
 	cp "$srcdir/$pkgbase-aufs3/include/linux/aufs_type.h" ./include/linux/
 	msg2 "copy aufs_type.h to include/uapi/linux"
 	cp "$srcdir/$pkgbase-aufs3/include/uapi/linux/aufs_type.h" ./include/uapi/linux/
+	msg2 "apply aufs3-kbuild.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-kbuild.patch"
+	msg2 "apply aufs3-base.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-base.patch"
+	msg2 "apply aufs3-loopback.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-loopback.patch"
+	msg2 "apply aufs3-proc_map.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-proc_map.patch"
+	msg2 "apply aufs3-standalone.patch"
+	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-standalone.patch"
 	# header fix so utils can build
 	msg2 "fix aufs_type.h so utils can be build"
 	sed -i "s:__user::g" include/uapi/linux/aufs_type.h
