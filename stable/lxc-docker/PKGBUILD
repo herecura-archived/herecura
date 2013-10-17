@@ -1,6 +1,6 @@
 # Maintainer: frio <development@frio.name>
 pkgname=lxc-docker
-pkgver=0.6.3
+pkgver=0.6.4
 pkgrel=1
 pkgdesc="pack, ship and run any application as a lightweight container"
 arch=('i686' 'x86_64')
