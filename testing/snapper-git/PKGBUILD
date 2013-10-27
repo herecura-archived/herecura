@@ -3,7 +3,7 @@
 
 pkgname=snapper-git
 _gitname='snapper'
-pkgver=20131021.5bf8311
+pkgver=20131025.c54e042
 pkgrel=1
 pkgdesc="A tool for managing BTRFS and LVM snapshots. It can create, diff and restore snapshots and provides timelined auto-snapping."
 provides=('snapper')
@@ -41,9 +41,6 @@ build() {
 	sed -i -e 's@shell echo /@shell echo /usr/@g' pam/Makefile.am
 	# Arch all in /usr/bin
 	sed -i -e 's@/usr/sbin@/usr/bin@g' data/org.opensuse.Snapper.service
-
-	# https://github.com/openSUSE/snapper/issues/19
-	patch -p1 < "$srcdir/btrfs-master.patch"
 
 	aclocal
 	libtoolize --force --automake --copy
