@@ -7,12 +7,12 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.11
-_patchver=6
+_patchver=7
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
-makedepends=('bc' 'kmod' 'git')
+makedepends=('bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
@@ -23,14 +23,12 @@ source=(
 	"config-$_basekernel-desktop.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
-	"$pkgbase-aufs3::git://git.code.sf.net/p/aufs/aufs3-standalone#branch=aufs${_basekernel}"
 )
 sha256sums=(
 	'803ec8f0ad4b2ddedcb0332a590cd2b5e10dfc57c3b1c95bc9c46af81d51d7f9'
-	'494db9bb6204f88693a2607174ef554799bd03344e5dc3a2413b52a3d6187391'
-	'7e92d3f6f3156c1cd29ee67aed0dca69a03cabe8507af68e5c87ad1c1d6b0480'
+	'85a0ff3d28f6bceb95c5091845b9b066a474d2e98dc3cf71b70e79a1f143afc0'
+	'8fef8bdda184a983f9e0068b4933d05314f8c426769d071db769989f06832cbd'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
-	'SKIP'
 )
 
 # revision patches
@@ -41,7 +39,7 @@ if [ $_patchver -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'61ca45a96f9db6477eca0f2170a7c79c2e3b83893f8445249ec7a360d8be244e'
+		'da03530e5fa8a87566b605a65d650ffaff01f94caaa057bb375fd75746d07ecd'
 	)
 fi
 
@@ -66,27 +64,6 @@ build() {
 		msg2 "apply $_patchname"
 		patch -Np1 -i "$srcdir/$_patchname"
 	fi
-
-	# add aufs patches
-	msg2 "copy aufs3 files in tree"
-	cp -a "$srcdir/$pkgbase-aufs3/"{Documentation,fs} ./
-	msg2 "copy aufs_type.h to include/linux"
-	cp "$srcdir/$pkgbase-aufs3/include/linux/aufs_type.h" ./include/linux/
-	msg2 "copy aufs_type.h to include/uapi/linux"
-	cp "$srcdir/$pkgbase-aufs3/include/uapi/linux/aufs_type.h" ./include/uapi/linux/
-	msg2 "apply aufs3-kbuild.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-kbuild.patch"
-	msg2 "apply aufs3-base.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-base.patch"
-	msg2 "apply aufs3-loopback.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-loopback.patch"
-	msg2 "apply aufs3-proc_map.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-proc_map.patch"
-	msg2 "apply aufs3-standalone.patch"
-	patch -Np1 -i "$srcdir/$pkgbase-aufs3/aufs3-standalone.patch"
-	# header fix so utils can build
-	msg2 "fix aufs_type.h so utils can be build"
-	sed -i "s:__user::g" include/uapi/linux/aufs_type.h
 
 	# extra patches
 	for patch in ${_extrapatches[@]}; do
