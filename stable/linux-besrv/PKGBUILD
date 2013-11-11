@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
 _patchver=18
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
-	'8b7ed69a1d13ec16897e5e8c2c9596768b5bc80bac19f5e9ab861c77870baf3f'
-	'090b41205d29d6e4d44a348fb321d69118bc09b83c3d5bc75c84a2d32a34272b'
+	'04e936c1ca6d21fe4030acd2555d7dc143ba222fcc14b50ec261d9cda19660cc'
+	'e7ad20ec181c6b74f3c543f595a0f6eb73e0693f8255eeb28b1c321fa47d7271'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -45,8 +45,12 @@ fi
 
 # extra patches
 _extrapatches=(
+	'grsecurity-2.9.1-3.10.18-unofficial.patch'
+	'fix-memory-map-for-PIE-applications.patch'
 )
 _extrapatchessums=(
+	'a7ed5e0ffe7efbfbd19596e7b3ba8b2d8703da48d7216b5ccd745d4ba038e480'
+	'500f3577310be52e87b9fecdc2e9c4ca43210fd97d69089f9005d484563f74c7'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -98,6 +102,9 @@ build() {
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > "$srcdir/linux-$_basekernel/.scmversion"
+
+	msg2 "empty -grsec localversion"
+	echo "" > "$srcdir/linux-$_basekernel/localversion-grsec"
 
 	# get kernel version
 	msg2 "prepare"
