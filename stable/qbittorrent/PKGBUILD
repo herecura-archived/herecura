@@ -4,7 +4,7 @@
 # Contributor: Geoffroy Carrier <geoffroy.carrier@koon.fr>
 
 pkgname=qbittorrent
-pkgver=3.0.11
+pkgver=3.1.2
 pkgrel=1
 pkgdesc="A bittorrent client written in C++ / Qt4 using the good libtorrent library"
 arch=('i686' 'x86_64')
@@ -31,4 +31,4 @@ package() {
   make INSTALL_ROOT=${pkgdir} install
 }
 
-md5sums=('de50c6d2bff0a11f47d9179427337347')
+md5sums=('fc274f271ac1f20f4a52807e9d2922fe')
