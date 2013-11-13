@@ -4,13 +4,13 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=325.15
+pkgver=331.20
 _extramodules=3.11-BEDE-external
-pkgrel=19
+pkgrel=2
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.11.7' 'linux-bede<3.12' 'linux-bede-headers>=3.11' 'linux-bede-headers<3.12' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
+makedepends=('linux-bede>=3.11.8' 'linux-bede<3.12' 'linux-bede-headers>=3.11' 'linux-bede-headers<3.12' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 replaces=('nvidia-bemm')
 license=('custom')
@@ -24,27 +24,19 @@ if [ "$CARCH" = "i686" ]; then
     _arch='x86'
     _pkg="NVIDIA-Linux-$_arch-$pkgver"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('3d790e4bfed24641f7cc76879144ab5d52b12271012ba381b0d33aa1a2e08775')
+    sha256sums=('7ad6b05d31e790a938474ce832488f3c68e2f388503b20f7995bdb7bb5ab9745')
 elif [ "$CARCH" = "x86_64" ]; then
     _arch='x86_64'
     _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
     source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('ee0dfa35c9b4da27a85684911a11236b82d63c171e0537624cce8ceccb7056e3')
+    sha256sums=('a12b726671944979333938d993cc850874e1d5258a9c703656f9d9a1631ba008')
 fi
-
-# 3.11 patch
-source+=('kernel_v3.11.patch')
-sha256sums+=('7a16034e0c526bb40acdf0740c917803d825f7d4682a9122e8afacfe80ff46d0')
 
 build() {
     _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
     cd "$srcdir"
     [ -d "$_pkg" ] && rm -rf "$_pkg"
     sh $_pkg.run --extract-only
-    (
-        cd $_pkg
-        patch -Np1 -i "$srcdir/kernel_v3.11.patch"
-    )
     cd $_pkg/kernel
     make SYSSRC=/usr/lib/modules/$_kernver/build module
 }
