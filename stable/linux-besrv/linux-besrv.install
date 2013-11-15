@@ -2,7 +2,32 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-besrv
-KERNEL_VERSION=3.10.19-1-BESRV
+KERNEL_VERSION=3.10.19-2-BESRV
+
+_add_proc_group() {
+  if ! getent group proc-trusted >/dev/null; then
+    groupadd -g 9001 -r proc-trusted
+  fi
+}
+
+_add_tpe_group() {
+  if ! getent group tpe-trusted >/dev/null; then
+    groupadd -g 9002 -r tpe-trusted
+  fi
+}
+
+_add_groups() {
+  _add_proc_group
+  _add_tpe_group
+}
+
+_remove_groups() {
+  for group in proc-trusted tpe-trusted; do
+    if getent group $group >/dev/null; then
+	  groupdel $group
+    fi
+  done
+}
 
 post_install () {
   # updating module dependencies
@@ -10,33 +35,13 @@ post_install () {
   depmod ${KERNEL_VERSION}
   echo ">>> Generating initial ramdisk, using mkinitcpio.  Please wait..."
   mkinitcpio -p linux${KERNEL_NAME}
+
+  _add_groups
 }
 
 post_upgrade() {
-  pacman -Q grub &>/dev/null
-  hasgrub=$?
-  pacman -Q grub2 &>/dev/null
-  hasgrub2=$?
-  pacman -Q lilo &>/dev/null
-  haslilo=$?
-  # reminder notices
-  if [ $haslilo -eq 0 ]; then
-    echo ">>>"
-    if [ $hasgrub -eq 0 -o $hasgrub2 -eq 0 ]; then
-      echo ">>> If you use the LILO bootloader, you should run 'lilo' before rebooting."
-    else
-      echo ">>> You appear to be using the LILO bootloader. You should run"
-      echo ">>> 'lilo' before rebooting."
-    fi
-    echo ">>>"
-  fi
-
-  if grep "^[^#]*[[:space:]]/boot" etc/fstab 2>&1 >/dev/null; then
-    if ! grep "[[:space:]]/boot" etc/mtab 2>&1 >/dev/null; then
-      echo "WARNING: /boot appears to be a seperate partition but is not mounted"
-      echo "         This is most likely not what you want.  Please mount your /boot"
-      echo "         partition and reinstall the kernel unless you are sure this is OK"
-    fi
+  if findmnt --fstab -uno SOURCE /boot &>/dev/null && ! mountpoint -q /boot; then
+    echo "WARNING: /boot appears to be a separate partition but is not mounted."
   fi
 
   # updating module dependencies
@@ -44,10 +49,14 @@ post_upgrade() {
   depmod ${KERNEL_VERSION}
   echo ">>> Generating initial ramdisk, using mkinitcpio.  Please wait..."
   mkinitcpio -p linux${KERNEL_NAME}
+  
+  _add_groups
 }
 
 post_remove() {
   # also remove the compat symlinks
   rm -f boot/{initramfs,kernel26}${KERNEL_NAME}.img
   rm -f boot/{initramfs,kernel26}${KERNEL_NAME}-fallback.img
+
+  _remove_groups
 }

@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
 _patchver=19
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
-	'04e936c1ca6d21fe4030acd2555d7dc143ba222fcc14b50ec261d9cda19660cc'
-	'e7ad20ec181c6b74f3c543f595a0f6eb73e0693f8255eeb28b1c321fa47d7271'
+	'eae3e93a328c0cda31cbf5625990f2d0ed52a3e720905440e85f2cd135c28e84'
+	'd011cc91ba0a95df6ce2389ecb1a6b7067e07bb2bef6b239c53fe2ef698a0c6a'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -45,12 +45,14 @@ fi
 
 # extra patches
 _extrapatches=(
-	'grsecurity-2.9.1-3.10.18-unofficial.patch'
+	'grsecurity-2.9.1-3.10.19-unofficial.patch'
 	'fix-memory-map-for-PIE-applications.patch'
+	'CVE-2013-4348.patch'
 )
 _extrapatchessums=(
-	'a7ed5e0ffe7efbfbd19596e7b3ba8b2d8703da48d7216b5ccd745d4ba038e480'
+	'532870eb3c59200b045efb64463bcc544d394410b2aba63ed5c6dbfe9d974e38'
 	'500f3577310be52e87b9fecdc2e9c4ca43210fd97d69089f9005d484563f74c7'
+	'39acdfc0bb2298e3a9ba62ee42ac2b6556fc31d8eaa2c085f84897cdeaa1a996'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
