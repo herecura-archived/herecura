@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 3.12.0-1 Kernel Configuration
+# Linux/x86 3.12.1-1 Kernel Configuration
 #
 CONFIG_64BIT=y
 CONFIG_X86_64=y
@@ -5705,7 +5705,6 @@ CONFIG_INTEL_TXT=y
 CONFIG_SECURITY_YAMA=y
 CONFIG_SECURITY_YAMA_STACKED=y
 # CONFIG_IMA is not set
-# CONFIG_DEFAULT_SECURITY_SELINUX is not set
 CONFIG_DEFAULT_SECURITY_YAMA=y
 # CONFIG_DEFAULT_SECURITY_DAC is not set
 CONFIG_DEFAULT_SECURITY="yama"
