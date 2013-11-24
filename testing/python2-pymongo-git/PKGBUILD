@@ -4,7 +4,7 @@
 
 pkgname=python2-pymongo-git
 _gitname="mongo-python-driver"
-pkgver=20131122.d72758c
+pkgver=20131123.b627509
 pkgrel=1
 pkgdesc="Python driver for MongoDB"
 arch=('i686' 'x86_64')
