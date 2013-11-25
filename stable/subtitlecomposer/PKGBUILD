@@ -1,48 +1,32 @@
-# Contributor: Michal Malek <michalm@jabster.pl>
-# Contributor: rraval
+# Contributor: Mladen Milinkovic <maxrd2@smoothware.net>
+# Maintainer: Mladen Milinkovic <maxrd2@smoothware.net>
 
 pkgname=subtitlecomposer
-pkgver=0.5.3
-pkgrel=5
+pkgver=0.5.6
+pkgrel=1
 pkgdesc="A KDE subtitle editor"
 arch=('i686' 'x86_64')
-url="http://sourceforge.net/projects/subcomposer"
+url="https://github.com/maxrd2/subtitlecomposer"
 license=('GPL')
 depends=('kdelibs' 'gettext')
-makedepends=('cmake' 'automoc4')
-optdepends=("mplayer: for MPlayer backend")
-source=("http://downloads.sourceforge.net/subcomposer/${pkgname}-${pkgver}.tar.bz2"
-        "subtitlecomposer-build-fixes.patch"
-		"subtitlecomposer-linkage.patch"
-		"link_gobject.patch")
-sha256sums=('87f3831b5ae09f4ffcefe586cd3b04b197784bf09652b02518b24a12fde2cad0'
-            '5fdc27b3f2e7e8a897ad4f62122e84b628dbd51dfc3e1f70dfe4fa461a45ba94'
-            '2af7bcf7b413a56b7abfa13df408fef7501989f694520ee609dea4b407f648b7'
-			'2496b8bfb1ff57b3539ee093494a69b9a48b75630688a2a4378c4406677989ad')
+makedepends=('cmake' 'automoc4' 'git')
+conflicts=('subtitlecomposer-git')
+optdepends=(
+	'mplayer: for MPlayer backend'
+	'mplayer2: for MPlayer backend'
+	'gstreamer: for GStreamer backend'
+	'xine-lib: for Xine backend'
+)
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/maxrd2/subtitlecomposer/archive/v${pkgver}.tar.gz")
+sha256sums=('f55f3330e72a9a9f19f00674651d7d4c6cd7e19993a14d1deedfa6d34737cf0f')
 
-# Many thanks for the linkage patch to the Gentoo guys.
-# http://packages.gentoo.org/package/media-video/subtitlecomposer
-
-build()
-{
-	cd $pkgname-$pkgver
-
-    # Patches
-    patch -Np1 -i "$srcdir/subtitlecomposer-build-fixes.patch"
-    patch -Np0 -i "$srcdir/subtitlecomposer-linkage.patch"
-	patch -Np1 -i "$srcdir/link_gobject.patch"
-
-	sed -e '/ADD_SUBDIRECTORY( api )/s/^/# DISABLED/' \
-		-i src/main/scripting/examples/CMakeLists.txt
-
-	mkdir build
-	cd build
-	cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+build() {
+	cd ${srcdir}/subtitlecomposer-${pkgver}
+	cmake -DCMAKE_INSTALL_PREFIX=/usr
 	make
-
 }
 
 package() {
-	cd $pkgname-$pkgver/build
-	make DESTDIR="$pkgdir" install
+	cd ${srcdir}/subtitlecomposer-${pkgver}
+	make DESTDIR=${pkgdir} install
 }
