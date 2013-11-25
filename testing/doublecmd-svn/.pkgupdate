@@ -1,0 +1,7 @@
+checksumupdate=0
+update_pkgver=""
+pwd=$PWD
+cd $SRCDEST/$_svnmod
+svn update
+update_pkgver=$(svnversion | tr -d [A-z])
+cd $pwd
