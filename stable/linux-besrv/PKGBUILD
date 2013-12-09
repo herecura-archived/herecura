@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
-_patchver=22
+_patchver=23
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -39,17 +39,17 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'9c889789a1ed733d97c7e34ca67c8c4c3afd69791a4219f842ef7913b24c9115'
+		'bdf3983ff3e26c5781edb19a8d0d7765e2e0282cfabda2b0652cc0deff53f445'
 	)
 fi
 
 # extra patches
 _extrapatches=(
-	'grsecurity-2.9.1-3.10.22-unofficial.patch'
+	'grsecurity-2.9.1-3.10.23-unofficial.patch'
 	'fix-memory-map-for-PIE-applications.patch'
 )
 _extrapatchessums=(
-	'cc3d9d1dd9976e2df2278eb8a656026916b35f05e5b1f042d212ce89d9841c1a'
+	'f0dfa654e64e79c96127a0f8cd4867a0170f099c7116e7f45e27572294b1b818'
 	'500f3577310be52e87b9fecdc2e9c4ca43210fd97d69089f9005d484563f74c7'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
