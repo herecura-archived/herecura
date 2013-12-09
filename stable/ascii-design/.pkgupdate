@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://sourceforge.net/projects/ascii-design/ | grep -m1 -ie "<a\ href=.*\/ascii-design.*.tar.bz2" | sed 's,.*<a href=".*title=.*ascii-design-\(.*\)\.tar\.bz2.*,\1,')
