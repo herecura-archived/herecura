@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
-_patchver=23
+_patchver=24
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
-	'a42d499bdca2401e04e7496ed66b3c52e9d5a5a8b4f33fc239947ba1dd2ceb97'
-	'b8cdad304ca349440f649373a43a8d8e4952a822defb4df350c82bd1c7a85a32'
+	'8b7ed69a1d13ec16897e5e8c2c9596768b5bc80bac19f5e9ab861c77870baf3f'
+	'090b41205d29d6e4d44a348fb321d69118bc09b83c3d5bc75c84a2d32a34272b'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -39,18 +39,14 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'bdf3983ff3e26c5781edb19a8d0d7765e2e0282cfabda2b0652cc0deff53f445'
+		'7c86e95d1e94350c47b509f070977fc75b1be3f30665cde86c15a9a110e6d296'
 	)
 fi
 
 # extra patches
 _extrapatches=(
-	'grsecurity-2.9.1-3.10.23-unofficial.patch'
-	'fix-memory-map-for-PIE-applications.patch'
 )
 _extrapatchessums=(
-	'f0dfa654e64e79c96127a0f8cd4867a0170f099c7116e7f45e27572294b1b818'
-	'500f3577310be52e87b9fecdc2e9c4ca43210fd97d69089f9005d484563f74c7'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
 	source=( "${source[@]}"
@@ -102,9 +98,6 @@ build() {
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > "$srcdir/linux-$_basekernel/.scmversion"
-
-	msg2 "empty -grsec localversion"
-	echo "" > "$srcdir/linux-$_basekernel/localversion-grsec"
 
 	# get kernel version
 	msg2 "prepare"
