@@ -2,24 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-besrv
-KERNEL_VERSION=3.10.24-1.1-BESRV
-
-_add_proc_group() {
-  if ! getent group proc-trusted >/dev/null; then
-    groupadd -g 9001 -r proc-trusted
-  fi
-}
-
-_add_tpe_group() {
-  if ! getent group tpe-trusted >/dev/null; then
-    groupadd -g 9002 -r tpe-trusted
-  fi
-}
-
-_add_groups() {
-  _add_proc_group
-  _add_tpe_group
-}
+KERNEL_VERSION=3.10.24-1.2-BESRV
 
 _remove_groups() {
   for group in proc-trusted tpe-trusted; do
@@ -36,7 +19,7 @@ post_install () {
   echo ">>> Generating initial ramdisk, using mkinitcpio.  Please wait..."
   mkinitcpio -p linux${KERNEL_NAME}
 
-  _add_groups
+  _remove_groups
 }
 
 post_upgrade() {
@@ -50,7 +33,7 @@ post_upgrade() {
   echo ">>> Generating initial ramdisk, using mkinitcpio.  Please wait..."
   mkinitcpio -p linux${KERNEL_NAME}
   
-  _add_groups
+  _remove_groups
 }
 
 post_remove() {
