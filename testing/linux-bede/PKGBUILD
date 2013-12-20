@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.12
 _patchver=5
 pkgver=$_basekernel
-pkgrel=1.1
+pkgrel=1.2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'2e120ec7fde19fa51dc6b6cc11c81860a0775defcad5a5bf910ed9a50e845a02'
-	'd1fada0a5a1ce299ea8b6224c13aa1c98e6ec80cf7fb14b7b7bd13753b29a195'
-	'9e55012bfaff56d5429a6dd8b1a09db5d27ffef7c40539f628a735357fba340d'
+	'7c38592001b9f086e9430b752d2bd4d07cb6a4b2be142127a2fee210c5faea9b'
+	'c55b930a0a935a0a5e8d898bf46ad400cb02a1a7c88e34f2302ee172221c0352'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 )
 
