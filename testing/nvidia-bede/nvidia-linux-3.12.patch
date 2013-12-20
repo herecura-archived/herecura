@@ -1,0 +1,12 @@
+diff -uNr a/kernel/nv.c b/kernel/nv.c
+--- a/kernel/nv.c	2013-08-14 10:27:46.000000000 +0800
++++ b/kernel/nv.c	2013-09-06 20:03:59.930725559 +0800
+@@ -16,7 +16,7 @@
+ #include "rmil.h"
+ 
+ #if defined(MODULE_LICENSE)
+-MODULE_LICENSE("NVIDIA");
++MODULE_LICENSE("GPL");
+ #endif
+ #if defined(MODULE_INFO)
+ MODULE_INFO(supported, "external");
