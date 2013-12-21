@@ -14,8 +14,6 @@ if [ "$CARCH" = "i686" ]; then
 	_gcc_linux="gcc_linux"
 elif [ "$CARCH" = "x86_64" ]; then
 	_gcc_linux="gcc_linux_x64"
-else
-	return 1
 fi
 
 build() {
