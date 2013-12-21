@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://www.matroska.org/downloads/mkclean.html | grep -ie "<a.*>latest source package</a>" | sed 's,.*<a.*mkclean-\([0-9\.]*\)\.tar\.bz2.*,\1,')
