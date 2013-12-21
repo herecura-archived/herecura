@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://www.httrack.com/page/2/ | grep -ie "<a.*>.*\.tar\.gz<\/a>" | sed 's,.*<a.*>httrack-\(.*\)\.tar\.gz</a>,\1,')
