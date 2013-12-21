@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://dev.mysql.com/downloads/tools/utilities/ | grep -m1 -ie "<h1.*MySQL Utilities [0-9\.]*" | sed 's,.*MySQL Utilities \([0-9\.]*\).*</h1.*,\1,')
