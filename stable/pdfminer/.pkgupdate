@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://pypi.python.org/pypi/pdfminer/ | grep -m1 -ie "<a.*pdfminer-[0-9\.]*\.tar\.gz" | sed 's,.*pdfminer-\([0-9\.]*\)\.tar\.gz.*,\1,')
