@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://sabnzbd.org/ | grep -ie '<p id="stats">' | sed -e 's/.*Latest Version:<\/b> \([0-9\.]*\).*Released:.*/\1/')
