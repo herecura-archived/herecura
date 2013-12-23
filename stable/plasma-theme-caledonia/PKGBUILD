@@ -1,13 +1,13 @@
 pkgname=plasma-theme-caledonia
-pkgver=1.3
-pkgrel=2
+pkgver=1.5
+pkgrel=1
 pkgdesc="Elegant and minimalistic dark theme for plasma"
 arch=('any')
 license=('CCPL')
 url='http://sourceforge.net/projects/caledonia/'
 depends=('kdebase-workspace')
 source=("$pkgname-$pkgver.tar.gz::http://downloads.sourceforge.net/project/caledonia/Caledonia%20(Plasma-KDE%20Theme)/Caledonia.tar.gz")
-sha256sums=('f1fed242aefeebc62c815f435467d1b0f527014f6228237c4c97b9039e791bb3')
+sha256sums=('00a27c381d7f59625dc59112e4f76edac0dc53d44c2da9ee861743e4e8b63ab2')
 
 package()
 {
