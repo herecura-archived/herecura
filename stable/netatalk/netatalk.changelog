@@ -1,3 +1,50 @@
+2013-11-06 SJ_UnderWater
+
+	* 3.1.0-1:
+	package update
+
+2013-08-15 SJ_UnderWater
+
+	* 3.0.5-1:
+	package update
+
+2013-06-03 SJ_UnderWater
+
+	* 3.0.4-2:
+	move sbindir
+
+2013-05-26 SJ_UnderWater
+
+	* 3.0.4-1:
+	package update
+	minor fixes
+	dbus-glib dependency
+
+2013-03-27 SJ_UnderWater
+
+	* 3.0.3-1:
+	package update
+	minor fixes
+	python dependency
+
+2013-01-27 SJ_UnderWater
+
+	* 3.0.2-1:
+	package update
+	libevent fix
+	copy newer ./missing
+
+2013-01-05 SJ_UnderWater
+
+	* 3.0.1-5:
+	fixed AM deprecations
+	minor install fix
+
+2012-11-28 SJ_UnderWater
+
+	* 3.0.1-4 :
+	fixed mimic model
+
 2012-10-08 SJ_UnderWater
 
 	* 3.0.1-3 :
