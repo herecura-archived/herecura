@@ -15,13 +15,13 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/Pulse-Eight/$pkgname/archiv
 sha256sums=('2aa88451b528184b02077ee8c6cd10e2f89121a6a05b1b35b4b792b03108a9d1')
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname-$pkgname-$pkgver"
   autoreconf -vif
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname-$pkgname-$pkgver"
   make DESTDIR="$pkgdir" install
 }
