@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- https://bitbucket.org/dual75/yenc/downloads | grep -m1 -ie '<td class="name">[0-9\.]\+' | sed 's,.*<td.*>\([0-9a-z\.]*\)</td>.*,\1,')

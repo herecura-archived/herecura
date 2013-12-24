@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://code.google.com/p/python-gflags/downloads/list | grep -m1 -ie "<a.*python-gflags-[0-9\.]*\.tar\.gz.*Download" | sed 's,.*python-gflags-\([0-9\.]*\)\.tar\.gz.*,\1,')

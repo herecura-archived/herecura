@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://netatalk.sourceforge.net/ | grep -m1 -ie 'download [0-9a-z\.]* bzip' | sed 's,.*download \([0-9a-z\.]*\) bzip.*,\1,')

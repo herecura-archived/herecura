@@ -12,7 +12,7 @@ license=('GPL')
 depends=('kdebase-workspace>=4.4')
 makedepends=('gcc' 'cmake' 'automoc4')
 install=colibri.install
-source=("http://kde-apps.org/CONTENT/content-files/117147-$pkgname-$pkgver.tar.bz2")
+source=("http://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.bz2")
 sha256sums=('6580e5ea124442a6a1b34223ec33be14039ce39c1179e867a6f88f11aa510731')
 
 build() {

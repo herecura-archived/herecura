@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://qutim.org/jreen | grep -m1 -ie 'dwnl.*libjreen' | sed 's,.*libjreen-\([0-9a-z\.]*\)\.tar\..*,\1,')

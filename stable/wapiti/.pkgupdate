@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://wapiti.sourceforge.net/ | grep "Current stable version" | sed 's,.*Current\ stable\ version:\ \([0-9a-z\.]*\).*,\1,')

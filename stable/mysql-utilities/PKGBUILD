@@ -6,15 +6,8 @@ pkgdesc="A collection of command-line utilities that are used for maintaining an
 arch=('any')
 url="http://dev.mysql.com/downloads/tools/utilities/"
 license=('GPL')
-groups=()
 depends=('python2' 'python2-sphinx' 'python2-jinja' 'python2-mysql-connector')
-makedepends=()
-provides=()
-conflicts=()
-replaces=()
-backup=()
 options=(!emptydirs)
-install=
 source=(http://cdn.mysql.com/Downloads/MySQLGUITools/$pkgname-$pkgver.tar.gz)
 sha256sums=('38175c35f3120edb788d8db0213421f6154ccbef39139465c1be19054503e55e')
 

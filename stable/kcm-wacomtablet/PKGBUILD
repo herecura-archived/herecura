@@ -8,7 +8,7 @@ _content=114856
 pkgname=kcm-$_basename
 pkgver=2.0
 pkgrel=1
-url="http://kde-apps.org/content/show.php/wacom+tablet?content=$_content"
+url="http://kde-apps.org/content/show.php?content=$_content"
 pkgdesc="KDE GUI for the Wacom Linux Drivers"
 license=('GPLv2')
 arch=('x86_64' 'i686')
