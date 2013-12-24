@@ -1,4 +1,0 @@
-#!/bin/bash
-cd "%DESTDIR%"
-python2 HamsiManager.py $@
-exit $?
