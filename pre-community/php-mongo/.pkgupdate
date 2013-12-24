@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://pecl.php.net/package/mongo | grep -m1 -ie "\/get\/mongo-[0-9\.]*\.tgz" | sed 's,.*<a.*mongo-\([0-9\.]*\)\.tgz.*,\1,')
