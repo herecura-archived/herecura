@@ -1,0 +1,2 @@
+update_pkgver=$(wget -q -O- http://sourceforge.net/p/doublecmd/wiki/Download/ | grep -ie 'doublecmd-[0-9a-z\.]*-src.tar.gz' | sed 's,.*doublecmd-\([0-9a-z\.]*\)-src\.tar\.gz.*,\1,')
+update__helpver=$(wget -q -O- http://sourceforge.net/p/doublecmd/wiki/Download/ | grep -ie 'doublecmd-help-[0-9a-z\.]*-src.tar.gz' | sed 's,.*doublecmd-help-\([0-9a-z\.]*\)-src\.tar\.gz.*,\1,')
