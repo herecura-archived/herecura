@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://sourceforge.net/projects/lcdproc/ | grep -m1 -ie "<a\ href=.*\/lcdproc.*tar\.gz" | sed 's,.*<a href=".*title=.*lcdproc-\(.*\)\.tar\.gz.*,\1,')
