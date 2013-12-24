@@ -1,8 +1,8 @@
 # Contributor: t3ddy  <t3ddy1988 "at" gmail {dot} com>
 
 pkgname=colibri
-pkgver=0.2.2
-pkgrel=3
+pkgver=0.3.0
+pkgrel=1
 pkgdesc="Colibri provides an alternative to KDE4 Plasma notifications."
 arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php/Colibri?content=117147"
@@ -13,7 +13,6 @@ depends=('kdebase-workspace>=4.4')
 makedepends=('gcc' 'cmake' 'automoc4')
 install=colibri.install
 source=("http://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.bz2")
-sha256sums=('6580e5ea124442a6a1b34223ec33be14039ce39c1179e867a6f88f11aa510731')
 
 build() {
 	cd $pkgname-$pkgver
@@ -26,3 +25,4 @@ package() {
 	cd $pkgname-$pkgver/build
 	make DESTDIR="$pkgdir" install
 }
+sha256sums=('393402af1a7a025ea59c8d64a9e204797caa571398c00a174a33e0d1c3a95eff')
