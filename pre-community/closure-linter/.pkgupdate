@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- http://code.google.com/p/closure-linter/downloads/list | grep -m1 -ie "<a.*closure_linter-[0-9\.]*.\.tar\.gz.*Download" | sed 's,.*closure_linter-\([0-9a-z\.]*\)\.tar\.gz.*,\1,')
