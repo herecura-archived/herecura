@@ -1,30 +1,39 @@
 # Contributor: Artem Sereda <overmind88@gmail.com>
+# Maintainer from 0.8.0 release satanselbow <igdfpm@gmail.com>
 pkgname=flacon
-pkgver=0.8.0
-pkgrel=2
+pkgver=0.9.3
+pkgrel=1
 pkgdesc="Extracts individual tracks from one big audio file containing the \
  entire album of music and saves them as separate audio files."
-arch=('any')
-url="http://code.google.com/p/flacon/"
-license=('GPL')
-depends=('python2-pyqt' 'shntool' 'python2-chardet')
+arch=('i686' 'x86_64')
+url="https://github.com/flacon/flacon/"
+license=('LGPL')
+makedepends=('cmake')
+depends=('qt4' 'uchardet' 'flac' 'shntool' 'hicolor-icon-theme')
 optdepends=(
-  'flac: for decoding and encoding FLAC files'
-  'mac: for decoding APE files'
-  'wavpack: for decoding WV files'
-  'oggenc: for encoding OGG files'
-  'lame: for encoding MP3 files'
-  'vorbisgain: for OGG replay gain'
-  'mp3gain: for MP3 replay gain'
+  'vorbis-tools: For OGG support'
+  'mac: For APE support'
+  'wavpack: For WavPack support'
+  'ttaenc: For TrueAudio support'
+  'lame: For MP3 support'
+  'mp3gain: For MP3 Replay Gain support'
+  'vorbisgain: For OGG Replay Gain support'
 )
-source=("http://flacon.googlecode.com/files/$pkgname-$pkgver.tgz")
+
+source=("$pkgname-$pkgver.tar.gz::https://github.com/flacon/flacon/archive/v$pkgver.tar.gz")
+
+prepare() {
+  	mkdir -p "$pkgname-$pkgver/build"
+}
+
+build() {
+	cd "$pkgname-$pkgver/build"
+	cmake .. && make
+}
 
 package() {
-  cd $pkgname-$pkgver
-  sed 's/python/python2/' \
-	  -i Makefile \
-	  -i misc/flacon \
-	  -i flacon.py
-  make DESTDIR="$pkgdir" install
+	cd "$pkgname-$pkgver/build"
+	make DESTDIR=${pkgdir} install
 }
-sha256sums=('d2889b364ea49b19c400ce8081d829e5a37149dfdcb82d55f6ab453b679d1f85')
+
+sha256sums=('58e2ea7520b28252a3afd2d8a0abc166a3084fa893534b7895a00a7920797156')
