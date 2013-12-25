@@ -1,25 +1,23 @@
+# $Id$
 # Maintainer: BlackEagle <ike DOT devolder AT gmail DOT com>
 # Contributor: Bernhard Walle <bernhard.walle@gmx.de>
 
 pkgname=lcdproc
 pkgver=0.5.6
-pkgrel=3
+pkgrel=4
 pkgdesc="Utility to drive one or more LCD (and LCD-like) devices"
+arch=('i686' 'x86_64')
 url="http://lcdproc.omnipotent.net/"
-license="GPL"
-depends=('libusb-compat')
-optdepends=(
-	'perl: needed for some lcdproc tools'
-)
-backup=(
-	'etc/LCDd.conf'
+license=('GPL')
+depends=('libftdi-compat')
+optdepends=('perl: needed for some lcdproc tools')
+backup=('etc/LCDd.conf'
 	'etc/lcdexec.conf'
 	'etc/lcdproc.conf'
 	'etc/lcdvc.conf'
 )
-arch=('i686' 'x86_64')
 source=(
-	"http://switch.dl.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.gz"
+	"http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
 	'lcdd.service'
 )
 
