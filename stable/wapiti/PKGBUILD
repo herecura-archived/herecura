@@ -1,25 +1,19 @@
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=wapiti
-pkgver=2.2.1
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="Wapiti is a vulnerability scanner for web applications."
 url='http://wapiti.sourceforge.net/'
 license=('GPL')
-depends=('python2')
+depends=('python2-requests' 'python2-beautifulsoup3')
+makedepends=('python2-setuptools')
 arch=('any')
 
-source=("http://downloads.sourceforge.net/sourceforge/wapiti/$pkgname-$pkgver.tar.bz2")
-sha256sums=('1ce7de9dd277c1ef2dde969cb0dfea61f551d5d08334fad4edbda08bf0724c09')
+source=("http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz")
 
-build() {
-    mkdir -p $pkgdir/usr/share
-    mkdir -p $pkgdir/usr/bin
-    
-    cp -r $srcdir/$pkgname-$pkgver $pkgdir/usr/share
-    cd $pkgdir/usr/share/$pkgname-$pkgver
-    
-    cat > $pkgdir/usr/bin/$pkgname <<EOF
-cd /usr/share/$pkgname-$pkgver/src/ && python2 wapiti.py \$*
-EOF
-    chmod +x $pkgdir/usr/bin/$pkgname
+package() {
+	cd "$pkgname-$pkgver"
+	python2 setup.py install --root="$pkgdir/" --optimize=1
 }
+
+sha256sums=('6b836a4810f17b7eda4345fb12293112129961ba243140c72a8da0ac2572f4b4')
