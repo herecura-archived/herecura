@@ -1,38 +1,45 @@
-# Contributor: Hy Goldsher aka hyness <hyness-at-gmail>                
-# Maintainer: Hy Goldsher aka hyness <hyness-at-gmail>
 pkgname=davmail
-_pkgver=4.3.4
-_rev=2174
+_pkgver=4.4.0
+_rev=2198
 pkgver=$_pkgver.$_rev
 pkgrel=1
 pkgdesc="a POP/IMAP/SMTP/Caldav/LDAP gateway for the exchange service"
 arch=('i686' 'x86_64')
 url="http://davmail.sourceforge.net/"
 license=('GPL')
-makedepends=('unzip')
+makedepends=('apache-ant')
 depends=('java-runtime')
-[ "$CARCH" = "i686" ] && _ARCH=x86
-[ "$CARCH" = "x86_64" ] && _ARCH=x86_64
-source=(http://downloads.sourceforge.net/davmail/davmail-linux-$_ARCH-$_pkgver-$_rev.tgz davmail.desktop davmail.sh)
-[ "$CARCH" = "i686" ] && md5sums=('119693e45bf6ea62a449879888e7f08b')
-[ "$CARCH" = "x86_64" ] && md5sums=('11cc6fffcef073cc968ea394df995b97')
-md5sums+=('1df37a6120d88de8df3cb735977336ba' '35e61e46eb2ef5cf14cbd3509bf09dbe')
+source=(
+	"http://downloads.sourceforge.net/project/$pkgname/$pkgname/$_pkgver/$pkgname-src-$_pkgver-$_rev.tgz"
+)
+sha256sums=('865a77cb402e713c3d8b38bc45a392cec0aedaca82e8d04b42d1f80d99103423')
 install=davmail.install
 
-package() {
-	_src=$srcdir/davmail-linux-${_ARCH}-$_pkgver-$_rev
-	install -d $pkgdir/{usr/share/java/$pkgname/lib,usr/bin,usr/share/applications}
-	install $_src/davmail.jar $pkgdir/usr/share/java/$pkgname/
-	install -D $_src/lib/* $pkgdir/usr/share/java/$pkgname/lib
-	install -m755 ${srcdir}/davmail.sh $pkgdir/usr/share/java/$pkgname
-	ln -s /usr/share/java/$pkgname/davmail.sh $pkgdir/usr/bin/davmail
-	install -Dm644 ${srcdir}/davmail.desktop ${pkgdir}/usr/share/applications/
+build() {
+	cd "$pkgname-src-$_pkgver-$_rev"
+	ANT_OPTS=-Dfile.encoding=UTF-8 ant
+}
 
+package() {
+	cd "$pkgname-src-$_pkgver-$_rev"
+	install -dm755 "$pkgdir/usr/share/java/$pkgname"
+	cd dist
+	if [ "$CARCH" = "i686" ]; then
+		bsdtar --strip-components 1 -xf $pkgname-linux-x86-$_pkgver-trunk.tgz -C "$pkgdir/usr/share/java/$pkgname/"
+	elif [ "$CARCH" = "x86_64" ]; then
+		bsdtar --strip-components 1 -xf $pkgname-linux-x86_64-$_pkgver-trunk.tgz -C "$pkgdir/usr/share/java/$pkgname/"
+	fi
 	# Create icons
-	cd $_src
-	unzip -q davmail.jar tray2.png tray32.png tray48.png
-	install -Dm644 tray2.png ${pkgdir}/usr/share/icons/hicolor/16x16/apps/davmail.png
-	install -Dm644 tray32.png ${pkgdir}/usr/share/icons/hicolor/32x32/apps/davmail.png
-	install -Dm644 tray48.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/davmail.png
+	cd "$srcdir/$pkgname-src-$_pkgver-$_rev"
+	install -Dm644 src/java/tray2.png ${pkgdir}/usr/share/icons/hicolor/16x16/apps/davmail.png
+	install -Dm644 src/java/tray32.png ${pkgdir}/usr/share/icons/hicolor/32x32/apps/davmail.png
+	install -Dm644 src/java/tray48.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/davmail.png
+
+	# bin
+	install -dm755 "$pkgdir/usr/bin"
+	ln -sf "/usr/share/java/$pkgname/davmail.sh" "$pkgdir/usr/bin/davmail"
+
+	# dektop
+	install -Dm644 dist/$pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
 }
 
