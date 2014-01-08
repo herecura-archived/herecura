@@ -1,0 +1,53 @@
+pkgname=hhvm
+pkgver=2.3.2
+pkgrel=1
+pkgdesc="Virtual Machine, Runtime, and JIT for PHP"
+arch=('x86_64')
+url="http://hhvm.com"
+license=('PHP')
+depends=('boost-libs' 'google-glog' 'libmysqlclient' 'libmemcached' 'pcre' 'gd'
+         'libxml2' 'intel-tbb' 'libmcrypt' 'oniguruma' 'libldap' 'elfutils'
+         'jemalloc' 'curl' 'expat')
+makedepends=('git' 'cmake' 'gcc>=4.8' 'chrpath' 'boost' 'imap' 'libdwarf' 'python2')
+source=(
+	"git+https://github.com/facebook/hhvm.git#tag=HHVM-$pkgver"
+	'git+https://github.com/libevent/libevent.git#tag=release-1.4.14b-stable'
+)
+sha256sums=(
+	'SKIP'
+	'SKIP'
+)
+
+prepare() {
+	export CMAKE_PREFIX_PATH="$srcdir"
+	export HPHP_HOME="$srcdir/$pkgname"
+
+	cd "$srcdir/$pkgname"
+	git submodule update --init
+	echo "add_definitions(-DSKIP_IMAP_GSS=1)" >> CMake/HPHPFindLibs.cmake
+
+	cd "$srcdir/libevent"
+	patch -p1 -i "$HPHP_HOME/hphp/third_party/libevent-1.4.14.fb-changes.diff"
+	# replace hashbang 'python' with 'python2'
+	sed '1 s/\bpython\b/python2/' -i event_rpcgen.py
+}
+
+build() {
+	cd "$srcdir/libevent"
+	echo "Building Custom Libevent"
+	./autogen.sh
+	./configure --prefix=$CMAKE_PREFIX_PATH --disable-shared
+	make $MAKEFLAGS
+	make install
+
+	cd "$srcdir/$pkgname"
+	INCLUDE=/usr/include/libdwarf HPHP_NOTEST=1 \
+		cmake . -DCMAKE_INSTALL_PREFIX="$pkgdir/usr" -DLINK_PAM=1
+	make $MAKEFLAGS
+}
+
+package() {
+	cd "$srcdir/$pkgname"
+	make install
+	rm -rf "$pkgdir/usr/"{include,lib}
+}
