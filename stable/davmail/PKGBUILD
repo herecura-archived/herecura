@@ -2,7 +2,7 @@ pkgname=davmail
 _pkgver=4.4.0
 _rev=2198
 pkgver=$_pkgver.$_rev
-pkgrel=1
+pkgrel=2
 pkgdesc="a POP/IMAP/SMTP/Caldav/LDAP gateway for the exchange service"
 arch=('i686' 'x86_64')
 url="http://davmail.sourceforge.net/"
@@ -35,11 +35,17 @@ package() {
 	install -Dm644 src/java/tray32.png ${pkgdir}/usr/share/icons/hicolor/32x32/apps/davmail.png
 	install -Dm644 src/java/tray48.png ${pkgdir}/usr/share/icons/hicolor/48x48/apps/davmail.png
 
+	# fix davmail.sh so it uses realpath
+	sed -e 's,`dirname $0`,$(dirname $(realpath $0)),' -i "$pkgdir/usr/share/java/$pkgname/davmail.sh"
+
 	# bin
 	install -dm755 "$pkgdir/usr/bin"
 	ln -sf "/usr/share/java/$pkgname/davmail.sh" "$pkgdir/usr/bin/davmail"
 
 	# dektop
+	# fix icon
+	sed -e 's,^Icon=.*,Icon=davmail,' -i dist/$pkgname.desktop
+	# install
 	install -Dm644 dist/$pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
 }
 
