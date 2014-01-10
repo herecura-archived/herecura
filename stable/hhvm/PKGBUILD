@@ -1,14 +1,14 @@
 pkgname=hhvm
 pkgver=2.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Virtual Machine, Runtime, and JIT for PHP"
 arch=('x86_64')
 url="http://hhvm.com"
 license=('PHP')
 depends=('boost-libs' 'google-glog' 'libmysqlclient' 'libmemcached' 'pcre' 'gd'
          'libxml2' 'intel-tbb' 'libmcrypt' 'oniguruma' 'libldap' 'elfutils'
-         'jemalloc' 'curl' 'expat')
-makedepends=('git' 'cmake' 'gcc>=4.8' 'chrpath' 'boost' 'imap' 'libdwarf' 'python2')
+         'jemalloc' 'curl' 'expat' 'libdwarf')
+makedepends=('git' 'cmake' 'gcc>=4.8' 'chrpath' 'boost' 'imap' 'python2')
 source=(
 	"git+https://github.com/facebook/hhvm.git#tag=HHVM-$pkgver"
 	'git+https://github.com/libevent/libevent.git#tag=release-1.4.14b-stable'
