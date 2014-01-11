@@ -8,7 +8,17 @@ pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.12
 _patchver=7
-pkgver=$_basekernel
+if [[ "$_patchver" == rc* ]]; then
+	# rc kernel
+	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x/testing'
+	pkgver=${_basekernel}$_patchver
+	_linuxname="linux-${_basekernel}-$_patchver"
+else
+	# $_patchver is no RC build normal
+	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x'
+	pkgver=$_basekernel
+	_linuxname="linux-$_basekernel"
+fi
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
@@ -17,7 +27,7 @@ url="http://www.kernel.org"
 options=(!strip)
 
 source=(
-	"http://www.kernel.org/pub/linux/kernel/v3.x/linux-$_basekernel.tar.xz"
+	"$_baseurl/$_linuxname.tar.xz"
 	# the main kernel config files
 	"config-$_basekernel-desktop.i686"
 	"config-$_basekernel-desktop.x86_64"
@@ -32,7 +42,8 @@ sha256sums=(
 )
 
 # revision patches
-if [ $_patchver -ne 0 ]; then
+if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
+	if [[ $_patchver -ne 0 ]]; then
 	pkgver=$_basekernel.$_patchver
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
@@ -41,6 +52,7 @@ if [ $_patchver -ne 0 ]; then
 	sha256sums=( "${sha256sums[@]}"
 		'ac57d56064bb23dae55fe656c407c662e842c98a6a5411251d6bb79c9718f555'
 	)
+	fi
 fi
 
 ## extra patches
@@ -48,7 +60,7 @@ _extrapatches=(
 )
 _extrapatchessums=(
 )
-if [ ${#_extrapatches[@]} -ne 0 ]; then
+if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 	source=( "${source[@]}"
 		"${_extrapatches[@]}"
 	)
@@ -57,12 +69,15 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 	)
 fi
 
-build() {
-	cd "$srcdir/linux-$_basekernel"
+prepare() {
+	cd "$srcdir/$_linuxname"
+
 	# Add revision patches
-	if [ $_patchver -ne 0 ]; then
-		msg2 "apply $_patchname"
-		patch -Np1 -i "$srcdir/$_patchname"
+	if [[ "$_patchver" =~ ^[0-9]+$ ]]; then
+		if [[ $_patchver -ne 0 ]]; then
+			msg2 "apply $_patchname"
+			patch -Np1 -i "$srcdir/$_patchname"
+		fi
 	fi
 
 	# extra patches
@@ -74,27 +89,34 @@ build() {
 
 	# set configuration
 	msg2 "copy configuration"
-	if [ "$CARCH" = "x86_64" ]; then
+	if [[ "$CARCH" = "x86_64" ]]; then
 		cat ../config-$_basekernel-desktop.x86_64 >./.config
 	else
 		cat ../config-$_basekernel-desktop.i686 >./.config
 	fi
-	if [ "$_kernelname" != "" ]; then
+	if [[ "$_kernelname" != "" ]]; then
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
 	fi
 
 	# set extraversion to pkgrel
 	msg2 "set extraversion to $pkgrel"
-	sed -ri "s|^(EXTRAVERSION =).*|\1 -$pkgrel|" Makefile
+	if [[ "$_patchver" == rc* ]]; then
+		sed -ri "s|^(EXTRAVERSION =).*|\1 ${_patchver}-$pkgrel|" Makefile
+	else
+		sed -ri "s|^(EXTRAVERSION =).*|\1 -$pkgrel|" Makefile
+	fi
 
 	# don't run depmod on 'make install'. We'll do this ourselves in packaging
 	sed -i '2iexit 0' scripts/depmod.sh
 
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
-	echo "" > "$srcdir/linux-$_basekernel/.scmversion"
+	echo "" > "$srcdir/$_linuxname/.scmversion"
+}
 
-	# get kernel version
+build() {
+	cd "$srcdir/$_linuxname"
+
 	msg2 "prepare"
 	make prepare
 	# load configuration
@@ -133,7 +155,7 @@ package_linux-bede() {
 	install=$pkgname.install
 
 	KARCH=x86
-	cd "$srcdir/linux-$_basekernel"
+	cd "$srcdir/$_linuxname"
 
 	mkdir -p "$pkgdir"/{lib/modules,lib/firmware,boot,usr}
 
@@ -193,7 +215,7 @@ package_linux-bede-headers() {
 	install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
 	cd "$pkgdir/usr/lib/modules/$_kernver"
 	ln -sf ../../../src/linux-$_kernver build
-	cd "$srcdir/linux-$_basekernel"
+	cd "$srcdir/$_linuxname"
 	install -D -m644 Makefile \
 		"$pkgdir/usr/src/linux-$_kernver/Makefile"
 	install -D -m644 kernel/Makefile \
@@ -211,7 +233,7 @@ package_linux-bede-headers() {
 	mkdir -p "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/kernel"
 
 	cp arch/$KARCH/Makefile "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/"
-	if [ "$CARCH" = "i686" ]; then
+	if [[ "$CARCH" = "i686" ]]; then
 		cp arch/$KARCH/Makefile_32.cpu "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/"
 	fi
 	cp arch/$KARCH/kernel/asm-offsets.s "$pkgdir/usr/src/linux-$_kernver/arch/$KARCH/kernel/"
