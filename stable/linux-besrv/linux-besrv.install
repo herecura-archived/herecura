@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-besrv
-KERNEL_VERSION=3.10.26-1-BESRV
+KERNEL_VERSION=3.10.27-1-BESRV
 
 _remove_groups() {
   for group in proc-trusted tpe-trusted; do
