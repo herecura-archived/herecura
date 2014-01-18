@@ -3,7 +3,7 @@
 
 pkgname=xf86-video-v4l
 pkgver=0.2.0
-pkgrel=10
+pkgrel=11
 pkgdesc="X.org v4l video driver"
 arch=(i686 x86_64)
 url="http://xorg.freedesktop.org/"
