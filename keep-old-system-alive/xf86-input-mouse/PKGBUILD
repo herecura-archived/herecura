@@ -3,7 +3,7 @@
 
 pkgname=xf86-input-mouse
 pkgver=1.7.1
-pkgrel=3
+pkgrel=4
 pkgdesc="X.org mouse input driver"
 arch=(i686 x86_64)
 license=('custom')
