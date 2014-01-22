@@ -1,15 +1,14 @@
 # Maintainer: trya <tryagainprod@gmail.com>
 
 pkgname=quazip
-pkgver=0.5.1
-pkgrel=2
+pkgver=0.6
+pkgrel=1
 pkgdesc="C++ wrapper for the Gilles Vollant's ZIP/UNZIP C package"
 url="http://sourceforge.net/projects/quazip/"
 arch=('i686' 'x86_64')
 depends=('qt4')
 source=("http://downloads.sourceforge.net/project/quazip/quazip/$pkgver/quazip-$pkgver.tar.gz")
 license=('LGPL')
-md5sums=('eec6b9b6f19654230dfcd158f29ea9d0')
 
 build() {
   cd "$srcdir/quazip-$pkgver/quazip"
@@ -24,3 +23,4 @@ package() {
   install -m644 libquazip.a "$pkgdir/usr/lib"
   install -Dm644 ../FindQuaZip.cmake "$pkgdir/usr/share/apps/cmake/modules/FindQuaZip.cmake"
 }
+sha256sums=('55664addf0e7f7a6f52b9eb35ccf7b3b523cee588f37f76173bd0d4a396ddb5f')
