@@ -9,7 +9,7 @@ arch=('any')
 url="http://code.google.com/closure"
 license=('APACHE')
 depends=('java-runtime')
-source=("http://$pkgname.googlecode.com/files/compiler-$pkgver.tar.gz")
+source=("http://dl.google.com/$pkgname/compiler-$pkgver.tar.gz")
 
 package() {
 	cd $srcdir
