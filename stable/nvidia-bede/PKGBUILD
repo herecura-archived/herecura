@@ -6,7 +6,7 @@ _pkgname=nvidia
 pkgname=$_pkgname-bede
 pkgver=331.38
 _extramodules=3.13-BEDE-external
-pkgrel=5
+pkgrel=6
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -32,11 +32,18 @@ elif [ "$CARCH" = "x86_64" ]; then
     sha256sums=('177e0d6b4cfb16889f6ba1039b5735b51b8056e5288f2b6b2943426f71744ad2')
 fi
 
-build() {
-    _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
-    cd "$srcdir"
+source+=('nvidia_3.13_kernel.patch')
+sha256sums+=('fd6420117e3e243dc6c5f0b20e245d08cabd72dfd722dd3659ec34ebd6dc1d13')
+
+prepare() {
     [ -d "$_pkg" ] && rm -rf "$_pkg"
     sh $_pkg.run --extract-only
+    cd $_pkg
+    patch -p1 -i "${srcdir}"/nvidia_3.13_kernel.patch
+}
+
+build() {
+    _kernver="$(cat /usr/lib/modules/$_extramodules/version)"
     cd $_pkg/kernel
     make SYSSRC=/usr/lib/modules/$_kernver/build module
 }
