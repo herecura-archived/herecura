@@ -1,0 +1,57 @@
+diff -wruN -x '*~' -x '*.o' -x '*.a' -x '*.so' -x '*.so.[0-9]' -x autom4te.cache -x .deps -x .libs ../orig-vim74/src/if_ruby.c ./src/if_ruby.c
+--- ../orig-vim74/src/if_ruby.c	2013-05-20 12:47:48.000000000 +0200
++++ ./src/if_ruby.c	2014-01-10 09:04:58.926094655 +0100
+@@ -96,6 +96,10 @@
+ # define rb_num2int rb_num2int_stub
+ #endif
+ 
++# if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER > 20
++# define rb_gc_writebarrier_unprotect_promoted rb_gc_writebarrier_unprotect_promoted_stub
++# endif
++
+ #include <ruby.h>
+ #ifdef RUBY19_OR_LATER
+ # include <ruby/encoding.h>
+@@ -213,6 +217,9 @@
+ # define rb_obj_alloc			dll_rb_obj_alloc
+ # define rb_obj_as_string		dll_rb_obj_as_string
+ # define rb_obj_id			dll_rb_obj_id
++# if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER > 20
++# define rb_gc_writebarrier_unprotect_promoted dll_rb_gc_writebarrier_unprotect_promoted
++# endif
+ # define rb_raise			dll_rb_raise
+ # define rb_str_cat			dll_rb_str_cat
+ # define rb_str_concat			dll_rb_str_concat
+@@ -317,6 +324,9 @@
+ static VALUE (*dll_rb_obj_alloc) (VALUE);
+ static VALUE (*dll_rb_obj_as_string) (VALUE);
+ static VALUE (*dll_rb_obj_id) (VALUE);
++# if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER > 20
++static void (*dll_rb_gc_writebarrier_unprotect_promoted) (VALUE);
++# endif
+ static void (*dll_rb_raise) (VALUE, const char*, ...);
+ # if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER >= 18
+ static VALUE (*dll_rb_string_value) (volatile VALUE*);
+@@ -393,6 +403,12 @@
+     return dll_rb_num2int(x);
+ }
+ #  endif
++#  if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER > 20
++void rb_gc_writebarrier_unprotect_promoted_stub(VALUE obj)
++{
++    dll_rb_gc_writebarrier_unprotect_promoted(obj);
++}
++#  endif
+ #  if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER >= 20
+ VALUE
+ rb_float_new_in_heap(double d)
+@@ -462,6 +478,9 @@
+     {"rb_obj_alloc", (RUBY_PROC*)&dll_rb_obj_alloc},
+     {"rb_obj_as_string", (RUBY_PROC*)&dll_rb_obj_as_string},
+     {"rb_obj_id", (RUBY_PROC*)&dll_rb_obj_id},
++# if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER > 20
++    {"dll_rb_gc_writebarrier_unprotect_promoted", (RUBY_PROC*)&dll_rb_gc_writebarrier_unprotect_promoted},
++# endif
+     {"rb_raise", (RUBY_PROC*)&dll_rb_raise},
+ # if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER >= 18
+     {"rb_string_value", (RUBY_PROC*)&dll_rb_string_value},
