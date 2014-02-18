@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.13
 _patchver=3
 pkgver=$_basekernel
-pkgrel=0.2
+pkgrel=0.3
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -134,7 +134,7 @@ build() {
 }
 
 package_linux-grsrv() {
-	pkgdesc="The Linux Kernel and modules, BlackEagle Server Edition"
+	pkgdesc="The Linux Kernel and modules, Grsecurity Server Edition"
 	provides=('linux')
 	backup=(
 		"etc/mkinitcpio.d/$pkgname.preset"
