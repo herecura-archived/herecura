@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.13
 _patchver=3
 pkgver=$_basekernel
-pkgrel=0.1
+pkgrel=0.2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -108,6 +108,9 @@ build() {
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > "$srcdir/linux-$_basekernel/.scmversion"
+
+	msg2 "empty -grsec localversion"
+	echo "" > "$srcdir/linux-$_basekernel/localversion-grsec"
 
 	# get kernel version
 	msg2 "prepare"
