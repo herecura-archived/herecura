@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.13
 _patchver=3
 pkgver=$_basekernel
-pkgrel=0.3
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -144,10 +144,6 @@ package_linux-grsrv() {
 		'crda: to set the correct wireless channels of your country'
 		'linux-firmware: when having some hardware needing special firmware'
 	)
-	replaces=(
-		'nouveau-drm' 'kernel26-slk' "kernel26$_kernelname" "linux-bemm"
-	)
-
 	install=$pkgname.install
 
 	KARCH=x86
@@ -207,7 +203,6 @@ package_linux-grsrv() {
 package_linux-grsrv-headers() {
 	pkgdesc="Header files and scripts for building modules for linux$_kernelname"
 	provides=('linux-headers')
-	replaces=("kernel26$_kernelname-headers" "linux-bemm-headers")
 	install -dm755 "$pkgdir/usr/lib/modules/$_kernver"
 	cd "$pkgdir/usr/lib/modules/$_kernver"
 	ln -sf ../../../src/linux-$_kernver build
