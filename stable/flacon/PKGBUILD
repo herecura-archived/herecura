@@ -2,7 +2,7 @@
 # Maintainer from 0.8.0 release satanselbow <igdfpm@gmail.com>
 pkgname=flacon
 pkgver=0.9.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Extracts individual tracks from one big audio file containing the \
  entire album of music and saves them as separate audio files."
 arch=('i686' 'x86_64')
@@ -28,7 +28,7 @@ prepare() {
 
 build() {
 	cd "$pkgname-$pkgver/build"
-	cmake .. && make
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr .. && make
 }
 
 package() {
