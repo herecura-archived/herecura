@@ -161,7 +161,7 @@ build() {
 
 	# Now (finally) build
 	msg2 "Running make" 
-	MAKEFLAGS="-j1" make
+	make
 }
 
 package() {
