@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.10
-_patchver=32
+_patchver=33
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -26,8 +26,8 @@ source=(
 )
 sha256sums=(
 	'df27fa92d27a9c410bfe6c4a89f141638500d7eadcca5cce578954efc2ad3544'
-	'b6b2006fa7983e2732bb99153cbdad4486c65a1bad5134d5fa0921e405faed79'
-	'6ca17ed3e7f52a8ca59e6388fd8035823c25c952885b7b7a2c961bf2c2772d72'
+	'cf7f31777e75dffa98575c20fad5f7d530cf66c94205eea0f9dc2caaa202eae9'
+	'5347399e14cf69727efd0b4ecc400dca21bb3c159b05fa90a8502e1ac2802b7c'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -39,7 +39,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'e05a8b9bbd475a3b85b893b447109aa5a4af3c981d4fb4e500e25e20cae9286a'
+		'4ba2db5d2c54cff38cbbbff940e9a45969ccea675fc1cf78a4e665dd8f97468e'
 	)
 fi
 
