@@ -55,8 +55,8 @@ post_upgrade() {
 
 post_remove() {
   # also remove the compat symlinks
-  rm -f boot/{initramfs,kernel26}${KERNEL_NAME}.img
-  rm -f boot/{initramfs,kernel26}${KERNEL_NAME}-fallback.img
+  rm -f boot/initramfs${KERNEL_NAME}.img
+  rm -f boot/initramfs${KERNEL_NAME}-fallback.img
 
   _remove_groups
 }

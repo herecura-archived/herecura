@@ -4,22 +4,12 @@
 KERNEL_NAME=-besrv
 KERNEL_VERSION=3.10.33-1-BESRV
 
-_remove_groups() {
-  for group in proc-trusted tpe-trusted; do
-    if getent group $group >/dev/null; then
-	  groupdel $group
-    fi
-  done
-}
-
 post_install () {
   # updating module dependencies
   echo ">>> Updating module dependencies. Please wait ..."
   depmod ${KERNEL_VERSION}
   echo ">>> Generating initial ramdisk, using mkinitcpio.  Please wait..."
   mkinitcpio -p linux${KERNEL_NAME}
-
-  _remove_groups
 }
 
 post_upgrade() {
@@ -32,14 +22,10 @@ post_upgrade() {
   depmod ${KERNEL_VERSION}
   echo ">>> Generating initial ramdisk, using mkinitcpio.  Please wait..."
   mkinitcpio -p linux${KERNEL_NAME}
-  
-  _remove_groups
 }
 
 post_remove() {
   # also remove the compat symlinks
-  rm -f boot/{initramfs,kernel26}${KERNEL_NAME}.img
-  rm -f boot/{initramfs,kernel26}${KERNEL_NAME}-fallback.img
-
-  _remove_groups
+  rm -f boot/initramfs${KERNEL_NAME}.img
+  rm -f boot/initramfs${KERNEL_NAME}-fallback.img
 }
