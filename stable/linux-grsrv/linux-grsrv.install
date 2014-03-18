@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-grsrv
-KERNEL_VERSION=3.13.6-2-GRSRV
+KERNEL_VERSION=3.13.6-3-GRSRV
 
 _add_proc_group() {
   if ! getent group proc-trusted >/dev/null; then
