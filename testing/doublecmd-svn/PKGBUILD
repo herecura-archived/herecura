@@ -4,7 +4,7 @@
 pkgbase=doublecmd-svn
 _svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
-pkgver=5480
+pkgver=5483
 pkgrel=1
 url="http://doublecmd.sourceforge.net/"
 arch=('i686' 'x86_64')
@@ -16,13 +16,13 @@ makedepends=('lazarus' 'qt4pas' 'gtk2' 'subversion')
 optdepends=('lua51: scripting' 'p7zip: support for 7zip archives' 'libunrar: support for rar archives' 'zip: support for zip files' 'unzip: support for zip files')
 source=(
 	"$_svnmod::svn://svn.code.sf.net/p/doublecmd/code/trunk"
-	"http://www.herecura.be/files/lazarus-20140321.tar.gz"
+	"http://www.herecura.be/files/lazarus-20140321-2.tar.gz"
 )
 md5sums=(
 	'SKIP'
-	'd1d99c5358033a7b65239b1687531f5e'
+	'e2eab1eb24c46412846494c20c6db2ab'
 )
-noextract=('lazarus-20140321.tar.gz')
+noextract=('lazarus-20140321-2.tar.gz')
 
 pkgver() {
 	cd "$srcdir/$_svnmod"
@@ -45,17 +45,17 @@ build() {
 	msg2 'build gtk'
 	gtkdir="$srcdir/$pkgbase-gtk"
 	cd "$gtkdir"
-	bsdtar -zxf "$srcdir/lazarus-20140321.tar.gz"
-	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${gtkdir//\//\\\/}\"/" -i build.sh
-	sed -e "s/%%SRCDIR%%/${gtkdir//\//\\\/}/g" -i packagefiles.xml
+	bsdtar -zxf "$srcdir/lazarus-20140321-2.tar.gz"
+	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${gtkdir//\//\\\/}\/lazarus\/lazarus-$CARCH\"/" -i build.sh
+	sed -e "s/%%SRCDIR%%/${gtkdir//\//\\\/}/g" -i lazarus/packagefiles.xml
 	./build.sh beta gtk2
 
 	msg2 'build qt'
 	qtdir="$srcdir/$pkgbase-qt"
 	cd "$qtdir"
-	bsdtar -zxf "$srcdir/lazarus-20140321.tar.gz"
-	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${qtdir//\//\\\/}\"/" -i build.sh
-	sed -e "s/%%SRCDIR%%/${qtdir//\//\\\/}/g" -i packagefiles.xml
+	bsdtar -zxf "$srcdir/lazarus-20140321-2.tar.gz"
+	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${qtdir//\//\\\/}\/lazarus\/lazarus-$CARCH\"/" -i build.sh
+	sed -e "s/%%SRCDIR%%/${qtdir//\//\\\/}/g" -i lazarus/packagefiles.xml
 	./build.sh beta qt
 }
 
