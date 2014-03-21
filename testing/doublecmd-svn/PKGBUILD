@@ -14,8 +14,15 @@ provides=('doublecmd')
 conflicts=('doublecmd')
 makedepends=('lazarus' 'qt4pas' 'gtk2' 'subversion')
 optdepends=('lua51: scripting' 'p7zip: support for 7zip archives' 'libunrar: support for rar archives' 'zip: support for zip files' 'unzip: support for zip files')
-source=("$_svnmod::svn://svn.code.sf.net/p/doublecmd/code/trunk")
-md5sums=('SKIP')
+source=(
+	"$_svnmod::svn://svn.code.sf.net/p/doublecmd/code/trunk"
+	"http://www.herecura.be/files/lazarus-20140321.tar.gz"
+)
+md5sums=(
+	'SKIP'
+	'd1d99c5358033a7b65239b1687531f5e'
+)
+noextract=('lazarus-20140321.tar.gz')
 
 pkgver() {
 	cd "$srcdir/$_svnmod"
@@ -24,7 +31,7 @@ pkgver() {
 
 prepare() {
 	cd "$srcdir/$_svnmod"
-	sed -e 's/\(export\ lazbuild=\).*/\1"$(which\ lazbuild) --lazarusdir=\/usr\/lib\/lazarus"/' -i build.sh
+	#sed -e 's/\(export\ lazbuild=\).*/\1"$(which\ lazbuild) --lazarusdir=\/usr\/lib\/lazarus"/' -i build.sh
 	#sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i ./install/linux/install.sh
 }
 
@@ -35,11 +42,21 @@ build() {
 	cp -a $_svnmod $pkgbase-gtk
 	cp -a $_svnmod $pkgbase-qt
 
-	cd "$srcdir/$pkgbase-gtk"
-	./build.sh all gtk2
+	msg2 'build gtk'
+	gtkdir="$srcdir/$pkgbase-gtk"
+	cd "$gtkdir"
+	bsdtar -zxf "$srcdir/lazarus-20140321.tar.gz"
+	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${gtkdir//\//\\\/}\"/" -i build.sh
+	sed -e "s/%%SRCDIR%%/${gtkdir//\//\\\/}/g" -i packagefiles.xml
+	./build.sh beta gtk2
 
-	cd "$srcdir/$pkgbase-qt"
-	./build.sh all qt
+	msg2 'build qt'
+	qtdir="$srcdir/$pkgbase-qt"
+	cd "$qtdir"
+	bsdtar -zxf "$srcdir/lazarus-20140321.tar.gz"
+	sed -e "s/\\(export\\ lazbuild=\\).*/\\1\"\$(which lazbuild) --primary-config-path=${qtdir//\//\\\/}\"/" -i build.sh
+	sed -e "s/%%SRCDIR%%/${qtdir//\//\\\/}/g" -i packagefiles.xml
+	./build.sh beta qt
 }
 
 package_doublecmd-svn-gtk2() {
