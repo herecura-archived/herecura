@@ -1,6 +1,6 @@
 diff -urN vim-src/README.md vim-qt-src/README.md
 --- vim-src/README.md	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/README.md	2012-08-23 19:26:45.669686166 +0200
++++ vim-qt-src/README.md	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,51 @@
 +This is README for the Qt GUI - if you want the VIM README check README.txt
 +
@@ -55,7 +55,7 @@ diff -urN vim-src/README.md vim-qt-src/README.md
 +
 diff -urN vim-src/README_qt.txt vim-qt-src/README_qt.txt
 --- vim-src/README_qt.txt	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/README_qt.txt	2012-08-23 19:26:45.669686166 +0200
++++ vim-qt-src/README_qt.txt	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,51 @@
 +This is README for the Qt GUI - if you want the VIM README check README.txt
 +
@@ -109,8 +109,8 @@ diff -urN vim-src/README_qt.txt vim-qt-src/README_qt.txt
 +
 +
 diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
---- vim-src/runtime/menu.vim	2013-10-09 22:09:06.443657514 +0200
-+++ vim-qt-src/runtime/menu.vim	2013-10-09 22:07:10.229796341 +0200
+--- vim-src/runtime/menu.vim	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/runtime/menu.vim	2013-10-09 22:07:10.000000000 +0200
 @@ -383,7 +383,7 @@
    endif
    unlet s:n
@@ -122,7 +122,7 @@ diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
  
 diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 --- vim-src/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/CMakeLists.txt	2013-05-18 08:44:24.046712103 +0200
++++ vim-qt-src/src/CMakeLists.txt	2013-05-18 08:44:24.000000000 +0200
 @@ -0,0 +1,123 @@
 +cmake_minimum_required(VERSION 2.8)
 +
@@ -248,8 +248,8 @@ diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
 +
 +
 diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
---- vim-src/src/Makefile	2013-10-09 22:09:06.565658433 +0200
-+++ vim-qt-src/src/Makefile	2013-10-09 22:07:10.246796465 +0200
+--- vim-src/src/Makefile	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/Makefile	2014-01-11 00:34:30.620264177 +0100
 @@ -1246,6 +1246,39 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
@@ -342,7 +342,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
 +	$(CXX) $(ALL_CFLAGS) -o $@ -c qt/vimaction.cpp
 +
 +objects/qtresources.o: qt/icons.qrc
-+	rcc -no-compress qt/icons.qrc -o qtresources.cpp
++	$(QT_RCC) -no-compress qt/icons.qrc -o qtresources.cpp
 +	$(CXX) $(ALL_CFLAGS) -o $@ -c qtresources.cpp
 +
 +objects/vimscrollbar.o: qt/vimscrollbar.cpp
@@ -376,7 +376,7 @@ diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
  
 diff -urN vim-src/src/Toolchain-mingw32.cmake vim-qt-src/src/Toolchain-mingw32.cmake
 --- vim-src/src/Toolchain-mingw32.cmake	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/Toolchain-mingw32.cmake	2012-06-20 16:40:37.866238171 +0200
++++ vim-qt-src/src/Toolchain-mingw32.cmake	2012-06-20 16:40:37.000000000 +0200
 @@ -0,0 +1,18 @@
 +
 +SET(CMAKE_SYSTEM_NAME Windows)
@@ -398,12 +398,13 @@ diff -urN vim-src/src/Toolchain-mingw32.cmake vim-qt-src/src/Toolchain-mingw32.c
 +SET(QT_UIC_EXECUTABLE /usr/i686-w64-mingw32/bin/uic CACHE INTERNAL "" FORCE)
 diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
 --- vim-src/src/config.mk.in	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/config.mk.in	2012-10-22 20:08:50.260304330 +0200
-@@ -156,6 +156,11 @@
++++ vim-qt-src/src/config.mk.in	2014-01-11 00:34:30.620264177 +0100
+@@ -156,6 +156,12 @@
  GUI_X_LIBS	= @GUI_X_LIBS@
  MOTIF_LIBNAME	= @MOTIF_LIBNAME@
  GTK_LIBNAME	= @GTK_LIBNAME@
 +QT_MOC		= @QT_MOC@
++QT_RCC		= @QT_RCC@
 +QT_LIBS		= @QT_LIBS@
 +QT_INCPATH	= @QT_INCPATH@
 +QT_CXXFLAGS	= @QT_CXXFLAGS@
@@ -413,8 +414,8 @@ diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
 diff -urN vim-src/src/configure vim-qt-src/src/configure
 --- vim-src/src/configure	2011-12-23 21:44:32.000000000 +0100
-+++ vim-qt-src/src/configure	2013-10-09 22:07:10.251796502 +0200
-@@ -1,10 +1,15290 @@
++++ vim-qt-src/src/configure	2014-01-11 00:34:30.623264215 +0100
+@@ -1,10 +1,15115 @@
  #! /bin/sh
 -# run the automatically generated configure script
 -CONFIG_STATUS=auto/config.status \
@@ -1058,9 +1059,10 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +QT_CFLAGS
 +QT_CXXFLAGS
 +QT_INCPATH
++QT_RCC
++QT_MOC
 +QT_LIBS
 +MAKE_P
-+QT_MOC
 +QMAKE
 +ac_ct_CXX
 +CXXFLAGS
@@ -1252,7 +1254,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +with_gnome_libs
 +with_gnome
 +with_motif_lib
-+with_qt_dir
++with_qt_qmake
 +with_tlib
 +enable_largefile
 +enable_acl
@@ -1945,7 +1947,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +  --with-gnome-libs=DIR   Specify location of GNOME libs
 +  --with-gnome            Specify prefix for GNOME files
 +  --with-motif-lib=STRING   Library for Motif
-+  --with-qt-dir=PATH   Qt prefix path (ex: /usr/ or /usr/lib/qt4)
++  --with-qt-qmake=PATH   QMake location (ex: /usr/lib/qt4/bin/qmake)
 +  --with-tlib=library     terminal library to be used
 +
 +Some influential environment variables:
@@ -9811,40 +9813,30 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 +
 +    QT_FOUND="no"
++    QT_MIN_VERSION="4.7.0"
 +
 +    # Disable xim - Qt will decide on this
 +    enable_xim="no"
 +
-+    { $as_echo "$as_me:${as_lineno-$LINENO}: checking --with-qt-dir argument" >&5
-+$as_echo_n "checking --with-qt-dir argument... " >&6; }
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking --with-qt-qmake argument" >&5
++$as_echo_n "checking --with-qt-qmake argument... " >&6; }
 +
-+# Check whether --with-qt-dir was given.
-+if test "${with_qt_dir+set}" = set; then :
-+  withval=$with_qt_dir;  QT_DIR="${withval}"
++# Check whether --with-qt-qmake was given.
++if test "${with_qt_qmake+set}" = set; then :
++  withval=$with_qt_qmake;  QMAKE="${withval}"
 +fi
 +
 +
-+    if test -n "$QT_DIR"; then
-+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_DIR" >&5
-+$as_echo "$QT_DIR" >&6; }
-+
-+        #
-+	# Use the prefix given by --with-qt-dir
-+	#
-+	QMAKE="$QT_DIR/bin/qmake"
-+	QT_MOC="$QT_DIR/bin/moc"
++    if test -n "$QMAKE"; then
 +
 +    	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $QMAKE" >&5
 +$as_echo_n "checking for $QMAKE... " >&6; }
 +	if test ! -x "$QMAKE"; then
-+            as_fn_error $? "\"Unable to find qmake\"" "$LINENO" 5
++            as_fn_error $? "\"Unable to find the given qmake $QMAKE\"" "$LINENO" 5
 +	fi
 +
-+    	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $QT_MOC" >&5
-+$as_echo_n "checking for $QT_MOC... " >&6; }
-+	if test ! -x "$QT_MOC"; then
-+            as_fn_error $? "\"Unable to find moc\"" "$LINENO" 5
-+	fi
++        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++$as_echo "yes" >&6; }
 +    else
 +        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
@@ -10030,187 +10022,11 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +            as_fn_error $? "\"Unable to find qmake\"" "$LINENO" 5
 +        fi
 +
-+        #
-+        # Find moc
-+        # - Exactly the same as previous case with qmake
-+        #
-+        # Extract the first word of "moc4", so it can be a program name with args.
-+set dummy moc4; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_QT_MOC+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  case $QT_MOC in
-+  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
-+  ;;
-+  *)
-+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-+    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
-+
-+  ;;
-+esac
-+fi
-+QT_MOC=$ac_cv_path_QT_MOC
-+if test -n "$QT_MOC"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
-+$as_echo "$QT_MOC" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
-+
-+
-+        if test -z "$QT_MOC"; then
-+            # Extract the first word of "moc-qt4", so it can be a program name with args.
-+set dummy moc-qt4; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_QT_MOC+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  case $QT_MOC in
-+  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
-+  ;;
-+  *)
-+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-+    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
-+
-+  ;;
-+esac
-+fi
-+QT_MOC=$ac_cv_path_QT_MOC
-+if test -n "$QT_MOC"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
-+$as_echo "$QT_MOC" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
-+
-+
-+        fi
-+
-+        if test -z "$QT_MOC"; then
-+            # Extract the first word of "moc", so it can be a program name with args.
-+set dummy moc; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_QT_MOC+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  case $QT_MOC in
-+  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
-+  ;;
-+  *)
-+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-+    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
-+
-+  ;;
-+esac
-+fi
-+QT_MOC=$ac_cv_path_QT_MOC
-+if test -n "$QT_MOC"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
-+$as_echo "$QT_MOC" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
-+
-+
-+        fi
-+
-+        if test -z "$QT_MOC"; then
-+            # Extract the first word of "moc", so it can be a program name with args.
-+set dummy moc; ac_word=$2
-+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-+$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_QT_MOC+:} false; then :
-+  $as_echo_n "(cached) " >&6
-+else
-+  case $QT_MOC in
-+  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_QT_MOC="$QT_MOC" # Let the user override the test with a path.
-+  ;;
-+  *)
-+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-+for as_dir in $QT_BIN_PATH
-+do
-+  IFS=$as_save_IFS
-+  test -z "$as_dir" && as_dir=.
-+    for ac_exec_ext in '' $ac_executable_extensions; do
-+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-+    ac_cv_path_QT_MOC="$as_dir/$ac_word$ac_exec_ext"
-+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-+    break 2
-+  fi
-+done
-+  done
-+IFS=$as_save_IFS
-+
-+  ;;
-+esac
-+fi
-+QT_MOC=$ac_cv_path_QT_MOC
-+if test -n "$QT_MOC"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_MOC" >&5
-+$as_echo "$QT_MOC" >&6; }
-+else
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-+$as_echo "no" >&6; }
-+fi
-+
-+
-+        fi
-+
-+        if test -z "$QT_MOC"; then
-+            as_fn_error $? "\"Unable to find moc\"" "$LINENO" 5
-+        fi
 +    fi
 +
 +    #
-+    # Check Qt version
-+    QT_MIN_VERSION="4.7.0"
++    # Check Qt version >= 4.7.0
++
 +    { $as_echo "$as_me:${as_lineno-$LINENO}: checking Qt version" >&5
 +$as_echo_n "checking Qt version... " >&6; }
 +    QT_VERSION=`$QMAKE -query QT_VERSION | cut -f1`
@@ -10219,6 +10035,16 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    fi
 +    { $as_echo "$as_me:${as_lineno-$LINENO}: result: $QT_VERSION" >&5
 +$as_echo "$QT_VERSION" >&6; }
++
++    QT_INSTALL_BINS=`$QMAKE -query QT_INSTALL_BINS | cut -f1`
++    QT_MOC="$QT_INSTALL_BINS/moc"
++    if test ! -x "$QT_MOC"; then
++    	as_fn_error $? "\"Unable to find the given Qt moc $QT_MOC\"" "$LINENO" 5
++    fi
++    QT_RCC="$QT_INSTALL_BINS/rcc"
++    if test ! -x "$QT_RCC"; then
++    	as_fn_error $? "\"Unable to find the given Qt rcc $QT_RCC\"" "$LINENO" 5
++    fi
 +
 +    #
 +    # Call qmake to generate bogus project
@@ -10239,7 +10065,6 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    return app.exec();
 +}
 +EOF
-+
 +
 +    # Extract the first word of "gmake", so it can be a program name with args.
 +set dummy gmake; ac_word=$2
@@ -10406,6 +10231,7 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
 +    fi
 +
 +    LDFLAGS="$LDFLAGS $QT_LFLAGS -lstdc++"
++
 +
 +
 +
@@ -15713,8 +15539,8 @@ diff -urN vim-src/src/configure vim-qt-src/src/configure
  
 -exit $result
 diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
---- vim-src/src/configure.in	2013-10-09 22:11:46.452862738 +0200
-+++ vim-qt-src/src/configure.in	2013-10-09 22:11:47.221868528 +0200
+--- vim-src/src/configure.in	2014-03-25 19:45:12.796221328 +0100
++++ vim-qt-src/src/configure.in	2014-03-25 19:45:18.148269025 +0100
 @@ -1967,11 +1967,11 @@
    fi
  fi
@@ -15790,7 +15616,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2562,6 +2568,218 @@
+@@ -2562,6 +2568,199 @@
    CPPFLAGS=$cppflags_save
  fi
  
@@ -15800,33 +15626,24 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    AC_LANG_PUSH(C++)
 +    AC_PROG_CXX
 +    QT_FOUND="no"
++    QT_MIN_VERSION="4.7.0"
 +
 +    # Disable xim - Qt will decide on this
 +    enable_xim="no"
 +
-+    AC_MSG_CHECKING(--with-qt-dir argument)
-+    AC_ARG_WITH(qt-dir,
-+    [  --with-qt-dir=PATH   Qt prefix path (ex: /usr/ or /usr/lib/qt4)],
-+    [ QT_DIR="${withval}" ] )
++    AC_MSG_CHECKING(--with-qt-qmake argument)
++    AC_ARG_WITH(qt-qmake,
++    [  --with-qt-qmake=PATH   QMake location (ex: /usr/lib/qt4/bin/qmake)],
++    [ QMAKE="${withval}" ] )
 +
-+    if test -n "$QT_DIR"; then
-+        AC_MSG_RESULT($QT_DIR)
-+
-+        #
-+	# Use the prefix given by --with-qt-dir
-+	#
-+	QMAKE="$QT_DIR/bin/qmake"
-+	QT_MOC="$QT_DIR/bin/moc"
++    if test -n "$QMAKE"; then
 +
 +    	AC_MSG_CHECKING(for $QMAKE)
 +	if test ! -x "$QMAKE"; then
-+            AC_MSG_ERROR("Unable to find qmake")
++            AC_MSG_ERROR("Unable to find the given qmake $QMAKE")
 +	fi
 +
-+    	AC_MSG_CHECKING(for $QT_MOC)
-+	if test ! -x "$QT_MOC"; then
-+            AC_MSG_ERROR("Unable to find moc")
-+	fi
++        AC_MSG_RESULT(yes)
 +    else
 +        AC_MSG_RESULT(no)
 +
@@ -15855,37 +15672,27 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +            AC_MSG_ERROR("Unable to find qmake")
 +        fi
 +    
-+        #
-+        # Find moc
-+        # - Exactly the same as previous case with qmake
-+        # 
-+        AC_PATH_PROG(QT_MOC, moc4)
-+        if test -z "$QT_MOC"; then
-+            AC_PATH_PROG(QT_MOC, moc-qt4)
-+        fi
-+ 
-+        if test -z "$QT_MOC"; then
-+            AC_PATH_PROG(QT_MOC, moc)
-+        fi
-+
-+        if test -z "$QT_MOC"; then
-+            AC_PATH_PROG(QT_MOC, moc, , $QT_BIN_PATH)
-+        fi
-+    
-+        if test -z "$QT_MOC"; then
-+            AC_MSG_ERROR("Unable to find moc")
-+        fi
 +    fi
 +
 +    #
-+    # Check Qt version
-+    QT_MIN_VERSION="4.7.0"
++    # Check Qt version >= 4.7.0
++
 +    AC_MSG_CHECKING(Qt version)
 +    QT_VERSION=`$QMAKE -query QT_VERSION | cut -f1`
 +    if test [ "$QT_VERSION" \< "$QT_MIN_VERSION" ]; then
 +       AC_MSG_ERROR("Qt version is too old - need at least $QT_MIN_VERSION")
 +    fi
 +    AC_MSG_RESULT($QT_VERSION)
++
++    QT_INSTALL_BINS=`$QMAKE -query QT_INSTALL_BINS | cut -f1`
++    QT_MOC="$QT_INSTALL_BINS/moc"
++    if test ! -x "$QT_MOC"; then
++    	AC_MSG_ERROR("Unable to find the given Qt moc $QT_MOC")
++    fi
++    QT_RCC="$QT_INSTALL_BINS/rcc"
++    if test ! -x "$QT_RCC"; then
++    	AC_MSG_ERROR("Unable to find the given Qt rcc $QT_RCC")
++    fi
 +
 +    #
 +    # Call qmake to generate bogus project
@@ -15906,7 +15713,6 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    return app.exec();
 +}
 +EOF
-+
 +
 +    AC_PATH_PROG(MAKE_P, gmake)
 +    if test -z "$MAKE_P"; then
@@ -15989,6 +15795,7 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
 +    LDFLAGS="$LDFLAGS $QT_LFLAGS -lstdc++"
 +    AC_SUBST(QT_LIBS)
 +    AC_SUBST(QT_MOC)
++    AC_SUBST(QT_RCC)
 +    AC_SUBST(QT_INCPATH)
 +    AC_SUBST(QT_CXXFLAGS)
 +    AC_SUBST(QT_CFLAGS)
@@ -16010,8 +15817,8 @@ diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
  if test -z "$SKIP_ATHENA" -o -z "$SKIP_NEXTAW" -o -z "$SKIP_MOTIF" -o -z "$SKIP_GTK2"; then
    dnl Check for X11/xpm.h and X11/Sunkeysym.h with the GUI include path
 diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
---- vim-src/src/eval.c	2013-10-09 22:09:06.606658743 +0200
-+++ vim-qt-src/src/eval.c	2013-10-09 22:07:10.258796553 +0200
+--- vim-src/src/eval.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/eval.c	2013-10-09 22:07:10.000000000 +0200
 @@ -12281,6 +12281,9 @@
  #ifdef FEAT_GUI_W32
  	"gui_win32",
@@ -16023,8 +15830,8 @@ diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
  	"hangul_input",
  #endif
 diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
---- vim-src/src/ex_docmd.c	2013-10-09 22:09:06.429657409 +0200
-+++ vim-qt-src/src/ex_docmd.c	2013-10-09 22:07:10.262796582 +0200
+--- vim-src/src/ex_docmd.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/ex_docmd.c	2013-10-09 22:07:10.000000000 +0200
 @@ -7051,6 +7051,7 @@
  	|| (defined(FEAT_GUI_GTK) && defined(FEAT_DND)) \
  	|| defined(FEAT_GUI_MSWIN) \
@@ -16034,8 +15841,8 @@ diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
  
  /*
 diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
---- vim-src/src/feature.h	2013-10-09 22:11:46.443862670 +0200
-+++ vim-qt-src/src/feature.h	2013-10-09 22:11:47.212868460 +0200
+--- vim-src/src/feature.h	2014-03-25 19:45:12.784221221 +0100
++++ vim-qt-src/src/feature.h	2014-03-25 19:45:18.135268910 +0100
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -16067,8 +15874,8 @@ diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
  #  define FEAT_GUI_DIALOG
  # else
 diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
---- vim-src/src/fileio.c	2013-10-09 22:09:06.481657801 +0200
-+++ vim-qt-src/src/fileio.c	2013-10-09 22:07:10.265796604 +0200
+--- vim-src/src/fileio.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/fileio.c	2013-10-09 22:07:10.000000000 +0200
 @@ -6177,6 +6177,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
@@ -16078,8 +15885,8 @@ diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
  /*
   * Shorten all filenames in "fnames[count]" by current directory.
 diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
---- vim-src/src/globals.h	2013-10-09 22:09:06.513658042 +0200
-+++ vim-qt-src/src/globals.h	2013-10-09 22:07:10.267796619 +0200
+--- vim-src/src/globals.h	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/globals.h	2013-10-09 22:07:10.000000000 +0200
 @@ -510,7 +510,7 @@
  
  #ifdef FEAT_CLIPBOARD
@@ -16099,8 +15906,8 @@ diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
  #endif
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
 diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
---- vim-src/src/gui.c	2013-10-09 22:09:06.515658057 +0200
-+++ vim-qt-src/src/gui.c	2013-10-09 22:07:10.268796626 +0200
+--- vim-src/src/gui.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/gui.c	2013-10-09 22:07:10.000000000 +0200
 @@ -166,10 +166,10 @@
      termcapinit((char_u *)"builtin_gui");
      gui.starting = recursive - 1;
@@ -16159,8 +15966,8 @@ diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
  
  #ifdef FEAT_WINDOWS
 diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
---- vim-src/src/gui.h	2013-10-09 22:09:06.516658064 +0200
-+++ vim-qt-src/src/gui.h	2013-10-09 22:07:10.268796626 +0200
+--- vim-src/src/gui.h	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/gui.h	2013-10-09 22:07:10.000000000 +0200
 @@ -62,7 +62,7 @@
   * On some systems scrolling needs to be done right away instead of in the
   * main loop.
@@ -16233,8 +16040,8 @@ diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
      GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
 diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 --- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/gui_qt.cpp	2013-04-04 20:11:26.041732883 +0200
-@@ -0,0 +1,1749 @@
++++ vim-qt-src/src/gui_qt.cpp	2014-01-11 00:34:30.624264228 +0100
+@@ -0,0 +1,1748 @@
 +#include <QApplication>
 +#include <QMessageBox>
 +#include <QDesktopWidget>
@@ -16248,7 +16055,6 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +#include <QToolBar>
 +#include <QFileDialog>
 +#include <QPushButton>
-+#include <QTimer>
 +
 +#include "qvimshell.h"
 +#include "mainwindow.h"
@@ -17985,8 +17791,8 @@ diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
 +
 +} // extern "C"
 diff -urN vim-src/src/main.c vim-qt-src/src/main.c
---- vim-src/src/main.c	2013-10-09 22:09:06.567658449 +0200
-+++ vim-qt-src/src/main.c	2013-10-09 22:07:10.281796720 +0200
+--- vim-src/src/main.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/main.c	2013-10-09 22:07:10.000000000 +0200
 @@ -1627,7 +1627,7 @@
      }
  
@@ -18018,8 +17824,8 @@ diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
      if (gui.in_use
  	    && (gui.menu_height != old_menu_height
 diff -urN vim-src/src/message.c vim-qt-src/src/message.c
---- vim-src/src/message.c	2013-10-09 22:09:06.576658516 +0200
-+++ vim-qt-src/src/message.c	2013-10-09 22:07:10.284796743 +0200
+--- vim-src/src/message.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/message.c	2013-10-09 22:07:10.000000000 +0200
 @@ -3840,7 +3840,7 @@
  	    filter = BROWSE_FILTER_DEFAULT;
  	if (flags & BROWSE_DIR)
@@ -18039,8 +17845,8 @@ diff -urN vim-src/src/message.c vim-qt-src/src/message.c
  	     * name.  GTK+ 2 returns only the directory, */
  	    if (fname != NULL && *fname != NUL && !mch_isdir(fname))
 diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
---- vim-src/src/normal.c	2013-10-09 22:09:06.590658622 +0200
-+++ vim-qt-src/src/normal.c	2013-10-09 22:07:10.288796772 +0200
+--- vim-src/src/normal.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/normal.c	2013-10-09 22:07:10.000000000 +0200
 @@ -2746,7 +2746,7 @@
  	     * Windows only shows the popup menu on the button up event.
  	     */
@@ -18060,8 +17866,8 @@ diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
  	    {
  		jump_flags = 0;
 diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
---- vim-src/src/ops.c	2013-10-09 22:09:06.593658645 +0200
-+++ vim-qt-src/src/ops.c	2013-10-09 22:07:10.289796779 +0200
+--- vim-src/src/ops.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/ops.c	2013-10-09 22:07:10.000000000 +0200
 @@ -29,7 +29,7 @@
  #define DELETION_REGISTER	36
  #ifdef FEAT_CLIPBOARD
@@ -18096,8 +17902,8 @@ diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
       * If we were yanking to the '+' register, send result to selection.
       * Also copy to the '*' register, in case auto-select is off.
 diff -urN vim-src/src/option.c vim-qt-src/src/option.c
---- vim-src/src/option.c	2013-10-09 22:09:06.598658682 +0200
-+++ vim-qt-src/src/option.c	2013-10-09 22:07:10.291796793 +0200
+--- vim-src/src/option.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/option.c	2013-10-09 22:07:10.000000000 +0200
 @@ -1230,6 +1230,28 @@
  			    {(char_u *)FALSE, (char_u *)0L}
  #endif
@@ -18180,8 +17986,8 @@ diff -urN vim-src/src/option.c vim-qt-src/src/option.c
      {
  	if (p_beval && !old_value)
 diff -urN vim-src/src/option.h vim-qt-src/src/option.h
---- vim-src/src/option.h	2013-10-09 22:09:06.599658690 +0200
-+++ vim-qt-src/src/option.h	2013-10-09 22:07:10.291796793 +0200
+--- vim-src/src/option.h	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/option.h	2013-10-09 22:07:10.000000000 +0200
 @@ -480,6 +480,10 @@
  #ifdef HAVE_FSYNC
  EXTERN int	p_fs;		/* 'fsync' */
@@ -18194,8 +18000,8 @@ diff -urN vim-src/src/option.h vim-qt-src/src/option.h
  #ifdef FEAT_PRINTER
  EXTERN char_u	*p_pdev;	/* 'printdevice' */
 diff -urN vim-src/src/os_mswin.c vim-qt-src/src/os_mswin.c
---- vim-src/src/os_mswin.c	2013-10-09 22:09:06.604658727 +0200
-+++ vim-qt-src/src/os_mswin.c	2013-10-09 22:07:10.293796808 +0200
+--- vim-src/src/os_mswin.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/os_mswin.c	2013-10-09 22:07:10.000000000 +0200
 @@ -155,7 +155,7 @@
  extern char g_szOrigTitle[];
  #endif
@@ -18206,8 +18012,8 @@ diff -urN vim-src/src/os_mswin.c vim-qt-src/src/os_mswin.c
  #else
  static HWND s_hwnd = 0;	    /* console window handle, set by GetConsoleHwnd() */
 diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
---- vim-src/src/os_unix.c	2013-10-09 22:09:06.607658750 +0200
-+++ vim-qt-src/src/os_unix.c	2013-10-09 22:07:10.294796816 +0200
+--- vim-src/src/os_unix.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/os_unix.c	2013-10-09 22:07:10.000000000 +0200
 @@ -2092,7 +2092,7 @@
      if (get_x11_windis() == OK)
  	type = 1;
@@ -18235,8 +18041,8 @@ diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
  	    gui_mch_settitle(title, icon);
  #endif
 diff -urN vim-src/src/os_win32.c vim-qt-src/src/os_win32.c
---- vim-src/src/os_win32.c	2013-10-09 22:09:06.610658773 +0200
-+++ vim-qt-src/src/os_win32.c	2013-10-09 22:07:10.295796823 +0200
+--- vim-src/src/os_win32.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/os_win32.c	2013-10-09 22:07:10.000000000 +0200
 @@ -1931,9 +1931,9 @@
      if (!executable_exists("findstr.exe"))
  	set_option_value((char_u *)"grepprg", 0, (char_u *)"grep -n", 0);
@@ -18274,8 +18080,8 @@ diff -urN vim-src/src/pathdef.cmake.in vim-qt-src/src/pathdef.cmake.in
 +char_u *compiled_sys = (char_u *)"${SITE_NAME}";
 diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
 --- vim-src/src/proto/gui_qt.pro	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/proto/gui_qt.pro	2012-06-20 16:40:38.023239362 +0200
-@@ -0,0 +1,82 @@
++++ vim-qt-src/src/proto/gui_qt.pro	2014-01-11 00:34:30.624264228 +0100
+@@ -0,0 +1,83 @@
 +
 +/* Prototypes - I am probably missing something here */
 +
@@ -18357,10 +18163,11 @@ diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
 +void* gui_mch_register_sign __ARGS((char_u *signfile));
 +void gui_mch_destroy_sign __ARGS((void *sign));
 +void gui_mch_drawsign __ARGS((int row, int col, int typenr));
++void gui_mch_update_fuoptions __ARGS((char_u *optstr));
 +
 diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
---- vim-src/src/proto.h	2013-05-18 08:47:02.148002055 +0200
-+++ vim-qt-src/src/proto.h	2013-05-18 08:44:24.150046279 +0200
+--- vim-src/src/proto.h	2013-05-18 08:47:02.000000000 +0200
++++ vim-qt-src/src/proto.h	2013-05-18 08:44:24.000000000 +0200
 @@ -250,6 +250,9 @@
  #  ifdef FEAT_SUN_WORKSHOP
  #   include "workshop.pro"
@@ -18373,7 +18180,7 @@ diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
  # ifdef FEAT_OLE
 diff -urN vim-src/src/qt/colortable.cpp vim-qt-src/src/qt/colortable.cpp
 --- vim-src/src/qt/colortable.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/colortable.cpp	2012-08-23 19:26:45.670686166 +0200
++++ vim-qt-src/src/qt/colortable.cpp	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,697 @@
 +#include "colortable.h"
 +
@@ -19074,7 +18881,7 @@ diff -urN vim-src/src/qt/colortable.cpp vim-qt-src/src/qt/colortable.cpp
 +
 diff -urN vim-src/src/qt/colortable.h vim-qt-src/src/qt/colortable.h
 --- vim-src/src/qt/colortable.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/colortable.h	2012-08-23 19:26:45.670686166 +0200
++++ vim-qt-src/src/qt/colortable.h	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,20 @@
 +#ifndef VIM_QT_COLORTABLE
 +#define VIM_QT_COLORTABLE
@@ -19098,7 +18905,7 @@ diff -urN vim-src/src/qt/colortable.h vim-qt-src/src/qt/colortable.h
 +#endif
 diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 --- vim-src/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.cpp	2012-08-15 19:39:10.099899402 +0200
++++ vim-qt-src/src/qt/fontdialog.cpp	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,226 @@
 +#include "fontdialog.moc"
 +
@@ -19328,7 +19135,7 @@ diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
 +
 diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
 --- vim-src/src/qt/fontdialog.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/fontdialog.h	2012-08-15 19:39:10.100899402 +0200
++++ vim-qt-src/src/qt/fontdialog.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,48 @@
 +#ifndef __VIM_QT_FONTDIALOG__
 +#define __VIM_QT_FONTDIALOG__
@@ -19412,7 +19219,7 @@ Binary files vim-src/src/qt/icons/zoom-fit-height.png and vim-qt-src/src/qt/icon
 Binary files vim-src/src/qt/icons/zoom-fit-width.png and vim-qt-src/src/qt/icons/zoom-fit-width.png differ
 diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 --- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/icons.qrc	2012-06-20 16:40:38.023239362 +0200
++++ vim-qt-src/src/qt/icons.qrc	2012-06-20 16:40:38.000000000 +0200
 @@ -0,0 +1,36 @@
 + <!DOCTYPE RCC><RCC version="1.0">
 + <qresource>
@@ -19452,8 +19259,8 @@ diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
 + </RCC>
 diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 --- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.cpp	2012-09-05 18:29:40.684085246 +0200
-@@ -0,0 +1,238 @@
++++ vim-qt-src/src/qt/mainwindow.cpp	2014-03-25 19:44:30.528844476 +0100
+@@ -0,0 +1,226 @@
 +#include "mainwindow.moc"
 +
 +#include <QToolBar>
@@ -19465,13 +19272,6 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +{
 +	setWindowIcon(QIcon(":/icons/vim-qt.png"));
 +	setContextMenuPolicy(Qt::PreventContextMenu);
-+
-+	// Menu
-+	menutoolbar = addToolBar("Menu");
-+	menutoolbar->setObjectName("menu");
-+	menutoolbar->setAllowedAreas(Qt::BottomToolBarArea | Qt::TopToolBarArea);
-+	menu = new QMenuBar();
-+	menutoolbar->addWidget(menu);
 +
 +	// Tool bar
 +	toolbar = addToolBar("ToolBar");
@@ -19578,11 +19378,6 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +	return this->vimshell;
 +}
 +
-+QMenuBar* MainWindow::menuBar() const
-+{
-+	return menu;
-+}
-+
 +QToolBar* MainWindow::toolBar() const
 +{
 +	return toolbar;
@@ -19630,7 +19425,7 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 +void MainWindow::showMenu(bool show)
 +{
-+	menutoolbar->setVisible(show);
++	QMainWindow::menuBar()->setVisible(show);
 +}
 +
 +bool MainWindow::tablineVisible()
@@ -19694,8 +19489,8 @@ diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
 +
 diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 --- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/mainwindow.h	2012-08-15 19:39:10.100899402 +0200
-@@ -0,0 +1,60 @@
++++ vim-qt-src/src/qt/mainwindow.h	2014-03-25 19:44:30.528844476 +0100
+@@ -0,0 +1,57 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
 +
@@ -19715,7 +19510,6 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +
 +	bool tablineVisible();
 +
-+	QMenuBar* menuBar() const;
 +	QToolBar* toolBar() const;
 +	bool keepTabbar();
 +
@@ -19749,8 +19543,6 @@ diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
 +	QToolBar *tabtoolbar;
 +	TabBar *tabbar;
 +	
-+	QToolBar *menutoolbar;
-+	QMenuBar *menu;
 +
 +	bool m_keepTabbar;
 +};
@@ -19782,8 +19574,8 @@ diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
 +
 diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 --- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.cpp	2013-04-04 20:11:26.055732987 +0200
-@@ -0,0 +1,709 @@
++++ vim-qt-src/src/qt/qvimshell.cpp	2014-03-25 19:44:30.529844485 +0100
+@@ -0,0 +1,735 @@
 +#include "qvimshell.moc"
 +
 +#include <QResizeEvent>
@@ -19828,11 +19620,17 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	m_tooltip->setAutoFillBackground(true);
 +
 +	// Widget Attributes
-+	setAttribute(Qt::WA_KeyCompression, true);
++	setAttribute(Qt::WA_KeyCompression, false);
 +	setAttribute(Qt::WA_InputMethodEnabled, true);
 +	setAttribute(Qt::WA_OpaquePaintEvent, true);
++	setAttribute(Qt::WA_StaticContents, true);
 +	setAcceptDrops(true);
 +	setMouseTracking(true);
++
++	PaintOperation op;
++	op.type = CLEARALL;
++	op.color = background();
++	queuePaintOp(op);
 +}
 +
 +void QVimShell::setBackground(const QColor color)
@@ -19859,23 +19657,23 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +
 +void QVimShell::resizeEvent(QResizeEvent *ev)
 +{
-+	if ( canvas.isNull() ) {
-+		QPixmap newCanvas = QPixmap( ev->size() );
-+		newCanvas.fill(background());
-+		canvas = newCanvas;
-+	} else {
-+		// Keep old contents
-+		QPixmap old = canvas.copy(QRect(QPoint(0,0), ev->size()));
-+		canvas = QPixmap( ev->size() );
-+		canvas.fill(background()); // FIXME: please optimise me
++	PaintOperation op;
++	op.type = FILLRECT;
++	op.color = background();
 +
-+		{
-+		QPainter p(&canvas);
-+		p.drawPixmap(QPoint(0,0), old);
-+		}
++	int dWidth = ev->size().width() - ev->oldSize().width();
++	if (dWidth > 0)
++	{
++		op.rect = QRect(ev->oldSize().width(), 0, dWidth, ev->size().height());
++		queuePaintOp(op);
 +	}
 +
-+	update();
++	int dHeight = ev->size().height() - ev->oldSize().height();
++	if (dHeight > 0)
++	{
++		op.rect = QRect(0, ev->oldSize().height(), ev->size().width(), dHeight);
++		queuePaintOp(op);
++	}
 +
 +	//
 +	// Vim might trigger another resize, postpone the call
@@ -19883,58 +19681,6 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	// recursivelly and crash
 +	//
 +	postGuiResizeShell(ev->size().width(), ev->size().height());
-+}
-+
-+/**
-+ * Encode special keys into something we can pass
-+ * Vim through add_to_input_buf.
-+ *
-+ */
-+bool QVimShell::specialKey(QKeyEvent *ev, char* str, int *len)
-+{
-+	int i;
-+	int start = *len;
-+	for ( i=0; special_keys[i].key_sym != 0; i++ ) {
-+		if ( special_keys[i].key_sym == ev->key() ) {
-+
-+			// Modifiers
-+			int_u vmod = vimKeyboardModifiers(QApplication::keyboardModifiers());
-+
-+			int key_char;
-+			if (special_keys[i].code1 == NUL) {
-+				key_char = special_keys[i].code0;
-+			} else {
-+				key_char = TO_SPECIAL(special_keys[i].code0, special_keys[i].code1);
-+			}
-+
-+			key_char = simplify_key(key_char, (int *)&vmod);
-+			if (key_char == CSI) {
-+				key_char = K_CSI;
-+			}
-+
-+			if ( vmod ) {
-+				str[start++] = (char)CSI;
-+				str[start++] = (char)KS_MODIFIER;
-+				str[start++] = (char)vmod;
-+			}
-+
-+			if (IS_SPECIAL(key_char)) {
-+				str[start++] = (char)CSI;
-+				str[start++] = K_SECOND(key_char);
-+				str[start++] = K_THIRD(key_char);
-+			} else {
-+				QByteArray key = VimWrapper::convertTo(ev->text());
-+				int j;
-+				for (j=0; j<key.size(); j++) {
-+					str[start++] = key[j];
-+				}
-+			}
-+
-+			*len = start;
-+			return true;
-+		}
-+	}
-+	return false;
 +}
 +
 +int_u QVimShell::vimKeyboardModifiers(Qt::KeyboardModifiers mod)
@@ -19971,26 +19717,99 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	return vim;
 +}
 +
++
++
 +void QVimShell::keyPressEvent ( QKeyEvent *ev)
 +{
-+	char str[20];
-+	int len=0;
-+
-+	if ( specialKey( ev, str, &len)) {
-+		add_to_input_buf((char_u *) str, len);
-+	} else if ( !ev->text().isEmpty() ) {
-+		if ( QApplication::keyboardModifiers() == Qt::AltModifier ) {
-+			char str[2] = {(char)195, ev->text().data()[0].toAscii() + 64};
-+			add_to_input_buf( (char_u *) str, 2 );
-+		} else {
-+			add_to_input_buf( (char_u *) VimWrapper::convertTo(ev->text()).data(), ev->count() );
-+		}
-+	}
-+
 +	// mousehide - conceal mouse pointer when typing
 +	if (p_mh && !m_mouseHidden ) {
 +		QApplication::setOverrideCursor(Qt::BlankCursor);
 +		m_mouseHidden = true;
++	}
++
++	int key_char = 0;
++	int vimModifiers = vimKeyboardModifiers(QApplication::keyboardModifiers());
++	if ( !ev->text().isEmpty() ) {
++		key_char = ev->text()[0].unicode(); // key compression is off
++	}
++
++	/* Find the special key */
++	int i;
++	bool isSpecial = false;
++	for (i = 0; special_keys[i].key_sym != 0; ++i) {
++		if (special_keys[i].key_sym == ev->key())
++		{
++
++			if (special_keys[i].code1 == NUL) {
++				key_char = special_keys[i].code0;
++			} else {
++				key_char = TO_SPECIAL(special_keys[i].code0, special_keys[i].code1);
++				key_char = simplify_key(key_char,
++					(int *)&vimModifiers);
++				isSpecial = TRUE;
++			}
++			break;
++		}
++	}
++
++	if ( key_char == 0 ) {
++		return;
++	}
++
++	/* TODO: Intercept CMD-. and CTRL-c ?*/
++
++	//
++	// For the most part this is same code as the one found in gui_mac.c, plus our
++	// additional special keys bits, I've also kept the original comments because I
++	// find them informative and slightly amusing
++	//
++	if (!isSpecial)
++	{
++		/* remove SHIFT for keys that are already shifted, e.g.,
++		 * '(' and '*' */
++		if (key_char < 0x100 && !isalpha(key_char) && isprint(key_char)) {
++			vimModifiers &= ~MOD_MASK_SHIFT;
++		}
++
++		/* remove CTRL from keys that already have it */
++		if (key_char < 0x20) {
++			vimModifiers &= ~MOD_MASK_CTRL;
++		}
++
++		/* don't process unicode characters here */
++		if (!IS_SPECIAL(key_char)) {
++			/* Following code to simplify and consolidate vimModifiers
++			 * taken liberally from gui_w48.c */
++			key_char = simplify_key(key_char, (int *)&vimModifiers);
++
++			/* Interpret META, include SHIFT, etc. */
++			key_char = extract_modifiers(key_char, (int *)&vimModifiers);
++			if (key_char == CSI) {
++				key_char = K_CSI;
++			}
++
++			if (IS_SPECIAL(key_char)) {
++				isSpecial = TRUE;
++			}
++		}
++	}
++
++	char_u result[3];
++	if (vimModifiers) {
++		result[0] = CSI;
++		result[1] = KS_MODIFIER;
++		result[2] = vimModifiers;
++		add_to_input_buf(result, 3);
++	}
++
++	if (isSpecial && IS_SPECIAL(key_char)) {
++		result[0] = CSI;
++		result[1] = K_SECOND(key_char);
++		result[2] = K_THIRD(key_char);
++		add_to_input_buf(result, 3);
++	} else {
++		QByteArray utf8 = QString(QChar(key_char)).toUtf8();
++		add_to_input_buf_csi( (char_u *) utf8.data(), utf8.size());
 +	}
 +}
 +
@@ -20097,16 +19916,16 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +	painter.drawText( op.pos, op.str);
 +}
 +
-+void QVimShell::flushPaintOps()
++void QVimShell::paintEvent ( QPaintEvent *ev )
 +{
-+	QPainter painter(&canvas);
++	QPainter painter(this);
 +	while ( !paintOps.isEmpty() ) {
 +		painter.save();
 +
 +		PaintOperation op = paintOps.dequeue();
 +		switch( op.type ) {
 +		case CLEARALL:
-+			painter.fillRect(canvas.rect(), op.color);
++			painter.fillRect(this->rect(), op.color);
 +			break;
 +		case FILLRECT:
 +			painter.fillRect(op.rect, op.color);
@@ -20158,27 +19977,26 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +			painter.restore();
 +			painter.end();
 +
-+			QRegion exposed;
-+			canvas.scroll(op.pos.x(), op.pos.y(),
-+					op.rect, &exposed);
++			this->scroll(op.pos.x(), op.pos.y(), op.rect);
 +
-+			painter.begin(&canvas);
-+			painter.fillRect(exposed.boundingRect(), op.color);
++			painter.begin(this);
++
++			// Repaint exposed background. Vim won't redraw areas exposed by
++			// scroll if it considers them empty because it assumes we already
++			// cleared that area of the screen.
++			QRect rect;
++			rect.setWidth(op.rect.width());
++			rect.setHeight(abs(op.pos.y()));
++			if (op.pos.y() > 0)
++				rect.moveTopLeft(op.rect.topLeft());
++			else
++				rect.moveBottomRight(op.rect.bottomRight());
++			painter.fillRect(rect, op.color);
++
 +			continue; // exception, skip painter restore
 +		}
 +
 +		painter.restore();
-+	}
-+}
-+
-+
-+void QVimShell::paintEvent ( QPaintEvent *ev )
-+{
-+	flushPaintOps();
-+
-+	QPainter realpainter(this);
-+	foreach(const QRect r, ev->region().rects()) {
-+		realpainter.drawPixmap(r, canvas, r);
 +	}
 +}
 +
@@ -20495,8 +20313,8 @@ diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
 +}
 diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 --- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/qvimshell.h	2013-04-04 20:11:26.085733212 +0200
-@@ -0,0 +1,181 @@
++++ vim-qt-src/src/qt/qvimshell.h	2014-03-25 19:44:30.529844485 +0100
+@@ -0,0 +1,184 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
 +
@@ -20563,8 +20381,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	void backgroundColorChanged(const QColor&);
 +
 +protected:
-+	void flushPaintOps();
-+
 +	void resizeEvent(QResizeEvent *);
 +	void keyPressEvent ( QKeyEvent *);
 +	virtual void mouseMoveEvent(QMouseEvent *event);
@@ -20575,7 +20391,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	virtual void focusInEvent(QFocusEvent *);
 +	virtual void focusOutEvent(QFocusEvent *);
 +
-+	bool specialKey(QKeyEvent *, char*, int*);
 +	virtual void paintEvent( QPaintEvent *);
 +
 +	QFont fixPainterFont(const QFont &);
@@ -20620,7 +20435,6 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +	bool m_encoding_utf8;
 +
 +	QQueue<PaintOperation> paintOps;
-+	QPixmap canvas;
 +
 +	QTime m_lastClick;
 +	int m_lastClickEvent;
@@ -20639,48 +20453,55 @@ diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
 +
 +static const struct special_key special_keys[] =
 +{
-+	{Qt::Key_Up,	'k', 'u'},
-+	{Qt::Key_Down,	'k', 'd'},
-+	{Qt::Key_Left,	'k', 'l'},
-+    	{Qt::Key_Right,	'k', 'r'},
++	{Qt::Key_Up,		'k', 'u'},
++	{Qt::Key_Down,		'k', 'd'},
++	{Qt::Key_Left,		'k', 'l'},
++    	{Qt::Key_Right,		'k', 'r'},
 +
-+    {Qt::Key_F1,	'k', '1'},
-+    {Qt::Key_F2,	'k', '2'},
-+    {Qt::Key_F3,	'k', '3'},
-+    {Qt::Key_F4,	'k', '4'},
-+    {Qt::Key_F5,	'k', '5'},
-+    {Qt::Key_F6,	'k', '6'},
-+    {Qt::Key_F7,	'k', '7'},
-+    {Qt::Key_F8,	'k', '8'},
-+    {Qt::Key_F9,	'k', '9'},
-+    {Qt::Key_F10,	'k', ';'},
-+    {Qt::Key_F11,	'F', '1'},
-+    {Qt::Key_F12,	'F', '2'},
-+    {Qt::Key_F13,	'F', '3'},
-+    {Qt::Key_F14,	'F', '4'},
-+    {Qt::Key_Backspace,	'k', 'b'},
++	{Qt::Key_F1,		'k', '1'},
++	{Qt::Key_F2,		'k', '2'},
++	{Qt::Key_F3,		'k', '3'},
++	{Qt::Key_F4,		'k', '4'},
++	{Qt::Key_F5,		'k', '5'},
++	{Qt::Key_F6,		'k', '6'},
++	{Qt::Key_F7,		'k', '7'},
++	{Qt::Key_F8,		'k', '8'},
++	{Qt::Key_F9,		'k', '9'},
++	{Qt::Key_F10,		'k', ';'},
++	{Qt::Key_F11,		'F', '1'},
++	{Qt::Key_F12,		'F', '2'},
++	{Qt::Key_F13,		'F', '3'},
++	{Qt::Key_F14,		'F', '4'},
++	{Qt::Key_Backspace,	'k', 'b'},
 +
-+    {Qt::Key_Delete,	'k', 'D'},
-+    {Qt::Key_Insert,	'k', 'I'},
-+    {Qt::Key_Home,	'k', 'h'},
-+    {Qt::Key_End,	'@', '7'},
-+    {Qt::Key_PageUp,	'k', 'P'},
-+    {Qt::Key_PageDown,	'k', 'N'},
++	{Qt::Key_Delete,	'k', 'D'},
++	{Qt::Key_Insert,	'k', 'I'},
++	{Qt::Key_Home,		'k', 'h'},
++	{Qt::Key_End,		'@', '7'},
++	{Qt::Key_PageUp,	'k', 'P'},
++	{Qt::Key_PageDown,	'k', 'N'},
 +
-+    {Qt::Key_Print,	'%', '9'},
-+    {Qt::Key_Tab,	TAB, NUL},
-+    {Qt::Key_Backtab,	TAB, NUL},
-+    {Qt::Key_Escape,	ESC, NUL},
++	{Qt::Key_Print,		'%', '9'},
 +
++	// The following are not really **special** but this
++	// allows to use these keys with any keyboard modifier while
++	// bypassing some of Qt's unwanted behaviour in the text()
++	//
++	{Qt::Key_Tab,		TAB, NUL},
++	{Qt::Key_Backtab,	TAB, NUL},
++	{Qt::Key_Escape,	ESC, NUL},
++	{Qt::Key_Return,	CAR, NUL},
++	{Qt::Key_Enter,		CAR, NUL},
++	{Qt::Key_Space,		' ', NUL},
 +
-+    /* End of list marker: */
-+    {0, 0, 0}
++	/* End of list marker: */
++	{0, 0, 0}
 +};
 +
 +#endif
 diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
 --- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.cpp	2012-08-15 19:39:10.101899403 +0200
++++ vim-qt-src/src/qt/scrollarea.cpp	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,32 @@
 +#include "scrollarea.moc"
 +
@@ -20716,7 +20537,7 @@ diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
 +
 diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
 --- vim-src/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/scrollarea.h	2012-08-08 18:39:06.319542267 +0200
++++ vim-qt-src/src/qt/scrollarea.h	2012-08-08 18:39:06.000000000 +0200
 @@ -0,0 +1,23 @@
 +#ifndef VIM_GUI_QT_SCROLLAREA
 +#define VIM_GUI_QT_SCROLLAREA
@@ -20743,7 +20564,7 @@ diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
 +#endif
 diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
 --- vim-src/src/qt/tabbar.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/tabbar.cpp	2012-08-15 19:39:10.101899403 +0200
++++ vim-qt-src/src/qt/tabbar.cpp	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,23 @@
 +#include "tabbar.moc"
 +
@@ -20770,7 +20591,7 @@ diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
 +
 diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
 --- vim-src/src/qt/tabbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/tabbar.h	2012-08-15 19:39:10.101899403 +0200
++++ vim-qt-src/src/qt/tabbar.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,17 @@
 +#ifndef __GUI_QT_TABBAR__
 +#define __GUI_QT_TABBAR__
@@ -20791,7 +20612,7 @@ diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
 +#endif
 diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 --- vim-src/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.cpp	2012-07-06 18:19:22.972020743 +0200
++++ vim-qt-src/src/qt/vimaction.cpp	2012-07-06 18:19:22.000000000 +0200
 @@ -0,0 +1,60 @@
 +#include "vimaction.moc"
 +
@@ -20855,7 +20676,7 @@ diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
 +}
 diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 --- vim-src/src/qt/vimaction.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimaction.h	2012-08-15 19:39:10.101899403 +0200
++++ vim-qt-src/src/qt/vimaction.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,21 @@
 +#ifndef __GUI_QT_VIMACTION__
 +#define __GUI_QT_VIMACTION__
@@ -20880,7 +20701,7 @@ diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
 +#endif
 diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
 --- vim-src/src/qt/vimevents.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimevents.cpp	2013-04-04 20:11:26.100733322 +0200
++++ vim-qt-src/src/qt/vimevents.cpp	2013-04-04 20:11:26.000000000 +0200
 @@ -0,0 +1,38 @@
 +#include "vimevents.h"
 +#include "vimwrapper.h"
@@ -20922,7 +20743,7 @@ diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
 +
 diff -urN vim-src/src/qt/vimevents.h vim-qt-src/src/qt/vimevents.h
 --- vim-src/src/qt/vimevents.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimevents.h	2013-04-04 20:11:26.100733322 +0200
++++ vim-qt-src/src/qt/vimevents.h	2013-04-04 20:11:26.000000000 +0200
 @@ -0,0 +1,51 @@
 +#ifndef VIM_QT_VIMEVENT
 +#define VIM_QT_VIMEVENT
@@ -21083,14 +20904,11 @@ diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
 +#endif
 diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 --- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.cpp	2013-04-04 20:11:26.101733329 +0200
-@@ -0,0 +1,435 @@
++++ vim-qt-src/src/qt/vimwrapper.cpp	2014-01-11 00:34:30.624264228 +0100
+@@ -0,0 +1,432 @@
 +#include <QApplication>
 +#include <QStyle>
 +#include <QMetaType>
-+#include <QTime>
-+#include <QTimer>
-+#include <QTimer>
 +#include <QTime>
 +#include "vimwrapper.h"
 +
@@ -21432,7 +21250,7 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	if ( m_encoding_utf8 ) {
 +		return s.toUtf8();
 +	} else {
-+		return s.toAscii();
++		return s.toLatin1();
 +	}
 +}
 +
@@ -21443,7 +21261,7 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +	if ( m_encoding_utf8 ) {
 +		return QString::fromUtf8(s, size);
 +	} else {
-+		return QString::fromAscii(s, size);
++		return QString::fromLatin1(s, size);
 +	}
 +}
 +
@@ -21522,7 +21340,7 @@ diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
 +
 diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 --- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ vim-qt-src/src/qt/vimwrapper.h	2012-09-05 18:29:40.698085366 +0200
++++ vim-qt-src/src/qt/vimwrapper.h	2012-09-05 18:29:40.000000000 +0200
 @@ -0,0 +1,114 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
@@ -21639,8 +21457,8 @@ diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
 +
 +#endif
 diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
---- vim-src/src/structs.h	2013-10-09 22:09:06.560658396 +0200
-+++ vim-qt-src/src/structs.h	2013-10-09 22:07:10.320797005 +0200
+--- vim-src/src/structs.h	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/structs.h	2013-10-09 22:07:10.000000000 +0200
 @@ -2356,6 +2356,10 @@
  
  typedef struct VimMenu vimmenu_T;
@@ -21664,8 +21482,8 @@ diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
  #else
  /* For generating prototypes when FEAT_MENU isn't defined. */
 diff -urN vim-src/src/term.c vim-qt-src/src/term.c
---- vim-src/src/term.c	2013-10-09 22:09:06.567658449 +0200
-+++ vim-qt-src/src/term.c	2013-10-09 22:07:10.323797027 +0200
+--- vim-src/src/term.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/term.c	2013-10-09 22:07:10.000000000 +0200
 @@ -5977,7 +5977,7 @@
  }
  #endif
@@ -21676,8 +21494,8 @@ diff -urN vim-src/src/term.c vim-qt-src/src/term.c
  static char ksmr_str[20];
  static char ksmd_str[20];
 diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
---- vim-src/src/ui.c	2013-10-09 22:09:06.555658358 +0200
-+++ vim-qt-src/src/ui.c	2013-10-09 22:07:10.332797092 +0200
+--- vim-src/src/ui.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/ui.c	2013-10-09 22:07:10.000000000 +0200
 @@ -3109,7 +3109,7 @@
  
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) || defined(FEAT_GUI_MAC) \
@@ -21688,8 +21506,8 @@ diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
   * Translate window coordinates to buffer position without any side effects
   */
 diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
---- vim-src/src/vim.h	2013-10-09 22:09:06.560658396 +0200
-+++ vim-qt-src/src/vim.h	2013-10-09 22:07:10.333797100 +0200
+--- vim-src/src/vim.h	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/vim.h	2013-10-09 22:07:10.000000000 +0200
 @@ -117,6 +117,11 @@
  # define FEAT_GUI_MAC
  #endif
@@ -21714,8 +21532,8 @@ diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
      int_u	format;		/* Vim's own special clipboard format */
      int_u	format_raw;	/* Vim's raw text clipboard format */
 diff -urN vim-src/src/winclip.c vim-qt-src/src/winclip.c
---- vim-src/src/winclip.c	2013-10-09 22:09:06.561658403 +0200
-+++ vim-qt-src/src/winclip.c	2013-10-09 22:07:10.334797108 +0200
+--- vim-src/src/winclip.c	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/winclip.c	2013-10-09 22:07:10.000000000 +0200
 @@ -190,7 +190,7 @@
  
  #endif /* FEAT_MBYTE */
