@@ -5,12 +5,12 @@
 _pkgname=nvidia
 pkgname=$_pkgname-bede
 pkgver=334.21
-_extramodules=3.13-BEDE-external
-pkgrel=3
+_extramodules=3.14-BEDE-external
+pkgrel=4
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.13.7' 'linux-bede<3.14' 'linux-bede-headers>=3.13' 'linux-bede-headers<3.14' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
+makedepends=('linux-bede>=3.14' 'linux-bede<3.15' 'linux-bede-headers>=3.14' 'linux-bede-headers<3.15' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 replaces=('nvidia-bemm')
 license=('custom')
@@ -32,11 +32,15 @@ elif [ "$CARCH" = "x86_64" ]; then
     sha256sums=('55d1be4eda82b2a4c56925720f4f54d921647abcf9a715d8ccdc09e5f2351470')
 fi
 
+source+=('nvidia-linux-3.14.patch')
+sha256sums+=('5f0fe6be7c610e61a7e3cd45b98581cd3285ceb8469a7b2e3629e7a95f641126')
+
 prepare() {
     [ -d "$_pkg" ] && rm -rf "$_pkg"
     sh $_pkg.run --extract-only
     cd $_pkg
     # patch if needed
+    patch -p1 -i "${srcdir}"/nvidia-linux-3.14.patch
 }
 
 build() {
@@ -46,7 +50,7 @@ build() {
 }
 
 package() {
-    depends=('linux-bede>=3.13' 'linux-bede<3.14' "nvidia-utils=${pkgver}" "nvidia-libgl=$pkgver")
+    depends=('linux-bede>=3.14' 'linux-bede<3.15' "nvidia-utils=${pkgver}" "nvidia-libgl=$pkgver")
 
     install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
         "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
