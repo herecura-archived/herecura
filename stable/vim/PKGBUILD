@@ -15,7 +15,7 @@ else
 	pkgver=${_basever}.${_patchlevel}
 fi
 __hgrev=v${pkgver//./-}
-pkgrel=3
+pkgrel=4
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -49,9 +49,7 @@ __hgroot='https://code.google.com/p/vim/'
 __hgrepo='vim'
 __hgbranch='default'
 
-##### Build #####
-
-build() {
+prepare() {
 	# remove old build dirs if exist
 	[ -d vim-build ] && rm -rf vim-build
 	[ -d vim-build-tn ] && rm -rf vim-build-tn
@@ -74,7 +72,9 @@ build() {
 	cp -a vim-build vim-build-tn
 	cp -a vim-build gvim-build-gtk
 	cp -a vim-build gvim-build-qt
+}
 
+build() {
 	msg2 'Building vim-tiny'
 	cd ${srcdir}/vim-build-tn
 	(cd src && autoconf)
@@ -128,8 +128,6 @@ build() {
 		#--disable-rubyinterp --enable-luainterp=dynamic
 	make
 }
-
-##### Packaging #####
 
 package_vim-tiny() {
 	pkgdesc='Vi Improved, tiny edition'
