@@ -15,7 +15,7 @@ else
 	pkgver=${_basever}.${_patchlevel}
 fi
 __hgrev=v${pkgver//./-}
-pkgrel=2
+pkgrel=3
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
@@ -23,6 +23,7 @@ url="http://www.vim.org"
 makedepends=('gpm' 'perl' 'python2' 'python' 'lua' 'desktop-file-utils' 'gtk2' 'gettext' 'pkgconfig' 'sed' 'mercurial' 'qt4' 'ruby')
 options=()
 source=(
+	"hg+https://code.google.com/p/vim/#tag=$__hgrev"
 	'vimrc'
 	'peaksea.vim'
 	'gvim.desktop'
@@ -33,6 +34,7 @@ source=(
 	'qvim.png'
 )
 sha256sums=(
+	'SKIP'
 	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
 	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
 	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
@@ -50,21 +52,6 @@ __hgbranch='default'
 ##### Build #####
 
 build() {
-	msg2 'Checking out source from Mercurial...'
-
-	if [[ -d ${__hgrepo} ]]; then
-		cd ${__hgrepo}
-		hg pull -b ${__hgbranch}
-		#hg update -r ${__hgrev}
-		#cd ${srcdir}
-	else
-		#hg clone -b ${__hgbranch} -u ${__hgrev} "${__hgroot}" ${__hgrepo}
-		hg clone -b ${__hgbranch} "${__hgroot}" ${__hgrepo}
-		cd ${__hgrepo}
-	fi
-	hg update -r ${__hgrev}
-	cd ${srcdir}
-
 	# remove old build dirs if exist
 	[ -d vim-build ] && rm -rf vim-build
 	[ -d vim-build-tn ] && rm -rf vim-build-tn
