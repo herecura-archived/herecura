@@ -5,7 +5,7 @@ pkgname=flattr-icons-kde-kaosx-git
 pkgver=0.r240.7b3e70f
 pkgrel=2
 pkgdesc="Flattr is an icon theme for Linux desktops, the set is inspired by the latest flat design trend."
-arch=('i686' 'x86_64')
+arch=('any')
 url="https://github.com/KaOSx/flattr-icons-kde"
 license=('CC BY-NC-SA 4.0')
 depends=()
@@ -19,7 +19,7 @@ md5sums=('SKIP')
 pkgver() {
   cd "$srcdir/$pkgname"
   # Use the tag of the last commit
-  printf "0.r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  git log -1 --date=short --format="%cd.%h" | tr -d '-'
 }
 
 package() {
