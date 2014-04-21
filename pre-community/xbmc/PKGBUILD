@@ -1,4 +1,4 @@
-# $Id: PKGBUILD 107003 2014-03-11 11:04:53Z spupykin $
+# $Id: PKGBUILD 108909 2014-04-07 10:57:58Z spupykin $
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: Brad Fanella <bradfanella@archlinux.us>
 # Contributor: [vEX] <niechift.dot.vex.at.gmail.dot.com>
@@ -10,7 +10,7 @@ _prefix=/usr
 pkgname=xbmc
 pkgver=12.3
 _codename=Frodo
-pkgrel=13
+pkgrel=15
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
@@ -20,7 +20,7 @@ depends=('hicolor-icon-theme' 'fribidi' 'lzo2' 'smbclient' 'libtiff' 'libva'
 	 'glew' 'libssh' 'libmicrohttpd' 'libxrandr' 'sdl_mixer' 'sdl_image' 'python2'
 	 'libass' 'libmpeg2' 'libmad' 'libmodplug' 'jasper' 'rtmpdump' 'unzip' 'mesa-demos'
 	 'xorg-xdpyinfo' 'libbluray' 'libnfs' 'afpfs-ng' 'libshairport' 'avahi' 'bluez-libs' 'glu'
-	 'tinyxml' 'taglib' 'ffmpeg-compat')
+	 'tinyxml' 'taglib')
 makedepends=('boost' 'cmake' 'gperf' 'nasm' 'libxinerama' 'zip' 'libvdpau' 'libcec'
 	     'udisks' 'upower' 'mesa' 'doxygen' 'swig' 'java-environment')
 optdepends=('libcec: support for Pulse-Eight USB-CEC adapter'
@@ -35,7 +35,7 @@ source=("http://mirrors.xbmc.org/releases/source/xbmc-$pkgver.tar.gz"
 	"polkit.rules"
 	"libass.patch::https://bugs.archlinux.org/index.php?getfile=11285")
 md5sums=('7ae385ebf8e5cfcb917393235e6efbdb'
-         '03e9a33e15714d1fd1f2a516abea5393'
+         'de331663cc8adc94f2fe44a262cfff58'
          '02f7951824ee13103344f36009c0ef2a'
          '7fd6399d2ffbdf06b724f0cc2efa0784')
 
@@ -57,7 +57,6 @@ build() {
 
   # Configuring XBMC
   export PYTHON_VERSION=2  # external python v2
-  export PKG_CONFIG_PATH=/usr/lib/ffmpeg-compat/pkgconfig:$PKG_CONFIG_PATH
   ./configure --prefix=$_prefix --exec-prefix=$_prefix \
     --disable-debug \
     --enable-optimizations \
@@ -89,7 +88,7 @@ build() {
     --enable-libusb \
     --enable-libcec \
     --enable-external-libraries \
-    --enable-external-ffmpeg
+    --disable-external-ffmpeg
   # Now (finally) build
   make
 }
