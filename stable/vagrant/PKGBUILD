@@ -2,7 +2,7 @@
 # Contributor: Mathieu Clabaut <mathieu.clabaut@gmail.com>
 # Contributor: helios <aur@wiresphere.de>
 pkgname=vagrant
-pkgver=1.5.2
+pkgver=1.5.4
 pkgrel=1
 pkgdesc="Tool for building and distributing virtualized development environments"
 arch=('i686' 'x86_64')
@@ -18,8 +18,8 @@ source=(
 	#"https://dl.bintray.com/mitchellh/${pkgname}/${pkgname}_${pkgver}_i686.rpm"
 	#"https://dl.bintray.com/mitchellh/${pkgname}/${pkgname}_${pkgver}_x86_64.rpm"
 #)
-[[ "$CARCH" == "i686" ]] && sha256sums=('579241a66a5708809835b6e1abcc789cc6f4ef8b03df5994695c3188ee445522')
-[[ "$CARCH" == "x86_64" ]] && sha256sums=('8d90e7528d86fb58a3341639dcbf28a576dcf232881fefa02c5704593916ec76')
+[[ "$CARCH" == "i686" ]] && sha256sums=('fd43c90e06c63265b2dff921c45c6879976744d65397d2b51e831ee7e64ae0e6')
+[[ "$CARCH" == "x86_64" ]] && sha256sums=('fecb1477e807c620cd3d1fc4524432eb4a7c88cbc325b7398e88bb2d946246bb')
 
 sha256sums+=('b4a14cbcb8d2148f179241d8b7cbb418f9ac50680cfe2541cb3570b9824efad5')
 
