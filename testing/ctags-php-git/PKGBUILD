@@ -1,6 +1,6 @@
 # Maintainer: Alex "grevus" Lobtsov <alex@lobtsov.com>
 pkgname=ctags-php-git
-pkgver=20130808.c4256ba
+pkgver=20131216.3046f61
 pkgrel=1
 pkgdesc="Generates an index file of language objects found in source files. Enhanced for php."
 arch=('i686' 'x86_64')
