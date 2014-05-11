@@ -11,7 +11,7 @@ _prefix=/usr
 pkgname=xbmc
 pkgver=13.0
 _codename=Gotham
-pkgrel=2.2
+pkgrel=2.3
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
@@ -35,6 +35,7 @@ depends=(
 'python2'
 'sdl_image'
 'sdl_mixer'
+'smbclient'
 'taglib'
 'tinyxml'
 'unzip'
@@ -46,7 +47,6 @@ makedepends=(
 'libnfs'
 'libplist'
 'shairplay'
-'smbclient'
 'libcec'
 'boost'
 'cmake'
@@ -61,7 +61,6 @@ makedepends=(
 )
 optdepends=(
 'afpfs-ng: Apple File Protocol suport'
-'smbclient: Samba Share support'
 'libnfs: NFS Share support'
 'libplist: AirPlay support'
 'shairplay: AirPlay support'
