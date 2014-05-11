@@ -11,53 +11,21 @@ _prefix=/usr
 pkgname=xbmc
 pkgver=13.0
 _codename=Gotham
-pkgrel=2.3
+pkgrel=2.4
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
 license=('GPL' 'custom')
 depends=(
-'avahi'
-'ffmpeg'
-'hicolor-icon-theme'
-'libcdio'
-'libmad'
-'libmicrohttpd'
-'libmpeg2'
-'libmysqlclient'
-'libsamplerate'
-'libssh'
-'libxrandr'
-'libxslt'
-'lzo2'
-'mesa'
-'mesa-demos'
-'python2'
-'sdl_image'
-'sdl_mixer'
-'smbclient'
-'taglib'
-'tinyxml'
-'unzip'
-'xorg-xdpyinfo'
-'yajl'
+'avahi' 'ffmpeg' 'hicolor-icon-theme' 'libcdio' 'libmad' 'libmicrohttpd'
+'libmpeg2' 'libmysqlclient' 'libsamplerate' 'libssh' 'libxrandr' 'libxslt'
+'lzo2' 'mesa' 'mesa-demos' 'python2' 'sdl_image' 'sdl_mixer' 'smbclient'
+'taglib' 'tinyxml' 'unzip' 'xorg-xdpyinfo' 'yajl'
 )
 makedepends=(
-'afpfs-ng'
-'libnfs'
-'libplist'
-'shairplay'
-'libcec'
-'boost'
-'cmake'
-'doxygen'
-'gperf'
-'jasper'
-'java-runtime-headless'
-'nasm'
-'swig'
-'taglib'
-'zip'
+'afpfs-ng' 'libnfs' 'libplist' 'shairplay' 'libcec' 'boost' 'cmake' 'doxygen'
+'gperf' 'jasper' 'java-runtime-headless' 'nasm' 'swig' 'taglib' 'udisks'
+'upower' 'zip'
 )
 optdepends=(
 'afpfs-ng: Apple File Protocol suport'
@@ -69,6 +37,8 @@ optdepends=(
 'lirc: remote controller support'
 'unrar: access compressed files without unpacking them'
 'xorg-xinit: autostart xbmc'
+'udisks: automount external drives'
+'upower: used to trigger power management functionality'
 )
 install="${pkgname}.install"
 source=(
