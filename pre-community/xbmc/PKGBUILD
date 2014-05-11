@@ -10,8 +10,8 @@ _prefix=/usr
 
 pkgname=xbmc
 pkgver=13.0
-_codename=Gotham
-pkgrel=2.4
+_codename=Gotham_r2
+pkgrel=2.5
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
@@ -42,16 +42,16 @@ optdepends=(
 )
 install="${pkgname}.install"
 source=(
-  "xbmc-$pkgver.tar.gz::https://github.com/xbmc/xbmc/archive/13.0-Gotham.tar.gz"
+  "xbmc-$pkgver.tar.gz::https://github.com/xbmc/xbmc/archive/$pkgver-$_codename.tar.gz"
   "xbmc.service"
   "polkit.rules"
   "enable-external-ffmpeg.patch"
 )
-md5sums=(
-  '54fafd985b5209859ba6faeb50b8f142'
-  'de331663cc8adc94f2fe44a262cfff58'
-  '02f7951824ee13103344f36009c0ef2a'
-  '9f9b41cfc1e21b1e7d0bb10d6e85b3c6'
+sha256sums=(
+  '663b99f3e196ead51d90f06ccfa864b4e5ade385dfc5972acb0f854d525f2903'
+  'f83097388e6c9b301cac78de95cf1797d4aaa11e4021734c28d643320e76d919'
+  '4ea78374a08e13a64dcf6a424b111b8bfc11de03ed5829744fc6d9b5fc1ec96e'
+  '0239e33e87292c7340ed2092f2b5f1e82f5e283b1f763fb125b3aee78f50c355'
 )
 
 prepare() {
