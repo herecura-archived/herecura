@@ -11,7 +11,7 @@ _prefix=/usr
 pkgname=xbmc
 pkgver=13.0
 _codename=Gotham_r2
-pkgrel=2.6
+pkgrel=2.7
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
@@ -133,6 +133,9 @@ package() {
 
   # install systemd service
   install -Dm0644 "$srcdir/xbmc.service" "$pkgdir/usr/lib/systemd/system/xbmc.service"
-  install -Dm0644 "$srcdir/polkit.rules" "$pkgdir/etc/polkit-1/rules.d/10-xbmc.rules"
+
+  # install polkit rules
+  install -dm700 "$pkgdir/user/share/polkit-1/rules.d"
+  install -Dm0644 "$srcdir/polkit.rules" "$pkgdir/user/share/polkit-1/rules.d/10-xbmc.rules"
 }
 # vim:set ts=2 sw=2 et:
