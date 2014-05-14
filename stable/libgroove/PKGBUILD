@@ -1,5 +1,5 @@
 pkgname=libgroove
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Audio dispatching library. Generic sink-based interface. Provides decoding, encoding, resampling, and gain adjustment."
 arch=('i686' 'x86_64')
@@ -29,4 +29,4 @@ package() {
 	make DESTDIR="$pkgdir/" install
 }
 
-sha256sums=('ec562bd0da62b16afb6dccb19bf302b0dc606e75745cc52761fa25da836d921d')
+sha256sums=('4335955130f30e4990c9bb22cc667c8cc1e1c78da4300b50d524ed31d5d2b7a4')
