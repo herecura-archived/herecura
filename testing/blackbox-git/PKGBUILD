@@ -2,7 +2,7 @@
 
 pkgname=blackbox-git
 _pkgname=blackbox
-pkgver=0.70.2.20
+pkgver=0.70.2.21
 pkgrel=1
 pkgdesc="A window manager for X11"
 arch=('i686' 'x86_64')
