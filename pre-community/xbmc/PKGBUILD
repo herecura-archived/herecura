@@ -131,8 +131,8 @@ package() {
   install -Dm0644 "$srcdir/xbmc.service" "$pkgdir/usr/lib/systemd/system/xbmc.service"
 
   # install polkit rules
-  install -dm700 "$pkgdir/user/share/polkit-1/rules.d"
-  install -Dm0644 "$srcdir/polkit.rules" "$pkgdir/user/share/polkit-1/rules.d/10-xbmc.rules"
+  install -dm700 "$pkgdir/usr/share/polkit-1/rules.d"
+  install -Dm0644 "$srcdir/polkit.rules" "$pkgdir/usr/share/polkit-1/rules.d/10-xbmc.rules"
 
   # XBMC user home
   install -dm 700 "${pkgdir}"/var/lib/xbmc
