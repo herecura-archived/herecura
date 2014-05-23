@@ -2,7 +2,7 @@
 # Contributor: jfperini <@jfperini>
 
 pkgname=flattr-icons-kde-kaosx-git
-pkgver=20140514.9ee8139
+pkgver=20140522.f4172da
 pkgrel=1
 pkgdesc="Flattr is an icon theme for Linux desktops, the set is inspired by the latest flat design trend."
 arch=('any')
