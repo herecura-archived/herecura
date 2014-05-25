@@ -12,7 +12,7 @@ _prefix=/usr
 pkgname=xbmc
 pkgver=13.0
 _codename=Gotham_r2
-pkgrel=4.1
+pkgrel=5
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
@@ -39,6 +39,7 @@ optdepends=(
 'unrar: access compressed files without unpacking them'
 'xorg-xinit: autostart xbmc'
 'udisks: automount external drives'
+'upower: display battery level'
 )
 install="${pkgname}.install"
 source=(
