@@ -1,6 +1,6 @@
 # Maintainer: Raphaël Doursenaud <rdoursenaud@free.fr>
 pkgname=mysql-utilities
-pkgver=1.3.6
+pkgver=1.4.3
 pkgrel=1
 pkgdesc="A collection of command-line utilities that are used for maintaining and administering MySQL servers"
 arch=('any')
@@ -19,4 +19,4 @@ package() {
 	rm -f "$pkgdir/usr/lib/python2.7/site-packages/mysql/__init__.pyc"
 	rm -f "$pkgdir/usr/lib/python2.7/site-packages/mysql/__init__.pyo"
 }
-sha256sums=('51e4e478dcae42f51097f931bfff3c27ee9377d40be682b73f62822be579bb95')
+sha256sums=('785f7b78ba73280c6598f63bc052a88a7e97786566dae787a5457f039864dcb7')
