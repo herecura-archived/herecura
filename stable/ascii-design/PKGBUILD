@@ -1,7 +1,7 @@
 # Contributer: giacomogiorgianni@gmail.com 
 
 pkgname=ascii-design
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc="Ascii Design is an ascii-art program based on figlet engine."
 arch=("i686" "x86_64")
@@ -11,7 +11,6 @@ depends=('qt4' 'figlet' 'figlet-fonts')
 makedepends=('cmake')
 #source=("http://downloads.sourceforge.net/project/$pkgname/$pkgname/Ascii-Design_1.0/${pkgname}-${pkgver}.tar.bz2")
 source=("http://sourceforge.net/projects/${pkgname}/files/${pkgname}/Ascii-Design%20$pkgver/${pkgname}-$pkgver.tar.bz2")
-md5sums=('67fc4bda1f3acbd3c8962ef6fb860db4')
 
 
 build() {
@@ -32,3 +31,4 @@ package() {
 	cd "${pkgname}-${pkgver}/build"
 	make DESTDIR=${pkgdir} install
 }
+sha256sums=('50348828438dc71f4365c08b7ed803b93faeabf7c71f9dbe001db880792563ca')
