@@ -5,7 +5,7 @@
 # Contributor: Farhan Yousaf <farhany at xaviya dot com>
 
 pkgname=netatalk
-pkgver=3.1.1
+pkgver=3.1.2
 pkgrel=1
 pkgdesc='A kernel-level implementation of AFP services'
 arch=('i686' 'x86_64')
@@ -37,4 +37,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha256sums=('1b4e45871d9f17a9b72ddbc6e1978eebd3c729ba2eeffa4ec3b710e023c07727')
+sha256sums=('040b6e9add6ad9f2a0a9a58f5f1381ee5e6b9a60e7610f6722747c834f1de990')
