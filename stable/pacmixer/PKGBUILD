@@ -1,7 +1,7 @@
 # Maintainer: Karol "Kenji Takahashi" Wozniak <wozniakk@gmail.com>
 
 pkgname=pacmixer
-pkgver=0.4.1
+pkgver=0.5
 pkgrel=1
 pkgdesc="alsamixer alike for PulseAudio."
 arch=('i686' 'x86_64')
@@ -28,4 +28,4 @@ package() {
     make DESTDIR=$pkgdir PREFIX="/usr" install
 }
 
-sha256sums=('f1349b81a8fe342956182ae8f8febc9f8c55260a8a475a268ccd26d7fb75e3f7')
+sha256sums=('4c86c401201369b0be4a9edf25be682debab198b5599ed78c9fc8d9af2cea4f3')
