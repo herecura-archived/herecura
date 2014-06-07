@@ -8,7 +8,7 @@
 pkgname=nodejs-groovebasin
 _pkgname="${pkgname#nodejs-}"
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Music player server with a web-based user interface inspired by Amarok 1.4'
 arch=(any)
 url='http://groovebasin.com/'
