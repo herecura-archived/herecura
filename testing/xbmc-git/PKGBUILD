@@ -169,7 +169,8 @@ build() {
 		--enable-udev \
 		--enable-libusb \
 		--enable-libcec \
-		--enable-external-libraries
+		--enable-external-libraries \
+		--with-lirc-device=/run/lirc/lircd
 
 
 	# Now (finally) build
