@@ -19,7 +19,7 @@ else
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -33,12 +33,15 @@ source=(
 	"config-$_basekernel-desktop.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
+	# sysctl tweaks
+	'sysctl-linux-bede.conf'
 )
 sha256sums=(
 	'61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
 	'3ab423515e2ac1e254449df7b1ef630ec8a8f805ad308e56465753ba4f5649b7'
 	'5ddb09750a67062619117380d2e4b980621297589f2a554ffffff27520a13fff'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
+	'e939ae473776190eb327e3afd5315626d6ac87a84b5475e08979c319e917a1d4'
 )
 
 # revision patches
@@ -206,6 +209,9 @@ package_linux-bede() {
 
 	# move module tree /lib -> /usr/lib
 	mv "$pkgdir/lib" "$pkgdir/usr/"
+
+	# install sysctl tweaks
+	install -Dm644 "$srcdir/sysctl-linux-bede.conf" "$pkgdir/usr/lib/sysctl.d/60-linux-bede.conf"
 }
 
 package_linux-bede-headers() {
