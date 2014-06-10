@@ -17,7 +17,7 @@
 
 pkgname=xbmc-git
 _gitname='xbmc'
-pkgver=20140607.9e03a26
+pkgver=20140610.becbfe4
 pkgrel=1
 pkgdesc="XBMC Media Center git master branch"
 provides=('xbmc')
@@ -66,7 +66,7 @@ source=(
 )
 sha256sums=(
 	'SKIP'
-	'f83097388e6c9b301cac78de95cf1797d4aaa11e4021734c28d643320e76d919'
+	'17ea860b675568f516df0289e5663029a2ce1829b0dfa3c71636ef1ae7cd2207'
 )
 
 _prefix='/usr'
