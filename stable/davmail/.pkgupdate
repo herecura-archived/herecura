@@ -1,4 +1,4 @@
-nwVersion=$(wget -q -O- http://sourceforge.net/projects/davmail/ | grep -m1 -ie "<a\ href=.*\/davmail.*.deb" | sed 's,.*davmail_\([0-9a-z\.]*\)-\([0-9]*\).*,\1-\2,')
+nwVersion=$(wget -q -O- http://sourceforge.net/projects/davmail/ | grep -m1 -ie "<a\ href=.*\/davmail.*.\(deb\|zip\)" | sed 's,.*davmail[_-]\([0-9a-z\.]*\)-\([0-9]*\).*,\1-\2,')
 update__pkgver=${nwVersion%-*}
 update__rev=${nwVersion#*-}
 update_pkgver=$update__pkgver.$update__rev
