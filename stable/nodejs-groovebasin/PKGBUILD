@@ -7,8 +7,8 @@
 
 pkgname=nodejs-groovebasin
 _pkgname="${pkgname#nodejs-}"
-pkgver=1.0.1
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Music player server with a web-based user interface inspired by Amarok 1.4'
 arch=(any)
 url='http://groovebasin.com/'
@@ -17,8 +17,6 @@ depends=('nodejs' 'libgroove')
 makedepends=('python2')
 source=("https://github.com/andrewrk/groovebasin/archive/${pkgver}.tar.gz"
         groovebasin)
-sha256sums=('fac7a637873cecc13b526e654f1937628fab34713fc0d95eccbd7e0a0bebbc7c'
-            'b121429dc1c6ed132a02f66c8b49424c46bf9a1e358d9fe91cf4b8093eaa4e28')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}"
@@ -41,3 +39,5 @@ package() {
 }
 
 # vim:set ts=2 sw=2 et:
+sha256sums=('d1e0e207495b20cfc792d4748af2146043230bcaa8db8042a8a1684242a5f42d'
+            'b121429dc1c6ed132a02f66c8b49424c46bf9a1e358d9fe91cf4b8093eaa4e28')
