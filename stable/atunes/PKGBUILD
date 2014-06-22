@@ -1,7 +1,7 @@
 # Contributor: HNKNTA <hnknta@gmail.com>
 
 pkgname=atunes
-pkgver=3.1.1
+pkgver=3.1.2
 pkgrel=1
 pkgdesc="A full-featured audio player and manager"
 arch=('any')
@@ -17,4 +17,4 @@ build() {
   tar zxvf data.tar.gz
   cp -rf usr/ "$pkgdir"/
 }
-sha256sums=('8f3176b7e61f4305ead50a96a38da9a70a0949a4b2ab085a2f9b5f484406a50b')
+sha256sums=('d9c341f28affd2ac10983bb8e8aa0602087a315cbcf74438646c6e4d67554a26')
