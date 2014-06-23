@@ -22,13 +22,15 @@ EOF
 post_upgrade()
 {
 	for _default in ${paths[@]}; do
-		if [[ $(cat "$_default") == *ppapi* ]]; then
-			sed -i "s/ppapi-flash-version=.*[0-9]/ppapi-flash-version=$flashver/g" "$_default"
-		else
-			if [[ $_default =~ opera ]]; then
-				sed -i '/OPERA_FLAGS/s|"$| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version='$flashver'"|' "$_default"
+		if [[ -f "$_default" ]]; then
+			if [[ $(cat "$_default") == *ppapi* ]]; then
+				sed -i "s/ppapi-flash-version=.*[0-9]/ppapi-flash-version=$flashver/g" "$_default"
 			else
-				sed -i '/CHROMIUM_FLAGS/s|"$| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version='$flashver'"|' "$_default"
+				if [[ $_default =~ opera ]]; then
+					sed -i '/OPERA_FLAGS/s|"$| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version='$flashver'"|' "$_default"
+				else
+					sed -i '/CHROMIUM_FLAGS/s|"$| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version='$flashver'"|' "$_default"
+				fi
 			fi
 		fi
 	done
@@ -41,7 +43,7 @@ post_install() {
 
 post_remove() {
 	for _default in ${paths[@]}; do
-		if [ -f "$_default" ]; then
+		if [[ -f "$_default" ]]; then
 			sed -i 's| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version=1.*[0-999]||' "$_default"
 		else
 			: # do nothing

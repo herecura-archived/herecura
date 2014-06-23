@@ -3,7 +3,7 @@
 pkgname=chrome-pepper-flash
 pkgdesc="Google Chrome's Pepper Flash plugin for ppapi compatible browsers (stable version)"
 pkgver=14.0.0.125
-pkgrel=4
+pkgrel=5
 _verbld=35.0.1916.153-1
 _channel='stable'
 arch=('i686' 'x86_64')
