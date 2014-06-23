@@ -25,7 +25,7 @@ post_upgrade()
 		if [[ $(cat "$_default") == *ppapi* ]]; then
 			sed -i "s/ppapi-flash-version=.*[0-9]/ppapi-flash-version=$flashver/g" "$_default"
 		else
-			if [[ "$_default" ~= opera ]]; then
+			if [[ $_default =~ opera ]]; then
 				sed -i '/OPERA_FLAGS/s|"$| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version='$flashver'"|' "$_default"
 			else
 				sed -i '/CHROMIUM_FLAGS/s|"$| --ppapi-flash-path=/usr/lib/PepperFlash/libpepflashplayer.so --ppapi-flash-version='$flashver'"|' "$_default"
