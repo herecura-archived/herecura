@@ -1,0 +1,59 @@
+# Maintainer: ruario 
+# Contributor: RobertMe
+# Contributor: BlackEagle
+# Contributor: Skunnyk
+# Contributor: totoloco
+# Contributor: eworm
+
+pkgname=opera-developer
+pkgver=24.0.1537.0
+pkgrel=1
+pkgdesc="A fast and secure web browser and Internet suite. developer version."
+url="http://blogs.opera.com/desktop/"
+depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+provides=('opera')
+replaces=('opera-devel' 'opera-dev')
+install=${pkgname}.install
+options=(!strip !zipman)
+license=('custom:opera')
+backup=("etc/$pkgname/default")
+arch=('x86_64')
+source=(
+	"http://get.geo.opera.com/pub/$pkgname/$pkgver/linux/${pkgname}_${pkgver}_amd64.deb"
+	"opera"
+	"default"
+)
+sha256sums=(
+	'78d9d52683f9ec20e0b6a930ffd0c282beda5425ae157a0d0c8ad87a53b45e3e'
+	'508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
+	'4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027'
+)
+
+prepare() {
+	sed -e "s/%pkgname%/$pkgname/g" -i "$srcdir/opera"
+	sed -e "s/%operabin%/x86_64-linux-gnu\/opera-developer\/opera/g" \
+		-i "$srcdir/opera"
+}
+
+package() {
+	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
+
+	# fix opera to use libudev.so.1
+	sed -e 's/libudev.so.0/libudev.so.1/g' \
+		-i "$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera"
+
+	# suid opera_sandbox
+	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera_sandbox"
+
+	# install default options
+	install -Dm644 "$srcdir/default" "$pkgdir/etc/$pkgname/default"
+
+	# install opera wrapper
+	rm "$pkgdir/usr/bin/$pkgname"
+	install -Dm755 "$srcdir/opera" "$pkgdir/usr/bin/$pkgname"
+
+	# license
+	install -Dm644 \
+		"$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera_autoupdate.licenses" \
+		"$pkgdir/usr/share/licenses/opera-developer/opera_autoupdate.licenses"
+}
