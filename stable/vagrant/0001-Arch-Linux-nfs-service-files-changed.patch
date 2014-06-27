@@ -1,0 +1,41 @@
+From 1c37a48b5d78ee8127570bc1f107bd4a1c17122c Mon Sep 17 00:00:00 2001
+From: BlackEagle <ike.devolder@gmail.com>
+Date: Fri, 27 Jun 2014 15:27:32 +0200
+Subject: [PATCH] Arch Linux nfs service files changed
+
+The systemd service files changed in archlinux:
+
+nfsd.service       -> nfs-server.service
+rpc-idmapd.service -> nfs-idmapd.service
+rpc-mountd.service -> nfs-mountd.service
+
+Signed-off-by: BlackEagle <ike.devolder@gmail.com>
+---
+ plugins/hosts/arch/cap/nfs.rb | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/plugins/hosts/arch/cap/nfs.rb b/plugins/hosts/arch/cap/nfs.rb
+index 369fc70..da67f8d 100644
+--- a/plugins/hosts/arch/cap/nfs.rb
++++ b/plugins/hosts/arch/cap/nfs.rb
+@@ -4,7 +4,7 @@ module VagrantPlugins
+       class NFS
+         def self.nfs_check_command(env)
+           if systemd?
+-            return "/usr/sbin/systemctl status nfsd"
++            return "/usr/sbin/systemctl status nfs-server"
+           else
+             return "/etc/rc.d/nfs-server status"
+           end
+@@ -12,7 +12,7 @@ module VagrantPlugins
+ 
+         def self.nfs_start_command(env)
+           if systemd?
+-            return "/usr/sbin/systemctl start nfsd rpc-idmapd rpc-mountd rpcbind"
++            return "/usr/sbin/systemctl start nfs-server nfs-idmapd nfs-mountd rpcbind"
+           else
+             return "sh -c 'for s in {rpcbind,nfs-common,nfs-server}; do /etc/rc.d/$s start; done'"
+           end
+-- 
+2.0.0
+
