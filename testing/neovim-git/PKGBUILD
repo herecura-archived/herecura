@@ -1,0 +1,35 @@
+# vim:set sw=2 sts=2 et:
+# Maintainer: Florian Hahn <flo@fhahn.com>
+
+pkgname=neovim-git
+_gitname=neovim
+pkgdesc="Vim's rebirth for the 21st century"
+license=('apache')
+pkgver=20140701.11653ce
+pkgrel=1
+depends=('libuv' 'ncurses')
+makedepends=('cmake' 'git' 'unzip')
+provides=('neovim')
+arch=('i686' 'x86_64')
+url=('https://github.com/neovim/neovim')
+source=('git+https://github.com/neovim/neovim.git')
+md5sums=('SKIP')
+optdepends=(
+  'vim-runtime: provides useful .vim files, although some may not work with neovim'
+)
+
+pkgver() {
+  cd "${srcdir}/${_gitname}"
+  git log -1 --date=short --format="%cd.%h" | tr -d '-'
+}
+
+build() {
+  cd "${srcdir}/${_gitname}"
+  make cmake CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=/usr"
+  make
+}
+
+package() {
+  install -Dm755 "${srcdir}/${_gitname}/build/bin/nvim" "${pkgdir}/usr/bin/nvim"
+}
+
