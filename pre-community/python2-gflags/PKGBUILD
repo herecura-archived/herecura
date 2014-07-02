@@ -1,8 +1,8 @@
-# $Id: PKGBUILD 78820 2012-10-25 06:47:28Z foutrelis $
+# $Id$
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
 pkgname=python2-gflags
 pkgver=2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Commandline flags module for Python"
 arch=('any')
 url="http://code.google.com/p/python-gflags"
