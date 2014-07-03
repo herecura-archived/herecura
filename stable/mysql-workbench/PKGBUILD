@@ -8,7 +8,7 @@
 
 pkgname='mysql-workbench'
 pkgver=6.1.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -26,6 +26,7 @@ source=(
 	"http://cdn.mysql.com/Downloads/MySQLGUITools/${pkgname}-community-${pkgver}-src.tar.gz"
 	'arch_linux_profile.xml'
 	'mysql-workbench-admin_ssh.patch'
+	'gnome-keyring.patch'
 )
 
 prepare() {
@@ -33,6 +34,7 @@ prepare() {
 	# fix empty management tab
 	# http://bugs.mysql.com/bug.php?id=72194
 #	patch -Np1 < "${srcdir}"/mysql-workbench-admin_ssh.patch
+	patch -Np1 -i "${srcdir}/gnome-keyring.patch"
 }
 
 build() {
@@ -59,4 +61,5 @@ package() {
 
 sha256sums=('06ac657f7f86f012f75fcf8fa59fc1d422134135485b887a4abd6c9ac2408898'
             '1aa3cc7bf83470e81eca766114a597fa57542316818732011c8ea67e52197c7e'
-            '0c45db0d9c8a0f0bb07d096b3ed3b249b7e8ed1d02d07a9809f48c7c3402a09c')
+            '0c45db0d9c8a0f0bb07d096b3ed3b249b7e8ed1d02d07a9809f48c7c3402a09c'
+            '6f68d8c408836c78140b531a627a077c130bc5045b0cb9a3d9b39593dc30fbce')

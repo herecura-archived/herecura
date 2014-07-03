@@ -1,0 +1,17 @@
+diff -urN mysql-workbench-gpl-6.0.2-src/frontend/linux/workbench/main.cpp mysql-workbench-gpl-6.0.2-src-new/frontend/linux/workbench/main.cpp
+--- mysql-workbench-gpl-6.0.2-src/frontend/linux/workbench/main.cpp	2014-05-27 09:03:44.378332049 +0200
++++ mysql-workbench-gpl-6.0.2-src-new/frontend/linux/workbench/main.cpp	2014-05-27 09:04:18.776728187 +0200
+@@ -41,11 +41,13 @@
+ {
+ 
+   // disable gnome keyring if it's not running
++  /*
+   if (!getenv("GNOME_KEYRING_CONTROL") && !getenv("GNOME_KEYRING_SOCKET"))
+   {
+     g_message("Gnome keyring daemon seems to not be available. Stored passwords will be lost once quit");
+     setenv("WB_NO_GNOME_KEYRING", "1", 1);
+   }
++  */
+ 
+ #ifdef ENABLE_DEBUG
+   if (getenv("DEBUG_CRITICAL"))
