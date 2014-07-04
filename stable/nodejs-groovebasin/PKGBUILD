@@ -7,7 +7,7 @@
 
 pkgname=nodejs-groovebasin
 _pkgname="${pkgname#nodejs-}"
-pkgver=1.1.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc='Music player server with a web-based user interface inspired by Amarok 1.4'
 arch=(any)
@@ -39,5 +39,5 @@ package() {
 }
 
 # vim:set ts=2 sw=2 et:
-sha256sums=('d1e0e207495b20cfc792d4748af2146043230bcaa8db8042a8a1684242a5f42d'
+sha256sums=('d43e356aa4ee932096156d0954db97deefbdbe34bafb32b4493b71b13179fc3a'
             'b121429dc1c6ed132a02f66c8b49424c46bf9a1e358d9fe91cf4b8093eaa4e28')
