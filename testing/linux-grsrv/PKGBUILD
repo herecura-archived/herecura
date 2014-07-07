@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
 _patchver=10
 pkgver=$_basekernel
-pkgrel=0.1
+pkgrel=0.2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -143,6 +143,7 @@ package_linux-grsrv() {
 	optdepends=(
 		'crda: to set the correct wireless channels of your country'
 		'linux-firmware: when having some hardware needing special firmware'
+		'paxd: automatically configure PAX exceptions'
 	)
 	install=$pkgname.install
 
