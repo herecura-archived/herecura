@@ -7,7 +7,7 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.15
-_patchver=3
+_patchver=4
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
 	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x/testing'
@@ -53,7 +53,7 @@ if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'82ee661b91246c77d0ef3d9d6d8dcc191d3490cad17cd295a95169059735f295'
+		'65b54621cc10bc08e0759f1348fde871d21222e1ab20207b9ebf9464a0cbb868'
 	)
 	fi
 fi
