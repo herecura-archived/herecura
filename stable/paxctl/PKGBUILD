@@ -5,12 +5,13 @@
 
 pkgname='paxctl'
 pkgver='0.8'
-pkgrel=1
+pkgrel=2
 pkgdesc='Manages various PaX related program header flags for Elf32, Elf64, binaries'
 url='http://pax.grsecurity.net'
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=()
+conflicts=('paxd')
 source=("http://pax.grsecurity.net/$pkgname-$pkgver.tar.gz")
 
 prepare() {
