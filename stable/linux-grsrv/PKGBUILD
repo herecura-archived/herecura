@@ -6,10 +6,10 @@
 _kernelname=-grsrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.13
+_basekernel=3.14
 _patchver=10
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=0.2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -25,9 +25,9 @@ source=(
 	"linux$_kernelname.preset"
 )
 sha256sums=(
-	'4d5e5eee5f276424c32e9591f1b6c971baedc7b49f28ce03d1f48b1e5d6226a2'
-	'827b3be74673388ee54c210014ec4227ab909360740067763c604e3307170507'
-	'80c0a38f50f50bbab8c469d57dd50123558ecc396a18ae2a4546b8b42fefaaa5'
+	'61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
+	'5bfc8f5673d3f398019a4b5db737297098f249a802f7fd6dd9d880f175854921'
+	'6657c8d39ceb41d5e48dc636ac3bc23f776a926012f296b2dc8f460967b5ee61'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -39,20 +39,20 @@ if [ ${_patchver} -ne 0 ]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'c323d141f02b349ac5b37c744e0689c98dc698be81c7c974b182983b8073b03d'
+		'e93bcbbd4568449e771f420ddd281a797b8df92ff265d59f849c3f53172fd95e'
 	)
 fi
 
 _grsecver="3.0"
-_grsecdate="201404182111"
+_grsecdate="201407052031"
 
 # extra patches
 _extrapatches=(
-	"http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch"
-	"http://grsecurity.net/test/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
+	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch"
+	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
 )
 _extrapatchessums=(
-	'03422a0832c338430140b68d542d6eb8afa4f999c97969ccca420a72780eef98'
+	'238f1499e7b6669b199e85cc334e01c9240665d65647b2ea0c30c230b88ac714'
 	'SKIP'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
@@ -143,6 +143,7 @@ package_linux-grsrv() {
 	optdepends=(
 		'crda: to set the correct wireless channels of your country'
 		'linux-firmware: when having some hardware needing special firmware'
+		'paxd: automatically configure PAX exceptions'
 	)
 	install=$pkgname.install
 
