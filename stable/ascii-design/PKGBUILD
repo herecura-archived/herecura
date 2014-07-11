@@ -1,7 +1,7 @@
 # Contributer: giacomogiorgianni@gmail.com 
 
 pkgname=ascii-design
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Ascii Design is an ascii-art program based on figlet engine."
 arch=("i686" "x86_64")
@@ -31,4 +31,4 @@ package() {
 	cd "${pkgname}-${pkgver}/build"
 	make DESTDIR=${pkgdir} install
 }
-sha256sums=('becf44d6d378ac3ba5e67e0f268d307c68e365052138b01cb66fcea4c6ed8d3e')
+sha256sums=('20b84098fc7979351cfe47f47a598d7313de429c4aff20c697069c96433671f7')
