@@ -1,1 +1,1 @@
-update_pkgver=$(wget -q -O- https://code.google.com/p/closure-compiler/wiki/BinaryDownloads | sed 's,>,>\n,g' | grep -m1 -ie 'compiler-[0-9\.]*\.tar' | sed 's,.*compiler-\([0-9\.]*\)\.tar.*,\1,')
+update_pkgver=$(wget -q -O- https://github.com/google/closure-compiler/releases/ | grep -m1 -ie 'releases\/tag\/v' | sed 's,.*tag\/v\([0-9a-z\.]*\).*,\1,')
