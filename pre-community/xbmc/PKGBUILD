@@ -12,7 +12,7 @@ _prefix=/usr
 pkgname=xbmc
 pkgver=13.1
 _codename=Gotham
-pkgrel=4.2
+pkgrel=4.3
 pkgdesc="A software media player and entertainment hub for digital media"
 arch=('i686' 'x86_64')
 url="http://xbmc.org"
@@ -23,8 +23,8 @@ depends=(
 'lzo' 'mesa' 'mesa-demos' 'python2' 'python2-pillow' 'sdl_image' 'sdl_mixer'
 'smbclient' 'taglib' 'tinyxml' 'unzip' 'xorg-xdpyinfo' 'yajl'
 #internal ffmpeg
-'libass' 'libmodplug' 'libbluray' 'rtmpdump' 'libvdpau' 'libtheora' 'libva'
-'libvorbis' 'libvpx' 'lame'
+'libass' 'libmodplug' 'libbluray' 'rtmpdump' 'libvdpau' 'libva'
+'libvorbis' 'lame'
 )
 makedepends=(
 'afpfs-ng' 'libnfs' 'libplist' 'shairplay' 'libcec' 'boost' 'cmake' 'doxygen'
