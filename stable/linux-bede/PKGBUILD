@@ -6,8 +6,8 @@
 _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.15
-_patchver=8
+_basekernel=3.16
+_patchver=0
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
 	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x/testing'
@@ -29,17 +29,17 @@ options=(!strip)
 source=(
 	"$_baseurl/$_linuxname.tar.xz"
 	# the main kernel config files
-	"config-$_basekernel-desktop.i686"
-	"config-$_basekernel-desktop.x86_64"
+	"config-desktop.i686"
+	"config-desktop.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
 	# sysctl tweaks
 	'sysctl-linux-bede.conf'
 )
 sha256sums=(
-	'c3927e87be4040fa8aca1b58663dc0776aaf00485604ff88a623be2f3fb07794'
-	'b552f8d66cd72df398097172bd380348ccc946e2724d17ed35060d5e0908673c'
-	'e974b3deb0891ab59d1c728aa7adad26c79d2b981c91e5f03881a811d5bfd622'
+	'4813ad7927a7d92e5339a873ab16201b242b2748934f12cb5df9ba2cfe1d77a0'
+	'9a321b0314f441776ffff367bdaba4a1450292e3739bbf5cbc1ff91951245c1c'
+	'5f2e5734165a15863e595d35448ecc9a0005b142fd069c9e26ca6a5abf5764c8'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'e939ae473776190eb327e3afd5315626d6ac87a84b5475e08979c319e917a1d4'
 )
@@ -53,7 +53,7 @@ if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
 		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'e25557b19dfebc91e42939aa9a62f7a4d4e36ea2cc659368cded51fb2c703456'
+		''
 	)
 	fi
 fi
@@ -93,9 +93,9 @@ prepare() {
 	# set configuration
 	msg2 "copy configuration"
 	if [[ "$CARCH" = "x86_64" ]]; then
-		cat ../config-$_basekernel-desktop.x86_64 >./.config
+		cat ../config-desktop.x86_64 >./.config
 	else
-		cat ../config-$_basekernel-desktop.i686 >./.config
+		cat ../config-desktop.i686 >./.config
 	fi
 	if [[ "$_kernelname" != "" ]]; then
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
