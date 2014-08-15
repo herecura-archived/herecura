@@ -62,11 +62,9 @@ optdepends=(
 install="$pkgname.install"
 source=(
 	"$_gitname::git://github.com/xbmc/xbmc.git"
-	'libnfs-header-changes.patch'
 )
 sha256sums=(
 	'SKIP'
-	'cec996873f7c45fd01c04b5598152f4a13509eed9b38f395dd1fe0d5c8a4c1ff'
 )
 
 _prefix='/usr'
@@ -79,7 +77,6 @@ pkgver() {
 
 prepare() {
 	cd ${_gitname}
-	patch -p1 -i "$srcdir/libnfs-header-changes.patch"
 
 	find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
 	sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
