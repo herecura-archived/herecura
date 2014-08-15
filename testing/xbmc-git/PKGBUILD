@@ -62,12 +62,10 @@ optdepends=(
 install="$pkgname.install"
 source=(
 	"$_gitname::git://github.com/xbmc/xbmc.git"
-	'xbmc.service'
 	'libnfs-header-changes.patch'
 )
 sha256sums=(
 	'SKIP'
-	'17ea860b675568f516df0289e5663029a2ce1829b0dfa3c71636ef1ae7cd2207'
 	'cec996873f7c45fd01c04b5598152f4a13509eed9b38f395dd1fe0d5c8a4c1ff'
 )
 
@@ -195,11 +193,4 @@ package() {
 		mv ${pkgdir}${_prefix}/share/doc/xbmc/${licensef} \
 			${pkgdir}${_prefix}/share/licenses/${pkgname}
 	done
-
-	# install systemd service
-	install -Dm0644 $srcdir/xbmc.service $pkgdir/usr/lib/systemd/system/xbmc.service
-
-	# XBMC user home
-	install -dm 700 "${pkgdir}"/var/lib/xbmc
-	chown 420:420 "${pkgdir}"/var/lib/xbmc
 }
