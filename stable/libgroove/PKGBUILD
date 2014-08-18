@@ -1,11 +1,11 @@
 pkgname=libgroove
 pkgver=4.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Audio dispatching library. Generic sink-based interface. Provides decoding, encoding, resampling, and gain adjustment."
 arch=('i686' 'x86_64')
 url="https://github.com/andrewrk/libgroove"
 license=('MIT')
-depends=('sdl2' 'lame' 'bzip2' 'ffmpeg' 'chromaprint')
+depends=('sdl2' 'bzip2' 'libav' 'chromaprint-libav' 'libebur128')
 makedepends=('cmake' 'yasm')
 conflicts=('libgroove-git')
 options=('strip' 'ccache')
