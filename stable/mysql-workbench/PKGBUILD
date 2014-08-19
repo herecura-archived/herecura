@@ -8,7 +8,7 @@
 
 pkgname='mysql-workbench'
 pkgver=6.1.7
-pkgrel=2
+pkgrel=3
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -20,21 +20,27 @@ depends=('ctemplate' 'desktop-file-utils' 'gtkmm' 'hicolor-icon-theme'
 optdepends=('gnome-keyring: store SSH/MySQL passwords in GNOME password manager')
 makedepends=('boost' 'curl' 'mesa' 'cmake')
 install='mysql-workbench.install'
-options=('!libtool !distcc !ccache')
 
 source=(
 	"http://cdn.mysql.com/Downloads/MySQLGUITools/${pkgname}-community-${pkgver}-src.tar.gz"
 	'arch_linux_profile.xml'
-	'mysql-workbench-admin_ssh.patch'
-	'gnome-keyring.patch'
+	'mysql-workbench-ctemplate.patch'
+	'mysql-workbench-mariadb-10.patch'
+	'mysql-workbench-no-check-for-updates.patch'
 )
 
 prepare() {
 	cd "$pkgname-community-$pkgver-src"
-	# fix empty management tab
-	# http://bugs.mysql.com/bug.php?id=72194
-#	patch -Np1 < "${srcdir}"/mysql-workbench-admin_ssh.patch
-	patch -Np1 -i "${srcdir}/gnome-keyring.patch"
+
+	# Disable 'Help' -> 'Check for Updates'
+	patch -Np1 < "${srcdir}"/mysql-workbench-no-check-for-updates.patch
+
+	# fix deprecated calls to tpl->ReloadIfChanged
+	# http://bugs.mysql.com/72585
+	patch -Np1 < "${srcdir}"/mysql-workbench-ctemplate.patch
+
+	# fix compilation with Mariadb
+	patch -Np1 < "${srcdir}"/mysql-workbench-mariadb-10.patch
 }
 
 build() {
@@ -61,5 +67,6 @@ package() {
 
 sha256sums=('06ac657f7f86f012f75fcf8fa59fc1d422134135485b887a4abd6c9ac2408898'
             '1aa3cc7bf83470e81eca766114a597fa57542316818732011c8ea67e52197c7e'
-            '0c45db0d9c8a0f0bb07d096b3ed3b249b7e8ed1d02d07a9809f48c7c3402a09c'
-            '6f68d8c408836c78140b531a627a077c130bc5045b0cb9a3d9b39593dc30fbce')
+            'bbf6f3e56847cc012634e262295f34eaaa43ef32d04e1ec291315dabd6613042'
+            '6fc7d88a4e43ba3ccf0fac8075e4e5ca253626c736416b0ffa1ed44ac9ee5d92'
+            '996482e15d88af097f5e7a578885338cad5b8724f8abb4341749d5538801f5c0')
