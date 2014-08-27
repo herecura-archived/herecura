@@ -30,8 +30,9 @@ depends=(
 'bluez-libs' 'curl' 'flac' 'glew' 'hicolor-icon-theme' 'lame' 'libaacs'
 'libass' 'libbluray' 'libcdio' 'libmariadbclient' 'libmicrohttpd' 'libmodplug'
 'libmpeg2' 'libpulse' 'libsamplerate' 'libssh' 'libva' 'libvdpau' 'libvorbis'
-'libxrandr' 'libxslt' 'lzo' 'mesa' 'python2-pillow' 'python2-simplejson'
-'rtmpdump' 'sdl_image' 'smbclient' 'taglib' 'tinyxml' 'xorg-xdpyinfo' 'yajl'
+'libxrandr' 'libxslt' 'lzo' 'mesa' 'mesa-demos' 'python2-pillow'
+'python2-simplejson' 'rtmpdump' 'sdl_image' 'smbclient' 'taglib' 'tinyxml'
+'xorg-xdpyinfo' 'yajl'
 )
 makedepends=(
 'afpfs-ng' 'boost' 'cmake' 'doxygen' 'git' 'gperf' 'jasper'
