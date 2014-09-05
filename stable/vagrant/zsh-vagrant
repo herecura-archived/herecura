@@ -21,6 +21,7 @@ local -a _1st_arguments
 _1st_arguments=(
     'box:Box commands'
     'destroy:Destroys the vagrant environment'
+    'global-status:Shows the status of the global Vagrant environment.'
     'halt:Halts the currently running vagrant environment'
     'help:[TASK] Describe available tasks or one specific task'
     'init:[box_name] [box_url] Initializes current folder for Vagrant usage'
@@ -52,6 +53,7 @@ _plugin_arguments=(
     'license:NAME LICENSE_FILE Add a license for an installed plugin'
     'list:Lists all installed plugins'
     'uninstall:NAME Uninstall a plugin from the system'
+    'update:[NAMES...] Update all or specified plugins'
 )
 
 __task_list ()
@@ -59,14 +61,14 @@ __task_list ()
     local expl
     local -a tasks
 
-    tasks=(box destroy halt init package plugin provision reload resume ssh ssh_config status suspend up version)
+    tasks=(box destroy global-status halt init package plugin provision reload resume ssh ssh_config status suspend up version)
 
     _wanted tasks expl 'help' compadd $tasks
 }
 
 __box_list ()
 {
-    _wanted application expl 'command' compadd $(command ls -1 $HOME/.vagrant/boxes 2>/dev/null| sed -e 's/ /\\ /g')
+    _wanted application expl 'command' compadd $(command ls -1  ${VAGRANT_HOME:-$HOME/.vagrant.d}/boxes 2>/dev/null| sed -e 's/ /\\ /g')
 }
 
 __plugin_list ()
@@ -76,7 +78,7 @@ __plugin_list ()
 
 __vm_list ()
 {
-    _wanted application expl 'command' compadd $(command grep Vagrantfile -oe '^[^#]*\.vm\.define * ['\''":]\?\([a-zA-Z0-9\-]\+\)['\''"]\?' 2>/dev/null | awk '{print $NF}' | sed 's/'\''//g'|sed 's/\"//g'|sed 's/^://' )
+    _wanted application expl 'command' compadd $(command grep Vagrantfile -oe '^[^#]*\.vm\.define * ['\''":]\?\([a-zA-Z0-9\-_]\+\)['\''"]\?' 2>/dev/null | awk '{print $NF}' | sed 's/'\''//g'|sed 's/\"//g'|sed 's/^://' )
 }
 
 __vagrant-box ()
