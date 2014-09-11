@@ -57,17 +57,19 @@ package() {
 	install -Dm644 "${srcdir}/go/src/github.com/mitchellh/packer/LICENSE" \
 		"${pkgdir}/usr/share/licenses/$pkgname/LICENSE"
 
-	# bash completion
-	install -Dm0644 "${srcdir}/packer-io-bash-completion/packer" \
-		"${pkgdir}/usr/share/bash-completion/completions/packer"
+	# completion not working atm, will investigate later
 
-	install -Dm644 "${srcdir}/packer-io-bash-completion/LICENSE" \
-		"${pkgdir}/usr/share/licenses/$pkgname/LICENSE-bash-completion"
+	## bash completion
+	#install -Dm0644 "${srcdir}/packer-io-bash-completion/packer" \
+		#"${pkgdir}/usr/share/bash-completion/completions/packer"
 
-	# zsh completion
-	install -Dm0644 "${srcdir}/packer-io-zsh-completion/_packer" \
-		"${pkgdir}/usr/share/zsh/site-functions/_packer"
+	#install -Dm644 "${srcdir}/packer-io-bash-completion/LICENSE" \
+		#"${pkgdir}/usr/share/licenses/$pkgname/LICENSE-bash-completion"
 
-	install -Dm644 "${srcdir}/packer-io-zsh-completion/LICENSE" \
-		"${pkgdir}/usr/share/licenses/$pkgname/LICENSE-zsh-completion"
+	## zsh completion
+	#install -Dm0644 "${srcdir}/packer-io-zsh-completion/_packer" \
+		#"${pkgdir}/usr/share/zsh/site-functions/_packer"
+
+	#install -Dm644 "${srcdir}/packer-io-zsh-completion/LICENSE" \
+		#"${pkgdir}/usr/share/licenses/$pkgname/LICENSE-zsh-completion"
 }
