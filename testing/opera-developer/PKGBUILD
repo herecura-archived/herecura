@@ -11,6 +11,10 @@ pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
 depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+optdepends=(
+	'curl: opera crash reporter and autoupdate checker'
+	'ffmpeg: playback of not really open formats'
+)
 provides=('opera')
 replaces=('opera-devel' 'opera-dev')
 install=${pkgname}.install
