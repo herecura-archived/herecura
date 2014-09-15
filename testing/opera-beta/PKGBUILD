@@ -1,0 +1,62 @@
+# Maintainer: ruario 
+# Contributor: RobertMe
+# Contributor: BlackEagle
+# Contributor: Skunnyk
+# Contributor: totoloco
+# Contributor: eworm
+
+pkgname=opera-beta
+pkgver=25.0.1614.11
+pkgrel=1
+pkgdesc="A fast and secure web browser and Internet suite. beta version."
+url="http://blogs.opera.com/desktop/"
+depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+optdepends=(
+	'curl: opera crash reporter and autoupdate checker'
+	'ffmpeg: playback of not really open formats'
+)
+provides=('opera')
+install=${pkgname}.install
+options=(!strip !zipman)
+license=('custom:opera')
+backup=("etc/$pkgname/default")
+arch=('x86_64')
+source=(
+	"http://get.geo.opera.com/pub/$pkgname/$pkgver/linux/${pkgname}_${pkgver}_amd64.deb"
+	"opera"
+	"default"
+)
+sha256sums=(
+	'8a8773ce02e304a48a3917c89dcf8d8d7fabe1be11b7d3cda3cbad889173d27d'
+	'508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
+	'4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027'
+)
+
+prepare() {
+	sed -e "s/%pkgname%/$pkgname/g" -i "$srcdir/opera"
+	sed -e "s/%operabin%/x86_64-linux-gnu\/opera-beta\/opera-beta/g" \
+		-i "$srcdir/opera"
+}
+
+package() {
+	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
+
+	# fix opera to use libudev.so.1
+	sed -e 's/libudev.so.0/libudev.so.1/g' \
+		-i "$pkgdir/usr/lib/x86_64-linux-gnu/opera-beta/opera-beta"
+
+	# suid opera_sandbox
+	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/opera-beta/opera_sandbox"
+
+	# install default options
+	install -Dm644 "$srcdir/default" "$pkgdir/etc/$pkgname/default"
+
+	# install opera wrapper
+	rm "$pkgdir/usr/bin/$pkgname"
+	install -Dm755 "$srcdir/opera" "$pkgdir/usr/bin/$pkgname"
+
+	# license
+	install -Dm644 \
+		"$pkgdir/usr/lib/x86_64-linux-gnu/opera-beta/opera_autoupdate.licenses" \
+		"$pkgdir/usr/share/licenses/opera-beta/opera_autoupdate.licenses"
+}
