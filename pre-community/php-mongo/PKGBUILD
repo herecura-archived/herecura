@@ -2,7 +2,7 @@
 # Contributor: Jarek Sedlacek <jareksedlacek@gmail.com>
 
 pkgname=php-mongo
-pkgver=1.5.5
+pkgver=1.5.7
 pkgrel=1
 pkgdesc="Officially supported PHP driver for MongoDB"
 arch=("i686" "x86_64")
@@ -26,5 +26,5 @@ package() {
 	make INSTALL_ROOT="$pkgdir" install
 	install -Dm644 "$srcdir/mongo.ini" "$pkgdir/etc/php/conf.d/mongo.ini"
 }
-sha256sums=('a61529da3ce09b8b1f438faf76fb2d7e2dbbdac3b3bf553c014c107e2f4817c0'
+sha256sums=('e3c76d08646f596b2ff53c8dc0bba9a9ec5ef94aa5e54125d97f39c12ef6e9e8'
             'c89685eee842d5c3a85149a5bb8e310e62bf1a17f94183bb66401593ab2b191b')
