@@ -2,8 +2,8 @@
 # Contributor: Marti Raudsepp <marti@juffo.org>
 
 pkgname=libdwarf
-pkgver=20140413
-pkgrel=2
+pkgver=20140805
+pkgrel=1
 pkgdesc="A library for handling DWARF Debugging Information Format"
 arch=('i686' 'x86_64')
 license=('GPL' 'LGPL')
@@ -37,4 +37,4 @@ package() {
 	install -Dm644 dwarfdump.conf $pkgdir/usr/lib/dwarfdump.conf
 }
 
-sha256sums=('c22272889ed1d3e608b06ce7c568fe0a3fafd0d4f642e41e926fec73365d4eeb')
+sha256sums=('d48219a1c240d05cf68d55a6a1ed0d4592f4a2dd8df48f19d7686e1f38f8bdfc')
