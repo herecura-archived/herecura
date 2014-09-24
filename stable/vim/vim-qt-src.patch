@@ -1,6 +1,6 @@
-diff -urN gvim-build-gtk/README.md gvim-build-qt/README.md
---- gvim-build-gtk/README.md	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/README.md	2014-04-09 12:17:31.902732335 +0200
+diff -urN vim-src/README.md vim-qt-src/README.md
+--- vim-src/README.md	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/README.md	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,51 @@
 +This is README for the Qt GUI - if you want the VIM README check README.txt
 +
@@ -53,9 +53,9 @@ diff -urN gvim-build-gtk/README.md gvim-build-qt/README.md
 +
 +
 +
-diff -urN gvim-build-gtk/README_qt.txt gvim-build-qt/README_qt.txt
---- gvim-build-gtk/README_qt.txt	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/README_qt.txt	2014-04-09 12:17:31.903732306 +0200
+diff -urN vim-src/README_qt.txt vim-qt-src/README_qt.txt
+--- vim-src/README_qt.txt	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/README_qt.txt	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,51 @@
 +This is README for the Qt GUI - if you want the VIM README check README.txt
 +
@@ -108,9 +108,9 @@ diff -urN gvim-build-gtk/README_qt.txt gvim-build-qt/README_qt.txt
 +
 +
 +
-diff -urN gvim-build-gtk/runtime/menu.vim gvim-build-qt/runtime/menu.vim
---- gvim-build-gtk/runtime/menu.vim	2014-04-09 12:15:56.485530315 +0200
-+++ gvim-build-qt/runtime/menu.vim	2014-04-09 12:17:31.904732276 +0200
+diff -urN vim-src/runtime/menu.vim vim-qt-src/runtime/menu.vim
+--- vim-src/runtime/menu.vim	2014-09-24 20:45:28.491428402 +0200
++++ vim-qt-src/runtime/menu.vim	2014-09-24 20:43:01.206356526 +0200
 @@ -383,7 +383,7 @@
    endif
    unlet s:n
@@ -120,9 +120,9 @@ diff -urN gvim-build-gtk/runtime/menu.vim gvim-build-qt/runtime/menu.vim
    an 20.470 &Edit.Select\ Fo&nt\.\.\.	:set guifont=*<CR>
  endif
  
-diff -urN gvim-build-gtk/src/CMakeLists.txt gvim-build-qt/src/CMakeLists.txt
---- gvim-build-gtk/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/CMakeLists.txt	2014-04-09 12:17:31.905732247 +0200
+diff -urN vim-src/src/CMakeLists.txt vim-qt-src/src/CMakeLists.txt
+--- vim-src/src/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/CMakeLists.txt	2013-05-18 08:44:24.000000000 +0200
 @@ -0,0 +1,123 @@
 +cmake_minimum_required(VERSION 2.8)
 +
@@ -247,9 +247,9 @@ diff -urN gvim-build-gtk/src/CMakeLists.txt gvim-build-qt/src/CMakeLists.txt
 +endif(MSVC OR MINGW)
 +
 +
-diff -urN gvim-build-gtk/src/Makefile gvim-build-qt/src/Makefile
---- gvim-build-gtk/src/Makefile	2014-04-09 12:15:56.610526650 +0200
-+++ gvim-build-qt/src/Makefile	2014-04-09 12:17:31.907732188 +0200
+diff -urN vim-src/src/Makefile vim-qt-src/src/Makefile
+--- vim-src/src/Makefile	2014-09-24 20:45:28.870425902 +0200
++++ vim-qt-src/src/Makefile	2014-09-24 20:43:01.794353003 +0200
 @@ -1250,6 +1250,39 @@
  NEXTAW_TESTTARGET = gui
  NEXTAW_BUNDLE	=
@@ -308,7 +308,7 @@ diff -urN gvim-build-gtk/src/Makefile gvim-build-qt/src/Makefile
  
  # Exclude $CFLAGS for osdef.sh, for Mac 10.4 some flags don't work together
  # with "-E".
-@@ -1491,7 +1524,7 @@
+@@ -1493,7 +1526,7 @@
  	$(WORKSHOP_SRC) \
  	$(WSDEBUG_SRC)
  
@@ -317,7 +317,7 @@ diff -urN gvim-build-gtk/src/Makefile gvim-build-qt/src/Makefile
  
  EXTRA_SRC = hangulin.c if_lua.c if_mzsch.c auto/if_perl.c if_perlsfio.c \
  	    if_python.c if_python3.c if_tcl.c if_ruby.c if_sniff.c \
-@@ -2557,6 +2590,56 @@
+@@ -2579,6 +2612,56 @@
  objects/gui_athena.o: gui_athena.c
  	$(CCC) -o $@ gui_athena.c
  
@@ -374,9 +374,9 @@ diff -urN gvim-build-gtk/src/Makefile gvim-build-qt/src/Makefile
  objects/gui_beval.o: gui_beval.c
  	$(CCC) -o $@ gui_beval.c
  
-diff -urN gvim-build-gtk/src/Toolchain-mingw32.cmake gvim-build-qt/src/Toolchain-mingw32.cmake
---- gvim-build-gtk/src/Toolchain-mingw32.cmake	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/Toolchain-mingw32.cmake	2014-04-09 12:17:31.908732159 +0200
+diff -urN vim-src/src/Toolchain-mingw32.cmake vim-qt-src/src/Toolchain-mingw32.cmake
+--- vim-src/src/Toolchain-mingw32.cmake	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/Toolchain-mingw32.cmake	2012-06-20 16:40:37.000000000 +0200
 @@ -0,0 +1,18 @@
 +
 +SET(CMAKE_SYSTEM_NAME Windows)
@@ -396,10 +396,10 @@ diff -urN gvim-build-gtk/src/Toolchain-mingw32.cmake gvim-build-qt/src/Toolchain
 +SET(QT_MOC_EXECUTABLE /usr/i686-w64-mingw32/bin/moc CACHE INTERNAL "" FORCE)
 +SET(QT_RCC_EXECUTABLE /usr/i686-w64-mingw32/bin/rcc CACHE INTERNAL "" FORCE)
 +SET(QT_UIC_EXECUTABLE /usr/i686-w64-mingw32/bin/uic CACHE INTERNAL "" FORCE)
-diff -urN gvim-build-gtk/src/config.mk.in gvim-build-qt/src/config.mk.in
---- gvim-build-gtk/src/config.mk.in	2014-04-09 12:15:56.423532133 +0200
-+++ gvim-build-qt/src/config.mk.in	2014-04-09 12:17:31.908732159 +0200
-@@ -156,6 +156,12 @@
+diff -urN vim-src/src/config.mk.in vim-qt-src/src/config.mk.in
+--- vim-src/src/config.mk.in	2014-09-24 20:45:28.978425189 +0200
++++ vim-qt-src/src/config.mk.in	2014-09-24 20:43:01.798352979 +0200
+@@ -157,6 +157,12 @@
  GUI_X_LIBS	= @GUI_X_LIBS@
  MOTIF_LIBNAME	= @MOTIF_LIBNAME@
  GTK_LIBNAME	= @GTK_LIBNAME@
@@ -412,9 +412,9 @@ diff -urN gvim-build-gtk/src/config.mk.in gvim-build-qt/src/config.mk.in
  
  ### Any OS dependent extra source and object file
  OS_EXTRA_SRC	= @OS_EXTRA_SRC@
-diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
---- gvim-build-gtk/src/configure	2014-04-09 12:16:57.439742926 +0200
-+++ gvim-build-qt/src/configure	2014-04-09 12:17:32.742707704 +0200
+diff -urN vim-src/src/configure vim-qt-src/src/configure
+--- vim-src/src/configure	2014-09-24 20:45:56.927239256 +0200
++++ vim-qt-src/src/configure	2014-09-24 20:46:00.808213205 +0200
 @@ -634,6 +634,17 @@
  GUITYPE
  GUI_LIB_LOC
@@ -433,7 +433,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  NARROW_PROTO
  MOTIF_LIBNAME
  GNOME_INCLUDEDIR
-@@ -823,6 +834,7 @@
+@@ -824,6 +835,7 @@
  with_gnome_libs
  with_gnome
  with_motif_lib
@@ -441,7 +441,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  with_tlib
  enable_largefile
  enable_acl
-@@ -839,7 +851,10 @@
+@@ -840,7 +852,10 @@
  LIBS
  CPPFLAGS
  CPP
@@ -453,7 +453,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  
  
  # Initialize some variables set by options.
-@@ -1473,7 +1488,7 @@
+@@ -1474,7 +1489,7 @@
    --enable-hangulinput    Include Hangul input support.
    --enable-xim            Include XIM input support.
    --enable-fontset        Include X fontset output support.
@@ -462,7 +462,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
    --enable-gtk2-check     If auto-select GUI, check for GTK+ 2 default=yes
    --enable-gnome-check    If GTK GUI, check for GNOME default=no
    --enable-motif-check    If auto-select GUI, check for Motif default=yes
-@@ -1513,6 +1528,7 @@
+@@ -1514,6 +1529,7 @@
    --with-gnome-libs=DIR   Specify location of GNOME libs
    --with-gnome            Specify prefix for GNOME files
    --with-motif-lib=STRING   Library for Motif
@@ -470,7 +470,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
    --with-tlib=library     terminal library to be used
  
  Some influential environment variables:
-@@ -1525,6 +1541,8 @@
+@@ -1526,6 +1542,8 @@
                you have headers in a nonstandard directory <include dir>
    CPP         C preprocessor
    XMKMF       Path to xmkmf, Makefile generator for X Window System
@@ -479,7 +479,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  
  Use these variables to override the choices made by `configure' or to help
  it to find libraries and programs with nonstandard names/locations.
-@@ -1954,6 +1972,44 @@
+@@ -1955,6 +1973,44 @@
  
  } # ac_fn_c_check_func
  
@@ -524,7 +524,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  # ac_fn_c_check_type LINENO TYPE VAR INCLUDES
  # -------------------------------------------
  # Tests whether TYPE exists after having included INCLUDES, setting cache
-@@ -8305,7 +8361,7 @@
+@@ -8360,7 +8416,7 @@
    fi
  fi
  
@@ -533,7 +533,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  
  { $as_echo "$as_me:${as_lineno-$LINENO}: checking --enable-gui argument" >&5
  $as_echo_n "checking --enable-gui argument... " >&6; }
-@@ -8327,6 +8383,7 @@
+@@ -8382,6 +8438,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
  SKIP_CARBON=YES
@@ -541,7 +541,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  GUITYPE=NONE
  
  if test "x$QNX" = "xyes" -a "x$with_x" = "xno" ; then
-@@ -8376,7 +8433,8 @@
+@@ -8431,7 +8488,8 @@
  		SKIP_MOTIF=
  		SKIP_ATHENA=
  		SKIP_NEXTAW=
@@ -551,7 +551,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
      gtk2)	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: GTK+ 2.x GUI support" >&5
  $as_echo "GTK+ 2.x GUI support" >&6; }
  		SKIP_GTK2=;;
-@@ -8393,6 +8451,9 @@
+@@ -8448,6 +8506,9 @@
      nextaw)	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: neXtaw GUI support" >&5
  $as_echo "neXtaw GUI support" >&6; }
  		SKIP_NEXTAW=;;
@@ -561,7 +561,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
      *)		{ $as_echo "$as_me:${as_lineno-$LINENO}: result: Sorry, $enable_gui GUI is not supported" >&5
  $as_echo "Sorry, $enable_gui GUI is not supported" >&6; } ;;
    esac
-@@ -8503,7 +8564,6 @@
+@@ -8558,7 +8619,6 @@
    fi
  fi
  
@@ -569,7 +569,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  if test "x$MACOSX" = "xyes" -a -z "$SKIP_CARBON" -a "x$CARBON" = "xyes"; then
    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for Carbon GUI" >&5
  $as_echo_n "checking for Carbon GUI... " >&6; }
-@@ -8532,7 +8592,8 @@
+@@ -8587,7 +8647,8 @@
    SKIP_ATHENA=YES;
    SKIP_NEXTAW=YES;
    SKIP_PHOTON=YES;
@@ -579,7 +579,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  fi
  
  
-@@ -8724,6 +8785,7 @@
+@@ -8779,6 +8840,7 @@
        SKIP_ATHENA=YES
        SKIP_NEXTAW=YES
        SKIP_MOTIF=YES
@@ -587,7 +587,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
        GUITYPE=GTK
  
      fi
-@@ -8913,6 +8975,7 @@
+@@ -8968,6 +9030,7 @@
  if test -z "$SKIP_MOTIF"; then
    SKIP_ATHENA=YES
    SKIP_NEXTAW=YES
@@ -595,7 +595,7 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
    GUITYPE=MOTIF
  
  fi
-@@ -9245,6 +9308,715 @@
+@@ -9300,6 +9363,715 @@
  fi
  
  
@@ -1311,10 +1311,10 @@ diff -urN gvim-build-gtk/src/configure gvim-build-qt/src/configure
  if test -z "$SKIP_ATHENA" -o -z "$SKIP_NEXTAW" -o -z "$SKIP_MOTIF" -o -z "$SKIP_GTK2"; then
      cppflags_save=$CPPFLAGS
    CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
---- gvim-build-gtk/src/configure.in	2014-04-09 12:15:56.426532045 +0200
-+++ gvim-build-qt/src/configure.in	2014-04-09 12:17:31.919731837 +0200
-@@ -2027,11 +2027,11 @@
+diff -urN vim-src/src/configure.in vim-qt-src/src/configure.in
+--- vim-src/src/configure.in	2014-09-24 20:45:28.980425176 +0200
++++ vim-qt-src/src/configure.in	2014-09-24 20:43:01.801352961 +0200
+@@ -2054,11 +2054,11 @@
    fi
  fi
  
@@ -1328,7 +1328,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
  
  dnl Canonicalize the --enable-gui= argument so that it can be easily compared.
  dnl Do not use character classes for portability with old tools.
-@@ -2046,6 +2046,7 @@
+@@ -2073,6 +2073,7 @@
  SKIP_NEXTAW=YES
  SKIP_PHOTON=YES
  SKIP_CARBON=YES
@@ -1336,7 +1336,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
  GUITYPE=NONE
  
  if test "x$QNX" = "xyes" -a "x$with_x" = "xno" ; then
-@@ -2083,7 +2084,8 @@
+@@ -2110,7 +2111,8 @@
  		SKIP_MOTIF=
  		SKIP_ATHENA=
  		SKIP_NEXTAW=
@@ -1346,7 +1346,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
      gtk2)	AC_MSG_RESULT(GTK+ 2.x GUI support)
  		SKIP_GTK2=;;
      gnome2)	AC_MSG_RESULT(GNOME 2.x GUI support)
-@@ -2095,6 +2097,8 @@
+@@ -2122,6 +2124,8 @@
  		SKIP_ATHENA=;;
      nextaw)	AC_MSG_RESULT(neXtaw GUI support)
  		SKIP_NEXTAW=;;
@@ -1355,7 +1355,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
      *)		AC_MSG_RESULT([Sorry, $enable_gui GUI is not supported]) ;;
    esac
  
-@@ -2168,7 +2172,6 @@
+@@ -2195,7 +2199,6 @@
    fi
  fi
  
@@ -1363,7 +1363,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
  if test "x$MACOSX" = "xyes" -a -z "$SKIP_CARBON" -a "x$CARBON" = "xyes"; then
    AC_MSG_CHECKING(for Carbon GUI)
    dnl already did the check, just give the message
-@@ -2199,7 +2202,8 @@
+@@ -2226,7 +2229,8 @@
    SKIP_ATHENA=YES;
    SKIP_NEXTAW=YES;
    SKIP_PHOTON=YES;
@@ -1373,7 +1373,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
  fi
  
  dnl define an autoconf function to check for a specified version of GTK, and
-@@ -2409,6 +2413,7 @@
+@@ -2436,6 +2440,7 @@
        SKIP_ATHENA=YES
        SKIP_NEXTAW=YES
        SKIP_MOTIF=YES
@@ -1381,7 +1381,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
        GUITYPE=GTK
        AC_SUBST(GTK_LIBNAME)
      fi
-@@ -2521,6 +2526,7 @@
+@@ -2548,6 +2553,7 @@
  if test -z "$SKIP_MOTIF"; then
    SKIP_ATHENA=YES
    SKIP_NEXTAW=YES
@@ -1389,7 +1389,7 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
    GUITYPE=MOTIF
    AC_SUBST(MOTIF_LIBNAME)
  fi
-@@ -2622,6 +2628,199 @@
+@@ -2649,6 +2655,199 @@
    CPPFLAGS=$cppflags_save
  fi
  
@@ -1589,10 +1589,10 @@ diff -urN gvim-build-gtk/src/configure.in gvim-build-qt/src/configure.in
  
  if test -z "$SKIP_ATHENA" -o -z "$SKIP_NEXTAW" -o -z "$SKIP_MOTIF" -o -z "$SKIP_GTK2"; then
    dnl Check for X11/xpm.h and X11/Sunkeysym.h with the GUI include path
-diff -urN gvim-build-gtk/src/eval.c gvim-build-qt/src/eval.c
---- gvim-build-gtk/src/eval.c	2014-04-09 12:15:56.449531371 +0200
-+++ gvim-build-qt/src/eval.c	2014-04-09 12:17:31.922731749 +0200
-@@ -12370,6 +12370,9 @@
+diff -urN vim-src/src/eval.c vim-qt-src/src/eval.c
+--- vim-src/src/eval.c	2014-09-24 20:45:29.317422951 +0200
++++ vim-qt-src/src/eval.c	2014-09-24 20:43:02.377349508 +0200
+@@ -12539,6 +12539,9 @@
  #ifdef FEAT_GUI_W32
  	"gui_win32",
  #endif
@@ -1602,10 +1602,10 @@ diff -urN gvim-build-gtk/src/eval.c gvim-build-qt/src/eval.c
  #ifdef FEAT_HANGULIN
  	"hangul_input",
  #endif
-diff -urN gvim-build-gtk/src/ex_docmd.c gvim-build-qt/src/ex_docmd.c
---- gvim-build-gtk/src/ex_docmd.c	2014-04-09 12:15:56.462530990 +0200
-+++ gvim-build-qt/src/ex_docmd.c	2014-04-09 12:17:31.924731690 +0200
-@@ -7064,6 +7064,7 @@
+diff -urN vim-src/src/ex_docmd.c vim-qt-src/src/ex_docmd.c
+--- vim-src/src/ex_docmd.c	2014-09-24 20:45:29.334422839 +0200
++++ vim-qt-src/src/ex_docmd.c	2014-09-24 20:43:02.381349484 +0200
+@@ -7084,6 +7084,7 @@
  	|| (defined(FEAT_GUI_GTK) && defined(FEAT_DND)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -1613,9 +1613,9 @@ diff -urN gvim-build-gtk/src/ex_docmd.c gvim-build-qt/src/ex_docmd.c
  	|| defined(PROTO)
  
  /*
-diff -urN gvim-build-gtk/src/feature.h gvim-build-qt/src/feature.h
---- gvim-build-gtk/src/feature.h	2014-04-09 12:15:58.028485071 +0200
-+++ gvim-build-qt/src/feature.h	2014-04-09 12:17:31.924731690 +0200
+diff -urN vim-src/src/feature.h vim-qt-src/src/feature.h
+--- vim-src/src/feature.h	2014-09-24 20:45:56.213244042 +0200
++++ vim-qt-src/src/feature.h	2014-09-24 20:46:00.134217733 +0200
 @@ -40,6 +40,10 @@
   * When +small is used, +tiny is also included.  +normal implies +small, etc.
   */
@@ -1646,10 +1646,10 @@ diff -urN gvim-build-gtk/src/feature.h gvim-build-qt/src/feature.h
  #  define FEAT_CON_DIALOG
  #  define FEAT_GUI_DIALOG
  # else
-diff -urN gvim-build-gtk/src/fileio.c gvim-build-qt/src/fileio.c
---- gvim-build-gtk/src/fileio.c	2014-04-09 12:15:56.473530667 +0200
-+++ gvim-build-qt/src/fileio.c	2014-04-09 12:17:31.926731631 +0200
-@@ -6183,6 +6183,7 @@
+diff -urN vim-src/src/fileio.c vim-qt-src/src/fileio.c
+--- vim-src/src/fileio.c	2014-09-24 20:45:29.344422773 +0200
++++ vim-qt-src/src/fileio.c	2014-09-24 20:43:02.384349466 +0200
+@@ -6124,6 +6124,7 @@
  #if (defined(FEAT_DND) && defined(FEAT_GUI_GTK)) \
  	|| defined(FEAT_GUI_MSWIN) \
  	|| defined(FEAT_GUI_MAC) \
@@ -1657,10 +1657,10 @@ diff -urN gvim-build-gtk/src/fileio.c gvim-build-qt/src/fileio.c
  	|| defined(PROTO)
  /*
   * Shorten all filenames in "fnames[count]" by current directory.
-diff -urN gvim-build-gtk/src/globals.h gvim-build-qt/src/globals.h
---- gvim-build-gtk/src/globals.h	2014-04-09 12:15:56.478530521 +0200
-+++ gvim-build-qt/src/globals.h	2014-04-09 12:17:31.926731631 +0200
-@@ -515,7 +515,7 @@
+diff -urN vim-src/src/globals.h vim-qt-src/src/globals.h
+--- vim-src/src/globals.h	2014-09-24 20:45:28.089431055 +0200
++++ vim-qt-src/src/globals.h	2014-09-24 20:43:02.386349454 +0200
+@@ -513,7 +513,7 @@
  
  #ifdef FEAT_CLIPBOARD
  EXTERN VimClipboard clip_star;	/* PRIMARY selection in X11 */
@@ -1669,7 +1669,7 @@ diff -urN gvim-build-gtk/src/globals.h gvim-build-qt/src/globals.h
  EXTERN VimClipboard clip_plus;	/* CLIPBOARD selection in X11 */
  # else
  #  define clip_plus clip_star	/* there is only one clipboard */
-@@ -1416,7 +1416,7 @@
+@@ -1417,7 +1417,7 @@
  EXTERN char_u e_fontset[]	INIT(= N_("E234: Unknown fontset: %s"));
  #endif
  #if defined(FEAT_GUI_X11) || defined(FEAT_GUI_GTK) || defined(MACOS) \
@@ -1678,9 +1678,9 @@ diff -urN gvim-build-gtk/src/globals.h gvim-build-qt/src/globals.h
  EXTERN char_u e_font[]		INIT(= N_("E235: Unknown font: %s"));
  #endif
  #if defined(FEAT_GUI_X11) && !defined(FEAT_GUI_GTK)
-diff -urN gvim-build-gtk/src/gui.c gvim-build-qt/src/gui.c
---- gvim-build-gtk/src/gui.c	2014-04-09 12:15:56.481530433 +0200
-+++ gvim-build-qt/src/gui.c	2014-04-09 12:17:31.927731602 +0200
+diff -urN vim-src/src/gui.c vim-qt-src/src/gui.c
+--- vim-src/src/gui.c	2014-09-24 20:45:28.092431035 +0200
++++ vim-qt-src/src/gui.c	2014-09-24 20:43:02.387349448 +0200
 @@ -166,10 +166,10 @@
      termcapinit((char_u *)"builtin_gui");
      gui.starting = recursive - 1;
@@ -1738,9 +1738,9 @@ diff -urN gvim-build-gtk/src/gui.c gvim-build-qt/src/gui.c
  	|| defined(PROTO)
  
  #ifdef FEAT_WINDOWS
-diff -urN gvim-build-gtk/src/gui.h gvim-build-qt/src/gui.h
---- gvim-build-gtk/src/gui.h	2014-04-09 12:15:56.482530403 +0200
-+++ gvim-build-qt/src/gui.h	2014-04-09 12:17:31.927731602 +0200
+diff -urN vim-src/src/gui.h vim-qt-src/src/gui.h
+--- vim-src/src/gui.h	2013-10-09 22:09:06.000000000 +0200
++++ vim-qt-src/src/gui.h	2013-10-09 22:07:10.000000000 +0200
 @@ -62,7 +62,7 @@
   * On some systems scrolling needs to be done right away instead of in the
   * main loop.
@@ -1811,9 +1811,9 @@ diff -urN gvim-build-gtk/src/gui.h gvim-build-qt/src/gui.h
  #if defined(FEAT_MENU) && !defined(FEAT_GUI_GTK)
  # ifdef FONTSET_ALWAYS
      GuiFontset	menu_fontset;	    /* set of fonts for multi-byte chars */
-diff -urN gvim-build-gtk/src/gui_qt.cpp gvim-build-qt/src/gui_qt.cpp
---- gvim-build-gtk/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/gui_qt.cpp	2014-04-09 12:17:31.928731573 +0200
+diff -urN vim-src/src/gui_qt.cpp vim-qt-src/src/gui_qt.cpp
+--- vim-src/src/gui_qt.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/gui_qt.cpp	2014-01-11 00:34:30.624264228 +0100
 @@ -0,0 +1,1748 @@
 +#include <QApplication>
 +#include <QMessageBox>
@@ -3563,9 +3563,9 @@ diff -urN gvim-build-gtk/src/gui_qt.cpp gvim-build-qt/src/gui_qt.cpp
 +}
 +
 +} // extern "C"
-diff -urN gvim-build-gtk/src/main.c gvim-build-qt/src/main.c
---- gvim-build-gtk/src/main.c	2014-04-09 12:15:56.531528967 +0200
-+++ gvim-build-qt/src/main.c	2014-04-09 12:17:31.929731543 +0200
+diff -urN vim-src/src/main.c vim-qt-src/src/main.c
+--- vim-src/src/main.c	2014-09-24 20:45:28.933425486 +0200
++++ vim-qt-src/src/main.c	2014-09-24 20:43:02.523348633 +0200
 @@ -1624,7 +1624,7 @@
      }
  
@@ -3575,9 +3575,9 @@ diff -urN gvim-build-gtk/src/main.c gvim-build-qt/src/main.c
      {
  	main_start_gui();
  #ifdef FEAT_GUI
-diff -urN gvim-build-gtk/src/menu.c gvim-build-qt/src/menu.c
---- gvim-build-gtk/src/menu.c	2014-04-09 12:15:56.539528732 +0200
-+++ gvim-build-qt/src/menu.c	2014-04-09 12:17:31.929731543 +0200
+diff -urN vim-src/src/menu.c vim-qt-src/src/menu.c
+--- vim-src/src/menu.c	2014-09-24 20:45:28.940425440 +0200
++++ vim-qt-src/src/menu.c	2014-09-24 20:43:02.529348596 +0200
 @@ -272,7 +272,7 @@
  	EMSG(_(e_trailing));
  	goto theend;
@@ -3596,9 +3596,9 @@ diff -urN gvim-build-gtk/src/menu.c gvim-build-qt/src/menu.c
      /* If the menubar height changed, resize the window */
      if (gui.in_use
  	    && (gui.menu_height != old_menu_height
-diff -urN gvim-build-gtk/src/message.c gvim-build-qt/src/message.c
---- gvim-build-gtk/src/message.c	2014-04-09 12:15:56.542528644 +0200
-+++ gvim-build-qt/src/message.c	2014-04-09 12:17:31.930731514 +0200
+diff -urN vim-src/src/message.c vim-qt-src/src/message.c
+--- vim-src/src/message.c	2014-09-24 20:45:28.942425427 +0200
++++ vim-qt-src/src/message.c	2014-09-24 20:43:02.530348590 +0200
 @@ -3852,7 +3852,7 @@
  	    filter = BROWSE_FILTER_DEFAULT;
  	if (flags & BROWSE_DIR)
@@ -3617,10 +3617,10 @@ diff -urN gvim-build-gtk/src/message.c gvim-build-qt/src/message.c
  	    /* Win32 adds a dummy file name, others return an arbitrary file
  	     * name.  GTK+ 2 returns only the directory, */
  	    if (fname != NULL && *fname != NUL && !mch_isdir(fname))
-diff -urN gvim-build-gtk/src/normal.c gvim-build-qt/src/normal.c
---- gvim-build-gtk/src/normal.c	2014-04-09 12:15:56.558528175 +0200
-+++ gvim-build-qt/src/normal.c	2014-04-09 12:17:31.931731485 +0200
-@@ -2633,7 +2633,7 @@
+diff -urN vim-src/src/normal.c vim-qt-src/src/normal.c
+--- vim-src/src/normal.c	2014-09-24 20:45:28.954425348 +0200
++++ vim-qt-src/src/normal.c	2014-09-24 20:43:02.536348554 +0200
+@@ -2637,7 +2637,7 @@
  	     * Windows only shows the popup menu on the button up event.
  	     */
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) \
@@ -3629,7 +3629,7 @@ diff -urN gvim-build-gtk/src/normal.c gvim-build-qt/src/normal.c
  	    if (!is_click)
  		return FALSE;
  #endif
-@@ -2643,7 +2643,7 @@
+@@ -2647,7 +2647,7 @@
  #endif
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) \
  	    || defined(FEAT_GUI_ATHENA) || defined(FEAT_GUI_MSWIN) \
@@ -3638,9 +3638,9 @@ diff -urN gvim-build-gtk/src/normal.c gvim-build-qt/src/normal.c
  	    if (gui.in_use)
  	    {
  		jump_flags = 0;
-diff -urN gvim-build-gtk/src/ops.c gvim-build-qt/src/ops.c
---- gvim-build-gtk/src/ops.c	2014-04-09 12:15:56.561528087 +0200
-+++ gvim-build-qt/src/ops.c	2014-04-09 12:17:31.932731455 +0200
+diff -urN vim-src/src/ops.c vim-qt-src/src/ops.c
+--- vim-src/src/ops.c	2014-09-24 20:45:28.957425328 +0200
++++ vim-qt-src/src/ops.c	2014-09-24 20:43:02.537348549 +0200
 @@ -29,7 +29,7 @@
  #define DELETION_REGISTER	36
  #ifdef FEAT_CLIPBOARD
@@ -3650,7 +3650,7 @@ diff -urN gvim-build-gtk/src/ops.c gvim-build-qt/src/ops.c
  #   define PLUS_REGISTER	38
  #  else
  #   define PLUS_REGISTER	STAR_REGISTER	    /* there is only one */
-@@ -2936,7 +2936,7 @@
+@@ -2968,7 +2968,7 @@
      char_u		*p;
      char_u		*pnew;
      struct block_def	bd;
@@ -3659,7 +3659,7 @@ diff -urN gvim-build-gtk/src/ops.c gvim-build-qt/src/ops.c
      int			did_star = FALSE;
  #endif
  
-@@ -3203,12 +3203,12 @@
+@@ -3237,12 +3237,12 @@
  
  	clip_own_selection(&clip_star);
  	clip_gen_set_selection(&clip_star);
@@ -3674,10 +3674,10 @@ diff -urN gvim-build-gtk/src/ops.c gvim-build-qt/src/ops.c
      /*
       * If we were yanking to the '+' register, send result to selection.
       * Also copy to the '*' register, in case auto-select is off.
-diff -urN gvim-build-gtk/src/option.c gvim-build-qt/src/option.c
---- gvim-build-gtk/src/option.c	2014-04-09 12:15:56.566527940 +0200
-+++ gvim-build-qt/src/option.c	2014-04-09 12:17:31.934731397 +0200
-@@ -1232,6 +1232,28 @@
+diff -urN vim-src/src/option.c vim-qt-src/src/option.c
+--- vim-src/src/option.c	2014-09-24 20:45:28.961425301 +0200
++++ vim-qt-src/src/option.c	2014-09-24 20:43:02.673347733 +0200
+@@ -1254,6 +1254,28 @@
  			    {(char_u *)FALSE, (char_u *)0L}
  #endif
  			    SCRIPTID_INIT},
@@ -3706,7 +3706,7 @@ diff -urN gvim-build-gtk/src/option.c gvim-build-qt/src/option.c
      {"gdefault",    "gd",   P_BOOL|P_VI_DEF|P_VIM,
  			    (char_u *)&p_gd, PV_NONE,
  			    {(char_u *)FALSE, (char_u *)0L} SCRIPTID_INIT},
-@@ -6411,7 +6433,7 @@
+@@ -6436,7 +6458,7 @@
  	if (gui.in_use)
  	{
  	    p = p_guifont;
@@ -3715,7 +3715,7 @@ diff -urN gvim-build-gtk/src/option.c gvim-build-qt/src/option.c
  	    /*
  	     * Put up a font dialog and let the user select a new value.
  	     * If this is cancelled go back to the old value but don't
-@@ -6944,6 +6966,14 @@
+@@ -6969,6 +6991,14 @@
      }
  #endif
  
@@ -3730,7 +3730,7 @@ diff -urN gvim-build-gtk/src/option.c gvim-build-qt/src/option.c
  #ifdef FEAT_VIRTUALEDIT
      /* 'virtualedit' */
      else if (varp == &p_ve)
-@@ -7840,6 +7870,18 @@
+@@ -7873,6 +7903,18 @@
  	set_fileformat(curbuf->b_p_tx ? EOL_DOS : EOL_UNIX, opt_flags);
      }
  
@@ -3749,7 +3749,7 @@ diff -urN gvim-build-gtk/src/option.c gvim-build-qt/src/option.c
      /* when 'textauto' is set or reset also change 'fileformats' */
      else if ((int *)varp == &p_ta)
  	set_string_option_direct((char_u *)"ffs", -1,
-@@ -7935,7 +7977,7 @@
+@@ -7968,7 +8010,7 @@
  	p_wiv = (*T_XS != NUL);
      }
  
@@ -3758,10 +3758,10 @@ diff -urN gvim-build-gtk/src/option.c gvim-build-qt/src/option.c
      else if ((int *)varp == &p_beval)
      {
  	if (p_beval && !old_value)
-diff -urN gvim-build-gtk/src/option.h gvim-build-qt/src/option.h
---- gvim-build-gtk/src/option.h	2014-04-09 12:15:56.567527911 +0200
-+++ gvim-build-qt/src/option.h	2014-04-09 12:17:31.935731367 +0200
-@@ -480,6 +480,10 @@
+diff -urN vim-src/src/option.h vim-qt-src/src/option.h
+--- vim-src/src/option.h	2014-09-24 20:45:28.962425295 +0200
++++ vim-qt-src/src/option.h	2014-09-24 20:43:02.674347727 +0200
+@@ -481,6 +481,10 @@
  #ifdef HAVE_FSYNC
  EXTERN int	p_fs;		/* 'fsync' */
  #endif
@@ -3772,9 +3772,9 @@ diff -urN gvim-build-gtk/src/option.h gvim-build-qt/src/option.h
  EXTERN int	p_gd;		/* 'gdefault' */
  #ifdef FEAT_PRINTER
  EXTERN char_u	*p_pdev;	/* 'printdevice' */
-diff -urN gvim-build-gtk/src/os_mswin.c gvim-build-qt/src/os_mswin.c
---- gvim-build-gtk/src/os_mswin.c	2014-04-09 12:15:56.576527647 +0200
-+++ gvim-build-qt/src/os_mswin.c	2014-04-09 12:17:31.935731367 +0200
+diff -urN vim-src/src/os_mswin.c vim-qt-src/src/os_mswin.c
+--- vim-src/src/os_mswin.c	2014-09-24 20:45:28.965425275 +0200
++++ vim-qt-src/src/os_mswin.c	2014-09-24 20:43:02.675347721 +0200
 @@ -155,7 +155,7 @@
  extern char g_szOrigTitle[];
  #endif
@@ -3784,9 +3784,9 @@ diff -urN gvim-build-gtk/src/os_mswin.c gvim-build-qt/src/os_mswin.c
  extern HWND s_hwnd;
  #else
  static HWND s_hwnd = 0;	    /* console window handle, set by GetConsoleHwnd() */
-diff -urN gvim-build-gtk/src/os_unix.c gvim-build-qt/src/os_unix.c
---- gvim-build-gtk/src/os_unix.c	2014-04-09 12:15:56.580527530 +0200
-+++ gvim-build-qt/src/os_unix.c	2014-04-09 12:17:31.936731338 +0200
+diff -urN vim-src/src/os_unix.c vim-qt-src/src/os_unix.c
+--- vim-src/src/os_unix.c	2014-09-24 20:45:28.968425255 +0200
++++ vim-qt-src/src/os_unix.c	2014-09-24 20:43:02.676347715 +0200
 @@ -2109,7 +2109,7 @@
      if (get_x11_windis() == OK)
  	type = 1;
@@ -3813,10 +3813,10 @@ diff -urN gvim-build-gtk/src/os_unix.c gvim-build-qt/src/os_unix.c
  	else
  	    gui_mch_settitle(title, icon);
  #endif
-diff -urN gvim-build-gtk/src/os_win32.c gvim-build-qt/src/os_win32.c
---- gvim-build-gtk/src/os_win32.c	2014-04-09 12:15:56.586527354 +0200
-+++ gvim-build-qt/src/os_win32.c	2014-04-09 12:17:31.937731309 +0200
-@@ -2017,9 +2017,9 @@
+diff -urN vim-src/src/os_win32.c vim-qt-src/src/os_win32.c
+--- vim-src/src/os_win32.c	2014-09-24 20:45:28.972425229 +0200
++++ vim-qt-src/src/os_win32.c	2014-09-24 20:43:02.678347703 +0200
+@@ -2037,9 +2037,9 @@
      if (!executable_exists("findstr.exe", NULL))
  	set_option_value((char_u *)"grepprg", 0, (char_u *)"grep -n", 0);
  
@@ -3828,7 +3828,7 @@ diff -urN gvim-build-gtk/src/os_win32.c gvim-build-qt/src/os_win32.c
  }
  
  
-@@ -2502,9 +2502,9 @@
+@@ -2522,9 +2522,9 @@
      g_fMouseAvail = GetSystemMetrics(SM_MOUSEPRESENT);
  #endif
  
@@ -3840,9 +3840,9 @@ diff -urN gvim-build-gtk/src/os_win32.c gvim-build-qt/src/os_win32.c
  
      /* This will be NULL on anything but NT 4.0 */
      s_pfnGetConsoleKeyboardLayoutName =
-diff -urN gvim-build-gtk/src/pathdef.cmake.in gvim-build-qt/src/pathdef.cmake.in
---- gvim-build-gtk/src/pathdef.cmake.in	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/pathdef.cmake.in	2014-04-09 12:17:31.937731309 +0200
+diff -urN vim-src/src/pathdef.cmake.in vim-qt-src/src/pathdef.cmake.in
+--- vim-src/src/pathdef.cmake.in	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/pathdef.cmake.in	2011-06-16 16:58:04.000000000 +0200
 @@ -0,0 +1,7 @@
 +#include "vim.h"
 +char_u *default_vim_dir = (char_u *)"${CMAKE_INSTALL_PREFIX}/share/vim/current";
@@ -3851,9 +3851,9 @@ diff -urN gvim-build-gtk/src/pathdef.cmake.in gvim-build-qt/src/pathdef.cmake.in
 +char_u *all_lflags = (char_u *)"gcc   -L/usr/local/lib -o vim -lXaw -lXmu -lXext -lXt -lSM -lICE -lXpm -lXt -lX11 -lXdmcp -lSM -lICE -ldl -lm -lncurses -lnsl  -lacl -lattr -lgpm          ";
 +char_u *compiled_user = (char_u *)"raf-r";
 +char_u *compiled_sys = (char_u *)"${SITE_NAME}";
-diff -urN gvim-build-gtk/src/proto/gui_qt.pro gvim-build-qt/src/proto/gui_qt.pro
---- gvim-build-gtk/src/proto/gui_qt.pro	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/proto/gui_qt.pro	2014-04-09 12:17:31.938731279 +0200
+diff -urN vim-src/src/proto/gui_qt.pro vim-qt-src/src/proto/gui_qt.pro
+--- vim-src/src/proto/gui_qt.pro	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/proto/gui_qt.pro	2014-01-11 00:34:30.624264228 +0100
 @@ -0,0 +1,83 @@
 +
 +/* Prototypes - I am probably missing something here */
@@ -3938,10 +3938,10 @@ diff -urN gvim-build-gtk/src/proto/gui_qt.pro gvim-build-qt/src/proto/gui_qt.pro
 +void gui_mch_drawsign __ARGS((int row, int col, int typenr));
 +void gui_mch_update_fuoptions __ARGS((char_u *optstr));
 +
-diff -urN gvim-build-gtk/src/proto.h gvim-build-qt/src/proto.h
---- gvim-build-gtk/src/proto.h	2014-04-09 12:15:56.682524539 +0200
-+++ gvim-build-qt/src/proto.h	2014-04-09 12:17:31.938731279 +0200
-@@ -250,6 +250,9 @@
+diff -urN vim-src/src/proto.h vim-qt-src/src/proto.h
+--- vim-src/src/proto.h	2014-09-24 20:45:28.991425104 +0200
++++ vim-qt-src/src/proto.h	2014-09-24 20:43:02.746347295 +0200
+@@ -252,6 +252,9 @@
  #  ifdef FEAT_SUN_WORKSHOP
  #   include "workshop.pro"
  #  endif
@@ -3951,9 +3951,9 @@ diff -urN gvim-build-gtk/src/proto.h gvim-build-qt/src/proto.h
  # endif	/* FEAT_GUI */
  
  # ifdef FEAT_OLE
-diff -urN gvim-build-gtk/src/qt/colortable.cpp gvim-build-qt/src/qt/colortable.cpp
---- gvim-build-gtk/src/qt/colortable.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/colortable.cpp	2014-04-09 12:17:31.938731279 +0200
+diff -urN vim-src/src/qt/colortable.cpp vim-qt-src/src/qt/colortable.cpp
+--- vim-src/src/qt/colortable.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/colortable.cpp	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,697 @@
 +#include "colortable.h"
 +
@@ -4652,9 +4652,9 @@ diff -urN gvim-build-gtk/src/qt/colortable.cpp gvim-build-qt/src/qt/colortable.c
 +}
 +
 +
-diff -urN gvim-build-gtk/src/qt/colortable.h gvim-build-qt/src/qt/colortable.h
---- gvim-build-gtk/src/qt/colortable.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/colortable.h	2014-04-09 12:17:31.938731279 +0200
+diff -urN vim-src/src/qt/colortable.h vim-qt-src/src/qt/colortable.h
+--- vim-src/src/qt/colortable.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/colortable.h	2012-08-23 19:26:45.000000000 +0200
 @@ -0,0 +1,20 @@
 +#ifndef VIM_QT_COLORTABLE
 +#define VIM_QT_COLORTABLE
@@ -4676,9 +4676,9 @@ diff -urN gvim-build-gtk/src/qt/colortable.h gvim-build-qt/src/qt/colortable.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/fontdialog.cpp gvim-build-qt/src/qt/fontdialog.cpp
---- gvim-build-gtk/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/fontdialog.cpp	2014-04-09 12:17:31.939731250 +0200
+diff -urN vim-src/src/qt/fontdialog.cpp vim-qt-src/src/qt/fontdialog.cpp
+--- vim-src/src/qt/fontdialog.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/fontdialog.cpp	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,226 @@
 +#include "fontdialog.moc"
 +
@@ -4906,9 +4906,9 @@ diff -urN gvim-build-gtk/src/qt/fontdialog.cpp gvim-build-qt/src/qt/fontdialog.c
 +	}
 +}
 +
-diff -urN gvim-build-gtk/src/qt/fontdialog.h gvim-build-qt/src/qt/fontdialog.h
---- gvim-build-gtk/src/qt/fontdialog.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/fontdialog.h	2014-04-09 12:17:31.939731250 +0200
+diff -urN vim-src/src/qt/fontdialog.h vim-qt-src/src/qt/fontdialog.h
+--- vim-src/src/qt/fontdialog.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/fontdialog.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,48 @@
 +#ifndef __VIM_QT_FONTDIALOG__
 +#define __VIM_QT_FONTDIALOG__
@@ -4958,9 +4958,41 @@ diff -urN gvim-build-gtk/src/qt/fontdialog.h gvim-build-qt/src/qt/fontdialog.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/icons.qrc gvim-build-qt/src/qt/icons.qrc
---- gvim-build-gtk/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/icons.qrc	2014-04-09 12:17:31.939731250 +0200
+Binary files vim-src/src/qt/icons/document-new.png and vim-qt-src/src/qt/icons/document-new.png differ
+Binary files vim-src/src/qt/icons/document-open.png and vim-qt-src/src/qt/icons/document-open.png differ
+Binary files vim-src/src/qt/icons/document-print.png and vim-qt-src/src/qt/icons/document-print.png differ
+Binary files vim-src/src/qt/icons/document-save-all.png and vim-qt-src/src/qt/icons/document-save-all.png differ
+Binary files vim-src/src/qt/icons/document-save-as.png and vim-qt-src/src/qt/icons/document-save-as.png differ
+Binary files vim-src/src/qt/icons/document-save.png and vim-qt-src/src/qt/icons/document-save.png differ
+Binary files vim-src/src/qt/icons/edit-copy.png and vim-qt-src/src/qt/icons/edit-copy.png differ
+Binary files vim-src/src/qt/icons/edit-cut.png and vim-qt-src/src/qt/icons/edit-cut.png differ
+Binary files vim-src/src/qt/icons/edit-find-replace.png and vim-qt-src/src/qt/icons/edit-find-replace.png differ
+Binary files vim-src/src/qt/icons/edit-find.png and vim-qt-src/src/qt/icons/edit-find.png differ
+Binary files vim-src/src/qt/icons/edit-paste.png and vim-qt-src/src/qt/icons/edit-paste.png differ
+Binary files vim-src/src/qt/icons/edit-redo.png and vim-qt-src/src/qt/icons/edit-redo.png differ
+Binary files vim-src/src/qt/icons/edit-undo.png and vim-qt-src/src/qt/icons/edit-undo.png differ
+Binary files vim-src/src/qt/icons/folder-new.png and vim-qt-src/src/qt/icons/folder-new.png differ
+Binary files vim-src/src/qt/icons/folder-open.png and vim-qt-src/src/qt/icons/folder-open.png differ
+Binary files vim-src/src/qt/icons/go-jump.png and vim-qt-src/src/qt/icons/go-jump.png differ
+Binary files vim-src/src/qt/icons/go-next.png and vim-qt-src/src/qt/icons/go-next.png differ
+Binary files vim-src/src/qt/icons/go-previous.png and vim-qt-src/src/qt/icons/go-previous.png differ
+Binary files vim-src/src/qt/icons/help-contents.png and vim-qt-src/src/qt/icons/help-contents.png differ
+Binary files vim-src/src/qt/icons/help-faq.png and vim-qt-src/src/qt/icons/help-faq.png differ
+Binary files vim-src/src/qt/icons/run-build-clean.png and vim-qt-src/src/qt/icons/run-build-clean.png differ
+Binary files vim-src/src/qt/icons/run-build.png and vim-qt-src/src/qt/icons/run-build.png differ
+Binary files vim-src/src/qt/icons/system-run.png and vim-qt-src/src/qt/icons/system-run.png differ
+Binary files vim-src/src/qt/icons/tab-new.png and vim-qt-src/src/qt/icons/tab-new.png differ
+Binary files vim-src/src/qt/icons/table.png and vim-qt-src/src/qt/icons/table.png differ
+Binary files vim-src/src/qt/icons/utilities-terminal.png and vim-qt-src/src/qt/icons/utilities-terminal.png differ
+Binary files vim-src/src/qt/icons/view-split-left-right.png and vim-qt-src/src/qt/icons/view-split-left-right.png differ
+Binary files vim-src/src/qt/icons/view-split-top-bottom.png and vim-qt-src/src/qt/icons/view-split-top-bottom.png differ
+Binary files vim-src/src/qt/icons/vim-qt.png and vim-qt-src/src/qt/icons/vim-qt.png differ
+Binary files vim-src/src/qt/icons/window-close.png and vim-qt-src/src/qt/icons/window-close.png differ
+Binary files vim-src/src/qt/icons/zoom-fit-height.png and vim-qt-src/src/qt/icons/zoom-fit-height.png differ
+Binary files vim-src/src/qt/icons/zoom-fit-width.png and vim-qt-src/src/qt/icons/zoom-fit-width.png differ
+diff -urN vim-src/src/qt/icons.qrc vim-qt-src/src/qt/icons.qrc
+--- vim-src/src/qt/icons.qrc	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/icons.qrc	2012-06-20 16:40:38.000000000 +0200
 @@ -0,0 +1,36 @@
 + <!DOCTYPE RCC><RCC version="1.0">
 + <qresource>
@@ -4998,9 +5030,9 @@ diff -urN gvim-build-gtk/src/qt/icons.qrc gvim-build-qt/src/qt/icons.qrc
 +     <file>icons/utilities-terminal.png</file>
 + </qresource>
 + </RCC>
-diff -urN gvim-build-gtk/src/qt/mainwindow.cpp gvim-build-qt/src/qt/mainwindow.cpp
---- gvim-build-gtk/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/mainwindow.cpp	2014-04-09 12:17:31.939731250 +0200
+diff -urN vim-src/src/qt/mainwindow.cpp vim-qt-src/src/qt/mainwindow.cpp
+--- vim-src/src/qt/mainwindow.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/mainwindow.cpp	2014-03-25 19:44:30.528844476 +0100
 @@ -0,0 +1,226 @@
 +#include "mainwindow.moc"
 +
@@ -5228,9 +5260,9 @@ diff -urN gvim-build-gtk/src/qt/mainwindow.cpp gvim-build-qt/src/qt/mainwindow.c
 +	return m_keepTabbar;
 +}
 +
-diff -urN gvim-build-gtk/src/qt/mainwindow.h gvim-build-qt/src/qt/mainwindow.h
---- gvim-build-gtk/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/mainwindow.h	2014-04-09 12:17:31.939731250 +0200
+diff -urN vim-src/src/qt/mainwindow.h vim-qt-src/src/qt/mainwindow.h
+--- vim-src/src/qt/mainwindow.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/mainwindow.h	2014-03-25 19:44:30.528844476 +0100
 @@ -0,0 +1,57 @@
 +#ifndef __GUI_QT_MAINWINDOW__
 +#define __GUI_QT_MAINWINDOW__
@@ -5289,9 +5321,9 @@ diff -urN gvim-build-gtk/src/qt/mainwindow.h gvim-build-qt/src/qt/mainwindow.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/qt_features.h gvim-build-qt/src/qt/qt_features.h
---- gvim-build-gtk/src/qt/qt_features.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/qt_features.h	2014-04-09 12:17:31.939731250 +0200
+diff -urN vim-src/src/qt/qt_features.h vim-qt-src/src/qt/qt_features.h
+--- vim-src/src/qt/qt_features.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/qt_features.h	2012-04-05 17:31:22.000000000 +0200
 @@ -0,0 +1,20 @@
 +
 +//
@@ -5313,9 +5345,9 @@ diff -urN gvim-build-gtk/src/qt/qt_features.h gvim-build-qt/src/qt/qt_features.h
 +
 +#undef HAVE_X11
 +
-diff -urN gvim-build-gtk/src/qt/qvimshell.cpp gvim-build-qt/src/qt/qvimshell.cpp
---- gvim-build-gtk/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/qvimshell.cpp	2014-04-09 12:17:31.939731250 +0200
+diff -urN vim-src/src/qt/qvimshell.cpp vim-qt-src/src/qt/qvimshell.cpp
+--- vim-src/src/qt/qvimshell.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/qvimshell.cpp	2014-03-25 19:44:30.529844485 +0100
 @@ -0,0 +1,735 @@
 +#include "qvimshell.moc"
 +
@@ -6052,9 +6084,9 @@ diff -urN gvim-build-gtk/src/qt/qvimshell.cpp gvim-build-qt/src/qt/qvimshell.cpp
 +	blinkState = BLINK_ON;
 +	updateCursor(true, false);
 +}
-diff -urN gvim-build-gtk/src/qt/qvimshell.h gvim-build-qt/src/qt/qvimshell.h
---- gvim-build-gtk/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/qvimshell.h	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/qvimshell.h vim-qt-src/src/qt/qvimshell.h
+--- vim-src/src/qt/qvimshell.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/qvimshell.h	2014-03-25 19:44:30.529844485 +0100
 @@ -0,0 +1,184 @@
 +#ifndef __QVIMSHELL__
 +#define __QVIMSHELL__
@@ -6240,9 +6272,9 @@ diff -urN gvim-build-gtk/src/qt/qvimshell.h gvim-build-qt/src/qt/qvimshell.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/scrollarea.cpp gvim-build-qt/src/qt/scrollarea.cpp
---- gvim-build-gtk/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/scrollarea.cpp	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/scrollarea.cpp vim-qt-src/src/qt/scrollarea.cpp
+--- vim-src/src/qt/scrollarea.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/scrollarea.cpp	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,32 @@
 +#include "scrollarea.moc"
 +
@@ -6276,9 +6308,9 @@ diff -urN gvim-build-gtk/src/qt/scrollarea.cpp gvim-build-qt/src/qt/scrollarea.c
 +	setPalette(p);
 +}
 +
-diff -urN gvim-build-gtk/src/qt/scrollarea.h gvim-build-qt/src/qt/scrollarea.h
---- gvim-build-gtk/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/scrollarea.h	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/scrollarea.h vim-qt-src/src/qt/scrollarea.h
+--- vim-src/src/qt/scrollarea.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/scrollarea.h	2012-08-08 18:39:06.000000000 +0200
 @@ -0,0 +1,23 @@
 +#ifndef VIM_GUI_QT_SCROLLAREA
 +#define VIM_GUI_QT_SCROLLAREA
@@ -6303,9 +6335,9 @@ diff -urN gvim-build-gtk/src/qt/scrollarea.h gvim-build-qt/src/qt/scrollarea.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/tabbar.cpp gvim-build-qt/src/qt/tabbar.cpp
---- gvim-build-gtk/src/qt/tabbar.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/tabbar.cpp	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/tabbar.cpp vim-qt-src/src/qt/tabbar.cpp
+--- vim-src/src/qt/tabbar.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/tabbar.cpp	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,23 @@
 +#include "tabbar.moc"
 +
@@ -6330,9 +6362,9 @@ diff -urN gvim-build-gtk/src/qt/tabbar.cpp gvim-build-qt/src/qt/tabbar.cpp
 +	}
 +}
 +
-diff -urN gvim-build-gtk/src/qt/tabbar.h gvim-build-qt/src/qt/tabbar.h
---- gvim-build-gtk/src/qt/tabbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/tabbar.h	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/tabbar.h vim-qt-src/src/qt/tabbar.h
+--- vim-src/src/qt/tabbar.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/tabbar.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,17 @@
 +#ifndef __GUI_QT_TABBAR__
 +#define __GUI_QT_TABBAR__
@@ -6351,9 +6383,9 @@ diff -urN gvim-build-gtk/src/qt/tabbar.h gvim-build-qt/src/qt/tabbar.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/vimaction.cpp gvim-build-qt/src/qt/vimaction.cpp
---- gvim-build-gtk/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimaction.cpp	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/vimaction.cpp vim-qt-src/src/qt/vimaction.cpp
+--- vim-src/src/qt/vimaction.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimaction.cpp	2012-07-06 18:19:22.000000000 +0200
 @@ -0,0 +1,60 @@
 +#include "vimaction.moc"
 +
@@ -6415,9 +6447,9 @@ diff -urN gvim-build-gtk/src/qt/vimaction.cpp gvim-build-qt/src/qt/vimaction.cpp
 +{
 +	gui_menu_cb(m_menu);
 +}
-diff -urN gvim-build-gtk/src/qt/vimaction.h gvim-build-qt/src/qt/vimaction.h
---- gvim-build-gtk/src/qt/vimaction.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimaction.h	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/vimaction.h vim-qt-src/src/qt/vimaction.h
+--- vim-src/src/qt/vimaction.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimaction.h	2012-08-15 19:39:10.000000000 +0200
 @@ -0,0 +1,21 @@
 +#ifndef __GUI_QT_VIMACTION__
 +#define __GUI_QT_VIMACTION__
@@ -6440,9 +6472,9 @@ diff -urN gvim-build-gtk/src/qt/vimaction.h gvim-build-qt/src/qt/vimaction.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/vimevents.cpp gvim-build-qt/src/qt/vimevents.cpp
---- gvim-build-gtk/src/qt/vimevents.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimevents.cpp	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/vimevents.cpp vim-qt-src/src/qt/vimevents.cpp
+--- vim-src/src/qt/vimevents.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimevents.cpp	2013-04-04 20:11:26.000000000 +0200
 @@ -0,0 +1,38 @@
 +#include "vimevents.h"
 +#include "vimwrapper.h"
@@ -6482,9 +6514,9 @@ diff -urN gvim-build-gtk/src/qt/vimevents.cpp gvim-build-qt/src/qt/vimevents.cpp
 +	vim.guiHandleDrop(pos, mod, urls);
 +}
 +
-diff -urN gvim-build-gtk/src/qt/vimevents.h gvim-build-qt/src/qt/vimevents.h
---- gvim-build-gtk/src/qt/vimevents.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimevents.h	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/vimevents.h vim-qt-src/src/qt/vimevents.h
+--- vim-src/src/qt/vimevents.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimevents.h	2013-04-04 20:11:26.000000000 +0200
 @@ -0,0 +1,51 @@
 +#ifndef VIM_QT_VIMEVENT
 +#define VIM_QT_VIMEVENT
@@ -6537,9 +6569,9 @@ diff -urN gvim-build-gtk/src/qt/vimevents.h gvim-build-qt/src/qt/vimevents.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/vimscrollbar.cpp gvim-build-qt/src/qt/vimscrollbar.cpp
---- gvim-build-gtk/src/qt/vimscrollbar.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimscrollbar.cpp	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/vimscrollbar.cpp vim-qt-src/src/qt/vimscrollbar.cpp
+--- vim-src/src/qt/vimscrollbar.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimscrollbar.cpp	2011-09-30 17:24:26.000000000 +0200
 @@ -0,0 +1,63 @@
 +#include "vimscrollbar.moc"
 +
@@ -6604,9 +6636,9 @@ diff -urN gvim-build-gtk/src/qt/vimscrollbar.cpp gvim-build-qt/src/qt/vimscrollb
 +	}
 +}
 +
-diff -urN gvim-build-gtk/src/qt/vimscrollbar.h gvim-build-qt/src/qt/vimscrollbar.h
---- gvim-build-gtk/src/qt/vimscrollbar.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimscrollbar.h	2014-04-09 12:17:31.940731221 +0200
+diff -urN vim-src/src/qt/vimscrollbar.h vim-qt-src/src/qt/vimscrollbar.h
+--- vim-src/src/qt/vimscrollbar.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimscrollbar.h	2012-01-26 19:03:27.000000000 +0100
 @@ -0,0 +1,35 @@
 +#ifndef __GUI_QT_VIMSCROLLBAR__
 +#define __GUI_QT_VIMSCROLLBAR__
@@ -6643,9 +6675,9 @@ diff -urN gvim-build-gtk/src/qt/vimscrollbar.h gvim-build-qt/src/qt/vimscrollbar
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/qt/vimwrapper.cpp gvim-build-qt/src/qt/vimwrapper.cpp
---- gvim-build-gtk/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimwrapper.cpp	2014-04-09 12:17:31.941731191 +0200
+diff -urN vim-src/src/qt/vimwrapper.cpp vim-qt-src/src/qt/vimwrapper.cpp
+--- vim-src/src/qt/vimwrapper.cpp	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimwrapper.cpp	2014-01-11 00:34:30.624264228 +0100
 @@ -0,0 +1,432 @@
 +#include <QApplication>
 +#include <QStyle>
@@ -7079,9 +7111,9 @@ diff -urN gvim-build-gtk/src/qt/vimwrapper.cpp gvim-build-qt/src/qt/vimwrapper.c
 +	return pendingEvents.size() != 0;
 +}
 +
-diff -urN gvim-build-gtk/src/qt/vimwrapper.h gvim-build-qt/src/qt/vimwrapper.h
---- gvim-build-gtk/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
-+++ gvim-build-qt/src/qt/vimwrapper.h	2014-04-09 12:17:31.941731191 +0200
+diff -urN vim-src/src/qt/vimwrapper.h vim-qt-src/src/qt/vimwrapper.h
+--- vim-src/src/qt/vimwrapper.h	1970-01-01 01:00:00.000000000 +0100
++++ vim-qt-src/src/qt/vimwrapper.h	2012-09-05 18:29:40.000000000 +0200
 @@ -0,0 +1,114 @@
 +#ifndef __VIM_QT_VIM__
 +#define __VIM_QT_VIM__
@@ -7197,10 +7229,10 @@ diff -urN gvim-build-gtk/src/qt/vimwrapper.h gvim-build-qt/src/qt/vimwrapper.h
 +};
 +
 +#endif
-diff -urN gvim-build-gtk/src/structs.h gvim-build-qt/src/structs.h
---- gvim-build-gtk/src/structs.h	2014-04-09 12:15:56.735522985 +0200
-+++ gvim-build-qt/src/structs.h	2014-04-09 12:17:31.941731191 +0200
-@@ -2402,6 +2402,10 @@
+diff -urN vim-src/src/structs.h vim-qt-src/src/structs.h
+--- vim-src/src/structs.h	2014-09-24 20:45:28.094431022 +0200
++++ vim-qt-src/src/structs.h	2014-09-24 20:43:02.899346378 +0200
+@@ -2464,6 +2464,10 @@
  
  typedef struct VimMenu vimmenu_T;
  
@@ -7211,7 +7243,7 @@ diff -urN gvim-build-gtk/src/structs.h gvim-build-qt/src/structs.h
  struct VimMenu
  {
      int		modes;		    /* Which modes is this menu visible for? */
-@@ -2474,6 +2478,10 @@
+@@ -2536,6 +2540,10 @@
      PtWidget_t	*id;
      PtWidget_t	*submenu_id;
  #endif
@@ -7222,10 +7254,10 @@ diff -urN gvim-build-gtk/src/structs.h gvim-build-qt/src/structs.h
  };
  #else
  /* For generating prototypes when FEAT_MENU isn't defined. */
-diff -urN gvim-build-gtk/src/term.c gvim-build-qt/src/term.c
---- gvim-build-gtk/src/term.c	2014-04-09 12:15:56.744522721 +0200
-+++ gvim-build-qt/src/term.c	2014-04-09 12:17:31.942731162 +0200
-@@ -5987,7 +5987,7 @@
+diff -urN vim-src/src/term.c vim-qt-src/src/term.c
+--- vim-src/src/term.c	2014-09-24 20:45:28.313429577 +0200
++++ vim-qt-src/src/term.c	2014-09-24 20:43:02.903346354 +0200
+@@ -6013,7 +6013,7 @@
  }
  #endif
  
@@ -7234,10 +7266,10 @@ diff -urN gvim-build-gtk/src/term.c gvim-build-qt/src/term.c
  static char ksme_str[20];
  static char ksmr_str[20];
  static char ksmd_str[20];
-diff -urN gvim-build-gtk/src/ui.c gvim-build-qt/src/ui.c
---- gvim-build-gtk/src/ui.c	2014-04-09 12:15:56.808520844 +0200
-+++ gvim-build-qt/src/ui.c	2014-04-09 12:17:31.943731133 +0200
-@@ -3101,7 +3101,7 @@
+diff -urN vim-src/src/ui.c vim-qt-src/src/ui.c
+--- vim-src/src/ui.c	2014-09-24 20:45:28.865425935 +0200
++++ vim-qt-src/src/ui.c	2014-09-24 20:43:03.161344806 +0200
+@@ -3155,7 +3155,7 @@
  
  #if defined(FEAT_GUI_MOTIF) || defined(FEAT_GUI_GTK) || defined(FEAT_GUI_MAC) \
  	|| defined(FEAT_GUI_ATHENA) || defined(FEAT_GUI_MSWIN) \
@@ -7246,9 +7278,9 @@ diff -urN gvim-build-gtk/src/ui.c gvim-build-qt/src/ui.c
  /*
   * Translate window coordinates to buffer position without any side effects
   */
-diff -urN gvim-build-gtk/src/vim.h gvim-build-qt/src/vim.h
---- gvim-build-gtk/src/vim.h	2014-04-09 12:15:56.815520639 +0200
-+++ gvim-build-qt/src/vim.h	2014-04-09 12:17:31.943731133 +0200
+diff -urN vim-src/src/vim.h vim-qt-src/src/vim.h
+--- vim-src/src/vim.h	2014-09-24 20:45:28.873425882 +0200
++++ vim-qt-src/src/vim.h	2014-09-24 20:43:03.162344800 +0200
 @@ -121,6 +121,11 @@
  # define FEAT_GUI_MAC
  #endif
@@ -7261,7 +7293,7 @@ diff -urN gvim-build-gtk/src/vim.h gvim-build-qt/src/vim.h
  #if defined(FEAT_GUI_MOTIF) \
      || defined(FEAT_GUI_GTK) \
      || defined(FEAT_GUI_ATHENA) \
-@@ -1938,6 +1943,10 @@
+@@ -1946,6 +1951,10 @@
      GdkAtom     gtk_sel_atom;	/* PRIMARY/CLIPBOARD selection ID */
  # endif
  
@@ -7272,9 +7304,9 @@ diff -urN gvim-build-gtk/src/vim.h gvim-build-qt/src/vim.h
  # if defined(MSWIN) || defined(FEAT_CYGWIN_WIN32_CLIPBOARD)
      int_u	format;		/* Vim's own special clipboard format */
      int_u	format_raw;	/* Vim's raw text clipboard format */
-diff -urN gvim-build-gtk/src/winclip.c gvim-build-qt/src/winclip.c
---- gvim-build-gtk/src/winclip.c	2014-04-09 12:15:56.819520522 +0200
-+++ gvim-build-qt/src/winclip.c	2014-04-09 12:17:31.944731104 +0200
+diff -urN vim-src/src/winclip.c vim-qt-src/src/winclip.c
+--- vim-src/src/winclip.c	2014-09-24 20:45:28.873425882 +0200
++++ vim-qt-src/src/winclip.c	2014-09-24 20:43:03.163344794 +0200
 @@ -190,7 +190,7 @@
  
  #endif /* FEAT_MBYTE */
