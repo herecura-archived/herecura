@@ -6,7 +6,7 @@
 # Contributor: eworm
 
 pkgname=opera-developer
-pkgver=25.0.1614.5
+pkgver=26.0.1632.0
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
@@ -28,7 +28,7 @@ source=(
 	"default"
 )
 sha256sums=(
-	'b58a7ec721a2356ffa867dfaa92fc3e6fc6dc6f56b73321bec12366fc47f09ed'
+	'2f38ac4c1574facc945f18e9ae285b5193821a0c9aa524959414fefed4640d74'
 	'508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
 	'4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027'
 )
