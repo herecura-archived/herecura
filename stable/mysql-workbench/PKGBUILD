@@ -7,8 +7,8 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname='mysql-workbench'
-pkgver=6.1.7
-pkgrel=3
+pkgver=6.2.3
+pkgrel=1
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -16,7 +16,7 @@ license=('GPL2')
 depends=('ctemplate' 'desktop-file-utils' 'gtkmm' 'hicolor-icon-theme'
 	'libgnome-keyring' 'libiodbc' 'libzip' 'lua51' 'mysql-connector-c++'
 	'python2' 'python2-paramiko' 'python2-pexpect' 'python2-pysqlite'
-	'tinyxml' 'unixodbc' 'vsqlite++' 'swig')
+	'tinyxml' 'unixodbc' 'vsqlite++' 'swig' 'gdal')
 optdepends=('gnome-keyring: store SSH/MySQL passwords in GNOME password manager')
 makedepends=('boost' 'curl' 'mesa' 'cmake')
 install='mysql-workbench.install'
@@ -27,6 +27,8 @@ source=(
 	'mysql-workbench-ctemplate.patch'
 	'mysql-workbench-mariadb-10.patch'
 	'mysql-workbench-no-check-for-updates.patch'
+	'mysql-workbench-cmake-definitions.patch'
+	'mysql-workbench-paramiko.patch'
 )
 
 prepare() {
@@ -41,6 +43,12 @@ prepare() {
 
 	# fix compilation with Mariadb
 	patch -Np1 < "${srcdir}"/mysql-workbench-mariadb-10.patch
+
+	patch -Np1 < "${srcdir}"/mysql-workbench-cmake-definitions.patch
+
+	patch -Np1 < "${srcdir}"/mysql-workbench-paramiko.patch
+
+	sed -i '/#include/s|gdal/||' backend/wbpublic/grtui/geom_draw_box.h backend/wbpublic/grt/spatial_handler.h
 }
 
 build() {
@@ -65,8 +73,10 @@ package() {
 	cd .. && rm -rf "$pkgname-community-$pkgver-src"
 }
 
-sha256sums=('06ac657f7f86f012f75fcf8fa59fc1d422134135485b887a4abd6c9ac2408898'
+sha256sums=('4caba8cf1f8dc0fc57e98a6170ad4718ba44c8f6622ef2359c7a550d080b3846'
             '1aa3cc7bf83470e81eca766114a597fa57542316818732011c8ea67e52197c7e'
             'bbf6f3e56847cc012634e262295f34eaaa43ef32d04e1ec291315dabd6613042'
             '6fc7d88a4e43ba3ccf0fac8075e4e5ca253626c736416b0ffa1ed44ac9ee5d92'
-            '996482e15d88af097f5e7a578885338cad5b8724f8abb4341749d5538801f5c0')
+            '996482e15d88af097f5e7a578885338cad5b8724f8abb4341749d5538801f5c0'
+            '142d499416ea4a4743a4c3166014fc2fc60c34374e587715908634b5f107a700'
+            'acb631d9014ec9a4e54a7258df9cd254587c8f7b013ae2bd89ef6419bbb4d222')
