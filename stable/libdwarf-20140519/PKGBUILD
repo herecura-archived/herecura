@@ -1,0 +1,43 @@
+# Maintainer: Alain Kalker <a.c.kalker@gmail.com>
+# Contributor: Marti Raudsepp <marti@juffo.org>
+
+_pkgname=libdwarf
+pkgname=$_pkgname-20140519
+pkgver=20140519
+pkgrel=1
+pkgdesc="A library for handling DWARF Debugging Information Format"
+arch=('i686' 'x86_64')
+license=('GPL' 'LGPL')
+url="http://www.prevanders.net/dwarf.html"
+depends=('elfutils')
+provides=('libdwarf')
+conflicts=('libdwarf')
+source=("http://www.prevanders.net/$_pkgname-$pkgver.tar.gz")
+
+build() {
+	cd $srcdir/dwarf-$pkgver #/libdwarf
+	./configure --enable-shared
+	make
+}
+
+package() {
+	cd $srcdir/dwarf-$pkgver/libdwarf
+
+	install -d $pkgdir/usr/lib
+	install -m 644 libdwarf.a $pkgdir/usr/lib
+	install -m 644 libdwarf.so $pkgdir/usr/lib
+
+	install -d $pkgdir/usr/include/libdwarf
+	install dwarf.h libdwarf.h $pkgdir/usr/include/libdwarf
+
+	install -dm 755 $pkgdir/usr/share/doc/$pkgname
+	install README NEWS *.pdf $pkgdir/usr/share/doc/$pkgname
+
+	# dwarfdump
+	cd $srcdir/dwarf-$pkgver/dwarfdump2
+	install -Dm755 dwarfdump $pkgdir/usr/bin/dwarfdump
+	install -Dm644 dwarfdump.1 $pkgdir/usr/share/man/man1/dwarfdump.1
+	install -Dm644 dwarfdump.conf $pkgdir/usr/lib/dwarfdump.conf
+}
+
+sha256sums=('61981eab1d5675a537ca7ea5c2675a2648ffab0729ab8a39b0b62a518c061216')
