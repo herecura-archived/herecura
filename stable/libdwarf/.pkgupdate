@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://www.prevanders.net/dwarf.html | grep -m1 -ie 'libdwarf.*\.tar\.gz' | sed 's,.*libdwarf-\([0-9]*\)\.tar\.gz.*,\1,')
