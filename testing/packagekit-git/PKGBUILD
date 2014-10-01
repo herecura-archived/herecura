@@ -17,7 +17,7 @@ pkgname=(
   "$_gitname-python-git"
   "$_gitname-git"
 )
-pkgver=20140923.7fb2de2
+pkgver=20140930.9470acd
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPLv2')
