@@ -8,7 +8,7 @@
 
 pkgname=nodejs-groovebasin
 _pkgname="${pkgname#nodejs-}"
-pkgver=1.3.0
+pkgver=1.3.1
 pkgrel=1
 pkgdesc='Music player server with a web-based user interface inspired by Amarok 1.4'
 arch=('i686' 'x86_64')
@@ -40,5 +40,5 @@ package() {
     "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
-sha256sums=('e7ec66b443b25ac2d2a7a04ab5efdadfd5a7a0c4ee2f8441841f7b76f8f11032'
+sha256sums=('d5eb37f52e2b590722e5a8cdf33043aa300e051d667a2c947001e1de1d1ff544'
             'b121429dc1c6ed132a02f66c8b49424c46bf9a1e358d9fe91cf4b8093eaa4e28')
