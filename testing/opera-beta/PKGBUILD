@@ -6,7 +6,7 @@
 # Contributor: eworm
 
 pkgname=opera-beta
-pkgver=25.0.1614.31
+pkgver=25.0.1614.35
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. beta version."
 url="http://blogs.opera.com/desktop/"
@@ -27,7 +27,7 @@ source=(
 	"default"
 )
 sha256sums=(
-	'a991320e036ee4a5ea79d96e57acae21f49d26f61654eccf9469db5603922e8e'
+	'cc6a8ce51d334ac3b32c38e55812c7650e2c09109885d8ef58d0c47c2f35f593'
 	'508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
 	'4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027'
 )
