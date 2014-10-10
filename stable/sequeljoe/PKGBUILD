@@ -1,6 +1,6 @@
 # Maintainer: Oliver Giles <web ohwg net>
 pkgname=sequeljoe
-pkgver=0.1
+pkgver=0.2
 pkgrel=1
 pkgdesc="SQL database administration tool"
 arch=('i686 x86_64')
@@ -15,7 +15,6 @@ optdepends=(
 makedepends=('cmake')
 options=('strip')
 source=("https://github.com/ohwgiles/sequeljoe/archive/$pkgver.zip")
-md5sums=('9b659272e4bcf042375e2487775ddef4')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
@@ -28,3 +27,4 @@ package() {
 	make DESTDIR="$pkgdir/" install
 }
 
+sha256sums=('83d30ac665c2eb7fe89f3de067f9dd7d9fa59d2d65cd576256f400d0631fa661')
