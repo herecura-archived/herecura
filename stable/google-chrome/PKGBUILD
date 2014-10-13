@@ -5,7 +5,7 @@
 # or use: $ curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df | awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
 
 pkgname=google-chrome
-pkgver=37.0.2062.120
+pkgver=38.0.2125.101
 pkgrel=1
 pkgdesc="An attempt at creating a safer, faster, and more stable browser (Stable Channel)"
 arch=('i686' 'x86_64')
@@ -21,40 +21,48 @@ install=$pkgname.install
 _channel=stable
 _arch=amd64
 [[ $CARCH = i686 ]] && _arch=i386
-source=("google-chrome-${_channel}_${pkgver}_$_arch.deb::https://dl.google.com/linux/direct/google-chrome-${_channel}_current_$_arch.deb"
-        'eula_text.html')
-md5sums=('ad13b2cd986933a57cf348dc0efc50cf'
-         'b7e752f549b215ac77f284b6486794b6')
-[[ $CARCH = i686 ]] && md5sums[0]='fc4fd42aa00222a7df9ad89417f8d219'
+source=(
+	"google-chrome-${_channel}_${pkgver}_i386.deb::https://dl.google.com/linux/direct/google-chrome-${_channel}_current_i386.deb"
+	"google-chrome-${_channel}_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-${_channel}_current_amd64.deb"
+	'eula_text.html'
+)
+noextract=(
+	"google-chrome-${_channel}_${pkgver}_i386.deb"
+	"google-chrome-${_channel}_${pkgver}_amd64.deb"
+)
+
+prepare() {
+	ar x "google-chrome-${_channel}_${pkgver}_${_arch}.deb"
+}
 
 package() {
-  msg2 "Extracting the data.tar.lzma"
-  bsdtar -xf data.tar.lzma -C "$pkgdir/"
+	bsdtar -xf data.tar.lzma -C "$pkgdir/"
 
-  msg2 "Moving stuff in place"
-  # Icons
-  for i in 16 22 24 32 48 64 128 256; do
-    install -Dm644 "$pkgdir"/opt/google/chrome/product_logo_$i.png \
-                   "$pkgdir"/usr/share/icons/hicolor/${i}x$i/apps/google-chrome.png
-  done
+	# Icons
+	for i in 16 22 24 32 48 64 128 256; do
+		install -Dm644 "$pkgdir"/opt/google/chrome/product_logo_$i.png \
+			"$pkgdir"/usr/share/icons/hicolor/${i}x$i/apps/google-chrome.png
+	done
 
-  # Man page
-  gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
+	# Man page
+	gzip "$pkgdir"/usr/share/man/man1/google-chrome.1
 
-  # License
-  install -Dm644 eula_text.html "$pkgdir"/usr/share/licenses/google-chrome/eula_text.html
+	# License
+	install -Dm644 eula_text.html "$pkgdir"/usr/share/licenses/google-chrome/eula_text.html
 
-  msg2 "Symlinking missing Udev lib"
-  ln -s /usr/lib/libudev.so.1 "$pkgdir"/opt/google/chrome/libudev.so.0
+	# fix chrome to use libudev.so.1
+	sed -e 's/libudev.so.0/libudev.so.1/g' \
+		-i "$pkgdir/opt/google/chrome/chrome"
 
-  msg2 "Fixing Chrome icon resolution"
-  _name=$(echo ${source/_*} | sed 's/.*/\u&/')
-  sed -i "/Exec=/i\StartupWMClass=$_name" "$pkgdir"/usr/share/applications/google-chrome.desktop
+	_name=$(echo ${source/_*} | sed 's/.*/\u&/')
+	sed -i "/Exec=/i\StartupWMClass=$_name" "$pkgdir"/usr/share/applications/google-chrome.desktop
 
-  msg2 "Adding support for CHROMIUM_USER_FLAGS"
-  sed -i 's/ "$@"/"$CHROMIUM_USER_FLAGS" "$@"/' "$pkgdir"/opt/google/chrome/google-chrome
+	sed -i 's/ "$@"/"$CHROMIUM_USER_FLAGS" "$@"/' "$pkgdir"/opt/google/chrome/google-chrome
 
-  msg2 "Removing unnecessities (e.g. Debian Cron job)"
-  rm -r "$pkgdir"/etc/cron.daily/ "$pkgdir"/opt/google/chrome/cron/
-  rm "$pkgdir"/opt/google/chrome/product_logo_*.png
+	rm -r "$pkgdir"/etc/cron.daily/ "$pkgdir"/opt/google/chrome/cron/
+	rm "$pkgdir"/opt/google/chrome/product_logo_*.png
 }
+
+sha256sums=('9417e1ce20a1003328cdf35a582f4d6b85744015df7edc1666d28ed2399165b0'
+            '7cf36df52e0a0af9307ae0e18bf78aca518402c27e62b111da35304c7bce10cd'
+            'af48d6467196286e5450f52fd4fd819f9f5c631b322eeac3e23944403d06fcff')
