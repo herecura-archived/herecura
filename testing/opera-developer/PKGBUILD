@@ -7,14 +7,9 @@
 
 pkgname=opera-developer
 pkgver=26.0.1646.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
-depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
-optdepends=(
-	'curl: opera crash reporter and autoupdate checker'
-	'ffmpeg: playback of not really open formats'
-)
 provides=('opera')
 replaces=('opera-devel' 'opera-dev')
 install=${pkgname}.install
@@ -40,11 +35,22 @@ prepare() {
 }
 
 package() {
+	depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+	optdepends=(
+		'curl: opera crash reporter and autoupdate checker'
+		'ffmpeg: playback of not really open formats'
+	)
+
 	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
 
 	# fix opera to use libudev.so.1
 	sed -e 's/libudev.so.0/libudev.so.1/g' \
 		-i "$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera-developer"
+
+	# add compat symlinks for ffpmeg
+	ln -sf "/usr/lib/libavcodec.so" "$pkgdir/usr/lib/libavcodec-ffmpeg.so.55"
+	ln -sf "/usr/lib/libavformat.so" "$pkgdir/usr/lib/libavformat-ffmpeg.so.55"
+	ln -sf "/usr/lib/libavutil.so" "$pkgdir/usr/lib/libavutil-ffmpeg.so.52"
 
 	# suid opera_sandbox
 	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera_sandbox"
