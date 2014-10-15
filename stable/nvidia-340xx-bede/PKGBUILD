@@ -5,31 +5,24 @@
 _pkgname=nvidia
 pkgname=$_pkgname-340xx-bede
 pkgver=340.46
-_extramodules=3.16-BEDE-external
-pkgrel=3
+_extramodules=3.17-BEDE-external
+pkgrel=4
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.16.5' 'linux-bede<3.17' 'linux-bede-headers>=3.16' 'linux-bede-headers<3.17' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
+makedepends=('linux-bede>=3.17.1' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
 conflicts=('nvidia')
 license=('custom')
 install=nvidia.install
 options=(!strip)
 
-#source=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run"
-#"http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
+source=(
+    "http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run"
+    "http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run"
+)
 
-if [ "$CARCH" = "i686" ]; then
-    _arch='x86'
-    _pkg="NVIDIA-Linux-$_arch-$pkgver"
-    source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('a2e6d779397372dea77466e85ba30a15211c24502687512694604e570db11f87')
-elif [ "$CARCH" = "x86_64" ]; then
-    _arch='x86_64'
-    _pkg="NVIDIA-Linux-$_arch-$pkgver-no-compat32"
-    source=("http://download.nvidia.com/XFree86/Linux-$_arch/$pkgver/$_pkg.run")
-    sha256sums=('85e87c5801ef8e9fe30a34aa01cc7f4d3a11f2ab62d2259bb9ff3235ad56ef79')
-fi
+[[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
+[[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
 prepare() {
     [ -d "$_pkg" ] && rm -rf "$_pkg"
@@ -47,7 +40,7 @@ build() {
 }
 
 package() {
-    depends=('linux-bede>=3.16' 'linux-bede<3.17' "nvidia-utils=${pkgver}" "nvidia-libgl=$pkgver")
+    depends=('linux-bede>=3.17' 'linux-bede<3.18' "nvidia-utils=${pkgver}" "nvidia-libgl=$pkgver")
 
     install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
         "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
@@ -64,3 +57,5 @@ package() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
 
+sha256sums=('a2e6d779397372dea77466e85ba30a15211c24502687512694604e570db11f87'
+            '85e87c5801ef8e9fe30a34aa01cc7f4d3a11f2ab62d2259bb9ff3235ad56ef79')
