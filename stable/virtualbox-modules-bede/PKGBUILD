@@ -1,3 +1,4 @@
+# vim:set ft=sh et:
 # $Id$
 # Maintainer: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
@@ -6,19 +7,17 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.3.18
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-bede>=3.16.5' 'linux-bede<3.17' 'linux-bede-headers>=3.16' 'linux-bede-headers<3.17'
+makedepends=('linux-bede>=3.17.1' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
     '60-vboxguest.rules')
-md5sums=('f2200ed91b6ec089d16cc3ada5418c73'
-    'ed1341881437455d9735875ddf455fbe')
 
-_extramodules=3.16-BEDE-external
+_extramodules=3.17-BEDE-external
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -37,7 +36,7 @@ package_virtualbox-modules-bede-host() {
     pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
-    depends=('linux-bede>=3.16' 'linux-bede<3.17')
+    depends=('linux-bede>=3.17' 'linux-bede<3.18')
     provides=("virtualbox-host-modules=$pkgver")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -58,7 +57,7 @@ package_virtualbox-modules-bede-guest() {
     pkgdesc="Kernel guest modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
-    depends=('linux-bede>=3.16' 'linux-bede<3.17')
+    depends=('linux-bede>=3.17' 'linux-bede<3.18')
     provides=("virtualbox-guest-modules=${pkgver}")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -74,4 +73,5 @@ package_virtualbox-modules-bede-guest() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "$startdir/virtualbox-modules-bede-guest.install"
 }
 
-# vim:set ft=sh et:
+sha256sums=('9b3c4dc5385fb3b4aeb841043384879c5c7ee926f5343d6a4177e913604f869d'
+            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95')
