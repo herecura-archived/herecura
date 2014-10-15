@@ -7,14 +7,10 @@
 
 pkgname=opera-beta
 pkgver=25.0.1614.54
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. beta version."
 url="http://blogs.opera.com/desktop/"
-depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
-optdepends=(
-	'curl: opera crash reporter and autoupdate checker'
-	'ffmpeg: playback of not really open formats'
-)
+makedepends=('libsystemd' 'ffmpeg')
 provides=('opera')
 install=${pkgname}.install
 options=(!strip !zipman)
@@ -39,19 +35,26 @@ prepare() {
 }
 
 package() {
+	depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+	optdepends=(
+		'curl: opera crash reporter and autoupdate checker'
+		'ffmpeg: playback of not really open formats'
+	)
+
 	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
 
-	# fix opera to use libudev.so.1
-	sed -e 's/libudev.so.0/libudev.so.1/g' \
-		-i "$pkgdir/usr/lib/x86_64-linux-gnu/opera-beta/opera-beta"
-
-	# add compat symlinks for ffpmeg
-	ln -sf "/usr/lib/libavcodec.so" "$pkgdir/usr/lib/libavcodec-ffmpeg.so.55"
-	ln -sf "/usr/lib/libavformat.so" "$pkgdir/usr/lib/libavformat-ffmpeg.so.55"
-	ln -sf "/usr/lib/libavutil.so" "$pkgdir/usr/lib/libavutil-ffmpeg.so.52"
+	# fix sonames (libudev and ffmpeg)
+	(
+	cd "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/"
+	for ffmpeglib in libudev libavcodec libavformat libavutil; do
+		so_system=$(pacman -Ql | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
+		so_opera=$(strings $pkgname | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
+		sed -e "s/$so_opera/$so_system/" -i $pkgname
+	done
+	)
 
 	# suid opera_sandbox
-	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/opera-beta/opera_sandbox"
+	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_sandbox"
 
 	# install default options
 	install -Dm644 "$srcdir/default" "$pkgdir/etc/$pkgname/default"
@@ -62,6 +65,6 @@ package() {
 
 	# license
 	install -Dm644 \
-		"$pkgdir/usr/lib/x86_64-linux-gnu/opera-beta/opera_autoupdate.licenses" \
-		"$pkgdir/usr/share/licenses/opera-beta/opera_autoupdate.licenses"
+		"$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_autoupdate.licenses" \
+		"$pkgdir/usr/share/licenses/$pkgname/opera_autoupdate.licenses"
 }
