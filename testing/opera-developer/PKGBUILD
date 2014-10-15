@@ -7,9 +7,10 @@
 
 pkgname=opera-developer
 pkgver=26.0.1646.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
+makedepends=('ffmpeg')
 provides=('opera')
 replaces=('opera-devel' 'opera-dev')
 install=${pkgname}.install
@@ -30,7 +31,7 @@ sha256sums=(
 
 prepare() {
 	sed -e "s/%pkgname%/$pkgname/g" -i "$srcdir/opera"
-	sed -e "s/%operabin%/x86_64-linux-gnu\/opera-developer\/opera-developer/g" \
+	sed -e "s/%operabin%/x86_64-linux-gnu\/$pkgname\/$pkgname/g" \
 		-i "$srcdir/opera"
 }
 
@@ -45,7 +46,17 @@ package() {
 
 	# fix opera to use libudev.so.1
 	sed -e 's/libudev.so.0/libudev.so.1/g' \
-		-i "$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera-developer"
+		-i "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/$pkgname"
+
+	# fix ffmpeg sonames
+	(
+	cd "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/"
+	for ffmpeglib in libavcodec libavformat libavutil; do
+		so_ffmpeg=$(pacman -Ql ffmpeg | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
+		so_opera=$(strings $pkgname | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
+		sed -e "s/$so_opera/$so_ffmpeg/" -i $pkgname
+	done
+	)
 
 	# add compat symlinks for ffpmeg
 	ln -sf "/usr/lib/libavcodec.so" "$pkgdir/usr/lib/libavcodec-ffmpeg.so.55"
@@ -53,7 +64,7 @@ package() {
 	ln -sf "/usr/lib/libavutil.so" "$pkgdir/usr/lib/libavutil-ffmpeg.so.52"
 
 	# suid opera_sandbox
-	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera_sandbox"
+	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_sandbox"
 
 	# install default options
 	install -Dm644 "$srcdir/default" "$pkgdir/etc/$pkgname/default"
@@ -64,6 +75,6 @@ package() {
 
 	# license
 	install -Dm644 \
-		"$pkgdir/usr/lib/x86_64-linux-gnu/opera-developer/opera_autoupdate.licenses" \
-		"$pkgdir/usr/share/licenses/opera-developer/opera_autoupdate.licenses"
+		"$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_autoupdate.licenses" \
+		"$pkgdir/usr/share/licenses/$pkgname/opera_autoupdate.licenses"
 }
