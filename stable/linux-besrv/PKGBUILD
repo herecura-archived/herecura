@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
-_patchver=21
+_patchver=22
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -17,7 +17,7 @@ url="http://www.kernel.org"
 options=(!strip)
 
 source=(
-	"http://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
+	"https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
 	# the main kernel config files
 	"config-$_basekernel-server.i686"
 	"config-$_basekernel-server.x86_64"
@@ -36,10 +36,10 @@ if [ ${_patchver} -ne 0 ]; then
 	pkgver=$_basekernel.$_patchver
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
+		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'5ab01f154f0cb8b9fc9a941617e48b601c964db41c07f86c0f003305ea84e28a'
+		'459d9a5d38d496a6448c896e39c342c71fee29c49da38192104d3acc4f0cdd43'
 	)
 fi
 
@@ -57,7 +57,16 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 	)
 fi
 
-build() {
+prepare() {
+	# check signatures
+	curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
+	xz -cd linux-${_basekernel}.tar.xz | gpg --verify linux-${_basekernel}.tar.sign -
+
+	if [ ${_patchver} -ne 0 ]; then
+		curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
+		gpg --verify ${_patchname}.sign
+	fi
+
 	cd "$srcdir/linux-$_basekernel"
 	# Add revision patches
 	if [ $_patchver -ne 0 ]; then
@@ -98,6 +107,11 @@ build() {
 	# hack to prevent output kernel from being marked as dirty or git
 	msg2 "apply hack to prevent kernel tree being marked dirty"
 	echo "" > "$srcdir/linux-$_basekernel/.scmversion"
+
+}
+
+build() {
+	cd "$srcdir/linux-$_basekernel"
 
 	# get kernel version
 	msg2 "prepare"
