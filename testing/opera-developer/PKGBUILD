@@ -7,7 +7,7 @@
 
 pkgname=opera-developer
 pkgver=26.0.1646.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
 makedepends=('libsystemd' 'ffmpeg')
@@ -53,11 +53,6 @@ package() {
 		sed -e "s/$so_opera/$so_system/" -i $pkgname
 	done
 	)
-
-	# add compat symlinks for ffpmeg
-	ln -sf "/usr/lib/libavcodec.so" "$pkgdir/usr/lib/libavcodec-ffmpeg.so.55"
-	ln -sf "/usr/lib/libavformat.so" "$pkgdir/usr/lib/libavformat-ffmpeg.so.55"
-	ln -sf "/usr/lib/libavutil.so" "$pkgdir/usr/lib/libavutil-ffmpeg.so.52"
 
 	# suid opera_sandbox
 	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_sandbox"
