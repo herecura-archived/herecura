@@ -6,8 +6,8 @@
 # Contributor: eworm
 
 pkgname=opera-developer
-pkgver=26.0.1646.0
-pkgrel=5
+pkgver=26.0.1655.0
+pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
 makedepends=('libsystemd' 'ffmpeg')
@@ -22,11 +22,6 @@ source=(
 	"http://get.geo.opera.com/pub/$pkgname/$pkgver/linux/${pkgname}_${pkgver}_amd64.deb"
 	"opera"
 	"default"
-)
-sha256sums=(
-	'b4ba061881cd56171ad935988349d6e3f044aa8e34387e4454ebcd02334f62ff'
-	'508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
-	'4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027'
 )
 
 prepare() {
@@ -69,3 +64,6 @@ package() {
 		"$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_autoupdate.licenses" \
 		"$pkgdir/usr/share/licenses/$pkgname/opera_autoupdate.licenses"
 }
+sha256sums=('0a57d0125d1e810e80dd8b86a3ade8419c50f7c71dc1601a4020af6b26c59229'
+            '508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
+            '4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027')
