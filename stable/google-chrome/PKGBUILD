@@ -6,7 +6,7 @@
 
 pkgname=google-chrome
 pkgver=38.0.2125.104
-pkgrel=1
+pkgrel=2
 pkgdesc="An attempt at creating a safer, faster, and more stable browser (Stable Channel)"
 arch=('i686' 'x86_64')
 url="https://www.google.com/chrome"
@@ -22,9 +22,9 @@ _channel=stable
 _arch=amd64
 [[ $CARCH = i686 ]] && _arch=i386
 source=(
-	"google-chrome-${_channel}_${pkgver}_i386.deb::https://dl.google.com/linux/direct/google-chrome-${_channel}_current_i386.deb"
-	"google-chrome-${_channel}_${pkgver}_amd64.deb::https://dl.google.com/linux/direct/google-chrome-${_channel}_current_amd64.deb"
-	'eula_text.html'
+	"google-chrome-${_channel}_${pkgver}_i386.deb::http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-${_channel}/google-chrome-${_channel}_${pkgver}-1_i386.deb"
+	"google-chrome-${_channel}_${pkgver}_amd64.deb::http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-${_channel}/google-chrome-${_channel}_${pkgver}-1_amd64.deb"
+	'http://www.google.com/chrome/intl/en/eula_text.html'
 )
 noextract=(
 	"google-chrome-${_channel}_${pkgver}_i386.deb"
@@ -65,4 +65,4 @@ package() {
 
 sha256sums=('be6cbc3ea91f1c47e88d5a54a4e2126492453072a60e322f28ae5d475634a45c'
             'a85e89a781405fcf4925a2691dd953fabae400c0600397c7c808933368aacb83'
-            'af48d6467196286e5450f52fd4fd819f9f5c631b322eeac3e23944403d06fcff')
+            '4242ecd421c56d47e56f6384be5621fe4e7b772c11036a72145d0e580a0f464c')
