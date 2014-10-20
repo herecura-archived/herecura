@@ -7,9 +7,9 @@ _kernelname=-grsrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
-_patchver=21
+_patchver=22
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -36,15 +36,15 @@ if [ ${_patchver} -ne 0 ]; then
 	pkgver=$_basekernel.$_patchver
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
+		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'5ab01f154f0cb8b9fc9a941617e48b601c964db41c07f86c0f003305ea84e28a'
+		'459d9a5d38d496a6448c896e39c342c71fee29c49da38192104d3acc4f0cdd43'
 	)
 fi
 
 _grsecver="3.0"
-_grsecdate="201410131959"
+_grsecdate="201410192047"
 
 # extra patches
 _extrapatches=(
@@ -52,7 +52,7 @@ _extrapatches=(
 	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
 )
 _extrapatchessums=(
-	'f4bd4c52697957cdcf1fef51d0dcbe643ec272dc6ebe2e230e00bfc2599fcecd'
+	'816f9fee2e551b16a20aff3123325194299c03f8a397539fa72d2654016bd538'
 	'SKIP'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
@@ -64,7 +64,16 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 	)
 fi
 
-build() {
+prepare() {
+	# check signatures
+	curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
+	xz -cd linux-${_basekernel}.tar.xz | gpg --verify linux-${_basekernel}.tar.sign -
+
+	if [ ${_patchver} -ne 0 ]; then
+		curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
+		gpg --verify ${_patchname}.sign
+	fi
+
 	cd "$srcdir/linux-$_basekernel"
 	# Add revision patches
 	if [ $_patchver -ne 0 ]; then
@@ -111,6 +120,11 @@ build() {
 
 	msg2 "empty -grsec localversion"
 	echo "" > "$srcdir/linux-$_basekernel/localversion-grsec"
+
+}
+
+build() {
+	cd "$srcdir/linux-$_basekernel"
 
 	# get kernel version
 	msg2 "prepare"
