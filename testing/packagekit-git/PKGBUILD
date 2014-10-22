@@ -14,10 +14,9 @@ pkgname=(
   "$_gitname-gstreamer-plugin-git"
   "$_gitname-gtk2-git"
   "$_gitname-gtk3-git"
-  "$_gitname-python-git"
   "$_gitname-git"
 )
-pkgver=20141011.9e54525
+pkgver=20141022.50938ba
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPLv2')
@@ -51,10 +50,9 @@ build() {
     --disable-static \
     --disable-schemas-compile \
     --disable-browser-plugin \
-    --enable-gtk-doc \
     --enable-python3 \
+    --enable-gtk-doc \
     --enable-systemd \
-    --enable-systemd-updates \
     --enable-gstreamer-plugin \
     --enable-alpm
   make
@@ -106,16 +104,6 @@ package_packagekit-gtk3-git() {
   cd "$srcdir/out"
   mv usr/lib/gtk-3.0 "$pkgdir/usr/lib"
   mv usr/lib/gnome-settings-daemon-3.0 "$pkgdir/usr/lib"
-}
-
-package_packagekit-python-git() {
-  pkgdesc="python bindings for PackageKit"
-  depends=('python' 'packagekit-git')
-
-  install -dm755 "$pkgdir/usr/lib"
-
-  cd "$srcdir/out"
-  mv usr/lib/python* "$pkgdir/usr/lib"
 }
 
 package_packagekit-git() {
