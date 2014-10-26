@@ -5,14 +5,15 @@
 
 pkgname=apper
 _pkgmainver=0.7
+epoch=1
 pkgver=0.7.2
-pkgrel=6
+pkgrel=8
 pkgdesc="KDE tools for PackageKit"
 arch=('i686' 'x86_64')
 url="http://kde-apps.org/content/show.php/Apper?content=84745"
 license=('GPL')
-depends=('kdebase-workspace' 'packagekit-qt2>=0.6.17')
-makedepends=('cmake' 'automoc4' 'chrpath')
+depends=('kdelibs' 'packagekit-qt2>=0.6.17')
+makedepends=('cmake' 'automoc4' 'chrpath' 'kdebase-workspace')
 install="$pkgname.install"
 provides=('kpackagekit')
 conflicts=('kpackagekit')
