@@ -2,14 +2,14 @@
 
 _gitname=apper
 pkgname=$_gitname-git
-pkgver=20140909.9821a8c
+pkgver=20141012.be424ce
 pkgrel=1
 pkgdesc="Apper - Application to get and manage software in KDE"
 arch=('i686' 'x86_64')
 url="https://projects.kde.org/projects/extragear/sysadmin/apper"
 license=('GPL')
 depends=('kdelibs' 'packagekit-qt4-git')
-makedepends=('git' 'cmake' 'automoc4')
+makedepends=('git' 'cmake' 'automoc4' 'kdebase-workspace')
 provides=('kpackagekit')
 conflicts=('kpackagekit')
 replaces=('kpackagekit')
