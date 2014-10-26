@@ -6,7 +6,7 @@ pkgname=(
 	"${_gitname}4-git"
 	"${_gitname}-git"
 )
-pkgver=20140920.63a9350
+pkgver=20141010.c5b8b78
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('LGPLv2')
