@@ -8,7 +8,7 @@
 
 pkgname='mysql-workbench'
 pkgver=6.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="A cross-platform, visual database design tool developed by MySQL"
 arch=('i686' 'x86_64')
 url="https://www.mysql.com/products/workbench/"
@@ -29,11 +29,14 @@ source=(
 	'mysql-workbench-no-check-for-updates.patch'
 	'mysql-workbench-cmake-definitions.patch'
 	'mysql-workbench-paramiko.patch'
+	'libglib2.42.patch'
 )
 
 prepare() {
 	cd "$pkgname-community-$pkgver-src"
 
+	# fix glib2-2.42.0
+	patch -Np1 < "${srcdir}"/libglib2.42.patch
 	# Disable 'Help' -> 'Check for Updates'
 	patch -Np1 < "${srcdir}"/mysql-workbench-no-check-for-updates.patch
 
@@ -79,4 +82,5 @@ sha256sums=('4caba8cf1f8dc0fc57e98a6170ad4718ba44c8f6622ef2359c7a550d080b3846'
             '6fc7d88a4e43ba3ccf0fac8075e4e5ca253626c736416b0ffa1ed44ac9ee5d92'
             '996482e15d88af097f5e7a578885338cad5b8724f8abb4341749d5538801f5c0'
             '142d499416ea4a4743a4c3166014fc2fc60c34374e587715908634b5f107a700'
-            'acb631d9014ec9a4e54a7258df9cd254587c8f7b013ae2bd89ef6419bbb4d222')
+            'acb631d9014ec9a4e54a7258df9cd254587c8f7b013ae2bd89ef6419bbb4d222'
+            '9bb152d2b716cbc31d55cb3a87c7560f975a4c9a3095393ff786631a1cdda1d4')
