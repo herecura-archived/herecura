@@ -4,8 +4,8 @@
 
 _pkgname=libechonest
 pkgname=${_pkgname}2
-pkgver=2.1.0
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="C++ library for interfacing with Echo Nest"
 arch=('i686' 'x86_64')
 url="https://projects.kde.org/projects/playground/libs/libechonest"
@@ -15,7 +15,6 @@ makedepends=('cmake' 'pkg-config')
 provides=('libechonest')
 conflicts=('libechonest-git' 'libechonest')
 source=("http://files.lfranchi.com/${_pkgname}-${pkgver}.tar.bz2")
-md5sums=('96d98dbc5b3b155b277a9901d1133c5e')
 
 build() {
   cd ${srcdir}/${_pkgname}-${pkgver}
@@ -29,6 +28,7 @@ build() {
   cmake -DQT_QMAKE_EXECUTABLE=qmake-qt4 \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
+		-DECHONEST_BUILD_TESTS=off \
         ../${_pkgname}-${pkgver}
   make
 }
@@ -37,3 +37,5 @@ package() {
   cd ${srcdir}/${_pkgname}-${pkgver}-build
   make DESTDIR=${pkgdir} install
 }
+
+sha256sums=('79983ba72fbf9b112ebfb329b96b60eddf25d719ebe34eb70de01aa106ae2b44')

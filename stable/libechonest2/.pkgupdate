@@ -1,0 +1,1 @@
+update_pkgver=$(wget -q -O- 'https://projects.kde.org/projects/playground/libs/libechonest' | grep 'Latest tarball' | sed 's,.*libechonest-\([0-9a-z\.]*\)\.tar.*".*,\1,')
