@@ -102,9 +102,9 @@ prepare() {
 	# set configuration
 	msg2 "copy configuration"
 	if [[ "$CARCH" = "x86_64" ]]; then
-		cat ../config-desktop.x86_64 >./.config
+		cat "$srcdir/config-desktop.x86_64" >./.config
 	else
-		cat ../config-desktop.i686 >./.config
+		cat "$srcdir/config-desktop.i686" >./.config
 	fi
 	if [[ "$_kernelname" != "" ]]; then
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
