@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
 _patchver=23
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -19,8 +19,8 @@ options=(!strip)
 source=(
 	"http://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
 	# the main kernel config files
-	"config-$_basekernel-server.i686"
-	"config-$_basekernel-server.x86_64"
+	"config-server.i686"
+	"config-server.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
 )
@@ -44,7 +44,7 @@ if [ ${_patchver} -ne 0 ]; then
 fi
 
 _grsecver="3.0"
-_grsecdate="201410312212"
+_grsecdate="201411062033"
 
 # extra patches
 _extrapatches=(
@@ -52,7 +52,7 @@ _extrapatches=(
 	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
 )
 _extrapatchessums=(
-	'55333d8467e557925bb0116c6ff92ba39c075374a12b7125970364389182f0a5'
+	'd477b2fe6255b726fa72b8f6711b553aef5d7c9990ffa089991042f6bc233ff8'
 	'SKIP'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
@@ -94,9 +94,9 @@ prepare() {
 	# set configuration
 	msg2 "copy configuration"
 	if [ "$CARCH" = "x86_64" ]; then
-		cat ../config-$_basekernel-server.x86_64 >./.config
+		cat "$srcdir/config-server.x86_64" >./.config
 	else
-		cat ../config-$_basekernel-server.i686 >./.config
+		cat "$srcdir/config-server.i686" >./.config
 	fi
 	if [ "$_kernelname" != "" ]; then
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
