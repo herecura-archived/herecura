@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
 _patchver=23
 pkgver=$_basekernel
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -19,8 +19,8 @@ options=(!strip)
 source=(
 	"https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
 	# the main kernel config files
-	"config-$_basekernel-server.i686"
-	"config-$_basekernel-server.x86_64"
+	"config-server.i686"
+	"config-server.x86_64"
 	# standard config files for mkinitcpio ramdisk
 	"linux$_kernelname.preset"
 )
@@ -87,9 +87,9 @@ prepare() {
 	# set configuration
 	msg2 "copy configuration"
 	if [ "$CARCH" = "x86_64" ]; then
-		cat ../config-$_basekernel-server.x86_64 >./.config
+		cat "$srcdir/config-server.x86_64" >./.config
 	else
-		cat ../config-$_basekernel-server.i686 >./.config
+		cat "$srcdir/config-server.i686" >./.config
 	fi
 	if [ "$_kernelname" != "" ]; then
 		sed -i "s|CONFIG_LOCALVERSION=.*|CONFIG_LOCALVERSION=\"\U$_kernelname\"|g" ./.config
