@@ -6,7 +6,7 @@
 # Contributor: eworm
 
 pkgname=opera-developer
-pkgver=27.0.1670.0
+pkgver=27.0.1676.0
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
@@ -64,6 +64,6 @@ package() {
 		"$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_autoupdate.licenses" \
 		"$pkgdir/usr/share/licenses/$pkgname/opera_autoupdate.licenses"
 }
-sha256sums=('52bc56159eaadc3a109bdb2fe91fe0d3153ffa29e30d915f917a778c41d567af'
+sha256sums=('7fb7b8d1d1e338ccdd13d94d055d3817363992f890b544740dc44b32fe8e635e'
             '508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
             '4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027')
