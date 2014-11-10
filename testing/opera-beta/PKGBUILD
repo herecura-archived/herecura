@@ -6,7 +6,7 @@
 # Contributor: eworm
 
 pkgname=opera-beta
-pkgver=26.0.1656.8
+pkgver=26.0.1656.17
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. beta version."
 url="http://blogs.opera.com/desktop/"
@@ -63,6 +63,6 @@ package() {
 		"$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_autoupdate.licenses" \
 		"$pkgdir/usr/share/licenses/$pkgname/opera_autoupdate.licenses"
 }
-sha256sums=('a1788e882e0dbb813977bb0a7af88f97dcd6af6548f16f9821ca01035bb68e6f'
+sha256sums=('5d4fe033da49dfe370768dda788f2cd18cb22602bcbe0c5c3a58ca4758570a2a'
             '508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
             '4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027')
