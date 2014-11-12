@@ -4,9 +4,9 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-340xx-bede
-pkgver=340.46
+pkgver=340.58
 _extramodules=3.17-BEDE-external
-pkgrel=6
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -57,5 +57,5 @@ package() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
 
-sha256sums=('a2e6d779397372dea77466e85ba30a15211c24502687512694604e570db11f87'
-            '85e87c5801ef8e9fe30a34aa01cc7f4d3a11f2ab62d2259bb9ff3235ad56ef79')
+sha256sums=('7cc48ff0681667aad8213a4dd3cf7695cad29a5a23a3110d22566c362c76fb5b'
+            '06202c57bd9b41bf6d48e041b8c7db52b4ffd27451886ea0ea217b1f56e5e840')
