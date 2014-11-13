@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://jalbum.net/en/software/download | grep -ie "<h1 class=\"addpad20\"" | sed 's,.*<h1.*>[A-Za-z\ ]*\([0-9\.]*\).*</h1>.*,\1,g')
