@@ -6,18 +6,19 @@
 
 pkgname=byacc-noconflict
 _pkgname=byacc
-pkgver=20120526
-pkgrel=2
+pkgver=20141006
+pkgrel=1
 pkgdesc="Non-conflicting version of byacc not providing bison/yacc"
 arch=('i686' 'x86_64')
 url="http://invisible-island.net/byacc/"
 license=('custom')
 depends=('glibc')
-provides=('byacc')
 source=(ftp://invisible-island.net/$_pkgname/$_pkgname-$pkgver.tgz
         ftp://invisible-island.net/$_pkgname/$_pkgname-$pkgver.tgz.asc)
-md5sums=('d8a9959f784205092762eb29426bdf23'
-         'b95c103b61381c34bee7c654a1df9747')
+md5sums=('62d58192f2995f24cef41a7cb8ec9ba3'
+         'SKIP')
+sha256sums=('391b0ac550e94920a86960c6973ec539784dc84849e7c2bb1645ae6d8178b14d'
+            'SKIP')
 
 build() {
   cd ${srcdir}/$_pkgname-$pkgver
