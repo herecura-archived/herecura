@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://sourceforge.net/projects/atunes/ | grep -m1 -ie "<a\ href=.*\/atunes.*.tar.gz" | sed 's,.*<a href=".*title=.*atunes-\(.*\)-bin.*,\1,')
