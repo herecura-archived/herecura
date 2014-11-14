@@ -7,9 +7,9 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
-_patchver=23
+_patchver=24
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -39,7 +39,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'451199487f3e311ff57729f9104c23eeab1db528f15f2091da74cb2fd565f56e'
+		'80013321b6891216fcff6d0746cb977bd7e8438b02ca13ff261659f3dfa76d51'
 	)
 fi
 
