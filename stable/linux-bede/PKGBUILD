@@ -10,12 +10,12 @@ _basekernel=3.17
 _patchver=3
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
-	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x/testing'
+	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x/testing'
 	pkgver=${_basekernel}$_patchver
 	_linuxname="linux-${_basekernel}-$_patchver"
 else
 	# $_patchver is no RC build normal
-	_baseurl='http://www.kernel.org/pub/linux/kernel/v3.x'
+	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x'
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
@@ -50,7 +50,7 @@ if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
 	pkgver=$_basekernel.$_patchver
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
-		"http://www.kernel.org/pub/linux/kernel/v3.x/$_patchname.xz"
+		"$_baseurl/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
 		'3c1ba3cc89d0f2d5f7303f448495f64db1ab96efea5f5fdd4b4c8c547600f85d'
@@ -74,12 +74,14 @@ fi
 
 prepare() {
 	# check signatures
-	curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/${_linuxname}.tar.sign"
+	curl -O "$_baseurl/${_linuxname}.tar.sign"
 	xz -cd ${_linuxname}.tar.xz | gpg --verify ${_linuxname}.tar.sign -
 
-	if [ ${_patchver} -ne 0 ]; then
-		curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
+	if [[ "$_patchver" =~ ^[0-9]+$ ]]; then
+		if [[ ${_patchver} -ne 0 ]]; then
+			curl -O "$_baseurl/${_patchname}.sign"
 		gpg --verify ${_patchname}.sign
+		fi
 	fi
 
 	cd "$srcdir/$_linuxname"
