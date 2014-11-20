@@ -19,7 +19,7 @@ license=('custom:opera')
 backup=("etc/$pkgname/default")
 arch=('x86_64')
 source=(
-	"http://get.geo.opera.com/pub/$pkgname/$pkgver/linux/${pkgname}_${pkgver}_amd64.deb"
+	"http://deb.opera.com/opera/pool/non-free/o/${pkgname}/${pkgname}_${pkgver}_amd64.deb"
 	"opera"
 	"default"
 )
