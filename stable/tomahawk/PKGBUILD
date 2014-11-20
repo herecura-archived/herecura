@@ -2,7 +2,7 @@
 # https://github.com/zizzfizzix/pkgbuilds
 
 pkgname=tomahawk
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc="A Music Player App written in C++/Qt"
 arch=('i686' 'x86_64')
@@ -42,4 +42,4 @@ package() {
   make DESTDIR=${pkgdir} install
 }
 
-sha256sums=('fcb6cf54f16041e1709e8a3b3963d09ec3ef79495bf94cad455a2830a0724631')
+sha256sums=('522d2ef873f8548990ac1fc736c11dd08c347687c77d63b520f55207f19db3ae')
