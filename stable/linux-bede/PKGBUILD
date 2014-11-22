@@ -19,10 +19,10 @@ else
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
-makedepends=('bc' 'kmod' 'clang')
+makedepends=('bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
@@ -71,10 +71,6 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 		"${_extrapatchessums[@]}"
 	)
 fi
-
-export HOSTCC=clang
-export CC=clang
-export CXX=clang++
 
 prepare() {
 	# check signatures
