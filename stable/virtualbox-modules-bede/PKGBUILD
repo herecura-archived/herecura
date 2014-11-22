@@ -7,17 +7,21 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.3.18
-pkgrel=5
+pkgrel=6
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-bede>=3.17.4' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18'
+makedepends=('linux-bede>=3.17.4' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18' 'clang'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
     '60-vboxguest.rules')
 
 _extramodules=3.17-BEDE-external
+
+export HOSTCC=clang
+export CC=clang
+export CXX=clang++
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
