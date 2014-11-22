@@ -6,11 +6,11 @@ _pkgname=nvidia
 pkgname=$_pkgname-bede
 pkgver=343.22
 _extramodules=3.17-BEDE-external
-pkgrel=10
+pkgrel=11
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.17.4' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
+makedepends=('linux-bede>=3.17.4' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver" 'clang')
 conflicts=('nvidia-96xx' 'nvidia-173xx')
 replaces=('nvidia-bemm')
 license=('custom')
@@ -24,6 +24,10 @@ source=(
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
+
+export HOSTCC=clang
+export CC=clang
+export CXX=clang++
 
 prepare() {
     [ -d "$_pkg" ] && rm -rf "$_pkg"
