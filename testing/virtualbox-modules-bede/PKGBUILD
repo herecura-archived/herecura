@@ -6,8 +6,8 @@
 
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
-pkgver=4.3.18
-pkgrel=4.1
+pkgver=4.3.20
+pkgrel=1.1
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
@@ -15,8 +15,7 @@ makedepends=('linux-bede>=3.18rc1' 'linux-bede<3.19' 'linux-bede-headers>=3.18rc
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
-    '60-vboxguest.rules'
-    'VirtualBox-4.3.18-kmod-linux-kernel-3.18-drm_mmmap.patch')
+    '60-vboxguest.rules')
 
 _extramodules=3.18-BEDE-external
 
@@ -29,10 +28,6 @@ build() {
     # build host modules
     dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
     # build guest modules
-    (
-        cd dkms/vboxguest/4.3.18/source
-        patch -p0 -i "$srcdir/VirtualBox-4.3.18-kmod-linux-kernel-3.18-drm_mmmap.patch"
-    )
     dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
 }
 
@@ -78,5 +73,4 @@ package_virtualbox-modules-bede-guest() {
 }
 
 sha256sums=('9b3c4dc5385fb3b4aeb841043384879c5c7ee926f5343d6a4177e913604f869d'
-            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95'
-            'c45f8173c4760246780cf763ecceba2cc84cda427702c97f130e71c52cf73569')
+            '033c597e0f5285d2ddb0490868e5b6f945f45c7b1b1152a02a9e6fea438b2c95')
