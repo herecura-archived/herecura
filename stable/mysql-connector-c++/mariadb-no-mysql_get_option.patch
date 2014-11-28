@@ -1,0 +1,20 @@
+--- a/driver/nativeapi/libmysql_static_proxy.cpp	2014-11-19 14:37:11.000000000 +0100
++++ b/driver/nativeapi/libmysql_static_proxy.cpp	2014-11-28 22:31:17.274634440 +0100
+@@ -319,6 +319,7 @@
+ int
+ LibmysqlStaticProxy::get_option(MYSQL * mysql, enum mysql_option option, const void *arg)
+ {
++#ifndef MARIADB_BASE_VERSION
+ #if MYSQL_VERSION_ID >= 50703
+ 	if (::mysql_get_option(mysql, option, arg)) {
+ 		throw sql::InvalidArgumentException("Unsupported option provided to mysql_get_option()");
+@@ -328,6 +329,9 @@
+ #else
+ 	throw ::sql::MethodNotImplementedException("::mysql_get_option()");
+ #endif
++#else
++	throw ::sql::MethodNotImplementedException("::mysql_get_option()");
++#endif
+ }
+ /* }}} */
+ 

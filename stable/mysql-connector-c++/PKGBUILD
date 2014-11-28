@@ -1,7 +1,7 @@
 # Maintainer: Ilya Kuznetsov <monochrome.r42@gmail.com>
 
 pkgname=mysql-connector-c++
-pkgver=1.1.4
+pkgver=1.1.5
 pkgrel=1
 pkgdesc="A MySQL database connector for C++"
 arch=('i686' 'x86_64')
@@ -9,11 +9,19 @@ url="http://dev.mysql.com/doc/refman/5.5/en/connector-cpp.html"
 license=('GPL')
 depends=('libmysqlclient' 'boost-libs')
 makedepends=('cmake' 'boost')
-source=("http://ftp.gwdg.de/pub/misc/mysql/Downloads/Connector-C++/${pkgname}-${pkgver}.tar.gz")
+source=(
+	"http://ftp.gwdg.de/pub/misc/mysql/Downloads/Connector-C++/${pkgname}-${pkgver}.tar.gz"
+	'mariadb-no-mysql_get_option.patch'
+)
 options=(!libtool !staticlibs)
 
+prepare() {
+  cd ${pkgname}-${pkgver}
+  patch -Np1 -i "$srcdir/mariadb-no-mysql_get_option.patch"
+}
+
 build() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   cmake . -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
     -DMYSQLCPPCONN_BUILD_EXAMPLES=OFF
@@ -21,9 +29,11 @@ build() {
 }
 
 package() {
-  cd "${srcdir}"/${pkgname}-${pkgver}
+  cd ${pkgname}-${pkgver}
   make DESTDIR="${pkgdir}" install
 
   rm "${pkgdir}"/usr/{ANNOUNCEMENT,COPYING,README}
 }
-sha256sums=('a25f14dad39e93a2f9cdf09166ee53981f7212dce829e4208e07a522963a8585')
+
+sha256sums=('f3696726da29d56e0daad7046b30aa51444360a3ff112c079eb942929eb1cce8'
+            'fb2f5fc88344e614973f79c8464d27299a90ad1a44e2f594f4aceae609b36cb1')
