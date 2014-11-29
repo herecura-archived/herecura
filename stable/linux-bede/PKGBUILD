@@ -19,7 +19,7 @@ else
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
-pkgrel=3
+pkgrel=4
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -60,8 +60,10 @@ fi
 
 ## extra patches
 _extrapatches=(
+	'fb86b97300d930b57471068720c52bfa8622eab7.patch'
 )
 _extrapatchessums=(
+	'2a54dc515e4e68af286c8abdd2d404a763191811886aee52567cc201ea876e08'
 )
 if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 	source=( "${source[@]}"
