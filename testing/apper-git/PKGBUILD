@@ -2,7 +2,7 @@
 
 _gitname=apper
 pkgname=$_gitname-git
-pkgver=20141128.ea40bef
+pkgver=20141130.9fdb0ee
 pkgrel=1
 pkgdesc="Apper - Application to get and manage software in KDE"
 arch=('i686' 'x86_64')
