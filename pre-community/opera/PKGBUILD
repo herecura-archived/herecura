@@ -58,6 +58,10 @@ package() {
 	install -Dm644 \
 		"$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_autoupdate.licenses" \
 		"$pkgdir/usr/share/licenses/$pkgname/opera_autoupdate.licenses"
+
+	install -Dm644 \
+		"$pkgdir/usr/share/doc/${pkgname}-stable/copyright" \
+		"$pkgdir/usr/share/licenses/$pkgname/copyright"
 }
 
 sha256sums=('e2ea368709f2ac10c3997dd361440cb39b4735b6dfe77e29a271e27f6df78a6a'
