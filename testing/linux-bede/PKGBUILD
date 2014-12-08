@@ -7,7 +7,7 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.18
-_patchver=rc7
+_patchver=0
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
 	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x/testing'
@@ -19,7 +19,7 @@ else
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
-pkgrel=1
+pkgrel=0.1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -37,7 +37,7 @@ source=(
 	'sysctl-linux-bede.conf'
 )
 sha256sums=(
-	'736f9756bbf6e41d7f95eaf093913c4fc9473fa90c49dde45e916039469307ff'
+	'becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd'
 	'fd5a9a96871242800496ecf05d50f565ce94e32b6f717f5a57f71f7187d84395'
 	'cd112708cf3c50a53ba12fab4b9a6ce34da7437f5747576fbe9d900d10858fe3'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
