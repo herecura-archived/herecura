@@ -7,7 +7,7 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.17
-_patchver=4
+_patchver=6
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
 	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x/testing'
@@ -19,7 +19,7 @@ else
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
-pkgrel=4
+pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -53,17 +53,15 @@ if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
 		"$_baseurl/$_patchname.xz"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'eeef37397a15245bd143569908be40622a87dc7673965e623e811ea3f68b8434'
+		'30d8e0da16ac7cc8be13cd6da72ddc487e8c24fb662caf69da7f6d375fdc1aab'
 	)
 	fi
 fi
 
 ## extra patches
 _extrapatches=(
-	'fb86b97300d930b57471068720c52bfa8622eab7.patch'
 )
 _extrapatchessums=(
-	'2a54dc515e4e68af286c8abdd2d404a763191811886aee52567cc201ea876e08'
 )
 if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 	source=( "${source[@]}"
