@@ -3,7 +3,7 @@
 pkgname=chrome-pepper-flash
 pkgdesc="Google Chrome's Pepper Flash plugin for ppapi compatible browsers (stable version)"
 pkgver=16.0.0.235
-pkgrel=1
+pkgrel=2
 _verbld=39.0.2171.95
 _channel='stable'
 arch=('i686' 'x86_64')
@@ -29,6 +29,7 @@ noextract=(
 )
 
 prepare() {
+	sed -e "s/flashver=.*/flashver=$pkgver/" -i "$startdir/chrome-pepper-flash.install"
 	ar x "google-chrome-${_channel}_${_verbld}_${_arch}.deb"
 	bsdtar -xf data.tar.lzma
 }
