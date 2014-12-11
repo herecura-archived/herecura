@@ -2,9 +2,9 @@
 
 pkgname=chrome-pepper-flash
 pkgdesc="Google Chrome's Pepper Flash plugin for ppapi compatible browsers (stable version)"
-pkgver=15.0.0.189
+pkgver=16.0.0.235
 pkgrel=1
-_verbld=38.0.2125.104
+_verbld=39.0.2171.95
 _channel='stable'
 arch=('i686' 'x86_64')
 url="http://www.google.com/chrome"
@@ -40,6 +40,6 @@ package() {
 	install -Dm644 "${srcdir}/eula_text.html" "${pkgdir}/usr/share/licenses/${pkgname}/eula_text.html"
 }
 
-sha256sums=('be6cbc3ea91f1c47e88d5a54a4e2126492453072a60e322f28ae5d475634a45c'
-            'a85e89a781405fcf4925a2691dd953fabae400c0600397c7c808933368aacb83'
+sha256sums=('3164b563a5520707ddbab06312015254aab54bdf0b54d0e82dc5ca6f0bb506da'
+            '8f5c0a5a4f602272fee1774c54525ab673e3c5d77d4fb7fdc9637acd7fd343a0'
             '4242ecd421c56d47e56f6384be5621fe4e7b772c11036a72145d0e580a0f464c')

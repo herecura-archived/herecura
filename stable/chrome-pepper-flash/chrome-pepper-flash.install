@@ -3,6 +3,8 @@ paths=(
 	'etc/chromium-dev/default'
 	'etc/chromium/default'
 	'etc/opera-developer/default'
+	'etc/opera-beta/default'
+	'etc/opera/default'
 )
 flashver=14.0.0.125
 
