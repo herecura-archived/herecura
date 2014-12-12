@@ -2,7 +2,7 @@
 # Contributor: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=oniguruma
-pkgver=5.9.5
+pkgver=5.9.6
 pkgrel=1
 pkgdesc="a regular expressions library"
 arch=('i686' 'x86_64')
@@ -22,4 +22,4 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha256sums=('9f49ae7819a5f47e25449d0e4b010d479f7868a24a7b9884b47041b49a76438a')
+sha256sums=('d5642010336a6f68b7f2e34b1f1cb14be333e4d95c2ac02b38c162caf44e47a7')
