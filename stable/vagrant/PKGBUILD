@@ -2,7 +2,7 @@
 # Contributor: Mathieu Clabaut <mathieu.clabaut@gmail.com>
 # Contributor: helios <aur@wiresphere.de>
 pkgname=vagrant
-pkgver=1.7.0
+pkgver=1.7.1
 pkgrel=1
 pkgdesc="Tool for building and distributing virtualized development environments"
 arch=('i686' 'x86_64')
@@ -37,6 +37,6 @@ package() {
 		"${pkgdir}/usr/share/bash-completion/completions/vagrant"
 }
 
-sha256sums=('1ce972fb039a9b410ed12596de56d4562eb664332b0705d88239d36d236232f5'
-            'a95e78bad6ee840c50e68220e534f95942f455d4fc42bcfedb303b8bf8597661'
+sha256sums=('6e405a855c4426b04f568f62740f04025c548b2f722a4b3faee94b0b2ce19bc0'
+            'b66be4b8f7921f59b00c186344c8501f97a26e172e94c3add7298b5147bcab27'
             'e4b8a4b4292472033a08b20e4daf5eb62c21c50b491c34ddac9792fec40aac48')
