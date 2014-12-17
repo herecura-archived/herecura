@@ -7,17 +7,17 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.3.20
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-bede>=3.17.6' 'linux-bede<3.18' 'linux-bede-headers>=3.17' 'linux-bede-headers<3.18'
+makedepends=('linux-bede>=3.18.1' 'linux-bede<3.19' 'linux-bede-headers>=3.18' 'linux-bede-headers<3.19'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
     '60-vboxguest.rules')
 
-_extramodules=3.17-BEDE-external
+_extramodules=3.18-BEDE-external
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -26,7 +26,6 @@ build() {
     cp -Lr /var/lib/dkms .
     echo "dkms_tree='$srcdir/dkms'" > dkms.conf
     # build host modules
-    msg2 'Host modules'
     dkms --dkmsframework dkms.conf build "vboxhost/$pkgver" -k "$_kernver"
     # build guest modules
     dkms --dkmsframework dkms.conf build "vboxguest/$pkgver" -k "$_kernver"
@@ -36,7 +35,7 @@ package_virtualbox-modules-bede-host() {
     pkgdesc="Kernel host modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-host.install
-    depends=('linux-bede>=3.17' 'linux-bede<3.18')
+    depends=('linux-bede>=3.18' 'linux-bede<3.19')
     provides=("virtualbox-host-modules=$pkgver")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
@@ -57,7 +56,7 @@ package_virtualbox-modules-bede-guest() {
     pkgdesc="Kernel guest modules for VirtualBox (linux-bede)"
     license=('GPL')
     install=virtualbox-modules-bede-guest.install
-    depends=('linux-bede>=3.17' 'linux-bede<3.18')
+    depends=('linux-bede>=3.18' 'linux-bede<3.19')
     provides=("virtualbox-guest-modules=${pkgver}")
 
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
