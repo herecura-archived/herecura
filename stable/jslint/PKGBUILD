@@ -2,7 +2,7 @@
 
 pkgname=jslint
 _npmname=jslint
-pkgver=0.6.5
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="The JavaScript Code Quality Tool"
 arch=('any')
