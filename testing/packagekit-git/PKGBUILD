@@ -16,7 +16,7 @@ pkgname=(
   "$_gitname-gtk3-git"
   "$_gitname-git"
 )
-pkgver=20141217.62bc031
+pkgver=20141219.75bb2c2
 pkgrel=1
 arch=('i686' 'x86_64')
 license=('GPLv2')
