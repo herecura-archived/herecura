@@ -14,7 +14,7 @@ _prefix=/usr
 pkgname=kodi
 pkgver=14.0
 _codename=Helix
-pkgrel=0.3
+pkgrel=0.4
 pkgdesc="A software media player and entertainment hub for digital media"
 provides=('xbmc')
 conflicts=('xbmc')
@@ -26,7 +26,7 @@ depends=(
 'bluez-libs' 'curl' 'flac' 'glew' 'hicolor-icon-theme' 'lame' 'libaacs'
 'libass' 'libbluray' 'libcdio' 'libmariadbclient' 'libmicrohttpd' 'libmodplug'
 'libmpeg2' 'libpulse' 'libssh' 'libva' 'libvdpau' 'libvorbis' 'libxrandr'
-'libxslt' 'lzo' 'mesa' 'mesa-demos' 'python2-pillow' 'python2-pybluez'
+'libxslt' 'lzo' 'libgl' 'mesa-demos' 'python2-pillow' 'python2-pybluez'
 'python2-simplejson' 'rtmpdump' 'sdl_image' 'smbclient' 'taglib' 'tinyxml'
 'xorg-xdpyinfo' 'yajl'
 )
