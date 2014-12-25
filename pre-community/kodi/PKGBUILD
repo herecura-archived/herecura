@@ -15,7 +15,7 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-texturepacker')
 pkgver=14.0
 _codename=Helix
-pkgrel=0.5
+pkgrel=0.6
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -31,12 +31,8 @@ makedepends=(
 'swig' 'unzip' 'upower' 'zip'
 'libmpeg2' 'libmodplug'
 'sdl2' 'sdl_image'
+'nss-mdns'
 )
-# encoders
-# flac
-# lame
-# libmodplug
-# libvorbis
 source=(
   "$pkgname-$pkgver-$_codename.tar.gz::https://github.com/xbmc/xbmc/archive/$pkgver-$_codename.tar.gz"
 )
@@ -64,32 +60,8 @@ build() {
   ./configure --prefix=$_prefix --exec-prefix=$_prefix \
     --disable-debug \
     --enable-optimizations \
-    --enable-gl \
-    --enable-vaapi \
-    --enable-vdpau \
-    --enable-joystick \
-    --enable-xrandr \
-    --enable-rsxs \
-    --enable-projectm \
-    --enable-x11 \
-    --enable-pulse \
-    --enable-rtmp \
-    --enable-samba \
-    --enable-nfs \
-    --enable-afpclient \
-    --enable-airplay \
-    --enable-airtunes \
-    --enable-ffmpeg-libvorbis \
-    --enable-dvdcss \
-    --disable-hal \
-    --enable-avahi \
-    --enable-webserver \
-    --enable-optical-drive \
     --enable-libbluray \
     --enable-texturepacker \
-    --enable-udev \
-    --enable-libusb \
-    --enable-libcec \
 		--enable-external-libraries \
     --with-lirc-device=/run/lirc/lircd
 
