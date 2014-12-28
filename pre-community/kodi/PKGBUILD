@@ -15,7 +15,7 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-texturepacker')
 pkgver=14.0
 _codename=Helix
-pkgrel=0.6
+pkgrel=0.7
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -32,6 +32,7 @@ makedepends=(
 'libmpeg2' 'libmodplug'
 'sdl2' 'sdl_image'
 'nss-mdns'
+'libsquish'
 )
 source=(
   "$pkgname-$pkgver-$_codename.tar.gz::https://github.com/xbmc/xbmc/archive/$pkgver-$_codename.tar.gz"
@@ -53,7 +54,10 @@ build() {
   cd "$srcdir/xbmc-$pkgver-$_codename"
 
 	# Bootstrapping
-  ./bootstrap
+  MAKEFLAGS=-j1 ./bootstrap
+
+  #./configure --help
+  #return 1
 
   # Configuring XBMC
   export PYTHON_VERSION=2  # external python v2
@@ -62,7 +66,7 @@ build() {
     --enable-optimizations \
     --enable-libbluray \
     --enable-texturepacker \
-		--enable-external-libraries \
+    --enable-external-libraries \
     --with-lirc-device=/run/lirc/lircd
 
   # Now (finally) build
