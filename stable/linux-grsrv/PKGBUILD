@@ -9,15 +9,22 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
 _patchver=27
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
+validpgpkeys=(
+	'ABAF11C65A2970B130ABE3C479BE3E4300411886'
+	'647F28654894E3BD457199BE38DBBDC86092693E'
+	'DE9452CE46F42094907F108B44D1C0F82525FE49'
+)
+
 source=(
-	"http://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
+	"https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
+	"https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
 	# the main kernel config files
 	"config-server.i686"
 	"config-server.x86_64"
@@ -26,8 +33,9 @@ source=(
 )
 sha256sums=(
 	'61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
-	'0a5f59b211c66889b6cd1106f177f1386ff58cb4911038184995d7daf7714f8f'
-	'f6464b6c2736eab6ae7e3cc20204e4d05e87028870e0e609971d7c57330886dc'
+	'SKIP'
+	'ea4d38035e1827d4aff2388a4eded405c33f7cdcceb022ace5035b8d6f982f59'
+	'5a3ef4069e8c7020489c76537c1a2bdfeb21f77c9bde10f399b896a9633362fa'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -37,14 +45,16 @@ if [ ${_patchver} -ne 0 ]; then
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
 		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.xz"
+		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
 	)
 	sha256sums=( "${sha256sums[@]}"
 		'5f84a4ff394444486d1715d5283383a8461ff089ed9b9fdc5dde2ed65531d21e'
+		'SKIP'
 	)
 fi
 
 _grsecver="3.0"
-_grsecdate="201412211908"
+_grsecdate="201412280859"
 
 # extra patches
 _extrapatches=(
@@ -52,7 +62,7 @@ _extrapatches=(
 	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
 )
 _extrapatchessums=(
-	'6a54cf72bf2d0231f6c1e13eda0585919178e66312270522d91a9c34c32643f7'
+	'53e69e41da87186b2c033a0b053bece520b592a9d095075ec2b7f2a717c1baa0'
 	'SKIP'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
@@ -65,15 +75,6 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 fi
 
 prepare() {
-	# check signatures
-	curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
-	xz -cd linux-${_basekernel}.tar.xz | gpg --verify linux-${_basekernel}.tar.sign -
-
-	if [ ${_patchver} -ne 0 ]; then
-		curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
-		gpg --verify ${_patchname}.sign
-	fi
-
 	cd "$srcdir/linux-$_basekernel"
 	# Add revision patches
 	if [ $_patchver -ne 0 ]; then
