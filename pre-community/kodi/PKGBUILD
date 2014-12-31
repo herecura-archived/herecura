@@ -12,10 +12,10 @@
 _prefix=/usr
 
 pkgbase=kodi
-pkgname=('kodi' 'kodi-texturepacker')
+pkgname=('kodi' 'kodi-eventclients')
 pkgver=14.0
 _codename=Helix
-pkgrel=0.7
+pkgrel=0.8
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -32,7 +32,7 @@ makedepends=(
 'libmpeg2' 'libmodplug'
 'sdl2' 'sdl_image'
 'nss-mdns'
-'libsquish'
+'cwiid'
 )
 source=(
   "$pkgname-$pkgver-$_codename.tar.gz::https://github.com/xbmc/xbmc/archive/$pkgver-$_codename.tar.gz"
@@ -43,7 +43,6 @@ sha256sums=(
 
 prepare() {
   cd "$srcdir/xbmc-$pkgver-$_codename"
-
 
   find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
   sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
@@ -119,19 +118,19 @@ package_kodi() {
   done
 }
 
-package_kodi-texturepacker() {
-  pkgdesc="A tool to compile all images used in a skin into a single file."
+package_kodi-eventclients() {
+  pkgdesc="Kodi Event Clients"
 
   depends=(
-    'lzo'
-    'sdl_image'
+    'cwiid'
   )
 
   cd "$srcdir/xbmc-$pkgver-$_codename"
 
-	install -Dm755 $srcdir/xbmc-$pkgver-$_codename/tools/TexturePacker/TexturePacker \
-		${pkgdir}${_prefix}/lib/kodi/TexturePacker
+  make DESTDIR="$pkgdir" eventclients WII_EXTRA_OPTS=-DCWIID_OLD
 
-  install -dm755 "${pkgdir}${_prefix}/bin"
-  ln -sf "${_prefix}/lib/kodi/TexturePacker" "${pkgdir}${_prefix}/bin/kodi-TexturePacker"
+  install -dm755 "$pkgdir/usr/share/$pkgbase/eventclients"
+  mv "$pkgdir/kodi"/* "$pkgdir/usr/share/$pkgbase/eventclients"
+  rmdir "$pkgdir/kodi"
 }
+
