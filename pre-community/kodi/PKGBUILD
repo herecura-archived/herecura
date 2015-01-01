@@ -15,24 +15,18 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients')
 pkgver=14.0
 _codename=Helix
-pkgrel=0.8
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
 makedepends=(
-'bluez-libs' 'curl' 'glew' 'hicolor-icon-theme' 'libaacs'
-'libass' 'libbluray' 'libcdio' 'libmariadbclient' 'libmicrohttpd'
-'libpulse' 'libssh' 'libva' 'libvdpau' 'libxrandr'
-'libxslt' 'lzo' 'libgl' 'python2-pillow' 'python2-pybluez'
-'python2-simplejson' 'rtmpdump' 'smbclient' 'taglib' 'tinyxml'
-'yajl'
-'afpfs-ng' 'boost' 'cmake' 'doxygen' 'git' 'gperf' 'jasper'
-'java-runtime' 'libcec' 'libnfs' 'libplist' 'nasm' 'shairplay'
-'swig' 'unzip' 'upower' 'zip'
-'libmpeg2' 'libmodplug'
-'sdl2' 'sdl_image'
-'nss-mdns'
-'cwiid'
+  'afpfs-ng' 'bluez-libs' 'boost' 'cmake' 'curl' 'cwiid' 'doxygen' 'git' 'glew'
+  'gperf' 'hicolor-icon-theme' 'jasper' 'java-runtime' 'libaacs' 'libass'
+  'libbluray' 'libcdio' 'libcec' 'libgl' 'libmariadbclient' 'libmicrohttpd'
+  'libmodplug' 'libmpeg2' 'libnfs' 'libplist' 'libpulse' 'libssh' 'libva'
+  'libvdpau' 'libxrandr' 'libxslt' 'lzo' 'nasm' 'nss-mdns' 'python2-pillow'
+  'python2-pybluez' 'python2-simplejson' 'rtmpdump' 'sdl2' 'sdl_image'
+  'shairplay' 'smbclient' 'swig' 'taglib' 'tinyxml' 'unzip' 'upower' 'yajl' 'zip'
 )
 source=(
   "$pkgname-$pkgver-$_codename.tar.gz::https://github.com/xbmc/xbmc/archive/$pkgver-$_codename.tar.gz"
@@ -121,9 +115,7 @@ package_kodi() {
 package_kodi-eventclients() {
   pkgdesc="Kodi Event Clients"
 
-  depends=(
-    'cwiid'
-  )
+  depends=('cwiid')
 
   cd "$srcdir/xbmc-$pkgver-$_codename"
 
