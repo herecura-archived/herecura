@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
 _patchver=27
 pkgver=$_basekernel
-pkgrel=4
+pkgrel=5
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -54,7 +54,7 @@ if [ ${_patchver} -ne 0 ]; then
 fi
 
 _grsecver="3.0"
-_grsecdate="201412310752"
+_grsecdate="201501011217"
 
 # extra patches
 _extrapatches=(
@@ -62,7 +62,7 @@ _extrapatches=(
 	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
 )
 _extrapatchessums=(
-	'7d127679f02ae50b1016086596ef27b4511ed3e70c85a97d91195e3075c0f3ea'
+	'9136a07098a7bc9fe9da7a4ce1137097e095f8068072ac2b158a40b1d4f13b0e'
 	'SKIP'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
