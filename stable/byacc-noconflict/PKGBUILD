@@ -6,8 +6,8 @@
 
 pkgname=byacc-noconflict
 _pkgname=byacc
-pkgver=20141006
-pkgrel=2
+pkgver=20141128
+pkgrel=1
 pkgdesc="Non-conflicting version of byacc not providing bison/yacc"
 arch=('i686' 'x86_64')
 url="http://invisible-island.net/byacc/"
@@ -16,10 +16,6 @@ depends=('glibc')
 provides=('byacc')
 source=(ftp://invisible-island.net/$_pkgname/$_pkgname-$pkgver.tgz
 		ftp://invisible-island.net/$_pkgname/$_pkgname-$pkgver.tgz.asc)
-md5sums=('62d58192f2995f24cef41a7cb8ec9ba3'
-		 'SKIP')
-sha256sums=('391b0ac550e94920a86960c6973ec539784dc84849e7c2bb1645ae6d8178b14d'
-			'SKIP')
 validpgpkeys=('C52048C0C0748FEE227D47A2702353E0F7E48EDB')
 
 build() {
@@ -43,3 +39,6 @@ package() {
   cd ${pkgdir}/usr/share/man/man1
   mv yacc.1 byacc.1
 }
+
+sha256sums=('f517fc21f08c1a1f010177357df58fc64eb1131011e5dcd48c19fe44c47198d0'
+            'SKIP')
