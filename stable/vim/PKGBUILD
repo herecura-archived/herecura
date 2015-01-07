@@ -8,7 +8,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.4
-_patchlevel=560
+_patchlevel=564
 if [ "$_patchlevel" = "0" ]; then
 	pkgver=${_basever}
 else
@@ -95,8 +95,8 @@ build() {
 		--disable-gui --enable-multibyte --enable-cscope \
 		--disable-netbeans --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
-		#--disable-rubyinterp --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-gtk'
@@ -108,8 +108,8 @@ build() {
 		--enable-gui=gtk2 --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
-		#--disable-rubyinterp --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 
 	msg2 'Building vim-gvim-qt'
@@ -124,8 +124,8 @@ build() {
 		--enable-gui=qt --enable-multibyte --enable-cscope \
 		--enable-netbeans  --enable-perlinterp=dynamic \
 		--enable-pythoninterp=dynamic --enable-python3interp=dynamic \
-		--enable-rubyinterp=dynamic --enable-luainterp=dynamic
-		#--disable-rubyinterp --enable-luainterp=dynamic
+		--disable-rubyinterp --enable-luainterp=dynamic
+		#--enable-rubyinterp=dynamic --enable-luainterp=dynamic
 	make
 }
 
