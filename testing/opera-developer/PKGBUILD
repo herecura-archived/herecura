@@ -6,7 +6,7 @@
 # Contributor: eworm
 
 pkgname=opera-developer
-pkgver=28.0.1719.0
+pkgver=28.0.1738.0
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
@@ -69,6 +69,6 @@ package() {
 		"$pkgdir/usr/share/licenses/$pkgname/copyright"
 }
 
-sha256sums=('cfba0fd8c5b20c861ea10e8bfc44e962514a17b4d78d48a2f10b4c108cdb7c4f'
+sha256sums=('4d4a3fdcb625dac7b3c89e1f5e943610e26c7f7ebbf93f9daf5672eb8be23741'
             '508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
             '4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027')
