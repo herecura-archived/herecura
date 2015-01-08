@@ -3,11 +3,11 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
-_kernelname=-besrv
+_kernelname=3.14-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
-_patchver=27
+_patchver=28
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -16,8 +16,14 @@ makedepends=('bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
+validpgpkeys=(
+	'ABAF11C65A2970B130ABE3C479BE3E4300411886'
+	'647F28654894E3BD457199BE38DBBDC86092693E'
+)
+
 source=(
 	"https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.xz"
+	"https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
 	# the main kernel config files
 	"config-server.i686"
 	"config-server.x86_64"
@@ -26,6 +32,7 @@ source=(
 )
 sha256sums=(
 	'61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
+	'SKIP'
 	'a526a49387d491642b2d03813a501e4f5ab0d4f13f62693f6e066e602c8951e1'
 	'4d10e3843b36a6c8c4a565e257dd4a7198ed7fb0f5b575425cd13bbdb0f4b9e8'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
@@ -37,9 +44,11 @@ if [ ${_patchver} -ne 0 ]; then
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
 		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.xz"
+		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'5f84a4ff394444486d1715d5283383a8461ff089ed9b9fdc5dde2ed65531d21e'
+		'e3c79a30ac959c84c329be5461da88a5c79c6463da30d376c27bb103aee79b51'
+		'SKIP'
 	)
 fi
 
@@ -58,16 +67,8 @@ if [ ${#_extrapatches[@]} -ne 0 ]; then
 fi
 
 prepare() {
-	# check signatures
-	curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/linux-${_basekernel}.tar.sign"
-	xz -cd linux-${_basekernel}.tar.xz | gpg --verify linux-${_basekernel}.tar.sign -
-
-	if [ ${_patchver} -ne 0 ]; then
-		curl -O "https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
-		gpg --verify ${_patchname}.sign
-	fi
-
 	cd "$srcdir/linux-$_basekernel"
+
 	# Add revision patches
 	if [ $_patchver -ne 0 ]; then
 		msg2 "apply $_patchname"
@@ -137,7 +138,7 @@ build() {
 	make $MAKEFLAGS bzImage modules
 }
 
-package_linux-besrv() {
+package_linux3.14-besrv() {
 	pkgdesc="The Linux Kernel and modules, BlackEagle Server Edition"
 	provides=('linux')
 	backup=(
@@ -208,7 +209,7 @@ package_linux-besrv() {
 	mv "$pkgdir/lib" "$pkgdir/usr/"
 }
 
-package_linux-besrv-headers() {
+package_linux3.14-besrv-headers() {
 	pkgdesc="Header files and scripts for building modules for linux$_kernelname"
 	provides=('linux-headers')
 	replaces=("kernel26$_kernelname-headers" "linux-bemm-headers")
