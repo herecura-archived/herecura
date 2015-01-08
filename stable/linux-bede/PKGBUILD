@@ -7,7 +7,7 @@ _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.18
-_patchver=1
+_patchver=2
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
 	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x/testing'
@@ -26,8 +26,14 @@ makedepends=('bc' 'kmod')
 url="http://www.kernel.org"
 options=(!strip)
 
+validpgpkeys=(
+	'ABAF11C65A2970B130ABE3C479BE3E4300411886'
+	'647F28654894E3BD457199BE38DBBDC86092693E'
+)
+
 source=(
 	"$_baseurl/$_linuxname.tar.xz"
+	"$_baseurl/$_linuxname.tar.sign"
 	# the main kernel config files
 	"config-desktop.i686"
 	"config-desktop.x86_64"
@@ -38,6 +44,7 @@ source=(
 )
 sha256sums=(
 	'becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd'
+	'SKIP'
 	'fd5a9a96871242800496ecf05d50f565ce94e32b6f717f5a57f71f7187d84395'
 	'cd112708cf3c50a53ba12fab4b9a6ce34da7437f5747576fbe9d900d10858fe3'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
@@ -51,9 +58,11 @@ if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
 	_patchname="patch-$pkgver"
 	source=( "${source[@]}"
 		"$_baseurl/$_patchname.xz"
+		"$_baseurl/$_patchname.sign"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'4df87c395c94012544ca297db6608fe8e7c8fb5289641c4bfb4d9d87b6f06968'
+		'927a30c152a193d22242de21b99c9765fb0086b0aa3fabd31938ffc6e1b3f37c'
+		'SKIP'
 	)
 	fi
 fi
@@ -73,17 +82,6 @@ if [[ ${#_extrapatches[@]} -ne 0 ]]; then
 fi
 
 prepare() {
-	# check signatures
-	curl -O "$_baseurl/${_linuxname}.tar.sign"
-	xz -cd ${_linuxname}.tar.xz | gpg --verify ${_linuxname}.tar.sign -
-
-	if [[ "$_patchver" =~ ^[0-9]+$ ]]; then
-		if [[ ${_patchver} -ne 0 ]]; then
-			curl -O "$_baseurl/${_patchname}.sign"
-			gpg --verify ${_patchname}.sign
-		fi
-	fi
-
 	cd "$srcdir/$_linuxname"
 
 	# Add revision patches
