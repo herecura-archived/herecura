@@ -7,10 +7,9 @@
 
 pkgname=opera-developer
 pkgver=28.0.1738.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
-makedepends=('libsystemd' 'ffmpeg')
 provides=('opera')
 replaces=('opera-devel' 'opera-dev')
 install=${pkgname}.install
@@ -38,16 +37,6 @@ package() {
 	)
 
 	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
-
-	# fix sonames (libudev and ffmpeg)
-	(
-	cd "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/"
-	for ffmpeglib in libudev libavcodec libavformat libavutil; do
-		so_system=$(pacman -Ql | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
-		so_opera=$(strings $pkgname | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
-		sed -e "s/$so_opera/$so_system/" -i $pkgname
-	done
-	)
 
 	# suid opera_sandbox
 	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_sandbox"
