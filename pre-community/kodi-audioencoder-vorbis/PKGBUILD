@@ -2,8 +2,8 @@
 # Maintainer: BlackEagle <ike.devolder@gmail.com>>
 
 pkgname=kodi-audioencoder-vorbis
-pkgver=20141224.787d4a0
-pkgrel=2
+pkgver=20150110.dbf5c62
+pkgrel=1
 pkgdesc="kodi audioencoder addon for ogg/vorbis"
 arch=('i686' 'x86_64')
 url='https://github.com/xbmc/audioencoder.vorbis'
