@@ -8,7 +8,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.4
-_patchlevel=568
+_patchlevel=569
 if [ "$_patchlevel" = "0" ]; then
 	pkgver=${_basever}
 else
@@ -32,7 +32,6 @@ source=(
 	'qt-icons.tar.gz'
 	'qvim.desktop'
 	'qvim.png'
-	'if_ruby22.patch'
 )
 sha256sums=(
 	'SKIP'
@@ -44,7 +43,6 @@ sha256sums=(
 	'e08adea5da6db4677b6b77dd5e6d9fce37395d9b44c7a171ea10909d307b2334'
 	'e61684f12ec23944903e37deb9d902a072ffa71d7c00fedea32c1176d84dc9bd'
 	'c530f9d5dc6beb2cfa9e4e60dc8f74e1a26694d9f090f7ab0d40f8e963cfb280'
-	'5fa9e1cd062fca6676af20223efc27171b79cc6a660242394eeb2d3380e472e5'
 )
 
 __hgroot='https://code.google.com/p/vim/'
@@ -61,7 +59,6 @@ prepare() {
 	cp -a ${pkgbase} vim-build
 	(
 		cd vim-build && rm -rf ./.hg*
-		patch -Np1 -i "$srcdir/if_ruby22.patch"
 	)
 
 	# define the place for the global (g)vimrc file (set to /etc/vimrc)
