@@ -5,7 +5,7 @@ pkgbase=doublecmd-svn
 _svnmod=doublecmd
 pkgname=('doublecmd-svn-gtk2' 'doublecmd-svn-qt')
 pkgver=5807
-pkgrel=1
+pkgrel=2
 url="http://doublecmd.sourceforge.net/"
 arch=('i686' 'x86_64')
 license=('GPL')
@@ -32,16 +32,18 @@ pkgver() {
 prepare() {
 	cd "$srcdir/$_svnmod"
 	#sed -e 's/\(export\ lazbuild=\).*/\1"$(which\ lazbuild) --lazarusdir=\/usr\/lib\/lazarus"/' -i build.sh
-	#sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i ./install/linux/install.sh
+	sed -e 's/LIB_SUFFIX=.*/LIB_SUFFIX=/g' -i ./install/linux/install.sh
+
+	cd "$srcdir"
+
+	[ -d "$pkgbase-gtk" ] && rm -rf "$pkgbase-gtk"
+	[ -d "$pkgbase-qt"  ] && rm -rf "$pkgbase-qt"
+
+	cp -a "$_svnmod" "$pkgbase-gtk"
+	cp -a "$_svnmod" "$pkgbase-qt"
 }
 
 build() {
-	[ -d $pkgbase-gtk ] && rm -rf $pkgbase-gtk
-	[ -d $pkgbase-qt  ] && rm -rf $pkgbase-qt
-
-	cp -a $_svnmod $pkgbase-gtk
-	cp -a $_svnmod $pkgbase-qt
-
 	msg2 'build gtk'
 	gtkdir="$srcdir/$pkgbase-gtk"
 	cd "$gtkdir"
