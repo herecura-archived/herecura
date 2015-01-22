@@ -3,5 +3,5 @@ update_pkgver=""
 pwd=$PWD
 cd $SRCDEST/$pkgname
 git fetch --all -p
-update_pkgver=$(git log -1 --date=short --format="%cd.%h" | tr -d '-')
+update_pkgver=$(git log better-php-parser -1 --date=short --format="%cd.%h" | tr -d '-')
 cd $pwd
