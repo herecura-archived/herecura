@@ -6,7 +6,7 @@ paths=(
 	'etc/opera-beta/default'
 	'etc/opera/default'
 )
-flashver=14.0.0.125
+flashver=16.0.0.296
 
 instructions() {
 
