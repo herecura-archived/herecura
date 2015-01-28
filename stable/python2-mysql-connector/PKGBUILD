@@ -1,7 +1,7 @@
 # Maintainer: Raphaël Doursenaud <rdoursenaud@free.fr>
 pkgname=python2-mysql-connector
 _pkgname=mysql-connector-python
-pkgver=2.0.2
+pkgver=2.0.3
 pkgrel=1
 pkgdesc="A standardized database driver for Python platforms and development"
 arch=('any')
@@ -22,4 +22,4 @@ package() {
 	cd "$srcdir/$_pkgname-$pkgver"
 	python2 setup.py install --root="$pkgdir/" --optimize=1
 }
-sha256sums=('6995f1e5a31b4dbff59e39e384261b26de4797afacaed3a460270d765f3a73c7')
+sha256sums=('b07a42c6c1d0476d47315428df89f3fd84626d1df18045babdaa182a6a331ec8')
