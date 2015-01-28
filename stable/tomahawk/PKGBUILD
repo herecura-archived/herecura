@@ -3,12 +3,12 @@
 
 pkgname=tomahawk
 pkgver=0.8.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A Music Player App written in C++/Qt"
 arch=('i686' 'x86_64')
 url="http://tomahawk-player.org/"
 license=('GPL3')
-depends=('phonon-qt4' 'taglib' 'boost' 'lucene++' 'libechonest2' 'jreen' 'qtweetlib' 'quazip' 'attica-qt4' 'qtwebkit' 'liblastfm' 'sparsehash' 'qtkeychain' 'websocketpp')
+depends=('phonon-qt4' 'taglib' 'boost' 'lucene++' 'libechonest2' 'jreen' 'qtweetlib' 'quazip' 'attica-qt4' 'qtwebkit' 'liblastfm' 'sparsehash' 'qtkeychain-qt4' 'websocketpp')
 makedepends=('cmake')
 provides=('tomahawk')
 conflicts=('tomahawk-git')
