@@ -1,7 +1,7 @@
 pkgname=davmail
-_pkgver=4.5.1
-_rev=2303
-pkgver=4.5.1.2303
+_pkgver=4.6.0
+_rev=2331
+pkgver=4.6.0.2331
 pkgrel=1
 pkgdesc="a POP/IMAP/SMTP/Caldav/LDAP gateway for the exchange service"
 arch=('i686' 'x86_64')
@@ -48,4 +48,4 @@ package() {
 	install -Dm644 dist/$pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
 }
 
-sha256sums=('2621a5cbc81c06d0345ec05c93664a052e2e9d2d2bfda8e731a8fb94fd70f752')
+sha256sums=('66c5e598c999659dc76d4580ebb60dd579c2657dc4883c4ece226734646cc8aa')
