@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://kde-apps.org/content/show.php?content=122046 | grep -ie "<h1.*contentmainheadline.*knights</h1>" | sed 's/.*<span class=\"contentdata\">\([0-9\.a-z\-]*\)<\/span>.*/\1/g')

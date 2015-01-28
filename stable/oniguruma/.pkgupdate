@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://www.geocities.jp/kosako3/oniguruma/ | grep -m1 -ie 'Version.*released.' | sed 's,.*Version \([0-9a-z\.]*\) released\..*,\1,')
