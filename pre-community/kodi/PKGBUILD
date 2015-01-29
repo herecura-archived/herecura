@@ -15,7 +15,7 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients')
 pkgver=14.0
 _codename=Helix
-pkgrel=1
+pkgrel=1.5
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -94,6 +94,7 @@ package_kodi() {
     'unrar: Archives support'
     'unzip: Archives support'
     'upower: Display battery level'
+    'lsb-release: log distro information in crashlog'
   )
   install="kodi.install"
   provides=('xbmc')
@@ -121,8 +122,8 @@ package_kodi-eventclients() {
 
   make DESTDIR="$pkgdir" eventclients WII_EXTRA_OPTS=-DCWIID_OLD
 
-  install -dm755 "$pkgdir/usr/share/$pkgbase/eventclients"
-  mv "$pkgdir/kodi"/* "$pkgdir/usr/share/$pkgbase/eventclients"
+  install -dm755 "$pkgdir/usr/lib/python2.7/$pkgbase"
+  mv "$pkgdir/kodi"/* "$pkgdir/usr/lib/python2.7/$pkgbase"
   rmdir "$pkgdir/kodi"
 }
 
