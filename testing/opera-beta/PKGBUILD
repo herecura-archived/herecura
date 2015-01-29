@@ -7,10 +7,9 @@
 
 pkgname=opera-beta
 pkgver=27.0.1689.44
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. beta version."
 url="http://blogs.opera.com/desktop/"
-makedepends=('libsystemd' 'ffmpeg')
 provides=('opera')
 install=${pkgname}.install
 options=(!strip !zipman)
@@ -22,6 +21,12 @@ source=(
 	"opera"
 	"default"
 )
+depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+optdepends=(
+	'curl: opera crash reporter and autoupdate checker'
+	'ffmpeg: playback of proprietary formats'
+)
+
 
 prepare() {
 	sed -e "s/%pkgname%/$pkgname/g" -i "$srcdir/opera"
@@ -30,23 +35,11 @@ prepare() {
 }
 
 package() {
-	depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
-	optdepends=(
-		'curl: opera crash reporter and autoupdate checker'
-		'ffmpeg: playback of not really open formats'
-	)
-
 	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
 
-	# fix sonames (libudev and ffmpeg)
-	(
-	cd "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/"
-	for ffmpeglib in libudev libavcodec libavformat libavutil; do
-		so_system=$(pacman -Ql | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
-		so_opera=$(strings $pkgname | grep -e "$ffmpeglib.so.[0-9]*" | sort -V | head -n1 | sed -e "s/.*\($ffmpeglib.*\)/\1/")
-		sed -e "s/$so_opera/$so_system/" -i $pkgname
-	done
-	)
+	# soname fix for libsystemd (udev)
+	sed -e 's/libudev.so.0/libudev.so.1/g' \
+		-i "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/$pkgname"
 
 	# suid opera_sandbox
 	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_sandbox"
