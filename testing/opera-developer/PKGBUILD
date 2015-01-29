@@ -7,7 +7,7 @@
 
 pkgname=opera-developer
 pkgver=28.0.1750.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
 provides=('opera')
@@ -22,6 +22,12 @@ source=(
 	"opera"
 	"default"
 )
+depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
+optdepends=(
+	'curl: opera crash reporter and autoupdate checker'
+	'ffmpeg: playback of proprietary formats'
+)
+
 
 prepare() {
 	sed -e "s/%pkgname%/$pkgname/g" -i "$srcdir/opera"
@@ -30,12 +36,6 @@ prepare() {
 }
 
 package() {
-	depends=('gtk2' 'desktop-file-utils' 'shared-mime-info' 'libxtst' 'gconf' 'libxss' 'gcc-libs' 'alsa-lib' 'nss' 'freetype2' 'ttf-font')
-	optdepends=(
-		'curl: opera crash reporter and autoupdate checker'
-		'ffmpeg: playback of not really open formats'
-	)
-
 	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
 
 	# suid opera_sandbox
