@@ -15,7 +15,7 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients')
 pkgver=14.0
 _codename=Helix
-pkgrel=1.5
+pkgrel=1.6
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -58,7 +58,6 @@ build() {
     --disable-debug \
     --enable-optimizations \
     --enable-libbluray \
-    --enable-texturepacker \
     --enable-external-libraries \
     --with-lirc-device=/run/lirc/lircd
 
