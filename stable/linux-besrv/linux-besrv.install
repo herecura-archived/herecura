@@ -1,8 +1,8 @@
 # arg 1:  the new package version
 # arg 2:  the old package version
 
-KERNEL_NAME=-besrv
-KERNEL_VERSION=3.12.15-1-BESRV
+KERNEL_NAME=
+KERNEL_VERSION=
 
 post_install () {
   # updating module dependencies

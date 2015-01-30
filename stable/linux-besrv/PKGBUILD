@@ -3,11 +3,11 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
-_kernelname=3.14-besrv
+_kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
-_patchver=30
+_patchver=31
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -47,7 +47,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'd49803d1d4d99f8b984d8512d4413b7f03cc140be62de29c8cb7b10e40ae0a66'
+		'4eb7743905bad80c8502d88913cfb5424c1772dbe44af30da97ed4198b12e4a1'
 		'SKIP'
 	)
 fi
@@ -138,7 +138,7 @@ build() {
 	make $MAKEFLAGS bzImage modules
 }
 
-package_linux3.14-besrv() {
+package_linux-besrv() {
 	pkgdesc="The Linux Kernel and modules, BlackEagle Server Edition"
 	provides=('linux')
 	backup=(
@@ -150,7 +150,7 @@ package_linux3.14-besrv() {
 		'linux-firmware: when having some hardware needing special firmware'
 	)
 	replaces=(
-		'nouveau-drm' 'kernel26-slk' "kernel26$_kernelname" "linux-bemm"
+		'linux3.14-besrv' 'linux3.12-besrv'
 	)
 
 	install=$pkgname.install
@@ -209,7 +209,7 @@ package_linux3.14-besrv() {
 	mv "$pkgdir/lib" "$pkgdir/usr/"
 }
 
-package_linux3.14-besrv-headers() {
+package_linux-besrv-headers() {
 	pkgdesc="Header files and scripts for building modules for linux$_kernelname"
 	provides=('linux-headers')
 	replaces=("kernel26$_kernelname-headers" "linux-bemm-headers")
