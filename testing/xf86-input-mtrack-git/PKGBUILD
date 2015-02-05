@@ -4,7 +4,7 @@
 _pkgname=xf86-input-mtrack
 pkgname="$_pkgname-git"
 pkgver=0.3.0.r2.g5f53106
-pkgrel=1
+pkgrel=2
 pkgdesc="A multitouch X driver using the kernel MT protocol"
 arch=('i686' 'x86_64')
 url="http://github.com/BlueDragonX/$_pkgname"
@@ -13,7 +13,7 @@ depends=('mtdev' 'libxss')
 makedepends=('git' 'xorg-server-devel' 'resourceproto' 'glproto')
 provides=("$_pkgname")
 conflicts=("$_pkgname")
-backup=('usr/share/X11/xorg.conf.d/10-mtrack.conf')z
+backup=('usr/share/X11/xorg.conf.d/10-mtrack.conf')
 options=()
 install=
 source=(
