@@ -1,5 +1,5 @@
 post_upgrade() {
-	EXTRAMODULES='extramodules-3.18-ck'
+	EXTRAMODULES=3.18-BEDE-external
 	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
 }
 
