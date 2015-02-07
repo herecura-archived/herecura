@@ -2,7 +2,7 @@
 # https://github.com/zizzfizzix/pkgbuilds
 
 pkgname=jreen
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Free and Opensource Jabber library, written in C++ using cross-platform framework Qt."
 arch=('i686' 'x86_64')
@@ -39,5 +39,5 @@ package() {
   cd "${pkgname}-${pkgver}-build"
   make DESTDIR="${pkgdir}" install
 }
-sha256sums=('e0f2e08309fa794aafe127508a59d255f4ecbe2f75ba53f2edc53e8cd179cb61'
+sha256sums=('f5124fe6e24400703b86279f903332a175469b8aef43904fb84bb28c89c3e7bf'
             '52f719c34820747b577f2684fe4fa563b68df476b4b2e3d67886d3e74c4bf6db')
