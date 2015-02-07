@@ -1,49 +1,46 @@
 # Maintainer: Zach <mikezackles@gmail.com>
 # Contributor: James An <james@jamesan.ca>
 
-_pkgname=xf86-input-mtrack
-pkgname="$_pkgname-git"
-pkgver=0.3.0.r2.g5f53106
-pkgrel=2
+_gitname=xf86-input-mtrack
+pkgname="$_gitname-git"
+pkgver=20150206.eb94a05
+pkgrel=1
 pkgdesc="A multitouch X driver using the kernel MT protocol"
 arch=('i686' 'x86_64')
 url="http://github.com/BlueDragonX/$_pkgname"
 license=('GPL')
 depends=('mtdev' 'libxss')
 makedepends=('git' 'xorg-server-devel' 'resourceproto' 'glproto')
-provides=("$_pkgname")
-conflicts=("$_pkgname")
+provides=("$_gitname")
+conflicts=("$_gitname")
 backup=('usr/share/X11/xorg.conf.d/10-mtrack.conf')
 options=()
 install=
 source=(
-  "$_pkgname"::"git+https://github.com/BlueDragonX/$_pkgname.git"
-  10-mtrack.conf
+	"$_gitname"::"git+https://github.com/BlueDragonX/$_gitname.git"
+	10-mtrack.conf
 )
-md5sums=(
-  'SKIP'
-  ffb540330d92957e0da28af5a005136e
+sha256sums=(
+	'SKIP'
+	'5e0bc6ee814165be31e0265842f066c290b544757451d15c7e6eb370d4c0e356'
 )
 
 pkgver() {
-  cd "$_pkgname"
-  ( set -o pipefail
-    git describe --long --tags | sed -r 's/([^-]*-g)/r\1/;s/-/./g;s/^[^0-9]*//' ||
-    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-  )
+	cd "$_gitname"
+	git log -1 --date=short --format="%cd.%h" | tr -d '-'
 }
 
 build() {
-  cd "$_pkgname"
+	cd "$_gitname"
 
-  autoreconf --install
-  ./configure --prefix=/usr
-  make
+	autoreconf --install
+	./configure --prefix=/usr
+	make
 }
 
 package() {
-  cd "$_pkgname"
+	cd "$_gitname"
 
-  make DESTDIR="$pkgdir" install
-  install -Dm644 "$srcdir/10-mtrack.conf" "$pkgdir/usr/share/X11/xorg.conf.d/10-mtrack.conf"
+	make DESTDIR="$pkgdir" install
+	install -Dm644 "$srcdir/10-mtrack.conf" "$pkgdir/usr/share/X11/xorg.conf.d/10-mtrack.conf"
 }
