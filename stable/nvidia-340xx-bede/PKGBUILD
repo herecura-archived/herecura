@@ -4,13 +4,13 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-340xx-bede
-pkgver=340.65
+pkgver=340.76
 _extramodules=3.18-BEDE-external
-pkgrel=6
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.18.5' 'linux-bede<3.19' 'linux-bede-headers>=3.18' 'linux-bede-headers<3.19' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
+makedepends=('linux-bede>=3.18.6' 'linux-bede<3.19' 'linux-bede-headers>=3.18' 'linux-bede-headers<3.19' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
 conflicts=('nvidia')
 license=('custom')
 install=nvidia.install
@@ -59,6 +59,6 @@ package() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
 
-sha256sums=('e78511435d7794cac09916b98857d98d0c36607ac4dfde0b05ea4aef26ecd973'
-            '03c2c8d2041d4734d57e831e2b703bbed4a6152d3e25de3fad586035da704b79'
+sha256sums=('9b29d93b49009caed84a8852825c3e7c6ebbbba8ec99b03ee5113108c8b036d0'
+            '4c1ede2381cdd48139cdc4f3c657c5c347367160a6b1692bf09454969fb6d004'
             'c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35')
