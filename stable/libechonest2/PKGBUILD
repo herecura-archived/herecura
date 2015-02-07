@@ -4,7 +4,7 @@
 
 _pkgname=libechonest
 pkgname=${_pkgname}2
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc="C++ library for interfacing with Echo Nest"
 arch=('i686' 'x86_64')
@@ -38,4 +38,4 @@ package() {
   make DESTDIR=${pkgdir} install
 }
 
-sha256sums=('79983ba72fbf9b112ebfb329b96b60eddf25d719ebe34eb70de01aa106ae2b44')
+sha256sums=('56756545fd1cb3d9067479f52215b6157c1ced2bc82b895e72fdcd9bebb47889')
