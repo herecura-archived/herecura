@@ -1,7 +1,8 @@
 # Maintainer: tailinchu <use_my_id at gmail dot com>
 
 pkgname=powerdown-git
-pkgver=143.98bf2dc
+_gitname="powerdown"
+pkgver=20150201.cb86740
 pkgrel=1
 pkgdesc="simple linux powersaving script (git version)"
 arch=('any')
@@ -11,18 +12,17 @@ depends=('bash' 'iw' 'ethtool' 'hdparm' 'bc' 'x86_energy_perf_policy')
 makedepends=('git')
 conflicts=('pm-utils')
 provides=('pm-utils')
-source=("git://github.com/taylorchu/powerdown.git")
+source=("$_gitname::git://github.com/taylorchu/powerdown.git")
 md5sums=('SKIP')
 
-_gitroot="powerdown"
 
 pkgver () {
-    cd "$srcdir/$_gitroot"
-    echo "$(git rev-list --count HEAD).$(git describe --always)"
+    cd "$srcdir/$_gitname"
+	git log -1 --date=short --format="%cd.%h" | tr -d '-'
 }
 
 package() {
-    cd "$srcdir/$_gitroot"
+    cd "$srcdir/$_gitname"
     make PREFIX=/usr DESTDIR="$pkgdir" install
 }
 
