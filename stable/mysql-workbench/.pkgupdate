@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://www.mysql.com/downloads/workbench/ | grep -m1 -ie "<h1.*MySQL Workbench [0-9\.]*" | sed 's,.*MySQL Workbench \([0-9\.]*\).*</h1.*,\1,')

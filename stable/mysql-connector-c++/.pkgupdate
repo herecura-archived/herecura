@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- http://dev.mysql.com/downloads/connector/cpp/ | grep -m1 -ie "<h1.*Connector\/C++ [0-9\.]*" | sed 's,.*Connector\/C++ \([0-9\.]*\).*</h1.*,\1,')
