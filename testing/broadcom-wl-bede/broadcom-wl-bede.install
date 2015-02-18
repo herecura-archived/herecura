@@ -1,0 +1,8 @@
+post_upgrade() {
+	EXTRAMODULES=3.18-BEDE-external
+	depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
+}
+
+post_install() {
+	post_upgrade
+}
