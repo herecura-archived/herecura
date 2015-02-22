@@ -9,7 +9,7 @@ pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.14
 _patchver=33
 pkgver=$_basekernel
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -34,8 +34,8 @@ source=(
 sha256sums=(
 	'61558aa490855f42b6340d1a1596be47454909629327c49a5e4e10268065dffa'
 	'SKIP'
-	'ea4d38035e1827d4aff2388a4eded405c33f7cdcceb022ace5035b8d6f982f59'
-	'5a3ef4069e8c7020489c76537c1a2bdfeb21f77c9bde10f399b896a9633362fa'
+	'e1722c65d251d7a77c342aeb9564fdc0792cbd3acda4aa165e4c2b87a7dbf731'
+	'46ac052b6d587e181150c9a4e65eff825fbf9717bbc7201fb90137895c729170'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -54,7 +54,7 @@ if [ ${_patchver} -ne 0 ]; then
 fi
 
 _grsecver="3.0"
-_grsecdate="201502181906"
+_grsecdate="201502200812"
 
 # extra patches
 _extrapatches=(
@@ -62,7 +62,7 @@ _extrapatches=(
 	"http://grsecurity.net/stable/grsecurity-$_grsecver-$pkgver-$_grsecdate.patch.sig"
 )
 _extrapatchessums=(
-	'a80d3c2f5bc54cc79502d759b11e707f5f19a9534307a7c606c3e05fc581bac7'
+	'8de7f01637404afc8cc6303bb3a569b48599a2c2132cc48f934ea3ffe0cdcdb7'
 	'SKIP'
 )
 if [ ${#_extrapatches[@]} -ne 0 ]; then
