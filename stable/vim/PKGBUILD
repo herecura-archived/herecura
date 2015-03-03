@@ -14,8 +14,8 @@ if [ "$_patchlevel" = "0" ]; then
 else
 	pkgver=${_basever}.${_patchlevel}
 fi
-__hgrev=v${pkgver//./-}
-pkgrel=1
+__hgrev=099f8b730941
+pkgrel=2
 _versiondir=vim${_basever/./}
 arch=('i686' 'x86_64')
 license=('custom:vim')
