@@ -5,23 +5,22 @@
 
 pkgname=broadcom-wl-bede
 pkgver=6.30.223.248
-pkgrel=6
+pkgrel=8
 _pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver for linux-bede'
-_extramodules=3.18-BEDE-external
+_extramodules=3.19-BEDE-external
 pkgdesc="${_pkgdesc}"
 arch=('i686' 'x86_64')
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 license=('custom')
-depends=('linux-bede>=3.18.9' 'linux-bede<3.19')
-makedepends=('linux-bede-headers>=3.18' 'linux-bede-headers<3.19')
+makedepends=('linux-bede>=3.19.1' 'linux-bede<3.20' 'linux-bede-headers>=3.19' 'linux-bede-headers<3.20')
 source=('modprobe.d'
 'license.patch'
 'linux-recent.patch'
 'unfuck.patch'
 'broadcom-sta-6.30.223.248-linux-3.18-null-pointer-crash.patch'
 'gcc.patch')
-source_i686+=("http://www.broadcom.com/docs/linux_sta/hybrid-v35-nodebug-pcoem-${pkgver//./_}.tar.gz")
-source_x86_64+=("http://www.broadcom.com/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-${pkgver//./_}.tar.gz")
+source_i686=("http://www.broadcom.com/docs/linux_sta/hybrid-v35-nodebug-pcoem-${pkgver//./_}.tar.gz")
+source_x86_64=("http://www.broadcom.com/docs/linux_sta/hybrid-v35_64-nodebug-pcoem-${pkgver//./_}.tar.gz")
 sha256sums=('b4aca51ac5ed20cb79057437be7baf3650563b7a9d5efc515f0b9b34fbb9dc32'
             '2f70be509aac743bec2cc3a19377be311a60a1c0e4a70ddd63ea89fae5df08ac'
             'f651681496316ac60b5f2d37c93a36b3a4a1ee29ab6aada6eebaef7f7c1f1d02'
@@ -34,11 +33,11 @@ sha256sums_x86_64=('3d994cc6c05198f4b6f07a213ac1e9e45a45159899e6c4a7feca5e6c395c
 install=broadcom-wl-bede.install
 
 prepare() {
-	patch -p1 -i linux-recent.patch
-	patch -p1 -i license.patch
-	patch -p1 -i gcc.patch
-	patch -p1 -i unfuck.patch
-	patch -p1 -i broadcom-sta-6.30.223.248-linux-3.18-null-pointer-crash.patch
+	patch -p1 -i "$srcdir/linux-recent.patch"
+	patch -p1 -i "$srcdir/license.patch"
+	patch -p1 -i "$srcdir/gcc.patch"
+	patch -p1 -i "$srcdir/unfuck.patch"
+	patch -p1 -i "$srcdir/broadcom-sta-6.30.223.248-linux-3.18-null-pointer-crash.patch"
 
 	sed -e "/BRCM_WLAN_IFNAME/s:eth:wlan:" -i src/wl/sys/wl_linux.c
 }
@@ -50,10 +49,14 @@ build() {
 }
 
 package() {
+	depends=('linux-bede>=3.19' 'linux-bede<3.20')
+
 	install -Dm644 wl.ko "${pkgdir}/usr/lib/modules/${_extramodules}/wl.ko"
 
 	# makepkg does not do this automatically for this pkg so do it here
 	gzip -9 "${pkgdir}/usr/lib/modules/${_extramodules}/wl.ko"
 	install -Dm644 lib/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	install -Dm644 modprobe.d "${pkgdir}/usr/lib/modprobe.d/broadcom-wl_ck.conf"
+
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/broadcom-wl-bede.install"
 }
