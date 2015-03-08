@@ -6,8 +6,8 @@
 _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.18
-_patchver=9
+_basekernel=3.19
+_patchver=1
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
 	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x/testing'
@@ -43,10 +43,10 @@ source=(
 	'sysctl-linux-bede.conf'
 )
 sha256sums=(
-	'becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd'
+	'be42511fe5321012bb4a2009167ce56a9e5fe362b4af43e8c371b3666859806c'
 	'SKIP'
-	'ccd7a9eb23e185a794e529f0067d58b1bc64f348e9f86cdcbdfd7bfe2025f623'
-	'559db80618b95cbce4f11326cad4a22a3af13badedd847d4f1b647a1263a9afd'
+	'9c83f9f0d5ef8d07047d8b58b0d6ca754fb1a05d0eb1f0b77afafdb554a972bc'
+	'6503082725d8fa36ca92cc345242e6e7963859fcbffd9c480f8c7d6d4abc5649'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'e939ae473776190eb327e3afd5315626d6ac87a84b5475e08979c319e917a1d4'
 )
@@ -61,7 +61,7 @@ if [[ "$_patchver" =~ ^[0-9]*$ ]]; then
 		"$_baseurl/$_patchname.sign"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'7b5b2a952c3d956c7ca8945de2e1edd4e689039dfc59fdcda1b23cb7d9a9da5d'
+		'3dbf80df9a81a285baa5188ea8d768110f24a3e4fe8bd37e1c9d7410d60a680b'
 		'SKIP'
 	)
 	fi
@@ -293,5 +293,6 @@ package_linux-bede-headers() {
 	chown -R root:root "$pkgdir/usr/src/linux-$_kernver"
 	find "$pkgdir/usr/src/linux-$_kernver" -type d -exec chmod 755 {} \;
 	# remove unneeded architectures
-	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa,arm64,c6x,hexagon,openrisc,unicore32}
+	rm -rf "$pkgdir/usr/src/linux-$_kernver/arch"/{alpha,arm,arm26,avr32,blackfin,cris,frv,h8300,ia64,m32r,m68k,m68knommu,mips,microblaze,mn10300,parisc,powerpc,ppc,s390,score,sh,sh64,sparc,sparc64,tile,um,v850,xtensa,arm64,c6x,hexagon,openrisc,unicore32,ig,arc,metag,nios2}
+	rm -rf "$pkgdir/usr/src/linux-$_kernver/tools/perf/arch"/{arm,arm64}
 }
