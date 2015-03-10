@@ -5,7 +5,7 @@
 
 pkgname=broadcom-wl-bede
 pkgver=6.30.223.248
-pkgrel=8
+pkgrel=9
 _pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver for linux-bede'
 _extramodules=3.19-BEDE-external
 pkgdesc="${_pkgdesc}"
@@ -58,5 +58,5 @@ package() {
 	install -Dm644 lib/LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	install -Dm644 modprobe.d "${pkgdir}/usr/lib/modprobe.d/broadcom-wl_ck.conf"
 
-    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/broadcom-wl-bede.install"
+    sed -i -e "s/EXTRAMODULES=.*/EXTRAMODULES='$_extramodules'/" "$startdir/broadcom-wl-bede.install"
 }
