@@ -39,10 +39,6 @@ prepare() {
 package() {
 	tar -xf data.tar.xz --exclude=usr/share/{lintian,menu} -C "$pkgdir/"
 
-	# soname fix for libsystemd (udev)
-	sed -e 's/libudev.so.0/libudev.so.1/g' \
-		-i "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/$pkgname"
-
 	# suid opera_sandbox
 	chmod 4755 "$pkgdir/usr/lib/x86_64-linux-gnu/$pkgname/opera_sandbox"
 
