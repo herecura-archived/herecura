@@ -1,4 +1,6 @@
+# $Id$
 # Maintainer: BlackEagle < ike DOT devolder AT gmail DOT com >
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Jarek Sedlacek <jareksedlacek@gmail.com>
 
 pkgname=php-mongo
