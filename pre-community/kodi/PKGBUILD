@@ -15,7 +15,7 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients')
 pkgver=14.1
 _codename=Helix
-pkgrel=2
+pkgrel=2.1
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -41,6 +41,11 @@ prepare() {
   find -type f -name *.py -exec sed 's|^#!.*python$|#!/usr/bin/python2|' -i "{}" +
   sed 's|^#!.*python$|#!/usr/bin/python2|' -i tools/depends/native/rpl-native/rpl
 	sed 's/python/python2/' -i tools/Linux/kodi.sh.in
+  sed 's/shell python/shell python2/' -i tools/EventClients/Makefile.in
+  # disable wiiremote due to incompatibility with bluez-5.29
+  sed '/WiiRemote/d' -i tools/EventClients/Makefile.in
+  sed '/mkdir -p $(DESTDIR)$(bindir)/i \
+install:' -i tools/EventClients/Makefile.in
 }
 
 build() {
@@ -59,7 +64,8 @@ build() {
     --enable-optimizations \
     --enable-libbluray \
     --enable-external-libraries \
-    --with-lirc-device=/run/lirc/lircd
+    --with-lirc-device=/run/lirc/lircd \
+    ac_cv_lib_bluetooth_hci_devid=no
 
   # Now (finally) build
   make
@@ -120,9 +126,5 @@ package_kodi-eventclients() {
   cd "$srcdir/xbmc-$pkgver-$_codename"
 
   make DESTDIR="$pkgdir" eventclients WII_EXTRA_OPTS=-DCWIID_OLD
-
-  install -dm755 "$pkgdir/usr/lib/python2.7/$pkgbase"
-  mv "$pkgdir/kodi"/* "$pkgdir/usr/lib/python2.7/$pkgbase"
-  rmdir "$pkgdir/kodi"
 }
 
