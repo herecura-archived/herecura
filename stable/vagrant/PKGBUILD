@@ -3,7 +3,7 @@
 # Contributor: helios <aur@wiresphere.de>
 pkgname=vagrant
 pkgver=1.7.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Tool for building and distributing virtualized development environments"
 arch=('i686' 'x86_64')
 url="http://vagrantup.com/"
@@ -39,4 +39,4 @@ package() {
 
 sha256sums=('6dc4fde5fc5e57e8bead1fbf50ac7ddf232ff347e7a76fe86adc035f9e51be5d'
             '683d9926922685adfb456605ef6becaa811b87f18f54faf7c19abc4888636617'
-            'e4b8a4b4292472033a08b20e4daf5eb62c21c50b491c34ddac9792fec40aac48')
+            'e859db50cf6cf15b4fbde37a8528fe1191585c8961c28494d428394ccce54db2')
