@@ -13,9 +13,9 @@ _prefix=/usr
 
 pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients')
-pkgver=14.1
+pkgver=14.2
 _codename=Helix
-pkgrel=3
+pkgrel=1
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -31,9 +31,7 @@ makedepends=(
 source=(
   "$pkgname-$pkgver-$_codename.tar.gz::https://github.com/xbmc/xbmc/archive/$pkgver-$_codename.tar.gz"
 )
-sha256sums=(
-  'a38059e292cf8523918834e49fcc2d688525ceb7951ddf7f5ee535f4147255d6'
-)
+sha256sums=('d9cb8590430a925fb789a5beb4da2695cdcd2d2500dd31126f3b77b31aa267f4')
 
 prepare() {
   cd "$srcdir/xbmc-$pkgver-$_codename"
