@@ -1,1 +1,0 @@
-update_pkgver=$(wget -q -O- https://opendesktop.org/content/show.php?content=150484 | grep -ie "<h1.*contentmainheadline.*Pacman\ Log\ Viewer</h1>" | sed 's/.*<span class=\"contentdata\">\([0-9\.a-z\-]*\)<\/span>.*/\1/g')
