@@ -15,7 +15,7 @@ pkgbase=kodi
 pkgname=('kodi' 'kodi-eventclients')
 pkgver=14.2
 _codename=Helix
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://kodi.tv"
 license=('GPL2')
@@ -107,6 +107,11 @@ package_kodi() {
   cd "$srcdir/xbmc-$pkgver-$_codename"
   # Running make install
   make DESTDIR="$pkgdir" install
+
+  # We will no longer support the xbmc name
+  rm "$pkgdir/usr/share/xsessions/xbmc.desktop"
+  rm "$pkgdir/usr/bin/"xbmc{,-standalone}
+  # we will leave /usr/{include,lib,share}/xbmc for now
 
   # Licenses
 	install -dm755 ${pkgdir}${_prefix}/share/licenses/${pkgname}
