@@ -2,7 +2,7 @@
 
 pkgname=powerdown-git
 _gitname="powerdown"
-pkgver=20150201.cb86740
+pkgver=20150403.8b95050
 pkgrel=1
 pkgdesc="simple linux powersaving script (git version)"
 arch=('any')
