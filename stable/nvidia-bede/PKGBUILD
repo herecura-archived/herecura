@@ -4,9 +4,9 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=346.47
+pkgver=346.59
 _extramodules=3.19-BEDE-external
-pkgrel=5
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
@@ -19,6 +19,9 @@ options=(!strip)
 
 source_i686=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run")
 source_x86_64=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
+
+sha256sums_i686=('65cf83fccc02399d54212cbeea1c2364e4974687c3ad6cba87cc109476ad2129')
+sha256sums_x86_64=('4c7941e9248a931b720f050c38822708aa8176c4464fc40d02e1c7dd7ebbe767')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -62,5 +65,3 @@ package() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
 
-sha256sums_i686=('bb21527dfcd9855e3ae53ae5b56c29456902354c79f76d859d007068cdf76a6e')
-sha256sums_x86_64=('d1b6672a9ddef2a01a527902b524dec232792cf9b61d3fa7bd0189488a961677')
