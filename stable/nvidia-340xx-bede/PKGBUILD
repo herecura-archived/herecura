@@ -5,20 +5,28 @@
 _pkgname=nvidia
 pkgname=$_pkgname-340xx-bede
 pkgver=340.76
-_extramodules=3.19-BEDE-external
-pkgrel=7
+_extramodules=4.0-BEDE-external
+pkgrel=7.1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=3.19.3' 'linux-bede<3.20' 'linux-bede-headers>=3.19' 'linux-bede-headers<3.20' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
+makedepends=('linux-bede>=4.0' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
 conflicts=('nvidia')
 license=('custom')
 install=nvidia.install
 options=(!strip)
 
+source=(
+    "nv-drm.patch"
+    "nvidia-4.0.patch"
+)
 source_i686=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run")
 source_x86_64=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
-source=("nv-drm.patch")
+
+sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35'
+            '0b2594eec2ed869245041ead9a3cbe92e5b9b2461c3ede7406004ffae240d6e2')
+sha256sums_i686=('9b29d93b49009caed84a8852825c3e7c6ebbbba8ec99b03ee5113108c8b036d0')
+sha256sums_x86_64=('4c1ede2381cdd48139cdc4f3c657c5c347367160a6b1692bf09454969fb6d004')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -29,6 +37,7 @@ prepare() {
     cd $_pkg
     # patch if needed
     patch -p0 -i "$srcdir/nv-drm.patch"
+    patch -p0 -i "$srcdir/nvidia-4.0.patch"
 }
 
 build() {
@@ -43,7 +52,7 @@ build() {
 }
 
 package() {
-    depends=('linux-bede>=3.19' 'linux-bede<3.20' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
+    depends=('linux-bede>=4.0' 'linux-bede<4.1' "nvidia-340xx-utils=$pkgver" "nvidia-340xx-libgl=$pkgver")
 
     install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
         "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
@@ -63,6 +72,3 @@ package() {
     sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='$_extramodules'/" "$startdir/nvidia.install"
 }
 
-sha256sums=('c9986c306f452614fcf23990c55ffe12bdc451bcbd65a5200269f90a722a3d35')
-sha256sums_i686=('9b29d93b49009caed84a8852825c3e7c6ebbbba8ec99b03ee5113108c8b036d0')
-sha256sums_x86_64=('4c1ede2381cdd48139cdc4f3c657c5c347367160a6b1692bf09454969fb6d004')

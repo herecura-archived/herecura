@@ -6,16 +6,16 @@
 _kernelname=-bede
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
-_basekernel=3.19
-_patchver=3
+_basekernel=4.0
+_patchver=0
 if [[ "$_patchver" == rc* ]]; then
 	# rc kernel
-	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x/testing'
+	_baseurl='https://www.kernel.org/pub/linux/kernel/v4.x/testing'
 	pkgver=${_basekernel}$_patchver
 	_linuxname="linux-${_basekernel}-$_patchver"
 else
 	# $_patchver is no RC build normal
-	_baseurl='https://www.kernel.org/pub/linux/kernel/v3.x'
+	_baseurl='https://www.kernel.org/pub/linux/kernel/v4.x'
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
@@ -43,10 +43,10 @@ source=(
 	'sysctl-linux-bede.conf'
 )
 sha256sums=(
-	'be42511fe5321012bb4a2009167ce56a9e5fe362b4af43e8c371b3666859806c'
+	'0f2f7d44979bc8f71c4fc5d3308c03499c26a824dd311fdf6eef4dee0d7d5991'
 	'SKIP'
-	'9c83f9f0d5ef8d07047d8b58b0d6ca754fb1a05d0eb1f0b77afafdb554a972bc'
-	'6503082725d8fa36ca92cc345242e6e7963859fcbffd9c480f8c7d6d4abc5649'
+	'ac91090682d551b24b32aad678d8dcf9457a1b40fc5737e23d13fd26c6f1bac0'
+	'20927ca942629430e77f17e6ec89aa1b7630be2ff151bab013300ed11a37ac66'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'e939ae473776190eb327e3afd5315626d6ac87a84b5475e08979c319e917a1d4'
 )
