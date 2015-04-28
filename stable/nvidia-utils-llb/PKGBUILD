@@ -2,10 +2,10 @@
 # Maintainer: Sven-Hendrik Haase <sh@lutzhaase.com>
 # Maintainer: Thomas Baechler <thomas@archlinux.org>
 # Contributor: James Rayner <iphitus@gmail.com>
-pkgbase=nvidia-utils
+pkgbase=nvidia-utils-llb
 pkgname=('nvidia-utils-llb' 'nvidia-libgl-llb' 'opencl-nvidia-llb')
 pkgver=346.59
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
