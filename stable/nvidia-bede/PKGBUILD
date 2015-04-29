@@ -6,13 +6,13 @@ _pkgname=nvidia
 pkgname=$_pkgname-bede
 pkgver=349.16
 _extramodules=4.0-BEDE-external
-pkgrel=1
+pkgrel=2
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 makedepends=('linux-bede>=4.0' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
-conflicts=('nvidia-96xx' 'nvidia-173xx')
-replaces=('nvidia-bemm')
+conflicts=('nvidia')
+provides=('nvidia')
 license=('custom')
 install=nvidia.install
 options=(!strip)
