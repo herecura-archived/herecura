@@ -5,7 +5,7 @@
 pkgbase=nvidia-utils-llb
 pkgname=('nvidia-utils-llb' 'nvidia-libgl-llb' 'opencl-nvidia-llb')
 pkgver=346.59
-pkgrel=2
+pkgrel=3
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 license=('custom')
@@ -36,16 +36,17 @@ prepare() {
 }
 
 package_opencl-nvidia-llb() {
-	pkgdesc="OpenCL implemention for NVIDIA (Long lived branch)"
+    pkgdesc="OpenCL implemention for NVIDIA (Long lived branch)"
     depends=('libcl' 'zlib')
     optdepends=('opencl-headers: headers necessary for OpenCL development')
-	conflicts=('opencl-nvidia')
+    conflicts=('opencl-nvidia')
+    provides=('opencl-nvidia')
     cd "${_pkg}"
 
     # OpenCL
     install -D -m644 nvidia.icd "${pkgdir}/etc/OpenCL/vendors/nvidia.icd"
     install -D -m755 "libnvidia-compiler.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-compiler.so.${pkgver}"
-    install -D -m755 "libnvidia-opencl.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-opencl.so.${pkgver}" 
+    install -D -m755 "libnvidia-opencl.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-opencl.so.${pkgver}"
 
     create_links
 
@@ -57,7 +58,7 @@ package_nvidia-libgl-llb() {
     pkgdesc="NVIDIA drivers libraries symlinks (Long lived branch)"
     depends=('nvidia-utils-llb')
     conflicts=('libgl' 'nvidia-libgl')
-    provides=('libgl')
+    provides=('libgl' 'nvidia-libgl')
     cd "${_pkg}"
 
     mkdir -p "${pkgdir}/usr/lib/xorg/modules/extensions"
@@ -88,11 +89,14 @@ package_nvidia-libgl-llb() {
 package_nvidia-utils-llb() {
     pkgdesc="NVIDIA drivers utilities (Long lived branch)"
     depends=('xorg-server')
-    optdepends=('gtk2: nvidia-settings'
-                'xorg-server-devel: nvidia-xconfig'
-                'opencl-nvidia-llb: OpenCL support')
+    optdepends=(
+        'gtk2: nvidia-settings'
+        'xorg-server-devel: nvidia-xconfig'
+        'opencl-nvidia-llb: OpenCL support'
+    )
     install="nvidia-utils.install"
-	conflicts=('nvidia-utils')
+    conflicts=('nvidia-utils')
+    provides=('nvidia-utils')
 
     cd "${_pkg}"
 
@@ -113,7 +117,7 @@ package_nvidia-utils-llb() {
     install -D -m755 "libnvidia-glcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glcore.so.${pkgver}"
     install -D -m755 "libnvidia-eglcore.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-eglcore.so.${pkgver}"
     install -D -m755 "libnvidia-glsi.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-glsi.so.${pkgver}"
-    
+
     # misc
     install -D -m755 "libnvidia-ifr.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-ifr.so.${pkgver}"
     install -D -m755 "libnvidia-fbc.so.${pkgver}" "${pkgdir}/usr/lib/libnvidia-fbc.so.${pkgver}"
