@@ -6,13 +6,13 @@ _pkgname=nvidia
 pkgname=$_pkgname-llb-bede
 pkgver=346.59
 _extramodules=4.0-BEDE-external
-pkgrel=1
+pkgrel=2
 pkgdesc="NVIDIA drivers (Long lived branch) for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
 makedepends=('linux-bede>=4.0' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1' "nvidia-utils-llb=$pkgver" "nvidia-libgl-llb=$pkgver")
-conflicts=('nvidia-96xx' 'nvidia-173xx')
-replaces=('nvidia-bemm')
+conflicts=('nvidia')
+provides=('nvidia')
 license=('custom')
 install=nvidia.install
 options=(!strip)
