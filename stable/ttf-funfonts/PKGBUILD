@@ -4,7 +4,7 @@
 
 pkgname=ttf-funfonts
 pkgver=2
-pkgrel=1
+pkgrel=2
 pkgdesc="76 selected TTF fonts from 6760 fonts package"
 arch=(any)
 url="http://thelinuxbox.org/"
@@ -15,8 +15,8 @@ source=(http://thelinuxbox.org/downloads/fonts/funfonts.tar.gz
 md5sums=('3dd9c79d77e58cdb532cc6c21e7914d5'
          'd30e0838c9a9f2a6148bda33b28ad6a6')
 
-build() {
-  cd ${srcdir}/funfonts/
+package() {
+  cd funfonts
 
   install -d ${pkgdir}/usr/share/fonts/TTF
   install -m644 * ${pkgdir}/usr/share/fonts/TTF
