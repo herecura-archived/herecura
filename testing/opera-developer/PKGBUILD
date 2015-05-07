@@ -6,8 +6,8 @@
 # Contributor: eworm
 
 pkgname=opera-developer
-pkgver=30.0.1835.6
-pkgrel=2
+pkgver=31.0.1857.0
+pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. developer version."
 url="http://blogs.opera.com/desktop/"
 provides=('opera')
@@ -32,8 +32,8 @@ source_x86_64=("http://deb.opera.com/opera/pool/non-free/o/${pkgname}/${pkgname}
 
 sha256sums=('508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
             '4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027')
-sha256sums_i686=('2ac892f65a7b13ab524f0a0ee6e673b5a6689a4ea8f772a18e1d55a9747fad0c')
-sha256sums_x86_64=('0a8943b2748cefcb2b3c97e650dad32b6c3a6a0342795f88f41ebac624ed05eb')
+sha256sums_i686=('106d01adbaba96736f0fc2a68041e0c2493d665754f8f5e1295ecfe9d69df05e')
+sha256sums_x86_64=('ae3b3f8cabf36d376a425801799a0d574225dad7c494180d19c37e2438097764')
 
 _arch=$CARCH
 [[ "$CARCH" == "i686" ]] && _arch='i386'
