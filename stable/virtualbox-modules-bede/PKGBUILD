@@ -7,11 +7,11 @@
 pkgbase=virtualbox-modules-bede
 pkgname=('virtualbox-modules-bede-host' 'virtualbox-modules-bede-guest')
 pkgver=4.3.26
-pkgrel=4
+pkgrel=5
 arch=('i686' 'x86_64')
 url='http://virtualbox.org'
 license=('GPL')
-makedepends=('linux-bede>=4.0.1' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1'
+makedepends=('linux-bede>=4.0.2' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1'
     "virtualbox-host-dkms>=$pkgver"
     "virtualbox-guest-dkms>=$pkgver")
 source=('modules-load-virtualbox-bede'
