@@ -5,14 +5,14 @@
 
 pkgname=broadcom-wl-bede
 pkgver=6.30.223.248
-pkgrel=13
+pkgrel=14
 _pkgdesc='Broadcom 802.11abgn hybrid Linux networking device driver for linux-bede'
 _extramodules=4.0-BEDE-external
 pkgdesc="${_pkgdesc}"
 arch=('i686' 'x86_64')
 url='http://www.broadcom.com/support/802.11/linux_sta.php'
 license=('custom')
-makedepends=('linux-bede>=4.0.1' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1')
+makedepends=('linux-bede>=4.0.2' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1')
 source=('modprobe.d'
 'license.patch'
 'linux-recent.patch'
