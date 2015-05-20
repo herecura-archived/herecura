@@ -4,13 +4,13 @@
 
 _pkgname=nvidia
 pkgname=$_pkgname-bede
-pkgver=349.16
+pkgver=352.09
 _extramodules=4.0-BEDE-external
-pkgrel=5
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=4.0.3' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
+makedepends=('linux-bede>=4.0.4' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1' "nvidia-utils=$pkgver" "nvidia-libgl=$pkgver")
 conflicts=('nvidia')
 provides=('nvidia')
 license=('custom')
@@ -20,8 +20,8 @@ options=(!strip)
 source_i686=("http://download.nvidia.com/XFree86/Linux-x86/$pkgver/NVIDIA-Linux-x86-$pkgver.run")
 source_x86_64=("http://download.nvidia.com/XFree86/Linux-x86_64/$pkgver/NVIDIA-Linux-x86_64-$pkgver-no-compat32.run")
 
-sha256sums_i686=('35c8d00ece6a450e8e72aac2bff45e89ce40ffbe3278802e8a0b4ff65c793d11')
-sha256sums_x86_64=('7d1222cd83f653ece0fb1a1141738db1d3b9930fc8a2edfdd8902bf07c5bed6d')
+sha256sums_i686=('a799e5e9016f23dd7f69a74844652dcebdf0f655bf2d8b72370e22b19e8b98d3')
+sha256sums_x86_64=('385137b4e6492710890f621cc09a0ef14f0ab5d90829a1f9b14c689b0b663848')
 
 [[ "$CARCH" = "i686" ]] && _pkg="NVIDIA-Linux-x86-${pkgver}"
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
