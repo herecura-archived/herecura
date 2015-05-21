@@ -1,6 +1,6 @@
 # Maintainer: Oliver Giles <web ohwg net>
 pkgname=sequeljoe
-pkgver=0.3
+pkgver=0.4
 pkgrel=1
 pkgdesc="SQL database administration tool"
 arch=('i686' 'x86_64')
@@ -27,4 +27,4 @@ package() {
 	make DESTDIR="$pkgdir/" install
 }
 
-sha256sums=('169b8560ab13d3e264285fc1e14ad4e3ab1af16069f3ab25251f5f11513bbbd5')
+sha256sums=('e031547b5c3159105678f93d713fa4dac6acd3f75af3d2c6c95cc6ced22459bb')
