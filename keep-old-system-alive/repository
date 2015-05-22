@@ -1,5 +1,0 @@
-#!/bin/bash
-rarch='i686 x86_64'
-repository=keep-old-system-alive
-testing=0
-keepsource=0
