@@ -5,7 +5,7 @@
 # or use: $ curl -s https://dl.google.com/linux/chrome/rpm/stable/x86_64/repodata/other.xml.gz | gzip -df | awk -F\" '/pkgid/{ sub(".*-","",$4); print $4": "$10 }'
 
 pkgname=google-chrome
-pkgver=43.0.2357.81
+pkgver=43.0.2357.124
 pkgrel=1
 pkgdesc="An attempt at creating a safer, faster, and more stable browser (Stable Channel)"
 arch=('i686' 'x86_64')
@@ -63,6 +63,6 @@ package() {
 	rm "$pkgdir"/opt/google/chrome/product_logo_*.png
 }
 
-sha256sums=('1d89c5657577187db071cd791f43105a8f749b344b2638d9f07ae1fe6fe7fe7d'
-            '15dcab923da9694c0f12ef47942af65a769a478f22c1e39e69b28e29e41f686d'
+sha256sums=('f720f1a98f2d659e8b718e9ad4ae03624f5e2ca27e031b41fc38f7181475c296'
+            '59fe3f552bda115ea32dec6d26943d2fcd234ab5c96f781fe6f527e1d87dd174'
             '4242ecd421c56d47e56f6384be5621fe4e7b772c11036a72145d0e580a0f464c')
