@@ -1,0 +1,15 @@
+diff -r 7a8dcf699b22 src/normal.c
+--- a/src/normal.c	Tue Jun 09 21:33:31 2015 +0200
++++ b/src/normal.c	Wed Jun 10 16:07:28 2015 +0900
+@@ -8487,9 +8487,11 @@
+ 	    /* When '#' is in 'cpoptions' ignore the count. */
+ 	    if (vim_strchr(p_cpo, CPO_HASH) != NULL)
+ 		cap->count1 = 1;
++#ifdef FEAT_SYN_HL
+ 	    if (curwin->w_p_cul)
+ 		/* force redraw of cursorline */
+ 		curwin->w_valid &= ~VALID_CROW;
++#endif
+ 	    invoke_edit(cap, FALSE, cap->cmdchar, TRUE);
+ 	}
+     }
