@@ -6,7 +6,7 @@
 # Contributor: eworm
 
 pkgname=opera-beta
-pkgver=30.0.1835.49
+pkgver=31.0.1889.16
 pkgrel=1
 pkgdesc="A fast and secure web browser and Internet suite. beta version."
 url="http://blogs.opera.com/desktop/"
@@ -57,6 +57,6 @@ package() {
 		"$pkgdir/usr/share/licenses/$pkgname/copyright"
 }
 
-sha256sums=('712b507b71505bd17a04f1f7b941a16b9a9ff575e67494d2e26e4adcd047d442'
+sha256sums=('6239dc0c843858a19c4154942b9f28988285d5754daa1574208d5b091f09c8f3'
             '508512464e24126fddfb2c41a1e2e86624bdb0c0748084b6a922573b6cf6b9c5'
             '4913d97dec0ddc99d1e089b029b9123c2c86b7c88d631c4d1111b119b09da027')
