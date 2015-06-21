@@ -8,7 +8,7 @@
 pkgbase=vim
 pkgname=('vim-tiny' 'vim-cli' 'vim-gvim-gtk' 'vim-gvim-qt' 'vim-rt' 'vim-gvim-common')
 _basever=7.4
-_patchlevel=749
+_patchlevel=752
 if [ "$_patchlevel" = "0" ]; then
 	pkgver=${_basever}
 else
@@ -33,17 +33,15 @@ source=(
 	'qvim.desktop'
 	'qvim.png'
 )
-sha256sums=(
-	'SKIP'
-	'868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
-	'1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
-	'5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
-	'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
-	'8cfb84f5b06bd27e7e31bf698ae38826e705369f618bb15322d147214d30f543'
-	'e08adea5da6db4677b6b77dd5e6d9fce37395d9b44c7a171ea10909d307b2334'
-	'e61684f12ec23944903e37deb9d902a072ffa71d7c00fedea32c1176d84dc9bd'
-	'c530f9d5dc6beb2cfa9e4e60dc8f74e1a26694d9f090f7ab0d40f8e963cfb280'
-)
+sha256sums=('SKIP'
+            '868486500e70b4b45618cdae32fdb3b228baf3995e9ccce5e86bf54780431056'
+            '1cbb92f80c981a9618bc50a626e2713435b7014cac842e664d0b3027f86bd209'
+            '5f2d65e755424f688b990b20bce6bd84718b9d5f7944a5332b5dee72f09493f7'
+            'bb4744930a0030085d382356e9fdd4f2049b6298147aee2470c7fca7ec82fd55'
+            '5c056f076bbf1cca132ea546640560e99b8a8d43e9ffc5e50dfdde8b8e5ba085'
+            'a66c64bcbb0c939832db4239029df63789dd9eca0724d45b2693be74ee78915a'
+            'e61684f12ec23944903e37deb9d902a072ffa71d7c00fedea32c1176d84dc9bd'
+            'c530f9d5dc6beb2cfa9e4e60dc8f74e1a26694d9f090f7ab0d40f8e963cfb280')
 
 __hgroot='https://code.google.com/p/vim/'
 __hgrepo='vim'
@@ -70,12 +68,25 @@ prepare() {
 	cp -a vim-build vim-build-tn
 	cp -a vim-build gvim-build-gtk
 	cp -a vim-build gvim-build-qt
+
+	cd ${srcdir}/vim-build-tn
+	(cd src && autoconf)
+
+	cd ${srcdir}/vim-build
+	(cd src && autoconf)
+
+	cd ${srcdir}/gvim-build-gtk
+	(cd src && autoconf)
+
+	cd ${srcdir}/gvim-build-qt
+	patch -Np1 -i ${srcdir}/vim-qt-src.patch
+	(cd src && autoconf)
+	(cd src/qt && tar -zxf ${srcdir}/qt-icons.tar.gz)
 }
 
 build() {
 	msg2 'Building vim-tiny'
 	cd ${srcdir}/vim-build-tn
-	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=tiny --disable-gpm --enable-acl --with-x=no \
@@ -86,7 +97,6 @@ build() {
 
 	msg2 'Building vim-cli'
 	cd ${srcdir}/vim-build
-	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
@@ -99,7 +109,6 @@ build() {
 
 	msg2 'Building vim-gvim-gtk'
 	cd ${srcdir}/gvim-build-gtk
-	(cd src && autoconf)
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
 		--with-features=huge --enable-gpm --enable-acl --with-x=yes \
@@ -112,9 +121,6 @@ build() {
 
 	msg2 'Building vim-gvim-qt'
 	cd ${srcdir}/gvim-build-qt
-	(cd src && autoconf)
-	patch -Np1 -i ${srcdir}/vim-qt-src.patch
-	(cd src/qt && tar -zxf ${srcdir}/qt-icons.tar.gz)
 	export PATH=$PATH:/usr/lib/qt4/bin
 	./configure --prefix=/usr --localstatedir=/var/lib/vim \
 		--mandir=/usr/share/man --with-compiledby=BlackEagle \
