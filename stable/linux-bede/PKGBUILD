@@ -19,7 +19,7 @@ else
 	pkgver=$_basekernel
 	_linuxname="linux-$_basekernel"
 fi
-pkgrel=1
+pkgrel=2
 arch=('i686' 'x86_64')
 license=('GPL2')
 makedepends=('bc' 'kmod')
@@ -45,8 +45,8 @@ source=(
 sha256sums=(
 	'0f2f7d44979bc8f71c4fc5d3308c03499c26a824dd311fdf6eef4dee0d7d5991'
 	'SKIP'
-	'354321c3dede08b26f8c443045de195d410621ebe2cc08354d0bb9ea80d1fb46'
-	'6863347f1556d1e69f02ecf937608c2cac6be669ce5337552fe7e35410d0709c'
+    'bfc3b5d1d178df1d3e04da84926f851f1ea15dc492d2795ebb614f6126bb872b'
+    '82112558b091cab094f3294420da2dc89ab17636f871ab6b858c280852ed6def'
 	'd5bb4aabbd556f8a3452198ac42cad6ecfae020b124bcfea0aa7344de2aec3b5'
 	'e939ae473776190eb327e3afd5315626d6ac87a84b5475e08979c319e917a1d4'
 )
@@ -133,15 +133,15 @@ build() {
 	make prepare
 	# load configuration
 	# Configure the kernel. Replace the line below with one of your choice.
-	#make menuconfig # CLI menu for configuration
+    #make menuconfig # CLI menu for configuration
 	#make xconfig # X-based configuration
 	#make oldconfig # using old config from previous kernel version
 	# ... or manually edit .config
 	####################
 	# stop here
 	# this is useful to configure the kernel
-	#msg "Stopping build"
-	#return 1
+    #msg "Stopping build"
+    #return 1
 	####################
 	# yes "" | make config
 	# build!
