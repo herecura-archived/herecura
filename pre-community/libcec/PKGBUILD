@@ -4,24 +4,31 @@
 # vim: ft=sh:
 
 pkgname=libcec
-pkgver=2.2.0
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Pulse-Eight's libcec for the Pulse-Eight USB-CEC adapter"
 arch=('i686' 'x86_64')
 url="http://libcec.pulse-eight.com/"
 license=('GPL')
-depends=('udev' 'lockdev')
+makedepends=('cmake')
+depends=('udev' 'lockdev' 'libplatform' 'libxrandr')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Pulse-Eight/$pkgname/archive/$pkgname-$pkgver.tar.gz")
+sha256sums=('a5a1eb2a92c68201dd7b267c9a07ce1ebfa226e96cd7b1d89f5b264438ca97f8')
 
 build() {
-  cd "$pkgname-$pkgname-$pkgver"
-  autoreconf -vif
-  ./configure --prefix=/usr
-  make
+    cd "$pkgname-$pkgname-$pkgver"
+    mkdir build
+    cd build
+    cmake .. \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DBUILD_SHARED_LIBS=1 \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+        -DCMAKE_INSTALL_LIBDIR_NOARCH=/usr/lib
+    make
 }
 
 package() {
-  cd "$pkgname-$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install
+    cd "$pkgname-$pkgname-$pkgver/build"
+    make DESTDIR="$pkgdir" install
 }
-sha256sums=('fd4f47a18d6e0f4b9e6f5831280207ee2b2a5fc2741ae32ae09ad12a8aa52917')
