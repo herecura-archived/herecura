@@ -3,7 +3,7 @@
 
 _name=packer
 pkgname=packer-io
-pkgver=0.7.5
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="tool for creating identical machine images for multiple platforms from a single source configuration."
 url="http://www.packer.io"
@@ -14,15 +14,11 @@ makedepends=('git' 'go' 'mercurial')
 source=(
 	"$pkgname-bash-completion::git://github.com/mrolli/packer-bash-completion.git"
 	"$pkgname-zsh-completion::git://github.com/gunzy83/packer-zsh-completion.git"
-	'0001-atlas-post-processor-unknown-atlas.UploadartifactOpt.patch'
-	'0001-atlas-post-processor-on-32bit-uint32-overflows-int.patch'
 )
   
 md5sums=(
 	'SKIP'
 	'SKIP'
-	'834144d82d1354e50ef6779452d4d82a'
-	'8e1c449aa40dba1a384885b1351d28df'
 )
 
 prepare() {
@@ -41,9 +37,6 @@ prepare() {
 
 build() {
 	cd "$srcdir/go/src/github.com/mitchellh/packer"
-
-	patch -Np1 -i "$srcdir/0001-atlas-post-processor-unknown-atlas.UploadartifactOpt.patch"
-	patch -Np1 -i "$srcdir/0001-atlas-post-processor-on-32bit-uint32-overflows-int.patch"
 
 	make dev
 }
