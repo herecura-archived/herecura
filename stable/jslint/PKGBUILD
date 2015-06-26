@@ -2,11 +2,11 @@
 
 pkgname=jslint
 _npmname=jslint
-pkgver=0.7.3
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="The JavaScript Code Quality Tool"
 arch=('any')
-depends=('nodejs')
+depends=('npm')
 url="http://jslint.com/"
 license=('MIT')
 provides=('nodejs-jslint')
@@ -17,3 +17,4 @@ package() {
 	cd $_npmdir
 	npm install --user root -g --prefix "$pkgdir/usr" $_npmname@$pkgver
 }
+
