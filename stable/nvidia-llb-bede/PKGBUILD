@@ -5,12 +5,12 @@
 _pkgname=nvidia
 pkgname=$_pkgname-llb-bede
 pkgver=346.72
-_extramodules=4.0-BEDE-external
-pkgrel=4
+_extramodules=4.1-BEDE-external
+pkgrel=4.1
 pkgdesc="NVIDIA drivers (Long lived branch) for linux-bede"
 arch=('i686' 'x86_64')
 url="http://www.nvidia.com/"
-makedepends=('linux-bede>=4.0.6' 'linux-bede<4.1' 'linux-bede-headers>=4.0' 'linux-bede-headers<4.1' "nvidia-utils-llb=$pkgver" "nvidia-libgl-llb=$pkgver")
+makedepends=('linux-bede>=4.1' 'linux-bede<4.2' 'linux-bede-headers>=4.1' 'linux-bede-headers<4.2' "nvidia-utils-llb=$pkgver" "nvidia-libgl-llb=$pkgver")
 conflicts=('nvidia')
 provides=('nvidia')
 license=('custom')
@@ -45,7 +45,7 @@ build() {
 }
 
 package() {
-    depends=('linux-bede>=4.0' 'linux-bede<4.1' "nvidia-utils-llb=${pkgver}" "nvidia-libgl-llb=$pkgver")
+    depends=('linux-bede>=4.1' 'linux-bede<4.2' "nvidia-utils-llb=${pkgver}" "nvidia-libgl-llb=$pkgver")
 
     install -Dm644 "$srcdir/$_pkg/kernel/nvidia.ko" \
         "$pkgdir/usr/lib/modules/$_extramodules/$_pkgname/nvidia.ko"
