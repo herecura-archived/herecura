@@ -7,7 +7,7 @@ _kernelname=-besrv
 pkgbase="linux$_kernelname"
 pkgname=("linux$_kernelname" "linux$_kernelname-headers")
 _basekernel=3.18
-_patchver=16
+_patchver=17
 pkgver=$_basekernel
 pkgrel=1
 arch=('i686' 'x86_64')
@@ -33,8 +33,8 @@ source=(
 sha256sums=(
 	'becc413cc9e6d7f5cc52a3ce66d65c3725bc1d1cc1001f4ce6c32b69eb188cbd'
 	'SKIP'
-	'85a1aaaa94f7ad818e462e9f032e740649685461f27c335fc766846123635193'
-	'2b0a243dce11e56e7a1bab53874b52cb5ee737341cc1147bc777cbc458ac37af'
+    '8946e3a8b0fd8e18b2028084b8db0c1ed95522b33f4ca9bcdc1c5b4ad903320b'
+    'f581e8d5fdd5921201d165adb546b5993e901019c728a9e1748b8952e1dd1b20'
 	'64b2cf77834533ae7bac0c71936087857d8787d0e2a349037795eb7e42d23dde'
 )
 
@@ -47,7 +47,7 @@ if [ ${_patchver} -ne 0 ]; then
 		"https://www.kernel.org/pub/linux/kernel/v3.x/${_patchname}.sign"
 	)
 	sha256sums=( "${sha256sums[@]}"
-		'f60602c8de2ae7b1507c538b6af65d5b933727a06f56075898ff64fdcf650313'
+		'190b769580a766add68c3e3a8878a725b36fe6877991f3af0cb4a1d6b5eeccf8'
 		'SKIP'
 	)
 fi
@@ -129,8 +129,8 @@ build() {
 	####################
 	# stop here
 	# this is useful to configure the kernel
-	#msg "Stopping build"
-	#return 1
+    #msg "Stopping build"
+    #return 1
 	####################
 	# yes "" | make config
 	# build!
