@@ -3,7 +3,7 @@
 
 pkgname=subtitlecomposer
 pkgver=0.5.7
-pkgrel=2
+pkgrel=3
 pkgdesc="A KDE subtitle editor"
 arch=('i686' 'x86_64')
 url="https://github.com/maxrd2/subtitlecomposer"
@@ -18,6 +18,7 @@ optdepends=(
 	'xine-lib: for Xine backend'
 )
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/maxrd2/subtitlecomposer/archive/v${pkgver}.tar.gz")
+sha256sums=('a6a901bccf535c306ec7c72e46ceaeb4c33a64f11c190ebc1502835bc38f0564')
 
 build() {
 	cd ${srcdir}/subtitlecomposer-${pkgver}
@@ -29,4 +30,3 @@ package() {
 	cd ${srcdir}/subtitlecomposer-${pkgver}
 	make DESTDIR=${pkgdir} install
 }
-sha256sums=('a6a901bccf535c306ec7c72e46ceaeb4c33a64f11c190ebc1502835bc38f0564')
